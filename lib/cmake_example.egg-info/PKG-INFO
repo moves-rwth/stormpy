@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: cmake-example
+Version: 0.0.1
+Summary: A test project using pybind11 and CMake
+Home-page: UNKNOWN
+Author: Dean Moldovan
+Author-email: dean0x7d@gmail.com
+License: UNKNOWN
+Description: UNKNOWN
+Platform: UNKNOWN
