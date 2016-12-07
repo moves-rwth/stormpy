@@ -10,9 +10,10 @@ from distutils.version import LooseVersion
 
 
 class CMakeExtension(Extension):
-    def __init__(self, name, sourcedir=''):
+    def __init__(self, name, sourcedir='', subdir=''):
         Extension.__init__(self, name, sources=[])
         self.sourcedir = os.path.abspath(sourcedir)
+        self.subdir = subdir
 
 
 class CMakeBuild(build_ext):
@@ -45,7 +46,7 @@ class CMakeBuild(build_ext):
 
     def build_extension(self, ext):
         extdir = os.path.abspath(os.path.dirname(self.get_ext_fullpath(ext.name)))
-        cmake_args = ['-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=' + extdir,
+        cmake_args = ['-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=' + os.path.join(extdir, ext.subdir),
                       '-DPYTHON_EXECUTABLE=' + sys.executable]
             
         cfg = 'Debug' if self.debug else 'Release'
@@ -63,7 +64,7 @@ class CMakeBuild(build_ext):
         if not os.path.exists(self.build_temp):
              os.makedirs(self.build_temp)
              print("cmake args={}".format(cmake_args))
-             subprocess.check_call(['cmake', ext.sourcedir] + cmake_args, cwd=self.build_temp, env=env)
+        subprocess.check_call(['cmake', ext.sourcedir] + cmake_args, cwd=self.build_temp, env=env)
              
         try:
             subprocess.check_call(['cmake', '--build', '.', '--target', ext.name] + build_args, cwd=self.build_temp)
@@ -85,7 +86,8 @@ setup(
     packages=['pycarl', 'pycarl.formula', 'pycarl.parse'],
     package_dir={'':'lib'},
     long_description='',
-    ext_modules=[CMakeExtension('pycarl.core'), CMakeExtension('pycarl.formula'), CMakeExtension('pycarl.parse')],
+    ext_package='pycarl',
+    ext_modules=[CMakeExtension('core', subdir=''), CMakeExtension('formula', subdir='formula'), CMakeExtension('parse', subdir='parse')],
     cmdclass=dict(build_ext=CMakeBuild),
     zip_safe=False,
         install_requires=['grako'],
