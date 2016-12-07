@@ -9,6 +9,8 @@ from setuptools import setup, Extension
 from setuptools.command.build_ext import build_ext
 from distutils.version import LooseVersion
 
+if sys.version_info[0] == 2:
+    sys.exit('Sorry, Python 2.x is not supported')
 
 class CMakeExtension(Extension):
     def __init__(self, name, sourcedir='', subdir=''):
