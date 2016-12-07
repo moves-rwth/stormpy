@@ -14,14 +14,14 @@ target_include_directories(pycarl.core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(pycarl.core PRIVATE lib_carl)
 
 
-file(GLOB_RECURSE PYCARL_CORE_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/formula/*.cpp)
+file(GLOB_RECURSE PYCARL_FORMULA_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/formula/*.cpp)
 
 pybind11_add_module(pycarl.formula ${CMAKE_CURRENT_SOURCE_DIR}/src/mod_formula.cpp ${PYCARL_FORMULA_SOURCES})
 target_include_directories(pycarl.formula PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(pycarl.formula PRIVATE lib_carl)
 
 
-file(GLOB_RECURSE PYCARL_CORE_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/parse/*.cpp)
+file(GLOB_RECURSE PYCARL_PARSE_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/parse/*.cpp)
 
 pybind11_add_module(pycarl.parse ${CMAKE_CURRENT_SOURCE_DIR}/src/mod_parse.cpp ${PYCARL_PARSE_SOURCES})
 target_include_directories(pycarl.parse PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
