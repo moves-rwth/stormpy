@@ -19,11 +19,11 @@ void define_relation(py::module& m) {
         .value("GEQ", carl::Relation::GEQ)
         ;
 }
-
+//
 void define_constraint(py::module& m) {
     py::class_<Constraint>(m, "Constraint")
         .def(py::init<bool>())
-        .def(py::init<carl::Variable, carl::Relation, Rational>(), py::arg("var"), py::arg("rel"), py::arg("bound") = Rational(0))
+        .def(py::init<carl::Variable, carl::Relation, Rational>(), py::arg("var"), py::arg("rel"), py::arg("bound"))
         .def(py::init<Polynomial, carl::Relation>())
         .def("__str__", &streamToString<Constraint>)
 
@@ -55,7 +55,7 @@ void define_constraint(py::module& m) {
         .def_property_readonly("lhs", &Constraint::lhs)
         ;
 }
-
+//
 void define_simple_constraint(py::module& m) {
     py::class_<SimpleConstraint>(m, "SimpleConstraint")
         .def(py::init<bool>())
