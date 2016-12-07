@@ -8,7 +8,7 @@
 #ifndef PYTHON_FORMULA_TYPES_H_
 #define PYTHON_FORMULA_TYPES_H_
 
-#include "core/common.h"
+#include "src/core/common.h"
 
 #include <carl/formula/Constraint.h>
 #include <carl/core/SimpleConstraint.h>
