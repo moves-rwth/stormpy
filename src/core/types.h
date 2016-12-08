@@ -8,6 +8,7 @@
 #ifndef PYTHON_CORE_TYPES_H_
 #define PYTHON_CORE_TYPES_H_
 
+#include "definitions.h"
 #include <carl/numbers/numbers.h>
 #include <carl/core/Variable.h>
 #include <carl/core/Monomial.h>

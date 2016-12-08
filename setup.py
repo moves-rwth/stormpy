@@ -23,7 +23,6 @@ class CMakeBuild(build_ext):
                                              ]
 
     def run(self):
-        print("---run----")
         try:
             out = subprocess.check_output(['cmake', '--version'])
         except OSError:
@@ -35,12 +34,12 @@ class CMakeBuild(build_ext):
 
 
     def initialize_options(self):
-        print("--iop---")
         build_ext.initialize_options(self)
         self.carl_dir = None
     
     def finalize_options(self):
-        print('The custom option for install is ', self.carl_dir)
+        if self.carl_dir:
+            print('The custom carl directory', self.carl_dir)
         build_ext.finalize_options(self)
     
 
@@ -49,7 +48,7 @@ class CMakeBuild(build_ext):
         cmake_args = ['-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=' + os.path.join(extdir, ext.subdir),
                       '-DPYTHON_EXECUTABLE=' + sys.executable]
             
-        cfg = 'Debug' if self.debug else 'Release'
+        cfg = 'Release'# if self.debug else 'Release'
         build_args = ['--config', cfg]
                       
                       
@@ -65,15 +64,8 @@ class CMakeBuild(build_ext):
              os.makedirs(self.build_temp)
              print("cmake args={}".format(cmake_args))
         subprocess.check_call(['cmake', ext.sourcedir] + cmake_args, cwd=self.build_temp, env=env)
-             
-        try:
-            subprocess.check_call(['cmake', '--build', '.', '--target', ext.name] + build_args, cwd=self.build_temp)
-        except subprocess.CalledProcessError as e:
-            if e.output:
-                raise RuntimeError("CMake build returned with an error: " + e.output)
-            
-            print(e.stdout)
-
+        subprocess.check_call(['cmake', '--build', '.', '--target', ext.name] + build_args, cwd=self.build_temp)
+        
 setup(
     name='pycarl',
     version="1.1",
