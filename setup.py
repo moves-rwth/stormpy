@@ -21,7 +21,7 @@ class CMakeExtension(Extension):
 class CMakeBuild(build_ext):
     
     user_options = build_ext.user_options + [
-                                             ('storm-dir', None, 'Path to storm root (binary) location')
+                                             ('storm-dir=', None, 'Path to storm root (binary) location')
                                              ]
 
     def run(self):
@@ -40,6 +40,8 @@ class CMakeBuild(build_ext):
         self.storm_dir = None
     
     def finalize_options(self):
+        if self.storm_dir:
+            print('The custom storm directory', self.storm_dir)
         build_ext.finalize_options(self)
     
 
