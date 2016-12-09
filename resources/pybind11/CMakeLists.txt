@@ -91,36 +91,38 @@ function(pybind11_add_module target_name)
 
     # Enable link time optimization and set the default symbol
     # visibility to hidden (very important to obtain small binaries)
-    string(TOUPPER "${CMAKE_BUILD_TYPE}" U_CMAKE_BUILD_TYPE)
-    if (NOT ${U_CMAKE_BUILD_TYPE} MATCHES DEBUG)
-      # Check for Link Time Optimization support (GCC/Clang)
-      check_cxx_compiler_flag("-flto" HAS_LTO_FLAG)
-      if(HAS_LTO_FLAG AND NOT CYGWIN)
-        target_compile_options(${target_name} PRIVATE -flto)
+     string(TOUPPER "${CMAKE_BUILD_TYPE}" U_CMAKE_BUILD_TYPE)
+     if (NOT ${U_CMAKE_BUILD_TYPE} MATCHES DEBUG)
+#      # Check for Link Time Optimization support (GCC/Clang)
+       check_cxx_compiler_flag("-flto" HAS_LTO_FLAG)
+       if(HAS_LTO_FLAG AND NOT CYGWIN)
+          target_compile_options(${target_name} PRIVATE -flto)
+       endif()
+
+       # Intel equivalent to LTO is called IPO
+       if(CMAKE_CXX_COMPILER_ID MATCHES "Intel")
+         check_cxx_compiler_flag("-ipo" HAS_IPO_FLAG)
+         if(HAS_IPO_FLAG)
+           target_compile_options(${target_name} PRIVATE -ipo)
+         endif()
+       endif()
+#
+      if(NOT APPLE)
+#      # Default symbol visibility
+        target_compile_options(${target_name} PRIVATE "-fvisibility=hidden")
       endif()
 
-      # Intel equivalent to LTO is called IPO
-      if(CMAKE_CXX_COMPILER_ID MATCHES "Intel")
-        check_cxx_compiler_flag("-ipo" HAS_IPO_FLAG)
-        if(HAS_IPO_FLAG)
-          target_compile_options(${target_name} PRIVATE -ipo)
-        endif()
-      endif()
-
-      # Default symbol visibility
-      target_compile_options(${target_name} PRIVATE "-fvisibility=hidden")
-
-      # Strip unnecessary sections of the binary on Linux/Mac OS
+#      # Strip unnecessary sections of the binary on Linux/Mac OS
       if(CMAKE_STRIP)
-        if(APPLE)
-          add_custom_command(TARGET ${target_name} POST_BUILD
+         if(APPLE)
+           add_custom_command(TARGET ${target_name} POST_BUILD
                              COMMAND ${CMAKE_STRIP} -u -r $<TARGET_FILE:${target_name}>)
         else()
           add_custom_command(TARGET ${target_name} POST_BUILD
                              COMMAND ${CMAKE_STRIP} $<TARGET_FILE:${target_name}>)
         endif()
       endif()
-    endif()
+     endif()
   elseif(MSVC)
     # /MP enables multithreaded builds (relevant when there are many files), /bigobj is
     # needed for bigger binding projects due to the limit to 64k addressable sections
