@@ -82,6 +82,6 @@ setup(
     ext_modules=[CMakeExtension('core', subdir=''), CMakeExtension('formula', subdir='formula'), CMakeExtension('parse', subdir='parse')],
     cmdclass=dict(build_ext=CMakeBuild),
     zip_safe=False,
-        install_requires=['grako'],
+    install_requires=['pytest', 'grako'],
 )
 
