@@ -81,5 +81,6 @@ setup(
       ext_package='stormpy',
       ext_modules=[CMakeExtension('core', subdir=''), CMakeExtension('info', subdir='info'),CMakeExtension('expressions', subdir='expressions'), CMakeExtension('logic', subdir='logic'), CMakeExtension('storage', subdir='storage')],
       cmdclass=dict(build_ext=CMakeBuild),
-      zip_safe=False
+      zip_safe=False,
+      install_requires=['pytest'],
 )
