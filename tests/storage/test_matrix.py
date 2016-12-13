@@ -1,6 +1,8 @@
 import stormpy
 from helpers.helper import get_example_path
 
+import math
+
 class TestMatrix:
     def test_sparse_matrix(self):
         model = stormpy.parse_explicit_model(get_example_path("dtmc", "die.tra"), get_example_path("dtmc", "die.lab"))
@@ -36,7 +38,7 @@ class TestMatrix:
         # First model checking
         formulas = stormpy.parse_formulas("P=? [ F \"one\" ]")
         result = stormpy.model_checking(model, formulas[0])
-        assert result == 0.16666666666666663
+        assert math.isclose(result, 0.16666666666666663)
         
         # Change probabilities
         i = 0
@@ -51,7 +53,7 @@ class TestMatrix:
             assert e.value() == 0.3 or e.value() == 0.7 or e.value() == 1 or e.value() == 0
         # Second model checking
         result = stormpy.model_checking(model, formulas[0])
-        assert result == 0.06923076923076932
+        assert math.isclose(result, 0.06923076923076932)
         
         # Change probabilities again
         for state in stormpy.state.State(0, model):
@@ -63,7 +65,7 @@ class TestMatrix:
                         transition.set_value(0.2)
         # Third model checking
         result = stormpy.model_checking(model, formulas[0])
-        assert result == 0.3555555555555556 or result == 0.3555555555555557
+        assert math.isclose(result, 0.3555555555555556)
     
     def test_change_parametric_sparse_matrix_modelchecking(self):
         import stormpy.logic
