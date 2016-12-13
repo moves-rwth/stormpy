@@ -5,6 +5,15 @@ from helpers.helper import get_example_path
 class TestModel:
     def test_build_dtmc_from_prism_program(self):
         program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
+        model = stormpy.build_model_from_prism_program(program)
+        assert model.nr_states == 13
+        assert model.nr_transitions == 20
+        assert model.model_type == stormpy.ModelType.DTMC
+        assert not model.supports_parameters
+        assert type(model) is stormpy.SparseDtmc
+ 
+    def test_build_dtmc_from_prism_program_formulas(self):
+        program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
         prop = "P=? [F \"one\"]"
         formulas = stormpy.parse_formulas_for_prism_program(prop, program)
         model = stormpy.build_model_from_prism_program(program, formulas)
