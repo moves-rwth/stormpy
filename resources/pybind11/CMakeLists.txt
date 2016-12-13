@@ -107,8 +107,10 @@ function(pybind11_add_module target_name)
         endif()
       endif()
 
-      # Default symbol visibility
-      target_compile_options(${target_name} PRIVATE "-fvisibility=hidden")
+      if (NOT APPLE) 
+           # Default symbol visibility
+           target_compile_options(${target_name} PRIVATE "-fvisibility=hidden")
+      endif()
 
       # Strip unnecessary sections of the binary on Linux/Mac OS
       if(CMAKE_STRIP)
