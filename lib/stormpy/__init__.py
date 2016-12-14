@@ -4,7 +4,7 @@ from . import storage
 from .storage import *
 from .version import __version__
 
-core.set_up("")
+core._set_up("")
 
 def build_model(program, formulae):
     intermediate = core._build_model(program, formulae)
