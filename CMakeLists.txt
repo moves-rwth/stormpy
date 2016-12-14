@@ -38,3 +38,9 @@ pybind11_add_module(storage ${CMAKE_CURRENT_SOURCE_DIR}/src/mod_storage.cpp ${ST
 target_include_directories(storage PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${storm_INCLUDE_DIR})
 target_link_libraries(storage PRIVATE storm)
 
+file(GLOB_RECURSE STORM_UTILITY_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/utility/*.cpp)
+
+pybind11_add_module(utility ${CMAKE_CURRENT_SOURCE_DIR}/src/mod_utility.cpp ${STORM_UTILITY_SOURCES})
+target_include_directories(utility PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${storm_INCLUDE_DIR})
+target_link_libraries(utility PRIVATE storm)
+
