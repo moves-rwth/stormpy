@@ -1,5 +1,8 @@
 import os
-example_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "resources", "examples", "testfiles"))
+import stormpy
+import stormpy.examples
+import stormpy.examples.files
+example_dir = stormpy.examples.files.testfile_dir
 
 def get_example_path(*paths):
     return os.path.join(example_dir, *paths)
