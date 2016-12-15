@@ -3,8 +3,8 @@ Getting Started
 ****************************
 
 
-High-level API
-======================
+A Quick Tour through Stormpy
+================================
 
 We start with a selection of high-level constructs in stormpy. 
 
@@ -24,17 +24,24 @@ Here, we build a Markov chain from a prism program.
 Stormpy comes with a small set of examples, which we use here::
 
 	import stormpy.examples
+	import stormpy.examples.files
 
 With this, we can now import the path of our prism file::
 
-	path = stormpy.examples.knuth_yao
+	path = stormpy.examples.files.knuth_yao
 	prism_program = stormpy.parse_prism_program(path)
 	
-The `prism_program` can be translated into 
+The `prism_program` can be translated into Markov chains::
 
-	
+    model = stormpy.build_model(program_program)
+    print("Number of states: {}".format(model.nr_states))
 
-	
+
+Building formulae
+--------------------------
 
 
+
+Checking properties
+---------------------------
 

@@ -23,7 +23,8 @@ Stormpy API Reference
    :caption: Modules:
 	
    code_stormpy_core
-   
+   code_stormpy_logic
+   code_stormpy_storage
 
 
 Indices and tables
