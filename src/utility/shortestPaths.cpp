@@ -3,7 +3,6 @@
 
 #include <string>
 
-using namespace pybind11::literals;
 
 void define_ksp(py::module& m) {
 
