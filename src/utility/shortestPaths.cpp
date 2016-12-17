@@ -1,22 +1,22 @@
 #include "shortestPaths.h"
 #include "storm/utility/shortestPaths.h"
 
+#include <sstream>
 #include <string>
 
+#include <boost/optional/optional_io.hpp>
 
 void define_ksp(py::module& m) {
 
-    using Path = storm::utility::ksp::Path<double>;
-    using state_t = storm::utility::ksp::state_t;
+    // long types shortened for readability
+    using Path                   = storm::utility::ksp::Path<double>;
+    using state_t                = storm::utility::ksp::state_t;
+    using ShortestPathsGenerator = storm::utility::ksp::ShortestPathsGenerator<double>;
+    using Model                  = storm::models::sparse::Model<double>;
+    using BitVector              = storm::storage::BitVector;
 
-    // (k-shortest) Path
     py::class_<Path>(m, "Path")
-        // Fuck all this. FIXME
-
-        //.def(py::init<boost::optional<state_t>, unsigned long, double>()) // does not work (because it's an aggregate initialized struct?)
-
-        // this may or may not be working (i.e., initializing with the values as expected)
-        // https://pybind11.readthedocs.io/en/latest/advanced/classes.html#custom-constructors
+        // overload constructor rather than dealing with boost::optional
         .def("__init__", [](Path &instance, state_t preNode, unsigned long preK, double distance) {
                 new (&instance) Path { boost::optional<state_t>(preNode), preK, distance };
             }, "predecessorNode"_a, "predecessorK"_a, "distance"_a)
@@ -25,36 +25,24 @@ void define_ksp(py::module& m) {
                 new (&instance) Path { boost::none, preK, distance };
             }, "predecessorK"_a, "distance"_a)
 
-        // this actually seemed to work, once!, but not anymore
-        .def(py::self == py::self)
+        .def(py::self == py::self, "Compares predecessor node and index, ignoring distance")
 
-        .def("__repr__",
-            [](Path const& a) {
-                // shit this is ugly. but it's a proof of concept -- at least it works
-                std::string str = "<Path with";
-                if (a.predecessorNode) {
-                    str += " predecessorNode: " + std::to_string(a.predecessorNode.get());
-                }
-                str += " predecessorK " + std::to_string(a.predecessorK);
-                str += " distance " + std::to_string(a.distance);
-                str += ">";
-                return str;
+        .def("__repr__", [](Path const& p) {
+                std::ostringstream oss;
+                oss << "<Path with predecessorNode: '" << ((p.predecessorNode) ? std::to_string(p.predecessorNode.get()) : "None");
+                oss << "' predecessorK: '" << p.predecessorK << "' distance: '" << p.distance << "'>";
+                return oss.str();
             })
 
-        .def("debug_distance",
-            [](Path const& a) {
-                return a.distance; // yeah, that's it, that's all i want you to do you lazy fuck. it's just a double. jesus
-            })
-
-        .def_readwrite("predecessorNode", &Path::predecessorNode) // does not work (again due to struct??) FIXME
+        .def_readwrite("predecessorNode", &Path::predecessorNode) // TODO (un-)wrap boost::optional so it's usable
         .def_readwrite("predecessorK", &Path::predecessorK)
         .def_readwrite("distance", &Path::distance)
-        ;
+    ;
 
-    // TODO continue
-    /*
-    // ShortestPathsGenerator
-    py::class_<storm::utility::ksp::ShortestPathsGenerator<double>>(m, "ShortestPathsGenerator")
-            ;
-    */
+    py::class_<ShortestPathsGenerator>(m, "ShortestPathsGenerator")
+        .def(py::init<Model const&, BitVector>(), "model"_a, "target_bitvector"_a)
+        .def(py::init<Model const&, state_t>(), "model"_a, "target_state"_a)
+        .def(py::init<Model const&, std::vector<state_t> const&>(), "model"_a, "target_state_list"_a)
+        .def(py::init<Model const&, std::string>(), "model"_a, "target_label"_a)
+    ;
 }
