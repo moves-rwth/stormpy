@@ -9,11 +9,18 @@
 void define_ksp(py::module& m) {
 
     // long types shortened for readability
-    using Path                   = storm::utility::ksp::Path<double>;
-    using state_t                = storm::utility::ksp::state_t;
-    using ShortestPathsGenerator = storm::utility::ksp::ShortestPathsGenerator<double>;
+    //
+    // this could be templated rather than hardcoding double, but the actual
+    // bindings must refer to instantiated versions anyway (i.e., overloaded
+    // for each template instantiation) -- and double is enough for me
     using Model                  = storm::models::sparse::Model<double>;
     using BitVector              = storm::storage::BitVector;
+    using Matrix                 = storm::storage::SparseMatrix<double>;
+    using MatrixFormat           = storm::utility::ksp::MatrixFormat;
+    using Path                   = storm::utility::ksp::Path<double>;
+    using ShortestPathsGenerator = storm::utility::ksp::ShortestPathsGenerator<double>;
+    using state_t                = storm::utility::ksp::state_t;
+    using StateProbMap           = std::unordered_map<state_t, double>;
 
     py::class_<Path>(m, "Path")
         // overload constructor rather than dealing with boost::optional
@@ -39,10 +46,20 @@ void define_ksp(py::module& m) {
         .def_readwrite("distance", &Path::distance)
     ;
 
+    py::enum_<MatrixFormat>(m, "MatrixFormat")
+        .value("Straight", MatrixFormat::straight)
+        .value("I_Minus_P", MatrixFormat::iMinusP)
+    ;
+
     py::class_<ShortestPathsGenerator>(m, "ShortestPathsGenerator")
         .def(py::init<Model const&, BitVector>(), "model"_a, "target_bitvector"_a)
         .def(py::init<Model const&, state_t>(), "model"_a, "target_state"_a)
         .def(py::init<Model const&, std::vector<state_t> const&>(), "model"_a, "target_state_list"_a)
         .def(py::init<Model const&, std::string>(), "model"_a, "target_label"_a)
+        .def(py::init<Matrix const&, std::vector<double> const&, BitVector const&, MatrixFormat>(), "transition_matrix"_a, "target_prob_vector"_a, "initial_states"_a, "matrix_format"_a)
+        .def(py::init<Matrix const&, StateProbMap const&, BitVector const&, MatrixFormat>(), "transition_matrix"_a, "target_prob_map"_a, "initial_states"_a, "matrix_format"_a)
+
+        // ShortestPathsGenerator(Matrix const& transitionMatrix, std::vector<T> const& targetProbVector, BitVector const& initialStates, MatrixFormat matrixFormat);
+        // ShortestPathsGenerator(Matrix const& maybeTransitionMatrix, StateProbMap const& targetProbMap, BitVector const& initialStates, MatrixFormat matrixFormat);
     ;
 }

@@ -2,6 +2,7 @@ import stormpy
 import stormpy.logic
 from stormpy.storage import BitVector
 from stormpy.utility import ShortestPathsGenerator
+from stormpy.utility import MatrixFormat
 from helpers.helper import get_example_path
 
 import pytest
@@ -40,6 +41,31 @@ def label(model):
     return some_label
 
 
+@pytest.fixture
+def transition_matrix(model):
+    return model.transition_matrix
+
+
+@pytest.fixture
+def target_prob_map(model, state_list):
+    return {i: (1.0 if i in state_list else 0.0) for i in range(model.nr_states)}
+
+
+@pytest.fixture
+def target_prob_list(target_prob_map):
+    return [target_prob_map[i] for i in range(max(target_prob_map.keys()))]
+
+
+@pytest.fixture
+def initial_states(model):
+    return BitVector(model.nr_states, model.initial_states)
+
+
+@pytest.fixture
+def matrix_format():
+    return MatrixFormat.Straight
+
+
 class TestShortestPaths:
     def test_spg_ctor_bitvector_target(self, model, state_bitvector):
         _ = ShortestPathsGenerator(model, state_bitvector)
@@ -53,5 +79,10 @@ class TestShortestPaths:
     def test_spg_ctor_label_target(self, model, label):
         _ = ShortestPathsGenerator(model, label)
 
+    def test_spg_ctor_matrix_vector(self, transition_matrix, target_prob_list, initial_states, matrix_format):
+        _ = ShortestPathsGenerator(transition_matrix, target_prob_list, initial_states, matrix_format)
+
+    def test_spg_ctor_matrix_map(self, transition_matrix, target_prob_map, initial_states, matrix_format):
+        _ = ShortestPathsGenerator(transition_matrix, target_prob_map, initial_states, matrix_format)
 
     # TODO: add tests that check actual functionality
