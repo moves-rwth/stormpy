@@ -13,6 +13,7 @@
 #include <tuple>
 
 namespace py = pybind11;
+using namespace pybind11::literals;
 
 #if PY_MAJOR_VERSION >= 3
 #define PY_DIV "__truediv__"
