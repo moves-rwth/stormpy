@@ -8,50 +8,50 @@ import pytest
 
 
 @pytest.fixture(scope="module")
-def test_model(program_path=get_example_path("dtmc", "die.pm"), raw_formula="P=? [ F \"one\" ]"):
+def model(program_path=get_example_path("dtmc", "die.pm"), raw_formula="P=? [ F \"one\" ]"):
     program = stormpy.parse_prism_program(program_path)
     formulas = stormpy.parse_formulas_for_prism_program(raw_formula, program)
-    test_model = stormpy.build_model(program, formulas[0])
-    return test_model
+    return stormpy.build_model(program, formulas[0])
 
 
 @pytest.fixture
-def test_state(test_model):
+def state(model):
     some_state = 7
-    assert test_model.nr_states > some_state, "test model too small"
+    assert model.nr_states > some_state, "test model too small"
     return some_state
 
 
 @pytest.fixture
-def test_state_list(test_model):
+def state_list(model):
     some_state_list = [4, 5, 7]
-    assert test_model.nr_states > max(some_state_list), "test model too small"
+    assert model.nr_states > max(some_state_list), "test model too small"
     return some_state_list
 
 
 @pytest.fixture
-def test_state_bitvector(test_model, test_state_list):
-    return BitVector(length=test_model.nr_states, set_entries=test_state_list)
+def state_bitvector(model, state_list):
+    return BitVector(length=model.nr_states, set_entries=state_list)
 
 
 @pytest.fixture
-def test_label(test_model):
+def label(model):
     some_label = "one"
-    assert some_label in test_model.labels, "test model does not contain label '" + some_label + "'"
+    assert some_label in model.labels, "test model does not contain label '" + some_label + "'"
     return some_label
 
 
 class TestShortestPaths:
-    def test_spg_ctor_bitvector_target(self, test_model, test_state_bitvector):
-        _ = ShortestPathsGenerator(test_model, test_state_bitvector)
+    def test_spg_ctor_bitvector_target(self, model, state_bitvector):
+        _ = ShortestPathsGenerator(model, state_bitvector)
 
-    def test_spg_ctor_single_state_target(self, test_model, test_state):
-        _ = ShortestPathsGenerator(test_model, test_state)
+    def test_spg_ctor_single_state_target(self, model, state):
+        _ = ShortestPathsGenerator(model, state)
 
-    def test_spg_ctor_state_list_target(self, test_model, test_state_list):
-        _ = ShortestPathsGenerator(test_model, test_state_list)
+    def test_spg_ctor_state_list_target(self, model, state_list):
+        _ = ShortestPathsGenerator(model, state_list)
 
-    def test_spg_ctor_label_target(self, test_model, test_label):
-        _ = ShortestPathsGenerator(test_model, test_label)
+    def test_spg_ctor_label_target(self, model, label):
+        _ = ShortestPathsGenerator(model, label)
+
 
     # TODO: add tests that check actual functionality
