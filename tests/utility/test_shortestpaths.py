@@ -7,8 +7,8 @@ from helpers.helper import get_example_path
 import pytest
 
 
-@pytest.fixture
-def test_model(scope="module", program_path=get_example_path("dtmc", "die.pm"), raw_formula="P=? [ F \"one\" ]"):
+@pytest.fixture(scope="module")
+def test_model(program_path=get_example_path("dtmc", "die.pm"), raw_formula="P=? [ F \"one\" ]"):
     program = stormpy.parse_prism_program(program_path)
     formulas = stormpy.parse_formulas_for_prism_program(raw_formula, program)
     test_model = stormpy.build_model(program, formulas[0])
