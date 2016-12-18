@@ -59,7 +59,8 @@ void define_ksp(py::module& m) {
         .def(py::init<Matrix const&, std::vector<double> const&, BitVector const&, MatrixFormat>(), "transition_matrix"_a, "target_prob_vector"_a, "initial_states"_a, "matrix_format"_a)
         .def(py::init<Matrix const&, StateProbMap const&, BitVector const&, MatrixFormat>(), "transition_matrix"_a, "target_prob_map"_a, "initial_states"_a, "matrix_format"_a)
 
-        // ShortestPathsGenerator(Matrix const& transitionMatrix, std::vector<T> const& targetProbVector, BitVector const& initialStates, MatrixFormat matrixFormat);
-        // ShortestPathsGenerator(Matrix const& maybeTransitionMatrix, StateProbMap const& targetProbMap, BitVector const& initialStates, MatrixFormat matrixFormat);
+        .def("get_distance", &ShortestPathsGenerator::getDistance, "k"_a)
+        .def("get_states", &ShortestPathsGenerator::getStates, "k"_a)
+        .def("get_path_as_list", &ShortestPathsGenerator::getPathAsList, "k"_a)
     ;
 }
