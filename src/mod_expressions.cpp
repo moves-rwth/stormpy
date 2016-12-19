@@ -4,6 +4,11 @@
 
 PYBIND11_PLUGIN(expressions) {
 	py::module m("expressions", "Storm expressions");
+    
+#ifdef STORMPY_DISABLE_SIGNATURE_DOC
+    py::options options;
+    options.disable_function_signatures();
+#endif
 
     py::class_<std::shared_ptr<storm::expressions::ExpressionManager>>(m, "ExpressionManager", "Manages variables for expressions")
         ;

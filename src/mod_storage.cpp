@@ -6,6 +6,12 @@
 
 PYBIND11_PLUGIN(storage) {
     py::module m("storage");
+    
+#ifdef STORMPY_DISABLE_SIGNATURE_DOC
+    py::options options;
+    options.disable_function_signatures();
+#endif
+    
     define_bitvector(m);
     define_model(m);
     define_sparse_matrix(m);

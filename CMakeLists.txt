@@ -2,8 +2,12 @@ cmake_minimum_required(VERSION 3.0.0)
 project(pystorm)
 
 
+option(STORMPY_DISABLE_SIGNATURE_DOC "disables the signature in the documentation" ON)
+
 find_package(storm REQUIRED)
 add_subdirectory(resources/pybind11)
+
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/config.h.in ${CMAKE_CURRENT_BINARY_DIR}/src/generated/config.h) 
 
 
 set(STORMPY_LIB_DIR "${CMAKE_SOURCE_DIR}/lib/stormpy")
@@ -19,7 +23,7 @@ function(stormpy_module NAME)
 
     file(GLOB_RECURSE "STORM_${NAME}_SOURCES" "${CMAKE_CURRENT_SOURCE_DIR}/src/${NAME}/*.cpp")
     pybind11_add_module(${NAME} "${CMAKE_CURRENT_SOURCE_DIR}/src/mod_${NAME}.cpp" ${STORM_${NAME}_SOURCES})
-    target_include_directories(${NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${storm_INCLUDE_DIR})
+    target_include_directories(${NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${storm_INCLUDE_DIR} ${CMAKE_CURRENT_BINARY_DIR}/src/generated)
     target_link_libraries(${NAME} PRIVATE storm)
 endfunction(stormpy_module)
 
