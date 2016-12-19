@@ -49,7 +49,7 @@ class CMakeBuild(build_ext):
         build_args = ['--config', cfg]
 
         cmake_args += ['-DCMAKE_BUILD_TYPE=' + cfg]
-        build_args += ['--', '-j2']
+        build_args += ['--', '-j{}'.format(os.cpu_count() if os.cpu_count() is not None else 2)]
         if hasattr(self, 'storm_dir'):
             cmake_args += ['-Dstorm_DIR=' + self.storm_dir]
 
