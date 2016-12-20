@@ -34,9 +34,10 @@ class CMakeBuild(build_ext):
 
     def initialize_options(self):
         build_ext.initialize_options(self)
+        self.storm_dir = None
 
     def finalize_options(self):
-        if hasattr(self, 'storm_dir'):
+        if self.storm_dir is not None:
             print('The custom storm directory', self.storm_dir)
         build_ext.finalize_options(self)
 
@@ -50,7 +51,7 @@ class CMakeBuild(build_ext):
 
         cmake_args += ['-DCMAKE_BUILD_TYPE=' + cfg]
         build_args += ['--', '-j{}'.format(os.cpu_count() if os.cpu_count() is not None else 2)]
-        if hasattr(self, 'storm_dir'):
+        if self.storm_dir is not None:
             cmake_args += ['-Dstorm_DIR=' + self.storm_dir]
 
         env = os.environ.copy()
