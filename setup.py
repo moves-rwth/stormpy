@@ -5,6 +5,7 @@ import subprocess
 
 from setuptools import setup, Extension
 from setuptools.command.build_ext import build_ext
+from setuptools.command.test import test
 
 if sys.version_info[0] == 2:
     sys.exit('Sorry, Python 2.x is not supported')
@@ -62,6 +63,13 @@ class CMakeBuild(build_ext):
         subprocess.check_call(['cmake', ext.sourcedir] + cmake_args, cwd=self.build_temp, env=env)
         subprocess.check_call(['cmake', '--build', '.', '--target', ext.name] + build_args, cwd=self.build_temp)
 
+class PyTest(test):
+    def run_tests(self):
+        #import here, cause outside the eggs aren't loaded
+        import pytest
+        errno = pytest.main(['tests'])
+        sys.exit(errno)
+
 
 setup(
     name="stormpy",
@@ -82,7 +90,7 @@ setup(
                  CMakeExtension('storage', subdir='storage'),
                  CMakeExtension('utility', subdir='utility')
                  ],
-    cmdclass=dict(build_ext=CMakeBuild),
+    cmdclass=dict(build_ext=CMakeBuild, test=PyTest),
     zip_safe=False,
-    install_requires=['pytest'],
+    tests_require=['pytest'],
 )
