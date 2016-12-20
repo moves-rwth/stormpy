@@ -25,6 +25,12 @@ function(stormpy_module NAME)
     pybind11_add_module(${NAME} "${CMAKE_CURRENT_SOURCE_DIR}/src/mod_${NAME}.cpp" ${STORM_${NAME}_SOURCES})
     target_include_directories(${NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${storm_INCLUDE_DIR} ${CMAKE_CURRENT_BINARY_DIR}/src/generated)
     target_link_libraries(${NAME} PRIVATE storm)
+
+    # setup.py will override this (because pip may want a different install
+    # path), but also specifying it here has the advantage that invoking cmake
+    # manually uses the correct path if the default is used (i.e. the
+    # STORMPY_LIB_DIR hardcoded above)
+    set_target_properties(${NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${LIB_PATH}")
 endfunction(stormpy_module)
 
 
