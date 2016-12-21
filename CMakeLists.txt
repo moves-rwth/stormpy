@@ -10,7 +10,7 @@ add_subdirectory(resources/pybind11)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/config.h.in ${CMAKE_CURRENT_BINARY_DIR}/src/generated/config.h) 
 
 
-set(STORMPY_LIB_DIR "${CMAKE_SOURCE_DIR}/lib/stormpy")
+set(STORMPY_LIB_DIR "${CMAKE_SOURCE_DIR}/lib/stormpy" CACHE STRING "Sets the storm library dir")
 
 function(stormpy_module NAME)
     # second, optional argument is LIBRARY_OUTPUT_DIRECTORY,
