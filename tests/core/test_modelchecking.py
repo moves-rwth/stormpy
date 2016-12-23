@@ -45,3 +45,13 @@ class TestModelChecking:
         constraints_graph_preserving = result.constraints_graph_preserving
         for constraint in constraints_graph_preserving:
             assert constraint.rel() == pycarl.formula.Relation.GREATER
+
+    def test_model_checking_prob01(self):
+        program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
+        formulas = stormpy.parse_formulas_for_prism_program("P=? [ F \"one\" ]", program)
+        model = stormpy.build_model(program, formulas[0])
+        phiStates = stormpy.BitVector(model.nr_states, True)
+        psiStates = stormpy.BitVector(model.nr_states, [model.nr_states-1])
+        (prob0, prob1) = stormpy.compute_prob01states(model, phiStates, psiStates)
+        assert prob0.number_of_set_bits() == 9
+        assert prob1.number_of_set_bits() == 1

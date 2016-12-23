@@ -56,6 +56,10 @@ std::shared_ptr<PmcResult> parametricModelChecking(std::shared_ptr<storm::models
     result->constraintsGraphPreserving = constraintCollector.getGraphPreservingConstraints();
     return result;
 }
+// Thin wrapper for computing prob01 states
+std::pair<storm::storage::BitVector, storm::storage::BitVector> computeProb01(storm::models::sparse::Dtmc<double> model, storm::storage::BitVector const& phiStates, storm::storage::BitVector const& psiStates) {
+    return storm::utility::graph::performProb01(model, phiStates, psiStates);
+}
 
 // Define python bindings
 void define_modelchecking(py::module& m) {
@@ -64,6 +68,7 @@ void define_modelchecking(py::module& m) {
     m.def("_model_checking", &modelChecking, "Perform model checking", py::arg("model"), py::arg("formula"));
     m.def("model_checking_all", &modelCheckingAll, "Perform model checking for all states", py::arg("model"), py::arg("formula"));
     m.def("_parametric_model_checking", &parametricModelChecking, "Perform parametric model checking", py::arg("model"), py::arg("formula"));
+    m.def("compute_prob01states", &computeProb01, "Compute prob-0-1 states", py::arg("model"), py::arg("phi_states"), py::arg("psi_states"));
 
     // PmcResult
     py::class_<PmcResult, std::shared_ptr<PmcResult>>(m, "PmcResult", "Holds the results after parametric model checking")
