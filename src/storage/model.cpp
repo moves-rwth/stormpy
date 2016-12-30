@@ -4,6 +4,7 @@
 #include "storm/models/sparse/Dtmc.h"
 #include "storm/models/sparse/Mdp.h"
 #include "storm/models/sparse/StandardRewardModel.h"
+#include "storm/utility/ModelInstantiator.h"
 
 // Thin wrapper for getting initial states
 template<typename ValueType>
@@ -75,5 +76,14 @@ void define_model(py::module& m) {
     ;
     py::class_<storm::models::sparse::Mdp<storm::RationalFunction>, std::shared_ptr<storm::models::sparse::Mdp<storm::RationalFunction>>>(m, "SparseParametricMdp", "pMDP in sparse representation", modelRatFunc)
     ;
+
+}
+
+
+
+void define_model_instantiator(py::module& m) {
+    py::class_<storm::utility::ModelInstantiator<storm::models::sparse::Dtmc<storm::RationalFunction>,storm::models::sparse::Dtmc<double>>>(m, "PdtmcInstantiator", "Instantiate PDTMCs to DTMCs")
+            .def(py::init<storm::models::sparse::Dtmc<storm::RationalFunction>>(), "parametric model"_a)
+            .def("instantiate", &storm::utility::ModelInstantiator<storm::models::sparse::Dtmc<storm::RationalFunction>, storm::models::sparse::Dtmc<double>>::instantiate, "Instantiate model with given parameter values");
 
 }
