@@ -35,15 +35,15 @@ std::shared_ptr<storm::models::ModelBase> buildModel(storm::prism::Program const
 }
 
 template<typename ValueType>
-std::shared_ptr<storm::models::ModelBase> buildSparseModel(storm::prism::Program const& program, std::shared_ptr<storm::logic::Formula const> const& formula, bool onlyInitialStatesRelevant = false) {
-    return storm::buildSparseModel<ValueType>(program, std::vector<std::shared_ptr<storm::logic::Formula const>>(1,formula), onlyInitialStatesRelevant);
+std::shared_ptr<storm::models::ModelBase> buildSparseModel(storm::prism::Program const& program, std::shared_ptr<storm::logic::Formula const> const& formula) {
+    return storm::buildSparseModel<ValueType>(program, std::vector<std::shared_ptr<storm::logic::Formula const>>(1,formula));
 }
 
 void define_build(py::module& m) {
     // Build model
-    m.def("_build_model", &buildSparseModel<double>, "Build the model", py::arg("program"), py::arg("formula"), py::arg("onlyInitialRelevant") = false);
-    m.def("_build_parametric_model", &buildSparseModel<storm::RationalFunction>, "Build the parametric model", py::arg("program"), py::arg("formula"), py::arg("onlyInitialRelevant") = false);
-    m.def("build_model_from_prism_program", &storm::buildSparseModel<double>, "Build the model", py::arg("program"), py::arg("formulas") = std::vector<std::shared_ptr<storm::logic::Formula const>>(), py::arg("onlyInitialRelevant") = false);
-    m.def("build_parametric_model_from_prism_program", &storm::buildSparseModel<storm::RationalFunction>, "Build the parametric model", py::arg("program"), py::arg("formulas"), py::arg("onlyInitialRelevant") = false);
+    m.def("_build_model", &buildSparseModel<double>, "Build the model", py::arg("program"), py::arg("formula"));
+    m.def("_build_parametric_model", &buildSparseModel<storm::RationalFunction>, "Build the parametric model", py::arg("program"), py::arg("formula"));
+    m.def("build_model_from_prism_program", &storm::buildSparseModel<double>, "Build the model", py::arg("program"), py::arg("formulas") = std::vector<std::shared_ptr<storm::logic::Formula const>>());
+    m.def("build_parametric_model_from_prism_program", &storm::buildSparseModel<storm::RationalFunction>, "Build the parametric model", py::arg("program"), py::arg("formulas"));
     
 }
