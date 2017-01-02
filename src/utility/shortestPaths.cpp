@@ -17,14 +17,14 @@ void define_ksp(py::module& m) {
     // this could be templated rather than hardcoding double, but the actual
     // bindings must refer to instantiated versions anyway (i.e., overloaded
     // for each template instantiation) -- and double is enough for me
-    using Model                  = storm::models::sparse::Model<double>;
     using BitVector              = storm::storage::BitVector;
-    using Matrix                 = storm::storage::SparseMatrix<double>;
     using MatrixFormat           = storm::utility::ksp::MatrixFormat;
     using Path                   = storm::utility::ksp::Path<double>;
     using ShortestPathsGenerator = storm::utility::ksp::ShortestPathsGenerator<double>;
     using state_t                = storm::utility::ksp::state_t;
-    using StateProbMap           = std::unordered_map<state_t, double>;
+    using Matrix                 = ShortestPathsGenerator::Matrix;
+    using Model                  = ShortestPathsGenerator::Model;
+    using StateProbMap           = ShortestPathsGenerator::StateProbMap;
 
     py::class_<Path>(m, "Path")
         // overload constructor rather than dealing with boost::optional
