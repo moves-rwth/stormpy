@@ -26,9 +26,6 @@ class TestModel:
  
     def test_build_parametric_dtmc_from_prism_program(self):
         program = stormpy.parse_prism_program(get_example_path("pdtmc", "brp16_2.pm"))
-        assert program.nr_modules == 5
-        assert program.model_type == stormpy.PrismModelType.DTMC
-        assert program.has_undefined_constants
         prop = "P=? [F s=5]"
         formulas = stormpy.parse_properties_for_prism_program(prop, program)
         model = stormpy.build_parametric_model(program, formulas)
