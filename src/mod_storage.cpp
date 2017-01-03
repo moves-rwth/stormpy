@@ -15,5 +15,6 @@ PYBIND11_PLUGIN(storage) {
     define_bitvector(m);
     define_model(m);
     define_sparse_matrix(m);
+    define_model_instantiator(m);
     return m.ptr();
 }
