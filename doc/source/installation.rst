@@ -1,7 +1,18 @@
 Installation
 ***********************
 
-Before installing stormpy, make sure `storm <https://moves-rwth.github.io/storm/>`_ is installed.
+Requirements
+
+Before installing stormpy, make sure 
+
+`pycarl <https://moves-rwth.github.io/pycarl>`_ 
+`storm <https://moves-rwth.github.io/storm/>`_ 
+
+are both available on your system. To avoid issues, we suggest that both use the same version of `carl <https://smtrat.github.io/carl>`_. 
+The simplest way of ensuring this is to first install carl as explained in the `storm installation guide <https://moves-rwth.github.io/storm/documentation/installation.md#carl>_'.
+You can then install storm and pycarl independently.
+
+
 
 Clone stormpy into any suitable location::
 
