@@ -22,6 +22,14 @@ storm::storage::SparseMatrix<ValueType>& getTransitionMatrix(storm::models::spar
     return model.getTransitionMatrix();
 }
 
+std::set<storm::RationalFunctionVariable> probabilityVariables(storm::models::sparse::Model<storm::RationalFunction> const& model) {
+    return storm::models::sparse::getProbabilityParameters(model);
+}
+
+std::set<storm::RationalFunctionVariable> rewardVariables(storm::models::sparse::Model<storm::RationalFunction> const& model) {
+    return storm::models::sparse::getRewardParameters(model);
+}
+
 // Define python bindings
 void define_model(py::module& m) {
 
@@ -64,7 +72,8 @@ void define_model(py::module& m) {
     ;
 
     py::class_<storm::models::sparse::Model<storm::RationalFunction>, std::shared_ptr<storm::models::sparse::Model<storm::RationalFunction>>> modelRatFunc(m, "SparseParametricModel", "A probabilistic model where transitions are represented by rational functions and saved in a sparse matrix", modelBase);
-    modelRatFunc.def("collect_probability_parameters", &storm::models::sparse::getProbabilityParameters, "Collect parameters")
+    modelRatFunc.def("collect_probability_parameters", &probabilityVariables, "Collect parameters")
+            .def("collect_reward_parameters", &rewardVariables, "Collect reward parameters")
         .def_property_readonly("labels", [](storm::models::sparse::Model<storm::RationalFunction>& model) {
                 return model.getStateLabeling().getLabels();
             }, "Labels")
