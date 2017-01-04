@@ -38,7 +38,8 @@ class TestMatrix:
         # First model checking
         formulas = stormpy.parse_formulas("P=? [ F \"one\" ]")
         result = stormpy.model_checking(model, formulas[0])
-        assert math.isclose(result, 0.16666666666666663)
+        resValue = result.at(model.initial_states[0])
+        assert math.isclose(resValue, 0.16666666666666663)
         
         # Change probabilities
         i = 0
@@ -53,7 +54,8 @@ class TestMatrix:
             assert e.value() == 0.3 or e.value() == 0.7 or e.value() == 1 or e.value() == 0
         # Second model checking
         result = stormpy.model_checking(model, formulas[0])
-        assert math.isclose(result, 0.06923076923076932)
+        resValue = result.at(model.initial_states[0])
+        assert math.isclose(resValue, 0.06923076923076932)
         
         # Change probabilities again
         for state in stormpy.state.State(0, model):
@@ -65,7 +67,8 @@ class TestMatrix:
                         transition.set_value(0.2)
         # Third model checking
         result = stormpy.model_checking(model, formulas[0])
-        assert math.isclose(result, 0.3555555555555556)
+        resValue = result.at(model.initial_states[0])
+        assert math.isclose(resValue, 0.3555555555555556)
     
     def test_change_parametric_sparse_matrix_modelchecking(self):
         import stormpy.logic

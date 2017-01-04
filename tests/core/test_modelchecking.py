@@ -11,8 +11,11 @@ class TestModelChecking:
         model = stormpy.build_model(program, formulas[0])
         assert model.nr_states == 13
         assert model.nr_transitions == 20
+        assert len(model.initial_states) == 1
+        initial_state = model.initial_states[0]
+        assert initial_state == 0
         result = stormpy.model_checking(model, formulas[0])
-        assert math.isclose(result, 0.16666666666666663)
+        assert math.isclose(result.at(initial_state), 0.16666666666666663)
     
     def test_model_checking_all_dtmc(self):
         program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
@@ -20,9 +23,10 @@ class TestModelChecking:
         model = stormpy.build_model(program, formulas[0])
         assert model.nr_states == 13
         assert model.nr_transitions == 20
-        results = stormpy.model_checking_all(model, formulas[0])
+        result = stormpy.model_checking(model, formulas[0])
+        assert result.result_for_all_states
         reference = [0.16666666666666663, 0.3333333333333333, 0, 0.6666666666666666, 0, 0, 0, 1, 0, 0, 0, 0, 0]
-        assert all(map(math.isclose, results, reference))
+        assert all(map(math.isclose, result.get_values(), reference))
     
     def test_parametric_state_elimination(self):
         import pycarl
@@ -48,10 +52,15 @@ class TestModelChecking:
 
     def test_model_checking_prob01(self):
         program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
-        formulas = stormpy.parse_formulas_for_prism_program("P=? [ F \"one\" ]", program)
-        model = stormpy.build_model(program, formulas[0])
-        phiStates = stormpy.BitVector(model.nr_states, True)
-        psiStates = stormpy.BitVector(model.nr_states, [model.nr_states-1])
+        formulaPhi = stormpy.parse_formulas("true")[0]
+        formulaPsi = stormpy.parse_formulas("\"six\"")[0]
+        model = stormpy.build_model(program, formulaPsi)
+        phiResult = stormpy.model_checking(model, formulaPhi)
+        phiStates = phiResult.get_truth_values()
+        assert phiStates.number_of_set_bits() == model.nr_states
+        psiResult = stormpy.model_checking(model, formulaPsi)
+        psiStates = psiResult.get_truth_values()
+        assert psiStates.number_of_set_bits() == 1
         (prob0, prob1) = stormpy.compute_prob01states(model, phiStates, psiStates)
         assert prob0.number_of_set_bits() == 9
         assert prob1.number_of_set_bits() == 1

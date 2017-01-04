@@ -2,15 +2,8 @@
 #include "result.h"
 
 // Thin wrapper for model checking
-double modelChecking(std::shared_ptr<storm::models::sparse::Model<double>> model, std::shared_ptr<storm::logic::Formula const> const& formula) {
-    std::unique_ptr<storm::modelchecker::CheckResult> checkResult = storm::verifySparseModel<double>(model, formula);
-    return checkResult->asExplicitQuantitativeCheckResult<double>()[*model->getInitialStates().begin()];
-}
-
-// Thin wrapper for model checking for all states
-std::vector<double> modelCheckingAll(std::shared_ptr<storm::models::sparse::Model<double>> model, std::shared_ptr<storm::logic::Formula const> const& formula) {
-    std::unique_ptr<storm::modelchecker::CheckResult> checkResult = storm::verifySparseModel<double>(model, formula);
-    return checkResult->asExplicitQuantitativeCheckResult<double>().getValueVector();
+std::shared_ptr<storm::modelchecker::CheckResult> modelChecking(std::shared_ptr<storm::models::sparse::Model<double>> model, std::shared_ptr<storm::logic::Formula const> const& formula) {
+    return storm::verifySparseModel<double>(model, formula);
 }
 
 // Thin wrapper for parametric model checking
@@ -33,7 +26,6 @@ void define_modelchecking(py::module& m) {
 
     // Model checking
     m.def("_model_checking", &modelChecking, "Perform model checking", py::arg("model"), py::arg("formula"));
-    m.def("model_checking_all", &modelCheckingAll, "Perform model checking for all states", py::arg("model"), py::arg("formula"));
     m.def("_parametric_model_checking", &parametricModelChecking, "Perform parametric model checking", py::arg("model"), py::arg("formula"));
     m.def("compute_prob01states", &computeProb01, "Compute prob-0-1 states", py::arg("model"), py::arg("phi_states"), py::arg("psi_states"));
 }
