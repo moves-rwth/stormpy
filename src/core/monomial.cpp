@@ -46,9 +46,9 @@ void define_monomial(py::module& m) {
         .def("__pos__", [](const Monomial& var) {return Monomial(var);})
         .def("__neg__", [](const Monomial& var) {return var * Rational(-1);})
 
-        .def_property_readonly("tdeg", [](carl::Monomial::Arg& arg) { return arg->tdeg();} )
-        .def_property_readonly("exponents", [](carl::Monomial::Arg& arg) { return arg->exponents();} )
-        .def("__str__", &streamToString<carl::Monomial::Arg>)
+        .def_property_readonly("tdeg", [](const Monomial& arg) { return arg->tdeg();} )
+        .def_property_readonly("exponents", [](const Monomial& arg) { return arg->exponents();} )
+        .def("__str__", &streamToString<const Monomial&>)
 
        .def("__len__", [](const Monomial& m) { return m->nrVariables(); })
        .def("__getitem__", [](const Monomial& m, std::size_t index) { return *(m->begin()+index); })
