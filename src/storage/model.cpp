@@ -42,23 +42,23 @@ void define_model(py::module& m) {
     ;
 
     // ModelBase
-    py::class_<storm::models::ModelBase, std::shared_ptr<storm::models::ModelBase>> modelBase(m, "ModelBase", "Base class for all models");
+    py::class_<storm::models::ModelBase, std::shared_ptr<storm::models::ModelBase>> modelBase(m, "_ModelBase", "Base class for all models");
     modelBase.def_property_readonly("nr_states", &storm::models::ModelBase::getNumberOfStates, "Number of states")
         .def_property_readonly("nr_transitions", &storm::models::ModelBase::getNumberOfTransitions, "Number of transitions")
         .def_property_readonly("model_type", &storm::models::ModelBase::getType, "Model type")
         .def_property_readonly("supports_parameters", &storm::models::ModelBase::supportsParameters, "Flag whether model supports parameters")
         .def_property_readonly("has_parameters", &storm::models::ModelBase::hasParameters, "Flag whether model has parameters")
         .def_property_readonly("is_exact", &storm::models::ModelBase::isExact, "Flag whether model is exact")
-        .def("as_dtmc", &storm::models::ModelBase::as<storm::models::sparse::Dtmc<double>>, "Get model as DTMC")
-        .def("as_pdtmc", &storm::models::ModelBase::as<storm::models::sparse::Dtmc<storm::RationalFunction>>, "Get model as pDTMC")
-        .def("as_mdp", &storm::models::ModelBase::as<storm::models::sparse::Mdp<double>>, "Get model as MDP")
-        .def("as_pmdp", &storm::models::ModelBase::as<storm::models::sparse::Mdp<storm::RationalFunction>>, "Get model as pMDP")
+        .def("_as_dtmc", &storm::models::ModelBase::as<storm::models::sparse::Dtmc<double>>, "Get model as DTMC")
+        .def("_as_pdtmc", &storm::models::ModelBase::as<storm::models::sparse::Dtmc<storm::RationalFunction>>, "Get model as pDTMC")
+        .def("_as_mdp", &storm::models::ModelBase::as<storm::models::sparse::Mdp<double>>, "Get model as MDP")
+        .def("_as_pmdp", &storm::models::ModelBase::as<storm::models::sparse::Mdp<storm::RationalFunction>>, "Get model as pMDP")
     ;
 
     // Models
 //storm::models::sparse::Model<double, storm::models::sparse::StandardRewardModel<double> >
 
-    py::class_<storm::models::sparse::Model<double>, std::shared_ptr<storm::models::sparse::Model<double>>> model(m, "SparseModel", "A probabilistic model where transitions are represented by doubles and saved in a sparse matrix", modelBase);
+    py::class_<storm::models::sparse::Model<double>, std::shared_ptr<storm::models::sparse::Model<double>>> model(m, "_SparseModel", "A probabilistic model where transitions are represented by doubles and saved in a sparse matrix", modelBase);
     model.def_property_readonly("labels", [](storm::models::sparse::Model<double>& model) {
             return model.getStateLabeling().getLabels();
         }, "Labels")
@@ -71,7 +71,7 @@ void define_model(py::module& m) {
     py::class_<storm::models::sparse::Mdp<double>, std::shared_ptr<storm::models::sparse::Mdp<double>>>(m, "SparseMdp", "MDP in sparse representation", model)
     ;
 
-    py::class_<storm::models::sparse::Model<storm::RationalFunction>, std::shared_ptr<storm::models::sparse::Model<storm::RationalFunction>>> modelRatFunc(m, "SparseParametricModel", "A probabilistic model where transitions are represented by rational functions and saved in a sparse matrix", modelBase);
+    py::class_<storm::models::sparse::Model<storm::RationalFunction>, std::shared_ptr<storm::models::sparse::Model<storm::RationalFunction>>> modelRatFunc(m, "_SparseParametricModel", "A probabilistic model where transitions are represented by rational functions and saved in a sparse matrix", modelBase);
     modelRatFunc.def("collect_probability_parameters", &probabilityVariables, "Collect parameters")
             .def("collect_reward_parameters", &rewardVariables, "Collect reward parameters")
         .def_property_readonly("labels", [](storm::models::sparse::Model<storm::RationalFunction>& model) {
@@ -88,8 +88,7 @@ void define_model(py::module& m) {
 
 }
 
-
-
+// Model instantiator
 void define_model_instantiator(py::module& m) {
     py::class_<storm::utility::ModelInstantiator<storm::models::sparse::Dtmc<storm::RationalFunction>,storm::models::sparse::Dtmc<double>>>(m, "PdtmcInstantiator", "Instantiate PDTMCs to DTMCs")
             .def(py::init<storm::models::sparse::Dtmc<storm::RationalFunction>>(), "parametric model"_a)
