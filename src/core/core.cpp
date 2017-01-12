@@ -30,7 +30,7 @@ void define_parse(py::module& m) {
 
 // Thin wrapper for model building using one formula as argument
 template<typename ValueType>
-std::shared_ptr<storm::models::ModelBase> buildModel(storm::prism::Program const& program, std::shared_ptr<storm::logic::Formula const> const& formula) {
+std::shared_ptr<storm::models::ModelBase> buildSymbolicModel(storm::prism::Program const& program, std::shared_ptr<storm::logic::Formula const> const& formula) {
     return storm::buildSymbolicModel<ValueType>(program, std::vector<std::shared_ptr<storm::logic::Formula const>>(1,formula));
 }
 
