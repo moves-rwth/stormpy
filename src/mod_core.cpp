@@ -16,6 +16,7 @@ PYBIND11_PLUGIN(core) {
     
     
     define_core(m);
+    define_property(m);
     define_parse(m);
     define_build(m);
     define_result(m);
