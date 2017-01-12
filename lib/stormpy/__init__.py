@@ -6,8 +6,13 @@ from .version import __version__
 
 core._set_up("")
 
-def build_model(program, formulae):
-    intermediate = core._build_model(program, formulae)
+
+def build_model(program, properties = None):
+    if properties:
+        formulae = [prop.raw_formula for prop in properties]
+    else:
+        formulae = []
+    intermediate = core._build_sparse_model_from_prism_program(program, formulae)
     assert not intermediate.supports_parameters
     if intermediate.model_type == ModelType.DTMC:
         return intermediate._as_dtmc()
@@ -16,8 +21,12 @@ def build_model(program, formulae):
     else:
         raise RuntimeError("Not supported non-parametric model constructed")
 
-def build_parametric_model(program, formulae):
-    intermediate = core._build_parametric_model(program, formulae)
+def build_parametric_model(program, properties = None):
+    if properties:
+        formulae = [prop.raw_formula for prop in properties]
+    else:
+        formulae = []
+    intermediate = core._build_sparse_parametric_model_from_prism_program(program, formulae)
     assert intermediate.supports_parameters
     if intermediate.model_type == ModelType.DTMC:
         return intermediate._as_pdtmc()
