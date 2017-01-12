@@ -1,5 +1,12 @@
 #include "input.h"
 
+void define_property(py::module& m) {
+    py::class_<storm::jani::Property>(m, "Property", "Property")
+    .def_property_readonly("name", &storm::jani::Property::getName, "Obtain the name of the property")
+    .def_property_readonly("raw_formula", &storm::jani::Property::getRawFormula, "Obtain the formula directly");
+}
+
+
 // Define python bindings
 void define_input(py::module& m) {
 
