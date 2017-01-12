@@ -35,14 +35,14 @@ def build_parametric_model(program, properties = None):
     else:
         raise RuntimeError("Not supported parametric model constructed")
 
-def perform_bisimulation(model, formula, bisimulation_type):
+def perform_bisimulation(model, property, bisimulation_type):
     if model.supports_parameters:
-        return core._perform_parametric_bisimulation(model, formula, bisimulation_type)
+        return core._perform_parametric_bisimulation(model, property.raw_formula, bisimulation_type)
     else:
-        return core._perform_bisimulation(model, formula, bisimulation_type)
+        return core._perform_bisimulation(model, property.raw_formula, bisimulation_type)
 
-def model_checking(model, formula):
+def model_checking(model, property):
     if model.supports_parameters:
-        return core._parametric_model_checking(model, formula)
+        return core._parametric_model_checking(model, property.raw_formula)
     else:
-        return core._model_checking(model, formula)
+        return core._model_checking(model, property.raw_formula)
