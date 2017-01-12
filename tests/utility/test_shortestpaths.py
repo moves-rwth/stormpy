@@ -19,9 +19,9 @@ class ModelWithKnownShortestPaths:
         program_path = get_example_path("dtmc", "die.pm")
         raw_formula = "P=? [ F \"" + self.target_label + "\" ]"
         program = stormpy.parse_prism_program(program_path)
-        formulas = stormpy.parse_formulas_for_prism_program(raw_formula, program)
+        formulas = stormpy.parse_properties_for_prism_program(raw_formula, program)
 
-        self.model = stormpy.build_model(program, formulas[0])
+        self.model = stormpy.build_model(program, formulas)
 
     def probability(self, k):
         return (1/2)**((2 * k) + 1)

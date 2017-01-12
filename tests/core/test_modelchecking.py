@@ -7,8 +7,8 @@ import math
 class TestModelChecking:
     def test_model_checking_dtmc(self):
         program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
-        formulas = stormpy.parse_formulas_for_prism_program("P=? [ F \"one\" ]", program)
-        model = stormpy.build_model(program, formulas[0])
+        formulas = stormpy.parse_properties_for_prism_program("P=? [ F \"one\" ]", program)
+        model = stormpy.build_model(program, formulas)
         assert model.nr_states == 13
         assert model.nr_transitions == 20
         assert len(model.initial_states) == 1
@@ -19,8 +19,8 @@ class TestModelChecking:
     
     def test_model_checking_all_dtmc(self):
         program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
-        formulas = stormpy.parse_formulas_for_prism_program("P=? [ F \"one\" ]", program)
-        model = stormpy.build_model(program, formulas[0])
+        formulas = stormpy.parse_properties_for_prism_program("P=? [ F \"one\" ]", program)
+        model = stormpy.build_model(program, formulas)
         assert model.nr_states == 13
         assert model.nr_transitions == 20
         result = stormpy.model_checking(model, formulas[0])
@@ -33,8 +33,8 @@ class TestModelChecking:
         import pycarl.formula
         program = stormpy.parse_prism_program(get_example_path("pdtmc", "brp16_2.pm"))
         prop = "P=? [F s=5]"
-        formulas = stormpy.parse_formulas_for_prism_program(prop, program)
-        model = stormpy.build_parametric_model_from_prism_program(program, formulas)
+        formulas = stormpy.parse_properties_for_prism_program(prop, program)
+        model = stormpy.build_parametric_model(program, formulas)
         assert model.nr_states == 613
         assert model.nr_transitions == 803
         assert model.model_type == stormpy.ModelType.DTMC
@@ -52,9 +52,9 @@ class TestModelChecking:
 
     def test_model_checking_prob01(self):
         program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
-        formulaPhi = stormpy.parse_formulas("true")[0]
-        formulaPsi = stormpy.parse_formulas("\"six\"")[0]
-        model = stormpy.build_model(program, formulaPsi)
+        formulaPhi = stormpy.parse_properties("true")[0]
+        formulaPsi = stormpy.parse_properties("\"six\"")[0]
+        model = stormpy.build_model(program, [formulaPsi])
         phiResult = stormpy.model_checking(model, formulaPhi)
         phiStates = phiResult.get_truth_values()
         assert phiStates.number_of_set_bits() == model.nr_states

@@ -6,8 +6,8 @@ from helpers.helper import get_example_path
 class TestModel:
     def test_instantiate_dtmc(self):
         program = stormpy.parse_prism_program(get_example_path("pdtmc", "brp16_2.pm"))
-        formulas = stormpy.parse_formulas_for_prism_program("P=? [ F s=5 ]", program)
-        model = stormpy.build_parametric_model(program, formulas[0])
+        formulas = stormpy.parse_properties_for_prism_program("P=? [ F s=5 ]", program)
+        model = stormpy.build_parametric_model(program, formulas)
         parameters = model.collect_probability_parameters()
         instantiator = stormpy.storage.PdtmcInstantiator(model)
         point = dict()

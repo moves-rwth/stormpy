@@ -36,7 +36,7 @@ class TestMatrix:
         for e in matrix:
             assert e.value() == 0.5 or e.value() == 0 or e.value() == 1
         # First model checking
-        formulas = stormpy.parse_formulas("P=? [ F \"one\" ]")
+        formulas = stormpy.parse_properties("P=? [ F \"one\" ]")
         result = stormpy.model_checking(model, formulas[0])
         resValue = result.at(model.initial_states[0])
         assert math.isclose(resValue, 0.16666666666666663)
@@ -74,8 +74,8 @@ class TestMatrix:
         import stormpy.logic
         import pycarl
         program = stormpy.parse_prism_program(get_example_path("pdtmc", "brp16_2.pm"))
-        formulas = stormpy.parse_formulas_for_prism_program("P=? [ F s=5 ]", program)
-        model = stormpy.build_parametric_model(program, formulas[0])
+        formulas = stormpy.parse_properties_for_prism_program("P=? [ F s=5 ]", program)
+        model = stormpy.build_parametric_model(program, formulas)
         matrix = model.transition_matrix
         # Check matrix
         one_pol = pycarl.Rational(1)

@@ -10,10 +10,10 @@ class TestParse:
         assert not program.has_undefined_constants
     
     def test_parse_formula(self):
-        prop = "P=? [F \"one\"]"
-        formulas = stormpy.parse_formulas(prop)
-        assert len(formulas) == 1
-        assert str(formulas[0]) == prop
+        formula = "P=? [F \"one\"]"
+        properties = stormpy.parse_properties(formula)
+        assert len(properties) == 1
+        assert str(properties[0].raw_formula) == formula
     
     def test_parse_explicit_dtmc(self):
         model = stormpy.parse_explicit_model(get_example_path("dtmc", "die.tra"), get_example_path("dtmc", "die.lab"))
