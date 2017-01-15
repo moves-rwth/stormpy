@@ -4,6 +4,7 @@
 // only forward declaring Model leads to pybind compilation error
 // this may be avoidable. but including certainly works.
 #include "storm/models/sparse/Model.h"
+#include "storm/models/sparse/StandardRewardModel.h"
 
 #include <sstream>
 #include <string>
