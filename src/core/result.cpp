@@ -24,12 +24,7 @@ void define_result(py::module& m) {
         .def_property_readonly("_hybrid_quantitative", &storm::modelchecker::CheckResult::isHybridQuantitativeCheckResult, "Flag if result is hybrid quantitative")
         .def_property_readonly("_pareto_curve", &storm::modelchecker::CheckResult::isParetoCurveCheckResult, "Flag if result is a pareto curve")
         .def_property_readonly("result_for_all_states", &storm::modelchecker::CheckResult::isResultForAllStates, "Flag if result is for all states")
-        .def("as_qualitative", [](storm::modelchecker::CheckResult const& result) {
-                return result.asQualitativeCheckResult();
-            }, "Convert into qualitative result")
-        .def("as_quantitative", [](storm::modelchecker::CheckResult const& result) {
-                return result.asQuantitativeCheckResult<double>();
-            }, "Convert into quantitative result")
+
         .def("as_explicit_qualitative", [](storm::modelchecker::CheckResult const& result) {
                 return result.asExplicitQualitativeCheckResult();
             }, "Convert into explicit qualitative result")
