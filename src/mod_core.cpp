@@ -11,7 +11,7 @@ PYBIND11_PLUGIN(core) {
     
 #ifdef STORMPY_DISABLE_SIGNATURE_DOC
     py::options options;
-    options.disable_function_signatures();
+//    options.disable_function_signatures();
 #endif
     
     

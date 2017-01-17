@@ -187,7 +187,7 @@ protected:
         }
 
         /* Generate a proper function signature */
-        std::string signature;
+        std::string signature = "(";
         size_t type_depth = 0, char_index = 0, type_index = 0, arg_index = 0;
         while (true) {
             char c = text[char_index++];
@@ -204,7 +204,8 @@ protected:
                     } else {
                         signature += "arg" + std::to_string(arg_index - (rec->is_method ? 1 : 0));
                     }
-                    signature += ": ";
+                    //signature += ": ";
+                    signature += " ";
                 }
                 ++type_depth;
             } else if (c == '}') {
@@ -221,16 +222,20 @@ protected:
                 if (!t)
                     pybind11_fail("Internal error while parsing type signature (1)");
                 if (auto tinfo = detail::get_type_info(*t)) {
-                    signature += tinfo->type->tp_name;
+                    //signature += tinfo->type->tp_name;
                 } else {
-                    std::string tname(t->name());
-                    detail::clean_type_id(tname);
-                    signature += tname;
+                    //std::string tname(t->name());
+                    //detail::clean_type_id(tname);
+                    //signature += tname;
                 }
-            } else {
-                signature += c;
+            } else if (c == ',') {
+                if (type_depth == 0) {
+                    signature += ", ";
+                }
+                //signature += c;
             }
         }
+        signature += ")";
         if (type_depth != 0 || types[type_index] != nullptr)
             pybind11_fail("Internal error while parsing type signature (2)");
 
