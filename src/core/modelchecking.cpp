@@ -16,9 +16,21 @@ std::shared_ptr<PmcResult> parametricModelChecking(std::shared_ptr<storm::models
     result->constraintsGraphPreserving = constraintCollector.getGraphPreservingConstraints();
     return result;
 }
+
 // Thin wrapper for computing prob01 states
-std::pair<storm::storage::BitVector, storm::storage::BitVector> computeProb01(storm::models::sparse::Dtmc<double> model, storm::storage::BitVector const& phiStates, storm::storage::BitVector const& psiStates) {
+template<typename ValueType>
+std::pair<storm::storage::BitVector, storm::storage::BitVector> computeProb01(storm::models::sparse::Dtmc<ValueType> const& model, storm::storage::BitVector const& phiStates, storm::storage::BitVector const& psiStates) {
     return storm::utility::graph::performProb01(model, phiStates, psiStates);
+}
+
+template<typename ValueType>
+std::pair<storm::storage::BitVector, storm::storage::BitVector> computeProb01min(storm::models::sparse::Mdp<ValueType> const& model, storm::storage::BitVector const& phiStates, storm::storage::BitVector const& psiStates) {
+    return storm::utility::graph::performProb01Min(model, phiStates, psiStates);
+}
+
+template<typename ValueType>
+std::pair<storm::storage::BitVector, storm::storage::BitVector> computeProb01max(storm::models::sparse::Mdp<ValueType> const& model, storm::storage::BitVector const& phiStates, storm::storage::BitVector const& psiStates) {
+    return storm::utility::graph::performProb01Max(model, phiStates, psiStates);
 }
 
 // Define python bindings
@@ -27,5 +39,11 @@ void define_modelchecking(py::module& m) {
     // Model checking
     m.def("_model_checking", &modelChecking, "Perform model checking", py::arg("model"), py::arg("formula"));
     m.def("_parametric_model_checking", &parametricModelChecking, "Perform parametric model checking", py::arg("model"), py::arg("formula"));
-    m.def("compute_prob01states", &computeProb01, "Compute prob-0-1 states", py::arg("model"), py::arg("phi_states"), py::arg("psi_states"));
+    m.def("_compute_prob01states_double", &computeProb01<double>, "Compute prob-0-1 states", py::arg("model"), py::arg("phi_states"), py::arg("psi_states"));
+    m.def("_compute_prob01states_rationalfunc", &computeProb01<storm::RationalFunction>, "Compute prob-0-1 states", py::arg("model"), py::arg("phi_states"), py::arg("psi_states"));
+    m.def("_compute_prob01states_min_double", &computeProb01min<double>, "Compute prob-0-1 states (min)", py::arg("model"), py::arg("phi_states"), py::arg("psi_states"));
+    m.def("_compute_prob01states_max_double", &computeProb01max<double>, "Compute prob-0-1 states (max)", py::arg("model"), py::arg("phi_states"), py::arg("psi_states"));
+    m.def("_compute_prob01states_min_rationalfunc", &computeProb01min<storm::RationalFunction>, "Compute prob-0-1 states (min)", py::arg("model"), py::arg("phi_states"), py::arg("psi_states"));
+    m.def("_compute_prob01states_max_rationalfunc", &computeProb01max<storm::RationalFunction>, "Compute prob-0-1 states (max)", py::arg("model"), py::arg("phi_states"), py::arg("psi_states"));
+    
 }

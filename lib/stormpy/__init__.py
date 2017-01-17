@@ -46,3 +46,25 @@ def model_checking(model, property):
         return core._parametric_model_checking(model, property.raw_formula)
     else:
         return core._model_checking(model, property.raw_formula)
+
+
+def compute_prob01_states(model, phi_states, psi_states):
+    if model.model_type != ModelType.DTMC:
+        raise ValueError("Prob 01 is only defined for DTMCs -- model must be a DTMC")
+
+    if model.supports_parameters:
+        return core._compute_prob01states_rationalfunc(model, phi_states, psi_states)
+    else:
+        return core._compute_prob01states_double(model, phi_states, psi_states)
+
+def compute_prob01min_states(model, phi_states, psi_states):
+    if model.supports_parameters:
+        return core._compute_prob01states_min_rationalfunc(model, phi_states, psi_states)
+    else:
+        return core._compute_prob01states_min_double(model, phi_states, psi_states)
+
+def compute_prob01max_states(model, phi_states, psi_states):
+    if model.supports_parameters:
+        return core._compute_prob01states_max_rationalfunc(model, phi_states, psi_states)
+    else:
+        return core._compute_prob01states_max_double(model, phi_states, psi_states)
