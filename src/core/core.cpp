@@ -11,8 +11,22 @@ void define_core(py::module& m) {
 
 void define_parse(py::module& m) {
     // Parse formulas
-    m.def("parse_properties", &storm::parsePropertiesForExplicit, "Parse explicit formulas", py::arg("formula_string"), py::arg("property_filter") = boost::none);
-    m.def("parse_properties_for_prism_program", &storm::parsePropertiesForPrismProgram, "Parse formulas for prism program", py::arg("formula_string"), py::arg("prism_program"), py::arg("property_filter") = boost::none);
+    m.def("parse_properties", &storm::parsePropertiesForExplicit, R"dox(
+          
+          Parse properties given in the prism format.
+          
+          :param str formula_str: A string of formulas
+          :param str property_filter: A filter
+          )dox", py::arg("formula_string"), py::arg("property_filter") = boost::none);
+    m.def("parse_properties_for_prism_program", &storm::parsePropertiesForPrismProgram,  R"dox(
+          
+          Parses properties given in the prism format, allows references to variables in the prism program.
+          
+          :param str formula_str: A string of formulas
+          :param PrismProgram prism_program: A prism program
+          :param str property_filter: A filter
+          :return: A list of properties
+          )dox", py::arg("formula_string"), py::arg("prism_program"), py::arg("property_filter") = boost::none);
 
     // Pair <Model,Formulas>
     py::class_<storm::storage::ModelFormulasPair>(m, "ModelFormulasPair", "Pair of model and formulas")

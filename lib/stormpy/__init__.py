@@ -8,6 +8,12 @@ core._set_up("")
 
 
 def build_model(program, properties = None):
+    """
+    Build a model from a symbolic description
+
+    :param PrismProgram program: Prism program to translate into a model.
+    :param List[Property] properties: List of properties that should be preserved during the translation. If None, then all properties are preserved.
+    """
     if properties:
         formulae = [prop.raw_formula for prop in properties]
     else:
@@ -22,6 +28,11 @@ def build_model(program, properties = None):
         raise RuntimeError("Not supported non-parametric model constructed")
 
 def build_parametric_model(program, properties = None):
+    """
+    
+    :param PrismProgram program: Prism program with open constants to translate into a parametric model.
+    :param List[Property] properties: List of properties that should be preserved during the translation. If None, then all properties are preserved.
+    """
     if properties:
         formulae = [prop.raw_formula for prop in properties]
     else:
@@ -49,6 +60,13 @@ def model_checking(model, property):
 
 
 def compute_prob01_states(model, phi_states, psi_states):
+    """
+    Compute prob01 states for properties of the form phi_states until psi_states
+
+    :param SparseDTMC model:
+    :param BitVector phi_states:
+    :param BitVector psi_states:
+    """
     if model.model_type != ModelType.DTMC:
         raise ValueError("Prob 01 is only defined for DTMCs -- model must be a DTMC")
 
