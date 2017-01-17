@@ -37,8 +37,22 @@ The `prism_program` can be translated into Markov chains::
     print("Number of states: {}".format(model.nr_states))
 
 
-Building formulae
+Building properties
 --------------------------
+Storm takes properties in the prism-property format. To express that one is interested in the reachability of any state where the prism program variable s is 7 and d is 2, one would formulate::
+
+	P=? [F s=7 & d=2]
+
+Stormpy can be used to parse this. As the variables in the property refer to a program, the program has to be passed as an additional parameter::
+
+	formula_str = "P=? [F s=7 & d=2]"
+	properties = parse_properties_for_prism_program(formula_str, prism_program)  
+
+Notice that properties is now a list of properties containing a single element. 
+
+
+
+
 
 
 
