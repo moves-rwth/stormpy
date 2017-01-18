@@ -9,7 +9,7 @@ class TestModel:
         formulas = stormpy.parse_properties_for_prism_program("P=? [ F s=5 ]", program)
         model = stormpy.build_parametric_model(program, formulas)
         parameters = model.collect_probability_parameters()
-        instantiator = stormpy.storage.PdtmcInstantiator(model)
+        instantiator = stormpy.ModelInstantiator(model)
         point = dict()
         for p in parameters:
             point[p] = 0.4
