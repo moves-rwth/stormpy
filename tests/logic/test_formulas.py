@@ -60,3 +60,4 @@ class TestFormulas:
         assert type(labelform) == stormpy.logic.AtomicLabelFormula
         prop = stormpy.core.Property("label-formula", labelform)
         assert prop.raw_formula == labelform
+        
