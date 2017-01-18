@@ -76,12 +76,16 @@ def compute_prob01_states(model, phi_states, psi_states):
         return core._compute_prob01states_double(model, phi_states, psi_states)
 
 def compute_prob01min_states(model, phi_states, psi_states):
+    if model.model_type == ModelType.DTMC:
+        return compute_prob01_states(model, phi_states, psi_states)
     if model.supports_parameters:
         return core._compute_prob01states_min_rationalfunc(model, phi_states, psi_states)
     else:
         return core._compute_prob01states_min_double(model, phi_states, psi_states)
 
 def compute_prob01max_states(model, phi_states, psi_states):
+    if model.model_type == ModelType.DTMC:
+        return compute_prob01_states(model, phi_states, psi_states)
     if model.supports_parameters:
         return core._compute_prob01states_max_rationalfunc(model, phi_states, psi_states)
     else:
