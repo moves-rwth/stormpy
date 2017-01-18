@@ -49,3 +49,14 @@ class TestFormulas:
         assert formula.threshold == pycarl.Rational("0.2")
         assert formula.comparison_type == stormpy.logic.ComparisonType.GEQ
         assert str(formula) == "P>=1/5 [F \"one\"]"
+
+    def test_subformula(self):
+        prop = "P=? [F \"one\"]"
+        formula = stormpy.parse_properties(prop)[0].raw_formula
+        assert type(formula) == stormpy.logic.ProbabilityOperator
+        pathform = formula.subformula
+        assert type(pathform) == stormpy.logic.EventuallyFormula
+        labelform = pathform.subformula
+        assert type(labelform) == stormpy.logic.AtomicLabelFormula
+        prop = stormpy.core.Property("label-formula", labelform)
+        assert prop.raw_formula == labelform
