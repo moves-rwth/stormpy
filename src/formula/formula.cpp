@@ -33,11 +33,17 @@ void define_formula_type(py::module& m) {
 
 void define_formula(py::module& m) {
     py::class_<Formula>(m, "Formula")
-        .def(py::init<bool>())
         .def(py::init<carl::Variable>(), "Create Formula given Boolean variable")
         .def(py::init<Constraint>())
         .def(py::init<carl::FormulaType, Formula>())
         .def(py::init<carl::FormulaType, carl::Formulas<Polynomial>>())
+        .def("__init__", [](bool b) {
+            if(b) {
+                return Formula(carl::FormulaType::TRUE);
+            } else {
+                return Formula(carl::FormulaType::FALSE);
+            }
+        })
         .def("__str__", &streamToString<carl::Formula<Polynomial>>)
 
         .def("__not__", [](const Formula& lhs){
