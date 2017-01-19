@@ -51,7 +51,7 @@ void define_variable(py::module& m) {
 
         .def("__add__",  static_cast<Polynomial (*)(carl::Variable::Arg, const Polynomial&)>(&carl::operator+))
         .def("__add__",  static_cast<Polynomial (*)(carl::Variable::Arg, const Term&)>(&carl::operator+))
-        .def("__add__",  static_cast<Polynomial (*)(carl::Variable::Arg, const Monomial&)>(&carl::operator+))
+    .def("__add__",  static_cast<Polynomial (*)(carl::Variable::Arg, const Monomial::Arg&)>(&carl::operator+))
         .def("__add__",  static_cast<Polynomial (*)(carl::Variable::Arg, carl::Variable::Arg)>(&carl::operator+))
         .def("__add__",  adder_func)
         .def("__add__", [adder_func](carl::Variable::Arg lhs, double rhs) -> Polynomial {
@@ -65,7 +65,7 @@ void define_variable(py::module& m) {
 
         .def("__sub__",  static_cast<Polynomial (*)(carl::Variable::Arg, const Polynomial&)>(&carl::operator-))
         .def("__sub__",  static_cast<Polynomial (*)(carl::Variable::Arg, const Term&)>(&carl::operator-))
-        .def("__sub__",  static_cast<Polynomial (*)(carl::Variable::Arg, const Monomial&)>(&carl::operator-))
+    .def("__sub__",  static_cast<Polynomial (*)(carl::Variable::Arg, const Monomial::Arg&)>(&carl::operator-))
         .def("__sub__",  static_cast<Polynomial (*)(carl::Variable::Arg, carl::Variable::Arg)>(&carl::operator-))
         .def("__sub__",  subs_func)
         .def("__sub__", [subs_func](carl::Variable::Arg lhs, double rhs) -> Polynomial {
@@ -79,8 +79,8 @@ void define_variable(py::module& m) {
 
         .def("__mul__",  static_cast<Polynomial (*)(carl::Variable::Arg, const Polynomial&)>(&carl::operator*))
         .def("__mul__",  static_cast<Term (*)(carl::Variable::Arg, const Term&)>(&carl::operator*))
-        .def("__mul__",  static_cast<Monomial (*)(carl::Variable::Arg, const Monomial&)>(&carl::operator*))
-        .def("__mul__",  static_cast<Monomial (*)(carl::Variable::Arg, carl::Variable::Arg)>(&carl::operator*))
+        .def("__mul__",  static_cast<Monomial::Arg (*)(carl::Variable::Arg, const Monomial::Arg&)>(&carl::operator*))
+        .def("__mul__",  static_cast<Monomial::Arg (*)(carl::Variable::Arg, carl::Variable::Arg)>(&carl::operator*))
         .def("__mul__",  static_cast<Term (*)(carl::Variable::Arg, const Rational&)>(&carl::operator*))
         .def("__mul__", [](carl::Variable::Arg lhs, double rhs) { return lhs * carl::rationalize<Rational>(rhs); })
         .def("__mul__", [](carl::Variable::Arg lhs, carl::sint rhs) { return lhs * carl::rationalize<Rational>(rhs); })
@@ -90,13 +90,11 @@ void define_variable(py::module& m) {
         .def(PY_DIV, [](carl::Variable::Arg lhs, const RationalFunction& rhs) { return RationalFunction(lhs) / rhs; })
         .def(PY_DIV, [](carl::Variable::Arg lhs, const Polynomial& rhs) { return RationalFunction(lhs) / rhs; })
         .def(PY_DIV, [](carl::Variable::Arg lhs, const Term& rhs) { return RationalFunction(lhs) / rhs; })
-        .def(PY_DIV, [](carl::Variable::Arg lhs, const Monomial& rhs) { return RationalFunction(lhs) / rhs; })
+        .def(PY_DIV, [](carl::Variable::Arg lhs, const Monomial::Arg& rhs) { return RationalFunction(lhs) / rhs; })
         .def(PY_DIV, [](carl::Variable::Arg lhs, carl::Variable::Arg rhs) { return RationalFunction(lhs) / rhs; })
         .def(PY_DIV, [](carl::Variable::Arg lhs, const Rational& rhs) { if (carl::isZero(rhs)) throw std::runtime_error("Div by zero"); return lhs / rhs; })
         .def(PY_DIV, [](carl::Variable::Arg lhs, double rhs) { if (carl::isZero(rhs)) throw std::runtime_error("Div by zero"); return lhs / carl::rationalize<Rational>(rhs); })
         .def(PY_DIV, [](carl::Variable::Arg lhs, carl::sint rhs) { if (rhs == 0) throw std::runtime_error("Div by zero"); return lhs / carl::rationalize<Rational>(rhs); })
-
-        .def("__pow__", [](carl::Variable::Arg var, carl::uint exp) -> Monomial {return carl::Monomial(var).pow(exp);})
 
         .def("__pos__", [](carl::Variable::Arg var) {return carl::Variable(var);})
         .def("__neg__", [](carl::Variable::Arg var) {return var * Rational(-1);})

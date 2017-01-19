@@ -12,32 +12,32 @@
 void define_polynomial(py::module& m) {
     py::class_<Polynomial>(m, "Polynomial","Represent a multivariate polynomial")
         .def(py::init<const Term&>())
-        .def(py::init<const Monomial&>())
+    .def(py::init<const Monomial::Arg&>())
         .def(py::init<carl::Variable::Arg>())
         .def(py::init<Rational>())
 
         .def("__add__",  static_cast<Polynomial (*)(const Polynomial&, const Polynomial&)>(&carl::operator+))
         .def("__add__",  static_cast<Polynomial (*)(const Polynomial&, const Term&)>(&carl::operator+))
-        .def("__add__",  static_cast<Polynomial (*)(const Polynomial&, const Monomial&)>(&carl::operator+))
+        .def("__add__",  static_cast<Polynomial (*)(const Polynomial&, const Monomial::Arg&)>(&carl::operator+))
         .def("__add__",  static_cast<Polynomial (*)(const Polynomial&, carl::Variable::Arg)>(&carl::operator+))
         .def("__add__",  static_cast<Polynomial (*)(const Polynomial&, const Rational&)>(&carl::operator+))
 
         .def("__sub__",  static_cast<Polynomial (*)(const Polynomial&, const Polynomial&)>(&carl::operator-))
         .def("__sub__",  static_cast<Polynomial (*)(const Polynomial&, const Term&)>(&carl::operator-))
-        .def("__sub__",  static_cast<Polynomial (*)(const Polynomial&, const Monomial&)>(&carl::operator-))
+        .def("__sub__",  static_cast<Polynomial (*)(const Polynomial&, const Monomial::Arg&)>(&carl::operator-))
         .def("__sub__",  static_cast<Polynomial (*)(const Polynomial&, carl::Variable::Arg)>(&carl::operator-))
         .def("__sub__",  static_cast<Polynomial (*)(const Polynomial&, const Rational&)>(&carl::operator-))
 
         .def("__mul__",  static_cast<Polynomial (*)(const Polynomial&, const Polynomial&)>(&carl::operator*))
         .def("__mul__",  static_cast<Polynomial (*)(const Polynomial&, const Term&)>(&carl::operator*))
-        .def("__mul__",  static_cast<Polynomial (*)(const Polynomial&, const Monomial&)>(&carl::operator*))
+        .def("__mul__",  static_cast<Polynomial (*)(const Polynomial&, const Monomial::Arg&)>(&carl::operator*))
         .def("__mul__",  static_cast<Polynomial (*)(const Polynomial&, carl::Variable::Arg)>(&carl::operator*))
         .def("__mul__",  static_cast<Polynomial (*)(const Polynomial&, const Rational&)>(&carl::operator*))
 
         .def(PY_DIV, [](const Polynomial& lhs, const RationalFunction& rhs) { return RationalFunction(lhs) / rhs; })
         .def(PY_DIV, [](const Polynomial& lhs, const Polynomial& rhs) { return RationalFunction(lhs, rhs); })
         .def(PY_DIV, [](const Polynomial& lhs, const Term& rhs) { return RationalFunction(lhs) / rhs; })
-        .def(PY_DIV, [](const Polynomial& lhs, const Monomial& rhs) { return RationalFunction(lhs) / rhs; })
+        .def(PY_DIV, [](const Polynomial& lhs, const Monomial::Arg& rhs) { return RationalFunction(lhs) / rhs; })
         .def(PY_DIV, [](const Polynomial& lhs, carl::Variable::Arg rhs) { return RationalFunction(lhs) / rhs; })
         .def(py::self / Rational())
 

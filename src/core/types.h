@@ -24,7 +24,7 @@ typedef cln::cl_RA Rational;
 //typedef double Rational;
 typedef mpq_class Rational;
 #endif
-typedef carl::Monomial::Arg Monomial;
+typedef carl::Monomial Monomial;
 typedef carl::Term<Rational> Term;
 typedef carl::MultivariatePolynomial<Rational> Polynomial;
 typedef carl::FactorizedPolynomial<Polynomial> FactorizedPolynomial;

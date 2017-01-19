@@ -19,7 +19,7 @@ void define_rational(py::module& m) {
 
         .def("__add__",  static_cast<Polynomial (*)(const Rational&, const Polynomial&)>(&carl::operator+))
         .def("__add__",  static_cast<Polynomial (*)(const Rational&, const Term&)>(&carl::operator+))
-        .def("__add__",  static_cast<Polynomial (*)(const Rational&, const Monomial&)>(&carl::operator+))
+        .def("__add__",  static_cast<Polynomial (*)(const Rational&, const Monomial::Arg&)>(&carl::operator+))
         .def("__add__",  static_cast<Polynomial (*)(const Rational&, carl::Variable::Arg)>(&carl::operator+))
         .def("__add__", [](const Rational& lhs, const Rational& rhs) -> Rational { return lhs + rhs; })
         .def("__add__", [](const Rational& lhs, double rhs) -> Rational { return lhs + carl::rationalize<Rational>(rhs); })
@@ -29,7 +29,7 @@ void define_rational(py::module& m) {
 
         .def("__sub__",  static_cast<Polynomial (*)(const Rational&, const Polynomial&)>(&carl::operator-))
         .def("__sub__",  static_cast<Polynomial (*)(const Rational&, const Term&)>(&carl::operator-))
-        .def("__sub__",  static_cast<Polynomial (*)(const Rational&, const Monomial&)>(&carl::operator-))
+        .def("__sub__",  static_cast<Polynomial (*)(const Rational&, const Monomial::Arg&)>(&carl::operator-))
         .def("__sub__",  static_cast<Polynomial (*)(const Rational&, carl::Variable::Arg)>(&carl::operator-))
         .def("__sub__", [](const Rational& lhs, const Rational& rhs) -> Rational { return lhs - rhs; })
         .def("__sub__", [](const Rational& lhs, double rhs) -> Rational { return lhs - carl::rationalize<Rational>(rhs); })
@@ -39,7 +39,7 @@ void define_rational(py::module& m) {
 
         .def("__mul__",  static_cast<Polynomial (*)(const Rational&, const Polynomial&)>(&carl::operator*))
         .def("__mul__",  static_cast<Term (*)(const Rational&, const Term&)>(&carl::operator*))
-        .def("__mul__",  static_cast<Term (*)(const Rational&, const Monomial&)>(&carl::operator*))
+        .def("__mul__",  static_cast<Term (*)(const Rational&, const Monomial::Arg&)>(&carl::operator*))
         .def("__mul__",  static_cast<Term (*)(const Rational&, carl::Variable::Arg)>(&carl::operator*))
         .def("__mul__", [](const Rational& lhs, const Rational& rhs) -> Rational { return lhs * rhs; })
         .def("__mul__", [](const Rational& lhs, double rhs) -> Rational { return lhs * carl::rationalize<Rational>(rhs); })
@@ -50,7 +50,7 @@ void define_rational(py::module& m) {
         .def(PY_DIV, [](const Rational& lhs, const RationalFunction& rhs) { return RationalFunction(lhs) / rhs; })
         .def(PY_DIV, [](const Rational& lhs, const Polynomial& rhs) { return RationalFunction(lhs) / rhs; })
         .def(PY_DIV, [](const Rational& lhs, const Term& rhs) { return RationalFunction(lhs) / rhs; })
-        .def(PY_DIV, [](const Rational& lhs, const Monomial& rhs) { return RationalFunction(lhs) / rhs; })
+        .def(PY_DIV, [](const Rational& lhs, const Monomial::Arg& rhs) { return RationalFunction(lhs) / rhs; })
         .def(PY_DIV, [](const Rational& lhs, carl::Variable::Arg rhs) { return RationalFunction(lhs) / rhs; })
         .def(PY_DIV, [](const Rational& lhs, const Rational& rhs) -> Rational { if (carl::isZero(rhs)) throw std::runtime_error("Div by zero"); return lhs / rhs; })
         .def(PY_DIV, [](const Rational& lhs, double rhs) -> Rational { if (rhs == 0.0) throw std::runtime_error("Div by zero"); return lhs / carl::rationalize<Rational>(rhs); })

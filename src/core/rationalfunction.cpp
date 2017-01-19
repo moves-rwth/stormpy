@@ -15,19 +15,19 @@ void define_rationalfunction(py::module& m) {
 
         .def("__add__",  static_cast<RationalFunction (*)(const RationalFunction&, const Polynomial&)>(&carl::operator+))
         .def("__add__",  static_cast<RationalFunction (*)(const RationalFunction&, const Term&)>(&carl::operator+))
-        .def("__add__",  static_cast<RationalFunction (*)(const RationalFunction&, const Monomial&)>(&carl::operator+))
+    .def("__add__",  static_cast<RationalFunction (*)(const RationalFunction&, const Monomial::Arg&)>(&carl::operator+))
         .def("__add__",  static_cast<RationalFunction (*)(const RationalFunction&, carl::Variable::Arg)>(&carl::operator+))
         .def("__add__",  static_cast<RationalFunction (*)(const RationalFunction&, const Rational&)>(&carl::operator+))
 
         .def("__sub__",  static_cast<RationalFunction (*)(const RationalFunction&, const Polynomial&)>(&carl::operator-))
         .def("__sub__",  static_cast<RationalFunction (*)(const RationalFunction&, const Term&)>(&carl::operator-))
-        .def("__sub__",  static_cast<RationalFunction (*)(const RationalFunction&, const Monomial&)>(&carl::operator-))
+    .def("__sub__",  static_cast<RationalFunction (*)(const RationalFunction&, const Monomial::Arg&)>(&carl::operator-))
         .def("__sub__",  static_cast<RationalFunction (*)(const RationalFunction&, carl::Variable::Arg)>(&carl::operator-))
         .def("__sub__",  static_cast<RationalFunction (*)(const RationalFunction&, const Rational&)>(&carl::operator-))
 
         .def("__mul__",  static_cast<RationalFunction (*)(const RationalFunction&, const Polynomial&)>(&carl::operator*))
         .def("__mul__",  static_cast<RationalFunction (*)(const RationalFunction&, const Term&)>(&carl::operator*))
-        .def("__mul__",  static_cast<RationalFunction (*)(const RationalFunction&, const Monomial&)>(&carl::operator*))
+    .def("__mul__",  static_cast<RationalFunction (*)(const RationalFunction&, const Monomial::Arg&)>(&carl::operator*))
         .def("__mul__",  static_cast<RationalFunction (*)(const RationalFunction&, carl::Variable::Arg)>(&carl::operator*))
         .def("__mul__",  static_cast<RationalFunction (*)(const RationalFunction&, const Rational&)>(&carl::operator*))
 
