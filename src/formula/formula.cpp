@@ -38,11 +38,7 @@ void define_formula(py::module& m) {
         .def(py::init<carl::FormulaType, Formula>())
         .def(py::init<carl::FormulaType, carl::Formulas<Polynomial>>())
         .def("__init__", [](bool b) {
-            if(b) {
-                return Formula(carl::FormulaType::TRUE);
-            } else {
-                return Formula(carl::FormulaType::FALSE);
-            }
+            return b ? Formula(carl::FormulaType::TRUE) : Formula(carl::FormulaType::FALSE);
         })
         .def("__str__", &streamToString<carl::Formula<Polynomial>>)
 

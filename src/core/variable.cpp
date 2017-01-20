@@ -36,18 +36,14 @@ void define_variable(py::module& m) {
     auto rsubs_func = static_cast<Polynomial (*)(const Rational&, carl::Variable::Arg)>(&carl::operator-);
 
     py::class_<carl::Variable>(m, "Variable")
-        .def("__init__",
-            [](carl::Variable &instance, std::string name, carl::VariableType type) -> void {
+        .def("__init__", [](carl::Variable &instance, std::string name, carl::VariableType type) {
                 carl::Variable tmp = getOrCreateVariable(name, type);
-                new (&instance) carl::Variable(tmp);
-            }
-        , py::arg("name"), py::arg("type") = carl::VariableType::VT_REAL)
-        .def("__init__",
-            [](carl::Variable &instance, carl::VariableType type) -> void {
+                new(&instance) carl::Variable(tmp);
+            }, py::arg("name"), py::arg("type") = carl::VariableType::VT_REAL)
+        .def("__init__", [](carl::Variable &instance, carl::VariableType type) {
                 carl::Variable tmp = freshVariable(type);
                 new (&instance) carl::Variable(tmp);
-            }
-        , py::arg("type") = carl::VariableType::VT_REAL)
+            }, py::arg("type") = carl::VariableType::VT_REAL)
 
         .def("__add__",  static_cast<Polynomial (*)(carl::Variable::Arg, const Polynomial&)>(&carl::operator+))
         .def("__add__",  static_cast<Polynomial (*)(carl::Variable::Arg, const Term&)>(&carl::operator+))
