@@ -40,7 +40,7 @@ void define_rational(py::module& m) {
         .def("__mul__",  static_cast<Polynomial (*)(const Rational&, const Polynomial&)>(&carl::operator*))
         .def("__mul__",  static_cast<Term (*)(const Rational&, const Term&)>(&carl::operator*))
         .def("__mul__",  static_cast<Term (*)(const Rational&, const Monomial::Arg&)>(&carl::operator*))
-        .def("__mul__",  static_cast<Term (*)(const Rational&, carl::Variable::Arg)>(&carl::operator*))
+        .def("__mul__",  static_cast<Term (*)(const Rational&, carl::Variable)>(&carl::operator*))
         .def("__mul__", [](const Rational& lhs, const Rational& rhs) -> Rational { return lhs * rhs; })
         .def("__mul__", [](const Rational& lhs, double rhs) -> Rational { return lhs * carl::rationalize<Rational>(rhs); })
         .def("__mul__", [](const Rational& lhs, carl::sint rhs) -> Rational { return lhs * carl::rationalize<Rational>(rhs); })

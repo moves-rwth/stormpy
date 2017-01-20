@@ -28,7 +28,7 @@ void define_term(py::module& m) {
         .def("__mul__",  static_cast<Polynomial (*)(const Term&, const Polynomial&)>(&carl::operator*))
         .def("__mul__",  static_cast<Term (*)(const Term&, const Term&)>(&carl::operator*))
         .def("__mul__",  static_cast<Term (*)(const Term&, const Monomial::Arg&)>(&carl::operator*))
-        .def("__mul__",  static_cast<Term (*)(const Term&, carl::Variable::Arg)>(&carl::operator*))
+        .def("__mul__",  static_cast<Term (*)(const Term&, carl::Variable)>(&carl::operator*))
         .def("__mul__",  static_cast<Term (*)(const Term&, const Rational&)>(&carl::operator*))
 
         .def(PY_DIV, [](const Term& lhs, const RationalFunction& rhs) { return RationalFunction(Polynomial(lhs)) / rhs; })
