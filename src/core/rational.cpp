@@ -104,7 +104,7 @@ void define_rational(py::module& m) {
             return std::pair<std::string, std::string>(carl::toString(carl::getNum(val)), carl::toString(carl::getDenom(val)));})
 
         .def("__setstate__", [](Rational& val, std::pair<std::string, std::string> data) {Rational res = carl::rationalize<Rational>(data.first) / carl::rationalize<Rational>(data.second); new (&val) Rational(res); })
-    ;
+        ;
 	
 	py::implicitly_convertible<double, Rational>();
 	py::implicitly_convertible<carl::uint, Rational>();

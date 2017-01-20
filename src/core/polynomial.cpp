@@ -12,7 +12,7 @@
 void define_polynomial(py::module& m) {
     py::class_<Polynomial>(m, "Polynomial","Represent a multivariate polynomial")
         .def(py::init<const Term&>())
-    .def(py::init<const Monomial::Arg&>())
+        .def(py::init<const Monomial::Arg&>())
         .def(py::init<carl::Variable::Arg>())
         .def(py::init<Rational>())
 
@@ -57,9 +57,9 @@ void define_polynomial(py::module& m) {
         .def(py::self != py::self)
         .def(py::self == py::self)
 
-       .def("__len__", &Polynomial::size)
-       .def("__getitem__", [](const Polynomial& p, std::size_t index) { return *(p.begin()+index); })
-       .def("__iter__", [](const Polynomial& p) { return py::make_iterator(p.begin(), p.end()); },
-                        py::keep_alive<0, 1>() /* Essential: keep object alive while iterator exists */)
+        .def("__len__", &Polynomial::size)
+        .def("__getitem__", [](const Polynomial& p, std::size_t index) { return *(p.begin()+index); })
+        .def("__iter__", [](const Polynomial& p) { return py::make_iterator(p.begin(), p.end()); },
+                         py::keep_alive<0, 1>() /* Essential: keep object alive while iterator exists */)
         ;
 }

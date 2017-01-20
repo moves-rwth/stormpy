@@ -11,7 +11,7 @@
 
 void define_factorizationcache(py::module& m) {
     py::class_<std::shared_ptr<carl::Cache<FactorizationPair>>>(m, "FactorizationCache", "Cache storing all factorized polynomials")
-        ;
+    ;
 }
 
 void define_factorizedpolynomial(py::module& m) {

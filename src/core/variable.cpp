@@ -13,7 +13,7 @@
 
 carl::Variable getOrCreateVariable(std::string const & name, carl::VariableType type) {
     // Variables are constructed by the Pool. Note that for a given name,
-    //two Variable instances may differ, but refer to the same id (data)
+    // two Variable instances may differ, but refer to the same id (data)
     auto& pool = carl::VariablePool::getInstance();
     carl::Variable res = pool.findVariableWithName(name);
     if (res != carl::Variable::NO_VARIABLE) {
@@ -51,7 +51,7 @@ void define_variable(py::module& m) {
 
         .def("__add__",  static_cast<Polynomial (*)(carl::Variable::Arg, const Polynomial&)>(&carl::operator+))
         .def("__add__",  static_cast<Polynomial (*)(carl::Variable::Arg, const Term&)>(&carl::operator+))
-    .def("__add__",  static_cast<Polynomial (*)(carl::Variable::Arg, const Monomial::Arg&)>(&carl::operator+))
+        .def("__add__",  static_cast<Polynomial (*)(carl::Variable::Arg, const Monomial::Arg&)>(&carl::operator+))
         .def("__add__",  static_cast<Polynomial (*)(carl::Variable::Arg, carl::Variable::Arg)>(&carl::operator+))
         .def("__add__",  adder_func)
         .def("__add__", [adder_func](carl::Variable::Arg lhs, double rhs) -> Polynomial {
@@ -65,7 +65,7 @@ void define_variable(py::module& m) {
 
         .def("__sub__",  static_cast<Polynomial (*)(carl::Variable::Arg, const Polynomial&)>(&carl::operator-))
         .def("__sub__",  static_cast<Polynomial (*)(carl::Variable::Arg, const Term&)>(&carl::operator-))
-    .def("__sub__",  static_cast<Polynomial (*)(carl::Variable::Arg, const Monomial::Arg&)>(&carl::operator-))
+        .def("__sub__",  static_cast<Polynomial (*)(carl::Variable::Arg, const Monomial::Arg&)>(&carl::operator-))
         .def("__sub__",  static_cast<Polynomial (*)(carl::Variable::Arg, carl::Variable::Arg)>(&carl::operator-))
         .def("__sub__",  subs_func)
         .def("__sub__", [subs_func](carl::Variable::Arg lhs, double rhs) -> Polynomial {

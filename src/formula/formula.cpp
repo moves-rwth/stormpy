@@ -70,9 +70,9 @@ void define_formula(py::module& m) {
 
         //.def("satisfied_by", &Formula::satisfiedBy)
 
-       .def("__len__", &Formula::size)
-       .def("__iter__", [](const Formula& f) { return py::make_iterator(f.begin(), f.end()); },
-                        py::keep_alive<0, 1>() /* Essential: keep object alive while iterator exists */)
+        .def("__len__", &Formula::size)
+        .def("__iter__", [](const Formula& f) { return py::make_iterator(f.begin(), f.end()); },
+                         py::keep_alive<0, 1>() /* Essential: keep object alive while iterator exists */)
 
         .def_property_readonly("type", &Formula::getType)
         ;

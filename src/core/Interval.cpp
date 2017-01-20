@@ -110,7 +110,7 @@ void define_interval(py::module& m) {
 		
 		.def("__str__", &streamToString<Interval>)
 		.def("__repr__", &streamToString<Interval>)
-	;
+	    ;
 	
 	m.def("isInteger", [](const Interval& i){ return carl::isInteger(i); });
 	m.def("div", [](const Interval& l, const Interval& r){ return carl::div(l, r); });
