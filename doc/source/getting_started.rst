@@ -75,12 +75,12 @@ In order to label the states accordingly, we should notify storm upon building t
 Storm will then add the labels accordingly::
 
 	model = stormpy.build_model(prism_program, properties)
-	print("Labels: {}".format(model.labels)  # {"init", "deadlock", "s=2"})
+	print("Labels in the model: {}".format(model.labels)  # out: Labels in the model: {"init", "deadlock", "s=2"})
 
 Model building however now behaves slightly different: Only the properties passed are preserved, which means that model building might skip parts of the model.
 In particular, to check the probability of eventually reaching a state x where s=2, successor states of x are not relevant::
 
-    print("Number of states: {}".format(model.nr_states))  # out: 8
+    print("Number of states: {}".format(model.nr_states))  # out: Number of states: 8
 	
 If we consider another property, however, such as::
 
@@ -104,18 +104,39 @@ The result may contain information about all states. Merely printing does not gi
 
 	print(result) # out: [0,1] range
 	
-Instead, we can iterate over the results:
+Instead, we can iterate over the results::
 
-	
+    assert result.result_for_all_states
+    for x in result.get_values():
+        print(x)
 
+.. topic:: Results for all states
 
+    Some model checking algorithms do not provide results for all states. In those cases, the result is not valid for all states, and to iterate over them, a different method is required. We will explain this later.
 
 
 Instantiating parametric models
 ------------------------------------
 .. seealso:: ``04-getting-started.py``
 
+Input formats such as prism allow to specify programs with open constants. We refer to these open constants as parameters.
+If the constants only influence the probabilities or rates, but not the topology of the underlying model, we can build these models as parametric models::
 
+    model = stormpy.build_parametric_model(prism_program, properties)
+
+In order to obtain a standard DTMC, MDP or other Markov model, we need to instantiate these models by means of a model instantiator::
+
+    instantiator = ModelInstantiator(model)
+
+Before we obtain an instantiated model, we need to map parameters to values: We build such a dictionary as follows::
+
+    point = dict()
+    parameters = model.collect_probability_parameters()
+    for x in parameters:
+        print(x.name)
+        point[x] = 0.4
+    instantiated_model = instantiator.instantiate(point)
+    result = stormpy.model_checking(instantiated_model, properties[0])
 
 
 Checking parametric models
@@ -129,6 +150,7 @@ Checking parametric models
 
 Investigating the model
 -------------------------------------
+.. seealso:: ``06-getting-started.py``
 
 
 

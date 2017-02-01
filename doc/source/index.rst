@@ -15,6 +15,8 @@ Stormpy Documentation
    
    installation
    getting_started
+   contributors
+
    
 Stormpy API Reference
 ====================================

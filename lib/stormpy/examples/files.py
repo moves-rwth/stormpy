@@ -9,5 +9,7 @@ def _path(folder, file):
 
 prism_dtmc_die = _path("dtmc", "die.pm")
 """Knuth Yao Die Example"""
+prism_pdtmc_die = _path("pdtmc", "parametric_die.pm")
+"""Knuth Yao Die -- 2 unfair coins Example"""
 prism_dtmc_brp = _path("dtmc", "brp-16-2.pm")
 """Bounded Retransmission Protocol"""
