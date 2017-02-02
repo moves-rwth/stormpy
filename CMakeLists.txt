@@ -5,7 +5,7 @@ project(pycarl)
 find_package(carl REQUIRED)
 add_subdirectory(resources/pybind11)
 
-set(PYCARL_USE_CLN CARL_USE_CLN_NUMBERS)
+set(PYCARL_USE_CLN ${CARL_USE_CLN_NUMBERS})
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/definitions.h.in ${CMAKE_CURRENT_BINARY_DIR}/src/definitions.h)
 
