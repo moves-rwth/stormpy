@@ -17,6 +17,7 @@ void define_parse(py::module& m) {
           
           :param str formula_str: A string of formulas
           :param str property_filter: A filter
+          :return: A list of properties
           )dox", py::arg("formula_string"), py::arg("property_filter") = boost::none);
     m.def("parse_properties_for_prism_program", &storm::parsePropertiesForPrismProgram,  R"dox(
           
