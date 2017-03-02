@@ -103,10 +103,18 @@ void define_model(py::module& m) {
 // Model instantiator
 void define_model_instantiator(py::module& m) {
     py::class_<storm::utility::ModelInstantiator<storm::models::sparse::Dtmc<storm::RationalFunction>,storm::models::sparse::Dtmc<double>>>(m, "PdtmcInstantiator", "Instantiate PDTMCs to DTMCs")
-            .def(py::init<storm::models::sparse::Dtmc<storm::RationalFunction>>(), "parametric model"_a)
-            .def("instantiate", &storm::utility::ModelInstantiator<storm::models::sparse::Dtmc<storm::RationalFunction>, storm::models::sparse::Dtmc<double>>::instantiate, "Instantiate model with given parameter values");
+        .def(py::init<storm::models::sparse::Dtmc<storm::RationalFunction>>(), "parametric model"_a)
+        .def("instantiate", &storm::utility::ModelInstantiator<storm::models::sparse::Dtmc<storm::RationalFunction>, storm::models::sparse::Dtmc<double>>::instantiate, "Instantiate model with given parameter values");
 
     py::class_<storm::utility::ModelInstantiator<storm::models::sparse::Mdp<storm::RationalFunction>,storm::models::sparse::Mdp<double>>>(m, "PmdpInstantiator", "Instantiate PMDPs to MDPs")
-            .def(py::init<storm::models::sparse::Mdp<storm::RationalFunction>>(), "parametric model"_a)
-    .def("instantiate", &storm::utility::ModelInstantiator<storm::models::sparse::Mdp<storm::RationalFunction>, storm::models::sparse::Mdp<double>>::instantiate, "Instantiate model with given parameter values");
+        .def(py::init<storm::models::sparse::Mdp<storm::RationalFunction>>(), "parametric model"_a)
+        .def("instantiate", &storm::utility::ModelInstantiator<storm::models::sparse::Mdp<storm::RationalFunction>, storm::models::sparse::Mdp<double>>::instantiate, "Instantiate model with given parameter values");
+    
+    py::class_<storm::utility::ModelInstantiator<storm::models::sparse::Ctmc<storm::RationalFunction>,storm::models::sparse::Ctmc<double>>>(m, "PctmcInstantiator", "Instantiate PCTMCs to CTMCs")
+        .def(py::init<storm::models::sparse::Ctmc<storm::RationalFunction>>(), "parametric model"_a)
+        .def("instantiate", &storm::utility::ModelInstantiator<storm::models::sparse::Ctmc<storm::RationalFunction>, storm::models::sparse::Ctmc<double>>::instantiate, "Instantiate model with given parameter values");
+    
+    py::class_<storm::utility::ModelInstantiator<storm::models::sparse::MarkovAutomaton<storm::RationalFunction>,storm::models::sparse::MarkovAutomaton<double>>>(m, "PmaInstantiator", "Instantiate PMAs to MAs")
+        .def(py::init<storm::models::sparse::MarkovAutomaton<storm::RationalFunction>>(), "parametric model"_a)
+        .def("instantiate", &storm::utility::ModelInstantiator<storm::models::sparse::MarkovAutomaton<storm::RationalFunction>, storm::models::sparse::MarkovAutomaton<double>>::instantiate, "Instantiate model with given parameter values");
 }
