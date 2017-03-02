@@ -53,6 +53,10 @@ void define_model(py::module& m) {
         .def("_as_pdtmc", &storm::models::ModelBase::as<storm::models::sparse::Dtmc<storm::RationalFunction>>, "Get model as pDTMC")
         .def("_as_mdp", &storm::models::ModelBase::as<storm::models::sparse::Mdp<double>>, "Get model as MDP")
         .def("_as_pmdp", &storm::models::ModelBase::as<storm::models::sparse::Mdp<storm::RationalFunction>>, "Get model as pMDP")
+        .def("_as_ctmc", &storm::models::ModelBase::as<storm::models::sparse::Ctmc<double>>, "Get model as CTMC")
+        .def("_as_pctmc", &storm::models::ModelBase::as<storm::models::sparse::Ctmc<storm::RationalFunction>>, "Get model as pCTMC")
+        .def("_as_ma", &storm::models::ModelBase::as<storm::models::sparse::MarkovAutomaton<double>>, "Get model as MA")
+        .def("_as_pma", &storm::models::ModelBase::as<storm::models::sparse::MarkovAutomaton<storm::RationalFunction>>, "Get model as pMA")
     ;
 
     // Models
@@ -70,6 +74,10 @@ void define_model(py::module& m) {
     ;
     py::class_<storm::models::sparse::Mdp<double>, std::shared_ptr<storm::models::sparse::Mdp<double>>>(m, "SparseMdp", "MDP in sparse representation", model)
     ;
+    py::class_<storm::models::sparse::Ctmc<double>, std::shared_ptr<storm::models::sparse::Ctmc<double>>>(m, "SparseCtmc", "CTMC in sparse representation", model)
+    ;
+    py::class_<storm::models::sparse::MarkovAutomaton<double>, std::shared_ptr<storm::models::sparse::MarkovAutomaton<double>>>(m, "SparseMA", "MA in sparse representation", model)
+    ;
 
     py::class_<storm::models::sparse::Model<storm::RationalFunction>, std::shared_ptr<storm::models::sparse::Model<storm::RationalFunction>>> modelRatFunc(m, "_SparseParametricModel", "A probabilistic model where transitions are represented by rational functions and saved in a sparse matrix", modelBase);
     modelRatFunc.def("collect_probability_parameters", &probabilityVariables, "Collect parameters")
@@ -84,6 +92,10 @@ void define_model(py::module& m) {
     py::class_<storm::models::sparse::Dtmc<storm::RationalFunction>, std::shared_ptr<storm::models::sparse::Dtmc<storm::RationalFunction>>>(m, "SparseParametricDtmc", "pDTMC in sparse representation", modelRatFunc)
     ;
     py::class_<storm::models::sparse::Mdp<storm::RationalFunction>, std::shared_ptr<storm::models::sparse::Mdp<storm::RationalFunction>>>(m, "SparseParametricMdp", "pMDP in sparse representation", modelRatFunc)
+    ;
+    py::class_<storm::models::sparse::Ctmc<storm::RationalFunction>, std::shared_ptr<storm::models::sparse::Ctmc<storm::RationalFunction>>>(m, "SparseParametricCtmc", "pCTMC in sparse representation", modelRatFunc)
+    ;
+    py::class_<storm::models::sparse::MarkovAutomaton<storm::RationalFunction>, std::shared_ptr<storm::models::sparse::MarkovAutomaton<storm::RationalFunction>>>(m, "SparseParametricMA", "pMA in sparse representation", modelRatFunc)
     ;
 
 }
