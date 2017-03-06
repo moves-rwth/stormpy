@@ -81,7 +81,7 @@ setup(
     maintainer_email="sebastian.junges@cs.rwth-aachen.de",
     url="http://moves.rwth-aachen.de",
     description="stormpy - Python Bindings for Storm",
-    packages=['stormpy', 'stormpy.info', 'stormpy.expressions', 'stormpy.logic', 'stormpy.storage', 'stormpy.utility'],
+    packages=['stormpy', 'stormpy.info', 'stormpy.expressions', 'stormpy.logic', 'stormpy.storage', 'stormpy.utility', 'stormpy.dft'],
     package_dir={'': 'lib'},
     ext_package='stormpy',
     ext_modules=[CMakeExtension('core', subdir=''),
@@ -89,7 +89,8 @@ setup(
                  CMakeExtension('expressions', subdir='expressions'),
                  CMakeExtension('logic', subdir='logic'),
                  CMakeExtension('storage', subdir='storage'),
-                 CMakeExtension('utility', subdir='utility')
+                 CMakeExtension('utility', subdir='utility'),
+                 CMakeExtension('dft', subdir='dft')
                  ],
     cmdclass=dict(build_ext=CMakeBuild, test=PyTest),
     zip_safe=False,

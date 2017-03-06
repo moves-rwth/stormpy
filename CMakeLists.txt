@@ -23,8 +23,8 @@ function(stormpy_module NAME)
 
     file(GLOB_RECURSE "STORM_${NAME}_SOURCES" "${CMAKE_CURRENT_SOURCE_DIR}/src/${NAME}/*.cpp")
     pybind11_add_module(${NAME} "${CMAKE_CURRENT_SOURCE_DIR}/src/mod_${NAME}.cpp" ${STORM_${NAME}_SOURCES})
-    target_include_directories(${NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${storm_INCLUDE_DIR} ${CMAKE_CURRENT_BINARY_DIR}/src/generated)
-    target_link_libraries(${NAME} PRIVATE storm)
+    target_include_directories(${NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${storm_INCLUDE_DIR} ${storm-dft_INCLUDE_DIR} ${CMAKE_CURRENT_BINARY_DIR}/src/generated)
+    target_link_libraries(${NAME} PRIVATE storm storm-dft)
 
     # setup.py will override this (because pip may want a different install
     # path), but also specifying it here has the advantage that invoking cmake
@@ -40,3 +40,4 @@ stormpy_module(expressions)
 stormpy_module(logic)
 stormpy_module(storage)
 stormpy_module(utility)
+stormpy_module(dft)
