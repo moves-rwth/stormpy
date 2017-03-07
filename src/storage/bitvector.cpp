@@ -16,7 +16,12 @@ void define_bitvector(py::module& m) {
         .def("size", &BitVector::size)
         .def("number_of_set_bits", &BitVector::getNumberOfSetBits)
       //.def("get", &BitVector::get, "index"_a) // no idea why this does not work
-        .def("get", [](BitVector const& b, uint_fast64_t i) { return b.get(i); }, "index"_a)
+        .def("get", [](BitVector const& b, uint_fast64_t i) {
+                return b.get(i);
+            }, "index"_a)
+        .def("set", [](BitVector& b, uint_fast64_t i, bool v) {
+                b.set(i, v);
+            }, py::arg("index"), py::arg("value") = true, "Set")
 
         .def(py::self == py::self)
         .def(py::self != py::self)

@@ -30,6 +30,11 @@ std::set<storm::RationalFunctionVariable> rewardVariables(storm::models::sparse:
     return storm::models::sparse::getRewardParameters(model);
 }
 
+template<typename ValueType>
+storm::models::sparse::StateLabeling& getLabeling(storm::models::sparse::Model<ValueType>& model) {
+    return model.getStateLabeling();
+}
+
 // Define python bindings
 void define_model(py::module& m) {
 
@@ -63,9 +68,7 @@ void define_model(py::module& m) {
 //storm::models::sparse::Model<double, storm::models::sparse::StandardRewardModel<double> >
 
     py::class_<storm::models::sparse::Model<double>, std::shared_ptr<storm::models::sparse::Model<double>>> model(m, "_SparseModel", "A probabilistic model where transitions are represented by doubles and saved in a sparse matrix", modelBase);
-    model.def_property_readonly("labels", [](storm::models::sparse::Model<double>& model) {
-            return model.getStateLabeling().getLabels();
-        }, "Labels")
+    model.def_property_readonly("labeling", &getLabeling<double>, "Labels")
         .def("labels_state", &storm::models::sparse::Model<double>::getLabelsOfState, py::arg("state"), "Get labels of state")
         .def_property_readonly("initial_states", &getInitialStates<double>, "Initial states")
         .def_property_readonly("transition_matrix", &getTransitionMatrix<double>, py::return_value_policy::reference, py::keep_alive<1, 0>(), "Transition matrix")
@@ -82,9 +85,7 @@ void define_model(py::module& m) {
     py::class_<storm::models::sparse::Model<storm::RationalFunction>, std::shared_ptr<storm::models::sparse::Model<storm::RationalFunction>>> modelRatFunc(m, "_SparseParametricModel", "A probabilistic model where transitions are represented by rational functions and saved in a sparse matrix", modelBase);
     modelRatFunc.def("collect_probability_parameters", &probabilityVariables, "Collect parameters")
             .def("collect_reward_parameters", &rewardVariables, "Collect reward parameters")
-        .def_property_readonly("labels", [](storm::models::sparse::Model<storm::RationalFunction>& model) {
-                return model.getStateLabeling().getLabels();
-            }, "Labels")
+        .def_property_readonly("labeling", &getLabeling<storm::RationalFunction>, "Labels")
         .def("labels_state", &storm::models::sparse::Model<storm::RationalFunction>::getLabelsOfState, py::arg("state"), "Get labels of state")
         .def_property_readonly("initial_states", &getInitialStates<storm::RationalFunction>, "Initial states")
         .def_property_readonly("transition_matrix", &getTransitionMatrix<storm::RationalFunction>, py::return_value_policy::reference, py::keep_alive<1, 0>(), "Transition matrix")
