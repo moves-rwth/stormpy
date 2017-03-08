@@ -4,33 +4,33 @@ from helpers.helper import get_example_path
 class TestModelIterators:
     def test_states_dtmc(self):
         model = stormpy.parse_explicit_model(get_example_path("dtmc", "die.tra"), get_example_path("dtmc", "die.lab"))
-        s = stormpy.state.State(0, model)
+        s = stormpy.state.State(0, model.transition_matrix)
         i = 0
-        for state in stormpy.state.State(0, model):
+        for state in stormpy.state.State(0, model.transition_matrix):
             assert state.id == i
             i += 1
         assert i == model.nr_states
     
     def test_states_mdp(self):
         model = stormpy.parse_explicit_model(get_example_path("mdp", "two_dice.tra"), get_example_path("mdp", "two_dice.lab"))
-        s = stormpy.state.State(0, model)
+        s = stormpy.state.State(0, model.transition_matrix)
         i = 0
-        for state in stormpy.state.State(0, model):
+        for state in stormpy.state.State(0, model.transition_matrix):
             assert state.id == i
             i += 1
         assert i == model.nr_states
     
     def test_actions_dtmc(self):
         model = stormpy.parse_explicit_model(get_example_path("dtmc", "die.tra"), get_example_path("dtmc", "die.lab"))
-        s = stormpy.state.State(0, model)
-        for state in stormpy.state.State(0, model):
+        s = stormpy.state.State(0, model.transition_matrix)
+        for state in stormpy.state.State(0, model.transition_matrix):
             for action in state.actions():
                 assert action.row == 0
     
     def test_actions_mdp(self):
         model = stormpy.parse_explicit_model(get_example_path("mdp", "two_dice.tra"), get_example_path("mdp", "two_dice.lab"))
-        s = stormpy.state.State(0, model)
-        for state in stormpy.state.State(0, model):
+        s = stormpy.state.State(0, model.transition_matrix)
+        for state in stormpy.state.State(0, model.transition_matrix):
             for action in state.actions():
                 assert action.row == 0 or action.row == 1
     
@@ -42,9 +42,9 @@ class TestModelIterators:
                 (9, 9, 1), (10, 10, 1), (11, 11, 1), (12, 12, 1)
             ]
         model = stormpy.parse_explicit_model(get_example_path("dtmc", "die.tra"), get_example_path("dtmc", "die.lab"))
-        s = stormpy.state.State(0, model)
+        s = stormpy.state.State(0, model.transition_matrix)
         i = 0
-        for state in stormpy.state.State(0, model):
+        for state in stormpy.state.State(0, model.transition_matrix):
             for action in state.actions():
                 for transition in action.transitions():
                     transition_orig = transitions_orig[i]
@@ -55,8 +55,8 @@ class TestModelIterators:
     
     def test_transitions_mdp(self):
         model = stormpy.parse_explicit_model(get_example_path("mdp", "two_dice.tra"), get_example_path("mdp", "two_dice.lab"))
-        s = stormpy.state.State(0, model)
-        for state in stormpy.state.State(0, model):
+        s = stormpy.state.State(0, model.transition_matrix)
+        for state in stormpy.state.State(0, model.transition_matrix):
             i = 0
             for action in state.actions():
                 i += 1
@@ -73,7 +73,7 @@ class TestModelIterators:
             ]
         model = stormpy.parse_explicit_model(get_example_path("dtmc", "die.tra"), get_example_path("dtmc", "die.lab"))
         i = 0
-        for state in stormpy.state.State(0, model):
+        for state in stormpy.state.State(0, model.transition_matrix):
             for transition in model.transition_matrix.row_iter(state.id, state.id):
                 transition_orig = transitions_orig[i]
                 i += 1

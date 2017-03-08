@@ -22,6 +22,11 @@ storm::storage::SparseMatrix<ValueType>& getTransitionMatrix(storm::models::spar
     return model.getTransitionMatrix();
 }
 
+template<typename ValueType>
+storm::storage::SparseMatrix<ValueType> getBackwardTransitionMatrix(storm::models::sparse::Model<ValueType>& model) {
+    return model.getBackwardTransitions();
+}
+
 std::set<storm::RationalFunctionVariable> probabilityVariables(storm::models::sparse::Model<storm::RationalFunction> const& model) {
     return storm::models::sparse::getProbabilityParameters(model);
 }
@@ -72,6 +77,7 @@ void define_model(py::module& m) {
         .def("labels_state", &storm::models::sparse::Model<double>::getLabelsOfState, py::arg("state"), "Get labels of state")
         .def_property_readonly("initial_states", &getInitialStates<double>, "Initial states")
         .def_property_readonly("transition_matrix", &getTransitionMatrix<double>, py::return_value_policy::reference, py::keep_alive<1, 0>(), "Transition matrix")
+        .def_property_readonly("backward_transition_matrix", &getBackwardTransitionMatrix<double>, py::return_value_policy::reference, py::keep_alive<1, 0>(), "Backward transition matrix")
     ;
     py::class_<storm::models::sparse::Dtmc<double>, std::shared_ptr<storm::models::sparse::Dtmc<double>>>(m, "SparseDtmc", "DTMC in sparse representation", model)
     ;
@@ -89,6 +95,7 @@ void define_model(py::module& m) {
         .def("labels_state", &storm::models::sparse::Model<storm::RationalFunction>::getLabelsOfState, py::arg("state"), "Get labels of state")
         .def_property_readonly("initial_states", &getInitialStates<storm::RationalFunction>, "Initial states")
         .def_property_readonly("transition_matrix", &getTransitionMatrix<storm::RationalFunction>, py::return_value_policy::reference, py::keep_alive<1, 0>(), "Transition matrix")
+        .def_property_readonly("backward_transition_matrix", &getBackwardTransitionMatrix<storm::RationalFunction>, py::return_value_policy::reference, py::keep_alive<1, 0>(), "Backward transition matrix")
     ;
     py::class_<storm::models::sparse::Dtmc<storm::RationalFunction>, std::shared_ptr<storm::models::sparse::Dtmc<storm::RationalFunction>>>(m, "SparseParametricDtmc", "pDTMC in sparse representation", modelRatFunc)
     ;

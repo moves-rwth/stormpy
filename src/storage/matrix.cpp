@@ -44,6 +44,7 @@ void define_sparse_matrix(py::module& m) {
                 return stream.str();
             })
         .def_property_readonly("nr_rows", &storm::storage::SparseMatrix<double>::getRowCount, "Number of rows")
+        .def_property_readonly("nr_row_groups", &storm::storage::SparseMatrix<double>::getRowGroupCount, "Number of row groups")
         .def_property_readonly("nr_columns", &storm::storage::SparseMatrix<double>::getColumnCount, "Number of columns")
         .def_property_readonly("nr_entries", &storm::storage::SparseMatrix<double>::getEntryCount, "Number of non-zero entries")
         .def_property_readonly("_row_group_indices", &storm::storage::SparseMatrix<double>::getRowGroupIndices, "Starting rows of row groups")
@@ -77,6 +78,7 @@ void define_sparse_matrix(py::module& m) {
                 return stream.str();
             })
         .def_property_readonly("nr_rows", &storm::storage::SparseMatrix<storm::RationalFunction>::getRowCount, "Number of rows")
+        .def_property_readonly("nr_row_groups", &storm::storage::SparseMatrix<storm::RationalFunction>::getRowGroupCount, "Number of row groups")
         .def_property_readonly("nr_columns", &storm::storage::SparseMatrix<storm::RationalFunction>::getColumnCount, "Number of columns")
         .def_property_readonly("nr_entries", &storm::storage::SparseMatrix<storm::RationalFunction>::getEntryCount, "Number of non-zero entries")
         .def_property_readonly("_row_group_indices", &storm::storage::SparseMatrix<storm::RationalFunction>::getRowGroupIndices, "Starting rows of row groups")
