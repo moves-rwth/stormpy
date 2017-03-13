@@ -11,12 +11,11 @@ class TestModel:
         model = stormpy.build_parametric_model(program, formulas)
         parameters = model.collect_probability_parameters()
         instantiator = stormpy.ModelInstantiator(model)
-        point = dict()
-        for p in parameters:
-            point[p] = 0.4
+
+        point = {p: 0.4 for p in parameters}
         instantiated_model = instantiator.instantiate(point)
         assert instantiated_model.nr_states == model.nr_states
         assert not instantiated_model.has_parameters
-        for p in parameters:
-            point[p] = 0.5
-        instatiated_model2 = instantiator.instantiate(point)
+
+        point = {p: 0.5 for p in parameters}
+        instantiated_model2 = instantiator.instantiate(point)

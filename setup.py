@@ -92,7 +92,7 @@ setup(
                  CMakeExtension('storage', subdir='storage'),
                  CMakeExtension('utility', subdir='utility')
                  ],
-    cmdclass=dict(build_ext=CMakeBuild, test=PyTest),
+    cmdclass={'build_ext': CMakeBuild, 'test': PyTest},
     zip_safe=False,
     tests_require=['pytest'],
 )
