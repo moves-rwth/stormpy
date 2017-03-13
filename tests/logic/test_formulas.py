@@ -2,8 +2,8 @@ import pycarl
 import stormpy
 import stormpy.logic
 
-class TestFormulas:
 
+class TestFormulas:
     def test_probability_formula(self):
         formula_str = "P=? [F \"one\"]"
         properties = stormpy.parse_properties(formula_str)
@@ -60,4 +60,3 @@ class TestFormulas:
         assert type(labelform) == stormpy.logic.AtomicLabelFormula
         prop = stormpy.core.Property("label-formula", labelform)
         assert prop.raw_formula == labelform
-        

@@ -2,6 +2,7 @@ import os
 
 testfile_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "files")
 
+
 def _path(folder, file):
     """Internal method for simpler listing of examples"""
     return os.path.join(testfile_dir, folder, file)

@@ -3,6 +3,7 @@ from helpers.helper import get_example_path
 
 import math
 
+
 class TestMatrix:
     def test_sparse_matrix(self):
         model = stormpy.parse_explicit_model(get_example_path("dtmc", "die.tra"), get_example_path("dtmc", "die.lab"))

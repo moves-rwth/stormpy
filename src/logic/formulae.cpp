@@ -15,7 +15,7 @@ void define_formulae(py::module& m) {
         .def(vector_indexing_suite<std::vector<std::shared_ptr<storm::logic::Formula>>, true>())
     ;*/
 
-    
+
     py::class_<storm::logic::Formula, std::shared_ptr<storm::logic::Formula>> formula(m, "Formula", "Generic Storm Formula");
     formula.def("__str__", &storm::logic::Formula::toString)
     ;

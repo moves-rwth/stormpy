@@ -1,5 +1,6 @@
 from . import action
 
+
 class State:
     """ Represents a state in the model """
 

@@ -1,4 +1,3 @@
-
 class TestCore:
     def test_init(self):
         import stormpy

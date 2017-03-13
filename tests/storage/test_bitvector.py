@@ -1,5 +1,6 @@
 import stormpy
 
+
 class TestBitvector:
     def test_init_default(self):
         bit = stormpy.BitVector()

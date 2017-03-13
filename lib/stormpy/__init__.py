@@ -8,7 +8,7 @@ import stormpy.logic
 core._set_up("")
 
 
-def build_model(program, properties = None):
+def build_model(program, properties=None):
     """
     Build a model from a symbolic description
 
@@ -28,7 +28,8 @@ def build_model(program, properties = None):
     else:
         raise RuntimeError("Not supported non-parametric model constructed")
 
-def build_parametric_model(program, properties = None):
+
+def build_parametric_model(program, properties=None):
     """
     
     :param PrismProgram program: Prism program with open constants to translate into a parametric model.
@@ -47,11 +48,13 @@ def build_parametric_model(program, properties = None):
     else:
         raise RuntimeError("Not supported parametric model constructed")
 
+
 def perform_bisimulation(model, property, bisimulation_type):
     if model.supports_parameters:
         return core._perform_parametric_bisimulation(model, property.raw_formula, bisimulation_type)
     else:
         return core._perform_bisimulation(model, property.raw_formula, bisimulation_type)
+
 
 def model_checking(model, property):
     if model.supports_parameters:
@@ -76,6 +79,7 @@ def compute_prob01_states(model, phi_states, psi_states):
     else:
         return core._compute_prob01states_double(model, phi_states, psi_states)
 
+
 def compute_prob01min_states(model, phi_states, psi_states):
     if model.model_type == ModelType.DTMC:
         return compute_prob01_states(model, phi_states, psi_states)
@@ -83,6 +87,7 @@ def compute_prob01min_states(model, phi_states, psi_states):
         return core._compute_prob01states_min_rationalfunc(model, phi_states, psi_states)
     else:
         return core._compute_prob01states_min_double(model, phi_states, psi_states)
+
 
 def compute_prob01max_states(model, phi_states, psi_states):
     if model.model_type == ModelType.DTMC:

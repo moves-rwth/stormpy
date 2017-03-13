@@ -1,6 +1,7 @@
 import stormpy
 from stormpy.expressions import expressions
 
+
 class TestExpressions:
     def test_expression_manager(self):
         manager = expressions.ExpressionManager

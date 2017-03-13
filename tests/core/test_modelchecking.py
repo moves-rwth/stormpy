@@ -4,6 +4,7 @@ from helpers.helper import get_example_path
 
 import math
 
+
 class TestModelChecking:
     def test_model_checking_dtmc(self):
         program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
@@ -71,5 +72,5 @@ class TestModelChecking:
         assert prob0.number_of_set_bits() == 9
         assert prob1.number_of_set_bits() == 1
         labelprop = stormpy.core.Property("cora", formulaPsi.raw_formula)
-        result =  stormpy.model_checking(model, labelprop)
+        result = stormpy.model_checking(model, labelprop)
         assert result.get_truth_values().number_of_set_bits() == 1

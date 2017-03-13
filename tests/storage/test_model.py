@@ -2,6 +2,7 @@ import stormpy
 import stormpy.logic
 from helpers.helper import get_example_path
 
+
 class TestModel:
     def test_build_dtmc_from_prism_program(self):
         program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))

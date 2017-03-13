@@ -64,6 +64,7 @@ class CMakeBuild(build_ext):
         subprocess.check_call(['cmake', ext.sourcedir] + cmake_args, cwd=self.build_temp, env=env)
         subprocess.check_call(['cmake', '--build', '.', '--target', ext.name] + build_args, cwd=self.build_temp)
 
+
 class PyTest(test):
     def run_tests(self):
         #import here, cause outside the eggs aren't loaded

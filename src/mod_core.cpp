@@ -14,7 +14,6 @@ PYBIND11_PLUGIN(core) {
 //    options.disable_function_signatures();
 #endif
     
-    
     define_core(m);
     define_property(m);
     define_parse(m);
