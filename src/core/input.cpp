@@ -1,10 +1,13 @@
 #include "input.h"
+#include "src/helpers.h"
 
 void define_property(py::module& m) {
     py::class_<storm::jani::Property>(m, "Property", "Property")
-    .def(py::init<std::string const&, std::shared_ptr<storm::logic::Formula const> const&, std::string const&>(), "Construct property from formula", py::arg("name"), py::arg("formula"), py::arg("comment") = "")
-    .def_property_readonly("name", &storm::jani::Property::getName, "Obtain the name of the property")
-    .def_property_readonly("raw_formula", &storm::jani::Property::getRawFormula, "Obtain the formula directly");
+        .def(py::init<std::string const&, std::shared_ptr<storm::logic::Formula const> const&, std::string const&>(), "Construct property from formula", py::arg("name"), py::arg("formula"), py::arg("comment") = "")
+        .def_property_readonly("name", &storm::jani::Property::getName, "Obtain the name of the property")
+        .def_property_readonly("raw_formula", &storm::jani::Property::getRawFormula, "Obtain the formula directly")
+        .def("__str__", &streamToString<storm::jani::Property>)
+    ;
 }
 
 
@@ -29,6 +32,7 @@ void define_input(py::module& m) {
         .def_property_readonly("nr_modules", &storm::prism::Program::getNumberOfModules, "Number of modules")
         .def_property_readonly("model_type", &storm::prism::Program::getModelType, "Model type")
         .def_property_readonly("has_undefined_constants", &storm::prism::Program::hasUndefinedConstants, "Flag if program has undefined constants")
+        .def("__str__", &streamToString<storm::prism::Program>)
     ;
     
     // SymbolicModelDescription

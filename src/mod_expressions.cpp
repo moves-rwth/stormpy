@@ -1,5 +1,4 @@
 #include "common.h"
-#include "helpers.h"
 #include "storm/storage/expressions/ExpressionManager.h"
 
 PYBIND11_PLUGIN(expressions) {

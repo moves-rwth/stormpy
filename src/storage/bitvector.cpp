@@ -1,7 +1,6 @@
 #include "bitvector.h"
 #include "storm/storage/BitVector.h"
-
-#include <sstream>
+#include "src/helpers.h"
 
 void define_bitvector(py::module& m) {
     using BitVector = storm::storage::BitVector;
@@ -31,7 +30,7 @@ void define_bitvector(py::module& m) {
         .def(py::self &= py::self)
         .def(py::self |= py::self)
 
-        .def("__repr__", [](BitVector const& b) { std::ostringstream oss; oss << b; return oss.str(); })
+        .def("__str__", &streamToString<BitVector>)
 
         // TODO (when needed): iterator
     ;

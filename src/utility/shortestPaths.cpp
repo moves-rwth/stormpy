@@ -1,15 +1,12 @@
 #include "shortestPaths.h"
 #include "storm/utility/shortestPaths.h"
+#include "src/helpers.h"
 
 // only forward declaring Model leads to pybind compilation error
 // this may be avoidable. but including certainly works.
 #include "storm/models/sparse/Model.h"
 #include "storm/models/sparse/StandardRewardModel.h"
 
-#include <sstream>
-#include <string>
-
-#include <boost/optional/optional_io.hpp>
 
 void define_ksp(py::module& m) {
 
@@ -39,12 +36,7 @@ void define_ksp(py::module& m) {
 
         .def(py::self == py::self, "Compares predecessor node and index, ignoring distance")
 
-        .def("__repr__", [](Path const& p) {
-                std::ostringstream oss;
-                oss << "<Path with predecessorNode: '" << ((p.predecessorNode) ? std::to_string(p.predecessorNode.get()) : "None");
-                oss << "' predecessorK: '" << p.predecessorK << "' distance: '" << p.distance << "'>";
-                return oss.str();
-            })
+        .def("__str__", &streamToString<Path>)
 
         .def_readwrite("predecessorNode", &Path::predecessorNode) // TODO (un-)wrap boost::optional so it's usable
         .def_readwrite("predecessorK", &Path::predecessorK)

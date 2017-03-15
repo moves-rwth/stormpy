@@ -1,5 +1,6 @@
 #include "matrix.h"
 #include "storm/storage/SparseMatrix.h"
+#include "src/helpers.h"
 
 typedef storm::storage::SparseMatrix<double>::index_type entry_index;
 typedef unsigned int row_index;
@@ -10,11 +11,7 @@ void define_sparse_matrix(py::module& m) {
 
     // MatrixEntry
     py::class_<storm::storage::MatrixEntry<entry_index, double>>(m, "SparseMatrixEntry", "Entry of sparse matrix")
-        .def("__str__", [](storm::storage::MatrixEntry<entry_index, double> const& entry) {
-                std::stringstream stream;
-                stream << entry;
-                return stream.str();
-            })
+        .def("__str__", &streamToString<storm::storage::MatrixEntry<entry_index, double>>)
         //def_property threw "pointer being freed not allocated" after exiting
         .def("value", &storm::storage::MatrixEntry<entry_index, double>::getValue, "Value")
         .def("set_value", &storm::storage::MatrixEntry<entry_index, double>::setValue, py::arg("value"), "Set value")
@@ -22,11 +19,7 @@ void define_sparse_matrix(py::module& m) {
     ;
  
     py::class_<storm::storage::MatrixEntry<parametric_entry_index, storm::RationalFunction>>(m, "ParametricSparseMatrixEntry", "Entry of parametric sparse matrix")
-        .def("__str__", [](storm::storage::MatrixEntry<parametric_entry_index, storm::RationalFunction> const& entry) {
-                std::stringstream stream;
-                stream << entry;
-                return stream.str();
-            })
+        .def("__str__", &streamToString<storm::storage::MatrixEntry<parametric_entry_index, storm::RationalFunction>>)
         //def_property threw "pointer being freed not allocated" after exiting
         .def("value", &storm::storage::MatrixEntry<parametric_entry_index, storm::RationalFunction>::getValue, "Value")
         .def("set_value", &storm::storage::MatrixEntry<parametric_entry_index, storm::RationalFunction>::setValue, py::arg("value"), "Set value")
@@ -38,11 +31,7 @@ void define_sparse_matrix(py::module& m) {
         .def("__iter__", [](storm::storage::SparseMatrix<double>& matrix) {
                 return py::make_iterator(matrix.begin(), matrix.end());
             }, py::keep_alive<0, 1>() /* Essential: keep object alive while iterator exists */)
-        .def("__str__", [](storm::storage::SparseMatrix<double> const& matrix) {
-                std::stringstream stream;
-                stream << matrix;
-                return stream.str();
-            })
+        .def("__str__", &streamToString<storm::storage::SparseMatrix<double>>)
         .def_property_readonly("nr_rows", &storm::storage::SparseMatrix<double>::getRowCount, "Number of rows")
         .def_property_readonly("nr_columns", &storm::storage::SparseMatrix<double>::getColumnCount, "Number of columns")
         .def_property_readonly("nr_entries", &storm::storage::SparseMatrix<double>::getEntryCount, "Number of non-zero entries")
@@ -71,11 +60,7 @@ void define_sparse_matrix(py::module& m) {
         .def("__iter__", [](storm::storage::SparseMatrix<storm::RationalFunction>& matrix) {
                 return py::make_iterator(matrix.begin(), matrix.end());
             }, py::keep_alive<0, 1>() /* Essential: keep object alive while iterator exists */)
-        .def("__str__", [](storm::storage::SparseMatrix<storm::RationalFunction> const& matrix) {
-                std::stringstream stream;
-                stream << matrix;
-                return stream.str();
-            })
+        .def("__str__", &streamToString<storm::storage::SparseMatrix<storm::RationalFunction>>)
         .def_property_readonly("nr_rows", &storm::storage::SparseMatrix<storm::RationalFunction>::getRowCount, "Number of rows")
         .def_property_readonly("nr_columns", &storm::storage::SparseMatrix<storm::RationalFunction>::getColumnCount, "Number of columns")
         .def_property_readonly("nr_entries", &storm::storage::SparseMatrix<storm::RationalFunction>::getEntryCount, "Number of non-zero entries")

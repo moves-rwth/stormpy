@@ -1,5 +1,4 @@
 #include "common.h"
-#include "helpers.h"
 #include "storm/utility/storm-version.h"
 
 PYBIND11_PLUGIN(info) {
