@@ -5,9 +5,11 @@ void define_state(py::module& m) {
     // SparseModelStates
     py::class_<SparseModelStates<double>>(m, "SparseModelStates", "States in sparse model")
         .def("__getitem__", &SparseModelStates<double>::getState)
+        .def("__len__", &SparseModelStates<double>::getSize)
     ;
     py::class_<SparseModelStates<storm::RationalFunction>>(m, "SparseParametricModelStates", "States in sparse parametric model")
         .def("__getitem__", &SparseModelStates<storm::RationalFunction>::getState)
+        .def("__len__", &SparseModelStates<storm::RationalFunction>::getSize)
     ;
     // SparseModelState
     py::class_<SparseModelState<double>>(m, "SparseModelState", "State in sparse model")
@@ -26,9 +28,11 @@ void define_state(py::module& m) {
     // SparseModelActions
     py::class_<SparseModelActions<double>>(m, "SparseModelActions", "Actions for state in sparse model")
         .def("__getitem__", &SparseModelActions<double>::getAction)
+        .def("__len__", &SparseModelActions<double>::getSize)
     ;
     py::class_<SparseModelActions<storm::RationalFunction>>(m, "SparseParametricModelActions", "Actions for state in sparse parametric model")
         .def("__getitem__", &SparseModelActions<storm::RationalFunction>::getAction)
+        .def("__len__", &SparseModelActions<storm::RationalFunction>::getSize)
     ;
     // SparseModelAction
     py::class_<SparseModelAction<double>>(m, "SparseModelAction", "Action for state in sparse model")

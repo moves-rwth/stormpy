@@ -20,20 +20,20 @@ class SparseModelState {
         }
 
         s_index getIndex() const {
-            return this->stateIndex;
+            return stateIndex;
         }
 
-        std::set<std::string> getLabels() {
+        std::set<std::string> getLabels() const {
             return this->model.getStateLabeling().getLabelsOfState(this->stateIndex);
         }
 
-        SparseModelActions<ValueType> getActions() {
+        SparseModelActions<ValueType> getActions() const {
             return SparseModelActions<ValueType>(this->model, stateIndex);
         }
 
-        std::string toString() {
+        std::string toString() const {
             std::stringstream stream;
-            stream << this->getIndex();
+            stream << stateIndex;
             return stream.str();
         }
 
@@ -51,7 +51,11 @@ class SparseModelStates {
             length = model.getNumberOfStates();
         }
         
-        SparseModelState<ValueType> getState(s_index index) {
+        s_index getSize() const {
+            return length;
+        }
+        
+        SparseModelState<ValueType> getState(s_index index) const {
             if (index < length) {
                 return SparseModelState<ValueType>(model, index);
             } else {
@@ -81,9 +85,9 @@ class SparseModelAction {
             return model.getTransitionMatrix().getRow(stateIndex, actionIndex);
         }
         
-        std::string toString() {
+        std::string toString() const {
             std::stringstream stream;
-            stream << this->getIndex();
+            stream << actionIndex;
             return stream.str();
         }
 
@@ -103,7 +107,11 @@ class SparseModelActions {
             length = model.getTransitionMatrix().getRowGroupSize(stateIndex);
         }
         
-        SparseModelAction<ValueType> getAction(size_t index) {
+        s_index getSize() const {
+            return length;
+        }
+        
+        SparseModelAction<ValueType> getAction(size_t index) const {
             if (index < length) {
                 return SparseModelAction<ValueType>(model, stateIndex, index);
             } else {

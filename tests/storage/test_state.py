@@ -6,6 +6,7 @@ class TestState:
         model = stormpy.parse_explicit_model(get_example_path("dtmc", "die.tra"), get_example_path("dtmc", "die.lab"))
         i = 0
         states = model.states
+        assert len(states) == 13
         for state in states:
             assert state.id == i
             i += 1
@@ -18,6 +19,7 @@ class TestState:
     def test_states_mdp(self):
         model = stormpy.parse_explicit_model(get_example_path("mdp", "two_dice.tra"), get_example_path("mdp", "two_dice.lab"))
         i = 0
+        assert len(model.states) == 169
         for state in model.states:
             assert state.id == i
             i += 1
@@ -41,12 +43,14 @@ class TestState:
     def test_actions_dtmc(self):
         model = stormpy.parse_explicit_model(get_example_path("dtmc", "die.tra"), get_example_path("dtmc", "die.lab"))
         for state in model.states:
+            assert len(state.actions) == 1
             for action in state.actions:
                 assert action.id == 0
     
     def test_actions_mdp(self):
         model = stormpy.parse_explicit_model(get_example_path("mdp", "two_dice.tra"), get_example_path("mdp", "two_dice.lab"))
         for state in model.states:
+            assert len(state.actions) == 1 or len(state.actions) == 2
             for action in state.actions:
                 assert action.id == 0 or action.id == 1
     
@@ -61,6 +65,7 @@ class TestState:
         i = 0
         for state in model.states:
             for action in state.actions:
+                assert (state.id < 7 and len(action.transitions) == 3) or (state.id >= 7 and len(action.transitions) == 1)
                 for transition in action.transitions:
                     transition_orig = transitions_orig[i]
                     i += 1
