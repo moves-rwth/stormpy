@@ -15,7 +15,7 @@ void define_sparse_matrix(py::module& m) {
                 stream << entry;
                 return stream.str();
             })
-        //def_property threw "pointer being freed not allocated" after exiting
+        //Note: def_property threw "pointer being freed not allocated" after exiting
         .def("value", &storm::storage::MatrixEntry<entry_index, double>::getValue, "Value")
         .def("set_value", &storm::storage::MatrixEntry<entry_index, double>::setValue, py::arg("value"), "Set value")
         .def_property_readonly("column", &storm::storage::MatrixEntry<entry_index, double>::getColumn, "Column")
@@ -27,7 +27,7 @@ void define_sparse_matrix(py::module& m) {
                 stream << entry;
                 return stream.str();
             })
-        //def_property threw "pointer being freed not allocated" after exiting
+        //Note: def_property threw "pointer being freed not allocated" after exiting
         .def("value", &storm::storage::MatrixEntry<parametric_entry_index, storm::RationalFunction>::getValue, "Value")
         .def("set_value", &storm::storage::MatrixEntry<parametric_entry_index, storm::RationalFunction>::setValue, py::arg("value"), "Set value")
         .def_property_readonly("column", &storm::storage::MatrixEntry<parametric_entry_index, storm::RationalFunction>::getColumn, "Column")
@@ -61,7 +61,7 @@ void define_sparse_matrix(py::module& m) {
                     stream << transition << ", ";
                 }
                 return stream.str();
-            }, py::arg("row"), "Print row")
+            }, py::arg("row"), "Print rows from start to end")
         // Entry_index lead to problems
         .def("row_iter", [](storm::storage::SparseMatrix<double>& matrix, row_index start, row_index end) {
                 return py::make_iterator(matrix.begin(start), matrix.end(end));

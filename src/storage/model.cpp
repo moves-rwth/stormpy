@@ -1,4 +1,6 @@
 #include "model.h"
+#include "state.h"
+
 #include "storm/models/ModelBase.h"
 #include "storm/models/sparse/Model.h"
 #include "storm/models/sparse/Dtmc.h"
@@ -78,6 +80,9 @@ void define_model(py::module& m) {
         .def_property_readonly("initial_states", &getInitialStates<double>, "Initial states")
         .def_property_readonly("transition_matrix", &getTransitionMatrix<double>, py::return_value_policy::reference, py::keep_alive<1, 0>(), "Transition matrix")
         .def_property_readonly("backward_transition_matrix", &getBackwardTransitionMatrix<double>, py::return_value_policy::reference, py::keep_alive<1, 0>(), "Backward transition matrix")
+        .def_property_readonly("states", [](storm::models::sparse::Model<double>& model) {
+                return SparseModelStates<double>(model);
+            }, "Get states")
     ;
     py::class_<storm::models::sparse::Dtmc<double>, std::shared_ptr<storm::models::sparse::Dtmc<double>>>(m, "SparseDtmc", "DTMC in sparse representation", model)
     ;
@@ -90,12 +95,15 @@ void define_model(py::module& m) {
 
     py::class_<storm::models::sparse::Model<storm::RationalFunction>, std::shared_ptr<storm::models::sparse::Model<storm::RationalFunction>>> modelRatFunc(m, "_SparseParametricModel", "A probabilistic model where transitions are represented by rational functions and saved in a sparse matrix", modelBase);
     modelRatFunc.def("collect_probability_parameters", &probabilityVariables, "Collect parameters")
-            .def("collect_reward_parameters", &rewardVariables, "Collect reward parameters")
+        .def("collect_reward_parameters", &rewardVariables, "Collect reward parameters")
         .def_property_readonly("labeling", &getLabeling<storm::RationalFunction>, "Labels")
         .def("labels_state", &storm::models::sparse::Model<storm::RationalFunction>::getLabelsOfState, py::arg("state"), "Get labels of state")
         .def_property_readonly("initial_states", &getInitialStates<storm::RationalFunction>, "Initial states")
         .def_property_readonly("transition_matrix", &getTransitionMatrix<storm::RationalFunction>, py::return_value_policy::reference, py::keep_alive<1, 0>(), "Transition matrix")
         .def_property_readonly("backward_transition_matrix", &getBackwardTransitionMatrix<storm::RationalFunction>, py::return_value_policy::reference, py::keep_alive<1, 0>(), "Backward transition matrix")
+        .def_property_readonly("states", [](storm::models::sparse::Model<storm::RationalFunction>& model) {
+                return SparseModelStates<storm::RationalFunction>(model);
+            }, "Get states")
     ;
     py::class_<storm::models::sparse::Dtmc<storm::RationalFunction>, std::shared_ptr<storm::models::sparse::Dtmc<storm::RationalFunction>>>(m, "SparseParametricDtmc", "pDTMC in sparse representation", modelRatFunc)
     ;

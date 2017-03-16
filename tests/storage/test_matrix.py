@@ -68,9 +68,9 @@ class TestMatrix:
         assert math.isclose(resValue, 0.06923076923076932)
         
         # Change probabilities again
-        for state in stormpy.state.State(0, model.transition_matrix):
-            for action in state.actions():
-                for transition in action.transitions():
+        for state in model.states:
+            for action in state.actions:
+                for transition in action.transitions:
                     if transition.value() == 0.3:
                         transition.set_value(0.8)
                     elif transition.value() == 0.7:
