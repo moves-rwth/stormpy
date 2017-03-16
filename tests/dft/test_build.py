@@ -13,7 +13,7 @@ class TestBuild:
         assert model.nr_transitions == 5
         assert len(model.initial_states) == 1
         initial_state = model.initial_states[0]
-        assert initial_state == 0
+        assert initial_state == 1
         result = stormpy.model_checking(model, formulas[0])
         assert math.isclose(result.at(initial_state), 3)
     
