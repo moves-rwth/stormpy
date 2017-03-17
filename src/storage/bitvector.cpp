@@ -17,6 +17,14 @@ void define_bitvector(py::module& m) {
       //.def("get", &BitVector::get, "index"_a) // no idea why this does not work
         .def("get", [](BitVector const& b, uint_fast64_t i) { return b.get(i); }, "index"_a)
 
+        .def("__len__", [](BitVector const& b) { return b.size(); })
+        .def("__getitem__", [](BitVector const& b, uint_fast64_t i) {
+            if (i >= b.size())
+                throw py::index_error();
+            return b.get(i);
+        })
+        .def("__setitem__", [](BitVector& b, uint_fast64_t i, bool v) { b.set(i, v); })
+
         .def(py::self == py::self)
         .def(py::self != py::self)
 
