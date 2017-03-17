@@ -122,25 +122,13 @@ void define_sparse_matrix(py::module& m) {
         .def("__iter__", [](storm::storage::SparseMatrix<double>::rows& rows) {
                 return py::make_iterator(rows.begin(), rows.end());
             }, py::keep_alive<0, 1>())
-        .def("__str__", [](storm::storage::SparseMatrix<double>::const_rows& rows) {
-                std::stringstream stream;
-                for (auto transition : rows) {
-                    stream << transition << ", ";
-                }
-                return stream.str();
-            })
+        .def("__str__", &containerToString<storm::storage::SparseMatrix<double>::rows>)
     ;
 
     py::class_<storm::storage::SparseMatrix<storm::RationalFunction>::rows>(m, "ParametricSparseMatrixRows", "Set of rows in a parametric sparse matrix")
         .def("__iter__", [](storm::storage::SparseMatrix<storm::RationalFunction>::rows& rows) {
                 return py::make_iterator(rows.begin(), rows.end());
             }, py::keep_alive<0, 1>())
-        .def("__str__", [](storm::storage::SparseMatrix<storm::RationalFunction>::const_rows& rows) {
-                std::stringstream stream;
-                for (auto transition : rows) {
-                    stream << transition << ", ";
-                }
-                return stream.str();
-            })
+        .def("__str__", &containerToString<storm::storage::SparseMatrix<storm::RationalFunction>::rows>)
     ;
 }

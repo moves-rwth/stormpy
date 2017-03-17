@@ -16,9 +16,20 @@
  * Used for __str__ functions.
  */
 template<typename T>
-std::string streamToString(T const & t) {
+std::string streamToString(T const& t) {
     std::stringstream ss;
     ss << t;
+    return ss.str();
+}
+
+template<typename T>
+std::string containerToString(T& t) {
+    // is there a way to make ^this const&?
+    // I guess not all containers have const iterators
+    std::stringstream ss;
+    for (auto const& e : t) {
+        ss << e << ", ";
+    }
     return ss.str();
 }
 
