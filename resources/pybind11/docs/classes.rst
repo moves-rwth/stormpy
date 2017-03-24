@@ -38,7 +38,7 @@ The binding code for ``Pet`` looks as follows:
         return m.ptr();
     }
 
-:class:`class_` creates bindings for a C++ `class` or `struct`-style data
+:class:`class_` creates bindings for a C++ *class* or *struct*-style data
 structure. :func:`init` is a convenience function that takes the types of a
 constructor's parameters as template arguments and wraps the corresponding
 constructor (see the :ref:`custom_constructors` section for details). An
@@ -103,6 +103,8 @@ With the above change, the same Python code now produces the following output:
 
     >>> print(p)
     <example.Pet named 'Molly'>
+
+.. [#f1] Stateless closures are those with an empty pair of brackets ``[]`` as the capture object.
 
 .. _properties:
 
@@ -296,8 +298,8 @@ different kinds of input arguments:
     struct Pet {
         Pet(const std::string &name, int age) : name(name), age(age) { }
 
-        void set(int age) { age = age; }
-        void set(const std::string &name) { name = name; }
+        void set(int age_) { age = age_; }
+        void set(const std::string &name_) { name = name_; }
 
         std::string name;
         int age;
@@ -336,6 +338,35 @@ The overload signatures are also visible in the method's docstring:
      |      2. Signature : (Pet, str) -> NoneType
      |
      |      Set the pet's name
+
+If you have a C++14 compatible compiler [#cpp14]_, you can use an alternative
+syntax to cast the overloaded function:
+
+.. code-block:: cpp
+
+    py::class_<Pet>(m, "Pet")
+        .def("set", py::overload_cast<int>(&Pet::set), "Set the pet's age")
+        .def("set", py::overload_cast<const std::string &>(&Pet::set), "Set the pet's name");
+
+Here, ``py::overload_cast`` only requires the parameter types to be specified.
+The return type and class are deduced. This avoids the additional noise of
+``void (Pet::*)()`` as seen in the raw cast. If a function is overloaded based
+on constness, the ``py::const_`` tag should be used:
+
+.. code-block:: cpp
+
+    struct Widget {
+        int foo(int x, float y);
+        int foo(int x, float y) const;
+    };
+
+    py::class_<Widget>(m, "Widget")
+       .def("foo_mutable", py::overload_cast<int, float>(&Widget::foo))
+       .def("foo_const",   py::overload_cast<int, float>(&Widget::foo, py::const_));
+
+
+.. [#cpp14] A compiler which supports the ``-std=c++14`` flag
+            or Visual Studio 2015 Update 2 and newer.
 
 .. note::
 
@@ -392,6 +423,12 @@ typed enums.
     >>> int(p.type)
     1L
 
+The entries defined by the enumeration type are exposed in the ``__members__`` property:
+
+.. code-block:: pycon
+
+    >>> Pet.Kind.__members__
+    {'Dog': Kind.Dog, 'Cat': Kind.Cat}
 
 .. note::
 
@@ -406,5 +443,3 @@ typed enums.
            ...
 
     By default, these are omitted to conserve space.
-
-.. [#f1] Stateless closures are those with an empty pair of brackets ``[]`` as the capture object.

@@ -25,7 +25,7 @@ After installing the prerequisites, run
    mkdir build
    cd build
    cmake ..
-   make pytest -j 4
+   make check -j 4
 
 The last line will both compile and run the tests.
 
@@ -42,7 +42,7 @@ To compile and run the tests:
    mkdir build
    cd build
    cmake ..
-   cmake --build . --config Release --target pytest
+   cmake --build . --config Release --target check
 
 This will create a Visual Studio project, compile and run the target, all from the
 command line.
@@ -254,16 +254,18 @@ The shorthand notation is also available for default arguments:
 Exporting variables
 ===================
 
-To expose a value from C++, use the ``attr`` function to register it in a module
-as shown below. Built-in types and general objects (more on that later) can be
+To expose a value from C++, use the ``attr`` function to register it in a
+module as shown below. Built-in types and general objects (more on that later)
+are automatically converted when assigned as attributes, and can be explicitly
 converted using the function ``py::cast``.
 
 .. code-block:: cpp
 
     PYBIND11_PLUGIN(example) {
         py::module m("example", "pybind11 example plugin");
-        m.attr("the_answer") = py::cast(42);
-        m.attr("what") = py::cast("World");
+        m.attr("the_answer") = 42;
+        py::object world = py::cast("World");
+        m.attr("what") = world;
         return m.ptr();
     }
 
