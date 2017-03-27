@@ -175,7 +175,7 @@ function(pybind11_add_module target_name)
 
   if (NOT MSVC AND NOT ${CMAKE_BUILD_TYPE} MATCHES Debug)
     # Set the default symbol visibility to hidden (very important to obtain small binaries)
-    target_compile_options(${target_name} PRIVATE "-fvisibility=hidden")
+    #target_compile_options(${target_name} PRIVATE "-fvisibility=hidden")
 
     # Strip unnecessary sections of the binary on Linux/Mac OS
     if(CMAKE_STRIP)
