@@ -94,11 +94,12 @@ def build_parametric_model_from_drn(file):
     else:
         raise RuntimeError("Not supported parametric model constructed")
 
-def perform_bisimulation(model, property, bisimulation_type):
+def perform_bisimulation(model, properties, bisimulation_type):
+    formulae = [prop.raw_formula for prop in properties]
     if model.supports_parameters:
-        return core._perform_parametric_bisimulation(model, property.raw_formula, bisimulation_type)
+        return core._perform_parametric_bisimulation(model, formulae, bisimulation_type)
     else:
-        return core._perform_bisimulation(model, property.raw_formula, bisimulation_type)
+        return core._perform_bisimulation(model, formulae, bisimulation_type)
 
 def model_checking(model, property):
     if model.supports_parameters:
