@@ -34,6 +34,8 @@ void define_polynomial(py::module& m) {
         .def("__mul__",  static_cast<Polynomial (*)(const Polynomial&, carl::Variable::Arg)>(&carl::operator*))
         .def("__mul__",  static_cast<Polynomial (*)(const Polynomial&, const Rational&)>(&carl::operator*))
 
+        .def(py::self == Rational())
+
         .def(PY_DIV, [](const Polynomial& lhs, const RationalFunction& rhs) { return RationalFunction(lhs) / rhs; })
         .def(PY_DIV, [](const Polynomial& lhs, const Polynomial& rhs) { return RationalFunction(lhs, rhs); })
         .def(PY_DIV, [](const Polynomial& lhs, const Term& rhs) { return RationalFunction(lhs) / rhs; })
