@@ -2,6 +2,7 @@
 import os
 import sys
 import subprocess
+import re
 
 from setuptools import setup, Extension
 from setuptools.command.build_ext import build_ext
@@ -29,9 +30,30 @@ class CMakeBuild(build_ext):
         except OSError:
             raise RuntimeError("CMake must be installed to build the following extensions: " +
                                ", ".join(e.name for e in self.extensions))
-
+        
+        build_temp_version = self.build_temp + "-version"
+        if not os.path.exists(build_temp_version):
+            os.makedirs(build_temp_version)
+        
+        # Check cmake variable values
+        output = subprocess.check_output(['cmake', os.path.abspath("cmake")], cwd=build_temp_version)
+        output = output.decode('ascii')
+        match = re.search(r"STORM-DIR: (.*)", output)
+        assert(match)
+        storm_dir = match.group(1)
+        match = re.search(r"HAVE-STORM-DFT: (.*)", output)
+        assert(match)
+        self.have_storm_dft = True if match.group(1) == "TRUE" else False
+        
+        
         for ext in self.extensions:
-            self.build_extension(ext)
+            if ext.name == "dft":
+                if self.have_storm_dft:
+                    self.build_extension(ext)
+                else:
+                    print("WARNING: storm-dft not found. No support for DFTs will be built.")
+            else:
+                self.build_extension(ext)
 
     def initialize_options(self):
         build_ext.initialize_options(self)
@@ -55,6 +77,8 @@ class CMakeBuild(build_ext):
         build_args += ['--', '-j{}'.format(os.cpu_count() if os.cpu_count() is not None else 2)]
         if self.storm_dir is not None:
             cmake_args += ['-Dstorm_DIR=' + self.storm_dir]
+        if self.have_storm_dft:
+            cmake_args += ['-DHAVE_STORM_DFT=ON']
 
         env = os.environ.copy()
         env['CXXFLAGS'] = '{} -DVERSION_INFO=\\"{}\\"'.format(env.get('CXXFLAGS', ''),
