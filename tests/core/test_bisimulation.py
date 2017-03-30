@@ -1,7 +1,7 @@
 import stormpy
 import stormpy.logic
 from helpers.helper import get_example_path
-
+import math
 
 class TestBisimulation:
     def test_bisimulation(self):
@@ -19,7 +19,7 @@ class TestBisimulation:
         initial_state = model.initial_states[0]
         assert initial_state == 0
         result = stormpy.model_checking(model, properties[0])
-        model_bisim = stormpy.perform_bisimulation(model, properties, stormpy.BisimulationType.STRONG)
+        model_bisim = stormpy.perform_bisimulation(model, properties[0], stormpy.BisimulationType.STRONG)
         assert model_bisim.nr_states == 64
         assert model_bisim.nr_transitions == 104
         assert model_bisim.model_type == stormpy.ModelType.DTMC
