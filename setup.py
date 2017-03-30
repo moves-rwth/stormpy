@@ -6,7 +6,21 @@ import subprocess
 
 from setuptools import setup, Extension
 from setuptools.command.build_ext import build_ext
-from distutils.version import LooseVersion
+
+def obtain_version():
+    verstr = "unknown"
+    try:
+        verstrline = open('lib/pycarl/_version.py', "rt").read()
+    except EnvironmentError:
+        pass # Okay, there is no version file.
+    else:
+        VSRE = r"^__version__ = ['\"]([^'\"]*)['\"]"
+        mo = re.search(VSRE, verstrline, re.M)
+        if mo:
+            verstr = mo.group(1)
+        else:
+            raise RuntimeError("unable to find version in yourpackage/_version.py")
+    return verstr
 
 
 class CMakeExtension(Extension):
@@ -68,7 +82,7 @@ class CMakeBuild(build_ext):
         
 setup(
     name='pycarl',
-    version="1.1",
+    version=obtain_version(),
     author="H. Bruintjes",
     author_email="h.bruintjes@cs.rwth-aachen.de",
     maintainer="S. Junges",
