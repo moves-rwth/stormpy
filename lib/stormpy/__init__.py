@@ -17,9 +17,9 @@ def build_model(program, properties=None):
     """
     if properties:
         formulae = [prop.raw_formula for prop in properties]
+        intermediate = core._build_sparse_model_from_prism_program(program, formulae)
     else:
-        formulae = []
-    intermediate = core._build_sparse_model_from_prism_program(program, formulae)
+        intermediate = core._build_sparse_model_from_prism_program(program)
     assert not intermediate.supports_parameters
     if intermediate.model_type == ModelType.DTMC:
         return intermediate._as_dtmc()
