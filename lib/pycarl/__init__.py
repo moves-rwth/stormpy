@@ -9,3 +9,17 @@ except ImportError:
     pass
 
 
+def numerator(x):
+    if type(x) == core.RationalFunction or type(x) == core.Rational or type(x) == core.FactorizedRationalFunction:
+        return x.numerator
+    else:
+        return x
+
+def denominator(x):
+    if type(x) == core.RationalFunction or type(x) == core.Rational or type(x) == core.FactorizedRationalFunction:
+        return x.denominator
+    else:
+        return 1
+
+
+
