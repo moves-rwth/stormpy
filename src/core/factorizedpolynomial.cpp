@@ -27,6 +27,9 @@ void define_factorizedpolynomial(py::module& m) {
                 return pol.derivative(var, 1);
             }, "Compute the derivative", py::arg("variable"))
         .def("__str__", &streamToString<FactorizedPolynomial>)
+        .def("to_smt2", [](FactorizedPolynomial const& pol) {
+                return pol.toString(false, true);
+            })
         .def(py::self - py::self)
         .def(py::self + py::self)
         .def(py::self * py::self)
