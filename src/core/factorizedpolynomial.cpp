@@ -10,7 +10,8 @@
 #include "common.h"
 
 void define_factorizationcache(py::module& m) {
-    py::class_<std::shared_ptr<carl::Cache<FactorizationPair>>>(m, "FactorizationCache", "Cache storing all factorized polynomials")
+    py::class_<carl::Cache<FactorizationPair>, std::shared_ptr<carl::Cache<FactorizationPair>>>(m, "FactorizationCache", "Cache storing all factorized polynomials")
+        .def(py::init())
     ;
 }
 
@@ -21,6 +22,7 @@ void define_factorizedpolynomial(py::module& m) {
         .def("constant_part", &FactorizedPolynomial::constantPart)
         .def("evaluate", &FactorizedPolynomial::evaluate<Rational>)
         .def("gather_variables", static_cast<std::set<carl::Variable> (FactorizedPolynomial::*)() const>(&FactorizedPolynomial::gatherVariables))
+        .def("cache", &FactorizedPolynomial::pCache)
         .def("__str__", &streamToString<FactorizedPolynomial>)
         .def(py::self - py::self)
         .def(py::self + py::self)
