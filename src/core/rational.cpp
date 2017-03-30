@@ -15,7 +15,7 @@ void define_rational(py::module& m) {
     py::class_<Rational>(m, "Rational", "Class wrapping rational numbers")
         .def("__init__", [](Rational &instance, double val) -> void { auto tmp = carl::rationalize<Rational>(val); new (&instance) Rational(tmp); })
         .def("__init__", [](Rational &instance, carl::sint val) -> void { auto tmp = carl::rationalize<Rational>(val); new (&instance) Rational(tmp); })
-        .def("__init__", [](Rational &instance, std::string val) -> void { auto tmp = carl::rationalize<Rational>(val); new (&instance) Rational(tmp); })
+        .def("__init__", [](Rational &instance, std::string val) -> void { auto tmp = carl::parse<Rational>(val); new (&instance) Rational(tmp); })
 
         .def("__add__",  static_cast<Polynomial (*)(const Rational&, const Polynomial&)>(&carl::operator+))
         .def("__add__",  static_cast<Polynomial (*)(const Rational&, const Term&)>(&carl::operator+))
@@ -103,7 +103,7 @@ void define_rational(py::module& m) {
         .def("__getstate__", [](const Rational& val) {
             return std::pair<std::string, std::string>(carl::toString(carl::getNum(val)), carl::toString(carl::getDenom(val)));})
 
-        .def("__setstate__", [](Rational& val, std::pair<std::string, std::string> data) {Rational res = carl::rationalize<Rational>(data.first) / carl::rationalize<Rational>(data.second); new (&val) Rational(res); })
+        .def("__setstate__", [](Rational& val, std::pair<std::string, std::string> data) {Rational res = carl::parse<Rational>(data.first) / carl::parse<Rational>(data.second); new (&val) Rational(res); })
         ;
 	
 	py::implicitly_convertible<double, Rational>();
