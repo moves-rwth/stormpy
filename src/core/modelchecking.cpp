@@ -8,12 +8,10 @@ std::shared_ptr<storm::modelchecker::CheckResult> modelChecking(std::shared_ptr<
 
 // Thin wrapper for parametric model checking
 std::shared_ptr<PmcResult> parametricModelChecking(std::shared_ptr<storm::models::sparse::Model<storm::RationalFunction>> model, std::shared_ptr<storm::logic::Formula const> const& formula) {
-    std::unique_ptr<storm::modelchecker::CheckResult> checkResult = storm::verifySparseModel<storm::RationalFunction>(model, formula);
-    std::shared_ptr<PmcResult> result = std::make_shared<PmcResult>();
-    result->resultFunction = checkResult->asExplicitQuantitativeCheckResult<storm::RationalFunction>()[*model->getInitialStates().begin()];
+    std::shared_ptr<PmcResult> result = std::make_shared<PmcResult>(storm::verifySparseModel<storm::RationalFunction>(model, formula));
     storm::models::sparse::Dtmc<storm::RationalFunction>::ConstraintCollector constraintCollector(*(model->template as<storm::models::sparse::Dtmc<storm::RationalFunction>>()));
-    result->constraintsWellFormed = constraintCollector.getWellformedConstraints();
-    result->constraintsGraphPreserving = constraintCollector.getGraphPreservingConstraints();
+    result->setConstraintsWellFormed(constraintCollector.getWellformedConstraints());
+    result->setConstraintsGraphPreserving(constraintCollector.getGraphPreservingConstraints());
     return result;
 }
 

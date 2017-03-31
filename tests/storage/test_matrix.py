@@ -77,6 +77,8 @@ class TestMatrix:
         program = stormpy.parse_prism_program(get_example_path("pdtmc", "brp16_2.pm"))
         formulas = stormpy.parse_properties_for_prism_program("P=? [ F s=5 ]", program)
         model = stormpy.build_parametric_model(program, formulas)
+        initial_state = model.initial_states[0]
+        assert initial_state == 0
         matrix = model.transition_matrix
         # Check matrix
         one_pol = pycarl.Rational(1)
@@ -86,7 +88,8 @@ class TestMatrix:
             assert e.value() == one or len(e.value().gather_variables()) > 0
         # First model checking
         result = stormpy.model_checking(model, formulas[0])
-        assert len(result.result_function.gather_variables()) > 0
+        ratFunc = result.result.at(initial_state)
+        assert len(ratFunc.gather_variables()) > 0
         
         # Change probabilities
         two_pol = pycarl.Rational(2)
@@ -99,4 +102,5 @@ class TestMatrix:
             assert e.value() == new_val or e.value() == one
         # Second model checking
         result = stormpy.model_checking(model, formulas[0])
-        assert len(result.result_function.gather_variables()) == 0
+        ratFunc = result.result.at(initial_state)
+        assert len(ratFunc.gather_variables()) == 0

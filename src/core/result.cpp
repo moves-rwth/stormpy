@@ -4,9 +4,9 @@
 void define_result(py::module& m) {
 
     // PmcResult
-    py::class_<PmcResult, std::shared_ptr<PmcResult>>(m, "PmcResult", "Holds the results after parametric model checking")
+    py::class_<PmcResult, std::shared_ptr<PmcResult>>(m, "PmcResult", "Holds the result and additional constraints after parametric model checking")
         .def("__str__", &PmcResult::toString)
-        .def_property_readonly("result_function", &PmcResult::getResultFunction, "Result as rational function")
+        .def_property_readonly("result", &PmcResult::getResult, "Result")
         .def_property_readonly("constraints_well_formed", &PmcResult::getConstraintsWellFormed, "Constraints ensuring well-formed probabilities")
         .def_property_readonly("constraints_graph_preserving", &PmcResult::getConstraintsGraphPreserving, "Constraints ensuring graph preservation")
     ;
@@ -31,6 +31,9 @@ void define_result(py::module& m) {
         .def("as_explicit_quantitative", [](storm::modelchecker::CheckResult const& result) {
                 return result.asExplicitQuantitativeCheckResult<double>();
             }, "Convert into explicit quantitative result")
+        .def("as_explicit_parametric_quantitative", [](storm::modelchecker::CheckResult const& result) {
+                return result.asExplicitQuantitativeCheckResult<storm::RationalFunction>();
+            }, "Convert into explicit quantitative result")
         .def("__str__",  [](storm::modelchecker::CheckResult const& result) {
                 std::stringstream stream;
                 result.writeToStream(stream);
@@ -51,6 +54,13 @@ void define_result(py::module& m) {
             return result[state];
         }, py::arg("state"), "Get result for given state")
         .def("get_values", &storm::modelchecker::ExplicitQuantitativeCheckResult<double>::getValueVector, "Get model checking result values for all states")
+    ;
+    py::class_<storm::modelchecker::QuantitativeCheckResult<storm::RationalFunction>, std::shared_ptr<storm::modelchecker::QuantitativeCheckResult<storm::RationalFunction>>> parametricQuantitativeCheckResult(m, "_ParametricQuantitativeCheckResult", "Abstract class for parametric quantitative model checking results", checkResult);
+    py::class_<storm::modelchecker::ExplicitQuantitativeCheckResult<storm::RationalFunction>, std::shared_ptr<storm::modelchecker::ExplicitQuantitativeCheckResult<storm::RationalFunction>>>(m, "ExplicitParametricQuantitativeCheckResult", "Explicit parametric quantitative model checking result", parametricQuantitativeCheckResult)
+        .def("at", [](storm::modelchecker::ExplicitQuantitativeCheckResult<storm::RationalFunction> const& result, storm::storage::sparse::state_type state) {
+            return result[state];
+        }, py::arg("state"), "Get result for given state")
+        .def("get_values", &storm::modelchecker::ExplicitQuantitativeCheckResult<storm::RationalFunction>::getValueVector, "Get model checking result values for all states")
     ;
 
 }

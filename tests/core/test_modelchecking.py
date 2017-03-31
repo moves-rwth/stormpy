@@ -40,8 +40,10 @@ class TestModelChecking:
         assert model.nr_transitions == 803
         assert model.model_type == stormpy.ModelType.DTMC
         assert model.has_parameters
+        initial_state = model.initial_states[0]
+        assert initial_state == 0
         result = stormpy.model_checking(model, formulas[0])
-        func = result.result_function
+        func = result.result.at(initial_state)
         one = pycarl.FactorizedPolynomial(pycarl.Rational(1))
         assert func.denominator == one
         constraints_well_formed = result.constraints_well_formed
