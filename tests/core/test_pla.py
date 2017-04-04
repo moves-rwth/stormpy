@@ -13,7 +13,7 @@ class TestModelChecking:
         assert model.nr_transitions == 803
         assert model.model_type == stormpy.ModelType.DTMC
         assert model.has_parameters
-        checker = stormpy.SparseDtmcRegionModelChecker(model)
+        checker = stormpy.PLAChecker(model)
         checker.specify_formula(formulas[0].raw_formula)
         parameters = model.collect_probability_parameters()
         assert len(parameters) == 2

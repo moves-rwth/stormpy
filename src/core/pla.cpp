@@ -16,7 +16,7 @@ storm::modelchecker::parametric::RegionCheckResult checkRegion(std::shared_ptr<P
 void define_pla(py::module& m) {
     
     // PLAChecker
-    py::class_<PLAChecker, std::shared_ptr<PLAChecker>>(m, "SparseDtmcRegionModelChecker", "Region model checker for sparse DTMCs")
+    py::class_<PLAChecker, std::shared_ptr<PLAChecker>>(m, "PLAChecker", "Region model checker for sparse DTMCs")
         .def("__init__", [](PLAChecker& instance, std::shared_ptr<storm::models::sparse::Dtmc<storm::RationalFunction>> model) -> void {
                 new (&instance) PLAChecker(*model);
             })
