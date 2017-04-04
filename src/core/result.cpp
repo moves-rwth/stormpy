@@ -1,5 +1,11 @@
 #include "result.h"
 
+// Thin wrapper
+template<typename ValueType>
+std::vector<ValueType> getValues(storm::modelchecker::ExplicitQuantitativeCheckResult<ValueType> const& result) {
+    return result.getValueVector();
+}
+
 // Define python bindings
 void define_result(py::module& m) {
 
@@ -53,14 +59,14 @@ void define_result(py::module& m) {
         .def("at", [](storm::modelchecker::ExplicitQuantitativeCheckResult<double> const& result, storm::storage::sparse::state_type state) {
             return result[state];
         }, py::arg("state"), "Get result for given state")
-        .def("get_values", &storm::modelchecker::ExplicitQuantitativeCheckResult<double>::getValueVector, "Get model checking result values for all states")
+        .def("get_values", &getValues<double>, "Get model checking result values for all states")
     ;
     py::class_<storm::modelchecker::QuantitativeCheckResult<storm::RationalFunction>, std::shared_ptr<storm::modelchecker::QuantitativeCheckResult<storm::RationalFunction>>> parametricQuantitativeCheckResult(m, "_ParametricQuantitativeCheckResult", "Abstract class for parametric quantitative model checking results", checkResult);
     py::class_<storm::modelchecker::ExplicitQuantitativeCheckResult<storm::RationalFunction>, std::shared_ptr<storm::modelchecker::ExplicitQuantitativeCheckResult<storm::RationalFunction>>>(m, "ExplicitParametricQuantitativeCheckResult", "Explicit parametric quantitative model checking result", parametricQuantitativeCheckResult)
         .def("at", [](storm::modelchecker::ExplicitQuantitativeCheckResult<storm::RationalFunction> const& result, storm::storage::sparse::state_type state) {
             return result[state];
         }, py::arg("state"), "Get result for given state")
-        .def("get_values", &storm::modelchecker::ExplicitQuantitativeCheckResult<storm::RationalFunction>::getValueVector, "Get model checking result values for all states")
+        .def("get_values", &getValues<storm::RationalFunction>, "Get model checking result values for all states")
     ;
 
 }
