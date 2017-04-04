@@ -1,3 +1,4 @@
 *.so
+*.pyc
 __pycache__/
 pycarl.egg-info/
