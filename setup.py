@@ -118,5 +118,6 @@ setup(
                  ],
     cmdclass={'build_ext': CMakeBuild, 'test': PyTest},
     zip_safe=False,
+    install_requires=['pycarl>=1.2.0'],
     tests_require=['pytest'],
 )
