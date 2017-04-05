@@ -47,6 +47,9 @@ void define_rationalfunction(py::module& m) {
         .def_property_readonly("nominator", &RationalFunction::nominator)
         .def_property_readonly("numerator", &RationalFunction::nominator)
         .def_property_readonly("denominator", &RationalFunction::denominator)
+        .def("derive", [](RationalFunction const& ratFunc, carl::Variable const& var) {
+                return ratFunc.derivative(var, 1);
+            }, "Compute the derivative", py::arg("variable"))
         .def("__str__", &streamToString<RationalFunction>)
 
         .def(py::self == py::self)

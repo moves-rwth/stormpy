@@ -54,7 +54,13 @@ void define_polynomial(py::module& m) {
         .def_property_readonly("total_degree", &Polynomial::totalDegree)//, py::doc("The maximum degree of the terms in the polynomial"))
         .def("degree", &Polynomial::degree)//, py::doc("Computes the degree with respect to the given variable"))
         .def_property_readonly("nr_terms", &Polynomial::nrTerms)
-        .def("__str__", [](const Polynomial& var) { return var.toString(); })
+        .def("derive", [](Polynomial const& pol, carl::Variable const& var) {
+                return pol.derivative(var, 1);
+            }, "Compute the derivative", py::arg("variable"))
+        .def("__str__", [](const Polynomial& pol) { return pol.toString(); })
+        .def("to_smt2", [](Polynomial const& pol) {
+                return pol.toString(false, true);
+            })
 
         .def(py::self != py::self)
         .def(py::self == py::self)
