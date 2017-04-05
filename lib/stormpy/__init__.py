@@ -5,6 +5,9 @@ from .storage import *
 from .version import __version__
 import stormpy.logic
 
+from pycarl import Variable  # needed for building parametric models
+
+
 core._set_up("")
 
 
