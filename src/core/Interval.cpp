@@ -109,7 +109,7 @@ void define_interval(py::module& m) {
 		.def(Rational() > py::self)
 		
 		.def("__str__", &streamToString<Interval>)
-		.def("__repr__", &streamToString<Interval>)
+		.def("__repr__", [](const Interval& i) { return "<Interval " + streamToString<Interval>(i) + ">"; })
 	    ;
 	
 	m.def("isInteger", [](const Interval& i){ return carl::isInteger(i); });
