@@ -13,11 +13,12 @@
 
 using ModelBase = storm::models::ModelBase;
 using state_type = storm::storage::sparse::state_type;
+using RationalFunction = storm::RationalFunction;
+using RationalFunctionVariable = storm::RationalFunctionVariable;
+template<typename ValueType> using Model = storm::models::sparse::Model<ValueType>;
 template<typename ValueType> using Dtmc = storm::models::sparse::Dtmc<ValueType>;
 template<typename ValueType> using Mdp = storm::models::sparse::Mdp<ValueType>;
-template<typename ValueType> using Model = storm::models::sparse::Model<ValueType>;
 template<typename ValueType> using SparseMatrix = storm::storage::SparseMatrix<ValueType>;
-using RationalFunction = storm::RationalFunction;
 
 // Thin wrapper for getting initial states
 template<typename ValueType>
@@ -36,11 +37,11 @@ SparseMatrix<ValueType>& getTransitionMatrix(Model<ValueType>& model) {
 }
 
 // requires pycarl.Variable
-std::set<storm::RationalFunctionVariable> probabilityVariables(Model<RationalFunction> const& model) {
+std::set<RationalFunctionVariable> probabilityVariables(Model<RationalFunction> const& model) {
     return storm::models::sparse::getProbabilityParameters(model);
 }
 
-std::set<storm::RationalFunctionVariable> rewardVariables(Model<RationalFunction> const& model) {
+std::set<RationalFunctionVariable> rewardVariables(Model<RationalFunction> const& model) {
     return storm::models::sparse::getRewardParameters(model);
 }
 
