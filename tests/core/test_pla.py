@@ -35,7 +35,7 @@ class TestModelChecking:
         #upperBounds = {pL: 0.65, pK: 0.95}
         #region = stormpy.ParameterRegion(lowerBounds, upperBounds)
         region = stormpy.ParameterRegion("0.4<=pL<=0.65,0.75<=pK<=0.95", parameters)
-        result = checker.check_region(region)
+        result = checker.check_region(region, stormpy.RegionCheckResult.UNKNOWN, True)
         assert result == stormpy.RegionCheckResult.EXISTSBOTH
         #lowerBounds = {pL: 0.1, pK: 0.2}
         #upperBounds = {pL: 0.73, pK: 0.715}
