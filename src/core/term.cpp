@@ -12,6 +12,7 @@
 void define_term(py::module& m) {
     py::class_<Term>(m, "Term")
         .def(py::init<Rational, const Monomial::Arg&>())
+        .def(py::init<carl::Variable&>())
 
         .def("__add__",  static_cast<Polynomial (*)(const Term&, const Polynomial&)>(&carl::operator+))
         .def("__add__",  static_cast<Polynomial (*)(const Term&, const Term&)>(&carl::operator+))
