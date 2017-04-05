@@ -1,5 +1,6 @@
 #include "common.h"
 
+#include "core/integer.h"
 #include "core/rational.h"
 #include "core/variable.h"
 #include "core/monomial.h"
@@ -14,6 +15,8 @@
 PYBIND11_PLUGIN(core) {
     py::module m("core");
 
+    define_cln_integer(m);
+    define_gmp_integer(m);
     define_rational(m);
     define_variabletype(m);
     define_variable(m);
