@@ -49,7 +49,10 @@ void define_formulae(py::module& m) {
     py::class_<storm::logic::UnaryBooleanStateFormula, std::shared_ptr<storm::logic::UnaryBooleanStateFormula>>(m, "UnaryBooleanStateFormula", "Unary boolean state formula", unaryStateFormula);
     py::class_<storm::logic::OperatorFormula, std::shared_ptr<storm::logic::OperatorFormula>> operatorFormula(m, "OperatorFormula", "Operator formula",unaryStateFormula);
     operatorFormula.def_property_readonly("has_bound", &storm::logic::OperatorFormula::hasBound, "Flag if formula is bounded")
-        .def_property("threshold", &storm::logic::OperatorFormula::getThreshold, &storm::logic::OperatorFormula::setThreshold, "Threshold of bound")
+        .def_property("_threshold_expression", &storm::logic::OperatorFormula::getThreshold, &storm::logic::OperatorFormula::setThreshold, "Threshold expression")
+        .def_property_readonly("_threshold_as_rational", &storm::logic::OperatorFormula::getThresholdAs<storm::RationalNumber>, "Rational threshold of bound, if applicable")
+        .def_property_readonly("_threshold_expression_has_rational_type", [](storm::logic::OperatorFormula const& f) { return f.getThreshold().hasRationalType(); } , "Check expression type [without needing a Python expression object]")
+        // property "threshold" defined in __init__ and is intended to be safe to use; the above two are for internal use
         .def_property("comparison_type", &storm::logic::OperatorFormula::getComparisonType, &storm::logic::OperatorFormula::setComparisonType, "Comparison type of bound")
     ;
     py::class_<storm::logic::TimeOperatorFormula, std::shared_ptr<storm::logic::TimeOperatorFormula>>(m, "TimeOperator", "The time operator", operatorFormula);
