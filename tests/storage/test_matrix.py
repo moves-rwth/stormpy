@@ -15,6 +15,16 @@ class TestMatrix:
         for e in matrix:
             assert e.value() == 0.5 or e.value() == 0 or (e.value() == 1 and e.column > 6)
     
+    def test_backward_matrix(self):
+        model = stormpy.parse_explicit_model(get_example_path("dtmc", "die.tra"), get_example_path("dtmc", "die.lab"))
+        matrix = model.backward_transition_matrix
+        assert type(matrix) is stormpy.storage.SparseMatrix
+        assert matrix.nr_rows == model.nr_states
+        assert matrix.nr_columns == model.nr_states
+        assert matrix.nr_entries == 20 #model.nr_transitions
+        for e in matrix:
+            assert e.value() == 0.5 or e.value() == 0 or (e.value() == 1 and e.column > 6)
+    
     def test_change_sparse_matrix(self):
         model = stormpy.parse_explicit_model(get_example_path("dtmc", "die.tra"), get_example_path("dtmc", "die.lab"))
         matrix = model.transition_matrix
@@ -59,9 +69,9 @@ class TestMatrix:
         assert math.isclose(resValue, 0.06923076923076932)
         
         # Change probabilities again
-        for state in stormpy.state.State(0, model):
-            for action in state.actions():
-                for transition in action.transitions():
+        for state in model.states:
+            for action in state.actions:
+                for transition in action.transitions:
                     if transition.value() == 0.3:
                         transition.set_value(0.8)
                     elif transition.value() == 0.7:

@@ -1,0 +1,73 @@
+// Exported by storm
+// Original model type: CTMC
+@type: CTMC
+@parameters
+
+@nr_states
+16
+@model
+state 0 init
+	action 0
+		1 : 0.5
+		2 : 0.5
+		3 : 0.5
+		4 : 0.5
+state 1
+	action 0
+		5 : 0.5
+		9 : 0.5
+		11 : 0.5
+state 2
+	action 0
+		5 : 0.5
+		14 : 0.5
+		15 : 0.5
+state 3
+	action 0
+		9 : 0.5
+		12 : 0.5
+		15 : 0.5
+state 4
+	action 0
+		11 : 0.5
+		12 : 0.5
+		14 : 0.5
+state 5
+	action 0
+		6 : 0.5
+		8 : 0.5
+state 6
+	action 0
+		7 : 0.5
+state 7 failed
+	action 0
+		7 : 1
+state 8
+	action 0
+		7 : 0.5
+state 9
+	action 0
+		8 : 0.5
+		10 : 0.5
+state 10
+	action 0
+		7 : 0.5
+state 11
+	action 0
+		6 : 0.5
+		10 : 0.5
+state 12
+	action 0
+		10 : 0.5
+		13 : 0.5
+state 13
+	action 0
+		7 : 0.5
+state 14
+	action 0
+		6 : 0.5
+		13 : 0.5
+state 15
+	action 0
+		8 : 0.5
+		13 : 0.5

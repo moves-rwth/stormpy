@@ -37,3 +37,12 @@ class TestParse:
         assert model.model_type == stormpy.ModelType.MDP
         assert not model.supports_parameters
         assert type(model) is stormpy.SparseMdp
+    
+    def test_parse_drn_dtmc(self):
+        model = stormpy.build_model_from_drn(get_example_path("ctmc", "dft.drn"))
+        assert model.nr_states == 16
+        assert model.nr_transitions == 33
+        assert model.model_type == stormpy.ModelType.CTMC
+        assert not model.supports_parameters
+        assert type(model) is stormpy.SparseCtmc
+    

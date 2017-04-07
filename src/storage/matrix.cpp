@@ -18,7 +18,7 @@ void define_sparse_matrix(py::module& m) {
         .def("set_value", &MatrixEntry<double>::setValue, py::arg("value"), "Set value")
         .def_property_readonly("column", &MatrixEntry<double>::getColumn, "Column")
     ;
- 
+
     py::class_<MatrixEntry<RationalFunction>>(m, "ParametricSparseMatrixEntry", "Entry of parametric sparse matrix")
         .def("__str__", &streamToString<MatrixEntry<RationalFunction>>)
         //def_property threw "pointer being freed not allocated" after exiting
@@ -51,7 +51,7 @@ void define_sparse_matrix(py::module& m) {
                     stream << transition << ", ";
                 }
                 return stream.str();
-            }, py::arg("row"), "Print row")
+            }, py::arg("row"), "Print rows from start to end")
         // Entry_index lead to problems
         .def("row_iter", [](SparseMatrix<double>& matrix, row_index start, row_index end) {
                 return py::make_iterator(matrix.begin(start), matrix.end(end));
@@ -126,6 +126,7 @@ void define_sparse_matrix(py::module& m) {
                 return py::make_iterator(rows.begin(), rows.end());
             }, py::keep_alive<0, 1>())
         .def("__str__", &containerToString<SparseMatrix<double>::rows>)
+        .def("__len__", &storm::storage::SparseMatrix<double>::rows::getNumberOfEntries)
     ;
 
     py::class_<SparseMatrix<RationalFunction>::rows>(m, "ParametricSparseMatrixRows", "Set of rows in a parametric sparse matrix")
@@ -133,5 +134,6 @@ void define_sparse_matrix(py::module& m) {
                 return py::make_iterator(rows.begin(), rows.end());
             }, py::keep_alive<0, 1>())
         .def("__str__", &containerToString<SparseMatrix<RationalFunction>::rows>)
+        .def("__len__", &storm::storage::SparseMatrix<storm::RationalFunction>::rows::getNumberOfEntries)
     ;
 }

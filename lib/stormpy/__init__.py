@@ -13,10 +13,12 @@ core._set_up("")
 
 def build_model(program, properties=None):
     """
-    Build a model from a symbolic description
+    Build a model from a symbolic description.
 
     :param PrismProgram program: Prism program to translate into a model.
     :param List[Property] properties: List of properties that should be preserved during the translation. If None, then all properties are preserved.
+    :return: Model in sparse representation.
+    :rtype: SparseDtmc or SparseMdp
     """
     if properties:
         formulae = [prop.raw_formula for prop in properties]
@@ -34,9 +36,12 @@ def build_model(program, properties=None):
 
 def build_parametric_model(program, properties=None):
     """
+    Build a parametric model from a symbolic description.
     
     :param PrismProgram program: Prism program with open constants to translate into a parametric model.
     :param List[Property] properties: List of properties that should be preserved during the translation. If None, then all properties are preserved.
+    :return: Parametric model in sparse representation.
+    :rtype: SparseParametricDtmc or SparseParametricMdp
     """
     if properties:
         formulae = [prop.raw_formula for prop in properties]
@@ -51,12 +56,54 @@ def build_parametric_model(program, properties=None):
     else:
         raise RuntimeError("Not supported parametric model constructed")
 
+def build_model_from_drn(file):
+    """
+    Build a model from the explicit DRN representation.
 
-def perform_bisimulation(model, property, bisimulation_type):
-    if model.supports_parameters:
-        return core._perform_parametric_bisimulation(model, property.raw_formula, bisimulation_type)
+    :param String file: DRN file containing the model.
+    :return: Model in sparse representation.
+    :rtype: SparseDtmc or SparseMdp or SparseCTMC or SparseMA
+    """
+    intermediate = core._build_sparse_model_from_drn(file)
+    assert not intermediate.supports_parameters
+    if intermediate.model_type == ModelType.DTMC:
+        return intermediate._as_dtmc()
+    elif intermediate.model_type == ModelType.MDP:
+        return intermediate._as_mdp()
+    elif intermediate.model_type == ModelType.CTMC:
+        return intermediate._as_ctmc()
+    elif intermediate.model_type == ModelType.MA:
+        return intermediate._as_ma()
     else:
-        return core._perform_bisimulation(model, property.raw_formula, bisimulation_type)
+        raise RuntimeError("Not supported non-parametric model constructed")
+
+def build_parametric_model_from_drn(file):
+    """
+    Build a parametric model from the explicit DRN representation.
+
+    :param String file: DRN file containing the model.
+    :return: Parametric model in sparse representation.
+    :rtype: SparseParametricDtmc or SparseParametricMdp or SparseParametricCTMC or SparseParametricMA
+    """
+    intermediate = core._build_sparse_parametric_model_from_drn(file)
+    assert intermediate.supports_parameters
+    if intermediate.model_type == ModelType.DTMC:
+        return intermediate._as_pdtmc()
+    elif intermediate.model_type == ModelType.MDP:
+        return intermediate._as_pmdp()
+    elif intermediate.model_type == ModelType.CTMC:
+        return intermediate._as_pctmc()
+    elif intermediate.model_type == ModelType.MA:
+        return intermediate._as_pma()
+    else:
+        raise RuntimeError("Not supported parametric model constructed")
+
+def perform_bisimulation(model, properties, bisimulation_type):
+    formulae = [prop.raw_formula for prop in properties]
+    if model.supports_parameters:
+        return core._perform_parametric_bisimulation(model, formulae, bisimulation_type)
+    else:
+        return core._perform_bisimulation(model, formulae, bisimulation_type)
 
 
 def model_checking(model, property):

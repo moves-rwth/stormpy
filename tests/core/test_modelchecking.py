@@ -76,3 +76,14 @@ class TestModelChecking:
         labelprop = stormpy.core.Property("cora", formulaPsi.raw_formula)
         result = stormpy.model_checking(model, labelprop)
         assert result.get_truth_values().number_of_set_bits() == 1
+    
+    def test_model_checking_ctmc(self):
+        model = stormpy.build_model_from_drn(get_example_path("ctmc", "dft.drn"))
+        formulas = stormpy.parse_properties("T=? [ F \"failed\" ]")
+        assert model.nr_states == 16
+        assert model.nr_transitions == 33
+        assert len(model.initial_states) == 1
+        initial_state = model.initial_states[0]
+        assert initial_state == 0
+        result = stormpy.model_checking(model, formulas[0])
+        assert math.isclose(result.at(initial_state), 4.166666667)

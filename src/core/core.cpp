@@ -17,6 +17,7 @@ void define_parse(py::module& m) {
           
           :param str formula_str: A string of formulas
           :param str property_filter: A filter
+          :return: A list of properties
           )dox", py::arg("formula_string"), py::arg("property_filter") = boost::none);
     m.def("parse_properties_for_prism_program", &storm::parsePropertiesForPrismProgram,  R"dox(
           
@@ -57,5 +58,7 @@ void define_build(py::module& m) {
     // Build model
     m.def("_build_sparse_model_from_prism_program", &storm::buildSparseModel<double>, "Build the model", py::arg("program"), py::arg("formulas") = std::vector<std::shared_ptr<storm::logic::Formula const>>());
     m.def("_build_sparse_parametric_model_from_prism_program", &storm::buildSparseModel<storm::RationalFunction>, "Build the parametric model", py::arg("program"), py::arg("formulas"));
+    m.def("_build_sparse_model_from_drn", &storm::buildExplicitDRNModel<double>, "Build the model from DRN", py::arg("file"));
+    m.def("_build_sparse_parametric_model_from_drn", &storm::buildExplicitDRNModel<storm::RationalFunction>, "Build the parametric model from DRN", py::arg("file"));
     
 }
