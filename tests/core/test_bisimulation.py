@@ -33,29 +33,31 @@ class TestBisimulation:
 
     def test_parametric_bisimulation(self):
         import pycarl
-        program = stormpy.parse_prism_program(get_example_path("pdtmc", "crowds3_5.pm"))
-        assert program.nr_modules == 1
+        program = stormpy.parse_prism_program(get_example_path("pdtmc", "brp16_2.pm"))
+        assert program.nr_modules == 5
         assert program.model_type == stormpy.PrismModelType.DTMC
         assert program.has_undefined_constants
-
-        prop = "P=? [F \"observe0Greater1\"]"
+        prop = "P=? [F s=5]"
         properties = stormpy.parse_properties_for_prism_program(prop, program)
         model = stormpy.build_parametric_model(program, properties)
-        assert model.nr_states == 1367
-        assert model.nr_transitions == 2027
+        assert model.nr_states == 613
+        assert model.nr_transitions == 803
         assert model.model_type == stormpy.ModelType.DTMC
         assert model.has_parameters
-        result = stormpy.model_checking(model, properties[0])
         initial_state = model.initial_states[0]
         assert initial_state == 0
+
+        result = stormpy.model_checking(model, properties[0])
         ratFunc = result.result.at(initial_state)
+
         model_bisim = stormpy.perform_bisimulation(model, properties, stormpy.BisimulationType.STRONG)
-        assert model_bisim.nr_states == 80
-        assert model_bisim.nr_transitions == 120
+        assert model_bisim.nr_states == 324
+        assert model_bisim.nr_transitions == 452
         assert model_bisim.model_type == stormpy.ModelType.DTMC
         assert model_bisim.has_parameters
+
         result_bisim = stormpy.model_checking(model_bisim, properties[0])
         initial_state_bisim = model_bisim.initial_states[0]
-        assert initial_state_bisim == 48
+        assert initial_state_bisim == 316
         ratFunc_bisim = result_bisim.result.at(initial_state_bisim)
         assert ratFunc == ratFunc_bisim
