@@ -46,10 +46,16 @@ class TestBisimulation:
         assert model.model_type == stormpy.ModelType.DTMC
         assert model.has_parameters
         result = stormpy.model_checking(model, properties[0])
+        initial_state = model.initial_states[0]
+        assert initial_state == 0
+        ratFunc = result.result.at(initial_state)
         model_bisim = stormpy.perform_bisimulation(model, properties, stormpy.BisimulationType.STRONG)
         assert model_bisim.nr_states == 80
         assert model_bisim.nr_transitions == 120
         assert model_bisim.model_type == stormpy.ModelType.DTMC
         assert model_bisim.has_parameters
         result_bisim = stormpy.model_checking(model_bisim, properties[0])
-        assert result.result_function == result_bisim.result_function
+        initial_state_bisim = model_bisim.initial_states[0]
+        assert initial_state_bisim == 48
+        ratFunc_bisim = result_bisim.result.at(initial_state_bisim)
+        assert ratFunc == ratFunc_bisim
