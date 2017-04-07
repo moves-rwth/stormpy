@@ -36,7 +36,10 @@ class CMakeBuild(build_ext):
             os.makedirs(build_temp_version)
         
         # Check cmake variable values
-        output = subprocess.check_output(['cmake', os.path.abspath("cmake")], cwd=build_temp_version)
+        cmake_args = []
+        if self.storm_dir is not None:
+            cmake_args = ['-Dstorm_DIR=' + self.storm_dir]
+        output = subprocess.check_output(['cmake', os.path.abspath("cmake")] + cmake_args, cwd=build_temp_version)
         output = output.decode('ascii')
         match = re.search(r"STORM-DIR: (.*)", output)
         assert(match)
@@ -69,7 +72,7 @@ class CMakeBuild(build_ext):
         print(extdir)
         cmake_args = ['-DSTORMPY_LIB_DIR=' + extdir,
                       '-DPYTHON_EXECUTABLE=' + sys.executable]
-            
+
         cfg = 'Release'  # if self.debug else 'Release'
         build_args = ['--config', cfg]
 

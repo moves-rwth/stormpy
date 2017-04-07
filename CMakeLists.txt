@@ -8,6 +8,7 @@ add_subdirectory(resources/pybind11)
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/config.h.in ${CMAKE_CURRENT_BINARY_DIR}/src/generated/config.h) 
 
+message(STATUS "STORM-DIR: ${storm_DIR}")
 set(STORMPY_LIB_DIR "${CMAKE_SOURCE_DIR}/lib/stormpy" CACHE STRING "Sets the storm library dir")
 
 
@@ -24,7 +25,7 @@ function(stormpy_module NAME)
 
     file(GLOB_RECURSE "STORM_${NAME}_SOURCES" "${CMAKE_CURRENT_SOURCE_DIR}/src/${NAME}/*.cpp")
     pybind11_add_module(${NAME} "${CMAKE_CURRENT_SOURCE_DIR}/src/mod_${NAME}.cpp" ${STORM_${NAME}_SOURCES})
- 
+
     if(ARGC GREATER 2)
         # Additional libraries
         target_include_directories(${NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${storm_INCLUDE_DIR} ${ARGV3} ${CMAKE_CURRENT_BINARY_DIR}/src/generated)
