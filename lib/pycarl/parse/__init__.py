@@ -1,6 +1,3 @@
-from . import parse
-from .parse import *
-
 from .semantics import ExpressionSemantics
 from .grammar import parserParser
 

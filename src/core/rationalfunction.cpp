@@ -7,7 +7,11 @@
 
 #include "rationalfunction.h"
 
-#include "common.h"
+
+#include "src/types.h"
+#include "src/helpers.h"
+
+
 
 void define_rationalfunction(py::module& m) {
     py::class_<RationalFunction>(m, "RationalFunction", "Represent a rational function, that is the fraction of two multivariate polynomials ")
@@ -37,7 +41,15 @@ void define_rationalfunction(py::module& m) {
         .def(PY_DIV, static_cast<RationalFunction (*)(const RationalFunction&, carl::Variable::Arg)>(&carl::operator/))
         .def(PY_DIV, static_cast<RationalFunction (*)(const RationalFunction&, const Rational&)>(&carl::operator/))
 
-        .def("__pow__", [](const RationalFunction& var, carl::uint exp) {return carl::pow(var, exp);})
+        // From rational, todo clean.
+            .def(PY_DIV, [](const Rational& lhs, const RationalFunction& rhs) { return RationalFunction(lhs) / rhs; })
+            .def(PY_DIV, [](const Rational& lhs, const Polynomial& rhs) { return RationalFunction(lhs) / rhs; })
+            .def(PY_DIV, [](const Rational& lhs, const Term& rhs) { return RationalFunction(lhs) / rhs; })
+            .def(PY_DIV, [](const Rational& lhs, const Monomial::Arg& rhs) { return RationalFunction(lhs) / rhs; })
+            .def(PY_DIV, [](const Rational& lhs, carl::Variable::Arg rhs) { return RationalFunction(lhs) / rhs; })
+
+
+            .def("__pow__", [](const RationalFunction& var, carl::uint exp) {return carl::pow(var, exp);})
 
         .def("__pos__", [](const RationalFunction& var) {return RationalFunction(var);})
         .def("__neg__", [](const RationalFunction& var) {return var * RationalFunction(-1);})

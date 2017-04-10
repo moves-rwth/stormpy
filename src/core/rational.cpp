@@ -7,74 +7,45 @@
 
 #include "rational.h"
 
-#include "common.h"
+#include "src/helpers.h"
+
 
 #include "carl/numbers/numbers.h"
 
-void define_rational(py::module& m) {
-    py::class_<Rational>(m, "Rational", "Class wrapping rational numbers")
-        .def("__init__", [](Rational &instance, double val) -> void { auto tmp = carl::rationalize<Rational>(val); new (&instance) Rational(tmp); })
-        .def("__init__", [](Rational &instance, carl::sint val) -> void { auto tmp = carl::rationalize<Rational>(val); new (&instance) Rational(tmp); })
-        .def("__init__", [](Rational &instance, std::string val) -> void { auto tmp = carl::parse<Rational>(val); new (&instance) Rational(tmp); })
+void define_cln_rational(py::module& m) {
+    py::class_<cln::cl_RA>(m, "Rational", "Class wrapping cln-rational numbers")
+        .def("__init__", [](cln::cl_RA &instance, double val) -> void { auto tmp = carl::rationalize<cln::cl_RA>(val); new (&instance) cln::cl_RA(tmp); })
+        .def("__init__", [](cln::cl_RA &instance, carl::sint val) -> void { auto tmp = carl::rationalize<cln::cl_RA>(val); new (&instance) cln::cl_RA(tmp); })
+        .def("__init__", [](cln::cl_RA &instance, std::string val) -> void { auto tmp = carl::parse<cln::cl_RA>(val); new (&instance) cln::cl_RA(tmp); })
 
-        .def("__add__",  static_cast<Polynomial (*)(const Rational&, const Polynomial&)>(&carl::operator+))
-        .def("__add__",  static_cast<Polynomial (*)(const Rational&, const Term&)>(&carl::operator+))
-        .def("__add__",  static_cast<Polynomial (*)(const Rational&, const Monomial::Arg&)>(&carl::operator+))
-        .def("__add__",  static_cast<Polynomial (*)(const Rational&, carl::Variable::Arg)>(&carl::operator+))
-        .def("__add__", [](const Rational& lhs, const Rational& rhs) -> Rational { return lhs + rhs; })
-        .def("__add__", [](const Rational& lhs, double rhs) -> Rational { return lhs + carl::rationalize<Rational>(rhs); })
-        .def("__add__", [](const Rational& lhs, carl::sint rhs) -> Rational { return lhs + carl::rationalize<Rational>(rhs); })
-        .def("__radd__", [](const Rational& rhs, double lhs) -> Rational { return carl::rationalize<Rational>(lhs) + rhs; })
-        .def("__radd__", [](const Rational& rhs, carl::sint lhs) -> Rational { return carl::rationalize<Rational>(lhs) + rhs; })
+        .def("__add__", [](const cln::cl_RA& lhs, const cln::cl_RA& rhs) -> cln::cl_RA { return lhs + rhs; })
+        .def("__add__", [](const cln::cl_RA& lhs, carl::sint rhs) -> cln::cl_RA { return lhs + carl::rationalize<cln::cl_RA>(rhs); })
+        .def("__radd__", [](const cln::cl_RA& rhs, carl::sint lhs) -> cln::cl_RA { return carl::rationalize<cln::cl_RA>(lhs) + rhs; })
 
-        .def("__sub__",  static_cast<Polynomial (*)(const Rational&, const Polynomial&)>(&carl::operator-))
-        .def("__sub__",  static_cast<Polynomial (*)(const Rational&, const Term&)>(&carl::operator-))
-        .def("__sub__",  static_cast<Polynomial (*)(const Rational&, const Monomial::Arg&)>(&carl::operator-))
-        .def("__sub__",  static_cast<Polynomial (*)(const Rational&, carl::Variable::Arg)>(&carl::operator-))
-        .def("__sub__", [](const Rational& lhs, const Rational& rhs) -> Rational { return lhs - rhs; })
-        .def("__sub__", [](const Rational& lhs, double rhs) -> Rational { return lhs - carl::rationalize<Rational>(rhs); })
-        .def("__sub__", [](const Rational& lhs, carl::sint rhs) -> Rational { return lhs - carl::rationalize<Rational>(rhs); })
-        .def("__rsub__", [](const Rational& rhs, double lhs) -> Rational { return carl::rationalize<Rational>(lhs) - rhs; })
-        .def("__rsub__", [](const Rational& rhs, carl::sint lhs) -> Rational { return carl::rationalize<Rational>(lhs) - rhs; })
+        .def("__sub__", [](const cln::cl_RA& lhs, const cln::cl_RA& rhs) -> cln::cl_RA { return lhs - rhs; })
+        .def("__sub__", [](const cln::cl_RA& lhs, carl::sint rhs) -> cln::cl_RA { return lhs - carl::rationalize<cln::cl_RA>(rhs); })
+        .def("__rsub__", [](const cln::cl_RA& rhs, carl::sint lhs) -> cln::cl_RA { return carl::rationalize<cln::cl_RA>(lhs) - rhs; })
 
-        .def("__mul__",  static_cast<Polynomial (*)(const Rational&, const Polynomial&)>(&carl::operator*))
-        .def("__mul__",  static_cast<Term (*)(const Rational&, const Term&)>(&carl::operator*))
-        .def("__mul__",  static_cast<Term (*)(const Rational&, const Monomial::Arg&)>(&carl::operator*))
-        .def("__mul__",  static_cast<Term (*)(const Rational&, carl::Variable)>(&carl::operator*))
-        .def("__mul__", [](const Rational& lhs, const Rational& rhs) -> Rational { return lhs * rhs; })
-        .def("__mul__", [](const Rational& lhs, double rhs) -> Rational { return lhs * carl::rationalize<Rational>(rhs); })
-        .def("__mul__", [](const Rational& lhs, carl::sint rhs) -> Rational { return lhs * carl::rationalize<Rational>(rhs); })
-        .def("__rmul__", [](const Rational& rhs, double lhs) -> Rational { return carl::rationalize<Rational>(lhs) * rhs; })
-        .def("__rmul__", [](const Rational& rhs, carl::sint lhs) -> Rational { return carl::rationalize<Rational>(lhs) * rhs; })
+        .def("__mul__", [](const cln::cl_RA& lhs, const cln::cl_RA& rhs) -> cln::cl_RA { return lhs * rhs; })
+        .def("__mul__", [](const cln::cl_RA& lhs, carl::sint rhs) -> cln::cl_RA { return lhs * carl::rationalize<cln::cl_RA>(rhs); })
+        .def("__rmul__", [](const cln::cl_RA& rhs, carl::sint lhs) -> cln::cl_RA { return carl::rationalize<cln::cl_RA>(lhs) * rhs; })
 
-        .def(PY_DIV, [](const Rational& lhs, const RationalFunction& rhs) { return RationalFunction(lhs) / rhs; })
-        .def(PY_DIV, [](const Rational& lhs, const Polynomial& rhs) { return RationalFunction(lhs) / rhs; })
-        .def(PY_DIV, [](const Rational& lhs, const Term& rhs) { return RationalFunction(lhs) / rhs; })
-        .def(PY_DIV, [](const Rational& lhs, const Monomial::Arg& rhs) { return RationalFunction(lhs) / rhs; })
-        .def(PY_DIV, [](const Rational& lhs, carl::Variable::Arg rhs) { return RationalFunction(lhs) / rhs; })
-        .def(PY_DIV, [](const Rational& lhs, const Rational& rhs) -> Rational { if (carl::isZero(rhs)) throw std::runtime_error("Div by zero"); return lhs / rhs; })
-        .def(PY_DIV, [](const Rational& lhs, double rhs) -> Rational { if (rhs == 0.0) throw std::runtime_error("Div by zero"); return lhs / carl::rationalize<Rational>(rhs); })
-        .def(PY_DIV, [](const Rational& lhs, carl::sint rhs) -> Rational { if (rhs == 0.0) throw std::runtime_error("Div by zero"); return lhs / carl::rationalize<Rational>(rhs); })
-        .def(PY_RDIV, [](const Rational& rhs, double lhs) -> Rational { if (carl::isZero(rhs)) throw std::runtime_error("Div by zero"); return carl::rationalize<Rational>(lhs) / rhs; })
-        .def(PY_RDIV, [](const Rational& rhs, carl::sint lhs) -> Rational { if (carl::isZero(rhs)) throw std::runtime_error("Div by zero"); return carl::rationalize<Rational>(lhs) / rhs; })
+        .def(PY_DIV, [](const cln::cl_RA& lhs, const cln::cl_RA& rhs) -> cln::cl_RA { if (carl::isZero(rhs)) throw std::runtime_error("Div by zero"); return lhs / rhs; })
+        .def(PY_DIV, [](const cln::cl_RA& lhs, carl::sint rhs) -> cln::cl_RA { if (rhs == 0.0) throw std::runtime_error("Div by zero"); return lhs / carl::rationalize<cln::cl_RA>(rhs); })
+        .def(PY_RDIV, [](const cln::cl_RA& rhs, carl::sint lhs) -> cln::cl_RA { if (carl::isZero(rhs)) throw std::runtime_error("Div by zero"); return carl::rationalize<cln::cl_RA>(lhs) / rhs; })
 
-        .def("__pow__", static_cast<Rational (*)(const Rational&, std::size_t)>(&carl::pow))
-        .def("__pos__", [](const Rational& var) {return Rational(var);})
-        .def("__neg__", [](const Rational& var) -> Rational {return -var;})
-        .def("__abs__", [](const Rational& var) {return carl::abs(var);})
+        .def("__pow__", static_cast<cln::cl_RA (*)(const cln::cl_RA&, std::size_t)>(&carl::pow))
+        .def("__pos__", [](const cln::cl_RA& var) {return cln::cl_RA(var);})
+        .def("__neg__", [](const cln::cl_RA& var) -> cln::cl_RA {return -var;})
+        .def("__abs__", [](const cln::cl_RA& var) {return carl::abs(var);})
 
-        .def("__eq__", [](const Rational& lhs, const Rational& rhs) -> bool { return lhs == rhs; })
-        .def("__neq__", [](const Rational& lhs, const Rational& rhs) -> bool { return lhs != rhs; })
-        .def("__gt__", [](const Rational& lhs, const Rational& rhs) -> bool { return lhs > rhs; })
-        .def("__ge__", [](const Rational& lhs, const Rational& rhs) -> bool { return lhs >= rhs; })
-        .def("__lt__", [](const Rational& lhs, const Rational& rhs) -> bool { return lhs < rhs; })
-        .def("__le__", [](const Rational& lhs, const Rational& rhs) -> bool { return lhs <= rhs; })
-        .def("__eq__", [](const Rational& lhs, double rhs) { return lhs == carl::rationalize<Rational>(rhs); })
-        .def("__neq__", [](const Rational& lhs, double rhs) { return lhs != carl::rationalize<Rational>(rhs); })
-        .def("__gt__", [](const Rational& lhs, double rhs) { return lhs > carl::rationalize<Rational>(rhs); })
-        .def("__ge__", [](const Rational& lhs, double rhs) { return lhs >= carl::rationalize<Rational>(rhs); })
-        .def("__lt__", [](const Rational& lhs, double rhs) { return lhs < carl::rationalize<Rational>(rhs); })
-        .def("__le__", [](const Rational& lhs, double rhs) { return lhs <= carl::rationalize<Rational>(rhs); })
+        .def(py::self > py::self)
+        .def(py::self < py::self)
+        .def(py::self == py::self)
+        .def(py::self != py::self)
+        .def(py::self >= py::self)
+        .def(py::self <= py::self)
+
         .def(py::self > int())
         .def(py::self < int())
         .def(py::self == int())
@@ -82,30 +53,93 @@ void define_rational(py::module& m) {
         .def(py::self >= int())
         .def(py::self <= int())
 
-        .def("__int__",  [](const Rational& val) {
-            double d = carl::toDouble(val);
-            return static_cast<carl::sint>(d);
-        })
-        .def("__float__", static_cast<double (*)(Rational const&)>(&carl::toDouble))
-        .def("__str__", &streamToString<Rational>)
-		.def("__repr__", [](const Rational& r) { return "<Rational " + streamToString<Rational>(r) + ">"; })
 
-        .def_property_readonly("nominator", [](const Rational& val) -> int {
+        .def("__float__", static_cast<double (*)(cln::cl_RA const&)>(&carl::toDouble))
+        .def("__str__", &streamToString<cln::cl_RA>)
+		.def("__repr__", [](const cln::cl_RA& r) { return "<Rational  (cln)" + streamToString<cln::cl_RA>(r) + ">"; })
+
+        .def_property_readonly("nominator", [](const cln::cl_RA& val) -> int {
             return carl::toInt<carl::sint>(carl::getNum(val));
         })
-        .def_property_readonly("numerator", [](const Rational& val) -> int {
+        .def_property_readonly("numerator", [](const cln::cl_RA& val) -> int {
             return carl::toInt<carl::sint>(carl::getNum(val));
         })
-        .def_property_readonly("denominator", [](const Rational& val) -> int {
+        .def_property_readonly("denominator", [](const cln::cl_RA& val) -> int {
             return carl::toInt<carl::sint>(carl::getDenom(val));
         })
 
-        .def("__getstate__", [](const Rational& val) {
+        .def("__getstate__", [](const cln::cl_RA& val) {
             return std::pair<std::string, std::string>(carl::toString(carl::getNum(val)), carl::toString(carl::getDenom(val)));})
 
-        .def("__setstate__", [](Rational& val, std::pair<std::string, std::string> data) {Rational res = carl::parse<Rational>(data.first) / carl::parse<Rational>(data.second); new (&val) Rational(res); })
+        .def("__setstate__", [](cln::cl_RA& val, std::pair<std::string, std::string> data) {cln::cl_RA res = carl::parse<cln::cl_RA>(data.first) / carl::parse<cln::cl_RA>(data.second); new (&val) cln::cl_RA(res); })
         ;
-	
-	py::implicitly_convertible<double, Rational>();
-	py::implicitly_convertible<carl::uint, Rational>();
+
+	py::implicitly_convertible<carl::uint, cln::cl_RA>();
+}
+
+
+
+void define_gmp_rational(py::module& m) {
+    py::class_<mpq_class>(m, "Rational", "Class wrapping gmp-rational numbers")
+            .def("__init__", [](mpq_class &instance, double val) -> void { auto tmp = carl::rationalize<mpq_class>(val); new (&instance) mpq_class(tmp); })
+            .def("__init__", [](mpq_class &instance, carl::sint val) -> void { auto tmp = carl::rationalize<mpq_class>(val); new (&instance) mpq_class(tmp); })
+            .def("__init__", [](mpq_class &instance, std::string val) -> void { auto tmp = carl::parse<mpq_class>(val); new (&instance) mpq_class(tmp); })
+
+            .def("__add__", [](const mpq_class& lhs, const mpq_class& rhs) -> mpq_class { return lhs + rhs; })
+            .def("__add__", [](const mpq_class& lhs, carl::sint rhs) -> mpq_class { return lhs + carl::rationalize<mpq_class>(rhs); })
+            .def("__radd__", [](const mpq_class& rhs, carl::sint lhs) -> mpq_class { return carl::rationalize<mpq_class>(lhs) + rhs; })
+
+            .def("__sub__", [](const mpq_class& lhs, const mpq_class& rhs) -> mpq_class { return lhs - rhs; })
+            .def("__sub__", [](const mpq_class& lhs, carl::sint rhs) -> mpq_class { return lhs - carl::rationalize<mpq_class>(rhs); })
+            .def("__rsub__", [](const mpq_class& rhs, carl::sint lhs) -> mpq_class { return carl::rationalize<mpq_class>(lhs) - rhs; })
+
+            .def("__mul__", [](const mpq_class& lhs, const mpq_class& rhs) -> mpq_class { return lhs * rhs; })
+            .def("__mul__", [](const mpq_class& lhs, carl::sint rhs) -> mpq_class { return lhs * carl::rationalize<mpq_class>(rhs); })
+            .def("__rmul__", [](const mpq_class& rhs, carl::sint lhs) -> mpq_class { return carl::rationalize<mpq_class>(lhs) * rhs; })
+
+            .def(PY_DIV, [](const mpq_class& lhs, const mpq_class& rhs) -> mpq_class { if (carl::isZero(rhs)) throw std::runtime_error("Div by zero"); return lhs / rhs; })
+            .def(PY_DIV, [](const mpq_class& lhs, carl::sint rhs) -> mpq_class { if (rhs == 0.0) throw std::runtime_error("Div by zero"); return lhs / carl::rationalize<mpq_class>(rhs); })
+            .def(PY_RDIV, [](const mpq_class& rhs, carl::sint lhs) -> mpq_class { if (carl::isZero(rhs)) throw std::runtime_error("Div by zero"); return carl::rationalize<mpq_class>(lhs) / rhs; })
+
+            .def("__pow__", static_cast<mpq_class (*)(const mpq_class&, std::size_t)>(&carl::pow))
+            .def("__pos__", [](const mpq_class& var) {return mpq_class(var);})
+            .def("__neg__", [](const mpq_class& var) -> mpq_class {return -var;})
+            .def("__abs__", [](const mpq_class& var) {return carl::abs(var);})
+
+            .def(py::self > py::self)
+            .def(py::self < py::self)
+            .def(py::self == py::self)
+            .def(py::self != py::self)
+            .def(py::self >= py::self)
+            .def(py::self <= py::self)
+
+            .def(py::self > int())
+            .def(py::self < int())
+            .def(py::self == int())
+            .def(py::self != int())
+            .def(py::self >= int())
+            .def(py::self <= int())
+
+
+            .def("__float__", static_cast<double (*)(mpq_class const&)>(&carl::toDouble))
+            .def("__str__", &streamToString<mpq_class>)
+            .def("__repr__", [](const mpq_class& r) { return "<Rational  (cln)" + streamToString<mpq_class>(r) + ">"; })
+
+            .def_property_readonly("nominator", [](const mpq_class& val) -> int {
+                return carl::toInt<carl::sint>(carl::getNum(val));
+            })
+            .def_property_readonly("numerator", [](const mpq_class& val) -> int {
+                return carl::toInt<carl::sint>(carl::getNum(val));
+            })
+            .def_property_readonly("denominator", [](const mpq_class& val) -> int {
+                return carl::toInt<carl::sint>(carl::getDenom(val));
+            })
+
+            .def("__getstate__", [](const mpq_class& val) {
+                return std::pair<std::string, std::string>(carl::toString(carl::getNum(val)), carl::toString(carl::getDenom(val)));})
+
+            .def("__setstate__", [](mpq_class& val, std::pair<std::string, std::string> data) {mpq_class res = carl::parse<mpq_class>(data.first) / carl::parse<mpq_class>(data.second); new (&val) mpq_class(res); })
+            ;
+
+    py::implicitly_convertible<carl::uint, mpq_class>();
 }

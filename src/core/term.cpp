@@ -7,7 +7,9 @@
 
 #include "term.h"
 
-#include "common.h"
+#include "src/helpers.h"
+#include "src/types.h"
+
 
 void define_term(py::module& m) {
     py::class_<Term>(m, "Term")
@@ -31,6 +33,11 @@ void define_term(py::module& m) {
         .def("__mul__",  static_cast<Term (*)(const Term&, const Monomial::Arg&)>(&carl::operator*))
         .def("__mul__",  static_cast<Term (*)(const Term&, carl::Variable)>(&carl::operator*))
         .def("__mul__",  static_cast<Term (*)(const Term&, const Rational&)>(&carl::operator*))
+
+
+            .def("__mul__",  static_cast<Term (*)(const Rational&, const Term&)>(&carl::operator*))
+            .def("__mul__",  static_cast<Term (*)(const Rational&, const Monomial::Arg&)>(&carl::operator*))
+            .def("__mul__",  static_cast<Term (*)(const Rational&, carl::Variable)>(&carl::operator*))
 
         .def(PY_DIV, [](const Term& lhs, const RationalFunction& rhs) { return RationalFunction(Polynomial(lhs)) / rhs; })
         .def(PY_DIV, [](const Term& lhs, const Polynomial& rhs) { return RationalFunction(Polynomial(lhs)) / rhs; })

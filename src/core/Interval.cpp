@@ -7,7 +7,8 @@
 
 #include "Interval.h"
 
-#include "common.h"
+#include "src/types.h"
+#include "src/helpers.h"
 
 
 void define_boundtype(py::module& m) {

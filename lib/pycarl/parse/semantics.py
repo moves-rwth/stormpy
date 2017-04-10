@@ -1,5 +1,3 @@
-from pycarl import Rational, Variable, VariableType, Polynomial
-from pycarl.formula import Formula, FormulaType, Constraint, Relation
 
 class ExpressionSemantics(object):
     def number(self, ast):

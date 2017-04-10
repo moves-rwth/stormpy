@@ -1,6 +1,6 @@
 #include "rational.h"
 
-#include "common.h"
+#include "src/helpers.h"
 
 #include "carl/numbers/numbers.h"
 

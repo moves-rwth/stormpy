@@ -15,21 +15,9 @@
 PYBIND11_PLUGIN(core) {
     py::module m("core");
 
-    define_cln_integer(m);
-    define_gmp_integer(m);
-    define_rational(m);
+
     define_variabletype(m);
     define_variable(m);
-    define_monomial(m);
-    define_term(m);
-    define_polynomial(m);
-    define_factorizationcache(m);
-    define_factorizedpolynomial(m);
-    define_rationalfunction(m);
-    define_factorizedrationalfunction(m);
-	
-	define_boundtype(m);
-	define_interval(m);
 
     // Commented out, for Python Variable can be constructed directly
     /*

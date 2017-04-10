@@ -7,7 +7,10 @@
 
 #include "factorizedrationalfunction.h"
 
-#include "common.h"
+
+#include "src/types.h"
+#include "src/helpers.h"
+
 
 void define_factorizedrationalfunction(py::module& m) {
     py::class_<FactorizedRationalFunction>(m, "FactorizedRationalFunction", "Represent a rational function, that is the fraction of two factorized polynomials ")

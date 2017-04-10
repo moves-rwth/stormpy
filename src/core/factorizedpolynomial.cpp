@@ -7,7 +7,8 @@
 
 #include "factorizedpolynomial.h"
 
-#include "common.h"
+#include "src/types.h"
+#include "src/helpers.h"
 
 void define_factorizationcache(py::module& m) {
     py::class_<carl::Cache<FactorizationPair>, std::shared_ptr<carl::Cache<FactorizationPair>>>(m, "FactorizationCache", "Cache storing all factorized polynomials")

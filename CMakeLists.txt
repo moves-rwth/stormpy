@@ -5,7 +5,7 @@ project(pycarl)
 find_package(carl REQUIRED)
 add_subdirectory(resources/pybind11)
 
-set(PYCARL_USE_CLN ${CARL_USE_CLN_NUMBERS})
+set(PYCARL_HAS_CLN ${CARL_USE_CLN_NUMBERS})
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/definitions.h.in ${CMAKE_CURRENT_BINARY_DIR}/src/definitions.h)
 
@@ -15,19 +15,26 @@ pybind11_add_module(core ${CMAKE_CURRENT_SOURCE_DIR}/src/mod_core.cpp ${PYCARL_C
 target_include_directories(core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}/src)
 target_link_libraries(core PRIVATE lib_carl)
 
+pybind11_add_module(cln ${CMAKE_CURRENT_SOURCE_DIR}/src/mod_cln.cpp ${PYCARL_CORE_SOURCES})
+target_include_directories(cln PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}/src)
+target_link_libraries(cln PRIVATE lib_carl)
+target_compile_definitions(cln PUBLIC "PYCARL_USE_CLN=ON")
+
+
+pybind11_add_module(gmp ${CMAKE_CURRENT_SOURCE_DIR}/src/mod_gmp.cpp ${PYCARL_CORE_SOURCES})
+target_include_directories(gmp PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}/src)
+target_link_libraries(gmp PRIVATE lib_carl)
 
 file(GLOB_RECURSE PYCARL_FORMULA_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/formula/*.cpp)
 
-pybind11_add_module(formula ${CMAKE_CURRENT_SOURCE_DIR}/src/mod_formula.cpp ${PYCARL_FORMULA_SOURCES})
-target_include_directories(formula PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}  ${CMAKE_CURRENT_BINARY_DIR}/src)
-target_link_libraries(formula PRIVATE lib_carl)
+pybind11_add_module(formula-gmp ${CMAKE_CURRENT_SOURCE_DIR}/src/mod_formula.cpp ${PYCARL_FORMULA_SOURCES})
+target_include_directories(formula-gmp PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}  ${CMAKE_CURRENT_BINARY_DIR}/src)
+target_link_libraries(formula-gmp PRIVATE lib_carl)
 
-
-file(GLOB_RECURSE PYCARL_PARSE_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/parse/*.cpp)
-
-pybind11_add_module(parse ${CMAKE_CURRENT_SOURCE_DIR}/src/mod_parse.cpp ${PYCARL_PARSE_SOURCES})
-target_include_directories(parse PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}  ${CMAKE_CURRENT_BINARY_DIR}/src)
-target_link_libraries(parse PRIVATE lib_carl)
+pybind11_add_module(formula-cln ${CMAKE_CURRENT_SOURCE_DIR}/src/mod_formula.cpp ${PYCARL_FORMULA_SOURCES})
+target_include_directories(formula-cln PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}  ${CMAKE_CURRENT_BINARY_DIR}/src)
+target_link_libraries(formula-cln PRIVATE lib_carl)
+target_compile_definitions(formula-cln PUBLIC "PYCARL_USE_CLN=ON")
 
 
 

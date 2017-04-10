@@ -1,14 +1,5 @@
-/*
- * types.h
- *
- *  Created on: 16 Apr 2016
- *      Author: harold
- */
 
-#ifndef PYTHON_FORMULA_TYPES_H_
-#define PYTHON_FORMULA_TYPES_H_
-
-#include "src/core/common.h"
+#include "src/types.h"
 
 #include <carl/formula/Constraint.h>
 #include <carl/core/SimpleConstraint.h>
@@ -19,4 +10,3 @@ typedef carl::SimpleConstraint<Polynomial> SimpleConstraint;
 typedef carl::SimpleConstraint<FactorizedRationalFunction> SimpleConstraintRatFunc;
 typedef carl::Formula<Polynomial> Formula;
 
-#endif /* PYTHON_FORMULA_TYPES_H_ */
