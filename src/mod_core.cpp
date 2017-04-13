@@ -18,6 +18,8 @@ PYBIND11_PLUGIN(core) {
 
     define_variabletype(m);
     define_variable(m);
+    define_monomial(m);
+    define_boundtype(m);
 
     // Commented out, for Python Variable can be constructed directly
     /*

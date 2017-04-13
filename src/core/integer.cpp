@@ -7,7 +7,7 @@
 
 void define_cln_integer(py::module& m) {
 #ifdef PYCARL_USE_CLN
-    py::class_<cln::cl_I>(m, "ClnInteger", "Class wrapping cln-integers")
+    py::class_<cln::cl_I>(m, "Integer", "Class wrapping cln-integers")
             .def("__init__", [](cln::cl_I &instance, int val) -> void { new (&instance) cln::cl_I(val); })
             .def("__init__", [](cln::cl_I &instance, std::string val) -> void { auto tmp = carl::parse<cln::cl_I>(val); new (&instance) cln::cl_I(tmp); })
 
@@ -52,7 +52,7 @@ void define_cln_integer(py::module& m) {
 
 void define_gmp_integer(py::module& m) {
     // TODO: Avoid all the casts to mpz_class by supporting the different operator types [probably a lot of work]
-    py::class_<mpz_class>(m, "GmpInteger", "Class wrapping gmp-integers")
+    py::class_<mpz_class>(m, "Integer", "Class wrapping gmp-integers")
             .def("__init__", [](mpz_class &instance, int val) -> void { new (&instance) mpz_class(val); })
             .def("__init__", [](mpz_class &instance, std::string val) -> void { auto tmp = carl::parse<mpz_class>(val); new (&instance) mpz_class(tmp); })
 

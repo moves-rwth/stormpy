@@ -17,7 +17,6 @@ PYBIND11_PLUGIN(cln) {
 
     define_cln_integer(m);
     define_cln_rational(m);
-    define_monomial(m);
     define_term(m);
     define_polynomial(m);
     define_factorizationcache(m);
@@ -25,7 +24,6 @@ PYBIND11_PLUGIN(cln) {
     define_rationalfunction(m);
     define_factorizedrationalfunction(m);
 
-    define_boundtype(m);
     define_interval(m);
 
 

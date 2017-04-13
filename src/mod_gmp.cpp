@@ -12,12 +12,11 @@
 
 #include "core/Interval.h"
 
-PYBIND11_PLUGIN(cln) {
+PYBIND11_PLUGIN(gmp) {
     py::module m("gmp");
 
     define_gmp_integer(m);
     define_gmp_rational(m);
-    define_monomial(m);
     define_term(m);
     define_polynomial(m);
     define_factorizationcache(m);
@@ -25,7 +24,6 @@ PYBIND11_PLUGIN(cln) {
     define_rationalfunction(m);
     define_factorizedrationalfunction(m);
 
-    define_boundtype(m);
     define_interval(m);
 
 

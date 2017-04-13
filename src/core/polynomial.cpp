@@ -47,7 +47,23 @@ void define_polynomial(py::module& m) {
         .def("__mul__",  static_cast<Polynomial (*)(const Polynomial&, carl::Variable::Arg)>(&carl::operator*))
         .def("__mul__",  static_cast<Polynomial (*)(const Polynomial&, const Rational&)>(&carl::operator*))
 
-         // From rational, TODO clean
+                // From monomial TODO clean
+            .def("__add__",  static_cast<Polynomial (*)(const Monomial::Arg&, const Polynomial&)>(&carl::operator+))
+            .def("__add__",  static_cast<Polynomial (*)(const Monomial::Arg&, const Term&)>(&carl::operator+))
+            .def("__add__",  static_cast<Polynomial (*)(const Monomial::Arg&, const Monomial::Arg&)>(&carl::operator+))
+            .def("__add__",  static_cast<Polynomial (*)(const Monomial::Arg&, carl::Variable::Arg)>(&carl::operator+))
+            .def("__add__",  static_cast<Polynomial (*)(const Monomial::Arg&, const Rational&)>(&carl::operator+))
+
+            .def("__sub__",  static_cast<Polynomial (*)(const Monomial::Arg&, const Polynomial&)>(&carl::operator-))
+            .def("__sub__",  static_cast<Polynomial (*)(const Monomial::Arg&, const Term&)>(&carl::operator-))
+            .def("__sub__",  static_cast<Polynomial (*)(const Monomial::Arg&, const Monomial::Arg&)>(&carl::operator-))
+            .def("__sub__",  static_cast<Polynomial (*)(const Monomial::Arg&, carl::Variable::Arg)>(&carl::operator-))
+            .def("__sub__",  static_cast<Polynomial (*)(const Monomial::Arg&, const Rational&)>(&carl::operator-))
+
+            .def("__mul__",  static_cast<Polynomial (*)(const Monomial::Arg&, const Polynomial&)>(&carl::operator*))
+
+
+                    // From rational, TODO clean
         .def("__add__",  static_cast<Polynomial (*)(const Rational&, const Polynomial&)>(&carl::operator+))
         .def("__add__",  static_cast<Polynomial (*)(const Rational&, const Term&)>(&carl::operator+))
         .def("__add__",  static_cast<Polynomial (*)(const Rational&, const Monomial::Arg&)>(&carl::operator+))

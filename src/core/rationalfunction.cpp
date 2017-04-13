@@ -41,7 +41,15 @@ void define_rationalfunction(py::module& m) {
         .def(PY_DIV, static_cast<RationalFunction (*)(const RationalFunction&, carl::Variable::Arg)>(&carl::operator/))
         .def(PY_DIV, static_cast<RationalFunction (*)(const RationalFunction&, const Rational&)>(&carl::operator/))
 
-        // From rational, todo clean.
+        // From monomial, todo clean
+            .def(PY_DIV, [](const Monomial::Arg& lhs, const RationalFunction& rhs) { return RationalFunction(Polynomial(lhs)) / rhs; })
+            .def(PY_DIV, [](const Monomial::Arg& lhs, const Polynomial& rhs) { return RationalFunction(Polynomial(lhs)) / rhs; })
+            .def(PY_DIV, [](const Monomial::Arg& lhs, const Term& rhs) { return RationalFunction(Polynomial(lhs)) / rhs; })
+            .def(PY_DIV, [](const Monomial::Arg& lhs, const Monomial::Arg& rhs) { return RationalFunction(Polynomial(lhs)) / rhs; })
+            .def(PY_DIV, [](const Monomial::Arg& lhs, const carl::Variable& rhs) { return RationalFunction(Polynomial(lhs)) / rhs; })
+
+
+                    // From rational, todo clean.
             .def(PY_DIV, [](const Rational& lhs, const RationalFunction& rhs) { return RationalFunction(lhs) / rhs; })
             .def(PY_DIV, [](const Rational& lhs, const Polynomial& rhs) { return RationalFunction(lhs) / rhs; })
             .def(PY_DIV, [](const Rational& lhs, const Term& rhs) { return RationalFunction(lhs) / rhs; })

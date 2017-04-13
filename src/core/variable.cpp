@@ -10,7 +10,7 @@
 
 #include "variable.h"
 #include "src/helpers.h"
-
+#include "src/types.h"
 
 
 carl::Variable getOrCreateVariable(std::string const & name, carl::VariableType type) {
@@ -43,6 +43,7 @@ void define_variable(py::module& m) {
                 new (&instance) carl::Variable(tmp);
             }, py::arg("type") = carl::VariableType::VT_REAL)
 
+        .def("__mul__",  static_cast<Monomial::Arg (*)(carl::Variable::Arg, carl::Variable::Arg)>(&carl::operator*))
 
 
         .def(py::self == py::self)

@@ -34,7 +34,11 @@ void define_term(py::module& m) {
         .def("__mul__",  static_cast<Term (*)(const Term&, carl::Variable)>(&carl::operator*))
         .def("__mul__",  static_cast<Term (*)(const Term&, const Rational&)>(&carl::operator*))
 
+            // From monomial, TODO clean
+            .def("__mul__",  static_cast<Term (*)(const Monomial::Arg&, const Term&)>(&carl::operator*))
+            .def("__mul__",  static_cast<Term (*)(const Monomial::Arg&, const Rational&)>(&carl::operator*))
 
+            // From Rational, TODO clean
             .def("__mul__",  static_cast<Term (*)(const Rational&, const Term&)>(&carl::operator*))
             .def("__mul__",  static_cast<Term (*)(const Rational&, const Monomial::Arg&)>(&carl::operator*))
             .def("__mul__",  static_cast<Term (*)(const Rational&, carl::Variable)>(&carl::operator*))
