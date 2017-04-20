@@ -12,6 +12,17 @@ storm::modelchecker::parametric::RegionCheckResult checkRegion(std::shared_ptr<P
     return checker->analyzeRegion(region, initialResult, sampleVertices);
 }
 
+std::set<storm::Polynomial> gatherDerivatives(storm::models::sparse::Dtmc<storm::RationalFunction> const& model, carl::Variable const& var) {
+    std::set<storm::Polynomial> derivatives;
+    for (auto it : model.getTransitionMatrix()) {
+        storm::Polynomial pol = it.getValue().derivative(var, 1).nominator();
+        if (!pol.isConstant()) {
+            derivatives.insert(pol);
+        }
+    }
+    return derivatives;
+}
+
 // Define python bindings
 void define_pla(py::module& m) {
     
@@ -44,4 +55,6 @@ void define_pla(py::module& m) {
         .def("specify_formula", &specifyFormula, "Specify formula", py::arg("formula"))
         .def("check_region", &checkRegion, "Check region", py::arg("region"), py::arg("initialResult") = storm::modelchecker::parametric::RegionCheckResult::Unknown, py::arg("sampleVertices") = false)
     ;
+
+    m.def("gather_derivatives", &gatherDerivatives, "Gather all derivatives of transition probabilities", py::arg("model"), py::arg("var"));
 }
