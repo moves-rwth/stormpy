@@ -1,14 +1,14 @@
 #include "pla.h"
 #include "src/helpers.h"
 
-typedef storm::modelchecker::parametric::SparseDtmcParameterLifting<storm::models::sparse::Dtmc<storm::RationalFunction>, double> PLAChecker;
+typedef storm::modelchecker::parametric::SparseDtmcRegionChecker<storm::models::sparse::Dtmc<storm::RationalFunction>, double, storm::RationalNumber> SparseDtmcRegionChecker;
 typedef storm::storage::ParameterRegion<storm::RationalFunction> Region;
 
 // Thin wrappers
-void specifyFormula(std::shared_ptr<PLAChecker>& checker, std::shared_ptr<const storm::logic::Formula> const& formula) {
+void specifyFormula(std::shared_ptr<SparseDtmcRegionChecker>& checker, std::shared_ptr<const storm::logic::Formula> const& formula) {
     checker->specifyFormula(storm::modelchecker::CheckTask<storm::logic::Formula, storm::RationalFunction>(*formula, true));
 }
-storm::modelchecker::parametric::RegionCheckResult checkRegion(std::shared_ptr<PLAChecker>& checker, Region& region, storm::modelchecker::parametric::RegionCheckResult initialResult, bool sampleVertices) {
+storm::modelchecker::parametric::RegionCheckResult checkRegion(std::shared_ptr<SparseDtmcRegionChecker>& checker, Region& region, storm::modelchecker::parametric::RegionCheckResult initialResult, bool sampleVertices) {
     return checker->analyzeRegion(region, initialResult, sampleVertices);
 }
 
@@ -47,10 +47,10 @@ void define_pla(py::module& m) {
         //.def(py::init<Region::VariableSubstitutionType &, Region::VariableSubstitutionType &>(), py::arg("lowerBounds"), py::arg("upperBounds"))
     ;
 
-    // PLAChecker
-    py::class_<PLAChecker, std::shared_ptr<PLAChecker>>(m, "PLAChecker", "Region model checker for sparse DTMCs")
-        .def("__init__", [](PLAChecker& instance, std::shared_ptr<storm::models::sparse::Dtmc<storm::RationalFunction>> model) -> void {
-                new (&instance) PLAChecker(*model);
+    // RegionChecker
+    py::class_<SparseDtmcRegionChecker, std::shared_ptr<SparseDtmcRegionChecker>>(m, "SparseDtmcRegionChecker", "Region model checker for sparse DTMCs")
+        .def("__init__", [](SparseDtmcRegionChecker& instance, std::shared_ptr<storm::models::sparse::Dtmc<storm::RationalFunction>> model) -> void {
+                new (&instance) SparseDtmcRegionChecker(*model);
             })
         .def("specify_formula", &specifyFormula, "Specify formula", py::arg("formula"))
         .def("check_region", &checkRegion, "Check region", py::arg("region"), py::arg("initialResult") = storm::modelchecker::parametric::RegionCheckResult::Unknown, py::arg("sampleVertices") = false)
