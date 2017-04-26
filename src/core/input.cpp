@@ -26,7 +26,14 @@ void define_input(py::module& m) {
         .value("MA", storm::prism::Program::ModelType::MA)
         .value("UNDEFINED", storm::prism::Program::ModelType::UNDEFINED)
     ;
-    
+
+    // Jani Model
+    py::class_<storm::jani::Model>(m, "JaniModel", "Jani Model")
+        .def_property_readonly("name", &storm::jani::Model::getName, "Name of the jani model")
+        .def_property_readonly("model_type", &storm::jani::Model::getModelType, "Model type");
+
+
+
     // PrismProgram
     py::class_<storm::prism::Program>(m, "PrismProgram", "Prism program")
         .def_property_readonly("nr_modules", &storm::prism::Program::getNumberOfModules, "Number of modules")
