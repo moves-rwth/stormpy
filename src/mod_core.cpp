@@ -5,6 +5,7 @@
 #include "core/modelchecking.h"
 #include "core/bisimulation.h"
 #include "core/input.h"
+#include "core/pla.h"
 
 PYBIND11_PLUGIN(core) {
     py::module m("core");
@@ -22,5 +23,6 @@ PYBIND11_PLUGIN(core) {
     define_modelchecking(m);
     define_bisimulation(m);
     define_input(m);
+    define_pla(m);
     return m.ptr();
 }

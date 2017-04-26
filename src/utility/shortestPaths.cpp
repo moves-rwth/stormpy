@@ -36,7 +36,7 @@ void define_ksp(py::module& m) {
 
         .def(py::self == py::self, "Compares predecessor node and index, ignoring distance")
 
-        .def("__str__", &streamToString<Path>)
+        //.def("__str__", &streamToString<Path>)
 
         .def_readwrite("predecessorNode", &Path::predecessorNode) // TODO (un-)wrap boost::optional so it's usable
         .def_readwrite("predecessorK", &Path::predecessorK)
