@@ -9,16 +9,7 @@
 
 #include "common.h"
 
-void define_relation(py::module& m) {
-    py::enum_<carl::Relation>(m, "Relation")
-        .value("EQ", carl::Relation::EQ)
-        .value("NEQ", carl::Relation::NEQ)
-        .value("LESS", carl::Relation::LESS)
-        .value("LEQ", carl::Relation::LEQ)
-        .value("GREATER", carl::Relation::GREATER)
-        .value("GEQ", carl::Relation::GEQ)
-        ;
-}
+
 //
 void define_constraint(py::module& m) {
     py::class_<Constraint>(m, "Constraint")

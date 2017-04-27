@@ -96,6 +96,7 @@ setup(
     ext_modules=[CMakeExtension('core', subdir=''),
                  CMakeExtension('cln', subdir='cln'),
                  CMakeExtension('gmp', subdir='gmp'),
+                 CMakeExtension('formula', subdir='formula'),
                  CMakeExtension('formula-cln', subdir='cln/formula'),
                  CMakeExtension('formula-gmp', subdir='gmp/formula')],
     cmdclass=dict(build_ext=CMakeBuild),

@@ -27,14 +27,22 @@ target_link_libraries(gmp PRIVATE lib_carl)
 
 file(GLOB_RECURSE PYCARL_FORMULA_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/formula/*.cpp)
 
-pybind11_add_module(formula-gmp ${CMAKE_CURRENT_SOURCE_DIR}/src/mod_formula.cpp ${PYCARL_FORMULA_SOURCES})
+pybind11_add_module(formula ${CMAKE_CURRENT_SOURCE_DIR}/src/mod_formula.cpp ${PYCARL_FORMULA_SOURCES})
+target_include_directories(formula PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}  ${CMAKE_CURRENT_BINARY_DIR}/src)
+target_link_libraries(formula PRIVATE lib_carl)
+set_target_properties(formula PROPERTIES OUTPUT_NAME "formula")
+
+file(GLOB_RECURSE PYCARL_TYPED_FORMULA_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/typed_formula/*.cpp)
+
+pybind11_add_module(formula-gmp ${CMAKE_CURRENT_SOURCE_DIR}/src/mod_typed_formula.cpp ${PYCARL_TYPED_FORMULA_SOURCES})
 target_include_directories(formula-gmp PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}  ${CMAKE_CURRENT_BINARY_DIR}/src)
 target_link_libraries(formula-gmp PRIVATE lib_carl)
+set_target_properties(formula-gmp PROPERTIES OUTPUT_NAME "formula")
 
-pybind11_add_module(formula-cln ${CMAKE_CURRENT_SOURCE_DIR}/src/mod_formula.cpp ${PYCARL_FORMULA_SOURCES})
+pybind11_add_module(formula-cln ${CMAKE_CURRENT_SOURCE_DIR}/src/mod_typed_formula.cpp ${PYCARL_TYPED_FORMULA_SOURCES})
 target_include_directories(formula-cln PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}  ${CMAKE_CURRENT_BINARY_DIR}/src)
 target_link_libraries(formula-cln PRIVATE lib_carl)
 target_compile_definitions(formula-cln PUBLIC "PYCARL_USE_CLN=ON")
-
+set_target_properties(formula-cln PROPERTIES OUTPUT_NAME "formula")
 
 

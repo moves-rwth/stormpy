@@ -11,10 +11,7 @@ PYBIND11_PLUGIN(formula) {
 	m.import("pycarl.core");
 
 	define_relation(m);
-	define_constraint(m);
-	define_simple_constraint(m);
 	define_formula_type(m);
-	define_formula(m);
 
 	return m.ptr();
 }
