@@ -9,12 +9,21 @@ from setuptools import setup, Extension
 from setuptools.command.build_ext import build_ext
 from setuptools.command.test import test
 
+import importlib.util
+
 if sys.version_info[0] == 2:
     sys.exit('Sorry, Python 2.x is not supported')
 
 
-import importlib.util
+def check_storm_compatible(storm_v_major, storm_v_minor, storm_v_patch):
+    if storm_v_major < 1 or (storm_v_major == 1 and storm_v_minor == 0 and storm_v_patch < 1):
+        sys.exit('Sorry, Storm version {}.{}.{} is not supported anymore!'.format(storm_v_major, storm_v_minor, storm_v_patch))
 
+def parse_storm_version(version_string):
+    elems = version_string.split(".")
+    if len(elems) != 3:
+        sys.exit('Storm version string is ill-formed: "{}"'.format(version_string))
+    return int(elems[0]),  int(elems[1]), int(elems[2])
 
 class CMakeExtension(Extension):
     def __init__(self, name, sourcedir='', subdir=''):
@@ -55,7 +64,8 @@ class CMakeBuild(build_ext):
         spec.loader.exec_module(self.conf)
         print(self.conf.HAVE_STORM_DFT)
 
-
+        storm_v_major, storm_v_minor, storm_v_patch = parse_storm_version(self.conf.STORM_VERSION)
+        check_storm_compatible(storm_v_major, storm_v_minor, storm_v_patch)
 
 
 
@@ -63,6 +73,7 @@ class CMakeBuild(build_ext):
             if ext.name == "info":
                 with open(os.path.join(self.extdir(ext.name), ext.subdir, "_config.py"), "w") as f:
                     f.write("# Generated from setup.py at {}\n".format(datetime.datetime.now()))
+                    f.write("storm_version = {}\n".format(self.conf.STORM_VERSION))
                     f.write("storm_cln_ea = {}\n".format(self.conf.STORM_CLN_EA))
                     f.write("storm_cln_rf = {}".format(self.conf.STORM_CLN_RF))
             elif ext.name == "dft":

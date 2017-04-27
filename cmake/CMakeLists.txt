@@ -13,6 +13,7 @@ endif()
 
 # Set configuration
 set(STORM_DIR ${storm_DIR})
+set(STORM_VERSION ${storm_VERSION})
 
 if(HAVE_STORM_DFT)
     set(HAVE_STORM_DFT_BOOL "True")
@@ -31,6 +32,7 @@ if(STORM_USE_CLN_RF)
 else()
     set(STORM_CLN_RF_BOOL "False")
 endif()
+
 
 
 
