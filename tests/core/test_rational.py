@@ -11,8 +11,8 @@ class TestRational(PackageSelector):
         assert package.numerator(r1) == 1
         assert package.denominator(r1) == 2
         r2 = package.Rational("1090843549285935/1125899906842624")
-        assert package.numerator(r2) == 1090843549285935
-        assert package.denominator(r2) == 1125899906842624
+        assert package.numerator(r2) == package.Integer("1090843549285935")
+        assert package.denominator(r2) == package.Integer("1125899906842624")
 
     def test_eq(self, package):
         r3 = package.Rational("3/1")

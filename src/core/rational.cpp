@@ -80,14 +80,14 @@ void define_cln_rational(py::module& m) {
         .def("__str__", &streamToString<cln::cl_RA>)
 		.def("__repr__", [](const cln::cl_RA& r) { return "<Rational  (cln)" + streamToString<cln::cl_RA>(r) + ">"; })
 
-        .def_property_readonly("nominator", [](const cln::cl_RA& val) -> int {
-            return carl::toInt<carl::sint>(carl::getNum(val));
+        .def_property_readonly("nominator", [](const cln::cl_RA& val) -> cln::cl_I {
+            return carl::getNum(val);
         })
-        .def_property_readonly("numerator", [](const cln::cl_RA& val) -> int {
-            return carl::toInt<carl::sint>(carl::getNum(val));
+        .def_property_readonly("numerator", [](const cln::cl_RA& val) ->  cln::cl_I {
+            return carl::getNum(val);
         })
-        .def_property_readonly("denominator", [](const cln::cl_RA& val) -> int {
-            return carl::toInt<carl::sint>(carl::getDenom(val));
+        .def_property_readonly("denominator", [](const cln::cl_RA& val) ->  cln::cl_I {
+            return carl::getDenom(val);
         })
 
         .def("__getstate__", [](const cln::cl_RA& val) {
@@ -165,14 +165,14 @@ void define_gmp_rational(py::module& m) {
             .def("__str__", &streamToString<mpq_class>)
             .def("__repr__", [](const mpq_class& r) { return "<Rational  (cln)" + streamToString<mpq_class>(r) + ">"; })
 
-            .def_property_readonly("nominator", [](const mpq_class& val) -> int {
-                return carl::toInt<carl::sint>(carl::getNum(val));
+            .def_property_readonly("nominator", [](const mpq_class& val) -> mpz_class {
+                return carl::getNum(val);
             })
-            .def_property_readonly("numerator", [](const mpq_class& val) -> int {
-                return carl::toInt<carl::sint>(carl::getNum(val));
+            .def_property_readonly("numerator", [](const mpq_class& val) -> mpz_class {
+                return carl::getNum(val);
             })
-            .def_property_readonly("denominator", [](const mpq_class& val) -> int {
-                return carl::toInt<carl::sint>(carl::getDenom(val));
+            .def_property_readonly("denominator", [](const mpq_class& val) -> mpz_class {
+                return carl::getDenom(val);
             })
 
             .def("__getstate__", [](const mpq_class& val) {
