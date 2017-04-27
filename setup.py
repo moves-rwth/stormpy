@@ -19,7 +19,7 @@ def obtain_version():
         if mo:
             verstr = mo.group(1)
         else:
-            raise RuntimeError("unable to find version in yourpackage/_version.py")
+            raise RuntimeError("unable to find version in pycarl/_version.py")
     return verstr
 
 

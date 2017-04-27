@@ -1,8 +1,8 @@
 #include "common.h"
 #include "helpers.h"
 
-#include "formula/constraint.h"
-#include "formula/formula.h"
+#include "formula/formula_type.h"
+#include "formula/relation.h"
 
 PYBIND11_PLUGIN(formula) {
 	py::module m("formula", "pycarl formula handling");

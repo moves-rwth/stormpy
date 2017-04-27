@@ -9,6 +9,7 @@ PYBIND11_PLUGIN(formula) {
 
 	// Constraint relies on Rational
 	m.import("pycarl.core");
+    m.import("pycarl.formula");
 
 	define_constraint(m);
 	define_simple_constraint(m);
