@@ -3,3 +3,4 @@
 
 
 typedef mpq_class Rational;
+typedef mpz_class Integer;

@@ -18,10 +18,13 @@ void define_monomial(py::module& m) {
 //            m = carl::createMonomial(v, e);
 //        })
 
-
-
-
-        .def(PY_DIV, [](const Monomial::Arg& lhs, Rational rhs) { return lhs / rhs; })
+            // From monomial, todo clean
+            //.def(PY_DIV, [](const Monomial::Arg& lhs, const RationalFunction& rhs) { return RationalFunction(Polynomial(lhs)) / rhs; })
+            //.def(PY_DIV, [](const Monomial::Arg& lhs, const Polynomial& rhs) { return RationalFunction(Polynomial(lhs)) / rhs; })
+            //.def(PY_DIV, [](const Monomial::Arg& lhs, const Term& rhs) { return RationalFunction(Polynomial(lhs)) / rhs; })
+            //.def(PY_DIV, [](const Monomial::Arg& lhs, const Monomial::Arg& rhs) { return RationalFunction(Polynomial(lhs)) / rhs; })
+            //.def(PY_DIV, [](const Monomial::Arg& lhs, const carl::Variable& rhs) { return RationalFunction(Polynomial(lhs)) / rhs; })
+            //.def(PY_DIV, [](const Monomial::Arg& lhs, Rational rhs) { return lhs / rhs; })
 
         .def("__pow__", [](const Monomial::Arg& var, carl::uint exp) {return var->pow(exp);})
             .def("__mul__",  static_cast<Monomial::Arg (*)(const Monomial::Arg&, const Monomial::Arg&)>(&carl::operator*))

@@ -5,5 +5,5 @@
 
 
 typedef cln::cl_RA Rational;
-
+typedef cln::cl_I Integer;
 
