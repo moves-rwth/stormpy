@@ -3,6 +3,7 @@ import os
 import sys
 import subprocess
 import re
+import datetime
 
 from setuptools import setup, Extension
 from setuptools.command.build_ext import build_ext
@@ -12,6 +13,9 @@ if sys.version_info[0] == 2:
     sys.exit('Sorry, Python 2.x is not supported')
 
 
+import importlib.util
+
+
 class CMakeExtension(Extension):
     def __init__(self, name, sourcedir='', subdir=''):
         Extension.__init__(self, name, sources=[])
@@ -19,12 +23,18 @@ class CMakeExtension(Extension):
         self.subdir = subdir
 
 
+
 class CMakeBuild(build_ext):
     user_options = build_ext.user_options + [
         ('storm-dir=', None, 'Path to storm root (binary) location')
     ]
 
+
+    def extdir(self, extname):
+        return os.path.abspath(os.path.dirname(self.get_ext_fullpath(extname)))
+
     def run(self):
+        self.conf = None
         try:
             _ = subprocess.check_output(['cmake', '--version'])
         except OSError:
@@ -40,26 +50,31 @@ class CMakeBuild(build_ext):
         if self.storm_dir is not None:
             cmake_args = ['-Dstorm_DIR=' + self.storm_dir]
         output = subprocess.check_output(['cmake', os.path.abspath("cmake")] + cmake_args, cwd=build_temp_version)
-        output = output.decode('ascii')
-        match = re.search(r"STORM-DIR: (.*)", output)
-        assert(match)
-        storm_dir = match.group(1)
-        match = re.search(r"HAVE-STORM-DFT: (.*)", output)
-        assert(match)
-        self.have_storm_dft = True if match.group(1) == "TRUE" else False
-        # Set variable in _config.py
-        with open(os.path.join("lib", "stormpy", "dft", "_config.py"), "w") as f:
-            f.write("# Generated from setup.py\n")
-            f.write("has_storm_dft = {}".format(self.have_storm_dft))
+        spec = importlib.util.spec_from_file_location("genconfig", os.path.join(build_temp_version, 'generated/config.py'))
+        self.conf = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(self.conf)
+        print(self.conf.HAVE_STORM_DFT)
+
+
+
+
 
         for ext in self.extensions:
-            if ext.name == "dft":
-                if self.have_storm_dft:
-                    self.build_extension(ext)
-                else:
+            if ext.name == "info":
+                with open(os.path.join(self.extdir(ext.name), ext.subdir, "_config.py"), "w") as f:
+                    f.write("# Generated from setup.py at {}\n".format(datetime.datetime.now()))
+                    f.write("storm_cln_ea = {}\n".format(self.conf.STORM_CLN_EA))
+                    f.write("storm_cln_rf = {}".format(self.conf.STORM_CLN_RF))
+            elif ext.name == "dft":
+                with open(os.path.join(self.extdir(ext.name),  ext.subdir, "_config.py"), "w") as f:
+                    f.write("# Generated from setup.py at {}\n".format(datetime.datetime.now()))
+                    f.write("has_storm_dft = {}".format(self.conf.HAVE_STORM_DFT))
+                if not self.conf.HAVE_STORM_DFT:
                     print("WARNING: storm-dft not found. No support for DFTs will be built.")
-            else:
-                self.build_extension(ext)
+                    continue
+            self.build_extension(ext)
+
+
 
 
     def initialize_options(self):
@@ -72,7 +87,7 @@ class CMakeBuild(build_ext):
         build_ext.finalize_options(self)
 
     def build_extension(self, ext):
-        extdir = os.path.abspath(os.path.dirname(self.get_ext_fullpath(ext.name)))
+        extdir = self.extdir(ext.name)
         print(extdir)
         cmake_args = ['-DSTORMPY_LIB_DIR=' + extdir,
                       '-DPYTHON_EXECUTABLE=' + sys.executable]
@@ -82,9 +97,9 @@ class CMakeBuild(build_ext):
 
         cmake_args += ['-DCMAKE_BUILD_TYPE=' + cfg]
         build_args += ['--', '-j{}'.format(os.cpu_count() if os.cpu_count() is not None else 2)]
-        if self.storm_dir is not None:
-            cmake_args += ['-Dstorm_DIR=' + self.storm_dir]
-        if self.have_storm_dft:
+        if self.conf.STORM_DIR is not None:
+            cmake_args += ['-Dstorm_DIR=' + self.conf.STORM_DIR]
+        if self.conf.HAVE_STORM_DFT:
             cmake_args += ['-DHAVE_STORM_DFT=ON']
 
         env = os.environ.copy()

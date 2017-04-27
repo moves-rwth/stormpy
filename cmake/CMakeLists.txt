@@ -11,5 +11,27 @@ else()
     set(HAVE_STORM_DFT FALSE)
 endif()
 
-message(STATUS "STORM-DIR: ${storm_DIR}")
-message(STATUS "HAVE-STORM-DFT: ${HAVE_STORM_DFT}")
+# Set configuration
+set(STORM_DIR ${storm_DIR})
+
+if(HAVE_STORM_DFT)
+    set(HAVE_STORM_DFT_BOOL "True")
+else()
+    set(HAVE_STORM_DFT_BOOL "False")
+endif()
+
+if(STORM_USE_CLN_EA)
+    set(STORM_CLN_EA_BOOL "True")
+else()
+    set(STORM_CLN_EA_BOOL "False")
+endif()
+
+if(STORM_USE_CLN_RF)
+    set(STORM_CLN_RF_BOOL "True")
+else()
+    set(STORM_CLN_RF_BOOL "False")
+endif()
+
+
+
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.py.in ${CMAKE_CURRENT_BINARY_DIR}/generated/config.py @ONLY)
