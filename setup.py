@@ -2,7 +2,6 @@
 import os
 import sys
 import subprocess
-import re
 import datetime
 
 from setuptools import setup, Extension
@@ -70,7 +69,32 @@ class CMakeBuild(build_ext):
 
 
         for ext in self.extensions:
-            if ext.name == "info":
+            if ext.name == "core":
+                with open(os.path.join(self.extdir(ext.name), ext.subdir, "_config.py"), "w") as f:
+                    f.write("# Generated from setup.py at {}\n".format(datetime.datetime.now()))
+
+                    f.write("import pycarl\n")
+                    if self.conf.STORM_CLN_EA or self.conf.STORM_CLN_RF:
+                        f.write("import pycarl.cln\n")
+                    if not self.conf.STORM_CLN_EA or not self.conf.STORM_CLN_RF:
+                        f.write("import pycarl.gmp\n")
+
+                    if self.conf.STORM_CLN_EA:
+                        f.write("Rational = pycarl.cln.Rational\n")
+                    else:
+                        f.write("Rational = pycarl.gmp.Rational\n")
+
+                    if self.conf.STORM_CLN_RF:
+                        rfpackage = "cln"
+                    else:
+                        rfpackage = "gmp"
+                    f.write("RationalRF = pycarl.{}.Rational\n".format(rfpackage))
+                    f.write("Polynomial = pycarl.{}.Polynomial\n".format(rfpackage))
+                    f.write("FactorizedPolynomial = pycarl.{}.FactorizedPolynomial\n".format(rfpackage))
+                    f.write("RationalFunction = pycarl.{}.RationalFunction\n".format(rfpackage))
+                    f.write("FactorizedRationalFunction = pycarl.{}.FactorizedRationalFunction\n".format(rfpackage))
+
+            elif ext.name == "info":
                 with open(os.path.join(self.extdir(ext.name), ext.subdir, "_config.py"), "w") as f:
                     f.write("# Generated from setup.py at {}\n".format(datetime.datetime.now()))
                     f.write("storm_version = {}\n".format(self.conf.STORM_VERSION))
@@ -132,7 +156,7 @@ class PyTest(test):
 
 setup(
     name="stormpy",
-    version="0.9",
+    version="0.9.1",
     author="M. Volk",
     author_email="matthias.volk@cs.rwth-aachen.de",
     maintainer="S. Junges",
@@ -152,6 +176,6 @@ setup(
                  ],
     cmdclass={'build_ext': CMakeBuild, 'test': PyTest},
     zip_safe=False,
-    install_requires=['pycarl>=1.2.0'],
+    install_requires=['pycarl>=2.0.0'],
     tests_require=['pytest'],
 )

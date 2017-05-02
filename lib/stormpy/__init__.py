@@ -3,7 +3,7 @@ from .core import *
 from . import storage
 from .storage import *
 from .version import __version__
-import stormpy.logic
+from ._config import *
 
 from pycarl import Variable  # needed for building parametric models
 
