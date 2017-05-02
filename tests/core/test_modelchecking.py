@@ -30,8 +30,12 @@ class TestModelChecking:
         assert all(map(math.isclose, result.get_values(), reference))
     
     def test_parametric_state_elimination(self):
+        #TODO decide whether we have CLN or GMP based on some flag in stormpy.
         import pycarl
-        import pycarl.formula
+        import pycarl.cln
+        import pycarl.gmp
+        import pycarl.cln.formula
+        import pycarl.gmp.formula
         program = stormpy.parse_prism_program(get_example_path("pdtmc", "brp16_2.pm"))
         prop = "P=? [F s=5]"
         formulas = stormpy.parse_properties_for_prism_program(prop, program)
@@ -44,7 +48,7 @@ class TestModelChecking:
         assert initial_state == 0
         result = stormpy.model_checking(model, formulas[0])
         func = result.result.at(initial_state)
-        one = pycarl.FactorizedPolynomial(pycarl.Rational(1))
+        one = pycarl.cln.FactorizedPolynomial(pycarl.cln.Rational(1))
         assert func.denominator == one
         constraints_well_formed = result.constraints_well_formed
         for constraint in constraints_well_formed:

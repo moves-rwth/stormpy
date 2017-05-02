@@ -38,7 +38,7 @@ class TestFormulas:
         prop = "P<0.4 [F \"one\"]"
         formula = stormpy.parse_properties(prop)[0].raw_formula
         assert formula.has_bound
-        assert formula.threshold == pycarl.Rational("0.4")
+        assert formula.threshold == stormpy.Rational("0.4")
         assert formula.comparison_type == stormpy.logic.ComparisonType.LESS
 
     # setter not currently implemented (non-trivial due to Expression container)

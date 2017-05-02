@@ -83,7 +83,7 @@ class TestMatrix:
     
     def test_change_parametric_sparse_matrix_modelchecking(self):
         import stormpy.logic
-        import pycarl
+
         program = stormpy.parse_prism_program(get_example_path("pdtmc", "brp16_2.pm"))
         formulas = stormpy.parse_properties_for_prism_program("P=? [ F s=5 ]", program)
         model = stormpy.build_parametric_model(program, formulas)
@@ -91,9 +91,9 @@ class TestMatrix:
         assert initial_state == 0
         matrix = model.transition_matrix
         # Check matrix
-        one_pol = pycarl.Rational(1)
-        one_pol = pycarl.FactorizedPolynomial(one_pol)
-        one = pycarl.FactorizedRationalFunction(one_pol, one_pol)
+        one_pol = stormpy.RationalRF(1)
+        one_pol = stormpy.FactorizedPolynomial(one_pol)
+        one = stormpy.FactorizedRationalFunction(one_pol, one_pol)
         for e in matrix:
             assert e.value() == one or len(e.value().gather_variables()) > 0
         # First model checking
@@ -102,9 +102,9 @@ class TestMatrix:
         assert len(ratFunc.gather_variables()) > 0
         
         # Change probabilities
-        two_pol = pycarl.Rational(2)
-        two_pol = pycarl.FactorizedPolynomial(two_pol)
-        new_val = pycarl.FactorizedRationalFunction(one_pol, two_pol)
+        two_pol = stormpy.RationalRF(2)
+        two_pol = stormpy.FactorizedPolynomial(two_pol)
+        new_val = stormpy.FactorizedRationalFunction(one_pol, two_pol)
         for e in matrix:
             if len(e.value().gather_variables()) > 0:
                 e.set_value(new_val)

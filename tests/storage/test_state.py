@@ -102,11 +102,10 @@ class TestState:
                 assert transition.value() == transition_orig[2]
 
     def test_parametric_transitions(self):
-        import pycarl
         program = stormpy.parse_prism_program(get_example_path("pmdp", "two_dice.nm"))
         model = stormpy.build_parametric_model(program)
         assert model.states[1].id == 1
-        one = pycarl.FactorizedPolynomial(pycarl.Rational(1))
+        one = stormpy.FactorizedPolynomial(stormpy.RationalRF(1))
         i = 0
         for state in model.states:
             assert state.id == i
