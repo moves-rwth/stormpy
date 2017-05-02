@@ -4,3 +4,4 @@ build/
 *.pye
 .idea
 .DS_Store
+_config.py
