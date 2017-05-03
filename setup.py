@@ -89,7 +89,8 @@ setup(
     maintainer_email="sebastian.junges@cs.rwth-aachen.de",
     url="http://moves.rwth-aachen.de",
     description="pycarl - Python Bindings for Carl",
-    packages=['pycarl', 'pycarl.formula', 'pycarl.parse'],
+    packages=['pycarl', 'pycarl.cln', 'pycarl.gmp',
+              'pycarl.cln.formula', 'pycarl.gmp.formula', 'pycarl.gmp.parse'],
     package_dir={'':'lib'},
     long_description='',
     ext_package='pycarl',
@@ -98,8 +99,10 @@ setup(
                  CMakeExtension('gmp', subdir='gmp'),
                  CMakeExtension('formula', subdir='formula'),
                  CMakeExtension('formula-cln', subdir='cln/formula'),
-                 CMakeExtension('formula-gmp', subdir='gmp/formula')],
-    cmdclass=dict(build_ext=CMakeBuild),
+                 CMakeExtension('formula-gmp', subdir='gmp/formula'),
+                 CMakeExtension('parse-gmp', subdir='gmp/parse')],
+
+cmdclass=dict(build_ext=CMakeBuild),
     zip_safe=False,
     install_requires=['pytest', 'grako'],
 )

@@ -1,4 +1,0 @@
-To update the grako parser:
-* pip install grako
-* Modify parser.grako
-* python -m grako parser.grako -o grammar.py

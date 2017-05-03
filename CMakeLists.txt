@@ -45,4 +45,9 @@ target_link_libraries(formula-cln PRIVATE lib_carl)
 target_compile_definitions(formula-cln PUBLIC "PYCARL_USE_CLN=ON")
 set_target_properties(formula-cln PROPERTIES OUTPUT_NAME "formula")
 
+file(GLOB_RECURSE PYCARL_PARSE_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/parse/*.cpp)
 
+pybind11_add_module(parse-gmp ${CMAKE_CURRENT_SOURCE_DIR}/src/mod_parse.cpp ${PYCARL_PARSE_SOURCES})
+target_include_directories(parse-gmp PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}/src)
+target_link_libraries(parse-gmp PRIVATE lib_carl)
+set_target_properties(parse-gmp PROPERTIES OUTPUT_NAME "parse")
