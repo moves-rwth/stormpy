@@ -163,7 +163,7 @@ void define_gmp_rational(py::module& m) {
 
             .def("__float__", static_cast<double (*)(mpq_class const&)>(&carl::toDouble))
             .def("__str__", &streamToString<mpq_class>)
-            .def("__repr__", [](const mpq_class& r) { return "<Rational  (cln)" + streamToString<mpq_class>(r) + ">"; })
+            .def("__repr__", [](const mpq_class& r) { return "<Rational  (gmp)" + streamToString<mpq_class>(r) + ">"; })
 
             .def_property_readonly("nominator", [](const mpq_class& val) -> mpz_class {
                 return carl::getNum(val);
