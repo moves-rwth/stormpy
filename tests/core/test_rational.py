@@ -6,6 +6,11 @@ from package_selector import PackageSelector
 
 class TestRational(PackageSelector):
 
+    def test_create(self, package):
+        r1 = package.Rational(package.Integer(1), package.Integer(2))
+        assert package.numerator(r1) == 1
+        assert package.denominator(r1) == 2
+
     def test_parse(self, package):
         r1 = package.Rational("1/2")
         assert package.numerator(r1) == 1

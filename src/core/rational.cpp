@@ -17,6 +17,7 @@ void define_cln_rational(py::module& m) {
     py::class_<cln::cl_RA>(m, "Rational", "Class wrapping cln-rational numbers")
         .def("__init__", [](cln::cl_RA &instance, double val) -> void { auto tmp = carl::rationalize<cln::cl_RA>(val); new (&instance) cln::cl_RA(tmp); })
         .def("__init__", [](cln::cl_RA &instance, carl::sint val) -> void { auto tmp = carl::rationalize<cln::cl_RA>(val); new (&instance) cln::cl_RA(tmp); })
+        .def("__init__", [](cln::cl_RA &instance, cln::cl_I& numerator, cln::cl_I denominator) -> void { new (&instance) cln::cl_RA(cln::cl_RA(numerator)/cln::cl_RA(denominator)); })
         .def("__init__", [](cln::cl_RA &instance, std::string val) -> void { auto tmp = carl::parse<cln::cl_RA>(val); new (&instance) cln::cl_RA(tmp); })
 
         .def("__add__", [](const cln::cl_RA& lhs, const cln::cl_RA& rhs) -> cln::cl_RA { return lhs + rhs; })
@@ -107,6 +108,7 @@ void define_gmp_rational(py::module& m) {
     py::class_<mpq_class>(m, "Rational", "Class wrapping gmp-rational numbers")
             .def("__init__", [](mpq_class &instance, double val) -> void { auto tmp = carl::rationalize<mpq_class>(val); new (&instance) mpq_class(tmp); })
             .def("__init__", [](mpq_class &instance, carl::sint val) -> void { auto tmp = carl::rationalize<mpq_class>(val); new (&instance) mpq_class(tmp); })
+            .def("__init__", [](mpq_class &instance, mpz_class& numerator, mpz_class denominator) -> void { new (&instance) mpq_class(mpq_class(numerator)/mpq_class(denominator)); })
             .def("__init__", [](mpq_class &instance, std::string val) -> void { auto tmp = carl::parse<mpq_class>(val); new (&instance) mpq_class(tmp); })
 
             .def("__add__", [](const mpq_class& lhs, const mpq_class& rhs) -> mpq_class { return lhs + rhs; })
