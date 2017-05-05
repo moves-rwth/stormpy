@@ -5,6 +5,7 @@
  *      Author: harold
  */
 
+#include <string>
 #include <carl/core/Variable.h>
 #include <carl/core/VariablePool.h>
 
@@ -57,6 +58,7 @@ void define_variable(py::module& m) {
         .def_property_readonly("type", &carl::Variable::getType)
         .def_property_readonly("id", &carl::Variable::getId)
         .def_property_readonly("rank", &carl::Variable::getRank)
+        .def("__repr__", [](const carl::Variable& r) { return "<Variable " + r.getName() + " [id = " + std::to_string(r.getId()) + " ] >"; })
         .def("__str__", &streamToString<carl::Variable>)
         ;
 }
