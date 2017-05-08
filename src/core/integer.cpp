@@ -4,6 +4,7 @@
 
 #include "src/types.h"
 #include "carl/numbers/numbers.h"
+#include "carl/numbers/conversion/cln_gmp.h"
 
 
 void define_cln_integer(py::module& m) {
@@ -11,6 +12,7 @@ void define_cln_integer(py::module& m) {
     py::class_<cln::cl_I>(m, "Integer", "Class wrapping cln-integers")
             .def("__init__", [](cln::cl_I &instance, int val) -> void { new (&instance) cln::cl_I(val); })
             .def("__init__", [](cln::cl_I &instance, std::string val) -> void { auto tmp = carl::parse<cln::cl_I>(val); new (&instance) cln::cl_I(tmp); })
+            .def("__init__", [](cln::cl_I &instance, mpz_class const& val) -> void { auto tmp = carl::convert<mpz_class, cln::cl_I>(val); new (&instance) cln::cl_I(tmp);})
 
             .def(py::self + py::self)
             .def(py::self + int())
@@ -63,14 +65,16 @@ void define_cln_integer(py::module& m) {
 
 void define_gmp_integer(py::module& m) {
 #ifndef PYCARL_USE_CLN
-    // TODO: Avoid all the casts to mpz_class by supporting the different operator types [probably a lot of work]
     py::class_<mpz_class>(m, "Integer", "Class wrapping gmp-integers")
             .def("__init__", [](mpz_class &instance, int val) -> void { new (&instance) mpz_class(val); })
-            .def("__init__", [](mpz_class &instance, std::string val) -> void { auto tmp = carl::parse<mpz_class>(val); new (&instance) mpz_class(tmp); })
+            .def("__init__", [](mpz_class &instance, std::string const& val) -> void { auto tmp = carl::parse<mpz_class>(val); new (&instance) mpz_class(tmp); })
+#ifdef PYCARL_HAS_CLN
+            .def("__init__", [](mpz_class &instance, cln::cl_I const& val) -> void { auto tmp = carl::convert<cln::cl_I, mpz_class>(val); new (&instance) mpz_class(tmp);})
+#endif
 
             .def("__add__", [](const mpz_class& lhs, const mpz_class& rhs) -> mpz_class { return lhs + rhs; })
             .def("__add__", [](const mpz_class& lhs, int rhs) -> mpz_class { return lhs + rhs; })
-            .def("__add__", [](int lhs, const mpz_class& rhs) -> mpz_class { return lhs + rhs; })
+            .def("__radd__", [](const mpz_class& lhs, int rhs) -> mpz_class { return lhs + rhs; })
             .def("__add__", [](const mpz_class& lhs, carl::Variable::Arg rhs) -> Polynomial { return mpq_class(lhs) + rhs; })
             .def("__add__", [](const mpz_class& lhs, const Monomial::Arg& rhs) -> Polynomial { return mpq_class(lhs) + rhs; })
             .def("__radd__", [](const mpz_class& lhs, carl::Variable::Arg rhs) -> Polynomial { return mpq_class(lhs) + rhs; })
@@ -115,7 +119,7 @@ void define_gmp_integer(py::module& m) {
 
             .def("__float__", static_cast<double (*)(mpz_class const&)>(&carl::toDouble))
             .def("__str__", &streamToString<mpz_class>)
-            .def("__repr__", [](const mpz_class& r) { return "<Integer (gmp++) " + streamToString<mpz_class>(r) + ">"; });
+            .def("__repr__", [](const mpz_class& r) { return "<Integer (gmp) " + streamToString<mpz_class>(r) + ">"; });
 #endif
 
 }
