@@ -1,11 +1,6 @@
-/*
- * rational.cpp
- *
- *  Created on: 16 Apr 2016
- *      Author: harold
- */
-
 #include "rational.h"
+
+#include <stdexcept>
 
 #include "src/helpers.h"
 #include "src/types.h"
@@ -19,7 +14,13 @@ void define_cln_rational(py::module& m) {
         .def("__init__", [](cln::cl_RA &instance, double val) -> void { auto tmp = carl::rationalize<cln::cl_RA>(val); new (&instance) cln::cl_RA(tmp); })
         .def("__init__", [](cln::cl_RA &instance, carl::sint val) -> void { auto tmp = carl::rationalize<cln::cl_RA>(val); new (&instance) cln::cl_RA(tmp); })
         .def("__init__", [](cln::cl_RA &instance, const cln::cl_I& numerator, const cln::cl_I& denominator) -> void { new (&instance) cln::cl_RA(cln::cl_RA(numerator)/cln::cl_RA(denominator)); })
-        .def("__init__", [](cln::cl_RA &instance, const std::string& val) -> void { auto tmp = carl::parse<cln::cl_RA>(val); new (&instance) cln::cl_RA(tmp); })
+        .def("__init__", [](cln::cl_RA &instance, const std::string& val) -> void {
+            cln::cl_RA tmp;
+            bool suc = carl::try_parse<cln::cl_RA>(val, tmp);
+            if(!suc) {
+               throw std::invalid_argument("Cannot translate " + val + " into a rational.");
+            }
+            new (&instance) cln::cl_RA(tmp); })
         .def("__init__", [](cln::cl_RA &instance, mpq_class const& val) -> void { auto tmp = carl::convert<mpq_class, cln::cl_RA>(val); new (&instance) cln::cl_RA(tmp);})
 
 
@@ -112,8 +113,13 @@ void define_gmp_rational(py::module& m) {
             .def("__init__", [](mpq_class &instance, double val) -> void { auto tmp = carl::rationalize<mpq_class>(val); new (&instance) mpq_class(tmp); })
             .def("__init__", [](mpq_class &instance, carl::sint val) -> void { auto tmp = carl::rationalize<mpq_class>(val); new (&instance) mpq_class(tmp); })
             .def("__init__", [](mpq_class &instance, const mpz_class& numerator, const mpz_class& denominator) -> void { new (&instance) mpq_class(mpq_class(numerator)/mpq_class(denominator)); })
-            .def("__init__", [](mpq_class &instance, const std::string& val) -> void { auto tmp = carl::parse<mpq_class>(val); new (&instance) mpq_class(tmp); })
-
+            .def("__init__", [](mpq_class &instance, const std::string& val) -> void {
+                mpq_class tmp;
+                bool suc = carl::try_parse<mpq_class>(val, tmp);
+                if(!suc) {
+                    throw std::invalid_argument("Cannot translate " + val + " into a rational.");
+                }
+                new (&instance) mpq_class(tmp); })
             .def("__add__", [](const mpq_class& lhs, const mpq_class& rhs) -> mpq_class { return lhs + rhs; })
             .def("__add__", [](const mpq_class& lhs, carl::sint rhs) -> mpq_class { return lhs + carl::rationalize<mpq_class>(rhs); })
             .def("__radd__", [](const mpq_class& rhs, carl::sint lhs) -> mpq_class { return carl::rationalize<mpq_class>(lhs) + rhs; })

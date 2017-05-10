@@ -11,7 +11,13 @@ void define_cln_integer(py::module& m) {
 #ifdef PYCARL_USE_CLN
     py::class_<cln::cl_I>(m, "Integer", "Class wrapping cln-integers")
             .def("__init__", [](cln::cl_I &instance, int val) -> void { new (&instance) cln::cl_I(val); })
-            .def("__init__", [](cln::cl_I &instance, std::string val) -> void { auto tmp = carl::parse<cln::cl_I>(val); new (&instance) cln::cl_I(tmp); })
+            .def("__init__", [](cln::cl_I &instance, std::string val) -> void {
+                cln::cl_I tmp;
+                bool suc = carl::try_parse<cln::cl_I>(val, tmp);
+                if(!suc) {
+                    throw std::invalid_argument("Cannot translate " + val + " into an integer.");
+                }
+                 new (&instance) cln::cl_I(tmp); })
             .def("__init__", [](cln::cl_I &instance, mpz_class const& val) -> void { auto tmp = carl::convert<mpz_class, cln::cl_I>(val); new (&instance) cln::cl_I(tmp);})
 
             .def(py::self + py::self)
@@ -67,7 +73,13 @@ void define_gmp_integer(py::module& m) {
 #ifndef PYCARL_USE_CLN
     py::class_<mpz_class>(m, "Integer", "Class wrapping gmp-integers")
             .def("__init__", [](mpz_class &instance, int val) -> void { new (&instance) mpz_class(val); })
-            .def("__init__", [](mpz_class &instance, std::string const& val) -> void { auto tmp = carl::parse<mpz_class>(val); new (&instance) mpz_class(tmp); })
+            .def("__init__", [](mpz_class &instance, std::string const& val)  -> void {
+                mpz_class tmp;
+                bool suc = carl::try_parse<mpz_class>(val, tmp);
+                if(!suc) {
+                    throw std::invalid_argument("Cannot translate " + val + " into an integer.");
+                }
+                new (&instance) mpz_class(tmp); })
 #ifdef PYCARL_HAS_CLN
             .def("__init__", [](mpz_class &instance, cln::cl_I const& val) -> void { auto tmp = carl::convert<cln::cl_I, mpz_class>(val); new (&instance) mpz_class(tmp);})
 #endif
