@@ -67,7 +67,7 @@ class CMakeBuild(build_ext):
                       
                       
         cmake_args += ['-DCMAKE_BUILD_TYPE=' + cfg]
-        build_args += ['--', '-j2']
+        build_args += ['--', '-j{}'.format(os.cpu_count() if os.cpu_count() is not None else 2)]
         if self.carl_dir:
             cmake_args += ['-Dcarl_DIR=' + self.carl_dir]
                       
