@@ -1,10 +1,3 @@
-/*
- * factorizedraitonalfunction.cpp
- *
- *  Created on: 16 Apr 2016
- *      Author: harold
- */
-
 #include "factorizedrationalfunction.h"
 
 
@@ -29,5 +22,7 @@ void define_factorizedrationalfunction(py::module& m) {
         .def(py::self / py::self)
         .def(py::self == py::self)
         .def(py::self != py::self)
+            .def("__getstate__", [](const FactorizedRationalFunction& val) -> std::tuple<std::string> { throw NoPickling(); })
+            .def("__setstate__", [](FactorizedRationalFunction& val, const std::tuple<std::string>& data) { throw NoPickling(); })
         ;
 }

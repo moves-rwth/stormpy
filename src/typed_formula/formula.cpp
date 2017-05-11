@@ -50,5 +50,7 @@ void define_formula(py::module& m) {
                          py::keep_alive<0, 1>() /* Essential: keep object alive while iterator exists */)
 
         .def_property_readonly("type", &Formula::getType)
+        .def("__getstate__", [](const Formula& val) -> std::tuple<std::string> { throw NoPickling(); })
+        .def("__setstate__", [](Formula& val, const std::tuple<std::string>& data) { throw NoPickling(); })
         ;
 }

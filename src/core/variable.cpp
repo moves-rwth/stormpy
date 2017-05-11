@@ -1,10 +1,3 @@
-/*
- * variable.cpp
- *
- *  Created on: 16 Apr 2016
- *      Author: harold
- */
-
 #include <string>
 #include <carl/core/Variable.h>
 #include <carl/core/VariablePool.h>
@@ -54,11 +47,21 @@ void define_variable(py::module& m) {
         .def(py::self > py::self)
         .def(py::self >= py::self)
 
-        .def_property_readonly("name", &carl::Variable::getName)
+        .def_property_readonly("name", [](const carl::Variable& r) -> std::string
+        { if (r != carl::Variable::NO_VARIABLE) {
+            return r.getName();
+        } else {
+            return std::string("__NOVAR__");
+        }})
         .def_property_readonly("type", &carl::Variable::getType)
         .def_property_readonly("id", &carl::Variable::getId)
         .def_property_readonly("rank", &carl::Variable::getRank)
-        .def("__repr__", [](const carl::Variable& r) { return "<Variable " + r.getName() + " [id = " + std::to_string(r.getId()) + " ] >"; })
+        .def("__repr__", [](const carl::Variable& r)  { if (r != carl::Variable::NO_VARIABLE) { return "<Variable " + r.getName() + " [id = " + std::to_string(r.getId()) + " ] >"; } else { return std::string("<NOVARIABLE>");} })
         .def("__str__", &streamToString<carl::Variable>)
+        .def_property_readonly("is_no_variable", [](const carl::Variable& v) {return v == carl::Variable::NO_VARIABLE;})
+        .def("__getstate__", [](const carl::Variable& v) { return std::make_tuple<std::string, std::string>(v.getName(), carl::to_string(v.getType()));})
+        .def("__setstate__", [](carl::Variable& v, const std::tuple<std::string, std::string>& data ) { carl::Variable tmp = getOrCreateVariable(std::get<0>(data), carl::variableTypeFromString(std::get<1>(data)));
+            new(&v) carl::Variable(tmp); })
+
         ;
 }

@@ -11,6 +11,7 @@
 #include <pybind11/operators.h>
 #include <pybind11/stl.h>
 #include <tuple>
+#include <exception>
 
 namespace py = pybind11;
 
@@ -21,4 +22,12 @@ namespace py = pybind11;
 #define PY_DIV "__div__"
 #define PY_RDIV "__rdiv__"
 #endif
+
+struct NoPickling: public std::exception
+{
+    virtual const char* what() const throw()
+    {
+        return "Pickling support not implemented!";
+    }
+};
 

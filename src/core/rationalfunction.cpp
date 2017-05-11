@@ -41,8 +41,7 @@ void define_rationalfunction(py::module& m) {
         .def(PY_DIV, static_cast<RationalFunction (*)(const RationalFunction&, carl::Variable::Arg)>(&carl::operator/))
         .def(PY_DIV, static_cast<RationalFunction (*)(const RationalFunction&, const Rational&)>(&carl::operator/))
 
-
-            .def("__pow__", [](const RationalFunction& var, carl::uint exp) {return carl::pow(var, exp);})
+        .def("__pow__", [](const RationalFunction& var, carl::uint exp) {return carl::pow(var, exp);})
 
         .def("__pos__", [](const RationalFunction& var) {return RationalFunction(var);})
         .def("__neg__", [](const RationalFunction& var) {return var * RationalFunction(-1);})
@@ -59,5 +58,8 @@ void define_rationalfunction(py::module& m) {
 
         .def(py::self == py::self)
         .def(py::self != py::self)
+
+        .def("__getstate__", [](const RationalFunction&) -> std::tuple<std::string> { throw NoPickling(); })
+        .def("__setstate__", [](RationalFunction&, const  std::tuple<std::string>&) { throw NoPickling(); })
         ;
 }

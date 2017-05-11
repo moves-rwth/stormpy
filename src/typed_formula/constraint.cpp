@@ -44,6 +44,8 @@ void define_constraint(py::module& m) {
 
         .def_property_readonly("relation", &Constraint::relation)
         .def_property_readonly("lhs", &Constraint::lhs)
+        .def("__getstate__", [](const Constraint& val) -> std::tuple<std::string> { throw NoPickling(); })
+        .def("__setstate__", [](Constraint& val, const std::tuple<std::string>& data) { throw NoPickling(); })
         ;
 }
 //
@@ -55,6 +57,8 @@ void define_simple_constraint(py::module& m) {
 
         .def("lhs", &SimpleConstraint::lhs, "Get the left hand side of the constraint")
         .def("rel", &SimpleConstraint::rel, "Get the relation of the constraint")
+        .def("__getstate__", [](const SimpleConstraint& val) -> std::tuple<std::string> { throw NoPickling(); })
+        .def("__setstate__", [](SimpleConstraint& val, const std::tuple<std::string>& data) { throw NoPickling(); })
         
         ;
     
@@ -65,6 +69,9 @@ void define_simple_constraint(py::module& m) {
 
         .def("lhs", &SimpleConstraintRatFunc::lhs, "Get the left hand side of the constraint")
         .def("rel", &SimpleConstraintRatFunc::rel, "Get the relation of the constraint")
+
+        .def("__getstate__", [](const SimpleConstraintRatFunc& val) -> std::tuple<std::string> { throw NoPickling(); })
+        .def("__setstate__", [](SimpleConstraintRatFunc& val, const std::tuple<std::string>& data) { throw NoPickling(); })
         
         ;
 }

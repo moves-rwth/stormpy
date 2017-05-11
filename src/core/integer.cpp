@@ -64,7 +64,12 @@ void define_cln_integer(py::module& m) {
 
             .def("__float__", static_cast<double (*)(cln::cl_I const&)>(&carl::toDouble))
             .def("__str__", &streamToString<cln::cl_I>)
-            .def("__repr__", [](const cln::cl_I& r) { return "<Integer (cln) " + streamToString<cln::cl_I>(r) + ">"; });
+            .def("__repr__", [](const cln::cl_I& r) { return "<Integer (cln) " + streamToString<cln::cl_I>(r) + ">"; })
+            .def("__getstate__", [](const cln::cl_I& val) {
+                return std::tuple<std::string>(carl::toString(val));})
+
+            .def("__setstate__", [](cln::cl_I& val, std::tuple<std::string> data) {cln::cl_I res = carl::parse<cln::cl_I>(std::get<0>(data)); new (&val) cln::cl_I(res); })
+            ;
 
 #endif
 }
@@ -131,7 +136,12 @@ void define_gmp_integer(py::module& m) {
 
             .def("__float__", static_cast<double (*)(mpz_class const&)>(&carl::toDouble))
             .def("__str__", &streamToString<mpz_class>)
-            .def("__repr__", [](const mpz_class& r) { return "<Integer (gmp) " + streamToString<mpz_class>(r) + ">"; });
+            .def("__repr__", [](const mpz_class& r) { return "<Integer (gmp) " + streamToString<mpz_class>(r) + ">"; })
+            .def("__getstate__", [](const mpz_class& val) {
+                return std::tuple<std::string>(carl::toString(val));})
+            .def("__setstate__", [](mpz_class& val, std::tuple<std::string> data) {mpz_class res = carl::parse<mpz_class>(std::get<0>(data)); new (&val) mpz_class(res); })
+            ;
+
 #endif
 
 }
