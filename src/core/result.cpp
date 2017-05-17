@@ -9,14 +9,6 @@ std::vector<ValueType> getValues(storm::modelchecker::ExplicitQuantitativeCheckR
 // Define python bindings
 void define_result(py::module& m) {
 
-    // PmcResult
-    py::class_<PmcResult, std::shared_ptr<PmcResult>>(m, "PmcResult", "Holds the result and additional constraints after parametric model checking")
-        .def("__str__", &PmcResult::toString)
-        .def_property_readonly("result", &PmcResult::getResult, "Result")
-        .def_property_readonly("constraints_well_formed", &PmcResult::getConstraintsWellFormed, "Constraints ensuring well-formed probabilities")
-        .def_property_readonly("constraints_graph_preserving", &PmcResult::getConstraintsGraphPreserving, "Constraints ensuring graph preservation")
-    ;
-
     // CheckResult
     py::class_<storm::modelchecker::CheckResult, std::shared_ptr<storm::modelchecker::CheckResult>> checkResult(m, "_CheckResult", "Base class for all modelchecking results");
     checkResult.def_property_readonly("_symbolic", &storm::modelchecker::CheckResult::isSymbolic, "Flag if result is symbolic")

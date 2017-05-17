@@ -50,7 +50,7 @@ class TestBisimulation:
         assert initial_state == 0
 
         result = stormpy.model_checking(model, properties[0])
-        ratFunc = result.result.at(initial_state)
+        ratFunc = result.at(initial_state)
 
         model_bisim = stormpy.perform_bisimulation(model, properties, stormpy.BisimulationType.STRONG)
         assert model_bisim.nr_states == 324
@@ -61,5 +61,5 @@ class TestBisimulation:
         result_bisim = stormpy.model_checking(model_bisim, properties[0])
         initial_state_bisim = model_bisim.initial_states[0]
         assert initial_state_bisim == 316
-        ratFunc_bisim = result_bisim.result.at(initial_state_bisim)
+        ratFunc_bisim = result_bisim.at(initial_state_bisim)
         assert ratFunc == ratFunc_bisim

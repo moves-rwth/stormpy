@@ -98,7 +98,7 @@ class TestMatrix:
             assert e.value() == one or len(e.value().gather_variables()) > 0
         # First model checking
         result = stormpy.model_checking(model, formulas[0])
-        ratFunc = result.result.at(initial_state)
+        ratFunc = result.at(initial_state)
         assert len(ratFunc.gather_variables()) > 0
         
         # Change probabilities
@@ -112,5 +112,5 @@ class TestMatrix:
             assert e.value() == new_val or e.value() == one
         # Second model checking
         result = stormpy.model_checking(model, formulas[0])
-        ratFunc = result.result.at(initial_state)
+        ratFunc = result.at(initial_state)
         assert len(ratFunc.gather_variables()) == 0
