@@ -56,12 +56,13 @@ void define_variable(py::module& m) {
         .def_property_readonly("type", &carl::Variable::getType)
         .def_property_readonly("id", &carl::Variable::getId)
         .def_property_readonly("rank", &carl::Variable::getRank)
-        .def("__repr__", [](const carl::Variable& r)  { if (r != carl::Variable::NO_VARIABLE) { return "<Variable " + r.getName() + " [id = " + std::to_string(r.getId()) + " ] >"; } else { return std::string("<NOVARIABLE>");} })
+        .def("__repr__", [](const carl::Variable& r)  { if (r != carl::Variable::NO_VARIABLE) { return "<Variable " + r.getName() + " [id = " + std::to_string(r.getId()) + "]>"; } else { return std::string("<NOVARIABLE>");} })
         .def("__str__", &streamToString<carl::Variable>)
         .def_property_readonly("is_no_variable", [](const carl::Variable& v) {return v == carl::Variable::NO_VARIABLE;})
         .def("__getstate__", [](const carl::Variable& v) { return std::make_tuple<std::string, std::string>(v.getName(), carl::to_string(v.getType()));})
         .def("__setstate__", [](carl::Variable& v, const std::tuple<std::string, std::string>& data ) { carl::Variable tmp = getOrCreateVariable(std::get<0>(data), carl::variableTypeFromString(std::get<1>(data)));
             new(&v) carl::Variable(tmp); })
+        .def("__hash__", [](const carl::Variable& v) { std::hash<carl::Variable> h; return h(v);})
 
         ;
 }
