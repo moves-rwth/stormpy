@@ -51,3 +51,10 @@ pybind11_add_module(parse-gmp ${CMAKE_CURRENT_SOURCE_DIR}/src/mod_parse.cpp ${PY
 target_include_directories(parse-gmp PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}/src)
 target_link_libraries(parse-gmp PRIVATE lib_carl)
 set_target_properties(parse-gmp PROPERTIES OUTPUT_NAME "parse")
+
+
+pybind11_add_module(parse-cln ${CMAKE_CURRENT_SOURCE_DIR}/src/mod_parse.cpp ${PYCARL_PARSE_SOURCES})
+target_include_directories(parse-cln PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}/src)
+target_link_libraries(parse-cln PRIVATE lib_carl)
+target_compile_definitions(parse-cln PUBLIC "PYCARL_USE_CLN=ON")
+set_target_properties(parse-cln PROPERTIES OUTPUT_NAME "parse")
