@@ -22,6 +22,7 @@ void define_factorizedpolynomial(py::module& m) {
     py::class_<FactorizedPolynomial>(m, "FactorizedPolynomial", "Represent a polynomial with its factorization")
         .def(py::init<const Rational&>())
         .def(py::init<const Polynomial&, const std::shared_ptr<carl::Cache<FactorizationPair>>>())
+        .def("is_constant", &FactorizedPolynomial::isConstant)
         .def("constant_part", &FactorizedPolynomial::constantPart)
         .def("evaluate", &FactorizedPolynomial::evaluate<Rational>)
         .def("gather_variables", static_cast<std::set<carl::Variable> (FactorizedPolynomial::*)() const>(&FactorizedPolynomial::gatherVariables))
