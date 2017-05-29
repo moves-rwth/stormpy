@@ -1,4 +1,5 @@
 import os
+import multiprocessing
 import re
 import sys
 import platform
@@ -67,7 +68,11 @@ class CMakeBuild(build_ext):
                       
                       
         cmake_args += ['-DCMAKE_BUILD_TYPE=' + cfg]
-        build_args += ['--', '-j{}'.format(os.cpu_count() if os.cpu_count() is not None else 2)]
+        try:
+            cores = multiprocessing.cpu_count() if multiprocessing.cpu_count() is not None else 2
+        except NotImplementedError:
+            cores = 2
+        build_args += ['--', '-j{}'.format(cores)]
         if self.carl_dir:
             cmake_args += ['-Dcarl_DIR=' + self.carl_dir]
                       
