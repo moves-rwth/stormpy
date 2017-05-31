@@ -1,4 +1,5 @@
 #include "core.h"
+#include "storm/utility/DirectEncodingExporter.h"
 
 void define_core(py::module& m) {
     // Init
@@ -60,5 +61,20 @@ void define_build(py::module& m) {
     m.def("_build_sparse_parametric_model_from_prism_program", &storm::buildSparseModel<storm::RationalFunction>, "Build the parametric model", py::arg("program"), py::arg("formulas"));
     m.def("_build_sparse_model_from_drn", &storm::buildExplicitDRNModel<double>, "Build the model from DRN", py::arg("file"));
     m.def("_build_sparse_parametric_model_from_drn", &storm::buildExplicitDRNModel<storm::RationalFunction>, "Build the parametric model from DRN", py::arg("file"));
-    
+
+}
+
+// Thin wrapper for exporting model
+template<typename ValueType>
+void exportDRN(std::shared_ptr<storm::models::sparse::Model<ValueType>> model, std::string const& file) {
+     std::ofstream stream;
+    storm::utility::openFile(file, stream);
+    storm::exporter::explicitExportSparseModel(stream, model, {});
+    storm::utility::closeFile(stream);
+}
+
+void define_export(py::module& m) {
+    // Export
+    m.def("export_to_drn", &exportDRN<double>, "Export model in DRN format", py::arg("model"), py::arg("file"));
+    m.def("export_parametric_to_drn", &exportDRN<storm::RationalFunction>, "Export parametric model in DRN format", py::arg("model"), py::arg("file"));
 }

@@ -19,6 +19,7 @@ PYBIND11_PLUGIN(core) {
     define_property(m);
     define_parse(m);
     define_build(m);
+    define_export(m);
     define_result(m);
     define_modelchecking(m);
     define_bisimulation(m);
