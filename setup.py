@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import os
+import multiprocessing
 import sys
 import subprocess
 import datetime
@@ -34,7 +35,9 @@ class CMakeExtension(Extension):
 
 class CMakeBuild(build_ext):
     user_options = build_ext.user_options + [
-        ('storm-dir=', None, 'Path to storm root (binary) location')
+        ('storm-dir=', None, 'Path to storm root (binary) location'),
+        ('jobs=', 'j', 'Number of jobs to use for compiling'),
+        ('debug', None, 'Build in Debug mode'),
     ]
 
 
@@ -61,12 +64,10 @@ class CMakeBuild(build_ext):
         spec = importlib.util.spec_from_file_location("genconfig", os.path.join(build_temp_version, 'generated/config.py'))
         self.conf = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(self.conf)
-        print(self.conf.HAVE_STORM_DFT)
 
+        # Check storm version
         storm_v_major, storm_v_minor, storm_v_patch = parse_storm_version(self.conf.STORM_VERSION)
         check_storm_compatible(storm_v_major, storm_v_minor, storm_v_patch)
-
-
 
         for ext in self.extensions:
             if ext.name == "core":
@@ -110,11 +111,14 @@ class CMakeBuild(build_ext):
             self.build_extension(ext)
 
 
-
-
     def initialize_options(self):
         build_ext.initialize_options(self)
         self.storm_dir = None
+        self.debug = False
+        try:
+            self.jobs = multiprocessing.cpu_count() if multiprocessing.cpu_count() is not None else 1
+        except NotImplementedError:
+            self.jobs = 1
 
     def finalize_options(self):
         if self.storm_dir is not None:
@@ -123,15 +127,13 @@ class CMakeBuild(build_ext):
 
     def build_extension(self, ext):
         extdir = self.extdir(ext.name)
-        print(extdir)
         cmake_args = ['-DSTORMPY_LIB_DIR=' + extdir,
                       '-DPYTHON_EXECUTABLE=' + sys.executable]
 
-        cfg = 'Release'  # if self.debug else 'Release'
-        build_args = ['--config', cfg]
-
-        cmake_args += ['-DCMAKE_BUILD_TYPE=' + cfg]
-        build_args += ['--', '-j{}'.format(os.cpu_count() if os.cpu_count() is not None else 2)]
+        build_type = 'Debug' if self.debug else 'Release'
+        build_args = ['--config', build_type]
+        build_args += ['--', '-j{}'.format(self.jobs)]
+        cmake_args += ['-DCMAKE_BUILD_TYPE=' + build_type]
         if self.conf.STORM_DIR is not None:
             cmake_args += ['-Dstorm_DIR=' + self.conf.STORM_DIR]
         if self.conf.HAVE_STORM_DFT:
@@ -142,13 +144,15 @@ class CMakeBuild(build_ext):
                                                               self.distribution.get_version())
         if not os.path.exists(self.build_temp):
             os.makedirs(self.build_temp)
+        print("CMake args={}".format(cmake_args))
+        # Call cmake
         subprocess.check_call(['cmake', ext.sourcedir] + cmake_args, cwd=self.build_temp, env=env)
         subprocess.check_call(['cmake', '--build', '.', '--target', ext.name] + build_args, cwd=self.build_temp)
 
 
 class PyTest(test):
     def run_tests(self):
-        #import here, cause outside the eggs aren't loaded
+        # import here, cause outside the eggs aren't loaded
         import pytest
         errno = pytest.main(['tests'])
         sys.exit(errno)
