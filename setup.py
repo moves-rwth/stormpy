@@ -32,10 +32,12 @@ class CMakeExtension(Extension):
 
 
 class CMakeBuild(build_ext):
-       
+
     user_options = build_ext.user_options + [
-                                             ('carl-dir=', None, 'Path to carl root (binary) location')
-                                             ]
+            ('carl-dir=', None, 'Path to carl root (binary) location'),
+            ('jobs=', 'j', 'Number of jobs to use for compiling'),
+            ('debug', None, 'Build in Debug mode'),
+        ]
 
     def run(self):
         try:
@@ -43,7 +45,7 @@ class CMakeBuild(build_ext):
         except OSError:
             raise RuntimeError("CMake must be installed to build the following extensions: " +
                                ", ".join(e.name for e in self.extensions))
-        
+
         for ext in self.extensions:
             self.build_extension(ext)
 
@@ -51,40 +53,40 @@ class CMakeBuild(build_ext):
     def initialize_options(self):
         build_ext.initialize_options(self)
         self.carl_dir = None
-    
+        self.debug = False
+        try:
+            self.jobs = multiprocessing.cpu_count() if multiprocessing.cpu_count() is not None else 1
+        except NotImplementedError:
+            self.jobs = 1
+
     def finalize_options(self):
         if self.carl_dir:
             print('The custom carl directory', self.carl_dir)
         build_ext.finalize_options(self)
-    
 
     def build_extension(self, ext):
         extdir = os.path.abspath(os.path.dirname(self.get_ext_fullpath(ext.name)))
         cmake_args = ['-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=' + os.path.join(extdir, ext.subdir),
                       '-DPYTHON_EXECUTABLE=' + sys.executable]
-            
-        cfg = 'Release'# if self.debug else 'Release'
-        build_args = ['--config', cfg]
-                      
-                      
-        cmake_args += ['-DCMAKE_BUILD_TYPE=' + cfg]
-        try:
-            cores = multiprocessing.cpu_count() if multiprocessing.cpu_count() is not None else 2
-        except NotImplementedError:
-            cores = 2
-        build_args += ['--', '-j{}'.format(cores)]
+
+        build_type = 'Debug' if self.debug else 'Release'
+        build_args = ['--config', build_type]
+        build_args += ['--', '-j{}'.format(self.jobs)]
+        cmake_args += ['-DCMAKE_BUILD_TYPE=' + build_type]
         if self.carl_dir:
             cmake_args += ['-Dcarl_DIR=' + self.carl_dir]
-                      
+
         env = os.environ.copy()
         env['CXXFLAGS'] = '{} -DVERSION_INFO=\\"{}\\"'.format(env.get('CXXFLAGS', ''),
-                                                                            self.distribution.get_version())
+                                                                       self.distribution.get_version())
         if not os.path.exists(self.build_temp):
              os.makedirs(self.build_temp)
-             print("cmake args={}".format(cmake_args))
+        print("CMake args={}".format(cmake_args))
+        # Call cmake
         subprocess.check_call(['cmake', ext.sourcedir] + cmake_args, cwd=self.build_temp, env=env)
         subprocess.check_call(['cmake', '--build', '.', '--target', ext.name] + build_args, cwd=self.build_temp)
-        
+
+
 setup(
     name='pycarl',
     version=obtain_version(),
