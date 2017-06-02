@@ -20,8 +20,8 @@ sudo apt-get -qq update
 
 # Install compiler
 case "${COMPILER}" in
-gcc-5)         gcc-5 g++-5 ;;
-gcc-6)         gcc-6 g++-6 ;;
+gcc-5)         install gcc-5 g++-5 ;;
+gcc-6)         install gcc-6 g++-6 ;;
 clang-default) ;;
 *) echo "Compiler not supported: ${COMPILER}. See travis/install_linux.sh"; exit 1 ;;
 esac

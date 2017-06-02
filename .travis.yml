@@ -6,6 +6,7 @@ branches:
   - master
 dist: trusty
 language: generic
+sudo: required
 
 #
 # Configurations
@@ -16,17 +17,16 @@ jobs:
     # Linux
     - os: linux
       compiler: gcc
-      env: BUILD=DefaultDebug COMPILER=gcc-6 PYTHON=python3.4
-      install: export OS=linux; export COMPILER='gcc-6'; export PYTHON='python3.4';
+      env: BUILD=DefaultDebug COMPILER=gcc-6 PYTHON=python
+      install: export OS=linux; export COMPILER='gcc-6'; export PYTHON='python';
         travis/install_linux.sh
-      script: export OS=linux; export COMPILER='gcc-6'; export PYTHON='python3.4';
+      script: export OS=linux; export COMPILER='gcc-6'; export PYTHON='python';
         travis/build.sh DefaultDebug
     # Mac OS X
-    - stage: Build dependencies
-      os: osx
+    - os: osx
       compiler: clang
-      env: BUILD=DefaultDebug COMPILER=clang-4.0 PYTHON=python3.4 STL=libc++
-      install: export OS=osx; export COMPILER='clang-4.0'; export STL='libc++'; export PYTHON='python3.4';
+      env: BUILD=DefaultDebug COMPILER=clang-4.0 PYTHON=python STL=libc++
+      install: export OS=osx; export COMPILER='clang-4.0'; export STL='libc++'; export PYTHON='python';
         travis/install_osx.sh
-      script: export OS=osx; export COMPILER='clang-4.0'; export STL='libc++'; export PYTHON='python3.4';
+      script: export OS=osx; export COMPILER='clang-4.0'; export STL='libc++'; export PYTHON='python';
         travis/build.sh DefaultDebug
