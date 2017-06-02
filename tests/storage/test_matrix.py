@@ -11,20 +11,22 @@ class TestMatrix:
         assert type(matrix) is stormpy.storage.SparseMatrix
         assert matrix.nr_rows == model.nr_states
         assert matrix.nr_columns == model.nr_states
-        assert matrix.nr_entries == 27 #model.nr_transitions
+        assert matrix.nr_entries == 20
+        assert matrix.nr_entries == model.nr_transitions
         for e in matrix:
             assert e.value() == 0.5 or e.value() == 0 or (e.value() == 1 and e.column > 6)
-    
+
     def test_backward_matrix(self):
         model = stormpy.parse_explicit_model(get_example_path("dtmc", "die.tra"), get_example_path("dtmc", "die.lab"))
         matrix = model.backward_transition_matrix
         assert type(matrix) is stormpy.storage.SparseMatrix
         assert matrix.nr_rows == model.nr_states
         assert matrix.nr_columns == model.nr_states
-        assert matrix.nr_entries == 20 #model.nr_transitions
+        assert matrix.nr_entries == 20
+        assert matrix.nr_entries == model.nr_transitions
         for e in matrix:
             assert e.value() == 0.5 or e.value() == 0 or (e.value() == 1 and e.column > 6)
-    
+
     def test_change_sparse_matrix(self):
         model = stormpy.parse_explicit_model(get_example_path("dtmc", "die.tra"), get_example_path("dtmc", "die.lab"))
         matrix = model.transition_matrix
@@ -38,7 +40,7 @@ class TestMatrix:
         for e in matrix:
             assert e.value() == i
             i += 0.1
-    
+
     def test_change_sparse_matrix_modelchecking(self):
         import stormpy.logic
         model = stormpy.parse_explicit_model(get_example_path("dtmc", "die.tra"), get_example_path("dtmc", "die.lab"))
@@ -51,7 +53,7 @@ class TestMatrix:
         result = stormpy.model_checking(model, formulas[0])
         resValue = result.at(model.initial_states[0])
         assert math.isclose(resValue, 0.16666666666666663)
-        
+
         # Change probabilities
         i = 0
         for e in matrix:
@@ -67,7 +69,7 @@ class TestMatrix:
         result = stormpy.model_checking(model, formulas[0])
         resValue = result.at(model.initial_states[0])
         assert math.isclose(resValue, 0.06923076923076932)
-        
+
         # Change probabilities again
         for state in model.states:
             for action in state.actions:
@@ -80,7 +82,7 @@ class TestMatrix:
         result = stormpy.model_checking(model, formulas[0])
         resValue = result.at(model.initial_states[0])
         assert math.isclose(resValue, 0.3555555555555556)
-    
+
     def test_change_parametric_sparse_matrix_modelchecking(self):
         import stormpy.logic
 
@@ -100,7 +102,7 @@ class TestMatrix:
         result = stormpy.model_checking(model, formulas[0])
         ratFunc = result.at(initial_state)
         assert len(ratFunc.gather_variables()) > 0
-        
+
         # Change probabilities
         two_pol = stormpy.RationalRF(2)
         two_pol = stormpy.FactorizedPolynomial(two_pol)
