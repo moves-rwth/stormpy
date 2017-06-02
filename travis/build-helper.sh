@@ -30,7 +30,7 @@ run() {
   cd carl
   mkdir build
   cd build
-  cmake .. "${CMAKE_ARGS[@]}"
+  cmake .. "${CMAKE_ARGS[@]}" "-DUSE_CLN_NUMBERS=ON" "-DUSE_GINAC=ON"
   echo
   echo "Content of CMakeFiles/CMakeError.log:"
   if [ -f "CMakeFiles/CMakeError.log" ]
