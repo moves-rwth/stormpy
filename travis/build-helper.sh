@@ -1,15 +1,6 @@
 #!/bin/bash
-# Inspired by https://github.com/google/fruit
 
 set -e
-
-: ${N_JOBS:=2}
-: ${TIMEOUT:=2000}
-
-if [ "$STL" != "" ]
-then
-  STLARG="-stdlib=$STL"
-fi
 
 # Helper for travis folding
 travis_fold() {
@@ -18,7 +9,7 @@ travis_fold() {
   echo -en "travis_fold:${action}:${name}\r"
 }
 
-# Helper for distinguishing between different runs
+# Helper for building and testing
 run() {
   # Create virtual environment
   virtualenv --python=$PYTHON pycarl-env
@@ -141,7 +132,7 @@ echo Normalized C++ Standard library location: $(readlink -f $(echo '#include <v
 case "$1" in
 DefaultDebug)           CMAKE_ARGS=(-DCMAKE_BUILD_TYPE=Debug   -DCMAKE_CXX_FLAGS="$STLARG") ;;
 DefaultRelease)         CMAKE_ARGS=(-DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="$STLARG") ;;
-*) echo "Error: you need to specify one of the supported postsubmit modes (see postsubmit.sh)."; exit 1 ;;
+*) echo "Error: you need to specify one of the supported build modes (see travis/build.sh)."; exit 1 ;;
 esac
 
 run

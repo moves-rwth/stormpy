@@ -1,16 +1,35 @@
 #!/bin/bash -x
 
+: ${N_JOBS:=2}
+: ${TIMEOUT:=2000}
+
+if [ "$STL" != "" ]
+then
+  STLARG="-stdlib=$STL"
+fi
+
 case $OS in
 linux)
+    # Execute docker image on linux
+    # Stop previous session
+    docker rm -f pycarl &>/dev/null
+    # Run container
+    set -e
+    docker run -d -it --name pycarl --privileged mvolk/storm-basesystem:$LINUX
+    # Copy local content into container
+    docker exec pycarl mkdir pycarl
+    docker cp . pycarl:/pycarl
+    set +e
 
-    # Linux
     # Execute main process
-    export COMPILER=$COMPILER;
-    export N_JOBS=$N_JOBS;
-    export STLARG=$STLARG;
-    export OS=$OS;
-    export PYTHON=$PYTHON;
-    travis/build-helper.sh "$1"
+    docker exec pycarl bash -c "
+        export COMPILER=$COMPILER;
+        export N_JOBS=$N_JOBS;
+        export STLARG=$STLARG;
+        export OS=$OS;
+        export PYTHON=$PYTHON;
+        cd pycarl;
+        travis/build-helper.sh $1"
     exit $?
     ;;
 

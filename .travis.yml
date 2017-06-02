@@ -6,6 +6,9 @@ branches:
   - master
 dist: trusty
 language: generic
+# Enable docker support
+services:
+- docker
 sudo: required
 
 #
@@ -14,19 +17,19 @@ sudo: required
 jobs:
   include:
 
-    # Linux
+    # ubuntu-16.10
     - os: linux
       compiler: gcc
-      env: BUILD=DefaultDebug COMPILER=gcc-default PYTHON=python
-      install: export OS=linux; export COMPILER='gcc-default'; export PYTHON='python';
+      env: BUILD=DefaultDebug COMPILER=gcc-6 PYTHON=python LINUX=ubuntu-16.10
+      install: export OS=linux; export COMPILER='gcc-6'; export LINUX='ubuntu-16.10'; export PYTHON='python';
         travis/install_linux.sh
-      script: export OS=linux; export COMPILER='gcc-default'; export PYTHON='python';
+      script: export OS=linux; export COMPILER='gcc-6'; export LINUX='ubuntu-16.10'; export PYTHON='python';
         travis/build.sh DefaultDebug
-    # Mac OS X
+    # osx
     - os: osx
       compiler: clang
-      env: BUILD=DefaultDebug COMPILER=clang-default PYTHON=python STL=libc++
-      install: export OS=osx; export COMPILER='clang-default'; export STL='libc++'; export PYTHON='python';
+      env: BUILD=DefaultDebug COMPILER=clang-4.0 PYTHON=python STL=libc++
+      install: export OS=osx; export COMPILER='clang-4.0'; export STL='libc++'; export PYTHON='python';
         travis/install_osx.sh
-      script: export OS=osx; export COMPILER='clang-default'; export STL='libc++'; export PYTHON='python';
+      script: export OS=osx; export COMPILER='clang-4.0'; export STL='libc++'; export PYTHON='python';
         travis/build.sh DefaultDebug
