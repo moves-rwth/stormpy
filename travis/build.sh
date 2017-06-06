@@ -20,7 +20,7 @@ linux)
     docker exec pycarl mkdir pycarl
     docker cp . pycarl:/pycarl
     # Install virtualenv
-    docker exec pycarl apt-get install -qq -y virtualenv
+    docker exec pycarl apt-get install -qq -y python python3 virtualenv
     set +e
 
     # Execute main process

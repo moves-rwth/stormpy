@@ -58,4 +58,6 @@ install_brew_package gmp --c++11
 install_brew_package cln
 install_brew_package ginac
 install_brew_package boost --c++11
+install_brew_package python
+install_brew_package python3
 travis_fold end brew_install_dependencies
