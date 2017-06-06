@@ -19,9 +19,9 @@ linux)
     # Copy local content into container
     docker exec pycarl mkdir pycarl
     docker cp . pycarl:/pycarl
-    set +e
     # Install virtualenv
     docker exec pycarl apt-get install -qq -y virtualenv
+    set +e
 
     # Execute main process
     docker exec pycarl bash -c "

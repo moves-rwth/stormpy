@@ -20,16 +20,16 @@ jobs:
     # ubuntu-16.10
     - os: linux
       compiler: gcc
-      env: BUILD=DefaultDebug COMPILER=gcc-6 PYTHON=python LINUX=ubuntu-16.10
-      install: export OS=linux; export COMPILER='gcc-6'; export LINUX='ubuntu-16.10'; export PYTHON='python';
+      env: BUILD=DefaultDebug COMPILER=gcc-6 PYTHON=python3 LINUX=ubuntu-16.10
+      install: export OS=linux; export COMPILER='gcc-6'; export LINUX='ubuntu-16.10'; export PYTHON='python3';
         travis/install_linux.sh
-      script: export OS=linux; export COMPILER='gcc-6'; export LINUX='ubuntu-16.10'; export PYTHON='python';
+      script: export OS=linux; export COMPILER='gcc-6'; export LINUX='ubuntu-16.10'; export PYTHON='python3';
         travis/build.sh DefaultDebug
     # osx
     - os: osx
       compiler: clang
-      env: BUILD=DefaultDebug COMPILER=clang-4.0 PYTHON=python STL=libc++
-      install: export OS=osx; export COMPILER='clang-4.0'; export STL='libc++'; export PYTHON='python';
+      env: BUILD=DefaultDebug COMPILER=clang-4.0 PYTHON=python3 STL=libc++
+      install: export OS=osx; export COMPILER='clang-4.0'; export STL='libc++'; export PYTHON='python3';
         travis/install_osx.sh
-      script: export OS=osx; export COMPILER='clang-4.0'; export STL='libc++'; export PYTHON='python';
+      script: export OS=osx; export COMPILER='clang-4.0'; export STL='libc++'; export PYTHON='python3';
         travis/build.sh DefaultDebug

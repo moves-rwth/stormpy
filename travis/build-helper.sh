@@ -41,9 +41,8 @@ run() {
   travis_fold end build_pycarl
 
   # Run tests
-  travis_fold start test_pycarl
+  set +e
   py.test tests/
-  travis_fold end test_pycarl
 }
 
 
