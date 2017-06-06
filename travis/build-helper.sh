@@ -42,7 +42,7 @@ run() {
 
   # Run tests
   set +e
-  py.test tests/
+  python -m pytest -sv tests/
 }
 
 
