@@ -14,6 +14,8 @@ run() {
   # Create virtual environment
   virtualenv --python=$PYTHON pycarl-env
   source pycarl-env/bin/activate
+  # Print version
+  python --version
 
   # Build Carl
   travis_fold start install_carl
