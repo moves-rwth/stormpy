@@ -38,13 +38,13 @@ jobs:
       env: PYTHON=python BUILD=DefaultDebug COMPILER=clang-4.0 STL=libc++
       install: export OS=osx; export COMPILER='clang-4.0'; export STL='libc++'; export PYTHON='python';
         travis/install_osx.sh
-      script: export OS=osx; export COMPILER='clang-4.0'; export STL='libc++'; export PYTHON='python'
+      script: export OS=osx; export COMPILER='clang-4.0'; export STL='libc++'; export PYTHON='python';
         travis/build.sh DefaultDebug
     - os: osx
       compiler: clang
       env: PYTHON=python3 BUILD=DefaultDebug COMPILER=clang-4.0 STL=libc++
       install: export OS=osx; export COMPILER='clang-4.0'; export STL='libc++'; export PYTHON='python3';
         travis/install_osx.sh
-      script: export OS=osx; export COMPILER='clang-4.0'; export STL='libc++'; export PYTHON='python3'
+      script: export OS=osx; export COMPILER='clang-4.0'; export STL='libc++'; export PYTHON='python3';
         travis/build.sh DefaultDebug
 
