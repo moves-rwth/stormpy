@@ -20,31 +20,25 @@ jobs:
     # ubuntu-16.10
     - os: linux
       compiler: gcc
-      env: PYTHON=python BUILD=DefaultDebug COMPILER=gcc-6 LINUX=ubuntu-16.10
-      install: export OS=linux; export COMPILER='gcc-6'; export LINUX='ubuntu-16.10'; export PYTHON='python';
-        travis/install_linux.sh
-      script: export OS=linux; export COMPILER='gcc-6'; export LINUX='ubuntu-16.10'; export PYTHON='python';
-        travis/build.sh DefaultDebug
-    - os: linux
-      compiler: gcc
-      env: PYTHON=python3 BUILD=DefaultDebug COMPILER=gcc-6 LINUX=ubuntu-16.10
+      env: PYTHON=python3 BUILD=DefaultRelease COMPILER=gcc-6 LINUX=ubuntu-16.10
       install: export OS=linux; export COMPILER='gcc-6'; export LINUX='ubuntu-16.10'; export PYTHON='python3';
         travis/install_linux.sh
       script: export OS=linux; export COMPILER='gcc-6'; export LINUX='ubuntu-16.10'; export PYTHON='python3';
-        travis/build.sh DefaultDebug
+        travis/build.sh DefaultRelease
+    # debian-9
+    - os: linux
+      compiler: gcc
+      env: PYTHON=python3 BUILD=DefaultRelease COMPILER=gcc-6 LINUX=debian-9
+      install: export OS=linux; export COMPILER='gcc-6'; export LINUX='debian-9'; export PYTHON='python3';
+        travis/install_linux.sh
+      script: export OS=linux; export COMPILER='gcc-6'; export LINUX='debian-9'; export PYTHON='python3';
+        travis/build.sh DefaultRelease
     # osx
     - os: osx
       compiler: clang
-      env: PYTHON=python BUILD=DefaultDebug COMPILER=clang-4.0 STL=libc++
-      install: export OS=osx; export COMPILER='clang-4.0'; export STL='libc++'; export PYTHON='python';
-        travis/install_osx.sh
-      script: export OS=osx; export COMPILER='clang-4.0'; export STL='libc++'; export PYTHON='python';
-        travis/build.sh DefaultDebug
-    - os: osx
-      compiler: clang
-      env: PYTHON=python3 BUILD=DefaultDebug COMPILER=clang-4.0 STL=libc++
+      env: PYTHON=python3 BUILD=DefaultRelease COMPILER=clang-4.0 STL=libc++
       install: export OS=osx; export COMPILER='clang-4.0'; export STL='libc++'; export PYTHON='python3';
         travis/install_osx.sh
       script: export OS=osx; export COMPILER='clang-4.0'; export STL='libc++'; export PYTHON='python3';
-        travis/build.sh DefaultDebug
+        travis/build.sh DefaultRelease
 

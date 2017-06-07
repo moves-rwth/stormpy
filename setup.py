@@ -8,6 +8,9 @@ import subprocess
 from setuptools import setup, Extension
 from setuptools.command.build_ext import build_ext
 
+if sys.version_info[0] == 2:
+    sys.exit('Sorry, Python 2.x is not supported')
+
 def obtain_version():
     verstr = "unknown"
     try:
