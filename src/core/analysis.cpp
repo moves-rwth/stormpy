@@ -10,5 +10,4 @@ void define_graph_constraints(py::module& m) {
             .def_property_readonly("graph_preserving_constraints", &storm::analysis::ConstraintCollector<storm::RationalFunction>::getGraphPreservingConstraints)
     ;
 
-
 }

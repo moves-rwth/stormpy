@@ -1,5 +1,6 @@
 #include "pla.h"
 #include "src/helpers.h"
+#include "storm/modelchecker/parametric/SparseDtmcRegionChecker.h"
 
 typedef storm::modelchecker::parametric::SparseDtmcRegionChecker<storm::models::sparse::Dtmc<storm::RationalFunction>, double, storm::RationalNumber> SparseDtmcRegionChecker;
 typedef storm::storage::ParameterRegion<storm::RationalFunction> Region;
@@ -25,8 +26,8 @@ std::set<storm::Polynomial> gatherDerivatives(storm::models::sparse::Dtmc<storm:
 
 // Define python bindings
 void define_pla(py::module& m) {
-    
-    // RegionCheckResult 
+
+    // RegionCheckResult
     py::enum_<storm::modelchecker::parametric::RegionCheckResult>(m, "RegionCheckResult", "Types of region check results")
         .value("EXISTSSAT", storm::modelchecker::parametric::RegionCheckResult::ExistsSat)
         .value("EXISTSVIOLATED", storm::modelchecker::parametric::RegionCheckResult::ExistsViolated)

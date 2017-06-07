@@ -15,7 +15,7 @@ void define_property(py::module& m) {
 void define_input(py::module& m) {
 
     // Parse prism program
-    m.def("parse_prism_program", &storm::parseProgram, "Parse prism program", py::arg("path"));
+    m.def("parse_prism_program", &storm::api::parseProgram, "Parse prism program", py::arg("path"));
 
     // PrismType
     py::enum_<storm::prism::Program::ModelType>(m, "PrismModelType", "Type of the prism model")

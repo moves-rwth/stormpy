@@ -1,14 +1,13 @@
 #include "modelchecking.h"
 #include "result.h"
 
-// Thin wrapper for model checking
-std::shared_ptr<storm::modelchecker::CheckResult> modelChecking(std::shared_ptr<storm::models::sparse::Model<double>> model, std::shared_ptr<storm::logic::Formula const> const& formula) {
-    return storm::verifySparseModel<double>(model, formula);
-}
+template<typename ValueType>
+using CheckTask = storm::modelchecker::CheckTask<storm::logic::Formula, ValueType>;
 
-// Thin wrapper for parametric model checking
-std::shared_ptr<storm::modelchecker::CheckResult> parametricModelChecking(std::shared_ptr<storm::models::sparse::Model<storm::RationalFunction>> model, std::shared_ptr<storm::logic::Formula const> const& formula) {
-    return storm::verifySparseModel<storm::RationalFunction>(model, formula);
+// Thin wrapper for model checking
+template<typename ValueType>
+std::shared_ptr<storm::modelchecker::CheckResult> modelCheckingSparseEngine(std::shared_ptr<storm::models::sparse::Model<ValueType>> model, CheckTask<ValueType> const& task) {
+    return storm::api::verifyWithSparseEngine<ValueType>(model, task);
 }
 
 // Thin wrapper for computing prob01 states
@@ -30,14 +29,23 @@ std::pair<storm::storage::BitVector, storm::storage::BitVector> computeProb01max
 // Define python bindings
 void define_modelchecking(py::module& m) {
 
+    // CheckTask
+    py::class_<CheckTask<double>, std::shared_ptr<CheckTask<double>>>(m, "CheckTask", "Task for model checking")
+    //m.def("create_check_task", &storm::api::createTask, "Create task for verification", py::arg("formula"), py::arg("only_initial_states") = false);
+        .def(py::init<storm::logic::Formula const&, bool>(), py::arg("formula"), py::arg("only_initial_states") = false)
+    ;
+    py::class_<CheckTask<storm::RationalFunction>, std::shared_ptr<CheckTask<storm::RationalFunction>>>(m, "ParametricCheckTask", "Task for parametric model checking")
+    //m.def("create_check_task", &storm::api::createTask, "Create task for verification", py::arg("formula"), py::arg("only_initial_states") = false);
+        .def(py::init<storm::logic::Formula const&, bool>(), py::arg("formula"), py::arg("only_initial_states") = false)
+    ;
+
     // Model checking
-    m.def("_model_checking", &modelChecking, "Perform model checking", py::arg("model"), py::arg("formula"));
-    m.def("_parametric_model_checking", &parametricModelChecking, "Perform parametric model checking", py::arg("model"), py::arg("formula"));
+    m.def("_model_checking_sparse_engine", &modelCheckingSparseEngine<double>, "Perform model checking", py::arg("model"), py::arg("task"));
+    m.def("_parametric_model_checking_sparse_engine", &modelCheckingSparseEngine<storm::RationalFunction>, "Perform parametric model checking", py::arg("model"), py::arg("task"));
     m.def("_compute_prob01states_double", &computeProb01<double>, "Compute prob-0-1 states", py::arg("model"), py::arg("phi_states"), py::arg("psi_states"));
     m.def("_compute_prob01states_rationalfunc", &computeProb01<storm::RationalFunction>, "Compute prob-0-1 states", py::arg("model"), py::arg("phi_states"), py::arg("psi_states"));
     m.def("_compute_prob01states_min_double", &computeProb01min<double>, "Compute prob-0-1 states (min)", py::arg("model"), py::arg("phi_states"), py::arg("psi_states"));
     m.def("_compute_prob01states_max_double", &computeProb01max<double>, "Compute prob-0-1 states (max)", py::arg("model"), py::arg("phi_states"), py::arg("psi_states"));
     m.def("_compute_prob01states_min_rationalfunc", &computeProb01min<storm::RationalFunction>, "Compute prob-0-1 states (min)", py::arg("model"), py::arg("phi_states"), py::arg("psi_states"));
     m.def("_compute_prob01states_max_rationalfunc", &computeProb01max<storm::RationalFunction>, "Compute prob-0-1 states (max)", py::arg("model"), py::arg("phi_states"), py::arg("psi_states"));
-    
 }

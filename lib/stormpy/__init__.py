@@ -108,9 +108,11 @@ def perform_bisimulation(model, properties, bisimulation_type):
 
 def model_checking(model, property):
     if model.supports_parameters:
-        return core._parametric_model_checking(model, property.raw_formula)
+        task = core.ParametricCheckTask(property.raw_formula, False)
+        return core._parametric_model_checking_sparse_engine(model, task)
     else:
-        return core._model_checking(model, property.raw_formula)
+        task = core.CheckTask(property.raw_formula, False)
+        return core._model_checking_sparse_engine(model, task)
 
 
 def compute_prob01_states(model, phi_states, psi_states):
