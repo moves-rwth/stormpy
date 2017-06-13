@@ -29,5 +29,6 @@ class TestPolynomial(PackageSelector):
         pol1 = var * var +  package.Integer(2)
         pol2 = var + package.Integer(1)
         pol3 = pol1 + pol2
-        polOrig = package.Polynomial(var * var) + var + package.Integer(3)
+        polOrig = package.Polynomial(var * var)
+        polOrig += var + package.Integer(3)
         assert pol3 == polOrig

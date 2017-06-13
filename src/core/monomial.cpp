@@ -11,7 +11,6 @@
 #include "src/types.h"
 #include "src/helpers.h"
 
-
 void define_monomial(py::module& m) {
     py::class_<Monomial, std::shared_ptr<Monomial>>(m, "Monomial")
 //        .def("__init__", [] (Monomial& m, const carl::Variable& v, carl::exponent e){
@@ -46,10 +45,11 @@ void define_monomial(py::module& m) {
         .def("__getstate__", [](const Monomial& val) -> std::tuple<std::string> { throw NoPickling(); })
         .def("__setstate__", [](Monomial& val, const std::tuple<std::string>& data) { throw NoPickling(); });
 
-    
-    
     m.def("create_monomial", [] (const carl::Variable& v, carl::exponent e){
         return carl::createMonomial(v, e);
     });
+    m.def("clear_monomial_pool", [](){
+	carl::MonomialPool::getInstance().clear();
+    }, "Clear monomial pool and remove all monomials");
 
 }
