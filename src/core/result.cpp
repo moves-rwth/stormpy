@@ -1,4 +1,5 @@
 #include "result.h"
+#include "storm/analysis/GraphConditions.h"
 
 // Thin wrapper
 template<typename ValueType>
@@ -60,5 +61,18 @@ void define_result(py::module& m) {
         }, py::arg("state"), "Get result for given state")
         .def("get_values", &getValues<storm::RationalFunction>, "Get model checking result values for all states")
     ;
+}
 
+
+void define_constraints(py::module& m) {
+
+    // ConstraintCollector
+    py::class_<storm::analysis::ConstraintCollector<storm::RationalFunction>, std::shared_ptr<storm::analysis::ConstraintCollector<storm::RationalFunction>>>(m, "ConstraintCollector", "Collector for constraints")
+       //.def(py::init<storm::models::sparse::Dtmc<storm::RationalFunction>>, py::arg("dtmc"))
+       .def("__init__", [](storm::analysis::ConstraintCollector<storm::RationalFunction> &instance, storm::models::sparse::Dtmc<storm::RationalFunction> const& dtmc) -> void {
+                new (&instance) storm::analysis::ConstraintCollector<storm::RationalFunction>(dtmc);
+            })
+       .def("wellformed_constraints", &storm::analysis::ConstraintCollector<storm::RationalFunction>::getWellformedConstraints, "Get the constraints ensuring a wellformed model")
+       .def("graph_preserving_constraints", &storm::analysis::ConstraintCollector<storm::RationalFunction>::getGraphPreservingConstraints, "Get the constraints ensuring the graph is preserved")
+    ;
 }
