@@ -21,7 +21,7 @@ void define_formula(py::module& m) {
         })
         .def("__str__", &streamToString<carl::Formula<Polynomial>>)
 
-        .def("__not__", [](const Formula& lhs){
+        .def("__invert__", [](const Formula& lhs){
             return lhs.negated();
         })
         .def("__and__", [](const Formula& lhs, const Constraint& rhs){
@@ -50,6 +50,16 @@ void define_formula(py::module& m) {
                          py::keep_alive<0, 1>() /* Essential: keep object alive while iterator exists */)
 
         .def_property_readonly("type", &Formula::getType)
+
+        .def("get_negation_subformula", &Formula::subformula, "Get subformula of negation formula")
+        .def("get_implication_premise", &Formula::premise, "Get premise of implication formula")
+        .def("get_implication_conclusion", &Formula::conclusion, "Get conclusion of implication formula")
+        .def("get_ite_condition", &Formula::condition, "Get condition of ITE formula")
+        .def("get_ite_first_case", &Formula::firstCase, "Get then case of ITE formula")
+        .def("get_ite_second_case", &Formula::secondCase, "Get else case of ITE formula")
+        .def("get_subformulas", &Formula::subformulas, "Get list of subformulas for n-ary formula")
+        .def("get_constraint", &Formula::constraint, "Get constraint of constraint formula")
+
         .def("__getstate__", [](const Formula& val) -> std::tuple<std::string> { throw NoPickling(); })
         .def("__setstate__", [](Formula& val, const std::tuple<std::string>& data) { throw NoPickling(); })
         ;

@@ -18,7 +18,7 @@ void define_constraint(py::module& m) {
         .def(py::init<Polynomial, carl::Relation>())
         .def("__str__", &streamToString<Constraint>)
 
-        .def("__not__", [](const Constraint& lhs){
+        .def("__invert__", [](const Constraint& lhs){
             return Formula(carl::FormulaType::NOT, Formula(lhs));
         })
         .def("__and__", [](const Constraint& lhs, const Constraint& rhs){
