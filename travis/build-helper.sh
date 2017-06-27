@@ -19,7 +19,8 @@ run() {
 
   # Build Carl
   travis_fold start install_carl
-  git clone -b singleton_fix https://github.com/smtrat/carl.git
+  #git clone -b singleton_fix https://github.com/smtrat/carl.git
+  git clone https://github.com/smtrat/carl.git
   cd carl
   mkdir build
   cd build
