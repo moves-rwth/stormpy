@@ -69,6 +69,8 @@ void define_cln_integer(py::module& m) {
                 return std::tuple<std::string>(carl::toString(val));})
 
             .def("__setstate__", [](cln::cl_I& val, std::tuple<std::string> data) {cln::cl_I res = carl::parse<cln::cl_I>(std::get<0>(data)); new (&val) cln::cl_I(res); })
+            .def("__hash__", [](const cln::cl_I& v) { std::hash<cln::cl_I> h; return h(v);})
+
             ;
 
 #endif
@@ -140,6 +142,8 @@ void define_gmp_integer(py::module& m) {
             .def("__getstate__", [](const mpz_class& val) {
                 return std::tuple<std::string>(carl::toString(val));})
             .def("__setstate__", [](mpz_class& val, std::tuple<std::string> data) {mpz_class res = carl::parse<mpz_class>(std::get<0>(data)); new (&val) mpz_class(res); })
+            .def("__hash__", [](const mpz_class& v) { std::hash<mpz_class> h; return h(v);})
+
             ;
 
 #endif

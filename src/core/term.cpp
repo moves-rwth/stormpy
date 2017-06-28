@@ -53,5 +53,7 @@ void define_term(py::module& m) {
 
         .def("__getstate__", [](const Term& val) -> std::tuple<std::string> { throw NoPickling(); })
         .def("__setstate__", [](Term& val, const std::tuple<std::string>& data) { throw NoPickling(); })
-        ;
+            .def("__hash__", [](const Term& v) { std::hash<Term> h; return h(v);})
+
+            ;
 }

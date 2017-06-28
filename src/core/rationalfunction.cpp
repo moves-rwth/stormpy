@@ -61,5 +61,7 @@ void define_rationalfunction(py::module& m) {
 
         .def("__getstate__", [](const RationalFunction&) -> std::tuple<std::string> { throw NoPickling(); })
         .def("__setstate__", [](RationalFunction&, const  std::tuple<std::string>&) { throw NoPickling(); })
-        ;
+            .def("__hash__", [](const RationalFunction& v) { std::hash<RationalFunction> h; return h(v);})
+
+            ;
 }

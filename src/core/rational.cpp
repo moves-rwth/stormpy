@@ -99,6 +99,7 @@ void define_cln_rational(py::module& m) {
             return std::pair<std::string, std::string>(carl::toString(carl::getNum(val)), carl::toString(carl::getDenom(val)));})
 
         .def("__setstate__", [](cln::cl_RA& val, std::pair<std::string, std::string> data) {cln::cl_RA res = carl::parse<cln::cl_RA>(data.first) / carl::parse<cln::cl_RA>(data.second); new (&val) cln::cl_RA(res); })
+        .def("__hash__", [](const cln::cl_RA& v) { std::hash<cln::cl_RA> h; return h(v);})
         ;
 
 	py::implicitly_convertible<carl::uint, cln::cl_RA>();
@@ -176,6 +177,7 @@ void define_gmp_rational(py::module& m) {
             .def("__str__", &streamToString<mpq_class>)
             .def("__repr__", [](const mpq_class& r) { return "<Rational  (gmp)" + streamToString<mpq_class>(r) + ">"; })
 
+
             .def_property_readonly("nominator", [](const mpq_class& val) -> mpz_class {
                 return carl::getNum(val);
             })
@@ -190,6 +192,8 @@ void define_gmp_rational(py::module& m) {
                 return std::pair<std::string, std::string>(carl::toString(carl::getNum(val)), carl::toString(carl::getDenom(val)));})
 
             .def("__setstate__", [](mpq_class& val, std::pair<std::string, std::string> data) {mpq_class res = carl::parse<mpq_class>(data.first) / carl::parse<mpq_class>(data.second); new (&val) mpq_class(res); })
+            .def("__hash__", [](const mpq_class& v) { std::hash<mpq_class> h; return h(v);})
+
             ;
 
     py::implicitly_convertible<carl::uint, mpq_class>();

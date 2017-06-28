@@ -97,5 +97,7 @@ void define_polynomial(py::module& m) {
                          py::keep_alive<0, 1>() /* Essential: keep object alive while iterator exists */)
             .def("__getstate__", [](const Polynomial& val) -> std::tuple<std::string> { throw NoPickling(); })
             .def("__setstate__", [](Polynomial& val, const std::tuple<std::string>& data) { throw NoPickling(); })
-        ;
+            .def("__hash__", [](const Polynomial& v) { std::hash<Polynomial> h; return h(v);})
+
+            ;
 }
