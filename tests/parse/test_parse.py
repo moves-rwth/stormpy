@@ -1,5 +1,4 @@
 import pycarl
-import pycarl.parse
 import pycarl.cln.parse, pycarl.gmp.parse
 import sys
 import os
