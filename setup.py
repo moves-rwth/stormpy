@@ -2,8 +2,8 @@ import os
 import multiprocessing
 import re
 import sys
-import platform
 import subprocess
+import importlib
 
 from setuptools import setup, Extension
 from setuptools.command.build_ext import build_ext
@@ -11,7 +11,31 @@ from setuptools.command.build_ext import build_ext
 if sys.version_info[0] == 2:
     sys.exit('Sorry, Python 2.x is not supported')
 
+
+def check_carl_compatible(carl_v_year, carl_v_month, carl_v_patch):
+    if carl_v_year < 17 or (carl_v_year == 17 and carl_v_month < 6) or (carl_v_year == 17 and carl_v_month == 6 and carl_v_patch < 0):
+        sys.exit('Sorry, Storm version {}.{}.{} is not supported anymore!'.format(carl_v_year, carl_v_month, carl_v_patch))
+
+def parse_carl_version(version_string):
+    """
+    Parses the version of carl
+
+    :param version_string:
+    :return:
+    """
+    elems = version_string.split(".")
+    if len(elems) == 2:
+        elems.append(0)
+    if len(elems) != 3:
+        sys.exit('Carl version string is ill-formed: "{}"'.format(version_string))
+    return int(elems[0]),  int(elems[1]), int(elems[2])
+
 def obtain_version():
+    """
+    Obtains the version as specified in pycarl.
+
+    :return:
+    """
     verstr = "unknown"
     try:
         verstrline = open('lib/pycarl/_version.py', "rt").read()
@@ -48,6 +72,26 @@ class CMakeBuild(build_ext):
         except OSError:
             raise RuntimeError("CMake must be installed to build the following extensions: " +
                                ", ".join(e.name for e in self.extensions))
+
+        # Build cmake version info
+
+        build_temp_version = self.build_temp + "-version"
+        if not os.path.exists(build_temp_version):
+            os.makedirs(build_temp_version)
+
+        cmake_args = []
+        if self.carl_dir:
+            cmake_args = ['-Dcarl_DIR=' + self.carl_dir]
+        output = subprocess.check_output(['cmake', os.path.abspath("cmake")] + cmake_args, cwd=build_temp_version)
+        spec = importlib.util.spec_from_file_location("genconfig", os.path.join(build_temp_version, 'generated/config.py'))
+        self.conf = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(self.conf)
+
+        # check version
+        carl_year, carl_month, carl_maintenance = parse_carl_version(self.conf.CARL_VERSION)
+        check_carl_compatible(carl_year, carl_month, carl_maintenance)
+
+        print("Using carl {} from {}".format(self.conf.CARL_VERSION, self.conf.CARL_DIR))
 
         for ext in self.extensions:
             self.build_extension(ext)
