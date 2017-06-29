@@ -12,6 +12,8 @@ Welcome to pycarl's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   installation
+   api
 
 
 Indices and tables
