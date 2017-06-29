@@ -92,6 +92,10 @@ class CMakeBuild(build_ext):
         check_carl_compatible(carl_year, carl_month, carl_maintenance)
 
         print("Using carl {} from {}".format(self.conf.CARL_VERSION, self.conf.CARL_DIR))
+        if self.conf.CARL_PARSER:
+            print("Carl parser extension found and included.")
+        else:
+            print("Warning: No parser support!")
 
         for ext in self.extensions:
             self.build_extension(ext)
