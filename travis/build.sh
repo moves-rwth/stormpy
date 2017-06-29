@@ -1,12 +1,9 @@
 #!/bin/bash -x
 
-: ${N_JOBS:=2}
-: ${TIMEOUT:=2000}
+N_JOBS=2
+TIMEOUT=2000
 
-if [ "$STL" != "" ]
-then
-  STLARG="-stdlib=$STL"
-fi
+OS=$TRAVIS_OS_NAME
 
 case $OS in
 linux)
@@ -30,19 +27,19 @@ linux)
         export STLARG=$STLARG;
         export OS=$OS;
         export PYTHON=$PYTHON;
+        export CONFIG=$CONFIG;
+        export TASK=$TASK;
+        export STLARG=;
         cd pycarl;
-        travis/build-helper.sh $1"
+        travis/build-helper.sh"
     exit $?
     ;;
 
 osx)
     # Mac OSX
-    export COMPILER
-    export N_JOBS
-    export STLARG
+    STLARG="-stdlib=libc++"
     export OS
-    export PYTHON
-    travis/build-helper.sh "$1"
+    travis/build-helper.sh
     exit $?
     ;;
 

@@ -40,9 +40,27 @@ run() {
   python setup.py build_ext -j 1 develop
   travis_fold end build_pycarl
 
-  # Run tests
-  set +e
-  python -m pytest -sv tests/
+  # Perform task
+  case $TASK in
+  Test)
+    # Run tests
+    set +e
+    python -m pytest -sv tests/
+    ;;
+
+  Documentation)
+    # Generate documentation
+    pip install sphinx
+    cd doc
+    make html
+    touch build/html/.nojekyll
+    rm -r build/html/_sources
+    ;;
+
+  *)
+    echo "Unrecognized value of TASK: $TASK"
+    exit 1
+  esac
 }
 
 
@@ -130,10 +148,10 @@ echo CXX version: $($CXX --version)
 echo C++ Standard library location: $(echo '#include <vector>' | $CXX -x c++ -E - | grep 'vector\"' | awk '{print $3}' | sed 's@/vector@@;s@\"@@g' | head -n 1)
 echo Normalized C++ Standard library location: $(readlink -f $(echo '#include <vector>' | $CXX -x c++ -E - | grep 'vector\"' | awk '{print $3}' | sed 's@/vector@@;s@\"@@g' | head -n 1))
 
-case "$1" in
+case "$CONFIG" in
 DefaultDebug)           CMAKE_ARGS=(-DCMAKE_BUILD_TYPE=Debug   -DCMAKE_CXX_FLAGS="$STLARG") ;;
 DefaultRelease)         CMAKE_ARGS=(-DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="$STLARG") ;;
-*) echo "Error: you need to specify one of the supported build modes (see travis/build.sh)."; exit 1 ;;
+*) echo "Unrecognized value of CONFIG: $CONFIG"; exit 1 ;;
 esac
 
 run
