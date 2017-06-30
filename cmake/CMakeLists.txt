@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.0.0)
 project(carl-version)
 find_package(carl REQUIRED)
-find_package(carlparser)
+find_package(carlparser QUIET)
 
 
 # Set configuration

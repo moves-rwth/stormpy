@@ -11,7 +11,7 @@
 #include "typed_core/Interval.h"
 
 PYBIND11_PLUGIN(cln) {
-    py::module m("cln");
+    py::module m("cln", "core with cln");
 
     define_cln_integer(m);
     define_cln_rational(m);

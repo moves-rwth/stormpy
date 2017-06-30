@@ -1,13 +1,21 @@
 import pycarl
-import pycarl.parse
-import pycarl.cln.parse, pycarl.gmp.parse
+import pycarl._config
+
+if  pycarl._config.CARL_PARSER:
+    import pycarl.parse
+    import pycarl.cln.parse, pycarl.gmp.parse
+
+import pytest
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from package_selector import PackageSelector
 
-
+@pytest.mark.skipif(not pycarl._config.CARL_PARSER,
+                    reason="requires carlparser")
 class TestParse(PackageSelector):
+
+
     def test_parse_number(self, package):
         num = pycarl.parse.deserialize("2", package)
         assert str(num) == "2"

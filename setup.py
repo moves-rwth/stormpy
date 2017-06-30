@@ -4,6 +4,7 @@ import re
 import sys
 import subprocess
 import importlib
+import datetime
 
 from setuptools import setup, Extension
 from setuptools.command.build_ext import build_ext
@@ -66,6 +67,10 @@ class CMakeBuild(build_ext):
             ('debug', None, 'Build in Debug mode'),
         ]
 
+
+    def _extdir(self, extname):
+        return os.path.abspath(os.path.dirname(self.get_ext_fullpath(extname)))
+
     def run(self):
         try:
             out = subprocess.check_output(['cmake', '--version'])
@@ -98,10 +103,28 @@ class CMakeBuild(build_ext):
             print("Warning: No parser support!")
 
         for ext in self.extensions:
-            if "cln" in ext.name and not self.conf.CARL_WITH_CLN:
-                print("CLN bindings skipped")
-                continue
+            if "core" in ext.name:
+                with open(os.path.join(self._extdir(ext.name), ext.subdir, "_config.py"), "w") as f:
+                    f.write("# Generated from setup.py at {}\n".format(datetime.datetime.now()))
+                    f.write("CARL_VERSION = {}\n".format(self.conf.CARL_VERSION))
+                    f.write("CARL_PARSER = {}\n".format(self.conf.CARL_PARSER))
+            if "cln" in ext.name:
+                with open(os.path.join(self._extdir(ext.name), ext.subdir, "_config.py"), "w") as f:
+                    f.write("# Generated from setup.py at {}\n".format(datetime.datetime.now()))
+                    f.write("CARL_WITH_CLN = {}\n".format(self.conf.CARL_WITH_CLN))
+                if not self.conf.CARL_WITH_CLN:
+                    print("CLN bindings skipped")
+                    continue
+            if "parse" in ext.name:
+                with open(os.path.join(self._extdir(ext.name), ext.subdir, "_config.py"), "w") as f:
+                    f.write("# Generated from setup.py at {}\n".format(datetime.datetime.now()))
+                    f.write("CARL_PARSER = {}\n".format(self.conf.CARL_PARSER))
+                if not self.conf.CARL_PARSER:
+                    print("Parser bindings skipped")
+                    continue
             self.build_extension(ext)
+
+
 
 
     def initialize_options(self):

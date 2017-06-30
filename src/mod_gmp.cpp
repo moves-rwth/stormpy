@@ -11,7 +11,7 @@
 #include "typed_core/Interval.h"
 
 PYBIND11_PLUGIN(gmp) {
-    py::module m("gmp");
+    py::module m("gmp", "core with gmp");
 
     define_gmp_integer(m);
     define_gmp_rational(m);
