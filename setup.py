@@ -98,6 +98,9 @@ class CMakeBuild(build_ext):
             print("Warning: No parser support!")
 
         for ext in self.extensions:
+            if "cln" in ext.name and not self.conf.CARL_WITH_CLN:
+                print("CLN bindings skipped")
+                continue
             self.build_extension(ext)
 
 
