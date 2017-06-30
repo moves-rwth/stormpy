@@ -1,6 +1,4 @@
 *.so
 __pycache__/
 stormpy.egg-info/
-stormpy/_config.py
-stormpy/dft/_config.py
-stormpy/pars/_config.py
+**/_config.py
