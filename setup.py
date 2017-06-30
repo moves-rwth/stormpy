@@ -161,6 +161,7 @@ setup(
                  CMakeExtension('formula', subdir='formula'),
                  CMakeExtension('formula-cln', subdir='cln/formula'),
                  CMakeExtension('formula-gmp', subdir='gmp/formula'),
+                 CMakeExtension('parse', subdir='parse'),
                  CMakeExtension('parse-gmp', subdir='gmp/parse'),
                  CMakeExtension('parse-cln', subdir='cln/parse')],
 
