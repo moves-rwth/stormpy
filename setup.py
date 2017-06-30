@@ -69,6 +69,11 @@ class CMakeBuild(build_ext):
         storm_v_major, storm_v_minor, storm_v_patch = parse_storm_version(self.conf.STORM_VERSION)
         check_storm_compatible(storm_v_major, storm_v_minor, storm_v_patch)
 
+        # Create dir
+        lib_path = os.path.join(self.extdir("core"))
+        if not os.path.exists(lib_path):
+            os.makedirs(lib_path)
+
         for ext in self.extensions:
             if ext.name == "core":
                 with open(os.path.join(self.extdir(ext.name), ext.subdir, "_config.py"), "w") as f:
