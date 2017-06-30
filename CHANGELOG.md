@@ -6,10 +6,12 @@ Changelog
 Version 2.0
 -----------
 
-### Version 2.0.1 (requires carl>=17.05-1]
+### Version 2.0.1 (requires carl>=17.06]
 - Added conversions between CLN and GMP 
 - Added variable and integer pickling support, errors if pickling is not supported otherwise.
 - Added hash functions.
+- Depend on carl-parser for parsing routines
+- Checks for carl version.
 
 
 ### Version 2.0.0
