@@ -51,7 +51,7 @@ set_target_properties(formula-cln PROPERTIES OUTPUT_NAME "formula")
 file(GLOB_RECURSE PYCARL_PARSE_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/parse/*.cpp)
 
 pybind11_add_module(parse ${CMAKE_CURRENT_SOURCE_DIR}/src/mod_parse.cpp ${PYCARL_PARSE_SOURCES})
-target_include_directories(formula PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}  ${CMAKE_CURRENT_BINARY_DIR}/src)
+target_include_directories(parse PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}  ${CMAKE_CURRENT_BINARY_DIR}/src)
 target_link_libraries(parse PRIVATE lib_carl carl-parser)
 set_target_properties(parse PROPERTIES OUTPUT_NAME "parse")
 

@@ -6,4 +6,48 @@
 #include <carl/core/MultivariatePolynomial.h>
 #include <carl-parser/Parser.h>
 
-carlparser::parser_types<Polynomial> from_string(const std::string& input);
+template<typename Pol>
+struct ParserResultWrapper {
+    carlparser::parser_types<Pol> _content;
+
+    carlparser::ParserReturnType getType() const {
+        return carlparser::check_type(_content);
+    }
+
+    typename Pol::CoeffType asRational() const {
+        return boost::get<typename Pol::CoeffType>(_content);
+    }
+
+    carl::Monomial::Arg asMonomial() const {
+        return boost::get<carl::Monomial::Arg>(_content);
+    }
+
+    carl::Variable asVariable() const {
+        return boost::get<carl::Variable>(_content);
+    }
+
+    carl::Term<typename Pol::CoeffType> asTerm() const {
+        return boost::get<carl::Term<typename Pol::CoeffType>>(_content);
+    }
+
+    Pol asPolynomial() const {
+        return boost::get<Pol>(_content);
+    }
+
+    carl::RationalFunction<Pol> asRationalFunction() const {
+        return boost::get<carl::RationalFunction<Pol>>(_content);
+    }
+
+    carl::Constraint<Pol> asConstraint() const {
+        return boost::get<carl::Constraint<Pol>>(_content);
+    }
+
+    carl::Formula<Pol> asFormula() const {
+        return boost::get<carl::Formula<Pol>>(_content);
+    }
+
+
+
+};
+
+ParserResultWrapper<Polynomial> from_string(const std::string& input);

@@ -150,8 +150,15 @@ setup(
     maintainer_email="sebastian.junges@cs.rwth-aachen.de",
     url="http://moves.rwth-aachen.de",
     description="pycarl - Python Bindings for Carl",
-    packages=['pycarl', 'pycarl.cln', 'pycarl.gmp',
-              'pycarl.cln.formula', 'pycarl.gmp.formula', 'pycarl.gmp.parse'],
+    packages=['pycarl',
+              'pycarl.cln',
+              'pycarl.gmp',
+              'pycarl.formula',
+              'pycarl.cln.formula',
+              'pycarl.gmp.formula',
+              'pycarl.parse',
+              'pycarl.gmp.parse',
+              'pycarl.cln.parse'],
     package_dir={'':'lib'},
     long_description='',
     ext_package='pycarl',
@@ -167,6 +174,6 @@ setup(
 
 cmdclass=dict(build_ext=CMakeBuild),
     zip_safe=False,
-    install_requires=['pytest', 'grako'],
+    install_requires=['pytest'],
 )
 
