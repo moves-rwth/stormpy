@@ -27,13 +27,14 @@ void define_cln_rational(py::module& m) {
         .def("__add__", [](const cln::cl_RA& lhs, const cln::cl_RA& rhs) -> cln::cl_RA { return lhs + rhs; })
         .def("__add__", [](const cln::cl_RA& lhs, carl::sint rhs) -> cln::cl_RA { return lhs + carl::rationalize<cln::cl_RA>(rhs); })
         .def("__add__", [](const cln::cl_RA& lhs, const Polynomial& rhs) -> Polynomial { return lhs + rhs; })
-
         .def("__radd__", [](const cln::cl_RA& rhs, carl::sint lhs) -> cln::cl_RA { return carl::rationalize<cln::cl_RA>(lhs) + rhs; })
+        .def("__radd__", [](const cln::cl_RA& rhs, carl::Variable::Arg lhs) -> Polynomial { return lhs + rhs; })
+
 
         .def("__sub__", [](const cln::cl_RA& lhs, const cln::cl_RA& rhs) -> cln::cl_RA { return lhs - rhs; })
         .def("__sub__", [](const cln::cl_RA& lhs, carl::sint rhs) -> cln::cl_RA { return lhs - carl::rationalize<cln::cl_RA>(rhs); })
         .def("__rsub__", [](const cln::cl_RA& rhs, carl::sint lhs) -> cln::cl_RA { return carl::rationalize<cln::cl_RA>(lhs) - rhs; })
-
+        .def("__rsub__", [](const cln::cl_RA& rhs, carl::Variable::Arg lhs) -> Polynomial { return lhs - rhs; })
 
 
         .def("__mul__", [](const cln::cl_RA& lhs, const cln::cl_RA& rhs) -> cln::cl_RA { return lhs * rhs; })
@@ -124,10 +125,13 @@ void define_gmp_rational(py::module& m) {
             .def("__add__", [](const mpq_class& lhs, const mpq_class& rhs) -> mpq_class { return lhs + rhs; })
             .def("__add__", [](const mpq_class& lhs, carl::sint rhs) -> mpq_class { return lhs + carl::rationalize<mpq_class>(rhs); })
             .def("__radd__", [](const mpq_class& rhs, carl::sint lhs) -> mpq_class { return carl::rationalize<mpq_class>(lhs) + rhs; })
+            .def("__radd__", [](const mpq_class& rhs, carl::Variable::Arg lhs) -> Polynomial { return lhs + rhs; })
+
 
             .def("__sub__", [](const mpq_class& lhs, const mpq_class& rhs) -> mpq_class { return lhs - rhs; })
             .def("__sub__", [](const mpq_class& lhs, carl::sint rhs) -> mpq_class { return lhs - carl::rationalize<mpq_class>(rhs); })
             .def("__rsub__", [](const mpq_class& rhs, carl::sint lhs) -> mpq_class { return carl::rationalize<mpq_class>(lhs) - rhs; })
+            .def("__rsub__", [](const mpq_class& rhs, carl::Variable::Arg lhs) -> Polynomial { return lhs - rhs; })
 
             .def("__mul__", [](const mpq_class& lhs, const mpq_class& rhs) -> mpq_class { return lhs * rhs; })
             .def("__mul__", [](const mpq_class& lhs, carl::sint rhs) -> mpq_class { return lhs * carl::rationalize<mpq_class>(rhs); })
