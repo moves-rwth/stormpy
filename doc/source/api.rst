@@ -2,5 +2,9 @@
 API Documentation
 ******************
 
+.. toctree::
+    :maxdepth: 2
+    :caption: Contents:
 
-Documentation will be available soon!
+    core
+
