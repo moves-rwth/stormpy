@@ -8,7 +8,6 @@ class TestCore:
         import pycarl.cln
         import pycarl.gmp
         import pycarl.formula
-        import pycarl.gmp.parse
         pol1 = pycarl.gmp.FactorizedPolynomial(32)
         pol2 = pycarl.gmp.FactorizedPolynomial(2)
         rat = pycarl.gmp.FactorizedRationalFunction(pol1, pol2)
