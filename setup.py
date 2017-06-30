@@ -9,6 +9,20 @@ import datetime
 from setuptools import setup, Extension
 from setuptools.command.build_ext import build_ext
 
+def ensure_dir_exists(path):
+    """Checks whether the directory exists and creates it if not."""
+    assert path is not None
+    try:
+        os.makedirs(path)
+    except FileExistsError:
+        pass
+    except OSError as exception:
+        if exception.errno != errno.EEXIST:
+            raise IOError("Cannot create directory: " + path)
+    except BaseException:
+        raise IOError("Path " + path + " seems not valid")
+
+
 if sys.version_info[0] == 2:
     sys.exit('Sorry, Python 2.x is not supported')
 
@@ -103,6 +117,7 @@ class CMakeBuild(build_ext):
             print("Warning: No parser support!")
 
         for ext in self.extensions:
+            ensure_dir_exists(os.path.join(self._extdir(ext.name), ext.subdir))
             if "core" in ext.name:
                 with open(os.path.join(self._extdir(ext.name), ext.subdir, "_config.py"), "w") as f:
                     f.write("# Generated from setup.py at {}\n".format(datetime.datetime.now()))
