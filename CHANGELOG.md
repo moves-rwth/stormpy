@@ -4,6 +4,11 @@ Changelog
 Version 0.9
 -----------
 
+### Current
+
+- Bindings for storm-pars
+- Bindings for graph constraints
+
 ### Version 0.9.1 (2017/4)
 
 - Bindings for DFTs
