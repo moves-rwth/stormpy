@@ -6,7 +6,7 @@ option(STORMPY_DISABLE_SIGNATURE_DOC "disables the signature in the documentatio
 find_package(storm REQUIRED)
 add_subdirectory(resources/pybind11)
 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/config.h.in ${CMAKE_CURRENT_BINARY_DIR}/src/generated/config.h) 
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/config.h.in ${CMAKE_CURRENT_BINARY_DIR}/src/generated/config.h)
 
 message(STATUS "STORM-DIR: ${storm_DIR}")
 set(STORMPY_LIB_DIR "${CMAKE_SOURCE_DIR}/lib/stormpy" CACHE STRING "Sets the storm library dir")
@@ -49,8 +49,10 @@ stormpy_module(logic)
 stormpy_module(storage)
 stormpy_module(utility)
 
+if(HAVE_STORM_PARS)
+    stormpy_module(pars "${STORMPY_LIB_DIR}/pars" storm-pars "${storm-pars_INCLUDE_DIR}")
+endif()
+
 if(HAVE_STORM_DFT)
     stormpy_module(dft "${STORMPY_LIB_DIR}/dft" storm-dft "${storm-dft_INCLUDE_DIR}")
 endif()
-
-

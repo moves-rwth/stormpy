@@ -18,7 +18,6 @@ PYBIND11_PLUGIN(storage) {
     define_model(m);
     define_sparse_matrix(m);
     define_state(m);
-    define_model_instantiator(m);
     define_labeling(m);
     return m.ptr();
 }

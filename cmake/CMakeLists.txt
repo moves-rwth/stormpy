@@ -2,6 +2,15 @@ cmake_minimum_required(VERSION 3.0.0)
 project(storm-version)
 find_package(storm REQUIRED)
 
+# Check for storm-pars
+if(EXISTS "${storm_DIR}/lib/libstorm-pars.dylib")
+    set(HAVE_STORM_PARS TRUE)
+elseif(EXISTS "${storm_DIR}/lib/libstorm-pars.so")
+    set(HAVE_STORM_PARS TRUE)
+else()
+    set(HAVE_STORM_PARS FALSE)
+endif()
+
 # Check for storm-dft
 if(EXISTS "${storm_DIR}/lib/libstorm-dft.dylib")
     set(HAVE_STORM_DFT TRUE)
@@ -14,6 +23,12 @@ endif()
 # Set configuration
 set(STORM_DIR ${storm_DIR})
 set(STORM_VERSION ${storm_VERSION})
+
+if(HAVE_STORM_PARS)
+    set(HAVE_STORM_PARS_BOOL "True")
+else()
+    set(HAVE_STORM_PARS_BOOL "False")
+endif()
 
 if(HAVE_STORM_DFT)
     set(HAVE_STORM_DFT_BOOL "True")

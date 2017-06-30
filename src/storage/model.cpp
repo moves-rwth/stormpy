@@ -5,8 +5,9 @@
 #include "storm/models/sparse/Model.h"
 #include "storm/models/sparse/Dtmc.h"
 #include "storm/models/sparse/Mdp.h"
+#include "storm/models/sparse/Ctmc.h"
+#include "storm/models/sparse/MarkovAutomaton.h"
 #include "storm/models/sparse/StandardRewardModel.h"
-#include "storm/utility/ModelInstantiator.h"
 
 #include <functional>
 #include <string>
@@ -159,23 +160,3 @@ void define_model(py::module& m) {
 
 }
 
-// Model instantiator
-void define_model_instantiator(py::module& m) {
-    py::class_<storm::utility::ModelInstantiator<Dtmc<RationalFunction>, Dtmc<double>>>(m, "PdtmcInstantiator", "Instantiate PDTMCs to DTMCs")
-        .def(py::init<Dtmc<RationalFunction>>(), "parametric model"_a)
-        .def("instantiate", &storm::utility::ModelInstantiator<Dtmc<RationalFunction>, Dtmc<double>>::instantiate, "Instantiate model with given parameter values")
-    ;
-
-    py::class_<storm::utility::ModelInstantiator<Mdp<RationalFunction>,Mdp<double>>>(m, "PmdpInstantiator", "Instantiate PMDPs to MDPs")
-        .def(py::init<Mdp<RationalFunction>>(), "parametric model"_a)
-        .def("instantiate", &storm::utility::ModelInstantiator<Mdp<RationalFunction>, Mdp<double>>::instantiate, "Instantiate model with given parameter values")
-    ;
-
-    py::class_<storm::utility::ModelInstantiator<Ctmc<storm::RationalFunction>,Ctmc<double>>>(m, "PctmcInstantiator", "Instantiate PCTMCs to CTMCs")
-        .def(py::init<Ctmc<storm::RationalFunction>>(), "parametric model"_a)
-        .def("instantiate", &storm::utility::ModelInstantiator<Ctmc<storm::RationalFunction>, Ctmc<double>>::instantiate, "Instantiate model with given parameter values");
-
-    py::class_<storm::utility::ModelInstantiator<MarkovAutomaton<storm::RationalFunction>,MarkovAutomaton<double>>>(m, "PmaInstantiator", "Instantiate PMAs to MAs")
-        .def(py::init<MarkovAutomaton<storm::RationalFunction>>(), "parametric model"_a)
-        .def("instantiate", &storm::utility::ModelInstantiator<MarkovAutomaton<storm::RationalFunction>, MarkovAutomaton<double>>::instantiate, "Instantiate model with given parameter values");
-}

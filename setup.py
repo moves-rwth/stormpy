@@ -106,6 +106,13 @@ class CMakeBuild(build_ext):
                     f.write("storm_version = {}\n".format(self.conf.STORM_VERSION))
                     f.write("storm_cln_ea = {}\n".format(self.conf.STORM_CLN_EA))
                     f.write("storm_cln_rf = {}".format(self.conf.STORM_CLN_RF))
+            elif ext.name == "pars":
+                with open(os.path.join(self.extdir(ext.name),  ext.subdir, "_config.py"), "w") as f:
+                    f.write("# Generated from setup.py at {}\n".format(datetime.datetime.now()))
+                    f.write("has_storm_pars = {}".format(self.conf.HAVE_STORM_PARS))
+                if not self.conf.HAVE_STORM_PARS:
+                    print("WARNING: storm-pars not found. No support for parametric analysis will be built.")
+                    continue
             elif ext.name == "dft":
                 with open(os.path.join(self.extdir(ext.name),  ext.subdir, "_config.py"), "w") as f:
                     f.write("# Generated from setup.py at {}\n".format(datetime.datetime.now()))
@@ -141,6 +148,8 @@ class CMakeBuild(build_ext):
         cmake_args += ['-DCMAKE_BUILD_TYPE=' + build_type]
         if self.conf.STORM_DIR is not None:
             cmake_args += ['-Dstorm_DIR=' + self.conf.STORM_DIR]
+        if self.conf.HAVE_STORM_PARS:
+            cmake_args += ['-DHAVE_STORM_PARS=ON']
         if self.conf.HAVE_STORM_DFT:
             cmake_args += ['-DHAVE_STORM_DFT=ON']
 
@@ -172,7 +181,8 @@ setup(
     maintainer_email="sebastian.junges@cs.rwth-aachen.de",
     url="http://moves.rwth-aachen.de",
     description="stormpy - Python Bindings for Storm",
-    packages=['stormpy', 'stormpy.info', 'stormpy.expressions', 'stormpy.logic', 'stormpy.storage', 'stormpy.utility', 'stormpy.dft'],
+    packages=['stormpy', 'stormpy.info', 'stormpy.expressions', 'stormpy.logic', 'stormpy.storage', 'stormpy.utility',
+              'stormpy.pars', 'stormpy.dft'],
     package_dir={'': 'lib'},
     ext_package='stormpy',
     ext_modules=[CMakeExtension('core', subdir=''),
@@ -181,7 +191,8 @@ setup(
                  CMakeExtension('logic', subdir='logic'),
                  CMakeExtension('storage', subdir='storage'),
                  CMakeExtension('utility', subdir='utility'),
-                 CMakeExtension('dft', subdir='dft')
+                 CMakeExtension('pars', subdir='pars'),
+                 CMakeExtension('dft', subdir='dft'),
                  ],
     cmdclass={'build_ext': CMakeBuild, 'test': PyTest},
     zip_safe=False,
