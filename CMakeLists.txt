@@ -3,7 +3,7 @@ project(pycarl)
 
 
 find_package(carl REQUIRED)
-find_package(carlparser)
+find_package(carlparser QUIET)
 add_subdirectory(resources/pybind11)
 
 set(PYCARL_HAS_CLN ${CARL_USE_CLN_NUMBERS})
