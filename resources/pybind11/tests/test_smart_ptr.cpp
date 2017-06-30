@@ -81,6 +81,28 @@ private:
     }
 };
 
+/// This is just a wrapper around unique_ptr, but with extra fields to deliberately bloat up the
+/// holder size to trigger the non-simple-layout internal instance layout for single inheritance with
+/// large holder type.
+template <typename T> class huge_unique_ptr {
+    std::unique_ptr<T> ptr;
+    uint64_t padding[10];
+public:
+    huge_unique_ptr(T *p) : ptr(p) {};
+    T *get() { return ptr.get(); }
+};
+
+class MyObject5 { // managed by huge_unique_ptr
+public:
+    MyObject5(int value) : value{value} {
+        print_created(this);
+    }
+    int value;
+    ~MyObject5() {
+        print_destroyed(this);
+    }
+};
+
 /// Make pybind aware of the ref-counted wrapper type (s)
 
 // ref<T> is a wrapper for 'Object' which uses intrusive reference counting
@@ -89,6 +111,7 @@ private:
 PYBIND11_DECLARE_HOLDER_TYPE(T, ref<T>, true);
 PYBIND11_DECLARE_HOLDER_TYPE(T, std::shared_ptr<T>); // Not required any more for std::shared_ptr,
                                                      // but it should compile without error
+PYBIND11_DECLARE_HOLDER_TYPE(T, huge_unique_ptr<T>);
 
 // Make pybind11 aware of the non-standard getter member function
 namespace pybind11 { namespace detail {
@@ -184,6 +207,10 @@ test_initializer smart_ptr([](py::module &m) {
         .def(py::init<int>())
         .def_readwrite("value", &MyObject4::value);
 
+    py::class_<MyObject5, huge_unique_ptr<MyObject5>>(m, "MyObject5")
+        .def(py::init<int>())
+        .def_readwrite("value", &MyObject5::value);
+
     py::implicitly_convertible<py::int_, MyObject1>();
 
     // Expose constructor stats for the ref type
@@ -214,6 +241,12 @@ struct SharedFromThisRef {
     std::shared_ptr<B> shared = std::make_shared<B>();
 };
 
+// Issue #865: shared_from_this doesn't work with virtual inheritance
+struct SharedFromThisVBase : std::enable_shared_from_this<SharedFromThisVBase> {
+    virtual ~SharedFromThisVBase() = default;
+};
+struct SharedFromThisVirt : virtual SharedFromThisVBase {};
+
 template <typename T>
 class CustomUniquePtr {
     std::unique_ptr<T> impl;
@@ -225,6 +258,18 @@ public:
 };
 
 PYBIND11_DECLARE_HOLDER_TYPE(T, CustomUniquePtr<T>);
+
+struct ElementBase { virtual void foo() { } /* Force creation of virtual table */ };
+struct ElementA : ElementBase {
+    ElementA(int v) : v(v) { }
+    int value() { return v; }
+    int v;
+};
+
+struct ElementList {
+    void add(std::shared_ptr<ElementBase> e) { l.push_back(e); }
+    std::vector<std::shared_ptr<ElementBase>> l;
+};
 
 test_initializer smart_ptr_and_references([](py::module &pm) {
     auto m = pm.def_submodule("smart_ptr");
@@ -258,6 +303,11 @@ test_initializer smart_ptr_and_references([](py::module &pm) {
         .def("set_ref", [](SharedFromThisRef &, const B &) { return true; })
         .def("set_holder", [](SharedFromThisRef &, std::shared_ptr<B>) { return true; });
 
+    // Issue #865: shared_from_this doesn't work with virtual inheritance
+    static std::shared_ptr<SharedFromThisVirt> sft(new SharedFromThisVirt());
+    py::class_<SharedFromThisVirt, std::shared_ptr<SharedFromThisVirt>>(m, "SharedFromThisVirt")
+        .def_static("get", []() { return sft.get(); });
+
     struct C {
         C() { print_created(this); }
         ~C() { print_destroyed(this); }
@@ -271,4 +321,21 @@ test_initializer smart_ptr_and_references([](py::module &pm) {
     py::class_<HeldByDefaultHolder>(m, "HeldByDefaultHolder")
         .def(py::init<>())
         .def_static("load_shared_ptr", [](std::shared_ptr<HeldByDefaultHolder>) {});
+
+    // #187: issue involving std::shared_ptr<> return value policy & garbage collection
+    py::class_<ElementBase, std::shared_ptr<ElementBase>>(m, "ElementBase");
+
+    py::class_<ElementA, ElementBase, std::shared_ptr<ElementA>>(m, "ElementA")
+        .def(py::init<int>())
+        .def("value", &ElementA::value);
+
+    py::class_<ElementList, std::shared_ptr<ElementList>>(m, "ElementList")
+        .def(py::init<>())
+        .def("add", &ElementList::add)
+        .def("get", [](ElementList &el) {
+            py::list list;
+            for (auto &e : el.l)
+                list.append(py::cast(e));
+            return list;
+        });
 });

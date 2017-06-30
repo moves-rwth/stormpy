@@ -1,6 +1,14 @@
 import pytest
 
 
+def test_std_exception(msg):
+    from pybind11_tests import throw_std_exception
+
+    with pytest.raises(RuntimeError) as excinfo:
+        throw_std_exception()
+    assert msg(excinfo.value) == "This exception was intentionally thrown."
+
+
 def test_error_already_set(msg):
     from pybind11_tests import throw_already_set
 
@@ -19,6 +27,11 @@ def test_python_call_in_catch():
     d = {}
     assert python_call_in_destructor(d) is True
     assert d["good"] is True
+
+
+def test_exception_matches():
+    from pybind11_tests import exception_matches
+    exception_matches()
 
 
 def test_custom(msg):

@@ -86,6 +86,20 @@ void throws_logic_error() {
     throw std::logic_error("this error should fall through to the standard handler");
 }
 
+// Test error_already_set::matches() method
+void exception_matches() {
+    py::dict foo;
+    try {
+        foo["bar"];
+    }
+    catch (py::error_already_set& ex) {
+        if (ex.matches(PyExc_KeyError))
+            ex.clear();
+        else
+            throw;
+    }
+}
+
 struct PythonCallInDestructor {
     PythonCallInDestructor(const py::dict &d) : d(d) {}
     ~PythonCallInDestructor() { d["good"] = true; }
@@ -94,6 +108,10 @@ struct PythonCallInDestructor {
 };
 
 test_initializer custom_exceptions([](py::module &m) {
+    m.def("throw_std_exception", []() {
+        throw std::runtime_error("This exception was intentionally thrown.");
+    });
+
     // make a new custom exception and use it as a translation target
     static py::exception<MyException> ex(m, "MyException");
     py::register_exception_translator([](std::exception_ptr p) {
@@ -140,6 +158,7 @@ test_initializer custom_exceptions([](py::module &m) {
     m.def("throws5", &throws5);
     m.def("throws5_1", &throws5_1);
     m.def("throws_logic_error", &throws_logic_error);
+    m.def("exception_matches", &exception_matches);
 
     m.def("throw_already_set", [](bool err) {
         if (err)

@@ -132,6 +132,16 @@ def test_unique_nodelete():
     assert cstats.alive() == 1  # Leak, but that's intentional
 
 
+def test_large_holder():
+    from pybind11_tests import MyObject5
+    o = MyObject5(5)
+    assert o.value == 5
+    cstats = ConstructorStats.get(MyObject5)
+    assert cstats.alive() == 1
+    del o
+    assert cstats.alive() == 0
+
+
 def test_shared_ptr_and_references():
     from pybind11_tests.smart_ptr import SharedPtrRef, A
 
@@ -166,7 +176,7 @@ def test_shared_ptr_and_references():
 
 
 def test_shared_ptr_from_this_and_references():
-    from pybind11_tests.smart_ptr import SharedFromThisRef, B
+    from pybind11_tests.smart_ptr import SharedFromThisRef, B, SharedFromThisVirt
 
     s = SharedFromThisRef()
     stats = ConstructorStats.get(B)
@@ -202,6 +212,10 @@ def test_shared_ptr_from_this_and_references():
     del ref, bad_wp, copy, holder_ref, holder_copy, s
     assert stats.alive() == 0
 
+    z = SharedFromThisVirt.get()
+    y = SharedFromThisVirt.get()
+    assert y is z
+
 
 def test_move_only_holder():
     from pybind11_tests.smart_ptr import TypeWithMoveOnlyHolder
@@ -220,3 +234,15 @@ def test_smart_ptr_from_default():
     with pytest.raises(RuntimeError) as excinfo:
         HeldByDefaultHolder.load_shared_ptr(instance)
     assert "Unable to load a custom holder type from a default-holder instance" in str(excinfo)
+
+
+def test_shared_ptr_gc():
+    """#187: issue involving std::shared_ptr<> return value policy & garbage collection"""
+    from pybind11_tests.smart_ptr import ElementList, ElementA
+
+    el = ElementList()
+    for i in range(10):
+        el.add(ElementA(i))
+    pytest.gc_collect()
+    for i, v in enumerate(el.get()):
+        assert i == v.value()

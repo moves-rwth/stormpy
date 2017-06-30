@@ -45,9 +45,7 @@ Normally, the binding code for these classes would look as follows:
 
 .. code-block:: cpp
 
-    PYBIND11_PLUGIN(example) {
-        py::module m("example", "pybind11 example plugin");
-
+    PYBIND11_MODULE(example, m) {
         py::class_<Animal> animal(m, "Animal");
         animal
             .def("go", &Animal::go);
@@ -56,8 +54,6 @@ Normally, the binding code for these classes would look as follows:
             .def(py::init<>());
 
         m.def("call_go", &call_go);
-
-        return m.ptr();
     }
 
 However, these bindings are impossible to extend: ``Animal`` is not
@@ -97,11 +93,9 @@ function have different names, e.g.  ``operator()`` vs ``__call__``.
 The binding code also needs a few minor adaptations (highlighted):
 
 .. code-block:: cpp
-    :emphasize-lines: 4,6,7
+    :emphasize-lines: 2,4,5
 
-    PYBIND11_PLUGIN(example) {
-        py::module m("example", "pybind11 example plugin");
-
+    PYBIND11_MODULE(example, m) {
         py::class_<Animal, PyAnimal /* <--- trampoline*/> animal(m, "Animal");
         animal
             .def(py::init<>())
@@ -111,8 +105,6 @@ The binding code also needs a few minor adaptations (highlighted):
             .def(py::init<>());
 
         m.def("call_go", &call_go);
-
-        return m.ptr();
     }
 
 Importantly, pybind11 is made aware of the trampoline helper class by
@@ -333,7 +325,7 @@ ensuring member initialization and (eventual) destruction.
 
 .. seealso::
 
-    See the file :file:`tests/test_alias_initialization.cpp` for complete examples
+    See the file :file:`tests/test_virtual_functions.cpp` for complete examples
     showing both normal and forced trampoline instantiation.
 
 .. _custom_constructors:
@@ -491,9 +483,7 @@ to Python.
 
     #include <pybind11/operators.h>
 
-    PYBIND11_PLUGIN(example) {
-        py::module m("example", "pybind11 example plugin");
-
+    PYBIND11_MODULE(example, m) {
         py::class_<Vector2>(m, "Vector2")
             .def(py::init<float, float>())
             .def(py::self + py::self)
@@ -502,8 +492,6 @@ to Python.
             .def(float() * py::self)
             .def(py::self * float())
             .def("__repr__", &Vector2::toString);
-
-        return m.ptr();
     }
 
 Note that a line like
@@ -631,27 +619,19 @@ interspersed with alias types and holder types (discussed earlier in this
 document)---pybind11 will automatically find out which is which. The only
 requirement is that the first template argument is the type to be declared.
 
-There are two caveats regarding the implementation of this feature:
+It is also permitted to inherit multiply from exported C++ classes in Python,
+as well as inheriting from multiple Python and/or pybind-exported classes.
 
-1. When only one base type is specified for a C++ type that actually has
-   multiple bases, pybind11 will assume that it does not participate in
-   multiple inheritance, which can lead to undefined behavior. In such cases,
-   add the tag ``multiple_inheritance``:
+There is one caveat regarding the implementation of this feature:
 
-    .. code-block:: cpp
+When only one base type is specified for a C++ type that actually has multiple
+bases, pybind11 will assume that it does not participate in multiple
+inheritance, which can lead to undefined behavior. In such cases, add the tag
+``multiple_inheritance`` to the class constructor:
 
-        py::class_<MyType, BaseType2>(m, "MyType", py::multiple_inheritance());
+.. code-block:: cpp
 
-   The tag is redundant and does not need to be specified when multiple base
-   types are listed.
+    py::class_<MyType, BaseType2>(m, "MyType", py::multiple_inheritance());
 
-2. As was previously discussed in the section on :ref:`overriding_virtuals`, it
-   is easy to create Python types that derive from C++ classes. It is even
-   possible to make use of multiple inheritance to declare a Python class which
-   has e.g. a C++ and a Python class as bases. However, any attempt to create a
-   type that has *two or more* C++ classes in its hierarchy of base types will
-   fail with a fatal error message: ``TypeError: multiple bases have instance
-   lay-out conflict``. Core Python types that are implemented in C (e.g.
-   ``dict``, ``list``, ``Exception``, etc.) also fall under this combination
-   and cannot be combined with C++ types bound using pybind11 via multiple
-   inheritance.
+The tag is redundant and does not need to be specified when multiple base types
+are listed.

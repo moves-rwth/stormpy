@@ -10,6 +10,7 @@
 #include "pybind11_tests.h"
 #include "constructor_stats.h"
 #include <pybind11/eigen.h>
+#include <pybind11/stl.h>
 #include <Eigen/Cholesky>
 
 using MatrixXdR = Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor>;
@@ -287,8 +288,28 @@ test_initializer eigen([](py::module &m) {
     m.def("iss738_f1", &adjust_matrix<const Eigen::Ref<const Eigen::MatrixXd> &>, py::arg().noconvert());
     m.def("iss738_f2", &adjust_matrix<const Eigen::Ref<const Eigen::Matrix<double, -1, -1, Eigen::RowMajor>> &>, py::arg().noconvert());
 
+    // Make sure named arguments are working properly:
+    m.def("matrix_multiply", [](const py::EigenDRef<const Eigen::MatrixXd> A, const py::EigenDRef<const Eigen::MatrixXd> B)
+            -> Eigen::MatrixXd {
+        if (A.cols() != B.rows()) throw std::domain_error("Nonconformable matrices!");
+        return A * B;
+    }, py::arg("A"), py::arg("B"));
+
     py::class_<CustomOperatorNew>(m, "CustomOperatorNew")
         .def(py::init<>())
         .def_readonly("a", &CustomOperatorNew::a)
         .def_readonly("b", &CustomOperatorNew::b);
+
+    // test_eigen_ref_life_support
+    // In case of a failure (the caster's temp array does not live long enough), creating
+    // a new array (np.ones(10)) increases the chances that the temp array will be garbage
+    // collected and/or that its memory will be overridden with different values.
+    m.def("get_elem_direct", [](Eigen::Ref<const Eigen::VectorXd> v) {
+        py::module::import("numpy").attr("ones")(10);
+        return v(5);
+    });
+    m.def("get_elem_indirect", [](std::vector<Eigen::Ref<const Eigen::VectorXd>> v) {
+        py::module::import("numpy").attr("ones")(10);
+        return v[0](5);
+    });
 });

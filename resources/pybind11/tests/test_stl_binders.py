@@ -18,11 +18,13 @@ def test_vector_int():
     assert v_int != v_int2
 
     v_int2.append(2)
-    v_int2.append(3)
     v_int2.insert(0, 1)
     v_int2.insert(0, 2)
     v_int2.insert(0, 3)
+    v_int2.insert(6, 3)
     assert str(v_int2) == "VectorInt[3, 2, 1, 0, 1, 2, 3]"
+    with pytest.raises(IndexError):
+        v_int2.insert(8, 4)
 
     v_int.append(99)
     v_int2[2:-2] = v_int
@@ -33,6 +35,8 @@ def test_vector_int():
     assert v_int2 == VectorInt([0, 99, 2, 3])
 
 
+# As of pypy 5.7.1, running this and the next test seems to trigger a segfault
+# related to the PyPy's buffer protocol.
 @pytest.unsupported_on_pypy
 def test_vector_buffer():
     from pybind11_tests import VectorUChar, create_undeclstruct
@@ -53,6 +57,7 @@ def test_vector_buffer():
         create_undeclstruct()  # Undeclared struct contents, no buffer interface
 
 
+@pytest.unsupported_on_pypy
 @pytest.requires_numpy
 def test_vector_buffer_numpy():
     from pybind11_tests import VectorInt, VectorStruct, get_vectorstruct

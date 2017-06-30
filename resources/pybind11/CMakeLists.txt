@@ -34,8 +34,10 @@ set(PYTHON_LIBRARIES ${PYTHON_LIBRARIES} CACHE INTERNAL "")
 set(PYTHON_MODULE_PREFIX ${PYTHON_MODULE_PREFIX} CACHE INTERNAL "")
 set(PYTHON_MODULE_EXTENSION ${PYTHON_MODULE_EXTENSION} CACHE INTERNAL "")
 
+# NB: when adding a header don't forget to also add it to setup.py
 set(PYBIND11_HEADERS
   include/pybind11/attr.h
+  include/pybind11/buffer_info.h
   include/pybind11/cast.h
   include/pybind11/chrono.h
   include/pybind11/class_support.h
@@ -44,6 +46,7 @@ set(PYBIND11_HEADERS
   include/pybind11/descr.h
   include/pybind11/options.h
   include/pybind11/eigen.h
+  include/pybind11/embed.h
   include/pybind11/eval.h
   include/pybind11/functional.h
   include/pybind11/numpy.h
@@ -82,18 +85,25 @@ endif()
 
 if(NOT (CMAKE_VERSION VERSION_LESS 3.0))  # CMake >= 3.0
   # Build an interface library target:
+  add_library(pybind11 INTERFACE)
+  add_library(pybind11::pybind11 ALIAS pybind11)  # to match exported target
+  target_include_directories(pybind11 INTERFACE $<BUILD_INTERFACE:${PYBIND11_INCLUDE_DIR}>
+                                                $<BUILD_INTERFACE:${PYTHON_INCLUDE_DIRS}>
+                                                $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
+  target_compile_options(pybind11 INTERFACE $<BUILD_INTERFACE:${PYBIND11_CPP_STANDARD}>)
+
   add_library(module INTERFACE)
-  target_include_directories(module INTERFACE $<BUILD_INTERFACE:${PYBIND11_INCLUDE_DIR}>
-                                              $<BUILD_INTERFACE:${PYTHON_INCLUDE_DIRS}>
-                                              $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
+  add_library(pybind11::module ALIAS module)
+  target_link_libraries(module INTERFACE pybind11::pybind11)
   if(WIN32 OR CYGWIN)
     target_link_libraries(module INTERFACE $<BUILD_INTERFACE:${PYTHON_LIBRARIES}>)
   elseif(APPLE)
     target_link_libraries(module INTERFACE "-undefined dynamic_lookup")
   endif()
-  target_compile_options(module INTERFACE $<BUILD_INTERFACE:${PYBIND11_CPP_STANDARD}>)
 
-  add_library(pybind11::module ALIAS module)  # to match exported target
+  add_library(embed INTERFACE)
+  add_library(pybind11::embed ALIAS embed)
+  target_link_libraries(embed INTERFACE pybind11::pybind11 $<BUILD_INTERFACE:${PYTHON_LIBRARIES}>)
 endif()
 
 if (PYBIND11_INSTALL)
@@ -105,9 +115,14 @@ if (PYBIND11_INSTALL)
   configure_package_config_file(tools/${PROJECT_NAME}Config.cmake.in
                                 "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
                                 INSTALL_DESTINATION ${PYBIND11_CMAKECONFIG_INSTALL_DIR})
+  # Remove CMAKE_SIZEOF_VOID_P from ConfigVersion.cmake since the library does
+  # not depend on architecture specific settings or libraries.
+  set(_PYBIND11_CMAKE_SIZEOF_VOID_P ${CMAKE_SIZEOF_VOID_P})
+  unset(CMAKE_SIZEOF_VOID_P)
   write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
                                    VERSION ${${PROJECT_NAME}_VERSION}
                                    COMPATIBILITY AnyNewerVersion)
+  set(CMAKE_SIZEOF_VOID_P ${_PYBIND11_CMAKE_SIZEOF_VOID_P})
   install(FILES ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake
                 ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
                 tools/FindPythonLibsNew.cmake
@@ -115,7 +130,7 @@ if (PYBIND11_INSTALL)
           DESTINATION ${PYBIND11_CMAKECONFIG_INSTALL_DIR})
 
   if(NOT (CMAKE_VERSION VERSION_LESS 3.0))
-    install(TARGETS module
+    install(TARGETS pybind11 module embed
             EXPORT "${PROJECT_NAME}Targets")
     install(EXPORT "${PROJECT_NAME}Targets"
             NAMESPACE "${PROJECT_NAME}::"
