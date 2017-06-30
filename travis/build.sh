@@ -38,6 +38,7 @@ linux)
 osx)
     # Mac OSX
     STLARG="-stdlib=libc++"
+    export N_JOBS
     export OS
     travis/build-helper.sh
     exit $?
