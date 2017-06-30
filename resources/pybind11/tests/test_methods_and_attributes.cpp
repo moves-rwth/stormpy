@@ -59,6 +59,8 @@ public:
     py::str overloaded(int, int)     const { return "(int, int) const"; }
     py::str overloaded(float, float) const { return "(float, float) const"; }
 
+    static py::str overloaded() { return "static"; }
+
     int value = 0;
 };
 
@@ -74,6 +76,13 @@ struct TestProperties {
 };
 
 int TestProperties::static_value = 1;
+
+struct TestPropertiesOverride : TestProperties {
+    int value = 99;
+    static int static_value;
+};
+
+int TestPropertiesOverride::static_value = 99;
 
 struct SimpleValue { int value = 1; };
 
@@ -153,9 +162,24 @@ public:
 /// Issue/PR #648: bad arg default debugging output
 class NotRegistered {};
 
+// Test None-allowed py::arg argument policy
+class NoneTester { public: int answer = 42; };
+int none1(const NoneTester &obj) { return obj.answer; }
+int none2(NoneTester *obj) { return obj ? obj->answer : -1; }
+int none3(std::shared_ptr<NoneTester> &obj) { return obj ? obj->answer : -1; }
+int none4(std::shared_ptr<NoneTester> *obj) { return obj && *obj ? (*obj)->answer : -1; }
+int none5(std::shared_ptr<NoneTester> obj) { return obj ? obj->answer : -1; }
+
+struct StrIssue {
+    int val = -1;
+
+    StrIssue() = default;
+    StrIssue(int i) : val{i} {}
+};
+
 test_initializer methods_and_attributes([](py::module &m) {
-    py::class_<ExampleMandA>(m, "ExampleMandA")
-        .def(py::init<>())
+    py::class_<ExampleMandA> emna(m, "ExampleMandA");
+    emna.def(py::init<>())
         .def(py::init<int>())
         .def(py::init<const ExampleMandA&>())
         .def("add1", &ExampleMandA::add1)
@@ -199,8 +223,22 @@ test_initializer methods_and_attributes([](py::module &m) {
         .def("overloaded_const", static_cast<py::str (ExampleMandA::*)(int,     int) const>(&ExampleMandA::overloaded))
         .def("overloaded_const", static_cast<py::str (ExampleMandA::*)(float, float) const>(&ExampleMandA::overloaded))
 #endif
+        // Raise error if trying to mix static/non-static overloads on the same name:
+        .def_static("add_mixed_overloads1", []() {
+            auto emna = py::reinterpret_borrow<py::class_<ExampleMandA>>(py::module::import("pybind11_tests").attr("ExampleMandA"));
+            emna.def       ("overload_mixed1", static_cast<py::str (ExampleMandA::*)(int, int)>(&ExampleMandA::overloaded))
+                .def_static("overload_mixed1", static_cast<py::str (              *)(        )>(&ExampleMandA::overloaded));
+        })
+        .def_static("add_mixed_overloads2", []() {
+            auto emna = py::reinterpret_borrow<py::class_<ExampleMandA>>(py::module::import("pybind11_tests").attr("ExampleMandA"));
+            emna.def_static("overload_mixed2", static_cast<py::str (              *)(        )>(&ExampleMandA::overloaded))
+                .def       ("overload_mixed2", static_cast<py::str (ExampleMandA::*)(int, int)>(&ExampleMandA::overloaded));
+        })
         .def("__str__", &ExampleMandA::toString)
         .def_readwrite("value", &ExampleMandA::value);
+
+    // Issue #443: can't call copied methods in Python 3
+    emna.attr("add2b") = emna.attr("add2");
 
     py::class_<TestProperties>(m, "TestProperties")
         .def(py::init<>())
@@ -218,6 +256,11 @@ test_initializer methods_and_attributes([](py::module &m) {
         .def_property_static("static_cls",
                              [](py::object cls) { return cls; },
                              [](py::object cls, py::function f) { f(cls); });
+
+    py::class_<TestPropertiesOverride, TestProperties>(m, "TestPropertiesOverride")
+        .def(py::init<>())
+        .def_readonly("def_readonly", &TestPropertiesOverride::value)
+        .def_readonly_static("def_readonly_static", &TestPropertiesOverride::static_value);
 
     py::class_<SimpleValue>(m, "SimpleValue")
         .def_readwrite("value", &SimpleValue::value);
@@ -279,6 +322,8 @@ test_initializer methods_and_attributes([](py::module &m) {
 
     m.def("floats_preferred", [](double f) { return 0.5 * f; }, py::arg("f"));
     m.def("floats_only", [](double f) { return 0.5 * f; }, py::arg("f").noconvert());
+    m.def("ints_preferred", [](int i) { return i / 2; }, py::arg("i"));
+    m.def("ints_only", [](int i) { return i / 2; }, py::arg("i").noconvert());
 
     /// Issue/PR #648: bad arg default debugging output
 #if !defined(NDEBUG)
@@ -287,11 +332,32 @@ test_initializer methods_and_attributes([](py::module &m) {
     m.attr("debug_enabled") = false;
 #endif
     m.def("bad_arg_def_named", []{
-        auto m = py::module::import("pybind11_tests.issues");
+        auto m = py::module::import("pybind11_tests");
         m.def("should_fail", [](int, NotRegistered) {}, py::arg(), py::arg("a") = NotRegistered());
     });
     m.def("bad_arg_def_unnamed", []{
-        auto m = py::module::import("pybind11_tests.issues");
+        auto m = py::module::import("pybind11_tests");
         m.def("should_fail", [](int, NotRegistered) {}, py::arg(), py::arg() = NotRegistered());
     });
+
+    py::class_<NoneTester, std::shared_ptr<NoneTester>>(m, "NoneTester")
+        .def(py::init<>());
+    m.def("no_none1", &none1, py::arg().none(false));
+    m.def("no_none2", &none2, py::arg().none(false));
+    m.def("no_none3", &none3, py::arg().none(false));
+    m.def("no_none4", &none4, py::arg().none(false));
+    m.def("no_none5", &none5, py::arg().none(false));
+    m.def("ok_none1", &none1);
+    m.def("ok_none2", &none2, py::arg().none(true));
+    m.def("ok_none3", &none3);
+    m.def("ok_none4", &none4, py::arg().none(true));
+    m.def("ok_none5", &none5);
+
+    // Issue #283: __str__ called on uninitialized instance when constructor arguments invalid
+    py::class_<StrIssue>(m, "StrIssue")
+        .def(py::init<int>())
+        .def(py::init<>())
+        .def("__str__", [](const StrIssue &si) {
+            return "StrIssue[" + std::to_string(si.val) + "]"; }
+        );
 });

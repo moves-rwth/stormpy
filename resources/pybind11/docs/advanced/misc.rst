@@ -15,6 +15,7 @@ T2>, myFunc)``. In this case, the preprocessor assumes that the comma indicates
 the beginning of the next parameter. Use a ``typedef`` to bind the template to
 another name and use it in the macro to avoid this problem.
 
+.. _gil:
 
 Global Interpreter Lock (GIL)
 =============================
@@ -27,7 +28,7 @@ multiple Python threads. Taking :ref:`overriding_virtuals` as an example, this
 could be realized as follows (important changes highlighted):
 
 .. code-block:: cpp
-    :emphasize-lines: 8,9,33,34
+    :emphasize-lines: 8,9,31,32
 
     class PyAnimal : public Animal {
     public:
@@ -48,9 +49,7 @@ could be realized as follows (important changes highlighted):
         }
     };
 
-    PYBIND11_PLUGIN(example) {
-        py::module m("example", "pybind11 example plugin");
-
+    PYBIND11_MODULE(example, m) {
         py::class_<Animal, PyAnimal> animal(m, "Animal");
         animal
             .def(py::init<>())
@@ -64,9 +63,14 @@ could be realized as follows (important changes highlighted):
             py::gil_scoped_release release;
             return call_go(animal);
         });
-
-        return m.ptr();
     }
+
+The ``call_go`` wrapper can also be simplified using the `call_guard` policy
+(see :ref:`call_policies`) which yields the same result:
+
+.. code-block:: cpp
+
+    m.def("call_go", &call_go, py::call_guard<py::gil_scoped_release>());
 
 
 Binding sequence data types, iterators, the slicing protocol, etc.
@@ -225,15 +229,11 @@ The class ``options`` allows you to selectively suppress auto-generated signatur
 
 .. code-block:: cpp
 
-    PYBIND11_PLUGIN(example) {
-        py::module m("example", "pybind11 example plugin");
-
+    PYBIND11_MODULE(example, m) {
         py::options options;
         options.disable_function_signatures();
-        
+
         m.def("add", [](int a, int b) { return a + b; }, "A function which adds two numbers");
-        
-        return m.ptr();
     }
 
 Note that changes to the settings affect only function bindings created during the 

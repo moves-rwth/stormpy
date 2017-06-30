@@ -1,5 +1,6 @@
+import struct
 import pytest
-from pybind11_tests import Matrix, ConstructorStats
+from pybind11_tests import Matrix, ConstructorStats, PTMFBuffer, ConstPTMFBuffer, DerivedPTMFBuffer
 
 pytestmark = pytest.requires_numpy
 
@@ -35,6 +36,7 @@ def test_from_python():
 @pytest.unsupported_on_pypy
 def test_to_python():
     m = Matrix(5, 5)
+    assert memoryview(m).shape == (5, 5)
 
     assert m[2, 3] == 0
     m[2, 3] = 4
@@ -60,3 +62,22 @@ def test_to_python():
     # assert cstats.move_constructions >= 0  # Don't invoke any
     assert cstats.copy_assignments == 0
     assert cstats.move_assignments == 0
+
+
+@pytest.unsupported_on_pypy
+def test_inherited_protocol():
+    """SquareMatrix is derived from Matrix and inherits the buffer protocol"""
+    from pybind11_tests import SquareMatrix
+
+    matrix = SquareMatrix(5)
+    assert memoryview(matrix).shape == (5, 5)
+    assert np.asarray(matrix).shape == (5, 5)
+
+
+@pytest.unsupported_on_pypy
+def test_ptmf():
+    for cls in [PTMFBuffer, ConstPTMFBuffer, DerivedPTMFBuffer]:
+        buf = cls()
+        buf.value = 0x12345678
+        value = struct.unpack('i', bytearray(buf))[0]
+        assert value == 0x12345678

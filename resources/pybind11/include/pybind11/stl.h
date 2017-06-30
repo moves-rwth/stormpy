@@ -32,10 +32,18 @@
 // std::experimental::optional (but not allowed in c++11 mode)
 #  if defined(PYBIND11_CPP14) && __has_include(<experimental/optional>)
 #    include <experimental/optional>
-#    if __cpp_lib_experimental_optional  // just in case
-#      define PYBIND11_HAS_EXP_OPTIONAL 1
-#    endif
+#    define PYBIND11_HAS_EXP_OPTIONAL 1
 #  endif
+// std::variant
+#  if defined(PYBIND11_CPP17) && __has_include(<variant>)
+#    include <variant>
+#    define PYBIND11_HAS_VARIANT 1
+#  endif
+#elif defined(_MSC_VER) && defined(PYBIND11_CPP17)
+#  include <optional>
+#  include <variant>
+#  define PYBIND11_HAS_OPTIONAL 1
+#  define PYBIND11_HAS_VARIANT 1
 #endif
 
 NAMESPACE_BEGIN(pybind11)
@@ -50,11 +58,11 @@ template <typename Type, typename Key> struct set_caster {
             return false;
         auto s = reinterpret_borrow<pybind11::set>(src);
         value.clear();
-        key_conv conv;
         for (auto entry : s) {
+            key_conv conv;
             if (!conv.load(entry, convert))
                 return false;
-            value.insert(cast_op<Key>(conv));
+            value.insert(cast_op<Key &&>(std::move(conv)));
         }
         return true;
     }
@@ -80,14 +88,14 @@ template <typename Type, typename Key, typename Value> struct map_caster {
         if (!isinstance<dict>(src))
             return false;
         auto d = reinterpret_borrow<dict>(src);
-        key_conv kconv;
-        value_conv vconv;
         value.clear();
         for (auto it : d) {
+            key_conv kconv;
+            value_conv vconv;
             if (!kconv.load(it.first.ptr(), convert) ||
                 !vconv.load(it.second.ptr(), convert))
                 return false;
-            value.emplace(cast_op<Key>(kconv), cast_op<Value>(vconv));
+            value.emplace(cast_op<Key &&>(std::move(kconv)), cast_op<Value &&>(std::move(vconv)));
         }
         return true;
     }
@@ -114,13 +122,13 @@ template <typename Type, typename Value> struct list_caster {
         if (!isinstance<sequence>(src))
             return false;
         auto s = reinterpret_borrow<sequence>(src);
-        value_conv conv;
         value.clear();
         reserve_maybe(s, &value);
         for (auto it : s) {
+            value_conv conv;
             if (!conv.load(it, convert))
                 return false;
-            value.push_back(cast_op<Value>(conv));
+            value.push_back(cast_op<Value &&>(std::move(conv)));
         }
         return true;
     }
@@ -175,12 +183,12 @@ public:
         auto l = reinterpret_borrow<list>(src);
         if (!require_size(l.size()))
             return false;
-        value_conv conv;
         size_t ctr = 0;
         for (auto it : l) {
+            value_conv conv;
             if (!conv.load(it, convert))
                 return false;
-            value[ctr++] = cast_op<Value>(conv);
+            value[ctr++] = cast_op<Value &&>(std::move(conv));
         }
         return true;
     }
@@ -232,14 +240,13 @@ template<typename T> struct optional_caster {
         if (!src) {
             return false;
         } else if (src.is_none()) {
-            value = {};  // nullopt
-            return true;
+            return true;  // default-constructed value is already empty
         }
         value_conv inner_caster;
         if (!inner_caster.load(src, convert))
             return false;
 
-        value.emplace(cast_op<typename T::value_type>(inner_caster));
+        value.emplace(cast_op<typename T::value_type &&>(std::move(inner_caster)));
         return true;
     }
 
@@ -262,6 +269,72 @@ template<> struct type_caster<std::experimental::nullopt_t>
     : public void_caster<std::experimental::nullopt_t> {};
 #endif
 
+/// Visit a variant and cast any found type to Python
+struct variant_caster_visitor {
+    return_value_policy policy;
+    handle parent;
+
+    template <typename T>
+    handle operator()(T &&src) const {
+        return make_caster<T>::cast(std::forward<T>(src), policy, parent);
+    }
+};
+
+/// Helper class which abstracts away variant's `visit` function. `std::variant` and similar
+/// `namespace::variant` types which provide a `namespace::visit()` function are handled here
+/// automatically using argument-dependent lookup. Users can provide specializations for other
+/// variant-like classes, e.g. `boost::variant` and `boost::apply_visitor`.
+template <template<typename...> class Variant>
+struct visit_helper {
+    template <typename... Args>
+    static auto call(Args &&...args) -> decltype(visit(std::forward<Args>(args)...)) {
+        return visit(std::forward<Args>(args)...);
+    }
+};
+
+/// Generic variant caster
+template <typename Variant> struct variant_caster;
+
+template <template<typename...> class V, typename... Ts>
+struct variant_caster<V<Ts...>> {
+    static_assert(sizeof...(Ts) > 0, "Variant must consist of at least one alternative.");
+
+    template <typename U, typename... Us>
+    bool load_alternative(handle src, bool convert, type_list<U, Us...>) {
+        auto caster = make_caster<U>();
+        if (caster.load(src, convert)) {
+            value = cast_op<U>(caster);
+            return true;
+        }
+        return load_alternative(src, convert, type_list<Us...>{});
+    }
+
+    bool load_alternative(handle, bool, type_list<>) { return false; }
+
+    bool load(handle src, bool convert) {
+        // Do a first pass without conversions to improve constructor resolution.
+        // E.g. `py::int_(1).cast<variant<double, int>>()` needs to fill the `int`
+        // slot of the variant. Without two-pass loading `double` would be filled
+        // because it appears first and a conversion is possible.
+        if (convert && load_alternative(src, false, type_list<Ts...>{}))
+            return true;
+        return load_alternative(src, convert, type_list<Ts...>{});
+    }
+
+    template <typename Variant>
+    static handle cast(Variant &&src, return_value_policy policy, handle parent) {
+        return visit_helper<V>::call(variant_caster_visitor{policy, parent},
+                                     std::forward<Variant>(src));
+    }
+
+    using Type = V<Ts...>;
+    PYBIND11_TYPE_CASTER(Type, _("Union[") + detail::concat(make_caster<Ts>::name()...) + _("]"));
+};
+
+#if PYBIND11_HAS_VARIANT
+template <typename... Ts>
+struct type_caster<std::variant<Ts...>> : variant_caster<std::variant<Ts...>> { };
+#endif
 NAMESPACE_END(detail)
 
 inline std::ostream &operator<<(std::ostream &os, const handle &obj) {

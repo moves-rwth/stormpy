@@ -137,7 +137,6 @@ void vector_modifiers(enable_if_t<std::is_copy_constructible<typename Vector::va
 
     cl.def("extend",
        [](Vector &v, const Vector &src) {
-           v.reserve(v.size() + src.size());
            v.insert(v.end(), src.begin(), src.end());
        },
        arg("L"),
@@ -146,6 +145,8 @@ void vector_modifiers(enable_if_t<std::is_copy_constructible<typename Vector::va
 
     cl.def("insert",
         [](Vector &v, SizeType i, const T &x) {
+            if (i > v.size())
+                throw index_error();
             v.insert(v.begin() + (DiffType) i, x);
         },
         arg("i") , arg("x"),
@@ -345,21 +346,21 @@ vector_buffer(Class_& cl) {
     format_descriptor<T>::format();
 
     cl.def_buffer([](Vector& v) -> buffer_info {
-        return buffer_info(v.data(), sizeof(T), format_descriptor<T>::format(), 1, {v.size()}, {sizeof(T)});
+        return buffer_info(v.data(), static_cast<ssize_t>(sizeof(T)), format_descriptor<T>::format(), 1, {v.size()}, {sizeof(T)});
     });
 
     cl.def("__init__", [](Vector& vec, buffer buf) {
         auto info = buf.request();
-        if (info.ndim != 1 || info.strides[0] <= 0 || info.strides[0] % sizeof(T))
+        if (info.ndim != 1 || info.strides[0] % static_cast<ssize_t>(sizeof(T)))
             throw type_error("Only valid 1D buffers can be copied to a vector");
-        if (!detail::compare_buffer_info<T>::compare(info) || sizeof(T) != info.itemsize)
+        if (!detail::compare_buffer_info<T>::compare(info) || (ssize_t) sizeof(T) != info.itemsize)
             throw type_error("Format mismatch (Python: " + info.format + " C++: " + format_descriptor<T>::format() + ")");
         new (&vec) Vector();
-        vec.reserve(info.shape[0]);
+        vec.reserve((size_t) info.shape[0]);
         T *p = static_cast<T*>(info.ptr);
-        auto step = info.strides[0] / sizeof(T);
+        ssize_t step = info.strides[0] / static_cast<ssize_t>(sizeof(T));
         T *end = p + info.shape[0] * step;
-        for (; p < end; p += step)
+        for (; p != end; p += step)
             vec.push_back(*p);
     });
 

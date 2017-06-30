@@ -80,6 +80,24 @@ def test_properties():
     assert instance.def_property == 3
 
 
+def test_copy_method():
+    """Issue #443: calling copied methods fails in Python 3"""
+    from pybind11_tests import ExampleMandA
+
+    ExampleMandA.add2c = ExampleMandA.add2
+    ExampleMandA.add2d = ExampleMandA.add2b
+    a = ExampleMandA(123)
+    assert a.value == 123
+    a.add2(ExampleMandA(-100))
+    assert a.value == 23
+    a.add2b(ExampleMandA(20))
+    assert a.value == 43
+    a.add2c(ExampleMandA(6))
+    assert a.value == 49
+    a.add2d(ExampleMandA(-7))
+    assert a.value == 42
+
+
 def test_static_properties():
     from pybind11_tests import TestProperties as Type
 
@@ -109,6 +127,12 @@ def test_static_properties():
     instance.def_readwrite_static = 2
     assert Type.def_readwrite_static == 2
     assert instance.def_readwrite_static == 2
+
+    # It should be possible to override properties in derived classes
+    from pybind11_tests import TestPropertiesOverride as TypeOverride
+
+    assert TypeOverride().def_readonly == 99
+    assert TypeOverride.def_readonly_static == 99
 
 
 def test_static_cls():
@@ -140,6 +164,28 @@ def test_metaclass_override():
     MetaclassOverride.readonly = 2
     assert MetaclassOverride.readonly == 2
     assert isinstance(MetaclassOverride.__dict__["readonly"], int)
+
+
+def test_no_mixed_overloads():
+    from pybind11_tests import debug_enabled
+
+    with pytest.raises(RuntimeError) as excinfo:
+        ExampleMandA.add_mixed_overloads1()
+    assert (str(excinfo.value) ==
+            "overloading a method with both static and instance methods is not supported; " +
+            ("compile in debug mode for more details" if not debug_enabled else
+             "error while attempting to bind static method ExampleMandA.overload_mixed1"
+             "() -> str")
+            )
+
+    with pytest.raises(RuntimeError) as excinfo:
+        ExampleMandA.add_mixed_overloads2()
+    assert (str(excinfo.value) ==
+            "overloading a method with both static and instance methods is not supported; " +
+            ("compile in debug mode for more details" if not debug_enabled else
+             "error while attempting to bind instance method ExampleMandA.overload_mixed2"
+             "(self: pybind11_tests.ExampleMandA, arg0: int, arg1: int) -> str")
+            )
 
 
 @pytest.mark.parametrize("access", ["ro", "rw", "static_ro", "static_rw"])
@@ -258,9 +304,9 @@ def test_cyclic_gc():
 
 
 def test_noconvert_args(msg):
-    from pybind11_tests import ArgInspector, arg_inspect_func, floats_only, floats_preferred
+    import pybind11_tests as m
 
-    a = ArgInspector()
+    a = m.ArgInspector()
     assert msg(a.f("hi")) == """
         loading ArgInspector1 argument WITH conversion allowed.  Argument value = hi
     """
@@ -284,20 +330,41 @@ def test_noconvert_args(msg):
     """
     assert (a.h("arg 1") ==
             "loading ArgInspector2 argument WITHOUT conversion allowed.  Argument value = arg 1")
-    assert msg(arg_inspect_func("A1", "A2")) == """
+    assert msg(m.arg_inspect_func("A1", "A2")) == """
         loading ArgInspector2 argument WITH conversion allowed.  Argument value = A1
         loading ArgInspector1 argument WITHOUT conversion allowed.  Argument value = A2
     """
 
-    assert floats_preferred(4) == 2.0
-    assert floats_only(4.0) == 2.0
+    assert m.floats_preferred(4) == 2.0
+    assert m.floats_only(4.0) == 2.0
     with pytest.raises(TypeError) as excinfo:
-        floats_only(4)
+        m.floats_only(4)
     assert msg(excinfo.value) == """
         floats_only(): incompatible function arguments. The following argument types are supported:
             1. (f: float) -> float
 
         Invoked with: 4
+    """
+
+    assert m.ints_preferred(4) == 2
+    assert m.ints_preferred(True) == 0
+    with pytest.raises(TypeError) as excinfo:
+        m.ints_preferred(4.0)
+    assert msg(excinfo.value) == """
+        ints_preferred(): incompatible function arguments. The following argument types are supported:
+            1. (i: int) -> int
+
+        Invoked with: 4.0
+    """  # noqa: E501 line too long
+
+    assert m.ints_only(4) == 2
+    with pytest.raises(TypeError) as excinfo:
+        m.ints_only(4.0)
+    assert msg(excinfo.value) == """
+        ints_only(): incompatible function arguments. The following argument types are supported:
+            1. (i: int) -> int
+
+        Invoked with: 4.0
     """
 
 
@@ -323,3 +390,70 @@ def test_bad_arg_default(msg):
         "arg(): could not convert default argument into a Python object (type not registered "
         "yet?). Compile in debug mode for more information."
     )
+
+
+def test_accepts_none(msg):
+    from pybind11_tests import (NoneTester,
+                                no_none1, no_none2, no_none3, no_none4, no_none5,
+                                ok_none1, ok_none2, ok_none3, ok_none4, ok_none5)
+
+    a = NoneTester()
+    assert no_none1(a) == 42
+    assert no_none2(a) == 42
+    assert no_none3(a) == 42
+    assert no_none4(a) == 42
+    assert no_none5(a) == 42
+    assert ok_none1(a) == 42
+    assert ok_none2(a) == 42
+    assert ok_none3(a) == 42
+    assert ok_none4(a) == 42
+    assert ok_none5(a) == 42
+
+    with pytest.raises(TypeError) as excinfo:
+        no_none1(None)
+    assert "incompatible function arguments" in str(excinfo.value)
+    with pytest.raises(TypeError) as excinfo:
+        no_none2(None)
+    assert "incompatible function arguments" in str(excinfo.value)
+    with pytest.raises(TypeError) as excinfo:
+        no_none3(None)
+    assert "incompatible function arguments" in str(excinfo.value)
+    with pytest.raises(TypeError) as excinfo:
+        no_none4(None)
+    assert "incompatible function arguments" in str(excinfo.value)
+    with pytest.raises(TypeError) as excinfo:
+        no_none5(None)
+    assert "incompatible function arguments" in str(excinfo.value)
+
+    # The first one still raises because you can't pass None as a lvalue reference arg:
+    with pytest.raises(TypeError) as excinfo:
+        assert ok_none1(None) == -1
+    assert msg(excinfo.value) == """
+        ok_none1(): incompatible function arguments. The following argument types are supported:
+            1. (arg0: m.NoneTester) -> int
+
+        Invoked with: None
+    """
+
+    # The rest take the argument as pointer or holder, and accept None:
+    assert ok_none2(None) == -1
+    assert ok_none3(None) == -1
+    assert ok_none4(None) == -1
+    assert ok_none5(None) == -1
+
+
+def test_str_issue(msg):
+    """#283: __str__ called on uninitialized instance when constructor arguments invalid"""
+    from pybind11_tests import StrIssue
+
+    assert str(StrIssue(3)) == "StrIssue[3]"
+
+    with pytest.raises(TypeError) as excinfo:
+        str(StrIssue("no", "such", "constructor"))
+    assert msg(excinfo.value) == """
+        __init__(): incompatible constructor arguments. The following argument types are supported:
+            1. m.StrIssue(arg0: int)
+            2. m.StrIssue()
+
+        Invoked with: 'no', 'such', 'constructor'
+    """

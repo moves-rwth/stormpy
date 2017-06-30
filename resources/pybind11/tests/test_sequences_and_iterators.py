@@ -21,6 +21,17 @@ def test_generalized_iterators():
     assert list(IntPairs([(1, 2), (2, 0), (0, 3), (4, 5)]).nonzero_keys()) == [1]
     assert list(IntPairs([(0, 3), (1, 2), (3, 4)]).nonzero_keys()) == []
 
+    # __next__ must continue to raise StopIteration
+    it = IntPairs([(0, 0)]).nonzero()
+    for _ in range(3):
+        with pytest.raises(StopIteration):
+            next(it)
+
+    it = IntPairs([(0, 0)]).nonzero_keys()
+    for _ in range(3):
+        with pytest.raises(StopIteration):
+            next(it)
+
 
 def test_sequence():
     from pybind11_tests import ConstructorStats
@@ -45,6 +56,12 @@ def test_sequence():
     rev2 = s[::-1]
     assert cstats.values() == ['of size', '5']
 
+    it = iter(Sequence(0))
+    for _ in range(3):  # __next__ must continue to raise StopIteration
+        with pytest.raises(StopIteration):
+            next(it)
+    assert cstats.values() == ['of size', '0']
+
     expected = [0, 56.78, 0, 0, 12.34]
     assert allclose(rev, expected)
     assert allclose(rev2, expected)
@@ -55,6 +72,8 @@ def test_sequence():
 
     assert allclose(rev, [2, 56.78, 2, 0, 2])
 
+    assert cstats.alive() == 4
+    del it
     assert cstats.alive() == 3
     del s
     assert cstats.alive() == 2
@@ -90,6 +109,11 @@ def test_map_iterator():
     for k, v in m.items():
         assert v == expected[k]
 
+    it = iter(StringMap({}))
+    for _ in range(3):  # __next__ must continue to raise StopIteration
+        with pytest.raises(StopIteration):
+            next(it)
+
 
 def test_python_iterator_in_cpp():
     import pybind11_tests.sequences_and_iterators as m
@@ -123,3 +147,19 @@ def test_python_iterator_in_cpp():
     assert all(m.tuple_iterator(tuple(r)))
     assert all(m.list_iterator(list(r)))
     assert all(m.sequence_iterator(r))
+
+
+def test_iterator_passthrough():
+    """#181: iterator passthrough did not compile"""
+    from pybind11_tests.sequences_and_iterators import iterator_passthrough
+
+    assert list(iterator_passthrough(iter([3, 5, 7, 9, 11, 13, 15]))) == [3, 5, 7, 9, 11, 13, 15]
+
+
+def test_iterator_rvp():
+    """#388: Can't make iterators via make_iterator() with different r/v policies """
+    import pybind11_tests.sequences_and_iterators as m
+
+    assert list(m.make_iterator_1()) == [1, 2, 3]
+    assert list(m.make_iterator_2()) == [1, 2, 3]
+    assert not isinstance(m.make_iterator_1(), type(m.make_iterator_2()))
