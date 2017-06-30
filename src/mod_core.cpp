@@ -3,7 +3,7 @@
 #include "core/variable.h"
 #include "core/monomial.h"
 
-#include "core/Interval.h"
+#include "core/BoundType.h"
 
 PYBIND11_PLUGIN(core) {
     py::module m("core");

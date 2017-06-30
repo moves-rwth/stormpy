@@ -1,16 +1,14 @@
 #include "common.h"
 
-#include "core/integer.h"
-#include "core/rational.h"
-#include "core/variable.h"
-#include "core/monomial.h"
-#include "core/term.h"
-#include "core/polynomial.h"
-#include "core/rationalfunction.h"
-#include "core/factorizedpolynomial.h"
-#include "core/factorizedrationalfunction.h"
+#include "typed_core/integer.h"
+#include "typed_core/rational.h"
+#include "typed_core/term.h"
+#include "typed_core/polynomial.h"
+#include "typed_core/rationalfunction.h"
+#include "typed_core/factorizedpolynomial.h"
+#include "typed_core/factorizedrationalfunction.h"
 
-#include "core/Interval.h"
+#include "typed_core/Interval.h"
 
 PYBIND11_PLUGIN(cln) {
     py::module m("cln");
