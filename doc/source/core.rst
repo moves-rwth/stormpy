@@ -13,7 +13,7 @@ Number independent types
 Number dependent types (gmp)
 ------------------------------
 
-.. automodule:: pycarl.gmp
+.. automodule:: pycarl.gmp.gmp
     :members:
     :undoc-members:
     :imported-members:

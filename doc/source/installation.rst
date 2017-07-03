@@ -16,6 +16,8 @@ is available on your system.
 	Virtual environments create isolated environments for your projects. This helps to keep your system clean, work with different versions of packages and different version of python. While it is not required, we recommend the use of
 	such virtual environments. To get you started, we recommend `this guide <http://docs.python-guide.org/en/latest/dev/virtualenvs/>`_ or `this primer <https://realpython.com/blog/python/python-virtual-environments-a-primer>`_.
 
+In order to have full parsing capabilities, you additionally need `carl-parser <https://github.com/smtrat/carl-parser>_`
+
 
 Installation Steps
 ====================
