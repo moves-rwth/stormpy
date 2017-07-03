@@ -29,7 +29,7 @@ if sys.version_info[0] == 2:
 
 def check_carl_compatible(carl_v_year, carl_v_month, carl_v_patch):
     if carl_v_year < 17 or (carl_v_year == 17 and carl_v_month < 6) or (carl_v_year == 17 and carl_v_month == 6 and carl_v_patch < 0):
-        sys.exit('Sorry, Storm version {}.{}.{} is not supported anymore!'.format(carl_v_year, carl_v_month, carl_v_patch))
+        sys.exit('Sorry, carl version {}.{}.{} is not supported anymore!'.format(carl_v_year, carl_v_month, carl_v_patch))
 
 def parse_carl_version(version_string):
     """
