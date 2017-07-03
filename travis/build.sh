@@ -1,7 +1,6 @@
 #!/bin/bash -x
 
 N_JOBS=2
-TIMEOUT=2000
 
 OS=$TRAVIS_OS_NAME
 
@@ -14,8 +13,8 @@ linux)
     set -e
     docker run -d -it --name pycarl --privileged mvolk/storm-basesystem:$LINUX
     # Copy local content into container
-    docker exec pycarl mkdir pycarl
-    docker cp . pycarl:/pycarl
+    docker exec pycarl mkdir opt/pycarl
+    docker cp . pycarl:/opt/pycarl
     # Install virtualenv
     docker exec pycarl apt-get install -qq -y python python3 virtualenv
     set +e
@@ -24,13 +23,12 @@ linux)
     docker exec pycarl bash -c "
         export COMPILER=$COMPILER;
         export N_JOBS=$N_JOBS;
-        export STLARG=$STLARG;
         export OS=$OS;
         export PYTHON=$PYTHON;
         export CONFIG=$CONFIG;
         export TASK=$TASK;
         export STLARG=;
-        cd pycarl;
+        cd opt/pycarl;
         travis/build-helper.sh"
     exit $?
     ;;
