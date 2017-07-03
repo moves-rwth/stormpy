@@ -4,8 +4,9 @@
 #include "typed_formula/constraint.h"
 #include "typed_formula/formula.h"
 
-PYBIND11_PLUGIN(formula) {
-	py::module m("formula", "pycarl formula handling");
+PYBIND11_MODULE(formula, m) {
+	m.doc() = "pycarl formula typed functions";
+
 
 	// Constraint relies on Rational
 	m.import("pycarl.core");
@@ -15,5 +16,4 @@ PYBIND11_PLUGIN(formula) {
 	define_simple_constraint(m);
 	define_formula(m);
 
-	return m.ptr();
 }

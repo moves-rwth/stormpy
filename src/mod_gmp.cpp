@@ -10,8 +10,8 @@
 
 #include "typed_core/Interval.h"
 
-PYBIND11_PLUGIN(gmp) {
-    py::module m("gmp", "core with gmp");
+PYBIND11_MODULE(gmp, m) {
+    m.doc() = "pycarl core cln-typed data and functions";
 
     define_gmp_integer(m);
     define_gmp_rational(m);
@@ -23,7 +23,4 @@ PYBIND11_PLUGIN(gmp) {
     define_factorizedrationalfunction(m);
 
     define_interval(m);
-
-
-    return m.ptr();
 }
