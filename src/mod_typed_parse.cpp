@@ -9,8 +9,9 @@
 /**
  * The actual module definition
  */
-PYBIND11_PLUGIN(parse) {
-    py::module m("parse", "pycarl parsing functions");
+PYBIND11_MODULE(parse, m) {
+    m.doc() = "pycarl parse typed functions";
+
 
 
     py::class_<ParserResultWrapper<Polynomial>>(m, "_ParserResultWrapper")

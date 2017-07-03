@@ -10,8 +10,8 @@
 
 #include "typed_core/Interval.h"
 
-PYBIND11_PLUGIN(cln) {
-    py::module m("cln", "core with cln");
+PYBIND11_MODULE(cln, m) {
+    m.doc() = "pycarl core cln-typed data and functions";
 
     define_cln_integer(m);
     define_cln_rational(m);
@@ -23,7 +23,4 @@ PYBIND11_PLUGIN(cln) {
     define_factorizedrationalfunction(m);
 
     define_interval(m);
-
-
-    return m.ptr();
 }

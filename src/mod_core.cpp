@@ -5,8 +5,8 @@
 
 #include "core/BoundType.h"
 
-PYBIND11_PLUGIN(core) {
-    py::module m("core");
+PYBIND11_MODULE(core, m) {
+    m.doc() = "pycarl core untyped functions";
 
 
     define_variabletype(m);
@@ -17,5 +17,4 @@ PYBIND11_PLUGIN(core) {
     py::register_exception<NoPickling>(m, "NoPicklingSupport");
 
 
-    return m.ptr();
 }

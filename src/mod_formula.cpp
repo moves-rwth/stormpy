@@ -4,8 +4,9 @@
 #include "formula/formula_type.h"
 #include "formula/relation.h"
 
-PYBIND11_PLUGIN(formula) {
-	py::module m("formula", "pycarl formula handling");
+PYBIND11_MODULE(formula, m) {
+	m.doc() = "pycarl formula untyped functions";
+
 
 	// Constraint relies on Rational
 	m.import("pycarl.core");
@@ -13,5 +14,4 @@ PYBIND11_PLUGIN(formula) {
 	define_relation(m);
 	define_formula_type(m);
 
-	return m.ptr();
 }
