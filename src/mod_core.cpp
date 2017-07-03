@@ -6,8 +6,8 @@
 #include "core/bisimulation.h"
 #include "core/input.h"
 
-PYBIND11_PLUGIN(core) {
-    py::module m("core");
+PYBIND11_MODULE(core, m) {
+    m.doc() = "core";
 
 #ifdef STORMPY_DISABLE_SIGNATURE_DOC
     py::options options;
@@ -24,5 +24,4 @@ PYBIND11_PLUGIN(core) {
     define_modelchecking(m);
     define_bisimulation(m);
     define_input(m);
-    return m.ptr();
 }

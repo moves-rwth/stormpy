@@ -2,8 +2,8 @@
 
 #include "utility/shortestPaths.h"
 
-PYBIND11_PLUGIN(utility) {
-    py::module m("utility", "Dumping ground of stuff that really should be somewhere more reasonable");
+PYBIND11_MODULE(utility, m) {
+    m.doc() = "Utilities for Storm";
+
     define_ksp(m);
-    return m.ptr();
 }
