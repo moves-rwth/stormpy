@@ -8,10 +8,10 @@ A Quick Tour through Stormpy
 ================================
 
 This guide is intended for people which have a basic understanding of probabilistic models and their verification. More details and further pointers to literature can be found on the
-`storm website <https://moves-rwth.github.io/storm>`_. 
+`storm website <http://www.stormchecker.org/>`_.
 While we assume some very basic programming concepts, we refrain from using more advanced concepts of python throughout the guide.
 
-We start with a selection of high-level constructs in stormpy, and go into more details afterwards. 
+We start with a selection of high-level constructs in stormpy, and go into more details afterwards.
 
 .. seealso:: The code examples are also given in the examples/ folder. These boxes throughout the text will tell you which example contains the code discussed.
 
