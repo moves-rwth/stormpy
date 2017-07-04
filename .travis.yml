@@ -11,7 +11,7 @@ language: generic
 services:
 - docker
 sudo: required
-group: deprecated-2017Q
+group: deprecated-2017Q2
 
 notifications:
   email:
