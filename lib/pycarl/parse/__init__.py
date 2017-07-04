@@ -6,13 +6,28 @@ if not _config.CARL_PARSER:
 from . import parse
 from .parse import *
 
+class ParserError(Exception):
+    """
+    Error which is meant to be raised when the parser throws an error.
+    """
+    def __init__(self, message):
+        self.message = message
+
+
 def deserialize(input, package):
     """
 
     :param input:
     :return:
     """
-    res = package.parse.parse._deserialize(input)
+    error = None
+    try:
+        res = package.parse.parse._deserialize(input)
+    except RuntimeError as e:
+        error = str(e)
+    # ugly save and rethrow yields improved error messages in pytest.
+    if error:
+        raise ParserError(error + " when parsing '" + input + "'")
     res_type = res.get_type()
     if res_type == parse._ParserReturnType.Rational:
         return res.as_rational()
