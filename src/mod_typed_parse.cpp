@@ -29,5 +29,4 @@ PYBIND11_MODULE(parse, m) {
     m.def("_deserialize", &from_string);
     m.def("_check_parsed_type", &carlparser::check_type<Polynomial>);
 
-    return m.ptr();
 }
