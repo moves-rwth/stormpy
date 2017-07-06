@@ -16,7 +16,11 @@ void define_factorizedrationalfunction(py::module& m) {
                 return ratFunc.derivative(var, 1);
             }, "Compute the derivative", py::arg("variable"))
         .def("__str__", &streamToString<FactorizedRationalFunction>)
-        .def(py::self - py::self)
+            .def("to_smt2", [](FactorizedRationalFunction const& rf) {
+                return rf.toString(false, true);
+            })
+
+            .def(py::self - py::self)
         .def(py::self + py::self)
         .def(py::self * py::self)
         .def(py::self / py::self)

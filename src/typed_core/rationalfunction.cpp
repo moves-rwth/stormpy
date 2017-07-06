@@ -55,6 +55,9 @@ void define_rationalfunction(py::module& m) {
                 return ratFunc.derivative(var, 1);
             }, "Compute the derivative", py::arg("variable"))
         .def("__str__", &streamToString<RationalFunction>)
+        .def("to_smt2", [](RationalFunction const& rf) {
+            return rf.toString(false, true);
+        })
 
         .def(py::self == py::self)
         .def(py::self != py::self)
