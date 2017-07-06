@@ -1,5 +1,7 @@
 import pycarl
 import pycarl._config
+import pycarl.gmp.formula
+import pycarl.cln.formula
 
 if  pycarl._config.CARL_PARSER:
     import pycarl.parse
@@ -19,6 +21,8 @@ class TestParse(PackageSelector):
     def test_parse_number(self, package):
         num = pycarl.parse.deserialize("2", package)
         assert str(num) == "2"
+        num = pycarl.parse.deserialize("-2", package)
+        assert str(num) == "-2"
 
     def test_parse_polynomial(self, package):
         pol = pycarl.parse.deserialize("(+ y 1)", package)
