@@ -24,7 +24,7 @@ Installation Steps
 
 Clone pycarl into any suitable location::
 
-	$ git clone https://srv-i2.informatik.rwth-aachen.de/scm/git/pycarl.git
+	$ git clone https://github.com/moves-rwth/pycarl.git
 	$ cd pycarl
 
 Here, build pycarl in develop mode using your favourite python distribution way of installing: e.g.::
@@ -46,6 +46,6 @@ or::
 
 After building, you can run the test files by::
 
-	py.test tests/
+	$ py.test tests/
 
 If you do not experience any issues, you can now use pycarl. To get started, consult the test files in `tests/` or the :doc:`api` (work in progress)
