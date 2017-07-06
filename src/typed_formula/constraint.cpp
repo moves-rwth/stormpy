@@ -17,6 +17,9 @@ void define_constraint(py::module& m) {
         .def(py::init<carl::Variable, carl::Relation, Rational>(), py::arg("var"), py::arg("rel"), py::arg("bound"))
         .def(py::init<Polynomial, carl::Relation>())
         .def("__str__", &streamToString<Constraint>)
+        .def("to_smt2", [](Constraint const& c) {
+            return c.toString(2, false, true);
+        })
 
         .def("__invert__", [](const Constraint& lhs){
             return Formula(carl::FormulaType::NOT, Formula(lhs));
