@@ -70,7 +70,7 @@ jobs:
       install: travis/install_osx.sh
       script: travis/build.sh
       after_failure:
-        - cat carl/build/**/*-configure-*.log
+        - find . -name "*err*.log" -type f -print -exec cat {} \;
       deploy:
         provider: pages
         skip_cleanup: true
