@@ -23,6 +23,7 @@ linux)
     docker exec pycarl mkdir opt/pycarl
     docker cp . pycarl:/opt/pycarl
     # Install virtualenv
+    docker exec pycarl apt-get update
     docker exec pycarl apt-get install -qq -y python python3 virtualenv
     # Install dependencies for carl-parser
     if [[ "$BUILD_CARL_PARSER" == TRUE ]]
