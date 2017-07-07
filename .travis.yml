@@ -54,17 +54,23 @@ jobs:
       env: TASK=Test PYTHON=python3 CONFIG=DefaultRelease COMPILER=clang-4.0 STL=libc++
       install: travis/install_osx.sh
       script: travis/build.sh
+      after_failure:
+        - cat carl/build/resources/src/EIGEN3_REPO-stamp/EIGEN3_REPO-configure-*.log
     - os: osx
       compiler: clang
       env: TASK=Test PYTHON=python3 CONFIG=DefaultReleaseParser COMPILER=clang-4.0 STL=libc++
       install: travis/install_osx.sh
       script: travis/build.sh
+      after_failure:
+        - cat carl/build/resources/src/EIGEN3_REPO-stamp/EIGEN3_REPO-configure-*.log
     # Documentation
     - os: osx
       compiler: clang
       env: TASK=Documentation PYTHON=python3 CONFIG=DefaultRelease COMPILER=clang-4.0 STL=libc++
       install: travis/install_osx.sh
       script: travis/build.sh
+      after_failure:
+        - cat carl/build/**/*-configure-*.log
       deploy:
         provider: pages
         skip_cleanup: true
