@@ -16,6 +16,7 @@ configs_mac = [
 build_types = [
 #    "DefaultDebug",
     "DefaultRelease",
+    "DefaultReleaseParser",
 ]
 
 python_versions = [

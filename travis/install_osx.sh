@@ -60,4 +60,9 @@ install_brew_package ginac
 install_brew_package boost --c++11
 install_brew_package python
 install_brew_package python3
+
+if [[ "$CONFIG" == *Parser ]]
+then
+    install_brew_package maven
+fi
 travis_fold end brew_install_dependencies

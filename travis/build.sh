@@ -4,6 +4,13 @@ N_JOBS=2
 
 OS=$TRAVIS_OS_NAME
 
+BUILD_CARL_PARSER=FALSE
+if [[ "$CONFIG" == *Parser ]]
+then
+    BUILD_CARL_PARSER=TRUE
+fi
+
+
 case $OS in
 linux)
     # Execute docker image on linux
@@ -17,6 +24,11 @@ linux)
     docker cp . pycarl:/opt/pycarl
     # Install virtualenv
     docker exec pycarl apt-get install -qq -y python python3 virtualenv
+    # Install dependencies for carl-parser
+    if [[ "$BUILD_CARL_PARSER" == TRUE ]]
+    then
+        docker exec pycarl apt-get install -qq -y maven
+    fi
     set +e
 
     # Execute main process
@@ -26,6 +38,7 @@ linux)
         export OS=$OS;
         export PYTHON=$PYTHON;
         export CONFIG=$CONFIG;
+        export BUILD_CARL_PARSER=$BUILD_CARL_PARSER;
         export TASK=$TASK;
         export STLARG=;
         cd opt/pycarl;
@@ -38,6 +51,7 @@ osx)
     STLARG="-stdlib=libc++"
     export N_JOBS
     export OS
+    export BUILD_CARL_PARSER
     travis/build-helper.sh
     exit $?
     ;;

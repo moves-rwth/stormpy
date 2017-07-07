@@ -32,16 +32,31 @@ jobs:
       env: TASK=Test LINUX=ubuntu-16.10 PYTHON=python3 CONFIG=DefaultRelease COMPILER=gcc-6
       install: travis/install_linux.sh
       script: travis/build.sh
+    - os: linux
+      compiler: gcc
+      env: TASK=Test LINUX=ubuntu-16.10 PYTHON=python3 CONFIG=DefaultReleaseParser COMPILER=gcc-6
+      install: travis/install_linux.sh
+      script: travis/build.sh
     # debian-9
     - os: linux
       compiler: gcc
       env: TASK=Test LINUX=debian-9 PYTHON=python3 CONFIG=DefaultRelease COMPILER=gcc-6
       install: travis/install_linux.sh
       script: travis/build.sh
+    - os: linux
+      compiler: gcc
+      env: TASK=Test LINUX=debian-9 PYTHON=python3 CONFIG=DefaultReleaseParser COMPILER=gcc-6
+      install: travis/install_linux.sh
+      script: travis/build.sh
     # osx
     - os: osx
       compiler: clang
       env: TASK=Test PYTHON=python3 CONFIG=DefaultRelease COMPILER=clang-4.0 STL=libc++
+      install: travis/install_osx.sh
+      script: travis/build.sh
+    - os: osx
+      compiler: clang
+      env: TASK=Test PYTHON=python3 CONFIG=DefaultReleaseParser COMPILER=clang-4.0 STL=libc++
       install: travis/install_osx.sh
       script: travis/build.sh
     # Documentation
