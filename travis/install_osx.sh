@@ -65,6 +65,5 @@ install_brew_package python3
 if [[ "$CONFIG" == *Parser ]]
 then
     install_brew_package maven
-    install_brew_package uuid
 fi
 travis_fold end brew_install_dependencies
