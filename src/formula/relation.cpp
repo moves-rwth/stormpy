@@ -9,5 +9,6 @@ void define_relation(py::module& m) {
             .value("LEQ", carl::Relation::LEQ)
             .value("GREATER", carl::Relation::GREATER)
             .value("GEQ", carl::Relation::GEQ)
+            .def("__str__", [](carl::Relation r) { return carl::relationToString(r); })
             ;
 }
