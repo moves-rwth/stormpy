@@ -20,9 +20,11 @@ class TestParse(PackageSelector):
 
     def test_parse_number(self, package):
         num = pycarl.parse.deserialize("2", package)
-        assert str(num) == "2"
+        assert num == package.Rational(2)
         num = pycarl.parse.deserialize("-2", package)
-        assert str(num) == "-2"
+        assert num  == package.Rational(-2)
+        num = pycarl.parse.deserialize("(- 2)", package)
+        assert num  == package.Rational(-2)
 
     def test_parse_polynomial(self, package):
         pol = pycarl.parse.deserialize("(+ y 1)", package)
@@ -34,3 +36,5 @@ class TestParse(PackageSelector):
         constraint = pycarl.parse.deserialize("(< x 1)", package)
         x = pycarl.Variable("x")
         assert constraint.lhs == x - package.Rational(1)
+        constraint = pycarl.parse.deserialize("(<= (* (- 1) x) 0)", package)
+        assert constraint.lhs == -package.Polynomial(x)
