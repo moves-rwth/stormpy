@@ -38,6 +38,9 @@ run() {
     cd build
     cmake .. "${CMAKE_ARGS[@]}"
     make -j$N_JOBS
+    # Build a second time to avoid problems in macOS
+    cmake .
+    make
     cd ../..
     travis_fold stop install_carl_parser
   fi
