@@ -11,8 +11,8 @@ std::shared_ptr<RegionModelChecker> createRegionChecker(std::shared_ptr<storm::m
     return storm::api::initializeParameterLiftingRegionModelChecker<storm::RationalFunction, double>(model, storm::api::createTask<storm::RationalFunction>(formula, true));
 }
 
-storm::modelchecker::RegionResult checkRegion(std::shared_ptr<RegionModelChecker>& checker, Region& region, storm::modelchecker::RegionResult initialResult, bool sampleVertices) {
-    return checker->analyzeRegion(region, initialResult, sampleVertices);
+storm::modelchecker::RegionResult checkRegion(std::shared_ptr<RegionModelChecker>& checker, Region const& region, storm::modelchecker::RegionResultHypothesis const& hypothesis, storm::modelchecker::RegionResult const& initialResult, bool sampleVertices) {
+    return checker->analyzeRegion(region, hypothesis, initialResult, sampleVertices);
 }
 
 std::set<storm::Polynomial> gatherDerivatives(storm::models::sparse::Dtmc<storm::RationalFunction> const& model, carl::Variable const& var) {
@@ -44,6 +44,14 @@ void define_pla(py::module& m) {
         .def("__str__", &streamToString<storm::modelchecker::RegionResult>)
     ;
 
+    // RegionResultHypothesis
+    py::enum_<storm::modelchecker::RegionResultHypothesis>(m, "RegionResultHypothesis", "Hypothesis for the result of a parameter region")
+        .value("UNKNOWN", storm::modelchecker::RegionResultHypothesis::Unknown)
+        .value("ALLSAT", storm::modelchecker::RegionResultHypothesis::AllSat)
+        .value("ALLVIOLATED", storm::modelchecker::RegionResultHypothesis::AllViolated)
+        .def("__str__", &streamToString<storm::modelchecker::RegionResultHypothesis>)
+    ;
+
     // Region
     py::class_<Region, std::shared_ptr<Region>>(m, "ParameterRegion", "Parameter region")
        .def("__init__", [](Region &instance, std::string const& regionString, std::set<Region::VariableType> const& variables) -> void {
@@ -61,7 +69,7 @@ void define_pla(py::module& m) {
                 auto tmp = storm::api::initializeParameterLiftingRegionModelChecker<storm::RationalFunction, double>(model, task);
                 new (&instance) std::unique_ptr<SparseDtmcRegionChecker>(tmp);
             }, py::arg("model"), py::arg("task")*/
-        .def("check_region", &checkRegion, "Check region", py::arg("region"), py::arg("initialResult") = storm::modelchecker::RegionResult::Unknown, py::arg("sampleVertices") = false)
+        .def("check_region", &checkRegion, "Check region", py::arg("region"), py::arg("hypothesis") = storm::modelchecker::RegionResultHypothesis::Unknown, py::arg("initialResult") = storm::modelchecker::RegionResult::Unknown, py::arg("sampleVertices") = false)
     ;
 
     m.def("create_region_checker", &createRegionChecker, "Create region checker", py::arg("model"), py::arg("formula"));

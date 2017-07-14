@@ -21,7 +21,7 @@ class TestModelChecking:
         result = checker.check_region(region)
         assert result == stormpy.pars.RegionResult.ALLSAT
         region = stormpy.pars.ParameterRegion("0.4<=pL<=0.65,0.75<=pK<=0.95", parameters)
-        result = checker.check_region(region, stormpy.pars.RegionResult.UNKNOWN, True)
+        result = checker.check_region(region, stormpy.pars.RegionResultHypothesis.UNKNOWN, stormpy.pars.RegionResult.UNKNOWN, True)
         assert result == stormpy.pars.RegionResult.EXISTSBOTH
         region = stormpy.pars.ParameterRegion("0.1<=pL<=0.73,0.2<=pK<=0.715", parameters)
         result = checker.check_region(region)
