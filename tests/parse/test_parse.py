@@ -30,6 +30,13 @@ class TestParse(PackageSelector):
         pol = pycarl.parse.deserialize("(+ y 1)", package)
         assert str(pol) == "y+1"
 
+    def test_parse_rational_function(self, package):
+        rf = pycarl.parse.deserialize("(/ (+ x 1) (+ y 1))", package)
+        x = pycarl.Variable("x")
+        y = pycarl.Variable("y")
+        assert package.numerator(rf) == package.Polynomial(x) + 1
+
+
     def test_parse_constraint(self, package):
         constraint = pycarl.parse.deserialize("(< x 0)", package)
         assert str(constraint) == "x<0"
