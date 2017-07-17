@@ -40,7 +40,7 @@ def deserialize(input, package):
     elif res_type == parse._ParserReturnType.Polynomial:
         return res.as_polynomial()
     elif res_type == parse._ParserReturnType.RationalFunction:
-        return res.as_rationalfunction()
+        return res.as_rational_function()
     elif res_type == parse._ParserReturnType.Constraint:
         return res.as_constraint()
     elif res_type == parse._ParserReturnType.Formula:
