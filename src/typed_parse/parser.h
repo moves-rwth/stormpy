@@ -34,8 +34,9 @@ struct ParserResultWrapper {
         return boost::get<Pol>(_content);
     }
 
-    carl::RationalFunction<Pol> asRationalFunction() const {
-        return boost::get<carl::RationalFunction<Pol>>(_content);
+    carl::RationalFunction<Pol, true> asRationalFunction() const {
+        auto rf = boost::get<carl::RationalFunction<Pol>>(_content);
+        return carl::RationalFunction<Pol, true>(rf.nominatorAsPolynomial(), rf.denominatorAsPolynomial());
     }
 
     carl::Constraint<Pol> asConstraint() const {
