@@ -20,8 +20,6 @@ void define_polynomial(py::module& m) {
         .def(py::init<carl::Variable::Arg>())
         .def(py::init<Rational>())
 
-
-
         .def("__add__", [](const Polynomial& lhs, const Integer& rhs) -> Polynomial { return lhs + Rational(rhs); })
         .def(py::self + Rational())
         .def(py::self + carl::Variable())
@@ -48,13 +46,6 @@ void define_polynomial(py::module& m) {
         .def(py::self * py::self)
 
 
-
-
-
-
-
-
-
         .def(PY_DIV, [](const Polynomial& lhs, const RationalFunction& rhs) { return RationalFunction(lhs) / rhs; })
         .def(PY_DIV, [](const Polynomial& lhs, const Polynomial& rhs) { return RationalFunction(lhs, rhs); })
         .def(PY_DIV, [](const Polynomial& lhs, const Term& rhs) { return RationalFunction(lhs) / rhs; })
@@ -63,8 +54,7 @@ void define_polynomial(py::module& m) {
         .def(py::self / Rational())
         .def(PY_DIV, [](const Polynomial& lhs, const Integer& rhs) -> Polynomial { return lhs / Rational(rhs); })
 
-
-            .def("__pow__", [](const Polynomial& var, carl::uint exp) {return var.pow(exp);})
+        .def("__pow__", [](const Polynomial& var, carl::uint exp) {return var.pow(exp);})
 
         .def("__pos__", [](const Polynomial& var) {return Polynomial(var);})
         .def("__neg__", [](const Polynomial& var) {return var * Polynomial(-1);})
@@ -95,9 +85,9 @@ void define_polynomial(py::module& m) {
         .def("__getitem__", [](const Polynomial& p, std::size_t index) { return *(p.begin()+index); })
         .def("__iter__", [](const Polynomial& p) { return py::make_iterator(p.begin(), p.end()); },
                          py::keep_alive<0, 1>() /* Essential: keep object alive while iterator exists */)
-            .def("__getstate__", [](const Polynomial& val) -> std::tuple<std::string> { throw NoPickling(); })
-            .def("__setstate__", [](Polynomial& val, const std::tuple<std::string>& data) { throw NoPickling(); })
-            .def("__hash__", [](const Polynomial& v) { std::hash<Polynomial> h; return h(v);})
+        .def("__getstate__", [](const Polynomial& val) -> std::tuple<std::string> { throw NoPickling(); })
+        .def("__setstate__", [](Polynomial& val, const std::tuple<std::string>& data) { throw NoPickling(); })
+        .def("__hash__", [](const Polynomial& v) { std::hash<Polynomial> h; return h(v);})
 
-            ;
+    ;
 }

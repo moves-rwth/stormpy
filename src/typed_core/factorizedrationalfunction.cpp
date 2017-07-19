@@ -20,15 +20,14 @@ void define_factorizedrationalfunction(py::module& m) {
                 return rf.toString(false, true);
             })
 
-            .def(py::self - py::self)
+        .def(py::self - py::self)
         .def(py::self + py::self)
         .def(py::self * py::self)
         .def(py::self / py::self)
         .def(py::self == py::self)
         .def(py::self != py::self)
-            .def("__getstate__", [](const FactorizedRationalFunction& val) -> std::tuple<std::string> { throw NoPickling(); })
-            .def("__setstate__", [](FactorizedRationalFunction& val, const std::tuple<std::string>& data) { throw NoPickling(); })
-            .def("__hash__", [](const FactorizedRationalFunction& v) { std::hash<FactorizedRationalFunction> h; return h(v);})
-
-            ;
+        .def("__getstate__", [](const FactorizedRationalFunction& val) -> std::tuple<std::string> { throw NoPickling(); })
+        .def("__setstate__", [](FactorizedRationalFunction& val, const std::tuple<std::string>& data) { throw NoPickling(); })
+        .def("__hash__", [](const FactorizedRationalFunction& v) { std::hash<FactorizedRationalFunction> h; return h(v);})
+    ;
 }
