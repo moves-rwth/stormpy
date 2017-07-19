@@ -5,6 +5,7 @@
 #include "core/modelchecking.h"
 #include "core/bisimulation.h"
 #include "core/input.h"
+#include "core/analysis.h"
 
 PYBIND11_MODULE(core, m) {
     m.doc() = "core";
@@ -20,8 +21,8 @@ PYBIND11_MODULE(core, m) {
     define_build(m);
     define_export(m);
     define_result(m);
-    define_constraints(m);
     define_modelchecking(m);
     define_bisimulation(m);
     define_input(m);
+    define_graph_constraints(m);
 }
