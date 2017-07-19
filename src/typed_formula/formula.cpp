@@ -20,6 +20,9 @@ void define_formula(py::module& m) {
             return b ? Formula(carl::FormulaType::TRUE) : Formula(carl::FormulaType::FALSE);
         })
         .def("__str__", &streamToString<carl::Formula<Polynomial>>)
+        .def("to_smt2", [](Formula const& f) {
+            return f.toString();
+        })
 
         .def("__invert__", [](const Formula& lhs){
             return lhs.negated();
