@@ -24,10 +24,34 @@ class TestClnInteger(PackageSelector):
         assert in3 == -3
 
     def test_addition(self, package):
-        i3 = package.Integer(3)
-        assert i3 + i3 == 6
-        assert i3 + 4 == 7
-        assert i3 + -3 == 0
+        i1 = package.Integer(3)
+        i2 = package.Integer(2)
+        res = i1 + i2
+        assert isinstance(res, package.Integer)
+        assert res == 5
+        assert i1 + 4 == 7
+        assert i1 + -3 == 0
+
+    def test_subtraction(self, package):
+        i1 = package.Integer(4)
+        i2 = package.Integer(-3)
+        res = i1 - i2
+        assert isinstance(res, package.Integer)
+        assert res == 7
+
+    def test_multiplication(self, package):
+        i1 = package.Integer(5)
+        i2 = package.Integer(6)
+        res = i1 * i2
+        assert isinstance(res, package.Integer)
+        assert res == 30
+
+    def test_division(self, package):
+        i1 = package.Integer(10)
+        i2 = package.Integer(2)
+        res = i1 / i2
+        assert isinstance(res, package.Rational)
+        assert res == 5
 
     def test_neg(self, package):
         i3 = package.Integer(3)

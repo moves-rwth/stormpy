@@ -42,6 +42,8 @@ void define_cln_integer(py::module& m) {
         .def("__rmul__", [](const cln::cl_I& lhs, carl::Variable::Arg rhs) -> Term { return cln::cl_RA(lhs) * rhs; })
         .def("__rmul__", [](const cln::cl_I& lhs, const Monomial::Arg& rhs) -> Term { return cln::cl_RA(lhs) * rhs; })
 
+        .def(PY_DIV, [](const cln::cl_I& lhs, const cln::cl_I& rhs) -> cln::cl_RA { if (carl::isZero(rhs)) throw std::runtime_error("Div by zero"); return lhs / rhs; })
+
         .def("__pow__", static_cast<cln::cl_I (*)(const cln::cl_I&, std::size_t)>(&carl::pow))
         .def("__pos__", [](const cln::cl_I& var) {return var;})
         .def("__neg__", [](const cln::cl_I& var) -> cln::cl_I {return -var;})
@@ -113,6 +115,8 @@ void define_gmp_integer(py::module& m) {
         .def("__mul__", [](const mpz_class& lhs, const Monomial::Arg& rhs) -> Term { return mpq_class(lhs) * rhs; })
         .def("__rmul__", [](const mpz_class& lhs, carl::Variable::Arg rhs) -> Term { return mpq_class(lhs) * rhs; })
         .def("__rmul__", [](const mpz_class& lhs, const Monomial::Arg& rhs) -> Term { return mpq_class(lhs) * rhs; })
+
+        .def(PY_DIV, [](const mpz_class& lhs, const mpz_class& rhs) -> mpq_class { if (carl::isZero(rhs)) throw std::runtime_error("Div by zero"); return lhs / rhs; })
 
         .def("__pow__", static_cast<mpz_class (*)(const mpz_class&, std::size_t)>(&carl::pow))
         .def("__pos__", [](const mpz_class& var) {return var;})
