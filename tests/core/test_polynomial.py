@@ -5,7 +5,6 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from package_selector import PackageSelector
 
 
-
 class TestPolynomial(PackageSelector):
 
     def test_init(self, package):
