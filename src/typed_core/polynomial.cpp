@@ -19,6 +19,7 @@ void define_polynomial(py::module& m) {
         .def(py::init<const Monomial::Arg&>())
         .def(py::init<carl::Variable::Arg>())
         .def(py::init<Rational>())
+        .def(py::init<std::vector<Term>&>())
 
         .def("__add__", [](const Polynomial& lhs, const Integer& rhs) -> Polynomial { return lhs + Rational(rhs); })
         .def(py::self + Rational())

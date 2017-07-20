@@ -24,3 +24,14 @@ def convert_term(term):
         return pycarl.cln.Term(coeff, term.monomial)
     else:
         raise TypeError("Term of type {} cannot be convert to cln".format(type(term)))
+
+def convert_polynomial(polynomial):
+    if isinstance(polynomial, pycarl.cln.Polynomial):
+        return polynomial
+    elif isinstance(polynomial, pycarl.gmp.Polynomial):
+        terms = []
+        for term in polynomial:
+            terms.append(convert_term(term))
+        return pycarl.cln.Polynomial(terms)
+    else:
+        raise TypeError("Polynomial of type {} cannot be convert to cln".format(type(polynomial)))

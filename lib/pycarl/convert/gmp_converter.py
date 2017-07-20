@@ -24,3 +24,14 @@ def convert_term(term):
         return term
     else:
         raise TypeError("Term of type {} cannot be convert to gmp".format(type(term)))
+
+def convert_polynomial(polynomial):
+    if isinstance(polynomial, pycarl.cln.Polynomial):
+        terms = []
+        for term in polynomial:
+            terms.append(convert_term(term))
+        return pycarl.gmp.Polynomial(terms)
+    elif isinstance(polynomial, pycarl.gmp.Polynomial):
+        return polynomial
+    else:
+        raise TypeError("Polynomial of type {} cannot be convert to gmp".format(type(polynomial)))

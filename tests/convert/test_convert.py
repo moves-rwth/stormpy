@@ -37,3 +37,12 @@ class TestConvert(PackageSelector):
         assert isinstance(original, package.Term)
         converted = converter.convert_term(original)
         assert isinstance(converted, convert_package.Term)
+
+    def test_convert_polynomial(self, package, convert_package, converter):
+        pycarl.clear_variable_pool()
+        var1 = pycarl.Variable("n")
+        var2 = pycarl.Variable("o")
+        original = package.Polynomial(4) * var1 * var2 + var1 * var1 + package.Integer(2)
+        assert isinstance(original, package.Polynomial)
+        converted = converter.convert_polynomial(original)
+        assert isinstance(converted, convert_package.Polynomial)
