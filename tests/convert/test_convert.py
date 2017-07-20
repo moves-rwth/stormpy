@@ -16,9 +16,20 @@ from package_selector import PackageSelector
     ], ids=["cln_converter", "gmp_converter"])
 class TestConvert(PackageSelector):
 
-    def test_rational(self, package, convert_package, converter):
-        r1 = package.Rational(package.Integer(1), package.Integer(2))
-        assert isinstance(r1, package.Rational)
-        cr1 = converter.convert_rational(r1)
-        assert isinstance(cr1, convert_package.Rational)
+    def test_convert_integer(self, package, convert_package, converter):
+        original = package.Integer(-4)
+        assert isinstance(original, package.Integer)
+        converted = converter.convert_integer(original)
+        assert isinstance(converted, convert_package.Integer)
 
+    def test_convert_rational(self, package, convert_package, converter):
+        original = package.Rational(package.Integer(-1), package.Integer(2))
+        assert isinstance(original, package.Rational)
+        converted = converter.convert_rational(original)
+        assert isinstance(converted, convert_package.Rational)
+
+    def test_convert_term(self, package, convert_package, converter):
+        original = package.Rational(package.Integer(-1), package.Integer(2))
+        assert isinstance(original, package.Rational)
+        converted = converter.convert_rational(original)
+        assert isinstance(converted, convert_package.Rational)

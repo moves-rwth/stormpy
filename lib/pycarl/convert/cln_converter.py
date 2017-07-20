@@ -1,9 +1,26 @@
 import pycarl
 
-def convert_rational(number):
-    if isinstance(number, pycarl.cln.Rational):
-        return number
-    elif isinstance(number, pycarl.gmp.Rational):
-        return pycarl.cln.Rational(number)
+def convert_integer(integer):
+    if isinstance(integer, pycarl.cln.Integer):
+        return integer
+    elif isinstance(integer, pycarl.gmp.Integer):
+        return pycarl.cln.Integer(integer)
     else:
-        raise TypeError("Rational of type {} cannot be convert to cln".format(type(number)))
+        raise TypeError("Integer of type {} cannot be convert to cln".format(type(integer)))
+
+def convert_rational(rational):
+    if isinstance(rational, pycarl.cln.Rational):
+        return rational
+    elif isinstance(rational, pycarl.gmp.Rational):
+        return pycarl.cln.Rational(rational)
+    else:
+        raise TypeError("Rational of type {} cannot be convert to cln".format(type(rational)))
+
+def convert_term(term):
+    if isinstance(term, pycarl.cln.Term):
+        return term
+    elif isinstance(term, pycarl.gmp.Term):
+        coeff = convert_rational(term.coeff)
+        return pycarl.cln.Term(coeff, term.monomial)
+    else:
+        raise TypeError("Term of type {} cannot be convert to cln".format(type(term)))
