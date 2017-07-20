@@ -1,12 +1,4 @@
-/*
- * monomial.cpp
- *
- *  Created on: 16 Apr 2016
- *      Author: harold
- */
-
 #include "monomial.h"
-
 
 #include "src/types.h"
 #include "src/helpers.h"
@@ -31,7 +23,8 @@ void define_monomial(py::module& m) {
                             py::keep_alive<0, 1>() /* Essential: keep object alive while iterator exists */)
         .def("__getstate__", [](const Monomial& val) -> std::tuple<std::string> { throw NoPickling(); })
         .def("__setstate__", [](Monomial& val, const std::tuple<std::string>& data) { throw NoPickling(); })
-        .def("__hash__", [](const Monomial& v) { std::hash<Monomial> h; return h(v);});
+        .def("__hash__", [](const Monomial& v) { std::hash<Monomial> h; return h(v);})
+    ;
 
 
     m.def("create_monomial", [] (const carl::Variable& v, carl::exponent e){

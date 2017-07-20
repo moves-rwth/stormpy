@@ -64,7 +64,7 @@ void define_variable(py::module& m) {
             new(&v) carl::Variable(tmp); })
         .def("__hash__", [](const carl::Variable& v) { std::hash<carl::Variable> h; return h(v);})
 
-        ;
+    ;
 
     m.def("clear_variable_pool", [](){
 	carl::VariablePool::getInstance().clear();

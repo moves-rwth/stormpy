@@ -1,10 +1,3 @@
-/*
- * term.cpp
- *
- *  Created on: 16 Apr 2016
- *      Author: harold
- */
-
 #include "term.h"
 
 #include "src/helpers.h"
@@ -53,7 +46,6 @@ void define_term(py::module& m) {
 
         .def("__getstate__", [](const Term& val) -> std::tuple<std::string> { throw NoPickling(); })
         .def("__setstate__", [](Term& val, const std::tuple<std::string>& data) { throw NoPickling(); })
-            .def("__hash__", [](const Term& v) { std::hash<Term> h; return h(v);})
-
-            ;
+        .def("__hash__", [](const Term& v) { std::hash<Term> h; return h(v);})
+    ;
 }

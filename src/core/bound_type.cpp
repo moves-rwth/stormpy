@@ -1,4 +1,4 @@
-#include "BoundType.h"
+#include "bound_type.h"
 
 #include "src/types.h"
 #include "src/helpers.h"
