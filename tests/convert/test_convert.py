@@ -29,7 +29,11 @@ class TestConvert(PackageSelector):
         assert isinstance(converted, convert_package.Rational)
 
     def test_convert_term(self, package, convert_package, converter):
-        original = package.Rational(package.Integer(-1), package.Integer(2))
-        assert isinstance(original, package.Rational)
-        converted = converter.convert_rational(original)
-        assert isinstance(converted, convert_package.Rational)
+        pycarl.clear_variable_pool()
+        var = pycarl.Variable("n")
+        rational = package.Integer(2) / package.Integer(5)
+        monomial = pycarl.create_monomial(var, 2)
+        original = package.Term(rational, monomial)
+        assert isinstance(original, package.Term)
+        converted = converter.convert_term(original)
+        assert isinstance(converted, convert_package.Term)
