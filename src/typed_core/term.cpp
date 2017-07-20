@@ -39,6 +39,9 @@ void define_term(py::module& m) {
         .def("__pos__", [](const Term& var) {return Term(var);})
         .def("__neg__", [](const Term& var) {return var * Term(-1);})
 
+        .def(py::self != py::self)
+        .def(py::self == py::self)
+
         .def_property_readonly("coeff", [] (const Term& arg) -> Rational { return arg.coeff(); })
         .def_property_readonly("monomial", &Term::monomial)
 
