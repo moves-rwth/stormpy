@@ -22,24 +22,28 @@ void define_rationalfunction(py::module& m) {
         .def("__add__",  static_cast<RationalFunction (*)(const RationalFunction&, const Monomial::Arg&)>(&carl::operator+))
         .def("__add__",  static_cast<RationalFunction (*)(const RationalFunction&, carl::Variable::Arg)>(&carl::operator+))
         .def("__add__",  static_cast<RationalFunction (*)(const RationalFunction&, const Rational&)>(&carl::operator+))
+        .def(py::self + py::self)
 
         .def("__sub__",  static_cast<RationalFunction (*)(const RationalFunction&, const Polynomial&)>(&carl::operator-))
         .def("__sub__",  static_cast<RationalFunction (*)(const RationalFunction&, const Term&)>(&carl::operator-))
         .def("__sub__",  static_cast<RationalFunction (*)(const RationalFunction&, const Monomial::Arg&)>(&carl::operator-))
         .def("__sub__",  static_cast<RationalFunction (*)(const RationalFunction&, carl::Variable::Arg)>(&carl::operator-))
         .def("__sub__",  static_cast<RationalFunction (*)(const RationalFunction&, const Rational&)>(&carl::operator-))
+        .def(py::self - py::self)
 
         .def("__mul__",  static_cast<RationalFunction (*)(const RationalFunction&, const Polynomial&)>(&carl::operator*))
         .def("__mul__",  static_cast<RationalFunction (*)(const RationalFunction&, const Term&)>(&carl::operator*))
         .def("__mul__",  static_cast<RationalFunction (*)(const RationalFunction&, const Monomial::Arg&)>(&carl::operator*))
         .def("__mul__",  static_cast<RationalFunction (*)(const RationalFunction&, carl::Variable::Arg)>(&carl::operator*))
         .def("__mul__",  static_cast<RationalFunction (*)(const RationalFunction&, const Rational&)>(&carl::operator*))
+        .def(py::self * py::self)
 
         .def(PY_DIV, static_cast<RationalFunction (*)(const RationalFunction&, const Rational&)>(&carl::operator/))
         .def(PY_DIV, static_cast<RationalFunction (*)(const RationalFunction&, const Polynomial&)>(&carl::operator/))
         .def(PY_DIV, static_cast<RationalFunction (*)(const RationalFunction&, const Term&)>(&carl::operator/))
         .def(PY_DIV, static_cast<RationalFunction (*)(const RationalFunction&, carl::Variable::Arg)>(&carl::operator/))
         .def(PY_DIV, static_cast<RationalFunction (*)(const RationalFunction&, const Rational&)>(&carl::operator/))
+        .def(py::self / py::self)
 
         .def("__pow__", [](const RationalFunction& var, carl::uint exp) {return carl::pow(var, exp);})
 
@@ -64,7 +68,6 @@ void define_rationalfunction(py::module& m) {
 
         .def("__getstate__", [](const RationalFunction&) -> std::tuple<std::string> { throw NoPickling(); })
         .def("__setstate__", [](RationalFunction&, const  std::tuple<std::string>&) { throw NoPickling(); })
-            .def("__hash__", [](const RationalFunction& v) { std::hash<RationalFunction> h; return h(v);})
-
-            ;
+        .def("__hash__", [](const RationalFunction& v) { std::hash<RationalFunction> h; return h(v);})
+    ;
 }

@@ -35,3 +35,13 @@ def convert_polynomial(polynomial):
         return polynomial
     else:
         raise TypeError("Polynomial of type {} cannot be convert to gmp".format(type(polynomial)))
+
+def convert_rational_function(ratfunc):
+    if isinstance(ratfunc, pycarl.cln.RationalFunction):
+        numerator = convert_polynomial(ratfunc.numerator)
+        denominator = convert_polynomial(ratfunc.denominator)
+        return pycarl.gmp.RationalFunction(numerator, denominator)
+    elif isinstance(ratfunc, pycarl.gmp.RationalFunction):
+        return ratfunc
+    else:
+        raise TypeError("Rational function of type {} cannot be convert to gmp".format(type(ratfunc)))

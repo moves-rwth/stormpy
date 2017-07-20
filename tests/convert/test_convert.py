@@ -46,3 +46,14 @@ class TestConvert(PackageSelector):
         assert isinstance(original, package.Polynomial)
         converted = converter.convert_polynomial(original)
         assert isinstance(converted, convert_package.Polynomial)
+
+    def test_convert_rational_function(self, package, convert_package, converter):
+        pycarl.clear_variable_pool()
+        var1 = pycarl.Variable("x")
+        var2 = pycarl.Variable("y")
+        pol1 = var1 * var1 + package.Integer(2)
+        pol2 = var2 + package.Integer(1)
+        original = package.RationalFunction(pol1, pol2)
+        assert isinstance(original, package.RationalFunction)
+        converted = converter.convert_rational_function(original)
+        assert isinstance(converted, convert_package.RationalFunction)

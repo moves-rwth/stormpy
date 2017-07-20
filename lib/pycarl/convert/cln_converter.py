@@ -35,3 +35,13 @@ def convert_polynomial(polynomial):
         return pycarl.cln.Polynomial(terms)
     else:
         raise TypeError("Polynomial of type {} cannot be convert to cln".format(type(polynomial)))
+
+def convert_rational_function(ratfunc):
+    if isinstance(ratfunc, pycarl.cln.RationalFunction):
+        return ratfunc
+    elif isinstance(ratfunc, pycarl.gmp.RationalFunction):
+        numerator = convert_polynomial(ratfunc.numerator)
+        denominator = convert_polynomial(ratfunc.denominator)
+        return pycarl.cln.RationalFunction(numerator, denominator)
+    else:
+        raise TypeError("Rational function of type {} cannot be convert to cln".format(type(ratfunc)))
