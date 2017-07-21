@@ -31,6 +31,8 @@ class TestFactorizedPolynomial(PackageSelector):
         res = pol1 * pol2 * pol3
         factorization = res.factorization()
 
+        assert res.coefficient() == 15
+        assert res.constant_part() == 0
         res1 = package.FactorizedPolynomial(package.Polynomial(var1) + 1, cache)
         res2 = package.FactorizedPolynomial(package.Polynomial(var2), cache)
         for factor in factorization:

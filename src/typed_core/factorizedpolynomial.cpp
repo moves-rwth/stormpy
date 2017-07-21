@@ -34,8 +34,10 @@ void define_factorizedpolynomial(py::module& m) {
         .def(py::init<const Polynomial&, const std::shared_ptr<carl::Cache<FactorizationPair>>>())
         .def("is_constant", &FactorizedPolynomial::isConstant)
         .def("constant_part", &FactorizedPolynomial::constantPart)
+        .def("coefficient", &FactorizedPolynomial::coefficient)
 
         .def("factorization", &FactorizedPolynomial::factorization, "Get factorization")
+        .def("polynomial", &FactorizedPolynomial::polynomial, "Get underlying polynomial")
 
         .def("evaluate", &FactorizedPolynomial::evaluate<Rational>)
         .def("gather_variables", static_cast<std::set<carl::Variable> (FactorizedPolynomial::*)() const>(&FactorizedPolynomial::gatherVariables))
