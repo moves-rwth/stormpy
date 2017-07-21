@@ -5,6 +5,7 @@
 #include "typed_core/term.h"
 #include "typed_core/polynomial.h"
 #include "typed_core/rationalfunction.h"
+#include "typed_core/factorization.h"
 #include "typed_core/factorizedpolynomial.h"
 #include "typed_core/factorizedrationalfunction.h"
 
