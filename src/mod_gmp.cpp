@@ -18,6 +18,7 @@ PYBIND11_MODULE(gmp, m) {
     define_term(m);
     define_polynomial(m);
     define_factorizationcache(m);
+    define_factorization(m);
     define_factorizedpolynomial(m);
     define_rationalfunction(m);
     define_factorizedrationalfunction(m);

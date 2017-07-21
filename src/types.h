@@ -3,6 +3,7 @@
 #include <carl/core/Monomial.h>
 #include <carl/core/Term.h>
 #include <carl/core/MultivariatePolynomial.h>
+#include <carl/core/PolynomialFactorizationPair.h>
 #include <carl/core/FactorizedPolynomial.h>
 #include <carl/core/RationalFunction.h>
 #include <carl/interval/Interval.h>
@@ -16,6 +17,7 @@
 typedef carl::Monomial Monomial;
 typedef carl::Term<Rational> Term;
 typedef carl::MultivariatePolynomial<Rational> Polynomial;
+typedef carl::Factorization<Polynomial> Factorization;
 typedef carl::FactorizedPolynomial<Polynomial> FactorizedPolynomial;
 typedef carl::RationalFunction<Polynomial, true> RationalFunction;
 typedef carl::RationalFunction<FactorizedPolynomial, true> FactorizedRationalFunction;
