@@ -57,3 +57,35 @@ class TestConvert(PackageSelector):
         assert isinstance(original, package.RationalFunction)
         converted = converter.convert_rational_function(original)
         assert isinstance(converted, convert_package.RationalFunction)
+
+    def test_convert_factorized_polynomial(self, package, convert_package, converter):
+        pycarl.clear_variable_pool()
+        var1 = pycarl.Variable("a")
+        var2 = pycarl.Variable("b")
+        cache = package.FactorizationCache()
+        pol1 = package.FactorizedPolynomial(package.Polynomial(4) * (var2 + package.Integer(-2)), cache)
+        pol2 = package.FactorizedPolynomial(package.Polynomial(var2) - 2, cache)
+        pol3 = package.FactorizedPolynomial(package.Polynomial(2) * var1, cache)
+        original = pol1 * pol2 * pol3
+        cache_convert = convert_package.FactorizationCache()
+        assert isinstance(original, package.FactorizedPolynomial)
+        converted = converter.convert_factorized_polynomial(original, cache_convert)
+        assert isinstance(converted, convert_package.FactorizedPolynomial)
+        assert len(converted.factorization()) == len(original.factorization())
+
+    def test_convert_factorized_rational_function(self, package, convert_package, converter):
+        pycarl.clear_variable_pool()
+        var1 = pycarl.Variable("a")
+        var2 = pycarl.Variable("b")
+        cache = package.FactorizationCache()
+        pol1 = package.FactorizedPolynomial(package.Polynomial(4) * (var2 + package.Integer(-2)), cache)
+        pol2 = package.FactorizedPolynomial(package.Polynomial(var2) - 2, cache)
+        pol3 = package.FactorizedPolynomial(package.Polynomial(2) * var1, cache)
+        original = package.FactorizedRationalFunction(pol1 * pol2, pol2 * pol3)
+        cache_convert = convert_package.FactorizationCache()
+        assert isinstance(original, package.FactorizedRationalFunction)
+        converted = converter.convert_factorized_rational_function(original, cache_convert)
+        assert isinstance(converted, convert_package.FactorizedRationalFunction)
+        assert len(converted.numerator.factorization()) == len(original.numerator.factorization())
+        assert len(converted.denominator.factorization()) == len(original.denominator.factorization())
+

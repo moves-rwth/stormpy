@@ -45,3 +45,28 @@ def convert_rational_function(ratfunc):
         return pycarl.cln.RationalFunction(numerator, denominator)
     else:
         raise TypeError("Rational function of type {} cannot be convert to cln".format(type(ratfunc)))
+
+def convert_factorized_polynomial(polynomial, cache):
+    assert isinstance(cache, pycarl.cln.FactorizationCache)
+    if isinstance(polynomial, pycarl.cln.FactorizedPolynomial):
+        return polynomial
+    elif isinstance(polynomial, pycarl.gmp.FactorizedPolynomial):
+        coefficient = convert_rational(polynomial.coefficient())
+        converted = pycarl.cln.FactorizedPolynomial(coefficient)
+        for (factor, exponent) in polynomial.factorization():
+            pol = convert_polynomial(factor.polynomial())
+            factorized = pycarl.cln.FactorizedPolynomial(pol, cache)
+            converted *= factorized ** exponent
+        return converted
+    else:
+        raise TypeError("Factorized polynomial of type {} cannot be convert to cln".format(type(polynomial)))
+
+def convert_factorized_rational_function(ratfunc, cache):
+    if isinstance(ratfunc, pycarl.cln.FactorizedRationalFunction):
+        return ratfunc
+    elif isinstance(ratfunc, pycarl.gmp.FactorizedRationalFunction):
+        numerator = convert_factorized_polynomial(ratfunc.numerator, cache)
+        denominator = convert_factorized_polynomial(ratfunc.denominator, cache)
+        return pycarl.cln.FactorizedRationalFunction(numerator, denominator)
+    else:
+        raise TypeError("Factorized rational function of type {} cannot be convert to cln".format(type(ratfunc)))

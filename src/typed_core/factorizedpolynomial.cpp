@@ -30,18 +30,19 @@ void define_factorization(py::module& m) {
 
 void define_factorizedpolynomial(py::module& m) {
     py::class_<FactorizedPolynomial>(m, "FactorizedPolynomial", "Represent a polynomial with its factorization")
-        .def(py::init<const Rational&>())
-        .def(py::init<const Polynomial&, const std::shared_ptr<carl::Cache<FactorizationPair>>>())
+        .def(py::init<const Rational&>(), py::arg("number"), "Constructor")
+        .def(py::init<const Polynomial&, const std::shared_ptr<carl::Cache<FactorizationPair>>&>(), py::arg("polynomial"), py::arg("cache"), "Constructor")
+
         .def("is_constant", &FactorizedPolynomial::isConstant)
         .def("constant_part", &FactorizedPolynomial::constantPart)
         .def("coefficient", &FactorizedPolynomial::coefficient)
 
         .def("factorization", &FactorizedPolynomial::factorization, "Get factorization")
         .def("polynomial", &FactorizedPolynomial::polynomial, "Get underlying polynomial")
+        .def("cache", &FactorizedPolynomial::pCache)
 
         .def("evaluate", &FactorizedPolynomial::evaluate<Rational>)
         .def("gather_variables", static_cast<std::set<carl::Variable> (FactorizedPolynomial::*)() const>(&FactorizedPolynomial::gatherVariables))
-        .def("cache", &FactorizedPolynomial::pCache)
         .def("derive", [](FactorizedPolynomial const& pol, carl::Variable const& var) {
                 return pol.derivative(var, 1);
             }, "Compute the derivative", py::arg("variable"))
@@ -52,6 +53,11 @@ void define_factorizedpolynomial(py::module& m) {
         .def(py::self - py::self)
         .def(py::self + py::self)
         .def(py::self * py::self)
+
+        .def("__pow__", [](const FactorizedPolynomial& pol, carl::uint exp) {
+                return pol.pow(exp);
+            }, py::arg("exponent"), "Raise polynomial to the power")
+
         .def(py::self == py::self)
         .def(py::self != py::self)
         .def(py::self == Rational())
