@@ -47,7 +47,9 @@ def convert_rational_function(ratfunc):
         raise TypeError("Rational function of type {} cannot be convert to cln".format(type(ratfunc)))
 
 def convert_factorized_polynomial(polynomial, cache):
-    assert isinstance(cache, pycarl.cln.FactorizationCache)
+    if not isinstance(cache, pycarl.cln.FactorizationCache):
+        raise TypeError("Cache of type {} cannot be used for cln".format(type(cache)))
+
     if isinstance(polynomial, pycarl.cln.FactorizedPolynomial):
         return polynomial
     elif isinstance(polynomial, pycarl.gmp.FactorizedPolynomial):
@@ -62,6 +64,9 @@ def convert_factorized_polynomial(polynomial, cache):
         raise TypeError("Factorized polynomial of type {} cannot be convert to cln".format(type(polynomial)))
 
 def convert_factorized_rational_function(ratfunc, cache):
+    if not isinstance(cache, pycarl.cln.FactorizationCache):
+        raise TypeError("Cache of type {} cannot be used for cln".format(type(cache)))
+
     if isinstance(ratfunc, pycarl.cln.FactorizedRationalFunction):
         return ratfunc
     elif isinstance(ratfunc, pycarl.gmp.FactorizedRationalFunction):

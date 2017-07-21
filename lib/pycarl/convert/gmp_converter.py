@@ -47,6 +47,9 @@ def convert_rational_function(ratfunc):
         raise TypeError("Rational function of type {} cannot be convert to gmp".format(type(ratfunc)))
 
 def convert_factorized_polynomial(polynomial, cache):
+    if not isinstance(cache, pycarl.gmp.FactorizationCache):
+        raise TypeError("Cache of type {} cannot be used for gmp".format(type(cache)))
+
     if isinstance(polynomial, pycarl.cln.FactorizedPolynomial):
         coefficient = convert_rational(polynomial.coefficient())
         converted = pycarl.gmp.FactorizedPolynomial(coefficient)
@@ -61,6 +64,9 @@ def convert_factorized_polynomial(polynomial, cache):
         raise TypeError("Factorized polynomial of type {} cannot be convert to gmp".format(type(polynomial)))
 
 def convert_factorized_rational_function(ratfunc, cache):
+    if not isinstance(cache, pycarl.gmp.FactorizationCache):
+        raise TypeError("Cache of type {} cannot be used for gmp".format(type(cache)))
+
     if isinstance(ratfunc, pycarl.cln.FactorizedRationalFunction):
         numerator = convert_factorized_polynomial(ratfunc.numerator, cache)
         denominator = convert_factorized_polynomial(ratfunc.denominator, cache)
