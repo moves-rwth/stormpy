@@ -15,3 +15,6 @@ def denominator(x):
         return 1
 
 factorization_cache = gmp._FactorizationCache()
+
+def create_factorized_polynomial(polynomial):
+    return gmp.FactorizedPolynomial(polynomial, factorization_cache)

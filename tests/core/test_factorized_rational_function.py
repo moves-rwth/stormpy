@@ -17,14 +17,13 @@ class TestFactorizedRationalFunction(PackageSelector):
 
     def test_derivation(self, package):
         x = pycarl.Variable("x")
-        cache = package.factorization_cache
-        p1 = package.FactorizedPolynomial(x*x+package.Integer(3), cache)
-        p2 = package.FactorizedPolynomial(x+package.Integer(1), cache)
+        p1 = package.create_factorized_polynomial(x*x+package.Integer(3))
+        p2 = package.create_factorized_polynomial(x+package.Integer(1))
 
         rat = package.FactorizedRationalFunction(p1, p2)
         derivation = rat.derive(x)
 
-        pe1 = package.FactorizedPolynomial(package.Integer(2)*x+x*x-3, cache)
-        pe2 = package.FactorizedPolynomial((x+package.Integer(1))*(x+package.Integer(1)), cache)
+        pe1 = package.create_factorized_polynomial(package.Integer(2)*x+x*x-3)
+        pe2 = package.create_factorized_polynomial((x+package.Integer(1))*(x+package.Integer(1)))
         expected = package.FactorizedRationalFunction(pe1, pe2)
         assert derivation == expected

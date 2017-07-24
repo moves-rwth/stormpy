@@ -62,10 +62,9 @@ class TestConvert(PackageSelector):
         pycarl.clear_variable_pool()
         var1 = pycarl.Variable("a")
         var2 = pycarl.Variable("b")
-        cache = package.factorization_cache
-        pol1 = package.FactorizedPolynomial(package.Polynomial(4) * (var2 + package.Integer(-2)), cache)
-        pol2 = package.FactorizedPolynomial(package.Polynomial(var2) - 2, cache)
-        pol3 = package.FactorizedPolynomial(package.Polynomial(2) * var1, cache)
+        pol1 = package.create_factorized_polynomial(package.Polynomial(4) * (var2 + package.Integer(-2)))
+        pol2 = package.create_factorized_polynomial(package.Polynomial(var2) - 2)
+        pol3 = package.create_factorized_polynomial(package.Polynomial(2) * var1)
         original = pol1 * pol2 * pol3
         assert isinstance(original, package.FactorizedPolynomial)
         converted = converter.convert_factorized_polynomial(original)
@@ -76,10 +75,9 @@ class TestConvert(PackageSelector):
         pycarl.clear_variable_pool()
         var1 = pycarl.Variable("a")
         var2 = pycarl.Variable("b")
-        cache = package.factorization_cache
-        pol1 = package.FactorizedPolynomial(package.Polynomial(4) * (var2 + package.Integer(-2)), cache)
-        pol2 = package.FactorizedPolynomial(package.Polynomial(var2) - 2, cache)
-        pol3 = package.FactorizedPolynomial(package.Polynomial(2) * var1, cache)
+        pol1 = package.create_factorized_polynomial(package.Polynomial(4) * (var2 + package.Integer(-2)))
+        pol2 = package.create_factorized_polynomial(package.Polynomial(var2) - 2)
+        pol3 = package.create_factorized_polynomial(package.Polynomial(2) * var1)
         original = package.FactorizedRationalFunction(pol1 * pol2, pol2 * pol3)
         assert isinstance(original, package.FactorizedRationalFunction)
         converted = converter.convert_factorized_rational_function(original)

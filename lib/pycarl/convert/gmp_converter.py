@@ -52,7 +52,7 @@ def convert_factorized_polynomial(polynomial):
         converted = pycarl.gmp.FactorizedPolynomial(coefficient)
         for (factor, exponent) in polynomial.factorization():
             pol = convert_polynomial(factor.polynomial())
-            factorized = pycarl.gmp.FactorizedPolynomial(pol, pycarl.gmp.factorization_cache)
+            factorized = pycarl.gmp.create_factorized_polynomial(pol)
             converted *= factorized ** exponent
         return converted
     elif isinstance(polynomial, pycarl.gmp.FactorizedPolynomial):

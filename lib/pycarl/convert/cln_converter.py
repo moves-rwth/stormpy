@@ -54,7 +54,7 @@ def convert_factorized_polynomial(polynomial):
         converted = pycarl.cln.FactorizedPolynomial(coefficient)
         for (factor, exponent) in polynomial.factorization():
             pol = convert_polynomial(factor.polynomial())
-            factorized = pycarl.cln.FactorizedPolynomial(pol, pycarl.cln.factorization_cache)
+            factorized = pycarl.cln.create_factorized_polynomial(pol)
             converted *= factorized ** exponent
         return converted
     else:
