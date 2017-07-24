@@ -1,6 +1,12 @@
 import pycarl
 
+
 def convert_integer(integer):
+    """
+    Convert integer to cln.
+    :param integer: integer.
+    :return: cln interger.
+    """
     if isinstance(integer, pycarl.cln.Integer):
         return integer
     elif isinstance(integer, pycarl.gmp.Integer):
@@ -8,7 +14,13 @@ def convert_integer(integer):
     else:
         raise TypeError("Integer of type {} cannot be convert to cln".format(type(integer)))
 
+
 def convert_rational(rational):
+    """
+    Convert rational number to cln.
+    :param rational: rational number.
+    :return: cln rational.
+    """
     if isinstance(rational, pycarl.cln.Rational):
         return rational
     elif isinstance(rational, pycarl.gmp.Rational):
@@ -16,7 +28,13 @@ def convert_rational(rational):
     else:
         raise TypeError("Rational of type {} cannot be convert to cln".format(type(rational)))
 
+
 def convert_term(term):
+    """
+    Convert term to cln.
+    :param term: term.
+    :return: cln term.
+    """
     if isinstance(term, pycarl.cln.Term):
         return term
     elif isinstance(term, pycarl.gmp.Term):
@@ -25,7 +43,13 @@ def convert_term(term):
     else:
         raise TypeError("Term of type {} cannot be convert to cln".format(type(term)))
 
+
 def convert_polynomial(polynomial):
+    """
+    Convert polynomial to cln.
+    :param polynomial: polynomial.
+    :return: cln polynomial.
+    """
     if isinstance(polynomial, pycarl.cln.Polynomial):
         return polynomial
     elif isinstance(polynomial, pycarl.gmp.Polynomial):
@@ -36,7 +60,13 @@ def convert_polynomial(polynomial):
     else:
         raise TypeError("Polynomial of type {} cannot be convert to cln".format(type(polynomial)))
 
+
 def convert_rational_function(ratfunc):
+    """
+    Convert rational function to cln.
+    :param ratfunc: rational function.
+    :return: cln rational function.
+    """
     if isinstance(ratfunc, pycarl.cln.RationalFunction):
         return ratfunc
     elif isinstance(ratfunc, pycarl.gmp.RationalFunction):
@@ -46,7 +76,13 @@ def convert_rational_function(ratfunc):
     else:
         raise TypeError("Rational function of type {} cannot be convert to cln".format(type(ratfunc)))
 
+
 def convert_factorized_polynomial(polynomial):
+    """
+    Convert factorized polynomial to cln.
+    :param polynomial: factorized polynomial.
+    :return: cln factorized polynomial.
+    """
     if isinstance(polynomial, pycarl.cln.FactorizedPolynomial):
         return polynomial
     elif isinstance(polynomial, pycarl.gmp.FactorizedPolynomial):
@@ -60,7 +96,13 @@ def convert_factorized_polynomial(polynomial):
     else:
         raise TypeError("Factorized polynomial of type {} cannot be convert to cln".format(type(polynomial)))
 
+
 def convert_factorized_rational_function(ratfunc):
+    """
+    Convert factorized rational function to cln.
+    :param ratfunc: factorized rational function.
+    :return: cln factorized rational function.
+    """
     if isinstance(ratfunc, pycarl.cln.FactorizedRationalFunction):
         return ratfunc
     elif isinstance(ratfunc, pycarl.gmp.FactorizedRationalFunction):
@@ -70,7 +112,13 @@ def convert_factorized_rational_function(ratfunc):
     else:
         raise TypeError("Factorized rational function of type {} cannot be convert to cln".format(type(ratfunc)))
 
+
 def convert(data):
+    """
+    Convert arbitrary data type to cln.
+    :param data: data structure.
+    :return: cln data structure.
+    """
     if isinstance(data, pycarl.cln.Integer) or isinstance(data, pycarl.gmp.Integer):
         return convert_integer(data)
     elif isinstance(data, pycarl.cln.Rational) or isinstance(data, pycarl.gmp.Rational):
@@ -83,8 +131,8 @@ def convert(data):
         return convert_rational_function(data)
     elif isinstance(data, pycarl.cln.FactorizedPolynomial) or isinstance(data, pycarl.gmp.FactorizedPolynomial):
         return convert_factorized_polynomial(data)
-    elif isinstance(data, pycarl.cln.FactorizedRationalFunction) or isinstance(data, pycarl.gmp.FactorizedRationalFunction):
+    elif isinstance(data, pycarl.cln.FactorizedRationalFunction) or isinstance(data,
+                                                                               pycarl.gmp.FactorizedRationalFunction):
         return convert_factorized_rational_function(data)
     else:
         raise TypeError("Unknown type {} for conversion to cln".format(type(data)))
-
