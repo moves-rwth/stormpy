@@ -14,7 +14,7 @@ from package_selector import PackageSelector
         (pycarl.cln,pycarl.convert.cln_converter),
         (pycarl.gmp,pycarl.convert.gmp_converter)
     ], ids=["cln_converter", "gmp_converter"])
-class TestConvert(PackageSelector):
+class TestConvertExplicit(PackageSelector):
 
     def test_convert_integer(self, package, convert_package, converter):
         original = package.Integer(-4)

@@ -69,3 +69,22 @@ def convert_factorized_rational_function(ratfunc):
         return ratfunc
     else:
         raise TypeError("Factorized rational function of type {} cannot be convert to gmp".format(type(ratfunc)))
+
+def convert(data):
+    if isinstance(data, pycarl.cln.Integer) or isinstance(data, pycarl.gmp.Integer):
+        return convert_integer(data)
+    elif isinstance(data, pycarl.cln.Rational) or isinstance(data, pycarl.gmp.Rational):
+        return convert_rational(data)
+    elif isinstance(data, pycarl.cln.Term) or isinstance(data, pycarl.gmp.Term):
+        return convert_term(data)
+    elif isinstance(data, pycarl.cln.Polynomial) or isinstance(data, pycarl.gmp.Polynomial):
+        return convert_polynomial(data)
+    elif isinstance(data, pycarl.cln.RationalFunction) or isinstance(data, pycarl.gmp.RationalFunction):
+        return convert_rational_function(data)
+    elif isinstance(data, pycarl.cln.FactorizedPolynomial) or isinstance(data, pycarl.gmp.FactorizedPolynomial):
+        return convert_factorized_polynomial(data)
+    elif isinstance(data, pycarl.cln.FactorizedRationalFunction) or isinstance(data, pycarl.gmp.FactorizedRationalFunction):
+        return convert_factorized_rational_function(data)
+    else:
+        raise TypeError("Unknown type {} for conversion to gmp".format(type(data)))
+
