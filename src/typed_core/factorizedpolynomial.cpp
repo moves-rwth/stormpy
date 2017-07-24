@@ -10,7 +10,7 @@ void define_factorizedpolynomial(py::module& m) {
 
         .def("is_constant", &FactorizedPolynomial::isConstant)
         .def("constant_part", &FactorizedPolynomial::constantPart)
-        .def("coefficient", &FactorizedPolynomial::coefficient)
+        .def_property("coefficient", &FactorizedPolynomial::coefficient, &FactorizedPolynomial::setCoefficient)
 
         .def("factorization", &FactorizedPolynomial::factorization, "Get factorization")
         .def("polynomial", &FactorizedPolynomial::polynomial, "Get underlying polynomial")

@@ -19,6 +19,16 @@ class TestFactorizedPolynomial(PackageSelector):
         p1 = package.create_factorized_polynomial(x*x+package.Integer(3))
         p1.cache()
 
+    def test_coefficient(self, package):
+        pycarl.clear_variable_pool()
+        var1 = pycarl.Variable("a")
+        pol1 = package.create_factorized_polynomial(package.Polynomial(5) * (var1 + package.Integer(1)))
+        pol2 = package.create_factorized_polynomial(package.Polynomial(3) * var1)
+        res = pol1 * pol2
+        assert res.coefficient == 15
+        res.coefficient = package.Rational(-3)
+        assert res.coefficient == -3
+
     def test_factorization(self, package):
         pycarl.clear_variable_pool()
         var1 = pycarl.Variable("a")
@@ -29,7 +39,7 @@ class TestFactorizedPolynomial(PackageSelector):
         res = pol1 * pol2 * pol3
         factorization = res.factorization()
 
-        assert res.coefficient() == 15
+        assert res.coefficient == 15
         assert res.constant_part() == 0
         res1 = package.create_factorized_polynomial(package.Polynomial(var1) + 1)
         res2 = package.create_factorized_polynomial(package.Polynomial(var2))

@@ -86,7 +86,7 @@ def convert_factorized_polynomial(polynomial):
     if isinstance(polynomial, pycarl.cln.FactorizedPolynomial):
         return polynomial
     elif isinstance(polynomial, pycarl.gmp.FactorizedPolynomial):
-        coefficient = convert_rational(polynomial.coefficient())
+        coefficient = convert_rational(polynomial.coefficient)
         converted = pycarl.cln.FactorizedPolynomial(coefficient)
         for (factor, exponent) in polynomial.factorization():
             pol = convert_polynomial(factor.polynomial())
