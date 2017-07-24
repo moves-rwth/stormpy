@@ -102,9 +102,15 @@ class CMakeBuild(build_ext):
         if self.carl_dir:
             cmake_args = ['-Dcarl_DIR=' + self.carl_dir]
         output = subprocess.check_output(['cmake', os.path.abspath("cmake")] + cmake_args, cwd=build_temp_version)
-        spec = importlib.util.spec_from_file_location("genconfig", os.path.join(build_temp_version, 'generated/config.py'))
-        self.conf = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(self.conf)
+        if sys.version_info[1] >= 5:
+            # Method for Python >= 3.5
+            spec = importlib.util.spec_from_file_location("genconfig", os.path.join(build_temp_version, 'generated/config.py'))
+            self.conf = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(self.conf)
+        else:
+            # Deprecated method for Python <= 3.4
+            from importlib.machinery import SourceFileLoader
+            self.conf = SourceFileLoader("genconfig", os.path.join(build_temp_version, "generated/config.py")).load_module()
 
         # check version
         carl_year, carl_month, carl_maintenance = parse_carl_version(self.conf.CARL_VERSION)
