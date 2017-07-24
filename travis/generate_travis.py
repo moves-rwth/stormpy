@@ -56,21 +56,6 @@ if __name__ == "__main__":
     s += "  include:\n"
 
     # Generate all configurations
-    # Linux via Docker
-    for config in configs_linux:
-        linux = config[0]
-        compiler = "{}{}".format(config[1], config[2])
-        s += "    # {}\n".format(linux)
-        for python in python_versions:
-            buildConfig = ""
-            for build in build_types:
-                buildConfig += "    - os: linux\n"
-                buildConfig += "      compiler: {}\n".format(config[1])
-                buildConfig += "      env: TASK=Test LINUX={} PYTHON={} CONFIG={} COMPILER={}\n".format(linux, python, build, compiler)
-                buildConfig += "      install: travis/install_linux.sh\n"
-                buildConfig += "      script: travis/build.sh\n"
-            s += buildConfig
-
     # Mac OS X
     for config in configs_mac:
         osx = config[0]
@@ -84,6 +69,25 @@ if __name__ == "__main__":
                 buildConfig += "      env: TASK=Test PYTHON={} CONFIG={} COMPILER={} STL=libc++\n".format(python, build, compiler)
                 buildConfig += "      install: travis/install_osx.sh\n"
                 buildConfig += "      script: travis/build.sh\n"
+                buildConfig += "      after_failure:\n"
+                buildConfig += '        - find . -name "*err*.log" -type f -print -exec cat {} \;\n'
+            s += buildConfig
+
+    # Linux via Docker
+    for config in configs_linux:
+        linux = config[0]
+        compiler = "{}{}".format(config[1], config[2])
+        s += "    # {}\n".format(linux)
+        for python in python_versions:
+            buildConfig = ""
+            for build in build_types:
+                buildConfig += "    - os: linux\n"
+                buildConfig += "      compiler: {}\n".format(config[1])
+                buildConfig += "      env: TASK=Test LINUX={} PYTHON={} CONFIG={} COMPILER={}\n".format(linux, python, build, compiler)
+                buildConfig += "      install: travis/install_linux.sh\n"
+                buildConfig += "      script: travis/build.sh\n"
+                buildConfig += "      after_failure:\n"
+                buildConfig += '        - find . -name "*err*.log" -type f -print -exec cat {} \;\n'
             s += buildConfig
 
     # Documentation
@@ -99,6 +103,8 @@ if __name__ == "__main__":
     buildConfig += "      env: TASK=Documentation PYTHON={} CONFIG={} COMPILER={} STL=libc++\n".format(python, build, compiler)
     buildConfig += "      install: travis/install_osx.sh\n"
     buildConfig += "      script: travis/build.sh\n"
+    buildConfig += "      after_failure:\n"
+    buildConfig += '        - find . -name "*err*.log" -type f -print -exec cat {} \;\n'
     buildConfig += "      deploy:\n"
     buildConfig += "        provider: pages\n"
     buildConfig += "        skip_cleanup: true\n"

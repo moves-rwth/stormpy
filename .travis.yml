@@ -26,28 +26,6 @@ notifications:
 #
 jobs:
   include:
-    # ubuntu-16.10
-    - os: linux
-      compiler: gcc
-      env: TASK=Test LINUX=ubuntu-16.10 PYTHON=python3 CONFIG=DefaultRelease COMPILER=gcc-6
-      install: travis/install_linux.sh
-      script: travis/build.sh
-    - os: linux
-      compiler: gcc
-      env: TASK=Test LINUX=ubuntu-16.10 PYTHON=python3 CONFIG=DefaultReleaseParser COMPILER=gcc-6
-      install: travis/install_linux.sh
-      script: travis/build.sh
-    # debian-9
-    - os: linux
-      compiler: gcc
-      env: TASK=Test LINUX=debian-9 PYTHON=python3 CONFIG=DefaultRelease COMPILER=gcc-6
-      install: travis/install_linux.sh
-      script: travis/build.sh
-    - os: linux
-      compiler: gcc
-      env: TASK=Test LINUX=debian-9 PYTHON=python3 CONFIG=DefaultReleaseParser COMPILER=gcc-6
-      install: travis/install_linux.sh
-      script: travis/build.sh
     # osx
     - os: osx
       compiler: clang
@@ -55,14 +33,44 @@ jobs:
       install: travis/install_osx.sh
       script: travis/build.sh
       after_failure:
-        - cat carl/build/resources/src/EIGEN3_REPO-stamp/EIGEN3_REPO-configure-*.log
+        - find . -name "*err*.log" -type f -print -exec cat {} \;
     - os: osx
       compiler: clang
       env: TASK=Test PYTHON=python3 CONFIG=DefaultReleaseParser COMPILER=clang-4.0 STL=libc++
       install: travis/install_osx.sh
       script: travis/build.sh
       after_failure:
-        - cat carl/build/resources/src/EIGEN3_REPO-stamp/EIGEN3_REPO-configure-*.log
+        - find . -name "*err*.log" -type f -print -exec cat {} \;
+    # ubuntu-16.10
+    - os: linux
+      compiler: gcc
+      env: TASK=Test LINUX=ubuntu-16.10 PYTHON=python3 CONFIG=DefaultRelease COMPILER=gcc-6
+      install: travis/install_linux.sh
+      script: travis/build.sh
+      after_failure:
+        - find . -name "*err*.log" -type f -print -exec cat {} \;
+    - os: linux
+      compiler: gcc
+      env: TASK=Test LINUX=ubuntu-16.10 PYTHON=python3 CONFIG=DefaultReleaseParser COMPILER=gcc-6
+      install: travis/install_linux.sh
+      script: travis/build.sh
+      after_failure:
+        - find . -name "*err*.log" -type f -print -exec cat {} \;
+    # debian-9
+    - os: linux
+      compiler: gcc
+      env: TASK=Test LINUX=debian-9 PYTHON=python3 CONFIG=DefaultRelease COMPILER=gcc-6
+      install: travis/install_linux.sh
+      script: travis/build.sh
+      after_failure:
+        - find . -name "*err*.log" -type f -print -exec cat {} \;
+    - os: linux
+      compiler: gcc
+      env: TASK=Test LINUX=debian-9 PYTHON=python3 CONFIG=DefaultReleaseParser COMPILER=gcc-6
+      install: travis/install_linux.sh
+      script: travis/build.sh
+      after_failure:
+        - find . -name "*err*.log" -type f -print -exec cat {} \;
     # Documentation
     - os: osx
       compiler: clang
