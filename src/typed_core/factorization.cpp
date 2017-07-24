@@ -3,9 +3,10 @@
 #include "src/types.h"
 #include "src/helpers.h"
 
+
 void define_factorizationcache(py::module& m) {
-    py::class_<carl::Cache<FactorizationPair>, std::shared_ptr<carl::Cache<FactorizationPair>>>(m, "FactorizationCache", "Cache storing all factorized polynomials")
-        .def(py::init())
+    py::class_<carl::Cache<FactorizationPair>, std::shared_ptr<carl::Cache<FactorizationPair>>>(m, "_FactorizationCache", "Cache storing all factorized polynomials")
+        .def(py::init(), "Constructor")
         .def("__getstate__", [](const FactorizationPair& val) -> std::tuple<std::string> { throw NoPickling(); })
         .def("__setstate__", [](FactorizationPair& val, const std::tuple<std::string>& data) { throw NoPickling(); })
     ;

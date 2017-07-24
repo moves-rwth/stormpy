@@ -16,7 +16,7 @@ class TestFactorizedPolynomial(PackageSelector):
     def test_cache(self, package):
         pycarl.clear_variable_pool()
         x = pycarl.Variable("x")
-        cache = package.FactorizationCache()
+        cache = package.factorization_cache
         p1 = package.FactorizedPolynomial(x*x+package.Integer(3), cache)
         p1.cache()
 
@@ -24,7 +24,7 @@ class TestFactorizedPolynomial(PackageSelector):
         pycarl.clear_variable_pool()
         var1 = pycarl.Variable("a")
         var2 = pycarl.Variable("b")
-        cache = package.FactorizationCache()
+        cache = package.factorization_cache
         pol1 = package.FactorizedPolynomial(package.Polynomial(5) * (var1 + package.Integer(1)), cache)
         pol2 = package.FactorizedPolynomial(package.Polynomial(var1) + 1, cache)
         pol3 = package.FactorizedPolynomial(package.Polynomial(3) * var2, cache)
@@ -46,7 +46,7 @@ class TestFactorizedPolynomial(PackageSelector):
         derivation = c.derive(x)
         assert(derivation == package.Rational(0))
 
-        cache = package.FactorizationCache()
+        cache = package.factorization_cache
         p1 = package.FactorizedPolynomial(x*x+package.Integer(3), cache)
         p2 = package.FactorizedPolynomial(x+package.Integer(1), cache)
 

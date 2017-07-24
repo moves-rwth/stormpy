@@ -2,7 +2,6 @@ from . import gmp
 from .gmp import *
 
 
-
 def numerator(x):
     if type(x) == gmp.RationalFunction or  type(x) == gmp.Rational or type(x) == gmp.FactorizedRationalFunction:
         return x.numerator
@@ -15,3 +14,4 @@ def denominator(x):
     else:
         return 1
 
+factorization_cache = gmp._FactorizationCache()

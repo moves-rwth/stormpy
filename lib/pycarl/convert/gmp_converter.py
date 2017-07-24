@@ -46,16 +46,13 @@ def convert_rational_function(ratfunc):
     else:
         raise TypeError("Rational function of type {} cannot be convert to gmp".format(type(ratfunc)))
 
-def convert_factorized_polynomial(polynomial, cache):
-    if not isinstance(cache, pycarl.gmp.FactorizationCache):
-        raise TypeError("Cache of type {} cannot be used for gmp".format(type(cache)))
-
+def convert_factorized_polynomial(polynomial):
     if isinstance(polynomial, pycarl.cln.FactorizedPolynomial):
         coefficient = convert_rational(polynomial.coefficient())
         converted = pycarl.gmp.FactorizedPolynomial(coefficient)
         for (factor, exponent) in polynomial.factorization():
             pol = convert_polynomial(factor.polynomial())
-            factorized = pycarl.gmp.FactorizedPolynomial(pol, cache)
+            factorized = pycarl.gmp.FactorizedPolynomial(pol, pycarl.gmp.factorization_cache)
             converted *= factorized ** exponent
         return converted
     elif isinstance(polynomial, pycarl.gmp.FactorizedPolynomial):
@@ -63,13 +60,10 @@ def convert_factorized_polynomial(polynomial, cache):
     else:
         raise TypeError("Factorized polynomial of type {} cannot be convert to gmp".format(type(polynomial)))
 
-def convert_factorized_rational_function(ratfunc, cache):
-    if not isinstance(cache, pycarl.gmp.FactorizationCache):
-        raise TypeError("Cache of type {} cannot be used for gmp".format(type(cache)))
-
+def convert_factorized_rational_function(ratfunc):
     if isinstance(ratfunc, pycarl.cln.FactorizedRationalFunction):
-        numerator = convert_factorized_polynomial(ratfunc.numerator, cache)
-        denominator = convert_factorized_polynomial(ratfunc.denominator, cache)
+        numerator = convert_factorized_polynomial(ratfunc.numerator)
+        denominator = convert_factorized_polynomial(ratfunc.denominator)
         return pycarl.gmp.FactorizedRationalFunction(numerator, denominator)
     elif isinstance(ratfunc, pycarl.gmp.FactorizedRationalFunction):
         return ratfunc

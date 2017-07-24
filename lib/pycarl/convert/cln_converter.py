@@ -46,10 +46,7 @@ def convert_rational_function(ratfunc):
     else:
         raise TypeError("Rational function of type {} cannot be convert to cln".format(type(ratfunc)))
 
-def convert_factorized_polynomial(polynomial, cache):
-    if not isinstance(cache, pycarl.cln.FactorizationCache):
-        raise TypeError("Cache of type {} cannot be used for cln".format(type(cache)))
-
+def convert_factorized_polynomial(polynomial):
     if isinstance(polynomial, pycarl.cln.FactorizedPolynomial):
         return polynomial
     elif isinstance(polynomial, pycarl.gmp.FactorizedPolynomial):
@@ -57,21 +54,18 @@ def convert_factorized_polynomial(polynomial, cache):
         converted = pycarl.cln.FactorizedPolynomial(coefficient)
         for (factor, exponent) in polynomial.factorization():
             pol = convert_polynomial(factor.polynomial())
-            factorized = pycarl.cln.FactorizedPolynomial(pol, cache)
+            factorized = pycarl.cln.FactorizedPolynomial(pol, pycarl.cln.factorization_cache)
             converted *= factorized ** exponent
         return converted
     else:
         raise TypeError("Factorized polynomial of type {} cannot be convert to cln".format(type(polynomial)))
 
-def convert_factorized_rational_function(ratfunc, cache):
-    if not isinstance(cache, pycarl.cln.FactorizationCache):
-        raise TypeError("Cache of type {} cannot be used for cln".format(type(cache)))
-
+def convert_factorized_rational_function(ratfunc):
     if isinstance(ratfunc, pycarl.cln.FactorizedRationalFunction):
         return ratfunc
     elif isinstance(ratfunc, pycarl.gmp.FactorizedRationalFunction):
-        numerator = convert_factorized_polynomial(ratfunc.numerator, cache)
-        denominator = convert_factorized_polynomial(ratfunc.denominator, cache)
+        numerator = convert_factorized_polynomial(ratfunc.numerator)
+        denominator = convert_factorized_polynomial(ratfunc.denominator)
         return pycarl.cln.FactorizedRationalFunction(numerator, denominator)
     else:
         raise TypeError("Factorized rational function of type {} cannot be convert to cln".format(type(ratfunc)))

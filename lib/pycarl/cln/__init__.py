@@ -18,3 +18,4 @@ def denominator(x):
     else:
         return 1
 
+factorization_cache = cln._FactorizationCache()

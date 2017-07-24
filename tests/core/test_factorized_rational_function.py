@@ -17,7 +17,7 @@ class TestFactorizedRationalFunction(PackageSelector):
 
     def test_derivation(self, package):
         x = pycarl.Variable("x")
-        cache = package.FactorizationCache()
+        cache = package.factorization_cache
         p1 = package.FactorizedPolynomial(x*x+package.Integer(3), cache)
         p2 = package.FactorizedPolynomial(x+package.Integer(1), cache)
 
