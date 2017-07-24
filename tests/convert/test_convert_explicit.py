@@ -61,6 +61,12 @@ class TestConvertExplicit(PackageSelector):
         converted = converter.convert_rational_function(original)
         assert isinstance(converted, convert_package.RationalFunction)
 
+    def test_convert_constant_factorized_polynomial(self, package, convert_package, converter):
+        original = package.FactorizedPolynomial(3)
+        assert isinstance(original, package.FactorizedPolynomial)
+        converted = converter.convert_factorized_polynomial(original)
+        assert isinstance(converted, convert_package.FactorizedPolynomial)
+
     def test_convert_factorized_polynomial(self, package, convert_package, converter):
         pycarl.clear_variable_pool()
         var1 = pycarl.Variable("a")

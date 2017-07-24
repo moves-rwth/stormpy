@@ -12,8 +12,18 @@ void define_factorizedpolynomial(py::module& m) {
         .def("constant_part", &FactorizedPolynomial::constantPart)
         .def_property("coefficient", &FactorizedPolynomial::coefficient, &FactorizedPolynomial::setCoefficient)
 
-        .def("factorization", &FactorizedPolynomial::factorization, "Get factorization")
-        .def("polynomial", &FactorizedPolynomial::polynomial, "Get underlying polynomial")
+        .def("factorization", [](const FactorizedPolynomial& pol) {
+                if (pol.isConstant())
+                    return Factorization();
+                else
+                    return pol.factorization();
+            }, "Get factorization")
+        .def("polynomial",  [](const FactorizedPolynomial& pol) {
+                if (pol.isConstant())
+                    throw std::invalid_argument("Function not applicable for constants");
+                else
+                    return pol.polynomial();
+            },"Get underlying polynomial")
         .def("cache", &FactorizedPolynomial::pCache)
 
         .def("evaluate", &FactorizedPolynomial::evaluate<Rational>)
