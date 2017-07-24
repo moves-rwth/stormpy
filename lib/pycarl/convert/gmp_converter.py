@@ -113,6 +113,21 @@ def convert_factorized_rational_function(ratfunc):
         raise TypeError("Factorized rational function of type {} cannot be convert to gmp".format(type(ratfunc)))
 
 
+def convert_constraint(constraint):
+    """
+    Convert constraint to gmp.
+    :param constraint: constraint.
+    :return: gmp constraint.
+    """
+    if isinstance(constraint, pycarl.cln.formula.Constraint):
+        lhs = convert_polynomial(constraint.lhs)
+        return pycarl.gmp.formula.Constraint(lhs, constraint.relation)
+    elif isinstance(constraint, pycarl.gmp.formula.Constraint):
+        return constraint
+    else:
+        raise TypeError("Constraint of type {} cannot be convert to gmp".format(type(constraint)))
+
+
 def convert(data):
     """
     Convert arbitrary data type to gmp.
@@ -134,5 +149,7 @@ def convert(data):
     elif isinstance(data, pycarl.cln.FactorizedRationalFunction) or isinstance(data,
                                                                                pycarl.gmp.FactorizedRationalFunction):
         return convert_factorized_rational_function(data)
+    elif isinstance(data, pycarl.cln.formula.Constraint) or isinstance(data, pycarl.gmp.formula.Constraint):
+        return convert_constraint(data)
     else:
         raise TypeError("Unknown type {} for conversion to gmp".format(type(data)))

@@ -1,7 +1,10 @@
 import pycarl
+import pycarl.convert
 import pycarl.cln
 import pycarl.gmp
-import pycarl.convert
+import pycarl.formula
+import pycarl.cln.formula
+import pycarl.gmp.formula
 
 class TestGmpConvert():
 
@@ -74,3 +77,12 @@ class TestGmpConvert():
         assert len(converted.numerator.factorization()) == len(original.numerator.factorization())
         assert len(converted.denominator.factorization()) == len(original.denominator.factorization())
 
+    def test_convert_constraint(self):
+        pycarl.clear_variable_pool()
+        var1 = pycarl.Variable("a")
+        pol1 = pycarl.cln.Polynomial(2) * var1 * var1 + var1 + pycarl.cln.Integer(4)
+        original = pycarl.cln.formula.Constraint(pol1, pycarl.formula.Relation.GREATER)
+        assert isinstance(original, pycarl.cln.formula.Constraint)
+        converted = pycarl.convert.convert_to_gmp(original)
+        assert isinstance(converted, pycarl.gmp.formula.Constraint)
+        assert converted.relation == original.relation

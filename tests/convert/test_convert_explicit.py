@@ -1,9 +1,12 @@
 import pytest
 
 import pycarl
+import pycarl.convert
 import pycarl.cln
 import pycarl.gmp
-import pycarl.convert
+import pycarl.formula
+import pycarl.cln.formula
+import pycarl.gmp.formula
 
 import sys
 import os
@@ -85,3 +88,12 @@ class TestConvertExplicit(PackageSelector):
         assert len(converted.numerator.factorization()) == len(original.numerator.factorization())
         assert len(converted.denominator.factorization()) == len(original.denominator.factorization())
 
+    def test_convert_constraint(self, package, convert_package, converter):
+        pycarl.clear_variable_pool()
+        var1 = pycarl.Variable("a")
+        pol1 = package.Polynomial(2) * var1 * var1 + var1 + package.Integer(4)
+        original = package.formula.Constraint(pol1, pycarl.formula.Relation.GREATER)
+        assert isinstance(original, package.formula.Constraint)
+        converted = converter.convert_constraint(original)
+        assert isinstance(converted, convert_package.formula.Constraint)
+        assert converted.relation == original.relation
