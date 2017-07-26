@@ -42,7 +42,7 @@ run() {
     cmake .
     make
     cd ../..
-    travis_fold stop install_carl_parser
+    travis_fold end install_carl_parser
   fi
 
   # Build Pycarl
