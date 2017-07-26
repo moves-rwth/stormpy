@@ -43,4 +43,4 @@ class TestCore:
     def test_pickle_cln(self):
         import pycarl
         import pycarl.cln
-        self.pickel(pycarl.cln)
+        self.pickle(pycarl.cln)
