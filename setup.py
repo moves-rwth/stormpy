@@ -200,7 +200,7 @@ setup(
     maintainer="S. Junges",
     maintainer_email="sebastian.junges@cs.rwth-aachen.de",
     url="http://moves.rwth-aachen.de",
-    description="pycarl - Python Bindings for Carl",
+    description="pycarl - Python Bindings for CArL",
     packages=['pycarl',
               'pycarl.cln',
               'pycarl.gmp',
