@@ -116,11 +116,15 @@ class CMakeBuild(build_ext):
         carl_year, carl_month, carl_maintenance = parse_carl_version(self.conf.CARL_VERSION)
         check_carl_compatible(carl_year, carl_month, carl_maintenance)
 
-        print("Using carl {} from {}".format(self.conf.CARL_VERSION, self.conf.CARL_DIR))
+        print("Pycarl - Using carl {} from {}".format(self.conf.CARL_VERSION, self.conf.CARL_DIR))
         if self.conf.CARL_PARSER:
-            print("Carl parser extension found and included.")
+            print("Pycarl - Carl parser extension found and included.")
         else:
-            print("Warning: No parser support!")
+            print("Pycarl - Warning: No parser support!")
+        if self.conf.CARL_WITH_CLN:
+            print("Pycarl - Support for CLN found and included.")
+        else:
+            print("Pycarl - Warning: No support for CLN!")
 
         for ext in self.extensions:
             ensure_dir_exists(os.path.join(self._extdir(ext.name), ext.subdir))
@@ -135,14 +139,14 @@ class CMakeBuild(build_ext):
                     f.write("# Generated from setup.py at {}\n".format(datetime.datetime.now()))
                     f.write("CARL_WITH_CLN = {}\n".format(self.conf.CARL_WITH_CLN))
                 if not self.conf.CARL_WITH_CLN:
-                    print("CLN bindings skipped")
+                    print("Pycarl - CLN bindings skipped")
                     continue
             if "parse" in ext.name:
                 with open(os.path.join(self._extdir(ext.name), ext.subdir, "_config.py"), "w") as f:
                     f.write("# Generated from setup.py at {}\n".format(datetime.datetime.now()))
                     f.write("CARL_PARSER = {}\n".format(self.conf.CARL_PARSER))
                 if not self.conf.CARL_PARSER:
-                    print("Parser bindings skipped")
+                    print("Pycarl - Parser bindings skipped")
                     continue
             self.build_extension(ext)
 
@@ -160,7 +164,7 @@ class CMakeBuild(build_ext):
 
     def finalize_options(self):
         if self.carl_dir:
-            print('The custom carl directory', self.carl_dir)
+            print('Pycarl - The custom carl directory', self.carl_dir)
         build_ext.finalize_options(self)
 
     def build_extension(self, ext):
@@ -180,7 +184,7 @@ class CMakeBuild(build_ext):
                                                                        self.distribution.get_version())
         if not os.path.exists(self.build_temp):
              os.makedirs(self.build_temp)
-        print("CMake args={}".format(cmake_args))
+        print("Pycarl - CMake args={}".format(cmake_args))
         # Call cmake
         subprocess.check_call(['cmake', ext.sourcedir] + cmake_args, cwd=self.build_temp, env=env)
         subprocess.check_call(['cmake', '--build', '.', '--target', ext.name] + build_args, cwd=self.build_temp)
