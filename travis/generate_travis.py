@@ -3,7 +3,7 @@
 configs_linux = [
     # OS, compiler
     ("ubuntu-16.10", "gcc", "-6"),
-    ("debian-9", "gcc", "-6"),
+    #("debian-9", "gcc", "-6"),
 ]
 
 # Configurations for Mac
@@ -84,7 +84,7 @@ if __name__ == "__main__":
             for build in build_types:
                 buildConfig += "    - os: linux\n"
                 buildConfig += "      compiler: {}\n".format(config[1])
-                buildConfig += "      env: TASK=Test LINUX={} PYTHON={} CONFIG={} COMPILER={}\n".format(linux, python, build, compiler)
+                buildConfig += "      env: TASK=Test PYTHON={} CONFIG={} LINUX={} COMPILER={}\n".format(python, build, linux, compiler)
                 buildConfig += "      install: travis/install_linux.sh\n"
                 buildConfig += "      script: travis/build.sh\n"
                 buildConfig += "      after_failure:\n"
