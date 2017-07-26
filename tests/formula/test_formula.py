@@ -3,6 +3,7 @@ from pycarl.formula import Relation, FormulaType
 
 from configurations import PackageSelector
 
+
 class TestFormula(PackageSelector):
     def test_init_constraint(self, package):
         pycarl.clear_variable_pool()

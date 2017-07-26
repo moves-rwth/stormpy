@@ -10,9 +10,9 @@ if has_cln:
     parameters.append((pycarl.cln, pycarl.convert.cln_converter))
     names.append("cln_converter")
 
+
 @pytest.mark.parametrize("convert_package,converter", parameters, ids=names)
 class TestConvertExplicit(PackageSelector):
-
     def test_convert_integer(self, package, convert_package, converter):
         original = package.Integer(-4)
         assert isinstance(original, package.Integer)
