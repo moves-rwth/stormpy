@@ -7,10 +7,11 @@ from .cln import *
 
 
 def numerator(x):
-    if type(x) == cln.RationalFunction or  type(x) == cln.Rational or type(x) == cln.FactorizedRationalFunction:
+    if type(x) == cln.RationalFunction or type(x) == cln.Rational or type(x) == cln.FactorizedRationalFunction:
         return x.numerator
     else:
         return x
+
 
 def denominator(x):
     if type(x) == cln.RationalFunction or type(x) == cln.Rational or type(x) == cln.FactorizedRationalFunction:
@@ -18,7 +19,9 @@ def denominator(x):
     else:
         return 1
 
+
 factorization_cache = cln._FactorizationCache()
+
 
 def create_factorized_polynomial(polynomial):
     return cln.FactorizedPolynomial(polynomial, factorization_cache)

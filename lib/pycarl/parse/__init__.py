@@ -6,10 +6,12 @@ if not _config.CARL_PARSER:
 from . import parse
 from .parse import *
 
+
 class ParserError(Exception):
     """
     Error which is meant to be raised when the parser throws an error.
     """
+
     def __init__(self, message):
         self.message = message
 

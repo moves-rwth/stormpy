@@ -9,6 +9,7 @@ import datetime
 from setuptools import setup, Extension
 from setuptools.command.build_ext import build_ext
 
+
 def ensure_dir_exists(path):
     """Checks whether the directory exists and creates it if not."""
     assert path is not None
@@ -28,8 +29,11 @@ if sys.version_info[0] == 2:
 
 
 def check_carl_compatible(carl_v_year, carl_v_month, carl_v_patch):
-    if carl_v_year < 17 or (carl_v_year == 17 and carl_v_month < 6) or (carl_v_year == 17 and carl_v_month == 6 and carl_v_patch < 0):
-        sys.exit('Sorry, carl version {}.{}.{} is not supported anymore!'.format(carl_v_year, carl_v_month, carl_v_patch))
+    if carl_v_year < 17 or (carl_v_year == 17 and carl_v_month < 6) or (
+                carl_v_year == 17 and carl_v_month == 6 and carl_v_patch < 0):
+        sys.exit(
+            'Sorry, carl version {}.{}.{} is not supported anymore!'.format(carl_v_year, carl_v_month, carl_v_patch))
+
 
 def parse_carl_version(version_string):
     """
@@ -43,7 +47,8 @@ def parse_carl_version(version_string):
         elems.append(0)
     if len(elems) != 3:
         sys.exit('Carl version string is ill-formed: "{}"'.format(version_string))
-    return int(elems[0]),  int(elems[1]), int(elems[2])
+    return int(elems[0]), int(elems[1]), int(elems[2])
+
 
 def obtain_version():
     """
@@ -55,7 +60,7 @@ def obtain_version():
     try:
         verstrline = open('lib/pycarl/_version.py', "rt").read()
     except EnvironmentError:
-        pass # Okay, there is no version file.
+        pass  # Okay, there is no version file.
     else:
         VSRE = r"^__version__ = ['\"]([^'\"]*)['\"]"
         mo = re.search(VSRE, verstrline, re.M)
@@ -74,13 +79,11 @@ class CMakeExtension(Extension):
 
 
 class CMakeBuild(build_ext):
-
     user_options = build_ext.user_options + [
-            ('carl-dir=', None, 'Path to carl root (binary) location'),
-            ('jobs=', 'j', 'Number of jobs to use for compiling'),
-            ('debug', None, 'Build in Debug mode'),
-        ]
-
+        ('carl-dir=', None, 'Path to carl root (binary) location'),
+        ('jobs=', 'j', 'Number of jobs to use for compiling'),
+        ('debug', None, 'Build in Debug mode'),
+    ]
 
     def _extdir(self, extname):
         return os.path.abspath(os.path.dirname(self.get_ext_fullpath(extname)))
@@ -104,13 +107,15 @@ class CMakeBuild(build_ext):
         output = subprocess.check_output(['cmake', os.path.abspath("cmake")] + cmake_args, cwd=build_temp_version)
         if sys.version_info[1] >= 5:
             # Method for Python >= 3.5
-            spec = importlib.util.spec_from_file_location("genconfig", os.path.join(build_temp_version, 'generated/config.py'))
+            spec = importlib.util.spec_from_file_location("genconfig",
+                                                          os.path.join(build_temp_version, 'generated/config.py'))
             self.conf = importlib.util.module_from_spec(spec)
             spec.loader.exec_module(self.conf)
         else:
             # Deprecated method for Python <= 3.4
             from importlib.machinery import SourceFileLoader
-            self.conf = SourceFileLoader("genconfig", os.path.join(build_temp_version, "generated/config.py")).load_module()
+            self.conf = SourceFileLoader("genconfig",
+                                         os.path.join(build_temp_version, "generated/config.py")).load_module()
 
         # check version
         carl_year, carl_month, carl_maintenance = parse_carl_version(self.conf.CARL_VERSION)
@@ -150,9 +155,6 @@ class CMakeBuild(build_ext):
                     continue
             self.build_extension(ext)
 
-
-
-
     def initialize_options(self):
         build_ext.initialize_options(self)
         self.carl_dir = None
@@ -181,9 +183,9 @@ class CMakeBuild(build_ext):
 
         env = os.environ.copy()
         env['CXXFLAGS'] = '{} -DVERSION_INFO=\\"{}\\"'.format(env.get('CXXFLAGS', ''),
-                                                                       self.distribution.get_version())
+                                                              self.distribution.get_version())
         if not os.path.exists(self.build_temp):
-             os.makedirs(self.build_temp)
+            os.makedirs(self.build_temp)
         print("Pycarl - CMake args={}".format(cmake_args))
         # Call cmake
         subprocess.check_call(['cmake', ext.sourcedir] + cmake_args, cwd=self.build_temp, env=env)
@@ -208,7 +210,7 @@ setup(
               'pycarl.parse',
               'pycarl.gmp.parse',
               'pycarl.cln.parse'],
-    package_dir={'':'lib'},
+    package_dir={'': 'lib'},
     long_description='',
     ext_package='pycarl',
     ext_modules=[CMakeExtension('core', subdir=''),
@@ -221,8 +223,7 @@ setup(
                  CMakeExtension('parse-gmp', subdir='gmp/parse'),
                  CMakeExtension('parse-cln', subdir='cln/parse')],
 
-cmdclass=dict(build_ext=CMakeBuild),
+    cmdclass=dict(build_ext=CMakeBuild),
     zip_safe=False,
     install_requires=['pytest'],
 )
-
