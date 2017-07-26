@@ -14,9 +14,10 @@ configs_mac = [
 
 # Build types
 build_types = [
-#    "DefaultDebug",
-    "DefaultRelease",
-    "DefaultReleaseParser",
+#    "Debug",
+    "Release",
+    "ReleaseCln",
+    "ReleaseClnParser",
 ]
 
 python_versions = [
@@ -97,7 +98,7 @@ if __name__ == "__main__":
     s += "    # Documentation\n".format()
     python = python_versions[0]
     buildConfig = ""
-    build = build_types[0]
+    build = build_types[-1]
     buildConfig += "    - os: osx\n"
     buildConfig += "      compiler: {}\n".format(config[1])
     buildConfig += "      env: TASK=Documentation PYTHON={} CONFIG={} COMPILER={} STL=libc++\n".format(python, build, compiler)

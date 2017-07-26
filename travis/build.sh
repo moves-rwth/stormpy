@@ -4,8 +4,15 @@ N_JOBS=2
 
 OS=$TRAVIS_OS_NAME
 
+# Use CLN?
+BUILD_CARL_CLN=FALSE
+if [[ "$CONFIG" == *Cln* ]]
+then
+    BUILD_CARL_CLN=TRUE
+fi
+# Use carlparser?
 BUILD_CARL_PARSER=FALSE
-if [[ "$CONFIG" == *Parser ]]
+if [[ "$CONFIG" == *Parser* ]]
 then
     BUILD_CARL_PARSER=TRUE
 fi
@@ -39,6 +46,7 @@ linux)
         export OS=$OS;
         export PYTHON=$PYTHON;
         export CONFIG=$CONFIG;
+        export BUILD_CARL_CLN=$BUILD_CARL_CLN;
         export BUILD_CARL_PARSER=$BUILD_CARL_PARSER;
         export TASK=$TASK;
         export STLARG=;
@@ -52,6 +60,7 @@ osx)
     STLARG="-stdlib=libc++"
     export N_JOBS
     export OS
+    export BUILD_CARL_CLN
     export BUILD_CARL_PARSER
     travis/build-helper.sh
     exit $?

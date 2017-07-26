@@ -29,14 +29,21 @@ jobs:
     # osx
     - os: osx
       compiler: clang
-      env: TASK=Test PYTHON=python3 CONFIG=DefaultRelease COMPILER=clang-4.0 STL=libc++
+      env: TASK=Test PYTHON=python3 CONFIG=Release COMPILER=clang-4.0 STL=libc++
       install: travis/install_osx.sh
       script: travis/build.sh
       after_failure:
         - find . -name "*err*.log" -type f -print -exec cat {} \;
     - os: osx
       compiler: clang
-      env: TASK=Test PYTHON=python3 CONFIG=DefaultReleaseParser COMPILER=clang-4.0 STL=libc++
+      env: TASK=Test PYTHON=python3 CONFIG=ReleaseCln COMPILER=clang-4.0 STL=libc++
+      install: travis/install_osx.sh
+      script: travis/build.sh
+      after_failure:
+        - find . -name "*err*.log" -type f -print -exec cat {} \;
+    - os: osx
+      compiler: clang
+      env: TASK=Test PYTHON=python3 CONFIG=ReleaseClnParser COMPILER=clang-4.0 STL=libc++
       install: travis/install_osx.sh
       script: travis/build.sh
       after_failure:
@@ -44,14 +51,21 @@ jobs:
     # ubuntu-16.10
     - os: linux
       compiler: gcc
-      env: TASK=Test LINUX=ubuntu-16.10 PYTHON=python3 CONFIG=DefaultRelease COMPILER=gcc-6
+      env: TASK=Test LINUX=ubuntu-16.10 PYTHON=python3 CONFIG=Release COMPILER=gcc-6
       install: travis/install_linux.sh
       script: travis/build.sh
       after_failure:
         - find . -name "*err*.log" -type f -print -exec cat {} \;
     - os: linux
       compiler: gcc
-      env: TASK=Test LINUX=ubuntu-16.10 PYTHON=python3 CONFIG=DefaultReleaseParser COMPILER=gcc-6
+      env: TASK=Test LINUX=ubuntu-16.10 PYTHON=python3 CONFIG=ReleaseCln COMPILER=gcc-6
+      install: travis/install_linux.sh
+      script: travis/build.sh
+      after_failure:
+        - find . -name "*err*.log" -type f -print -exec cat {} \;
+    - os: linux
+      compiler: gcc
+      env: TASK=Test LINUX=ubuntu-16.10 PYTHON=python3 CONFIG=ReleaseClnParser COMPILER=gcc-6
       install: travis/install_linux.sh
       script: travis/build.sh
       after_failure:
@@ -59,14 +73,21 @@ jobs:
     # debian-9
     - os: linux
       compiler: gcc
-      env: TASK=Test LINUX=debian-9 PYTHON=python3 CONFIG=DefaultRelease COMPILER=gcc-6
+      env: TASK=Test LINUX=debian-9 PYTHON=python3 CONFIG=Release COMPILER=gcc-6
       install: travis/install_linux.sh
       script: travis/build.sh
       after_failure:
         - find . -name "*err*.log" -type f -print -exec cat {} \;
     - os: linux
       compiler: gcc
-      env: TASK=Test LINUX=debian-9 PYTHON=python3 CONFIG=DefaultReleaseParser COMPILER=gcc-6
+      env: TASK=Test LINUX=debian-9 PYTHON=python3 CONFIG=ReleaseCln COMPILER=gcc-6
+      install: travis/install_linux.sh
+      script: travis/build.sh
+      after_failure:
+        - find . -name "*err*.log" -type f -print -exec cat {} \;
+    - os: linux
+      compiler: gcc
+      env: TASK=Test LINUX=debian-9 PYTHON=python3 CONFIG=ReleaseClnParser COMPILER=gcc-6
       install: travis/install_linux.sh
       script: travis/build.sh
       after_failure:
@@ -74,7 +95,7 @@ jobs:
     # Documentation
     - os: osx
       compiler: clang
-      env: TASK=Documentation PYTHON=python3 CONFIG=DefaultRelease COMPILER=clang-4.0 STL=libc++
+      env: TASK=Documentation PYTHON=python3 CONFIG=ReleaseClnParser COMPILER=clang-4.0 STL=libc++
       install: travis/install_osx.sh
       script: travis/build.sh
       after_failure:

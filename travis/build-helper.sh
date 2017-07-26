@@ -23,7 +23,7 @@ run() {
   cd carl
   mkdir build
   cd build
-  cmake .. "${CMAKE_ARGS[@]}" "-DUSE_CLN_NUMBERS=ON" "-DUSE_GINAC=ON"
+  cmake .. "${CMAKE_ARGS[@]}" "-DUSE_CLN_NUMBERS=$BUILD_CARL_CLN" "-DUSE_GINAC=$BUILD_CARL_CLN"
   make lib_carl -j$N_JOBS
   cd ../..
   travis_fold end install_carl
@@ -159,8 +159,8 @@ echo C++ Standard library location: $(echo '#include <vector>' | $CXX -x c++ -E 
 echo Normalized C++ Standard library location: $(readlink -f $(echo '#include <vector>' | $CXX -x c++ -E - | grep 'vector\"' | awk '{print $3}' | sed 's@/vector@@;s@\"@@g' | head -n 1))
 
 case "$CONFIG" in
-DefaultDebug*)           CMAKE_ARGS=(-DCMAKE_BUILD_TYPE=Debug   -DCMAKE_CXX_FLAGS="$STLARG") ;;
-DefaultRelease*)         CMAKE_ARGS=(-DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="$STLARG") ;;
+Debug*)           CMAKE_ARGS=(-DCMAKE_BUILD_TYPE=Debug   -DCMAKE_CXX_FLAGS="$STLARG") ;;
+Release*)         CMAKE_ARGS=(-DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="$STLARG") ;;
 *) echo "Unrecognized value of CONFIG: $CONFIG"; exit 1 ;;
 esac
 
