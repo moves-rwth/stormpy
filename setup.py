@@ -129,6 +129,7 @@ class CMakeBuild(build_ext):
                     f.write("# Generated from setup.py at {}\n".format(datetime.datetime.now()))
                     f.write("CARL_VERSION = {}\n".format(self.conf.CARL_VERSION))
                     f.write("CARL_PARSER = {}\n".format(self.conf.CARL_PARSER))
+                    f.write("CARL_WITH_CLN = {}\n".format(self.conf.CARL_WITH_CLN))
             if "cln" in ext.name:
                 with open(os.path.join(self._extdir(ext.name), ext.subdir, "_config.py"), "w") as f:
                     f.write("# Generated from setup.py at {}\n".format(datetime.datetime.now()))

@@ -1,12 +1,8 @@
 import pycarl
-import sys
-import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from package_selector import PackageSelector
+from configurations import PackageSelector
 
 
 class TestPolynomial(PackageSelector):
-
     def test_init(self, package):
         pycarl.clear_variable_pool()
         var = pycarl.Variable("x")
@@ -43,7 +39,7 @@ class TestPolynomial(PackageSelector):
         pol2 = var2 + package.Integer(1)
         res = pol1 * pol2
         assert isinstance(res, package.Polynomial)
-        polOrig = package.Polynomial(var1 * var1 * var2)+ var1 * var1 + package.Integer(2) * var2 + 2
+        polOrig = package.Polynomial(var1 * var1 * var2) + var1 * var1 + package.Integer(2) * var2 + 2
         assert res == polOrig
 
     def test_division(self, package):
@@ -61,7 +57,7 @@ class TestPolynomial(PackageSelector):
     def test_eq(self, package):
         pycarl.clear_variable_pool()
         var = pycarl.Variable("x")
-        pol1 = package.Integer(2)*var + package.Integer(3)*var*var
+        pol1 = package.Integer(2) * var + package.Integer(3) * var * var
         assert not pol1 == package.Rational(1)
         pol2 = var + package.Integer(1) - var
         assert pol2 == package.Rational(1)

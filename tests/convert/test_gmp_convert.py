@@ -1,13 +1,9 @@
 import pycarl
-import pycarl.convert
-import pycarl.cln
-import pycarl.gmp
-import pycarl.formula
-import pycarl.cln.formula
-import pycarl.gmp.formula
+from configurations import cln
 
+
+@cln
 class TestGmpConvert():
-
     def test_convert_integer(self):
         original = pycarl.cln.Integer(23)
         assert isinstance(original, pycarl.cln.Integer)

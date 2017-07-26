@@ -1,13 +1,8 @@
 import pycarl
-
-import sys
-import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from package_selector import PackageSelector
+from configurations import PackageSelector
 
 
 class TestFactorizedPolynomial(PackageSelector):
-
     def test_init(self, package):
         pol1 = package.FactorizedPolynomial(32)
         assert pol1 == 32
@@ -16,7 +11,7 @@ class TestFactorizedPolynomial(PackageSelector):
     def test_cache(self, package):
         pycarl.clear_variable_pool()
         x = pycarl.Variable("x")
-        p1 = package.create_factorized_polynomial(x*x+package.Integer(3))
+        p1 = package.create_factorized_polynomial(x * x + package.Integer(3))
         p1.cache()
 
     def test_coefficient(self, package):
@@ -52,17 +47,18 @@ class TestFactorizedPolynomial(PackageSelector):
         x = pycarl.Variable("x")
         c = package.FactorizedPolynomial(3)
         derivation = c.derive(x)
-        assert(derivation == package.Rational(0))
+        assert (derivation == package.Rational(0))
 
-        p1 = package.create_factorized_polynomial(x*x+package.Integer(3))
-        p2 = package.create_factorized_polynomial(x+package.Integer(1))
+        p1 = package.create_factorized_polynomial(x * x + package.Integer(3))
+        p2 = package.create_factorized_polynomial(x + package.Integer(1))
 
         pol = p1 * p2
         derivation = pol.derive(x)
-        expected = package.create_factorized_polynomial(package.Integer(3)*x*x+package.Integer(2)*x+package.Integer(3))
+        expected = package.create_factorized_polynomial(
+            package.Integer(3) * x * x + package.Integer(2) * x + package.Integer(3))
         assert derivation == expected
 
         derivation = p1.derive(x)
-        p3 = package.Polynomial(package.Integer(2)*x)
+        p3 = package.Polynomial(package.Integer(2) * x)
         expected = package.create_factorized_polynomial(p3)
         assert derivation == expected

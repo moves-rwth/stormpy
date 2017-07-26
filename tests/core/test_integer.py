@@ -1,14 +1,8 @@
 import pycarl
-
-import sys
-import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from package_selector import PackageSelector
+from configurations import PackageSelector
 
 
-class TestClnInteger(PackageSelector):
-
-
+class TestInteger(PackageSelector):
     def test_construction(self, package):
         i3 = package.Integer("3")
         assert str(i3) == "3"
@@ -18,7 +12,7 @@ class TestClnInteger(PackageSelector):
     def test_eq(self, package):
         i3 = package.Integer(3)
         assert i3 == 3
-        i3b =  package.Integer(3)
+        i3b = package.Integer(3)
         assert i3 == i3b
         in3 = package.Integer(-3)
         assert in3 == -3
@@ -59,5 +53,3 @@ class TestClnInteger(PackageSelector):
         assert in3 == -3
         inn3 = -in3
         assert i3 == inn3
-
-

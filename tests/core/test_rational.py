@@ -1,11 +1,8 @@
 import pycarl
-import sys
-import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from package_selector import PackageSelector
+from configurations import PackageSelector
+
 
 class TestRational(PackageSelector):
-
     def test_create(self, package):
         r1 = package.Rational(package.Integer(1), package.Integer(2))
         assert package.numerator(r1) == 1

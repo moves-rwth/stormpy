@@ -1,13 +1,9 @@
 import pycarl
 from pycarl.formula import Relation, FormulaType
-import pycarl.cln.formula, pycarl.gmp.formula
-import sys
-import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from package_selector import PackageSelector
+
+from configurations import PackageSelector
 
 class TestFormula(PackageSelector):
-
     def test_init_constraint(self, package):
         pycarl.clear_variable_pool()
         x = pycarl.Variable("x")

@@ -1,5 +1,7 @@
 import pycarl
 
+from pycarl._config import CARL_WITH_CLN as has_cln
+
 
 def convert_integer(integer):
     """
@@ -7,7 +9,7 @@ def convert_integer(integer):
     :param integer: integer.
     :return: gmp interger.
     """
-    if isinstance(integer, pycarl.cln.Integer):
+    if has_cln and isinstance(integer, pycarl.cln.Integer):
         return pycarl.gmp.Integer(integer)
     elif isinstance(integer, pycarl.gmp.Integer):
         return integer
@@ -21,7 +23,7 @@ def convert_rational(rational):
     :param rational: rational number.
     :return: gmp rational.
     """
-    if isinstance(rational, pycarl.cln.Rational):
+    if has_cln and isinstance(rational, pycarl.cln.Rational):
         return pycarl.gmp.Rational(rational)
     elif isinstance(rational, pycarl.gmp.Rational):
         return rational
@@ -35,7 +37,7 @@ def convert_term(term):
     :param term: term.
     :return: gmp term.
     """
-    if isinstance(term, pycarl.cln.Term):
+    if has_cln and isinstance(term, pycarl.cln.Term):
         coeff = convert_rational(term.coeff)
         return pycarl.gmp.Term(coeff, term.monomial)
     elif isinstance(term, pycarl.gmp.Term):
@@ -50,7 +52,7 @@ def convert_polynomial(polynomial):
     :param polynomial: polynomial.
     :return: gmp polynomial.
     """
-    if isinstance(polynomial, pycarl.cln.Polynomial):
+    if has_cln and isinstance(polynomial, pycarl.cln.Polynomial):
         terms = []
         for term in polynomial:
             terms.append(convert_term(term))
@@ -67,7 +69,7 @@ def convert_rational_function(ratfunc):
     :param ratfunc: rational function.
     :return: gmp rational function.
     """
-    if isinstance(ratfunc, pycarl.cln.RationalFunction):
+    if has_cln and isinstance(ratfunc, pycarl.cln.RationalFunction):
         numerator = convert_polynomial(ratfunc.numerator)
         denominator = convert_polynomial(ratfunc.denominator)
         return pycarl.gmp.RationalFunction(numerator, denominator)
@@ -83,7 +85,7 @@ def convert_factorized_polynomial(polynomial):
     :param polynomial: factorized polynomial.
     :return: gmp factorized polynomial.
     """
-    if isinstance(polynomial, pycarl.cln.FactorizedPolynomial):
+    if has_cln and isinstance(polynomial, pycarl.cln.FactorizedPolynomial):
         coefficient = convert_rational(polynomial.coefficient)
         converted = pycarl.gmp.FactorizedPolynomial(coefficient)
         for (factor, exponent) in polynomial.factorization():
@@ -103,7 +105,7 @@ def convert_factorized_rational_function(ratfunc):
     :param ratfunc: factorized rational function.
     :return: gmp factorized rational function.
     """
-    if isinstance(ratfunc, pycarl.cln.FactorizedRationalFunction):
+    if has_cln and isinstance(ratfunc, pycarl.cln.FactorizedRationalFunction):
         numerator = convert_factorized_polynomial(ratfunc.numerator)
         denominator = convert_factorized_polynomial(ratfunc.denominator)
         return pycarl.gmp.FactorizedRationalFunction(numerator, denominator)
@@ -119,7 +121,7 @@ def convert_constraint(constraint):
     :param constraint: constraint.
     :return: gmp constraint.
     """
-    if isinstance(constraint, pycarl.cln.formula.Constraint):
+    if has_cln and isinstance(constraint, pycarl.cln.formula.Constraint):
         lhs = convert_polynomial(constraint.lhs)
         return pycarl.gmp.formula.Constraint(lhs, constraint.relation)
     elif isinstance(constraint, pycarl.gmp.formula.Constraint):
@@ -134,22 +136,24 @@ def convert(data):
     :param data: data structure.
     :return: gmp data structure.
     """
-    if isinstance(data, pycarl.cln.Integer) or isinstance(data, pycarl.gmp.Integer):
+    if (has_cln and isinstance(data, pycarl.cln.Integer)) or isinstance(data, pycarl.gmp.Integer):
         return convert_integer(data)
-    elif isinstance(data, pycarl.cln.Rational) or isinstance(data, pycarl.gmp.Rational):
+    elif (has_cln and isinstance(data, pycarl.cln.Rational)) or isinstance(data, pycarl.gmp.Rational):
         return convert_rational(data)
-    elif isinstance(data, pycarl.cln.Term) or isinstance(data, pycarl.gmp.Term):
+    elif (has_cln and isinstance(data, pycarl.cln.Term)) or isinstance(data, pycarl.gmp.Term):
         return convert_term(data)
-    elif isinstance(data, pycarl.cln.Polynomial) or isinstance(data, pycarl.gmp.Polynomial):
+    elif (has_cln and isinstance(data, pycarl.cln.Polynomial)) or isinstance(data, pycarl.gmp.Polynomial):
         return convert_polynomial(data)
-    elif isinstance(data, pycarl.cln.RationalFunction) or isinstance(data, pycarl.gmp.RationalFunction):
+    elif (has_cln and isinstance(data, pycarl.cln.RationalFunction)) or isinstance(data, pycarl.gmp.RationalFunction):
         return convert_rational_function(data)
-    elif isinstance(data, pycarl.cln.FactorizedPolynomial) or isinstance(data, pycarl.gmp.FactorizedPolynomial):
+    elif (has_cln and isinstance(data, pycarl.cln.FactorizedPolynomial)) or isinstance(data,
+                                                                                       pycarl.gmp.FactorizedPolynomial):
         return convert_factorized_polynomial(data)
-    elif isinstance(data, pycarl.cln.FactorizedRationalFunction) or isinstance(data,
-                                                                               pycarl.gmp.FactorizedRationalFunction):
+    elif (has_cln and isinstance(data, pycarl.cln.FactorizedRationalFunction)) or isinstance(data,
+                                                                                             pycarl.gmp.FactorizedRationalFunction):
         return convert_factorized_rational_function(data)
-    elif isinstance(data, pycarl.cln.formula.Constraint) or isinstance(data, pycarl.gmp.formula.Constraint):
+    elif (has_cln and isinstance(data, pycarl.cln.formula.Constraint)) or isinstance(data,
+                                                                                     pycarl.gmp.formula.Constraint):
         return convert_constraint(data)
     else:
         raise TypeError("Unknown type {} for conversion to gmp".format(type(data)))

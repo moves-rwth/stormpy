@@ -1,12 +1,8 @@
 import pycarl
-import sys
-import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from package_selector import PackageSelector
+from configurations import PackageSelector
 
 
 class TestRationalFunction(PackageSelector):
-
     def test_init(self, package):
         pycarl.clear_variable_pool()
         var = pycarl.Variable("x")

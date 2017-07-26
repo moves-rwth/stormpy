@@ -1,12 +1,8 @@
 import pycarl
-import sys
-import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from package_selector import PackageSelector
+from configurations import PackageSelector
 
 
 class TestTerm(PackageSelector):
-
     def test_init(self, package):
         pycarl.clear_variable_pool()
         var = pycarl.Variable("x")
@@ -32,5 +28,5 @@ class TestTerm(PackageSelector):
         term2 = package.Integer(3) * var
 
         term3 = term1 * term2
-        termOrig = package.Term(6, var*var*var)
+        termOrig = package.Term(6, var * var * var)
         assert term3 == termOrig

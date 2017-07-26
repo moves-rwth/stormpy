@@ -1,30 +1,17 @@
 import pycarl
-import pycarl._config
-import pycarl.gmp.formula
-import pycarl.cln.formula
 
-if  pycarl._config.CARL_PARSER:
-    import pycarl.parse
-    import pycarl.cln.parse, pycarl.gmp.parse
+from configurations import PackageSelector, parser
 
-import pytest
-import sys
-import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from package_selector import PackageSelector
 
-@pytest.mark.skipif(not pycarl._config.CARL_PARSER,
-                    reason="requires carlparser")
+@parser
 class TestParse(PackageSelector):
-
-
     def test_parse_number(self, package):
         num = pycarl.parse.deserialize("2", package)
         assert num == package.Rational(2)
         num = pycarl.parse.deserialize("-2", package)
-        assert num  == package.Rational(-2)
+        assert num == package.Rational(-2)
         num = pycarl.parse.deserialize("(- 2)", package)
-        assert num  == package.Rational(-2)
+        assert num == package.Rational(-2)
 
     def test_parse_polynomial(self, package):
         pol = pycarl.parse.deserialize("(+ y 1)", package)
@@ -35,7 +22,6 @@ class TestParse(PackageSelector):
         x = pycarl.Variable("x")
         y = pycarl.Variable("y")
         assert package.numerator(rf) == package.Polynomial(x) + 1
-
 
     def test_parse_constraint(self, package):
         constraint = pycarl.parse.deserialize("(< x 0)", package)

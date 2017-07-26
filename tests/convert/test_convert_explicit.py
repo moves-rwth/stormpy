@@ -1,22 +1,16 @@
 import pytest
-
 import pycarl
-import pycarl.convert
-import pycarl.cln
-import pycarl.gmp
-import pycarl.formula
-import pycarl.cln.formula
-import pycarl.gmp.formula
 
-import sys
-import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from package_selector import PackageSelector
+from configurations import PackageSelector, has_cln
 
-@pytest.mark.parametrize("convert_package,converter", [
-        (pycarl.cln,pycarl.convert.cln_converter),
-        (pycarl.gmp,pycarl.convert.gmp_converter)
-    ], ids=["cln_converter", "gmp_converter"])
+parameters = [(pycarl.gmp, pycarl.convert.gmp_converter)]
+names = ["gmp_converter"]
+
+if has_cln:
+    parameters.append((pycarl.cln, pycarl.convert.cln_converter))
+    names.append("cln_converter")
+
+@pytest.mark.parametrize("convert_package,converter", parameters, ids=names)
 class TestConvertExplicit(PackageSelector):
 
     def test_convert_integer(self, package, convert_package, converter):

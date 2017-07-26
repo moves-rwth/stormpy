@@ -1,6 +1,7 @@
 import pycarl
 import pickle
 
+
 class TestVariable:
     def test_init(self):
         var = pycarl.Variable("x")
@@ -30,4 +31,3 @@ class TestVariable:
         var4 = pickle.loads(ser)
         assert var3 == var4
         assert var4 != var2
-    
