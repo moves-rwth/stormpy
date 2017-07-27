@@ -11,6 +11,8 @@ def convert_integer(integer):
         return integer
     elif isinstance(integer, pycarl.gmp.Integer):
         return pycarl.cln.Integer(integer)
+    elif isinstance(integer, int):
+        return pycarl.cln.Integer(integer)
     else:
         raise TypeError("Integer of type {} cannot be convert to cln".format(type(integer)))
 
@@ -24,6 +26,8 @@ def convert_rational(rational):
     if isinstance(rational, pycarl.cln.Rational):
         return rational
     elif isinstance(rational, pycarl.gmp.Rational):
+        return pycarl.cln.Rational(rational)
+    elif isinstance(rational, float):
         return pycarl.cln.Rational(rational)
     else:
         raise TypeError("Rational of type {} cannot be convert to cln".format(type(rational)))
@@ -134,9 +138,9 @@ def convert(data):
     :param data: data structure.
     :return: cln data structure.
     """
-    if isinstance(data, pycarl.cln.Integer) or isinstance(data, pycarl.gmp.Integer):
+    if isinstance(data, pycarl.cln.Integer) or isinstance(data, pycarl.gmp.Integer) or isinstance(data, int):
         return convert_integer(data)
-    elif isinstance(data, pycarl.cln.Rational) or isinstance(data, pycarl.gmp.Rational):
+    elif isinstance(data, pycarl.cln.Rational) or isinstance(data, pycarl.gmp.Rational) or isinstance(data, float):
         return convert_rational(data)
     elif isinstance(data, pycarl.cln.Term) or isinstance(data, pycarl.gmp.Term):
         return convert_term(data)

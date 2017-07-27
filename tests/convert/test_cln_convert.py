@@ -4,11 +4,23 @@ from configurations import cln
 
 @cln
 class TestClnConvert():
+    def test_convert_int(self):
+        original = 43
+        assert isinstance(original, int)
+        converted = pycarl.convert.convert_to_cln(original)
+        assert isinstance(converted, pycarl.cln.Integer)
+
     def test_convert_integer(self):
         original = pycarl.gmp.Integer(23)
         assert isinstance(original, pycarl.gmp.Integer)
         converted = pycarl.convert.convert_to_cln(original)
         assert isinstance(converted, pycarl.cln.Integer)
+
+    def test_convert_float(self):
+        original = -3.4
+        assert isinstance(original, float)
+        converted = pycarl.convert.convert_to_cln(original)
+        assert isinstance(converted, pycarl.cln.Rational)
 
     def test_convert_rational(self):
         original = pycarl.gmp.Rational(pycarl.gmp.Integer(12), pycarl.gmp.Integer(-4))

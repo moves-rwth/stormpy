@@ -13,6 +13,8 @@ def convert_integer(integer):
         return pycarl.gmp.Integer(integer)
     elif isinstance(integer, pycarl.gmp.Integer):
         return integer
+    elif isinstance(integer, int):
+        return pycarl.gmp.Integer(integer)
     else:
         raise TypeError("Integer of type {} cannot be convert to gmp".format(type(integer)))
 
@@ -27,6 +29,8 @@ def convert_rational(rational):
         return pycarl.gmp.Rational(rational)
     elif isinstance(rational, pycarl.gmp.Rational):
         return rational
+    elif isinstance(rational, float):
+        return pycarl.gmp.Rational(rational)
     else:
         raise TypeError("Rational of type {} cannot be convert to gmp".format(type(rational)))
 
@@ -136,9 +140,11 @@ def convert(data):
     :param data: data structure.
     :return: gmp data structure.
     """
-    if (has_cln and isinstance(data, pycarl.cln.Integer)) or isinstance(data, pycarl.gmp.Integer):
+    if (has_cln and isinstance(data, pycarl.cln.Integer)) or isinstance(data, pycarl.gmp.Integer) or isinstance(data,
+                                                                                                                int):
         return convert_integer(data)
-    elif (has_cln and isinstance(data, pycarl.cln.Rational)) or isinstance(data, pycarl.gmp.Rational):
+    elif (has_cln and isinstance(data, pycarl.cln.Rational)) or isinstance(data, pycarl.gmp.Rational) or isinstance(
+            data, float):
         return convert_rational(data)
     elif (has_cln and isinstance(data, pycarl.cln.Term)) or isinstance(data, pycarl.gmp.Term):
         return convert_term(data)
