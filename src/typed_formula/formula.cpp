@@ -21,7 +21,7 @@ void define_formula(py::module& m) {
         })
         .def("__str__", &streamToString<carl::Formula<Polynomial>>)
         .def("to_smt2", [](Formula const& f) {
-            return f.toString();
+            return f.toString(false, 2);
         })
 
         .def("__invert__", [](const Formula& lhs){
