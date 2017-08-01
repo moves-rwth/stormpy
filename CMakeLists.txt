@@ -44,7 +44,6 @@ endfunction(stormpy_module)
 
 stormpy_module(core "${STORMPY_LIB_DIR}")
 stormpy_module(info)
-stormpy_module(expressions)
 stormpy_module(logic)
 stormpy_module(storage)
 stormpy_module(utility)

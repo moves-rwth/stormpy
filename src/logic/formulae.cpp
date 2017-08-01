@@ -11,11 +11,6 @@ void define_formulae(py::module& m) {
         .value("GEQ", storm::logic::ComparisonType::GreaterEqual)
     ;
 
-    /*py::class_<std::vector<std::shared_ptr<storm::logic::Formula>>, void, void>("FormulaVec", "Vector of formulas")
-        .def(vector_indexing_suite<std::vector<std::shared_ptr<storm::logic::Formula>>, true>())
-    ;*/
-
-
     py::class_<storm::logic::Formula, std::shared_ptr<storm::logic::Formula>> formula(m, "Formula", "Generic Storm Formula");
     formula.def("__str__", &storm::logic::Formula::toString)
     ;
@@ -57,6 +52,9 @@ void define_formulae(py::module& m) {
                 return f.getThresholdAs<storm::RationalNumber>();
             }
         }, "Threshold of bound (currently only applicable to rational expressions)")
+        .def("set_bound", [](storm::logic::OperatorFormula& f, storm::logic::ComparisonType comparisonType, storm::expressions::Expression const& bound) {
+            f.setBound(storm::logic::Bound(comparisonType, bound));
+        }, "Set bound", py::arg("comparison_type"), py::arg("bound"))
         // the above method should be sufficient for now; reinstate the following if needed
         //.def_property("_threshold_expression", &storm::logic::OperatorFormula::getThreshold, &storm::logic::OperatorFormula::setThreshold, "Threshold expression")
         //.def_property_readonly("_threshold_as_rational", &storm::logic::OperatorFormula::getThresholdAs<storm::RationalNumber>, "Rational threshold of bound, if applicable")
