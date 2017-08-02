@@ -2,12 +2,17 @@ from . import core
 from .core import *
 from . import storage
 from .storage import *
-from .version import __version__
 from ._config import *
 from .logic import *
 
 from pycarl import Variable  # needed for building parametric models
 
+__version__ = "unknown"
+try:
+    from _version import __version__
+except ImportError:
+    # We're running in a tree that doesn't have a _version.py, so we don't know what our version is.
+    pass
 
 core._set_up("")
 
@@ -57,6 +62,7 @@ def build_parametric_model(program, properties=None):
     else:
         raise RuntimeError("Not supported parametric model constructed")
 
+
 def build_model_from_drn(file):
     """
     Build a model from the explicit DRN representation.
@@ -78,6 +84,7 @@ def build_model_from_drn(file):
     else:
         raise RuntimeError("Not supported non-parametric model constructed")
 
+
 def build_parametric_model_from_drn(file):
     """
     Build a parametric model from the explicit DRN representation.
@@ -98,6 +105,7 @@ def build_parametric_model_from_drn(file):
         return intermediate._as_pma()
     else:
         raise RuntimeError("Not supported parametric model constructed")
+
 
 def perform_bisimulation(model, properties, bisimulation_type):
     formulae = [prop.raw_formula for prop in properties]

@@ -4,6 +4,7 @@ import multiprocessing
 import sys
 import subprocess
 import datetime
+import re
 
 from setuptools import setup, Extension
 from setuptools.command.build_ext import build_ext
@@ -17,13 +18,41 @@ if sys.version_info[0] == 2:
 
 def check_storm_compatible(storm_v_major, storm_v_minor, storm_v_patch):
     if storm_v_major < 1 or (storm_v_major == 1 and storm_v_minor == 0 and storm_v_patch < 1):
-        sys.exit('Sorry, Storm version {}.{}.{} is not supported anymore!'.format(storm_v_major, storm_v_minor, storm_v_patch))
+        sys.exit('Sorry, Storm version {}.{}.{} is not supported anymore!'.format(storm_v_major, storm_v_minor,
+                                                                                  storm_v_patch))
+
 
 def parse_storm_version(version_string):
+    """
+    Parses the version of storm.
+    :param version_string:
+    :return: Version as three-tuple.
+    """
     elems = version_string.split(".")
     if len(elems) != 3:
         sys.exit('Storm version string is ill-formed: "{}"'.format(version_string))
-    return int(elems[0]),  int(elems[1]), int(elems[2])
+    return int(elems[0]), int(elems[1]), int(elems[2])
+
+
+def obtain_version():
+    """
+    Obtains the version as specified in stormpy.
+    :return: Version of stormpy.
+    """
+    verstr = "unknown"
+    try:
+        verstrline = open('lib/stormpy/_version.py', "rt").read()
+    except EnvironmentError:
+        pass  # Okay, there is no version file.
+    else:
+        VSRE = r"^__version__ = ['\"]([^'\"]*)['\"]"
+        mo = re.search(VSRE, verstrline, re.M)
+        if mo:
+            verstr = mo.group(1)
+        else:
+            raise RuntimeError("unable to find version in stormpy/_version.py")
+    return verstr
+
 
 class CMakeExtension(Extension):
     def __init__(self, name, sourcedir='', subdir=''):
@@ -32,14 +61,12 @@ class CMakeExtension(Extension):
         self.subdir = subdir
 
 
-
 class CMakeBuild(build_ext):
     user_options = build_ext.user_options + [
         ('storm-dir=', None, 'Path to storm root (binary) location'),
         ('jobs=', 'j', 'Number of jobs to use for compiling'),
         ('debug', None, 'Build in Debug mode'),
     ]
-
 
     def extdir(self, extname):
         return os.path.abspath(os.path.dirname(self.get_ext_fullpath(extname)))
@@ -61,7 +88,8 @@ class CMakeBuild(build_ext):
         if self.storm_dir is not None:
             cmake_args = ['-Dstorm_DIR=' + self.storm_dir]
         output = subprocess.check_output(['cmake', os.path.abspath("cmake")] + cmake_args, cwd=build_temp_version)
-        spec = importlib.util.spec_from_file_location("genconfig", os.path.join(build_temp_version, 'generated/config.py'))
+        spec = importlib.util.spec_from_file_location("genconfig",
+                                                      os.path.join(build_temp_version, 'generated/config.py'))
         self.conf = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(self.conf)
 
@@ -103,25 +131,24 @@ class CMakeBuild(build_ext):
             elif ext.name == "info":
                 with open(os.path.join(self.extdir(ext.name), ext.subdir, "_config.py"), "w") as f:
                     f.write("# Generated from setup.py at {}\n".format(datetime.datetime.now()))
-                    f.write("storm_version = {}\n".format(self.conf.STORM_VERSION))
+                    f.write("storm_version = \"{}\"\n".format(self.conf.STORM_VERSION))
                     f.write("storm_cln_ea = {}\n".format(self.conf.STORM_CLN_EA))
                     f.write("storm_cln_rf = {}".format(self.conf.STORM_CLN_RF))
             elif ext.name == "pars":
-                with open(os.path.join(self.extdir(ext.name),  ext.subdir, "_config.py"), "w") as f:
+                with open(os.path.join(self.extdir(ext.name), ext.subdir, "_config.py"), "w") as f:
                     f.write("# Generated from setup.py at {}\n".format(datetime.datetime.now()))
                     f.write("has_storm_pars = {}".format(self.conf.HAVE_STORM_PARS))
                 if not self.conf.HAVE_STORM_PARS:
                     print("WARNING: storm-pars not found. No support for parametric analysis will be built.")
                     continue
             elif ext.name == "dft":
-                with open(os.path.join(self.extdir(ext.name),  ext.subdir, "_config.py"), "w") as f:
+                with open(os.path.join(self.extdir(ext.name), ext.subdir, "_config.py"), "w") as f:
                     f.write("# Generated from setup.py at {}\n".format(datetime.datetime.now()))
                     f.write("has_storm_dft = {}".format(self.conf.HAVE_STORM_DFT))
                 if not self.conf.HAVE_STORM_DFT:
                     print("WARNING: storm-dft not found. No support for DFTs will be built.")
                     continue
             self.build_extension(ext)
-
 
     def initialize_options(self):
         build_ext.initialize_options(self)
@@ -174,7 +201,7 @@ class PyTest(test):
 
 setup(
     name="stormpy",
-    version="0.9.1",
+    version=obtain_version(),
     author="M. Volk",
     author_email="matthias.volk@cs.rwth-aachen.de",
     maintainer="S. Junges",
