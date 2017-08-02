@@ -4,6 +4,7 @@ from . import storage
 from .storage import *
 from .version import __version__
 from ._config import *
+from .logic import *
 
 from pycarl import Variable  # needed for building parametric models
 
