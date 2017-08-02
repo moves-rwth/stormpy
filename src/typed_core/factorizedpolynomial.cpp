@@ -22,7 +22,7 @@ void define_factorizedpolynomial(py::module& m) {
                 if (pol.isConstant())
                     throw std::invalid_argument("Function not applicable for constants");
                 else
-                    return pol.polynomial();
+                    return pol.polynomialWithCoefficient();
             },"Get underlying polynomial")
         .def("cache", &FactorizedPolynomial::pCache)
 
