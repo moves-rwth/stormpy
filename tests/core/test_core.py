@@ -1,14 +1,12 @@
 class TestCore:
     def test_init(self):
         import stormpy
-    
+
     def test_pycarl(self):
         import stormpy
-        import pycarl
-        import pycarl.cln
-        import pycarl.gmp
-        import pycarl.formula
-        pol1 = pycarl.gmp.FactorizedPolynomial(32)
-        pol2 = pycarl.gmp.FactorizedPolynomial(2)
-        rat = pycarl.gmp.FactorizedRationalFunction(pol1, pol2)
+        rational = stormpy.Rational(0.25)
+        assert str(rational) == "1/4"
+        pol1 = stormpy.FactorizedPolynomial(32)
+        pol2 = stormpy.FactorizedPolynomial(2)
+        rat = stormpy.FactorizedRationalFunction(pol1, pol2)
         assert str(rat) == "16"

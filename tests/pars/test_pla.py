@@ -5,7 +5,6 @@ from helpers.helper import get_example_path
 
 class TestModelChecking:
     def test_pla(self):
-        import pycarl
         program = stormpy.parse_prism_program(get_example_path("pdtmc", "brp16_2.pm"))
         prop = "P<=0.84 [F s=5 ]"
         formulas = stormpy.parse_properties_for_prism_program(prop, program)

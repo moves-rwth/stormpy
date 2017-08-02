@@ -32,9 +32,6 @@ class TestBisimulation:
         assert math.isclose(result.at(initial_state), result_bisim.at(initial_state_bisim), rel_tol=1e-4)
 
     def test_parametric_bisimulation(self):
-        import pycarl
-        import pycarl.cln
-        import pycarl.gmp
         program = stormpy.parse_prism_program(get_example_path("pdtmc", "brp16_2.pm"))
         assert program.nr_modules == 5
         assert program.model_type == stormpy.PrismModelType.DTMC

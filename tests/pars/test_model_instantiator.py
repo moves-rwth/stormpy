@@ -1,4 +1,3 @@
-import pycarl
 import stormpy
 import stormpy.logic
 import stormpy.pars

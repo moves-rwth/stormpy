@@ -24,9 +24,8 @@ class TestExpressions:
         assert not expression.has_rational_type()
 
     def test_rational_expression(self):
-        import pycarl.gmp
         manager = stormpy.ExpressionManager()
-        expression = manager.create_rational(pycarl.gmp.Rational(0.2))
+        expression = manager.create_rational(stormpy.Rational(0.2))
         assert expression.is_literal()
         assert not expression.contains_variables()
         assert not expression.has_boolean_type()

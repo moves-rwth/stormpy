@@ -1,14 +1,11 @@
 import stormpy
+import stormpy.info
 import stormpy.logic
 from helpers.helper import get_example_path
 
 class TestParametric:
 
     def test_constraints_collector(self):
-        #TODO decide whether we have CLN or GMP based on some flag in stormpy.
-        import pycarl
-        import pycarl.cln
-        import pycarl.gmp
         from pycarl.formula import FormulaType, Relation
         import pycarl.cln.formula
         import pycarl.gmp.formula

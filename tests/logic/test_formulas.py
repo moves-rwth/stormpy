@@ -1,4 +1,3 @@
-import pycarl
 import stormpy
 import stormpy.logic
 
@@ -41,17 +40,14 @@ class TestFormulas:
         assert formula.threshold == stormpy.Rational("0.4")
         assert formula.comparison_type == stormpy.logic.ComparisonType.LESS
 
-    # setter not currently implemented (non-trivial due to Expression container)
     def test_set_bounds(self):
-        import pycarl
-        import pycarl.gmp
         prop = "P<0.4 [F \"one\"]"
         formula = stormpy.parse_properties(prop)[0].raw_formula
         expression_manager = stormpy.ExpressionManager()
-        rational = pycarl.gmp.Rational("0.2")
+        rational = stormpy.Rational("0.2")
         expression = expression_manager.create_rational(rational)
         formula.set_bound(stormpy.logic.ComparisonType.GEQ, expression)
-        assert formula.threshold == pycarl.gmp.Rational("0.2")
+        assert formula.threshold == stormpy.Rational("0.2")
         assert formula.comparison_type == stormpy.logic.ComparisonType.GEQ
         assert str(formula) == "P>=1/5 [F \"one\"]"
 
