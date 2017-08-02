@@ -17,6 +17,8 @@ def example_getting_started_03():
     assert result.result_for_all_states
     for x in result.get_values():
         print(x)
+    initial_state = model.initial_states[0]
+    print(result.at(initial_state))
 
-if __name__ == 'main':
+if __name__ == '__main__':
     example_getting_started_03()

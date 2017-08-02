@@ -17,15 +17,17 @@ def example_getting_started_04():
     properties = stormpy.parse_properties_for_prism_program(formula_str, prism_program)
     model = stormpy.build_parametric_model(prism_program, properties)
     print("Model supports parameters: {}".format(model.supports_parameters))
+    parameters = model.collect_probability_parameters()
+    assert len(parameters) == 2
 
     instantiator = stormpy.pars.PDtmcInstantiator(model)
     point = dict()
-    parameters = model.collect_probability_parameters()
     for x in parameters:
         print(x.name)
         point[x] = stormpy.RationalRF(0.4)
     instantiated_model = instantiator.instantiate(point)
     result = stormpy.model_checking(instantiated_model, properties[0])
+    print(result)
 
-if __name__ == 'main':
+if __name__ == '__main__':
     example_getting_started_04()

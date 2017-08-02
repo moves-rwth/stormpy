@@ -29,5 +29,5 @@ def example_getting_started_02():
     print("Number of transitions: {}".format(model_for_formula_2.nr_transitions))
     print("Labels in the model: {}".format(model_for_formula_2.labeling.get_labels()))
 
-if __name__ == 'main':
+if __name__ == '__main__':
     example_getting_started_02()

@@ -13,5 +13,5 @@ def example_getting_started_01():
     print("Number of transitions: {}".format(model.nr_transitions))
     print("Labels: {}".format(model.labeling.get_labels()))
 
-if __name__ == 'main':
+if __name__ == '__main__':
     example_getting_started_01()
