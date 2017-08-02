@@ -10,6 +10,7 @@ class TestModelInstantiator:
         formulas = stormpy.parse_properties_for_prism_program("P=? [ F s=5 ]", program)
         model = stormpy.build_parametric_model(program, formulas)
         parameters = model.collect_probability_parameters()
+        assert len(parameters) == 2
         instantiator = stormpy.pars.PDtmcInstantiator(model)
 
         point = {p: stormpy.RationalRF("0.4") for p in parameters}
