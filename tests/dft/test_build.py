@@ -4,8 +4,8 @@ from helpers.helper import get_example_path
 
 import math
 
-class TestBuild:
 
+class TestBuild:
     def test_import(self):
         import stormpy.dft
 

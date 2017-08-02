@@ -12,7 +12,7 @@ class TestModel:
         assert model.model_type == stormpy.ModelType.DTMC
         assert not model.supports_parameters
         assert type(model) is stormpy.SparseDtmc
- 
+
     def test_build_dtmc_from_prism_program_formulas(self):
         program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
         prop = "P=? [F \"one\"]"
@@ -23,7 +23,7 @@ class TestModel:
         assert model.model_type == stormpy.ModelType.DTMC
         assert not model.supports_parameters
         assert type(model) is stormpy.SparseDtmc
- 
+
     def test_build_parametric_dtmc_from_prism_program(self):
         program = stormpy.parse_prism_program(get_example_path("pdtmc", "brp16_2.pm"))
         prop = "P=? [F s=5]"
@@ -35,7 +35,7 @@ class TestModel:
         assert model.supports_parameters
         assert model.has_parameters
         assert type(model) is stormpy.SparseParametricDtmc
-    
+
     def test_build_dtmc(self):
         program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
         formulas = stormpy.parse_properties_for_prism_program("P=? [ F \"one\" ]", program)
@@ -45,7 +45,7 @@ class TestModel:
         assert model.model_type == stormpy.ModelType.DTMC
         assert not model.supports_parameters
         assert type(model) is stormpy.SparseDtmc
-    
+
     def test_build_parametric_dtmc(self):
         program = stormpy.parse_prism_program(get_example_path("pdtmc", "brp16_2.pm"))
         formulas = stormpy.parse_properties_for_prism_program("P=? [ F s=5 ]", program)
@@ -56,7 +56,7 @@ class TestModel:
         assert model.supports_parameters
         assert model.has_parameters
         assert type(model) is stormpy.SparseParametricDtmc
-    
+
     def test_build_dtmc_supporting_parameters(self):
         program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
         formulas = stormpy.parse_properties_for_prism_program("P=? [ F \"one\" ]", program)
@@ -72,6 +72,6 @@ class TestModel:
         program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
         formulas = stormpy.parse_properties_for_prism_program("P=? [ F \"one\" ]", program)
         model = stormpy.build_model(program, formulas)
-        initial_states =  model.initial_states
+        initial_states = model.initial_states
         assert len(initial_states) == 1
         assert 0 in initial_states

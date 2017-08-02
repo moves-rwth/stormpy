@@ -4,7 +4,7 @@ import stormpy.pars
 from helpers.helper import get_example_path
 
 
-class TestModel:
+class TestModelInstantiator:
     def test_instantiate_dtmc(self):
         program = stormpy.parse_prism_program(get_example_path("pdtmc", "brp16_2.pm"))
         formulas = stormpy.parse_properties_for_prism_program("P=? [ F s=5 ]", program)

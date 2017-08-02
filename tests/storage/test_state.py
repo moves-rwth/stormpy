@@ -1,9 +1,11 @@
 import stormpy
 from helpers.helper import get_example_path
 
+
 class TestState:
     def test_states_dtmc(self):
-        model = stormpy.build_sparse_model_from_explicit(get_example_path("dtmc", "die.tra"), get_example_path("dtmc", "die.lab"))
+        model = stormpy.build_sparse_model_from_explicit(get_example_path("dtmc", "die.tra"),
+                                                         get_example_path("dtmc", "die.lab"))
         i = 0
         states = model.states
         assert len(states) == 13
@@ -17,7 +19,8 @@ class TestState:
         assert state.id == 5
 
     def test_states_mdp(self):
-        model = stormpy.build_sparse_model_from_explicit(get_example_path("mdp", "two_dice.tra"), get_example_path("mdp", "two_dice.lab"))
+        model = stormpy.build_sparse_model_from_explicit(get_example_path("mdp", "two_dice.tra"),
+                                                         get_example_path("mdp", "two_dice.lab"))
         i = 0
         assert len(model.states) == 169
         for state in model.states:
@@ -31,8 +34,10 @@ class TestState:
         assert state.id == 1
 
     def test_labels_dtmc(self):
-        model = stormpy.build_sparse_model_from_explicit(get_example_path("dtmc", "die.tra"), get_example_path("dtmc", "die.lab"))
-        labelsOrig = [["init"], [], [], [], [], [], [], ["one", "done"], ["two", "done"], ["three", "done"], ["four", "done"], ["five", "done"], ["six", "done"]]
+        model = stormpy.build_sparse_model_from_explicit(get_example_path("dtmc", "die.tra"),
+                                                         get_example_path("dtmc", "die.lab"))
+        labelsOrig = [["init"], [], [], [], [], [], [], ["one", "done"], ["two", "done"], ["three", "done"],
+                      ["four", "done"], ["five", "done"], ["six", "done"]]
         i = 0
         for state in model.states:
             labels = state.labels
@@ -41,14 +46,16 @@ class TestState:
             i += 1
 
     def test_actions_dtmc(self):
-        model = stormpy.build_sparse_model_from_explicit(get_example_path("dtmc", "die.tra"), get_example_path("dtmc", "die.lab"))
+        model = stormpy.build_sparse_model_from_explicit(get_example_path("dtmc", "die.tra"),
+                                                         get_example_path("dtmc", "die.lab"))
         for state in model.states:
             assert len(state.actions) == 1
             for action in state.actions:
                 assert action.id == 0
 
     def test_actions_mdp(self):
-        model = stormpy.build_sparse_model_from_explicit(get_example_path("mdp", "two_dice.tra"), get_example_path("mdp", "two_dice.lab"))
+        model = stormpy.build_sparse_model_from_explicit(get_example_path("mdp", "two_dice.tra"),
+                                                         get_example_path("mdp", "two_dice.lab"))
         for state in model.states:
             assert len(state.actions) == 1 or len(state.actions) == 2
             for action in state.actions:
@@ -60,12 +67,14 @@ class TestState:
                             (4, 8, 0.5), (4, 9, 0.5), (5, 10, 0.5), (5, 11, 0.5),
                             (6, 2, 0.5), (6, 12, 0.5), (7, 7, 1), (8, 8, 1),
                             (9, 9, 1), (10, 10, 1), (11, 11, 1), (12, 12, 1)
-                           ]
-        model = stormpy.build_sparse_model_from_explicit(get_example_path("dtmc", "die.tra"), get_example_path("dtmc", "die.lab"))
+                            ]
+        model = stormpy.build_sparse_model_from_explicit(get_example_path("dtmc", "die.tra"),
+                                                         get_example_path("dtmc", "die.lab"))
         i = 0
         for state in model.states:
             for action in state.actions:
-                assert (state.id < 7 and len(action.transitions) == 2) or (state.id >= 7 and len(action.transitions) == 1)
+                assert (state.id < 7 and len(action.transitions) == 2) or (
+                    state.id >= 7 and len(action.transitions) == 1)
                 for transition in action.transitions:
                     transition_orig = transitions_orig[i]
                     i += 1
@@ -74,7 +83,8 @@ class TestState:
                     assert transition.value() == transition_orig[2]
 
     def test_transitions_mdp(self):
-        model = stormpy.build_sparse_model_from_explicit(get_example_path("mdp", "two_dice.tra"), get_example_path("mdp", "two_dice.lab"))
+        model = stormpy.build_sparse_model_from_explicit(get_example_path("mdp", "two_dice.tra"),
+                                                         get_example_path("mdp", "two_dice.lab"))
         assert model.states[1].id == 1
         for state in model.states:
             i = 0
@@ -90,8 +100,9 @@ class TestState:
                             (4, 8, 0.5), (4, 9, 0.5), (5, 10, 0.5), (5, 11, 0.5),
                             (6, 2, 0.5), (6, 12, 0.5), (7, 7, 1), (8, 8, 1),
                             (9, 9, 1), (10, 10, 1), (11, 11, 1), (12, 12, 1)
-                           ]
-        model = stormpy.build_sparse_model_from_explicit(get_example_path("dtmc", "die.tra"), get_example_path("dtmc", "die.lab"))
+                            ]
+        model = stormpy.build_sparse_model_from_explicit(get_example_path("dtmc", "die.tra"),
+                                                         get_example_path("dtmc", "die.lab"))
         i = 0
         for state in model.states:
             for transition in model.transition_matrix.row_iter(state.id, state.id):

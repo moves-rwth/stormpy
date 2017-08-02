@@ -44,7 +44,7 @@ class TestModelChecking:
         func = result.at(initial_state)
         one = stormpy.FactorizedPolynomial(stormpy.RationalRF(1))
         assert func.denominator == one
-        #constraints_well_formed = result.constraints_well_formed
+        # constraints_well_formed = result.constraints_well_formed
         # for constraint in constraints_well_formed:
         #     assert constraint.rel() == pycarl.formula.Relation.GEQ or constraint.rel() == pycarl.formula.Relation.LEQ
         # constraints_graph_preserving = result.constraints_graph_preserving
@@ -74,7 +74,7 @@ class TestModelChecking:
         labelprop = stormpy.core.Property("cora", formulaPsi.raw_formula)
         result = stormpy.model_checking(model, labelprop)
         assert result.get_truth_values().number_of_set_bits() == 1
-    
+
     def test_model_checking_ctmc(self):
         model = stormpy.build_model_from_drn(get_example_path("ctmc", "dft.drn"))
         formulas = stormpy.parse_properties("T=? [ F \"failed\" ]")

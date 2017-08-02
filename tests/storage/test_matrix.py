@@ -6,7 +6,8 @@ import math
 
 class TestMatrix:
     def test_sparse_matrix(self):
-        model = stormpy.build_sparse_model_from_explicit(get_example_path("dtmc", "die.tra"), get_example_path("dtmc", "die.lab"))
+        model = stormpy.build_sparse_model_from_explicit(get_example_path("dtmc", "die.tra"),
+                                                         get_example_path("dtmc", "die.lab"))
         matrix = model.transition_matrix
         assert type(matrix) is stormpy.storage.SparseMatrix
         assert matrix.nr_rows == model.nr_states
@@ -17,7 +18,8 @@ class TestMatrix:
             assert e.value() == 0.5 or e.value() == 0 or (e.value() == 1 and e.column > 6)
 
     def test_backward_matrix(self):
-        model = stormpy.build_sparse_model_from_explicit(get_example_path("dtmc", "die.tra"), get_example_path("dtmc", "die.lab"))
+        model = stormpy.build_sparse_model_from_explicit(get_example_path("dtmc", "die.tra"),
+                                                         get_example_path("dtmc", "die.lab"))
         matrix = model.backward_transition_matrix
         assert type(matrix) is stormpy.storage.SparseMatrix
         assert matrix.nr_rows == model.nr_states
@@ -28,7 +30,8 @@ class TestMatrix:
             assert e.value() == 0.5 or e.value() == 0 or (e.value() == 1 and e.column > 6)
 
     def test_change_sparse_matrix(self):
-        model = stormpy.build_sparse_model_from_explicit(get_example_path("dtmc", "die.tra"), get_example_path("dtmc", "die.lab"))
+        model = stormpy.build_sparse_model_from_explicit(get_example_path("dtmc", "die.tra"),
+                                                         get_example_path("dtmc", "die.lab"))
         matrix = model.transition_matrix
         for e in matrix:
             assert e.value() == 0.5 or e.value() == 0 or e.value() == 1
@@ -43,7 +46,8 @@ class TestMatrix:
 
     def test_change_sparse_matrix_modelchecking(self):
         import stormpy.logic
-        model = stormpy.build_sparse_model_from_explicit(get_example_path("dtmc", "die.tra"), get_example_path("dtmc", "die.lab"))
+        model = stormpy.build_sparse_model_from_explicit(get_example_path("dtmc", "die.tra"),
+                                                         get_example_path("dtmc", "die.lab"))
         matrix = model.transition_matrix
         # Check matrix
         for e in matrix:

@@ -21,23 +21,25 @@ class TestParse:
         properties = stormpy.parse_properties(formula)
         assert len(properties) == 1
         assert str(properties[0].raw_formula) == formula
-    
+
     def test_parse_explicit_dtmc(self):
-        model = stormpy.build_sparse_model_from_explicit(get_example_path("dtmc", "die.tra"), get_example_path("dtmc", "die.lab"))
+        model = stormpy.build_sparse_model_from_explicit(get_example_path("dtmc", "die.tra"),
+                                                         get_example_path("dtmc", "die.lab"))
         assert model.nr_states == 13
         assert model.nr_transitions == 20
         assert model.model_type == stormpy.ModelType.DTMC
         assert not model.supports_parameters
         assert type(model) is stormpy.SparseDtmc
-    
+
     def test_parse_explicit_mdp(self):
-        model = stormpy.build_sparse_model_from_explicit(get_example_path("mdp", "two_dice.tra"), get_example_path("mdp", "two_dice.lab"))
+        model = stormpy.build_sparse_model_from_explicit(get_example_path("mdp", "two_dice.tra"),
+                                                         get_example_path("mdp", "two_dice.lab"))
         assert model.nr_states == 169
         assert model.nr_transitions == 436
         assert model.model_type == stormpy.ModelType.MDP
         assert not model.supports_parameters
         assert type(model) is stormpy.SparseMdp
-    
+
     def test_parse_drn_dtmc(self):
         model = stormpy.build_model_from_drn(get_example_path("ctmc", "dft.drn"))
         assert model.nr_states == 16
@@ -45,4 +47,3 @@ class TestParse:
         assert model.model_type == stormpy.ModelType.CTMC
         assert not model.supports_parameters
         assert type(model) is stormpy.SparseCtmc
-    

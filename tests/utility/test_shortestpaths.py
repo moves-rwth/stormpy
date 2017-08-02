@@ -13,6 +13,7 @@ import math
 
 class ModelWithKnownShortestPaths:
     """Knuth's die model with reference kSP methods"""
+
     def __init__(self):
         self.target_label = "one"
 
@@ -24,7 +25,7 @@ class ModelWithKnownShortestPaths:
         self.model = stormpy.build_model(program, formulas)
 
     def probability(self, k):
-        return (1/2)**((2 * k) + 1)
+        return (1 / 2) ** ((2 * k) + 1)
 
     def state_set(self, k):
         return BitVector(self.model.nr_states, [0, 1, 3, 7])

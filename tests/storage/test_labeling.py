@@ -2,6 +2,7 @@ import stormpy
 import stormpy.logic
 from helpers.helper import get_example_path
 
+
 class TestLabeling:
     def test_set_labeling(self):
         program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
@@ -18,7 +19,7 @@ class TestLabeling:
         states.set(3)
         labeling.set_states("tmp", states)
         assert labeling.has_state_label("tmp", 3)
-        
+
     def test_label(self):
         program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
         formulas = stormpy.parse_properties_for_prism_program("P=? [ F \"one\" ]", program)
@@ -32,7 +33,7 @@ class TestLabeling:
         assert "init" in labeling.get_labels_of_state(0)
         assert "one" in model.labels_state(7)
         assert "one" in labeling.get_labels_of_state(7)
-    
+
     def test_label_parametric(self):
         program = stormpy.parse_prism_program(get_example_path("pdtmc", "brp16_2.pm"))
         formulas = stormpy.parse_properties_for_prism_program("P=? [ F s=5 ]", program)

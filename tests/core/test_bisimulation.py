@@ -1,9 +1,9 @@
 import stormpy
 import stormpy.logic
 from helpers.helper import get_example_path
-import math
 
 import math
+
 
 class TestBisimulation:
     def test_bisimulation(self):

@@ -2,6 +2,7 @@ import os
 import stormpy
 import stormpy.examples
 import stormpy.examples.files
+
 example_dir = stormpy.examples.files.testfile_dir
 
 
