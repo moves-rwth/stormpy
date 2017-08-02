@@ -10,6 +10,7 @@ Version 0.9
 - Bindings for graph constraints
 - Moved expressions from own module into storage module
 - Travis support for build process
+- Tests for documentation
 - Updated pybind version
 
 ### Version 0.9.1 (2017/4)
