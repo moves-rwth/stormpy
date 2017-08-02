@@ -108,6 +108,13 @@ def build_parametric_model_from_drn(file):
 
 
 def perform_bisimulation(model, properties, bisimulation_type):
+    """
+    Perform bisimulation on model.
+    :param model: Model.
+    :param properties: Properties to preserve during bisimulation.
+    :param bisimulation_type: Type of bisimulation (weak or strong).
+    :return: Model after bisimulation.
+    """
     formulae = [prop.raw_formula for prop in properties]
     if model.supports_parameters:
         return core._perform_parametric_bisimulation(model, formulae, bisimulation_type)
@@ -116,6 +123,13 @@ def perform_bisimulation(model, properties, bisimulation_type):
 
 
 def model_checking(model, property):
+    """
+    Perform model checking on model for property.
+    :param model: Model.
+    :param property: Property to check for.
+    :return: Model checking result.
+    :rtype: CheckResult
+    """
     if model.supports_parameters:
         task = core.ParametricCheckTask(property.raw_formula, False)
         return core._parametric_model_checking_sparse_engine(model, task)

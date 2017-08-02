@@ -1,8 +1,17 @@
 from . import storage
 from .storage import *
 
+
 class ModelInstantiator:
+    """
+    Class for instantiating models.
+    """
+
     def __init__(self, model):
+        """
+        Constructor.
+        :param model: Model.
+        """
         if model.model_type == ModelType.MDP:
             self._instantiator = PmdpInstantiator(model)
         elif model.model_type == ModelType.DTMC:
@@ -14,5 +23,10 @@ class ModelInstantiator:
         else:
             raise ValueError("Model type {} not supported".format(model.model_type))
 
-    def instantiate(self, point):
-        return self._instantiator.instantiate(point)
+    def instantiate(self, valuation):
+        """
+        Instantiate model with given valuation.
+        :param valuation: Valuation from parameter to value.
+        :return: Instantiated model.
+        """
+        return self._instantiator.instantiate(valuation)
