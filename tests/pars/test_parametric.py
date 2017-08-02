@@ -7,8 +7,10 @@ class TestParametric:
 
     def test_constraints_collector(self):
         from pycarl.formula import FormulaType, Relation
-        import pycarl.cln.formula
-        import pycarl.gmp.formula
+        if stormpy.info.storm_ratfunc_use_cln():
+            import pycarl.cln.formula
+        else:
+            import pycarl.gmp.formula
         program = stormpy.parse_prism_program(get_example_path("pdtmc", "brp16_2.pm"))
         prop = "P=? [F s=5]"
         formulas = stormpy.parse_properties_for_prism_program(prop, program)
