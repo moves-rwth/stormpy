@@ -17,8 +17,8 @@ We start with a selection of high-level constructs in stormpy, and go into more 
 
 In order to do this, we import stormpy::
 
-	import stormpy
-	import stormpy.core
+    >>>	import stormpy
+    >>>	import stormpy.core
 	
 	
 Building models 
@@ -31,25 +31,28 @@ One of the easiest is to parse a description of such a Markov chain and to let s
 Here, we build a Markov chain from a prism program.
 Stormpy comes with a small set of examples, which we use here::
 
-	import stormpy.examples
-	import stormpy.examples.files
+	>>> import stormpy.examples
+	>>> import stormpy.examples.files
 
 With this, we can now import the path of our prism file::
 
-	path = stormpy.examples.files.prism_dtmc_die
-	prism_program = stormpy.parse_prism_program(path)
+	>>> path = stormpy.examples.files.prism_dtmc_die
+	>>> prism_program = stormpy.parse_prism_program(path)
 	
 The `prism_program` can be translated into Markov chains::
 
-    model = stormpy.build_model(prism_program)
-    print("Number of states: {}".format(model.nr_states)) # out: 13
-    print("Number of states: {}".format(model.nr_states)) # out: 20
+    >>> model = stormpy.build_model(prism_program)
+    >>> print("Number of states: {}".format(model.nr_states))
+    Number of states: 13
+    >>> print("Number of transitions: {}".format(model.nr_transitions))
+    Number of transitions: 20
     
 This tells us that the model has 13 states and 20 transitions.
 
 Moreover, initial states and deadlocks are indicated with a labelling function. We can see the labels present in the model by::
 
-	print("Labels: {}".format(model.labels)  # out: {"init", "deadlock"}
+    >>> print("Labels: {}".format(model.labeling.get_labels()))
+    Labels: ...
 	
 We will investigate ways to examine the model in more detail in :ref:`getting-started-investigating-the-model`
 
@@ -65,8 +68,8 @@ To express that one is interested in the reachability of any state where the pri
 
 Stormpy can be used to parse this. As the variables in the property refer to a program, the program has to be passed as an additional parameter::
 
-	formula_str = "P=? [F s=2]"
-	properties = parse_properties_for_prism_program(formula_str, prism_program)  
+    >>> formula_str = "P=? [F s=2]"
+    >>> properties = stormpy.parse_properties_for_prism_program(formula_str, prism_program)
 
 Notice that properties is now a list of properties containing a single element. 
 
@@ -74,13 +77,15 @@ However, if we build the model as before, then the appropriate information that 
 In order to label the states accordingly, we should notify storm upon building the model that we would like to preserve given properties. 
 Storm will then add the labels accordingly::
 
-	model = stormpy.build_model(prism_program, properties)
-	print("Labels in the model: {}".format(model.labels)  # out: Labels in the model: {"init", "deadlock", "s=2"})
+    >>> model = stormpy.build_model(prism_program, properties)
+    >>> print("Labels in the model: {}".format(sorted(model.labeling.get_labels())))
+    Labels in the model: ['(s = 2)', 'deadlock', 'init']
 
 Model building however now behaves slightly different: Only the properties passed are preserved, which means that model building might skip parts of the model.
 In particular, to check the probability of eventually reaching a state x where s=2, successor states of x are not relevant::
 
-    print("Number of states: {}".format(model.nr_states))  # out: Number of states: 8
+    >>> print("Number of states: {}".format(model.nr_states))
+    Number of states: 8
 	
 If we consider another property, however, such as::
 
@@ -96,24 +101,27 @@ Checking properties
 The last lesson taught us to construct properties and models with matching state labels. 
 Now default checking routines are just a simple command away::
 
-	properties = parse_properties_for_prism_program(formula_str, prism_program) 
-	model = stormpy.build_model(prism_program, properties)
-    result = stormpy.model_checking(model, properties[0])
+	>>> properties = stormpy.parse_properties_for_prism_program(formula_str, prism_program)
+	>>> model = stormpy.build_model(prism_program, properties)
+    >>> result = stormpy.model_checking(model, properties[0])
     
-The result may contain information about all states. Merely printing does not give all information in there::
-
-	print(result) # out: [0,1] range
-	
+The result may contain information about all states.
 Instead, we can iterate over the results::
 
-    assert result.result_for_all_states
-    for x in result.get_values():
-        print(x)
+    >>> assert result.result_for_all_states
+    >>> for x in result.get_values():
+    ...    pass # do something with x
+
 
 .. topic:: Results for all states
 
     Some model checking algorithms do not provide results for all states. In those cases, the result is not valid for all states, and to iterate over them, a different method is required. We will explain this later.
 
+A good way to get the result for the initial states is as follows::
+
+    >>> initial_state = model.initial_states[0]
+    >>> print(result.at(initial_state))
+    0.5
 
 Instantiating parametric models
 ------------------------------------
@@ -122,21 +130,25 @@ Instantiating parametric models
 Input formats such as prism allow to specify programs with open constants. We refer to these open constants as parameters.
 If the constants only influence the probabilities or rates, but not the topology of the underlying model, we can build these models as parametric models::
 
-    model = stormpy.build_parametric_model(prism_program, properties)
+    >>> model = stormpy.build_parametric_model(prism_program, properties)
+    >>> parameters = model.collect_probability_parameters()
+    >>> for x in parameters:
+    ...     print(x)
 
 In order to obtain a standard DTMC, MDP or other Markov model, we need to instantiate these models by means of a model instantiator::
 
-    instantiator = ModelInstantiator(model)
+    >>> import stormpy.pars
+    >>> instantiator = stormpy.pars.PDtmcInstantiator(model)
+    >>> Fase
 
 Before we obtain an instantiated model, we need to map parameters to values: We build such a dictionary as follows::
 
-    point = dict()
-    parameters = model.collect_probability_parameters()
-    for x in parameters:
-        print(x.name)
-        point[x] = 0.4
-    instantiated_model = instantiator.instantiate(point)
-    result = stormpy.model_checking(instantiated_model, properties[0])
+    >>> point = dict()
+    >>> for x in parameters:
+    ...    print(x.name)
+    ...    point[x] = 0.4
+    >>> instantiated_model = instantiator.instantiate(point)
+    >>> result = stormpy.model_checking(instantiated_model, properties[0])
 
 
 Checking parametric models
