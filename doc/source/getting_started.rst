@@ -13,7 +13,7 @@ While we assume some very basic programming concepts, we refrain from using more
 
 We start with a selection of high-level constructs in stormpy, and go into more details afterwards.
 
-.. seealso:: The code examples are also given in the examples/ folder. These boxes throughout the text will tell you which example contains the code discussed.
+.. seealso:: The code examples are also given in the `examples/ <https://github.com/moves-rwth/stormpy/blob/master/examples/>`_ folder. These boxes throughout the text will tell you which example contains the code discussed.
 
 In order to do this, we import stormpy::
 
