@@ -101,8 +101,8 @@ Checking properties
 The last lesson taught us to construct properties and models with matching state labels. 
 Now default checking routines are just a simple command away::
 
-	>>> properties = stormpy.parse_properties_for_prism_program(formula_str, prism_program)
-	>>> model = stormpy.build_model(prism_program, properties)
+    >>> properties = stormpy.parse_properties_for_prism_program(formula_str, prism_program)
+    >>> model = stormpy.build_model(prism_program, properties)
     >>> result = stormpy.model_checking(model, properties[0])
     
 The result may contain information about all states.
