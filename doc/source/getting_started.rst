@@ -23,7 +23,7 @@ In order to do this, we import stormpy::
 	
 Building models 
 ------------------------------------------------
-.. seealso:: ``01-getting-started.py``	
+.. seealso:: `01-getting-started.py <https://github.com/moves-rwth/stormpy/blob/master/examples/01-getting-started.py>`_
 
 There are several ways to create a Markov chain. 
 One of the easiest is to parse a description of such a Markov chain and to let storm build the chain. 
@@ -59,7 +59,7 @@ We will investigate ways to examine the model in more detail in :ref:`getting-st
 
 Building properties
 --------------------------
-.. seealso:: ``02-getting-started.py``
+.. seealso:: `02-getting-started.py <https://github.com/moves-rwth/stormpy/blob/master/examples/02-getting-started.py>`_
 
 Storm takes properties in the prism-property format. 
 To express that one is interested in the reachability of any state where the prism program variable s is 2, one would formulate::
@@ -96,7 +96,7 @@ then storm is only skipping exploration of successors of the particular state y 
 
 Checking properties
 ------------------------------------
-.. seealso:: ``03-getting-started.py``
+.. seealso:: `03-getting-started.py <https://github.com/moves-rwth/stormpy/blob/master/examples/03-getting-started.py>`_
 
 The last lesson taught us to construct properties and models with matching state labels. 
 Now default checking routines are just a simple command away::
@@ -125,7 +125,7 @@ A good way to get the result for the initial states is as follows::
 
 Instantiating parametric models
 ------------------------------------
-.. seealso:: ``04-getting-started.py``
+.. seealso:: `04-getting-started.py <https://github.com/moves-rwth/stormpy/blob/master/examples/04-getting-started.py>`_
 
 Input formats such as prism allow to specify programs with open constants. We refer to these open constants as parameters.
 If the constants only influence the probabilities or rates, but not the topology of the underlying model, we can build these models as parametric models::
@@ -161,7 +161,10 @@ Checking parametric models
 
 Investigating the model
 -------------------------------------
-.. seealso:: ``06-getting-started.py``
+.. seealso:: `06-getting-started.py <https://github.com/moves-rwth/stormpy/blob/master/examples/06-getting-started.py>`_
+
+One powerful part of the storm model checker is to quickly create the Markov chain from higher-order descriptions.
+In this example, we will exploit this, and then explore the underlying matrix.
 
 
 
