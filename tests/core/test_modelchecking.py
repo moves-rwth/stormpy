@@ -6,7 +6,7 @@ import math
 
 
 class TestModelChecking:
-    def test_model_checking_dtmc(self):
+    def test_model_checking_prism_dtmc(self):
         program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
         formulas = stormpy.parse_properties_for_prism_program("P=? [ F \"one\" ]", program)
         model = stormpy.build_model(program, formulas)

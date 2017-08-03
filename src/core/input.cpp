@@ -67,6 +67,7 @@ void define_input(py::module& m) {
         .def(py::init<storm::jani::Model const&>(), "Construct from Jani model", py::arg("jani_model"))
         .def_property_readonly("is_prism_program", &storm::storage::SymbolicModelDescription::isPrismProgram, "Flag if program is in Prism format")
         .def_property_readonly("is_jani_model", &storm::storage::SymbolicModelDescription::isJaniModel, "Flag if program is in Jani format")
+        .def("parse_constant_definitions", &storm::storage::SymbolicModelDescription::parseConstantDefinitions, "Parse given constant definitions", py::arg("String containing constants and their values"))
         .def("instantiate_constants", [](storm::storage::SymbolicModelDescription const& description, std::map<storm::expressions::Variable, storm::expressions::Expression> const& constantDefinitions) {
                 return description.preprocess(constantDefinitions);
             }, "Instantiate constants in symbolic model description", py::arg("constant_definitions"))

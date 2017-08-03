@@ -20,10 +20,10 @@ class TestParse:
         assert program.has_undefined_constants
 
     def test_parse_jani_model(self):
-        jani_model, properties = stormpy.parse_jani_model(get_example_path("dtmc", "brp.jani"))
-        assert jani_model.name == "brp"
+        jani_model, properties = stormpy.parse_jani_model(get_example_path("dtmc", "die.jani"))
+        assert jani_model.name == "die.jani"
         assert jani_model.model_type == stormpy.JaniModelType.DTMC
-        assert jani_model.has_undefined_constants
+        assert not jani_model.has_undefined_constants
         description = stormpy.SymbolicModelDescription(jani_model)
         assert not description.is_prism_program
         assert description.is_jani_model

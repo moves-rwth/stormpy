@@ -36,12 +36,34 @@ class TestModel:
         assert model.has_parameters
         assert type(model) is stormpy.SparseParametricDtmc
 
+    def test_build_dtmc_from_jani_model(self):
+        jani_model, properties = stormpy.parse_jani_model(get_example_path("dtmc", "die.jani"))
+        model = stormpy.build_model(jani_model)
+        assert model.nr_states == 13
+        assert model.nr_transitions == 20
+        assert model.model_type == stormpy.ModelType.DTMC
+        assert not model.supports_parameters
+        assert type(model) is stormpy.SparseDtmc
+
     def test_build_dtmc(self):
         program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
         formulas = stormpy.parse_properties_for_prism_program("P=? [ F \"one\" ]", program)
         model = stormpy.build_model(program, formulas)
         assert model.nr_states == 13
         assert model.nr_transitions == 20
+        assert model.model_type == stormpy.ModelType.DTMC
+        assert not model.supports_parameters
+        assert type(model) is stormpy.SparseDtmc
+
+    def test_build_instantiated_dtmc(self):
+        jani_model, properties = stormpy.parse_jani_model(get_example_path("dtmc", "brp.jani"))
+        assert jani_model.has_undefined_constants
+        description = stormpy.SymbolicModelDescription(jani_model)
+        constant_definitions = description.parse_constant_definitions("N=16, MAX=2")
+        instantiated_jani_model = description.instantiate_constants(constant_definitions)
+        model = stormpy.build_model(instantiated_jani_model)
+        assert model.nr_states == 677
+        assert model.nr_transitions == 867
         assert model.model_type == stormpy.ModelType.DTMC
         assert not model.supports_parameters
         assert type(model) is stormpy.SparseDtmc
