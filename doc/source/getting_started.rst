@@ -163,9 +163,42 @@ Investigating the model
 -------------------------------------
 .. seealso:: `06-getting-started.py <https://github.com/moves-rwth/stormpy/blob/master/examples/06-getting-started.py>`_
 
-One powerful part of the storm model checker is to quickly create the Markov chain from higher-order descriptions.
-In this example, we will exploit this, and then explore the underlying matrix.
+One powerful part of the storm model checker is to quickly create the Markov chain from higher-order descriptions, as seen above::
 
+    >>> path = stormpy.examples.files.prism_dtmc_die
+	>>> prism_program = stormpy.parse_prism_program(path)
+    >>> model = stormpy.build_model(prism_program)
 
+In this example, we will exploit this, and explore the underlying matrix of the model.
+Notice that this code can be applied to both deterministic and non-deterministic models::
 
+    >>> for state in model.states:
+    ...    for action in state.actions:
+    ...        for transition in action.transitions:
+    ...            print("From state {}, with probability {}, go to state {}".format(state, transition.value(), transition.column))
+    From state 0, with probability 0.5, go to state 1
+    From state 0, with probability 0.5, go to state 2
+    From state 1, with probability 0.5, go to state 3
+    From state 1, with probability 0.5, go to state 4
+    From state 2, with probability 0.5, go to state 5
+    From state 2, with probability 0.5, go to state 6
+    From state 3, with probability 0.5, go to state 1
+    From state 3, with probability 0.5, go to state 7
+    From state 4, with probability 0.5, go to state 8
+    From state 4, with probability 0.5, go to state 9
+    From state 5, with probability 0.5, go to state 10
+    From state 5, with probability 0.5, go to state 11
+    From state 6, with probability 0.5, go to state 2
+    From state 6, with probability 0.5, go to state 12
+    From state 7, with probability 1.0, go to state 7
+    From state 8, with probability 1.0, go to state 8
+    From state 9, with probability 1.0, go to state 9
+    From state 10, with probability 1.0, go to state 10
+    From state 11, with probability 1.0, go to state 11
+    From state 12, with probability 1.0, go to state 12
 
+Let us go into some more details. For DTMCs, each state has (at most) one outgoing probability distribution.
+Thus::
+
+    >>> for state in model.states:
+    ...    assert len(state.actions) <= 1
