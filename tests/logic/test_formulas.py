@@ -1,5 +1,6 @@
 import stormpy
 import stormpy.logic
+from helpers.helper import get_example_path
 
 
 class TestFormulas:
@@ -29,6 +30,12 @@ class TestFormulas:
         assert len(formulas) == 2
         assert str(formulas[0]) == "P" + prop
         assert str(formulas[1]) == "R[exp]" + prop
+
+    def test_jani_formula(self):
+        _, properties = stormpy.parse_jani_model(get_example_path("dtmc", "brp.jani"))
+        for name, prop in properties.items():
+            assert "Property_brp_" in name
+            assert isinstance(prop, stormpy.Property)
 
     def test_bounds(self):
         prop = "P=? [F \"one\"]"

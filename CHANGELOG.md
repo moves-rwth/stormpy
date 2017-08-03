@@ -8,6 +8,7 @@ Version 0.9
 
 - Bindings for storm-pars
 - Bindings for graph constraints
+- Bindings for parsing JANI files
 - Moved expressions from own module into storage module
 - Travis support for build process
 - Tests for documentation
