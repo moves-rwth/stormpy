@@ -3,11 +3,12 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Stormpy is a set of python bindings for the probabilistic model checker `storm <https://moves-rwth.github.io/storm/>`_. 
-
-
 Stormpy Documentation
 ===================================
+
+
+Stormpy is a set of python bindings for the probabilistic model checker `storm <https://moves-rwth.github.io/storm/>`_.
+
 
 .. toctree::
    :maxdepth: 2
