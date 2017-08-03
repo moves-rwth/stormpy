@@ -9,12 +9,24 @@ class TestParse:
         assert program.nr_modules == 1
         assert program.model_type == stormpy.PrismModelType.DTMC
         assert not program.has_undefined_constants
+        description = stormpy.SymbolicModelDescription(program)
+        assert description.is_prism_program
+        assert not description.is_jani_model
 
     def test_parse_parametric_prism_program(self):
         program = stormpy.parse_prism_program(get_example_path("pdtmc", "brp16_2.pm"))
         assert program.nr_modules == 5
         assert program.model_type == stormpy.PrismModelType.DTMC
         assert program.has_undefined_constants
+
+    def test_parse_jani_model(self):
+        jani_model, properties = stormpy.parse_jani_model(get_example_path("dtmc", "brp.jani"))
+        assert jani_model.name == "brp"
+        assert jani_model.model_type == stormpy.JaniModelType.DTMC
+        assert jani_model.has_undefined_constants
+        description = stormpy.SymbolicModelDescription(jani_model)
+        assert not description.is_prism_program
+        assert description.is_jani_model
 
     def test_parse_formula(self):
         formula = "P=? [F \"one\"]"
