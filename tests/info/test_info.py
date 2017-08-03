@@ -9,4 +9,6 @@ class TestInfo:
         assert isinstance(stormpy.info.Version.build_info, str) and "Compiled" in stormpy.info.Version.build_info
 
     def test_version_equal(self):
-        assert stormpy.info.Version.short == stormpy.info.storm_version()
+        assert stormpy.info.storm_version() in stormpy.info.Version.short
+        assert (stormpy.info.Version.development and stormpy.info.Version.short.endswith(
+            " (dev)")) or not stormpy.info.Version.development
