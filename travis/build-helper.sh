@@ -60,7 +60,7 @@ run() {
 
   Documentation)
     # Generate documentation
-    pip install sphinx
+    pip install sphinx sphinx_bootstrap_theme
     cd doc
     make html
     touch build/html/.nojekyll
