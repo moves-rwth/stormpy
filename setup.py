@@ -28,11 +28,11 @@ if sys.version_info[0] == 2:
     sys.exit('Sorry, Python 2.x is not supported')
 
 
-def check_carl_compatible(carl_v_year, carl_v_month, carl_v_patch):
+def check_carl_compatible(carl_dir, carl_v_year, carl_v_month, carl_v_patch):
     if carl_v_year < 17 or (carl_v_year == 17 and carl_v_month < 6) or (
                 carl_v_year == 17 and carl_v_month == 6 and carl_v_patch < 0):
         sys.exit(
-            'Sorry, carl version {}.{}.{} is not supported anymore!'.format(carl_v_year, carl_v_month, carl_v_patch))
+            'Sorry, carl version {}.{}.{} from \'{}\' is not supported anymore!'.format(carl_v_year, carl_v_month, carl_v_patch, carl_dir))
 
 
 def parse_carl_version(version_string):
@@ -119,7 +119,7 @@ class CMakeBuild(build_ext):
 
         # check version
         carl_year, carl_month, carl_maintenance = parse_carl_version(self.conf.CARL_VERSION)
-        check_carl_compatible(carl_year, carl_month, carl_maintenance)
+        check_carl_compatible(self.conf.CARL_DIR, carl_year, carl_month, carl_maintenance)
 
         print("Pycarl - Using carl {} from {}".format(self.conf.CARL_VERSION, self.conf.CARL_DIR))
         if self.conf.CARL_PARSER:
