@@ -17,7 +17,19 @@ class TestModelChecking:
         assert initial_state == 0
         result = stormpy.model_checking(model, formulas[0])
         assert math.isclose(result.at(initial_state), 0.16666666666666663)
-    
+
+    def test_model_checking_jani_dtmc(self):
+        jani_model, properties = stormpy.parse_jani_model(get_example_path("dtmc", "die.jani"))
+        formula = properties["Probability to throw a six"]
+        model = stormpy.build_model(jani_model, [formula])
+        assert model.nr_states == 13
+        assert model.nr_transitions == 20
+        assert len(model.initial_states) == 1
+        initial_state = model.initial_states[0]
+        assert initial_state == 0
+        result = stormpy.model_checking(model, formula)
+        assert math.isclose(result.at(initial_state), 0.16666666666666663)
+
     def test_model_checking_all_dtmc(self):
         program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
         formulas = stormpy.parse_properties_for_prism_program("P=? [ F \"one\" ]", program)
