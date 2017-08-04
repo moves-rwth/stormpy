@@ -8,6 +8,7 @@ import datetime
 
 from setuptools import setup, Extension
 from setuptools.command.build_ext import build_ext
+from setuptools.command.test import test
 
 
 def ensure_dir_exists(path):
@@ -32,7 +33,8 @@ def check_carl_compatible(carl_dir, carl_v_year, carl_v_month, carl_v_patch):
     if carl_v_year < 17 or (carl_v_year == 17 and carl_v_month < 6) or (
                 carl_v_year == 17 and carl_v_month == 6 and carl_v_patch < 0):
         sys.exit(
-            'Sorry, carl version {}.{}.{} from \'{}\' is not supported anymore!'.format(carl_v_year, carl_v_month, carl_v_patch, carl_dir))
+            'Sorry, carl version {}.{}.{} from \'{}\' is not supported anymore!'.format(carl_v_year, carl_v_month,
+                                                                                        carl_v_patch, carl_dir))
 
 
 def parse_carl_version(version_string):
@@ -192,6 +194,14 @@ class CMakeBuild(build_ext):
         subprocess.check_call(['cmake', '--build', '.', '--target', ext.name] + build_args, cwd=self.build_temp)
 
 
+class PyTest(test):
+    def run_tests(self):
+        # import here, cause outside the eggs aren't loaded
+        import pytest
+        errno = pytest.main(['tests'])
+        sys.exit(errno)
+
+
 setup(
     name='pycarl',
     version=obtain_version(),
@@ -223,7 +233,8 @@ setup(
                  CMakeExtension('parse-gmp', subdir='gmp/parse'),
                  CMakeExtension('parse-cln', subdir='cln/parse')],
 
-    cmdclass=dict(build_ext=CMakeBuild),
+    cmdclass={'build_ext': CMakeBuild, 'test': PyTest},
     zip_safe=False,
-    install_requires=['pytest'],
+    setup_requires=['pytest-runner'],
+    tests_require=['pytest'],
 )
