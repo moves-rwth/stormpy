@@ -69,3 +69,6 @@ class Infinity:
     def __repr__(self):
         return "-pycarl.inf" if self.negated else "pycarl.inf"
 
+    def __hash__(self):
+        return 42 if self.negated else 23
+
