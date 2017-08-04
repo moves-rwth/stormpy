@@ -38,7 +38,7 @@ or::
 
 .. topic:: Specifying which carl library to use
 
-	If you have multiple versions of carl or cmake is not able to find your storm version,
+	If you have multiple versions of carl or cmake is not able to find your carl version,
 	you can specify the `--carl-dir YOUR-PATH-TO-CARL` flag in the build_ext step::
 
 		$ python3 setup.py build_ext --carl-dir YOUR-PATH-TO-CARL develop
