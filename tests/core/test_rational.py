@@ -1,4 +1,5 @@
 import pycarl
+import math
 from configurations import PackageSelector
 
 
@@ -52,3 +53,11 @@ class TestRational(PackageSelector):
         assert r3 != 2
         r2 = package.Rational("1/2")
         assert r3 != r2
+
+    def test_comparison_infinity(self, package):
+        r4 = package.Rational("1/2")
+        assert pycarl.inf > r4
+        assert r4 < pycarl.inf
+        assert r4 > -pycarl.inf
+        assert -pycarl.inf < r4
+
