@@ -55,7 +55,7 @@ run() {
   Test)
     # Run tests
     set +e
-    python -m pytest -sv tests/
+    python setup.py test
     ;;
 
   Documentation)
