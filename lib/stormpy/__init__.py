@@ -41,7 +41,7 @@ def build_model(symbolic_description, properties=None):
     elif intermediate.model_type == ModelType.MDP:
         return intermediate._as_mdp()
     else:
-        raise RuntimeError("Not supported non-parametric model constructed")
+        raise StormError("Not supported non-parametric model constructed")
 
 
 def build_parametric_model(symbolic_description, properties=None):
@@ -67,7 +67,7 @@ def build_parametric_model(symbolic_description, properties=None):
     elif intermediate.model_type == ModelType.MDP:
         return intermediate._as_pmdp()
     else:
-        raise RuntimeError("Not supported parametric model constructed")
+        raise StormError("Not supported parametric model constructed")
 
 
 def build_model_from_drn(file):
@@ -89,7 +89,7 @@ def build_model_from_drn(file):
     elif intermediate.model_type == ModelType.MA:
         return intermediate._as_ma()
     else:
-        raise RuntimeError("Not supported non-parametric model constructed")
+        raise StormError("Not supported non-parametric model constructed")
 
 
 def build_parametric_model_from_drn(file):
@@ -111,7 +111,7 @@ def build_parametric_model_from_drn(file):
     elif intermediate.model_type == ModelType.MA:
         return intermediate._as_pma()
     else:
-        raise RuntimeError("Not supported parametric model constructed")
+        raise StormError("Not supported parametric model constructed")
 
 
 def perform_bisimulation(model, properties, bisimulation_type):
@@ -154,7 +154,7 @@ def compute_prob01_states(model, phi_states, psi_states):
     :param BitVector psi_states:
     """
     if model.model_type != ModelType.DTMC:
-        raise ValueError("Prob 01 is only defined for DTMCs -- model must be a DTMC")
+        raise StormError("Prob 01 is only defined for DTMCs -- model must be a DTMC")
 
     if model.supports_parameters:
         return core._compute_prob01states_rationalfunc(model, phi_states, psi_states)

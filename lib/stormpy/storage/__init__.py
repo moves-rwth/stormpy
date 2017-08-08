@@ -21,7 +21,7 @@ class ModelInstantiator:
         elif model.model_type == ModelType.MA:
             self._instantiator = PmaInstantiator(model)
         else:
-            raise ValueError("Model type {} not supported".format(model.model_type))
+            raise StormError("Model type {} not supported".format(model.model_type))
 
     def instantiate(self, valuation):
         """
