@@ -1,6 +1,7 @@
 import stormpy
 import stormpy.logic
 from helpers.helper import get_example_path
+import pytest
 
 
 class TestModel:
@@ -55,9 +56,17 @@ class TestModel:
         assert not model.supports_parameters
         assert type(model) is stormpy.SparseDtmc
 
+    def test_build_dtmc_with_undefined_constants(self):
+        jani_model, properties = stormpy.parse_jani_model(get_example_path("dtmc", "brp.jani"))
+        assert jani_model.has_undefined_constants
+        assert not jani_model.undefined_constants_are_graph_preserving
+        with pytest.raises(RuntimeError):
+            model = stormpy.build_model(jani_model)
+
     def test_build_instantiated_dtmc(self):
         jani_model, properties = stormpy.parse_jani_model(get_example_path("dtmc", "brp.jani"))
         assert jani_model.has_undefined_constants
+        assert not jani_model.undefined_constants_are_graph_preserving
         description = stormpy.SymbolicModelDescription(jani_model)
         constant_definitions = description.parse_constant_definitions("N=16, MAX=2")
         instantiated_jani_model = description.instantiate_constants(constant_definitions)

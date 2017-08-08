@@ -36,6 +36,7 @@ class TestBisimulation:
         assert program.nr_modules == 5
         assert program.model_type == stormpy.PrismModelType.DTMC
         assert program.has_undefined_constants
+        assert program.undefined_constants_are_graph_preserving
         prop = "P=? [F s=5]"
         properties = stormpy.parse_properties_for_prism_program(prop, program)
         model = stormpy.build_parametric_model(program, properties)

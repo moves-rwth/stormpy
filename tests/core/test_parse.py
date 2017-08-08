@@ -18,6 +18,7 @@ class TestParse:
         assert program.nr_modules == 5
         assert program.model_type == stormpy.PrismModelType.DTMC
         assert program.has_undefined_constants
+        assert program.undefined_constants_are_graph_preserving
 
     def test_parse_jani_model(self):
         jani_model, properties = stormpy.parse_jani_model(get_example_path("dtmc", "die.jani"))

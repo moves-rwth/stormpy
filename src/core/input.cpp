@@ -34,6 +34,7 @@ void define_input(py::module& m) {
         .def_property_readonly("nr_modules", &storm::prism::Program::getNumberOfModules, "Number of modules")
         .def_property_readonly("model_type", &storm::prism::Program::getModelType, "Model type")
         .def_property_readonly("has_undefined_constants", &storm::prism::Program::hasUndefinedConstants, "Flag if program has undefined constants")
+        .def_property_readonly("undefined_constants_are_graph_preserving", &storm::prism::Program::undefinedConstantsAreGraphPreserving, "Flag if the undefined constants do not change the graph structure")
         .def("__str__", &streamToString<storm::prism::Program>)
     ;
 
@@ -59,6 +60,7 @@ void define_input(py::module& m) {
         .def_property_readonly("name", &storm::jani::Model::getName, "Name of the jani model")
         .def_property_readonly("model_type", &storm::jani::Model::getModelType, "Model type")
         .def_property_readonly("has_undefined_constants", &storm::jani::Model::hasUndefinedConstants, "Flag if Jani model has undefined constants")
+        .def_property_readonly("undefined_constants_are_graph_preserving", &storm::jani::Model::undefinedConstantsAreGraphPreserving, "Flag if the undefined constants do not change the graph structure")
     ;
     
     // SymbolicModelDescription
