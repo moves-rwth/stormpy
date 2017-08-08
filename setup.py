@@ -127,6 +127,9 @@ class CMakeBuild(build_ext):
                     f.write("FactorizedPolynomial = pycarl.{}.FactorizedPolynomial\n".format(rfpackage))
                     f.write("RationalFunction = pycarl.{}.RationalFunction\n".format(rfpackage))
                     f.write("FactorizedRationalFunction = pycarl.{}.FactorizedRationalFunction\n".format(rfpackage))
+                    f.write("\n")
+                    f.write("storm_with_pars = {}\n".format(self.conf.HAVE_STORM_PARS))
+                    f.write("storm_with_dft = {}\n".format(self.conf.HAVE_STORM_DFT))
 
             elif ext.name == "info":
                 with open(os.path.join(self.extdir(ext.name), ext.subdir, "_config.py"), "w") as f:
@@ -137,14 +140,14 @@ class CMakeBuild(build_ext):
             elif ext.name == "pars":
                 with open(os.path.join(self.extdir(ext.name), ext.subdir, "_config.py"), "w") as f:
                     f.write("# Generated from setup.py at {}\n".format(datetime.datetime.now()))
-                    f.write("has_storm_pars = {}".format(self.conf.HAVE_STORM_PARS))
+                    f.write("storm_with_pars = {}".format(self.conf.HAVE_STORM_PARS))
                 if not self.conf.HAVE_STORM_PARS:
                     print("WARNING: storm-pars not found. No support for parametric analysis will be built.")
                     continue
             elif ext.name == "dft":
                 with open(os.path.join(self.extdir(ext.name), ext.subdir, "_config.py"), "w") as f:
                     f.write("# Generated from setup.py at {}\n".format(datetime.datetime.now()))
-                    f.write("has_storm_dft = {}".format(self.conf.HAVE_STORM_DFT))
+                    f.write("storm_with_dft = {}".format(self.conf.HAVE_STORM_DFT))
                 if not self.conf.HAVE_STORM_DFT:
                     print("WARNING: storm-dft not found. No support for DFTs will be built.")
                     continue

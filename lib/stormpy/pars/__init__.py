@@ -1,6 +1,6 @@
 from . import _config
 
-if not _config.has_storm_pars:
+if not _config.storm_with_pars:
     raise ImportError("No support for parametric analysis was built in Storm.")
 
 from . import pars

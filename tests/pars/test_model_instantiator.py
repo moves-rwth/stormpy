@@ -1,9 +1,11 @@
 import stormpy
 import stormpy.logic
-import stormpy.pars
 from helpers.helper import get_example_path
 
+from configurations import pars
 
+
+@pars
 class TestModelInstantiator:
     def test_instantiate_dtmc(self):
         program = stormpy.parse_prism_program(get_example_path("pdtmc", "brp16_2.pm"))

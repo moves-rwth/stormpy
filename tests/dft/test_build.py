@@ -3,19 +3,12 @@ import stormpy.logic
 from helpers.helper import get_example_path
 
 import math
+from configurations import dft
 
 
+@dft
 class TestBuild:
-    def test_import(self):
-        import stormpy.dft
-
     def test_build_dft(self):
-        try:
-            import stormpy.dft
-        except ImportError:
-            # No support for DFTs
-            return
-
         model = stormpy.dft.build_sparse_model_from_json_dft(get_example_path("dft", "and.json"))
         formulas = stormpy.parse_properties("T=? [ F \"failed\" ]")
         assert model.nr_states == 4

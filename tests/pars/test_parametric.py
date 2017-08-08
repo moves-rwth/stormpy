@@ -3,8 +3,13 @@ import stormpy.info
 import stormpy.logic
 from helpers.helper import get_example_path
 
+from configurations import pars
 
+
+@pars
 class TestParametric:
+    import stormpy.pars
+
     def test_constraints_collector(self):
         from pycarl.formula import FormulaType, Relation
         if stormpy.info.storm_ratfunc_use_cln():
