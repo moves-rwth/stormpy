@@ -73,6 +73,12 @@ void define_input(py::module& m) {
         .def("instantiate_constants", [](storm::storage::SymbolicModelDescription const& description, std::map<storm::expressions::Variable, storm::expressions::Expression> const& constantDefinitions) {
                 return description.preprocess(constantDefinitions);
             }, "Instantiate constants in symbolic model description", py::arg("constant_definitions"))
+        .def("as_jani_model", [](storm::storage::SymbolicModelDescription& description) {
+                return description.asJaniModel();
+            }, "Return Jani model")
+        .def("as_prism_program", [](storm::storage::SymbolicModelDescription& description) {
+                return description.asPrismProgram();
+            }, "Return Prism program")
     ;
 
     // PrismProgram and JaniModel can be converted into SymbolicModelDescription

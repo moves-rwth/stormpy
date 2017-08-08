@@ -60,7 +60,7 @@ class TestModel:
         jani_model, properties = stormpy.parse_jani_model(get_example_path("dtmc", "brp.jani"))
         assert jani_model.has_undefined_constants
         assert not jani_model.undefined_constants_are_graph_preserving
-        with pytest.raises(RuntimeError):
+        with pytest.raises(stormpy.StormError):
             model = stormpy.build_model(jani_model)
 
     def test_build_instantiated_dtmc(self):
@@ -69,7 +69,7 @@ class TestModel:
         assert not jani_model.undefined_constants_are_graph_preserving
         description = stormpy.SymbolicModelDescription(jani_model)
         constant_definitions = description.parse_constant_definitions("N=16, MAX=2")
-        instantiated_jani_model = description.instantiate_constants(constant_definitions)
+        instantiated_jani_model = description.instantiate_constants(constant_definitions).as_jani_model()
         model = stormpy.build_model(instantiated_jani_model)
         assert model.nr_states == 677
         assert model.nr_transitions == 867

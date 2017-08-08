@@ -18,20 +18,23 @@ except ImportError:
 core._set_up("")
 
 
-def build_model(program, properties=None):
+def build_model(symbolic_description, properties=None):
     """
     Build a model from a symbolic description.
 
-    :param PrismProgram program: Prism program to translate into a model.
+    :param symbolic_description: Symbolic model description to translate into a model.
     :param List[Property] properties: List of properties that should be preserved during the translation. If None, then all properties are preserved.
     :return: Model in sparse representation.
     :rtype: SparseDtmc or SparseMdp
     """
+    if not symbolic_description.undefined_constants_are_graph_preserving:
+        raise StormError("Program still contains undefined constants")
+
     if properties:
         formulae = [prop.raw_formula for prop in properties]
-        intermediate = core._build_sparse_model_from_prism_program(program, formulae)
+        intermediate = core._build_sparse_model_from_prism_program(symbolic_description, formulae)
     else:
-        intermediate = core._build_sparse_model_from_prism_program(program)
+        intermediate = core._build_sparse_model_from_prism_program(symbolic_description)
     assert not intermediate.supports_parameters
     if intermediate.model_type == ModelType.DTMC:
         return intermediate._as_dtmc()
@@ -41,20 +44,23 @@ def build_model(program, properties=None):
         raise RuntimeError("Not supported non-parametric model constructed")
 
 
-def build_parametric_model(program, properties=None):
+def build_parametric_model(symbolic_description, properties=None):
     """
     Build a parametric model from a symbolic description.
     
-    :param PrismProgram program: Prism program with open constants to translate into a parametric model.
+    :param symbolic_description: Symbolic model description to translate into a model.
     :param List[Property] properties: List of properties that should be preserved during the translation. If None, then all properties are preserved.
     :return: Parametric model in sparse representation.
     :rtype: SparseParametricDtmc or SparseParametricMdp
     """
+    if not symbolic_description.undefined_constants_are_graph_preserving:
+        raise StormError("Program still contains undefined constants")
+
     if properties:
         formulae = [prop.raw_formula for prop in properties]
     else:
         formulae = []
-    intermediate = core._build_sparse_parametric_model_from_prism_program(program, formulae)
+    intermediate = core._build_sparse_parametric_model_from_prism_program(symbolic_description, formulae)
     assert intermediate.supports_parameters
     if intermediate.model_type == ModelType.DTMC:
         return intermediate._as_pdtmc()
