@@ -8,8 +8,6 @@ from configurations import pars
 
 @pars
 class TestParametric:
-    import stormpy.pars
-
     def test_constraints_collector(self):
         from pycarl.formula import FormulaType, Relation
         if stormpy.info.storm_ratfunc_use_cln():
