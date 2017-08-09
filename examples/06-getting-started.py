@@ -12,6 +12,8 @@ def example_getting_started_06():
     properties = stormpy.parse_properties_for_prism_program(formula_str, prism_program)
     model = stormpy.build_model(prism_program, properties)
 
+    print(model.model_type)
+
     for state in model.states:
         for action in state.actions:
             for transition in action.transitions:
