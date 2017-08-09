@@ -169,7 +169,13 @@ One powerful part of the storm model checker is to quickly create the Markov cha
 	>>> prism_program = stormpy.parse_prism_program(path)
     >>> model = stormpy.build_model(prism_program)
 
-In this example, we will exploit this, and explore the underlying matrix of the model.
+In this example, we will exploit this, and explore the underlying Markov chain of the model.
+The most basic question might be what the type of the constructed model is::
+
+    >>> print(model.model_type)
+    ModelType.DTMC
+
+We can also directly explore the underlying matrix.
 Notice that this code can be applied to both deterministic and non-deterministic models::
 
     >>> for state in model.states:
