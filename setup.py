@@ -17,7 +17,7 @@ if sys.version_info[0] == 2:
 
 
 def check_storm_compatible(storm_v_major, storm_v_minor, storm_v_patch):
-    if storm_v_major < 1 or (storm_v_major == 1 and storm_v_minor == 0 and storm_v_patch < 1):
+    if storm_v_major < 1 or (storm_v_major == 1 and storm_v_minor < 1) or (storm_v_major == 1 and storm_v_minor == 1 and storm_v_patch < 0):
         sys.exit('Sorry, Storm version {}.{}.{} is not supported anymore!'.format(storm_v_major, storm_v_minor,
                                                                                   storm_v_patch))
 
@@ -225,7 +225,7 @@ setup(
                  ],
     cmdclass={'build_ext': CMakeBuild, 'test': PyTest},
     zip_safe=False,
-    install_requires=['pycarl>=2.0.0'],
+    install_requires=['pycarl>=2.0.1'],
     setup_requires=['pytest-runner'],
     tests_require=['pytest'],
 )
