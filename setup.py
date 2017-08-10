@@ -30,8 +30,8 @@ if sys.version_info[0] == 2:
 
 
 def check_carl_compatible(carl_dir, carl_v_year, carl_v_month, carl_v_patch):
-    if carl_v_year < 17 or (carl_v_year == 17 and carl_v_month < 6) or (
-                carl_v_year == 17 and carl_v_month == 6 and carl_v_patch < 0):
+    if carl_v_year < 17 or (carl_v_year == 17 and carl_v_month < 8) or (
+                carl_v_year == 17 and carl_v_month == 8 and carl_v_patch < 0):
         sys.exit(
             'Sorry, carl version {}.{}.{} from \'{}\' is not supported anymore!'.format(carl_v_year, carl_v_month,
                                                                                         carl_v_patch, carl_dir))
