@@ -137,11 +137,16 @@ def model_checking(model, property):
     :return: Model checking result.
     :rtype: CheckResult
     """
+    if isinstance(property, Property):
+        formula = property.raw_formula
+    else:
+        formula = property
+
     if model.supports_parameters:
-        task = core.ParametricCheckTask(property.raw_formula, False)
+        task = core.ParametricCheckTask(formula, False)
         return core._parametric_model_checking_sparse_engine(model, task)
     else:
-        task = core.CheckTask(property.raw_formula, False)
+        task = core.CheckTask(formula, False)
         return core._model_checking_sparse_engine(model, task)
 
 
