@@ -1,10 +1,10 @@
 Changelog
 ==============
 
-Version 0.9
+Version 1.1
 -----------
 
-### Current
+### Version 1.1.0
 
 - Bindings for storm-pars
 - Bindings for graph constraints
@@ -13,6 +13,14 @@ Version 0.9
 - Travis support for build process
 - Tests for documentation
 - Updated pybind version
+
+
+Version 1.0
+-----------
+Skipped, to keep on par with storm
+
+Version 0.9
+-----------
 
 ### Version 0.9.1 (2017/4)
 
