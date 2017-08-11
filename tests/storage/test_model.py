@@ -99,6 +99,16 @@ class TestModel:
         assert not model.has_parameters
         assert type(model) is stormpy.SparseParametricDtmc
 
+    def test_build_mdp(self):
+        program = stormpy.parse_prism_program(get_example_path("mdp", "two_dice.nm"))
+        formulas = stormpy.parse_properties_for_prism_program("P=? [ F \"two\" ]", program)
+        model = stormpy.build_model(program, formulas)
+        assert model.nr_states == 169
+        assert model.nr_transitions == 435
+        assert model.model_type == stormpy.ModelType.MDP
+        assert not model.supports_parameters
+        assert type(model) is stormpy.SparseMdp
+
     def test_initial_states(self):
         program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
         formulas = stormpy.parse_properties_for_prism_program("P=? [ F \"one\" ]", program)
