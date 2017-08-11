@@ -43,3 +43,26 @@ class TestParametric:
         assert len(parameters) == 2
         derivatives = stormpy.pars.gather_derivatives(model, list(parameters)[0])
         assert len(derivatives) == 0
+
+    def test_dtmc_simplification(self):
+        program = stormpy.parse_prism_program(get_example_path("pdtmc", "brp16_2.pm"))
+        prop = "P<=0.84 [F s=5 ]"
+        formulas = stormpy.parse_properties_for_prism_program(prop, program)
+        formula = formulas[0].raw_formula
+        model = stormpy.build_parametric_model(program, formulas)
+        assert model.nr_states == 613
+        assert model.nr_transitions == 803
+        model, formula = stormpy.pars.simplify_model(model, formula)
+        assert model.nr_states == 193
+        assert model.nr_transitions == 383
+
+    def test_mdp_simplification(self):
+        program = stormpy.parse_prism_program(get_example_path("pmdp", "two_dice.nm"))
+        formulas = stormpy.parse_properties_for_prism_program("Pmin=? [ F \"two\" ]", program)
+        formula = formulas[0].raw_formula
+        model = stormpy.build_parametric_model(program, formulas)
+        assert model.nr_states == 169
+        assert model.nr_transitions == 435
+        model, formula = stormpy.pars.simplify_model(model, formula)
+        assert model.nr_states == 17
+        assert model.nr_transitions == 50
