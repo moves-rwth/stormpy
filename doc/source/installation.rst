@@ -8,11 +8,11 @@ Requirements
 Before installing stormpy, make sure
 
 - `pycarl <https://moves-rwth.github.io/pycarl>`_
-- `storm <http://www.stormchecker.org/>`_
+- `Storm <http://www.stormchecker.org/>`_
 
 are both available on your system. To avoid issues, we suggest that both use the same version of `carl <https://smtrat.github.io/carl>`_.
-The simplest way of ensuring this is to first install carl as explained in the `storm installation guide <http://www.stormchecker.org/documentation/installation/manual-configuration.html#carl>`_.
-You can then install storm and pycarl independently.
+The simplest way of ensuring this is to first install carl as explained in the `Storm installation guide <http://www.stormchecker.org/documentation/installation/manual-configuration.html#carl>`_.
+You can then install Storm and pycarl independently.
 
 .. topic:: Virtual Environments
 
@@ -37,9 +37,9 @@ or::
 	$ pip install -ve .
 	
 
-.. topic:: Specifying which storm library to use
+.. topic:: Specifying which Storm library to use
 
-	If you have multiple versions of storm or cmake is not able to find your storm version, 
+	If you have multiple versions of Storm or cmake is not able to find your Storm version, 
 	you can specify the `--storm-dir YOUR-PATH-TO-STORM` flag in the build_ext step::
 	
 	$ python3 setup.py build_ext --storm-dir YOUR-PATH-TO-STORM develop

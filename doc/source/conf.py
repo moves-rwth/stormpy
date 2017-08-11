@@ -226,7 +226,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
     (master_doc, 'stormpy', 'stormpy Documentation',
-     author, 'stormpy', 'One line description of project.',
+     author, 'stormpy', 'Python bindings for Storm.',
      'Miscellaneous'),
 ]
 

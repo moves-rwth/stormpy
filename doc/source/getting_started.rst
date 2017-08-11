@@ -8,7 +8,7 @@ A Quick Tour through Stormpy
 ================================
 
 This guide is intended for people which have a basic understanding of probabilistic models and their verification. More details and further pointers to literature can be found on the
-`storm website <http://www.stormchecker.org/>`_.
+`Storm website <http://www.stormchecker.org/>`_.
 While we assume some very basic programming concepts, we refrain from using more advanced concepts of python throughout the guide.
 
 We start with a selection of high-level constructs in stormpy, and go into more details afterwards.
@@ -26,7 +26,7 @@ Building models
 .. seealso:: `01-getting-started.py <https://github.com/moves-rwth/stormpy/blob/master/examples/01-getting-started.py>`_
 
 There are several ways to create a Markov chain. 
-One of the easiest is to parse a description of such a Markov chain and to let storm build the chain. 
+One of the easiest is to parse a description of such a Markov chain and to let Storm build the chain. 
 
 Here, we build a Markov chain from a prism program.
 Stormpy comes with a small set of examples, which we use here::
@@ -74,7 +74,7 @@ Stormpy can be used to parse this. As the variables in the property refer to a p
 Notice that properties is now a list of properties containing a single element. 
 
 However, if we build the model as before, then the appropriate information that the variable s=2 in some states is not present.
-In order to label the states accordingly, we should notify storm upon building the model that we would like to preserve given properties. 
+In order to label the states accordingly, we should notify Storm upon building the model that we would like to preserve given properties. 
 Storm will then add the labels accordingly::
 
     >>> model = stormpy.build_model(prism_program, properties)
@@ -91,7 +91,7 @@ If we consider another property, however, such as::
 
 	P=? [F s=7 & d=2]
 
-then storm is only skipping exploration of successors of the particular state y where s=7 and d=2. In this model, state y has a self-loop, so effectively, the whole model is explored.
+then Storm is only skipping exploration of successors of the particular state y where s=7 and d=2. In this model, state y has a self-loop, so effectively, the whole model is explored.
 
 
 Checking properties
@@ -163,7 +163,7 @@ Investigating the model
 -------------------------------------
 .. seealso:: `06-getting-started.py <https://github.com/moves-rwth/stormpy/blob/master/examples/06-getting-started.py>`_
 
-One powerful part of the storm model checker is to quickly create the Markov chain from higher-order descriptions, as seen above::
+One powerful part of the Storm model checker is to quickly create the Markov chain from higher-order descriptions, as seen above::
 
     >>> path = stormpy.examples.files.prism_dtmc_die
 	>>> prism_program = stormpy.parse_prism_program(path)
