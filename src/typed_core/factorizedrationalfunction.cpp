@@ -12,6 +12,8 @@ void define_factorizedrationalfunction(py::module& m) {
         .def("gather_variables", static_cast<std::set<carl::Variable> (FactorizedRationalFunction::*)() const>(&FactorizedRationalFunction::gatherVariables))
         .def_property_readonly("numerator", &FactorizedRationalFunction::nominator)
         .def_property_readonly("denominator", &FactorizedRationalFunction::denominator)
+        .def("is_constant", &FactorizedRationalFunction::isConstant)
+        .def("constant_part", &FactorizedRationalFunction::constantPart)
         .def("derive", [](FactorizedRationalFunction const& ratFunc, carl::Variable const& var) {
                 return ratFunc.derivative(var, 1);
             }, "Compute the derivative", py::arg("variable"))

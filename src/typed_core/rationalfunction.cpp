@@ -58,6 +58,9 @@ void define_rationalfunction(py::module& m) {
         .def("derive", [](RationalFunction const& ratFunc, carl::Variable const& var) {
                 return ratFunc.derivative(var, 1);
             }, "Compute the derivative", py::arg("variable"))
+        .def("is_constant", &RationalFunction::isConstant)
+        .def("constant_part", &RationalFunction::constantPart)
+
         .def("__str__", &streamToString<RationalFunction>)
         .def("to_smt2", [](RationalFunction const& rf) {
             return rf.toString(false, true);

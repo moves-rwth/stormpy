@@ -6,6 +6,9 @@ Changelog
 Version 2.0
 -----------
 
+### Version 2.0.2
+- Extended bindings for rational functions and factorized rational functions
+
 ### Version 2.0.1 (requires CArL >= 17.08)
 - Added conversions between CLN and GMP
 - Added variable and integer pickling support. Throw errors if pickling is not supported
