@@ -119,6 +119,7 @@ void define_model(py::module& m) {
         .def_property_readonly("reward_models", [](Model<double>& model) {return model.getRewardModels(); }, "Reward models")
         .def_property_readonly("transition_matrix", &getTransitionMatrix<double>, py::return_value_policy::reference, py::keep_alive<1, 0>(), "Transition matrix")
         .def_property_readonly("backward_transition_matrix", &getBackwardTransitionMatrix<double>, py::return_value_policy::reference, py::keep_alive<1, 0>(), "Backward transition matrix")
+        .def("reduce_to_state_based_rewards", &Model<double>::reduceToStateBasedRewards)
         .def("__str__", getModelInfoPrinter<double>())
     ;
     py::class_<Dtmc<double>, std::shared_ptr<Dtmc<double>>>(m, "SparseDtmc", "DTMC in sparse representation", model)
@@ -138,6 +139,7 @@ void define_model(py::module& m) {
         .def_property_readonly("transition_rewards", [](RewardModel<double>& rewardModel) {return rewardModel.getTransitionRewardMatrix();})
         .def_property_readonly("state_rewards", [](RewardModel<double>& rewardModel) {return rewardModel.getStateRewardVector();})
         .def_property_readonly("state_action_rewards", [](RewardModel<double>& rewardModel) {return rewardModel.getStateActionRewardVector();})
+        .def("reduce_to_state_based_rewards", [](RewardModel<double>& rewardModel, SparseMatrix<double> const& transitions, bool onlyStateRewards){return rewardModel.reduceToStateBasedRewards(transitions, onlyStateRewards);},  py::arg("transition_matrix"), py::arg("only_state_rewards"), "Reduce to state-based rewards")
             ;
 
 

@@ -43,6 +43,20 @@ class TestModel:
         assert not model.supports_parameters
         assert type(model) is stormpy.SparseDtmc
 
+    def test_reduce_to_state_based_rewards(self):
+        program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
+        prop = "R=? [F \"done\"]"
+        properties = stormpy.parse_properties_for_prism_program(prop, program, None)
+        model = stormpy.build_model(program, properties)
+        model.reduce_to_state_based_rewards()
+        assert len(model.reward_models) == 1
+        assert model.reward_models["coin_flips"].has_state_rewards
+        assert not model.reward_models["coin_flips"].has_state_action_rewards
+        for reward in model.reward_models["coin_flips"].state_rewards:
+            assert reward == 1.0 or reward == 0.0
+        assert not model.reward_models["coin_flips"].has_transition_rewards
+
+
     def test_build_parametric_dtmc_from_prism_program(self):
         program = stormpy.parse_prism_program(get_example_path("pdtmc", "brp16_2.pm"))
         prop = "P=? [F s=5]"
