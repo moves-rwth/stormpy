@@ -24,6 +24,7 @@ template<typename ValueType> using Mdp = storm::models::sparse::Mdp<ValueType>;
 template<typename ValueType> using Ctmc = storm::models::sparse::Ctmc<ValueType>;
 template<typename ValueType> using MarkovAutomaton = storm::models::sparse::MarkovAutomaton<ValueType>;
 template<typename ValueType> using SparseMatrix = storm::storage::SparseMatrix<ValueType>;
+template<typename ValueType> using RewardModel = storm::models::sparse::StandardRewardModel<ValueType>;
 
 // Thin wrapper for getting initial states
 template<typename ValueType>
@@ -115,6 +116,7 @@ void define_model(py::module& m) {
         .def_property_readonly("states", [](Model<double>& model) {
                 return SparseModelStates<double>(model);
             }, "Get states")
+        .def_property_readonly("reward_models", [](Model<double>& model) {return model.getRewardModels(); }, "Reward models")
         .def_property_readonly("transition_matrix", &getTransitionMatrix<double>, py::return_value_policy::reference, py::keep_alive<1, 0>(), "Transition matrix")
         .def_property_readonly("backward_transition_matrix", &getBackwardTransitionMatrix<double>, py::return_value_policy::reference, py::keep_alive<1, 0>(), "Backward transition matrix")
         .def("__str__", getModelInfoPrinter<double>())
@@ -129,6 +131,17 @@ void define_model(py::module& m) {
     ;
     py::class_<storm::models::sparse::MarkovAutomaton<double>, std::shared_ptr<storm::models::sparse::MarkovAutomaton<double>>>(m, "SparseMA", "MA in sparse representation", model)
     ;
+    py::class_<storm::models::sparse::StandardRewardModel<double>>(m, "SparseRewardModel", "Reward structure for sparse models")
+        .def_property_readonly("has_state_rewards", &RewardModel<double>::hasStateRewards)
+        .def_property_readonly("has_state_action_rewards", &RewardModel<double>::hasStateActionRewards)
+        .def_property_readonly("has_transition_rewards", &RewardModel<double>::hasTransitionRewards)
+        .def_property_readonly("transition_rewards", [](RewardModel<double>& rewardModel) {return rewardModel.getTransitionRewardMatrix();})
+        .def_property_readonly("state_rewards", [](RewardModel<double>& rewardModel) {return rewardModel.getStateRewardVector();})
+        .def_property_readonly("state_action_rewards", [](RewardModel<double>& rewardModel) {return rewardModel.getStateActionRewardVector();})
+            ;
+
+
+
 
     py::class_<Model<RationalFunction>, std::shared_ptr<Model<RationalFunction>>> modelRatFunc(m, "_SparseParametricModel", "A probabilistic model where transitions are represented by rational functions and saved in a sparse matrix", modelBase);
     modelRatFunc.def("collect_probability_parameters", &probabilityVariables, "Collect parameters")
@@ -139,6 +152,7 @@ void define_model(py::module& m) {
         .def_property_readonly("states", [](Model<storm::RationalFunction>& model) {
                 return SparseModelStates<storm::RationalFunction>(model);
             }, "Get states")
+        .def_property_readonly("reward_models", [](Model<storm::RationalFunction> const& model) {return model.getRewardModels(); }, "Reward models")
         .def_property_readonly("transition_matrix", &getTransitionMatrix<RationalFunction>, py::return_value_policy::reference, py::keep_alive<1, 0>(), "Transition matrix")
         .def_property_readonly("backward_transition_matrix", &getBackwardTransitionMatrix<storm::RationalFunction>, py::return_value_policy::reference, py::keep_alive<1, 0>(), "Backward transition matrix")
         .def("__str__", getModelInfoPrinter<RationalFunction>("ParametricModel"))
@@ -157,6 +171,8 @@ void define_model(py::module& m) {
 
     py::class_<storm::models::sparse::MarkovAutomaton<storm::RationalFunction>, std::shared_ptr<storm::models::sparse::MarkovAutomaton<storm::RationalFunction>>>(m, "SparseParametricMA", "pMA in sparse representation", modelRatFunc)
     ;
+
+    py::class_<storm::models::sparse::StandardRewardModel<storm::RationalFunction>>(m, "SparseParametricRewardModel", "Reward structure for parametric sparse models");
 
 }
 

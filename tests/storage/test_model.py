@@ -22,6 +22,24 @@ class TestModel:
         assert model.nr_states == 13
         assert model.nr_transitions == 20
         assert model.model_type == stormpy.ModelType.DTMC
+        assert len(model.reward_models) == 0
+        assert not model.supports_parameters
+        assert type(model) is stormpy.SparseDtmc
+
+    def test_build_dtmc_from_prism_program_formulas(self):
+        program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
+        prop = "R=? [F \"done\"]"
+        properties = stormpy.parse_properties_for_prism_program(prop, program, None)
+        model = stormpy.build_model(program, properties)
+        assert model.nr_states == 13
+        assert model.nr_transitions == 20
+        assert model.model_type == stormpy.ModelType.DTMC
+        assert len(model.reward_models) == 1
+        assert not model.reward_models["coin_flips"].has_state_rewards
+        assert model.reward_models["coin_flips"].has_state_action_rewards
+        for reward in model.reward_models["coin_flips"].state_action_rewards:
+            assert reward == 1.0 or reward == 0.0
+        assert not model.reward_models["coin_flips"].has_transition_rewards
         assert not model.supports_parameters
         assert type(model) is stormpy.SparseDtmc
 
