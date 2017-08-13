@@ -174,7 +174,16 @@ void define_model(py::module& m) {
     py::class_<storm::models::sparse::MarkovAutomaton<storm::RationalFunction>, std::shared_ptr<storm::models::sparse::MarkovAutomaton<storm::RationalFunction>>>(m, "SparseParametricMA", "pMA in sparse representation", modelRatFunc)
     ;
 
-    py::class_<storm::models::sparse::StandardRewardModel<storm::RationalFunction>>(m, "SparseParametricRewardModel", "Reward structure for parametric sparse models");
+    py::class_<storm::models::sparse::StandardRewardModel<storm::RationalFunction>>(m, "SparseParametricRewardModel", "Reward structure for parametric sparse models")
+            .def_property_readonly("has_state_rewards", &RewardModel<storm::RationalFunction>::hasStateRewards)
+            .def_property_readonly("has_state_action_rewards", &RewardModel<storm::RationalFunction>::hasStateActionRewards)
+            .def_property_readonly("has_transition_rewards", &RewardModel<storm::RationalFunction>::hasTransitionRewards)
+            .def_property_readonly("transition_rewards", [](RewardModel<storm::RationalFunction>& rewardModel) {return rewardModel.getTransitionRewardMatrix();})
+            .def_property_readonly("state_rewards", [](RewardModel<storm::RationalFunction>& rewardModel) {return rewardModel.getStateRewardVector();})
+            .def_property_readonly("state_action_rewards", [](RewardModel<storm::RationalFunction>& rewardModel) {return rewardModel.getStateActionRewardVector();})
+            .def("reduce_to_state_based_rewards", [](RewardModel<storm::RationalFunction>& rewardModel, SparseMatrix<storm::RationalFunction> const& transitions, bool onlyStateRewards){return rewardModel.reduceToStateBasedRewards(transitions, onlyStateRewards);},  py::arg("transition_matrix"), py::arg("only_state_rewards"), "Reduce to state-based rewards")
+
+            ;
 
 }
 
