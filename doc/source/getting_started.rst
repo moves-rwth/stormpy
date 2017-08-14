@@ -11,7 +11,7 @@ This guide is intended for people which have a basic understanding of probabilis
 `Storm website <http://www.stormchecker.org/>`_.
 While we assume some very basic programming concepts, we refrain from using more advanced concepts of python throughout the guide.
 
-We start with a selection of high-level constructs in stormpy, and go into more details afterwards.
+We start with a selection of high-level constructs in stormpy, and go into more details afterwards. More in-depth examples can be found in the :doc:`advanced_examples`.
 
 .. seealso:: The code examples are also given in the `examples/ <https://github.com/moves-rwth/stormpy/blob/master/examples/>`_ folder. These boxes throughout the text will tell you which example contains the code discussed.
 
@@ -175,7 +175,7 @@ The most basic question might be what the type of the constructed model is::
     >>> print(model.model_type)
     ModelType.DTMC
 
-We can also directly explore the underlying matrix.
+We can also directly explore the underlying state space/matrix.
 Notice that this code can be applied to both deterministic and non-deterministic models::
 
     >>> for state in model.states:
@@ -208,3 +208,11 @@ Thus::
 
     >>> for state in model.states:
     ...    assert len(state.actions) <= 1
+
+
+We can also check if a state is indeed an initial state. Notice that model.initial_states contains state ids, not states.::
+
+    >>> for state in model.states:
+    ...     if state.id in model.initial_states:
+    ...         pass
+
