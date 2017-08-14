@@ -1,10 +1,3 @@
-/*
- * rationalfunction.cpp
- *
- *  Created on: 16 Apr 2016
- *      Author: harold
- */
-
 #include "rationalfunction.h"
 
 
@@ -15,6 +8,8 @@
 
 void define_rationalfunction(py::module& m) {
     py::class_<RationalFunction>(m, "RationalFunction", "Represent a rational function, that is the fraction of two multivariate polynomials ")
+        .def(py::init<carl::Variable>())
+        .def(py::init<Polynomial>())
         .def(py::init<Polynomial, Polynomial>())
 
         .def("__add__",  static_cast<RationalFunction (*)(const RationalFunction&, const Polynomial&)>(&carl::operator+))
