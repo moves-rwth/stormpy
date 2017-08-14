@@ -157,6 +157,7 @@ void define_model(py::module& m) {
         .def_property_readonly("reward_models", [](Model<storm::RationalFunction> const& model) {return model.getRewardModels(); }, "Reward models")
         .def_property_readonly("transition_matrix", &getTransitionMatrix<RationalFunction>, py::return_value_policy::reference, py::keep_alive<1, 0>(), "Transition matrix")
         .def_property_readonly("backward_transition_matrix", &getBackwardTransitionMatrix<storm::RationalFunction>, py::return_value_policy::reference, py::keep_alive<1, 0>(), "Backward transition matrix")
+        .def("reduce_to_state_based_rewards", &Model<RationalFunction>::reduceToStateBasedRewards)
         .def("__str__", getModelInfoPrinter<RationalFunction>("ParametricModel"))
     ;
 
