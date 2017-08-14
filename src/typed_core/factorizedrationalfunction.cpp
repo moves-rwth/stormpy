@@ -14,6 +14,13 @@ void define_factorizedrationalfunction(py::module& m) {
         .def_property_readonly("denominator", &FactorizedRationalFunction::denominator)
         .def("is_constant", &FactorizedRationalFunction::isConstant)
         .def("constant_part", &FactorizedRationalFunction::constantPart)
+        .def("rational_function", [](FactorizedRationalFunction const& rf) -> RationalFunction {
+            if(rf.isConstant()) {
+                return RationalFunction(rf.constantPart());
+            } else {
+                return RationalFunction(rf.nominator().polynomialWithCoefficient(), rf.denominator().polynomialWithCoefficient());
+            }; }
+        )
         .def("derive", [](FactorizedRationalFunction const& ratFunc, carl::Variable const& var) {
                 return ratFunc.derivative(var, 1);
             }, "Compute the derivative", py::arg("variable"))
