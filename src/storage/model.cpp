@@ -98,14 +98,30 @@ void define_model(py::module& m) {
         .def_property_readonly("supports_parameters", &ModelBase::supportsParameters, "Flag whether model supports parameters")
         .def_property_readonly("has_parameters", &ModelBase::hasParameters, "Flag whether model has parameters")
         .def_property_readonly("is_exact", &ModelBase::isExact, "Flag whether model is exact")
-        .def("_as_dtmc", &ModelBase::as<Dtmc<double>>, "Get model as DTMC")
-        .def("_as_pdtmc", &ModelBase::as<Dtmc<RationalFunction>>, "Get model as pDTMC")
-        .def("_as_mdp", &ModelBase::as<Mdp<double>>, "Get model as MDP")
-        .def("_as_pmdp", &ModelBase::as<Mdp<RationalFunction>>, "Get model as pMDP")
-        .def("_as_ctmc", &ModelBase::as<Ctmc<double>>, "Get model as CTMC")
-        .def("_as_pctmc", &ModelBase::as<Ctmc<storm::RationalFunction>>, "Get model as pCTMC")
-        .def("_as_ma", &ModelBase::as<MarkovAutomaton<double>>, "Get model as MA")
-        .def("_as_pma", &ModelBase::as<MarkovAutomaton<storm::RationalFunction>>, "Get model as pMA")
+        .def("_as_dtmc", [](ModelBase &modelbase) {
+                return modelbase.as<Dtmc<double>>();
+            }, "Get model as DTMC")
+        .def("_as_pdtmc", [](ModelBase &modelbase) {
+                return modelbase.as<Dtmc<RationalFunction>>();
+            }, "Get model as pDTMC")
+        .def("_as_mdp", [](ModelBase &modelbase) {
+                return modelbase.as<Mdp<double>>();
+            }, "Get model as MDP")
+        .def("_as_pmdp", [](ModelBase &modelbase) {
+                return modelbase.as<Mdp<RationalFunction>>();
+            }, "Get model as pMDP")
+        .def("_as_ctmc", [](ModelBase &modelbase) {
+                return modelbase.as<Ctmc<double>>();
+            }, "Get model as CTMC")
+        .def("_as_pctmc", [](ModelBase &modelbase) {
+                return modelbase.as<Ctmc<RationalFunction>>();
+            }, "Get model as pCTMC")
+        .def("_as_ma", [](ModelBase &modelbase) {
+                return modelbase.as<MarkovAutomaton<double>>();
+            }, "Get model as MA")
+        .def("_as_pma", [](ModelBase &modelbase) {
+                return modelbase.as<MarkovAutomaton<RationalFunction>>();
+            }, "Get model as pMA")
     ;
 
     // Models
@@ -140,7 +156,7 @@ void define_model(py::module& m) {
         .def_property_readonly("state_rewards", [](RewardModel<double>& rewardModel) {return rewardModel.getStateRewardVector();})
         .def_property_readonly("state_action_rewards", [](RewardModel<double>& rewardModel) {return rewardModel.getStateActionRewardVector();})
         .def("reduce_to_state_based_rewards", [](RewardModel<double>& rewardModel, SparseMatrix<double> const& transitions, bool onlyStateRewards){return rewardModel.reduceToStateBasedRewards(transitions, onlyStateRewards);},  py::arg("transition_matrix"), py::arg("only_state_rewards"), "Reduce to state-based rewards")
-            ;
+    ;
 
 
 
@@ -183,8 +199,7 @@ void define_model(py::module& m) {
             .def_property_readonly("state_rewards", [](RewardModel<storm::RationalFunction>& rewardModel) {return rewardModel.getStateRewardVector();})
             .def_property_readonly("state_action_rewards", [](RewardModel<storm::RationalFunction>& rewardModel) {return rewardModel.getStateActionRewardVector();})
             .def("reduce_to_state_based_rewards", [](RewardModel<storm::RationalFunction>& rewardModel, SparseMatrix<storm::RationalFunction> const& transitions, bool onlyStateRewards){return rewardModel.reduceToStateBasedRewards(transitions, onlyStateRewards);},  py::arg("transition_matrix"), py::arg("only_state_rewards"), "Reduce to state-based rewards")
-
-            ;
+    ;
 
 }
 
