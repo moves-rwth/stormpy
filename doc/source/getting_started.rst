@@ -54,7 +54,7 @@ Moreover, initial states and deadlocks are indicated with a labelling function. 
     >>> print("Labels: {}".format(model.labeling.get_labels()))
     Labels: ...
 	
-We will investigate ways to examine the model in more detail in :ref:`getting-started-investigating-the-model`
+We will investigate ways to examine the model in more detail in :ref:`getting-started-investigating-the-model`.
 
 
 Building properties
