@@ -166,7 +166,7 @@ Investigating the model
 One powerful part of the Storm model checker is to quickly create the Markov chain from higher-order descriptions, as seen above::
 
     >>> path = stormpy.examples.files.prism_dtmc_die
-	>>> prism_program = stormpy.parse_prism_program(path)
+    >>> prism_program = stormpy.parse_prism_program(path)
     >>> model = stormpy.build_model(prism_program)
 
 In this example, we will exploit this, and explore the underlying Markov chain of the model.
