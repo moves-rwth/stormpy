@@ -69,12 +69,6 @@ class TestModelChecking:
         func = result.at(initial_state)
         one = stormpy.FactorizedPolynomial(stormpy.RationalRF(1))
         assert func.denominator == one
-        # constraints_well_formed = result.constraints_well_formed
-        # for constraint in constraints_well_formed:
-        #     assert constraint.rel() == pycarl.formula.Relation.GEQ or constraint.rel() == pycarl.formula.Relation.LEQ
-        # constraints_graph_preserving = result.constraints_graph_preserving
-        # for constraint in constraints_graph_preserving:
-        #     assert constraint.rel() == pycarl.formula.Relation.GREATER
 
     def test_model_checking_prob01(self):
         program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
