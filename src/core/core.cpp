@@ -47,14 +47,21 @@ void define_parse(py::module& m) {
 
 // Thin wrapper for model building using one formula as argument
 template<typename ValueType>
-std::shared_ptr<storm::models::ModelBase> buildSparseModel(storm::storage::SymbolicModelDescription const& modelDescription, std::vector<std::shared_ptr<storm::logic::Formula const>> const& formulas, bool buildChoiceLabels = false, bool buildChoiceOrigins = false) {
-    return storm::api::buildSparseModel<ValueType>(modelDescription, formulas, buildChoiceLabels, buildChoiceOrigins);
+std::shared_ptr<storm::models::ModelBase> buildSparseModel(storm::storage::SymbolicModelDescription const& modelDescription, std::vector<std::shared_ptr<storm::logic::Formula const>> const& formulas, bool jit = false, bool doctor = false) {
+    if (formulas.empty()) {
+        // Build all labels and rewards
+        storm::builder::BuilderOptions options(true, true);
+        return storm::api::buildSparseModel<ValueType>(modelDescription, options, jit, doctor);
+    } else {
+        // Only build labels necessary for formulas
+        return storm::api::buildSparseModel<ValueType>(modelDescription, formulas, jit, doctor);
+    }
 }
 
 void define_build(py::module& m) {
     // Build model
-    m.def("_build_sparse_model_from_prism_program", &buildSparseModel<double>, "Build the model", py::arg("model_description"), py::arg("formulas") = std::vector<std::shared_ptr<storm::logic::Formula const>>(), py::arg("build_choice_labels") = false, py::arg("build_choice_origins") = false);
-    m.def("_build_sparse_parametric_model_from_prism_program", &buildSparseModel<storm::RationalFunction>, "Build the parametric model", py::arg("model_description"), py::arg("formulas"), py::arg("build_choice_labels") = false, py::arg("build_choice_origins") = false);
+    m.def("_build_sparse_model_from_prism_program", &buildSparseModel<double>, "Build the model", py::arg("model_description"), py::arg("formulas") = std::vector<std::shared_ptr<storm::logic::Formula const>>(), py::arg("use_jit") = false, py::arg("doctor") = false);
+    m.def("_build_sparse_parametric_model_from_prism_program", &buildSparseModel<storm::RationalFunction>, "Build the parametric model", py::arg("model_description"), py::arg("formulas") = std::vector<std::shared_ptr<storm::logic::Formula const>>(), py::arg("use_jit") = false, py::arg("doctor") = false);
     m.def("_build_sparse_model_from_drn", &storm::api::buildExplicitDRNModel<double>, "Build the model from DRN", py::arg("file"));
     m.def("_build_sparse_parametric_model_from_drn", &storm::api::buildExplicitDRNModel<storm::RationalFunction>, "Build the parametric model from DRN", py::arg("file"));
     m.def("build_sparse_model_from_explicit", &storm::api::buildExplicitModel<double>, "Build the model model from explicit input", py::arg("transition_file"), py::arg("labeling_file"), py::arg("state_reward_file") = "", py::arg("transition_reward_file") = "", py::arg("choice_labeling_file") = "");

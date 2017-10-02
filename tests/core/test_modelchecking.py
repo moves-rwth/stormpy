@@ -43,6 +43,21 @@ class TestModelChecking:
         result = stormpy.model_checking(model, formula)
         assert result is None
 
+    def test_model_checking_dtmc_all_labels(self):
+        program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
+        formulas = stormpy.parse_properties_for_prism_program("P=? [ F \"one\" ]", program)
+        model = stormpy.build_model(program)
+        assert model.nr_states == 13
+        assert model.nr_transitions == 20
+        assert len(model.initial_states) == 1
+        initial_state = model.initial_states[0]
+        assert initial_state == 0
+        result = stormpy.model_checking(model, formulas[0])
+        assert math.isclose(result.at(initial_state), 0.16666666666666663)
+        formulas = stormpy.parse_properties_for_prism_program("P=? [ F \"two\" ]", program)
+        result = stormpy.model_checking(model, formulas[0])
+        assert math.isclose(result.at(initial_state), 0.16666666666666663)
+
     def test_model_checking_all_dtmc(self):
         program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
         formulas = stormpy.parse_properties_for_prism_program("P=? [ F \"one\" ]", program)
