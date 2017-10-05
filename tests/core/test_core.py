@@ -24,7 +24,7 @@ class TestCore:
     def test_config(self):
         import pycarl
         import pycarl._config as config
-        assert config.CARL_VERSION > 17
+        assert config.CARL_VERSION_MAJOR >= 17
         assert config.CARL_PARSER == True or config.CARL_PARSER == False
         assert config.CARL_WITH_CLN == True or config.CARL_WITH_CLN == False
 

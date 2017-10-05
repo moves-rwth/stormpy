@@ -6,7 +6,9 @@ find_package(carlparser QUIET)
 
 # Set configuration
 set(CARL_DIR ${carl_DIR})
-set(CARL_VERSION ${carl_VERSION})
+set(CARL_VERSION_MAJOR ${carl_VERSION_MAJOR})
+set(CARL_VERSION_MINOR ${carl_VERSION_MINOR})
+set(CARL_VERSION_PATCH ${carl_VERSION_PATCH})
 if(carlparser_FOUND)
     set(CARL_PARSER "True")
 else()
