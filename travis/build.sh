@@ -43,6 +43,7 @@ linux)
     docker exec pycarl bash -c "
         export TASK=$TASK;
         export PYTHON=$PYTHON;
+        export CONFIG=$CONFIG;
         export COMPILER=$COMPILER;
         export N_JOBS=$N_JOBS;
         export STLARG=;
@@ -57,9 +58,6 @@ linux)
 osx)
     # Mac OSX
     STLARG="-stdlib=libc++"
-    export TASK=$TASK
-    export PYTHON
-    export COMPILER
     export N_JOBS
     export STLARG
     export OS
