@@ -24,9 +24,15 @@ class TestCore:
     def test_config(self):
         import pycarl
         import pycarl._config as config
-        assert config.CARL_VERSION_MAJOR >= 17
+        assert config.CARL_VERSION
         assert config.CARL_PARSER == True or config.CARL_PARSER == False
         assert config.CARL_WITH_CLN == True or config.CARL_WITH_CLN == False
+
+    def test_version(self):
+        import pycarl._config as config
+        from distutils.version import StrictVersion
+        version = StrictVersion(config.CARL_VERSION)
+        assert version > StrictVersion("17.08.75")
 
     def test_pickle(self):
         import pycarl

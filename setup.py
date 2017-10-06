@@ -29,13 +29,33 @@ if sys.version_info[0] == 2:
     sys.exit('Sorry, Python 2.x is not supported')
 
 
-def check_carl_compatible(carl_dir, version_major, version_minor, version_patch):
-    carl_major = int(version_major)
-    carl_minor = int(version_minor)
-    if carl_major < 17 or (carl_major == 17 and carl_minor < 8):
+def check_carl_compatible(carl_dir, carl_major, carl_minor, carl_patch):
+    """
+    Check if the given carl lib is compatible with this pycarl version.
+    :param carl_dir: Path of carl.
+    :param carl_major: Major version of carl.
+    :param carl_minor: Minor version of carl.
+    :param carl_patch: Patch version of carl.
+    """
+    if carl_major < 17 or (carl_major == 17 and carl_minor < 8) or (
+                        carl_major == 17 and carl_minor == 8 and carl_patch < 0):
         sys.exit(
-            'Sorry, carl version {}.{}.{} from \'{}\' is not supported anymore!'.format(version_major, version_minor,
-                                                                                        version_patch, carl_dir))
+            'Sorry, carl version {}.{}.{} from \'{}\' is not supported anymore!'.format(carl_major, carl_minor,
+                                                                                        carl_patch, carl_dir))
+
+
+def parse_carl_version(version_string):
+    """
+    Parses the version of carl.
+
+    :param version_string: String containing version information.
+    :return: Triple (major, minor, patch)
+    """
+    elems = version_string.split(".")
+    if len(elems) != 3:
+        sys.exit('Carl version string is ill-formed: "{}"'.format(version_string))
+    patch = elems[2].split('-')[0]
+    return int(elems[0]), int(elems[1]), int(patch)
 
 
 def obtain_version():
@@ -106,11 +126,10 @@ class CMakeBuild(build_ext):
                                          os.path.join(build_temp_version, "generated/config.py")).load_module()
 
         # check version
-        check_carl_compatible(self.conf.CARL_DIR, self.conf.CARL_VERSION_MAJOR, self.conf.CARL_VERSION_MINOR,
-                              self.conf.CARL_VERSION_PATCH)
+        major, minor, patch = parse_carl_version(self.conf.CARL_VERSION)
+        check_carl_compatible(self.conf.CARL_DIR, major, minor, patch)
 
-        print("Pycarl - Using carl {}.{}.{} from {}".format(self.conf.CARL_VERSION_MAJOR, self.conf.CARL_VERSION_MINOR,
-                                                            self.conf.CARL_VERSION_PATCH, self.conf.CARL_DIR))
+        print("Pycarl - Using carl {} from {}".format(self.conf.CARL_VERSION, self.conf.CARL_DIR))
         if self.conf.CARL_PARSER:
             print("Pycarl - Carl parser extension found and included.")
         else:
@@ -125,9 +144,7 @@ class CMakeBuild(build_ext):
             if "core" in ext.name:
                 with open(os.path.join(self._extdir(ext.name), ext.subdir, "_config.py"), "w") as f:
                     f.write("# Generated from setup.py at {}\n".format(datetime.datetime.now()))
-                    f.write("CARL_VERSION_MAJOR = {}\n".format(int(self.conf.CARL_VERSION_MAJOR)))
-                    f.write("CARL_VERSION_MINOR = {}\n".format(int(self.conf.CARL_VERSION_MINOR)))
-                    f.write("CARL_VERSION_PATCH = '{}'\n".format(self.conf.CARL_VERSION_PATCH))
+                    f.write('CARL_VERSION = "{}.{}.{}"\n'.format(major, minor, patch))
                     f.write("CARL_PARSER = {}\n".format(self.conf.CARL_PARSER))
                     f.write("CARL_WITH_CLN = {}\n".format(self.conf.CARL_WITH_CLN))
             if "cln" in ext.name:
