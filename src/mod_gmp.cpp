@@ -8,8 +8,7 @@
 #include "typed_core/factorization.h"
 #include "typed_core/factorizedpolynomial.h"
 #include "typed_core/factorizedrationalfunction.h"
-
-#include "typed_core/Interval.h"
+#include "typed_core/interval.h"
 
 PYBIND11_MODULE(gmp, m) {
     m.doc() = "pycarl core cln-typed data and functions";

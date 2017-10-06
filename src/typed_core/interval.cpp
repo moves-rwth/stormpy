@@ -1,4 +1,4 @@
-#include "Interval.h"
+#include "interval.h"
 
 #include "src/types.h"
 #include "src/helpers.h"
