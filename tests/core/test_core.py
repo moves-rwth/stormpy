@@ -32,7 +32,7 @@ class TestCore:
         import pycarl._config as config
         from distutils.version import StrictVersion
         version = StrictVersion(config.CARL_VERSION)
-        assert version > StrictVersion("17.08.50")
+        assert version > StrictVersion("17.07.50")
 
     def test_pickle(self):
         import pycarl

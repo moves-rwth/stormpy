@@ -53,7 +53,7 @@ def parse_carl_version(version_string):
     """
     elems = version_string.split(".")
     if len(elems) == 2:
-        elems.append(0)
+        elems.append("0")
     if len(elems) != 3:
         sys.exit('Carl version string is ill-formed: "{}"'.format(version_string))
     patch = elems[2].split('-')[0]
