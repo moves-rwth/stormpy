@@ -4,14 +4,13 @@
 branches:
   only:
   - master
+sudo: required
 dist: trusty
 language: generic
 
 # Enable docker support
 services:
 - docker
-sudo: required
-group: deprecated-2017Q2
 
 notifications:
   email:
@@ -29,21 +28,21 @@ jobs:
     # osx
     - os: osx
       compiler: clang
-      env: TASK=Test PYTHON=python3 CONFIG=Release COMPILER=clang-4.0 STL=libc++
+      env: TASK=Test PYTHON=python3 CONFIG=Release COMPILER=clang STL=libc++
       install: travis/install_osx.sh
       script: travis/build.sh
       after_failure:
         - find . -name "*err*.log" -type f -print -exec cat {} \;
     - os: osx
       compiler: clang
-      env: TASK=Test PYTHON=python3 CONFIG=ReleaseCln COMPILER=clang-4.0 STL=libc++
+      env: TASK=Test PYTHON=python3 CONFIG=ReleaseCln COMPILER=clang STL=libc++
       install: travis/install_osx.sh
       script: travis/build.sh
       after_failure:
         - find . -name "*err*.log" -type f -print -exec cat {} \;
     - os: osx
       compiler: clang
-      env: TASK=Test PYTHON=python3 CONFIG=ReleaseClnParser COMPILER=clang-4.0 STL=libc++
+      env: TASK=Test PYTHON=python3 CONFIG=ReleaseClnParser COMPILER=clang STL=libc++
       install: travis/install_osx.sh
       script: travis/build.sh
       after_failure:
@@ -51,21 +50,21 @@ jobs:
     # ubuntu-16.10
     - os: linux
       compiler: gcc
-      env: TASK=Test PYTHON=python3 CONFIG=Release LINUX=ubuntu-16.10 COMPILER=gcc-6
+      env: TASK=Test PYTHON=python3 CONFIG=Release LINUX=ubuntu-16.10 COMPILER=gcc
       install: travis/install_linux.sh
       script: travis/build.sh
       after_failure:
         - find . -name "*err*.log" -type f -print -exec cat {} \;
     - os: linux
       compiler: gcc
-      env: TASK=Test PYTHON=python3 CONFIG=ReleaseCln LINUX=ubuntu-16.10 COMPILER=gcc-6
+      env: TASK=Test PYTHON=python3 CONFIG=ReleaseCln LINUX=ubuntu-16.10 COMPILER=gcc
       install: travis/install_linux.sh
       script: travis/build.sh
       after_failure:
         - find . -name "*err*.log" -type f -print -exec cat {} \;
     - os: linux
       compiler: gcc
-      env: TASK=Test PYTHON=python3 CONFIG=ReleaseClnParser LINUX=ubuntu-16.10 COMPILER=gcc-6
+      env: TASK=Test PYTHON=python3 CONFIG=ReleaseClnParser LINUX=ubuntu-16.10 COMPILER=gcc
       install: travis/install_linux.sh
       script: travis/build.sh
       after_failure:
@@ -73,7 +72,7 @@ jobs:
     # Documentation
     - os: osx
       compiler: clang
-      env: TASK=Documentation PYTHON=python3 CONFIG=ReleaseClnParser COMPILER=clang-4.0 STL=libc++
+      env: TASK=Documentation PYTHON=python3 CONFIG=ReleaseClnParser COMPILER=clang STL=libc++
       install: travis/install_osx.sh
       script: travis/build.sh
       after_failure:

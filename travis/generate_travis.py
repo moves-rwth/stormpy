@@ -2,14 +2,14 @@
 # Configuration for Linux
 configs_linux = [
     # OS, compiler
-    ("ubuntu-16.10", "gcc", "-6"),
-    #("debian-9", "gcc", "-6"),
+    ("ubuntu-16.10", "gcc", ""),
+    #("debian-9", "gcc", ""),
 ]
 
 # Configurations for Mac
 configs_mac = [
     # OS, compiler
-    ("osx", "clang", "-4.0"),
+    ("osx", "clang", ""),
 ]
 
 # Build types
@@ -34,14 +34,15 @@ if __name__ == "__main__":
     s += "branches:\n"
     s += "  only:\n"
     s += "  - master\n"
+    s += "sudo: required\n"
     s += "dist: trusty\n"
     s += "language: generic\n"
     s += "\n"
     s += "# Enable docker support\n"
     s += "services:\n"
     s += "- docker\n"
-    s += "sudo: required\n"
     s += "\n"
+
     s += "notifications:\n"
     s += "  email:\n"
     s += "    on_failure: always\n"

@@ -20,7 +20,7 @@ fi
 
 case $OS in
 linux)
-    # Execute docker image on linux
+    # Execute docker image on Linux
     # Stop previous session
     docker rm -f pycarl &>/dev/null
     # Run container
@@ -41,15 +41,14 @@ linux)
 
     # Execute main process
     docker exec pycarl bash -c "
+        export TASK=$TASK;
+        export PYTHON=$PYTHON;
         export COMPILER=$COMPILER;
         export N_JOBS=$N_JOBS;
+        export STLARG=;
         export OS=$OS;
-        export PYTHON=$PYTHON;
-        export CONFIG=$CONFIG;
         export BUILD_CARL_CLN=$BUILD_CARL_CLN;
         export BUILD_CARL_PARSER=$BUILD_CARL_PARSER;
-        export TASK=$TASK;
-        export STLARG=;
         cd opt/pycarl;
         travis/build-helper.sh"
     exit $?
@@ -58,7 +57,11 @@ linux)
 osx)
     # Mac OSX
     STLARG="-stdlib=libc++"
+    export TASK=$TASK
+    export PYTHON
+    export COMPILER
     export N_JOBS
+    export STLARG
     export OS
     export BUILD_CARL_CLN
     export BUILD_CARL_PARSER
@@ -67,7 +70,7 @@ osx)
     ;;
 
 *)
-    # Other OS
+    # Unknown OS
     echo "Unsupported OS: $OS"
     exit 1
 esac
