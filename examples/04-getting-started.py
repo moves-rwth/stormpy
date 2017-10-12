@@ -1,6 +1,5 @@
 import stormpy
 import stormpy.core
-import stormpy.pars
 
 import pycarl
 import pycarl.core
@@ -8,8 +7,16 @@ import pycarl.core
 import stormpy.examples
 import stormpy.examples.files
 
+import stormpy._config as config
+
 
 def example_getting_started_04():
+    # Check support for parameters
+    if not config.storm_with_pars:
+        print("Support parameters is missing. Try building storm-pars.")
+        return
+
+    import stormpy.pars
     path = stormpy.examples.files.prism_pdtmc_die
     prism_program = stormpy.parse_prism_program(path)
 
