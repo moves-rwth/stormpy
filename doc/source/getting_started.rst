@@ -94,6 +94,7 @@ If we consider another property, however, such as::
 then Storm is only skipping exploration of successors of the particular state y where s=7 and d=2. In this model, state y has a self-loop, so effectively, the whole model is explored.
 
 .. _getting-started-checking-properties:
+
 Checking properties
 ------------------------------------
 .. seealso:: `03-getting-started.py <https://github.com/moves-rwth/stormpy/blob/master/examples/03-getting-started.py>`_
@@ -154,7 +155,7 @@ Checking parametric models
 ------------------------------------
 .. seealso:: `05-getting-started.py <https://github.com/moves-rwth/stormpy/blob/master/examples/05-getting-started.py>`_
 
-It is also possible to check the parametric model directly, similar as before in :ref:` _getting-started-checking-properties`::
+It is also possible to check the parametric model directly, similar as before in :ref:`getting-started-checking-properties`::
 
     >>> result = stormpy.model_checking(model, properties[0])
     >>> initial_state = model.initial_states[0]
