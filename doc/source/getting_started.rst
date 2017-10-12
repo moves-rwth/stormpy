@@ -93,7 +93,7 @@ If we consider another property, however, such as::
 
 then Storm is only skipping exploration of successors of the particular state y where s=7 and d=2. In this model, state y has a self-loop, so effectively, the whole model is explored.
 
-
+.. _getting-started-checking-properties:
 Checking properties
 ------------------------------------
 .. seealso:: `03-getting-started.py <https://github.com/moves-rwth/stormpy/blob/master/examples/03-getting-started.py>`_
@@ -152,10 +152,21 @@ Before we obtain an instantiated model, we need to map parameters to values: We 
 
 Checking parametric models
 ------------------------------------
-.. seealso:: ``05-getting-started.py``
+.. seealso:: `05-getting-started.py <https://github.com/moves-rwth/stormpy/blob/master/examples/05-getting-started.py>`_
 
+It is also possible to check the parametric model directly, similar as before in :ref:` _getting-started-checking-properties`::
 
+    >>> result = stormpy.model_checking(model, properties[0])
+    >>> initial_state = model.initial_states[0]
+    >>> func = result.at(initial_state)
 
+We collect the constraints ensuring that underlying model is well-formed and the graph structure does not change.
+
+    >>> collector = stormpy.ConstraintCollector(model)
+    >>> for formula in collector.wellformed_constraints:
+    ...     print(formula)
+    >>> for formula in collector.graph_preserving_constraints:
+    ...     print(formula)
 
 .. _getting-started-investigating-the-model:
 
