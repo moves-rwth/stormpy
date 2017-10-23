@@ -15,6 +15,11 @@ storm::modelchecker::RegionResult checkRegion(std::shared_ptr<RegionModelChecker
     return checker->analyzeRegion(region, hypothesis, initialResult, sampleVertices);
 }
 
+storm::RationalFunction getBound(std::shared_ptr<RegionModelChecker>& checker, Region const& region, bool maximise) {
+    return checker->getBoundAtInitState(region, maximise ?  storm::solver::OptimizationDirection::Maximize : storm::solver::OptimizationDirection::Minimize);
+}
+
+
 std::set<storm::Polynomial> gatherDerivatives(storm::models::sparse::Dtmc<storm::RationalFunction> const& model, carl::Variable const& var) {
     std::set<storm::Polynomial> derivatives;
     for (auto it : model.getTransitionMatrix()) {
@@ -70,6 +75,7 @@ void define_pla(py::module& m) {
                 new (&instance) std::unique_ptr<SparseDtmcRegionChecker>(tmp);
             }, py::arg("model"), py::arg("task")*/
         .def("check_region", &checkRegion, "Check region", py::arg("region"), py::arg("hypothesis") = storm::modelchecker::RegionResultHypothesis::Unknown, py::arg("initialResult") = storm::modelchecker::RegionResult::Unknown, py::arg("sampleVertices") = false)
+        .def("get_bound", &getBound, "Get bound", py::arg("region"), py::arg("maximise")= true);
     ;
 
     m.def("create_region_checker", &createRegionChecker, "Create region checker", py::arg("model"), py::arg("formula"));
