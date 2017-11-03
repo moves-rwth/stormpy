@@ -8,8 +8,8 @@ void define_monomial(py::module& m) {
 
         .def("__pow__", [](const Monomial::Arg& var, carl::uint exp) {return var->pow(exp);})
         .def("__mul__",  static_cast<Monomial::Arg (*)(const Monomial::Arg&, const Monomial::Arg&)>(&carl::operator*))
-        .def("__mul__",  static_cast<Monomial::Arg (*)(const Monomial::Arg&, carl::Variable::Arg)>(&carl::operator*))
-        .def("__mul__",  static_cast<Monomial::Arg (*)(carl::Variable::Arg, const Monomial::Arg&)>(&carl::operator*))
+        .def("__mul__",  static_cast<Monomial::Arg (*)(const Monomial::Arg&, carl::Variable)>(&carl::operator*))
+        .def("__mul__",  static_cast<Monomial::Arg (*)(carl::Variable, const Monomial::Arg&)>(&carl::operator*))
 
         .def("__pos__", [](const Monomial::Arg& var) {return Monomial::Arg(var);})
 

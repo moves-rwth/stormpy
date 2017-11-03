@@ -37,7 +37,7 @@ void define_variable(py::module& m) {
                 new (&instance) carl::Variable(tmp);
             }, py::arg("type") = carl::VariableType::VT_REAL)
 
-        .def("__mul__",  static_cast<Monomial::Arg (*)(carl::Variable::Arg, carl::Variable::Arg)>(&carl::operator*))
+        .def("__mul__",  static_cast<Monomial::Arg (*)(carl::Variable, carl::Variable)>(&carl::operator*))
 
 
         .def(py::self == py::self)
