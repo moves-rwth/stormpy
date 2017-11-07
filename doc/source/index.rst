@@ -16,6 +16,7 @@ Stormpy is a set of python bindings for the probabilistic model checker `Storm <
    
    installation
    getting_started
+   advanced_topics
    contributors
 
    
