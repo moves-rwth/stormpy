@@ -20,7 +20,7 @@ storm::RationalFunction getBound(std::shared_ptr<RegionModelChecker>& checker, R
 }
 
 
-std::set<storm::Polynomial> gatherDerivatives(storm::models::sparse::Dtmc<storm::RationalFunction> const& model, carl::Variable const& var) {
+std::set<storm::Polynomial> gatherDerivatives(storm::models::sparse::Model<storm::RationalFunction> const& model, carl::Variable const& var) {
     std::set<storm::Polynomial> derivatives;
     for (auto it : model.getTransitionMatrix()) {
         storm::Polynomial pol = it.getValue().derivative(var, 1).nominator();
