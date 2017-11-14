@@ -28,8 +28,11 @@ void define_variabletype(py::module& m) {
 void define_variable(py::module& m) {
 
     py::class_<carl::Variable>(m, "Variable")
+        .def("__init__", [](carl::Variable &instance, carl::Variable const& other) {
+            new(&instance) carl::Variable(other);
+        })
         .def("__init__", [](carl::Variable &instance, std::string name, carl::VariableType type) {
-                carl::Variable tmp = getOrCreateVariable(name, type);
+                carl::Variable tmp = freshVariable(name, type);
                 new(&instance) carl::Variable(tmp);
             }, py::arg("name"), py::arg("type") = carl::VariableType::VT_REAL)
         .def("__init__", [](carl::Variable &instance, carl::VariableType type) {
@@ -59,12 +62,19 @@ void define_variable(py::module& m) {
         .def("__repr__", [](const carl::Variable& r)  { if (r != carl::Variable::NO_VARIABLE) { return "<Variable " + r.getName() + " [id = " + std::to_string(r.getId()) + "]>"; } else { return std::string("<NOVARIABLE>");} })
         .def("__str__", &streamToString<carl::Variable>)
         .def_property_readonly("is_no_variable", [](const carl::Variable& v) {return v == carl::Variable::NO_VARIABLE;})
+            // TODO get state has an issue if there are several variables with the same name; they cannot be distinguished afterwards
         .def("__getstate__", [](const carl::Variable& v) { return std::make_tuple<std::string, std::string>(v.getName(), carl::to_string(v.getType()));})
+
         .def("__setstate__", [](carl::Variable& v, const std::tuple<std::string, std::string>& data ) { carl::Variable tmp = getOrCreateVariable(std::get<0>(data), carl::variableTypeFromString(std::get<1>(data)));
             new(&v) carl::Variable(tmp); })
         .def("__hash__", [](const carl::Variable& v) { std::hash<carl::Variable> h; return h(v);})
 
     ;
+
+    m.def("variable_with_name", [](std::string const& name){
+        return carl::VariablePool::getInstance().findVariableWithName(name);
+    }, "Get a variable from the pool with the given name.");
+
 
     m.def("clear_variable_pool", [](){
 	carl::VariablePool::getInstance().clear();

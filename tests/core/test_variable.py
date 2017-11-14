@@ -4,13 +4,15 @@ import pickle
 
 class TestVariable:
     def test_init(self):
+        pycarl.clear_variable_pool()
         var = pycarl.Variable("x")
         assert var.name == "x"
         assert not var.is_no_variable
 
     def test_eq(self):
+        pycarl.clear_variable_pool()
         var1 = pycarl.Variable("x")
-        var2 = pycarl.Variable("x")
+        var2 = pycarl.variable_with_name("x")
         assert var1 == var2
         var3 = pycarl.Variable("y")
         assert var1 != var3
@@ -21,10 +23,10 @@ class TestVariable:
         product = x * y
 
     def test_pickle(self):
+        pycarl.clear_variable_pool()
         var1 = pycarl.Variable("x")
         ser = pickle.dumps(var1)
         var2 = pickle.loads(ser)
-        pycarl.Variable("x")
         assert var1 == var2
         var3 = pycarl.Variable("y")
         ser = pickle.dumps(var3)
