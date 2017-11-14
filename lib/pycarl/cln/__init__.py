@@ -19,6 +19,13 @@ def denominator(x):
     else:
         return 1
 
+def expand(x):
+    if type(x) == cln.FactorizedRationalFunction:
+        return x.rational_function()
+    if type(x) == cln.FactorizedPolynomial:
+        return x.polynomial()
+    return x
+
 
 factorization_cache = cln._FactorizationCache()
 
