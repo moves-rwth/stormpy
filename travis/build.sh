@@ -11,7 +11,7 @@ linux)
     docker rm -f stormpy &>/dev/null
     # Run container
     set -e
-    docker run -d -it --name stormpy --privileged mvolk/storm:$DOCKER
+    docker run -d -it --name stormpy --privileged mvolk/$DOCKER
     # Copy local content into container
     docker exec stormpy mkdir opt/stormpy
     docker cp . stormpy:/opt/stormpy
