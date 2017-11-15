@@ -5,7 +5,7 @@ import math
 
 
 class TestMatrix:
-    def test_sparse_matrix(self):
+    def test_matrix(self):
         model = stormpy.build_sparse_model_from_explicit(get_example_path("dtmc", "die.tra"),
                                                          get_example_path("dtmc", "die.lab"))
         matrix = model.transition_matrix
@@ -29,7 +29,7 @@ class TestMatrix:
         for e in matrix:
             assert e.value() == 0.5 or e.value() == 0 or (e.value() == 1 and e.column > 6)
 
-    def test_change_sparse_matrix(self):
+    def test_change_matrix(self):
         model = stormpy.build_sparse_model_from_explicit(get_example_path("dtmc", "die.tra"),
                                                          get_example_path("dtmc", "die.lab"))
         matrix = model.transition_matrix
@@ -44,7 +44,7 @@ class TestMatrix:
             assert e.value() == i
             i += 0.1
 
-    def test_change_sparse_matrix_modelchecking(self):
+    def test_change_matrix_modelchecking(self):
         import stormpy.logic
         model = stormpy.build_sparse_model_from_explicit(get_example_path("dtmc", "die.tra"),
                                                          get_example_path("dtmc", "die.lab"))
@@ -87,7 +87,7 @@ class TestMatrix:
         resValue = result.at(model.initial_states[0])
         assert math.isclose(resValue, 0.3555555555555556)
 
-    def test_change_parametric_sparse_matrix_modelchecking(self):
+    def test_change_parametric_matrix_modelchecking(self):
         import stormpy.logic
 
         program = stormpy.parse_prism_program(get_example_path("pdtmc", "brp16_2.pm"))
@@ -120,3 +120,22 @@ class TestMatrix:
         result = stormpy.model_checking(model, formulas[0])
         ratFunc = result.at(initial_state)
         assert len(ratFunc.gather_variables()) == 0
+
+    def test_submatrix(self):
+        model = stormpy.build_sparse_model_from_explicit(get_example_path("dtmc", "die.tra"),
+                                                         get_example_path("dtmc", "die.lab"))
+        matrix = model.transition_matrix
+        assert matrix.nr_rows == 13
+        assert matrix.nr_columns == 13
+        assert matrix.nr_entries == 20
+        assert matrix.nr_entries == model.nr_transitions
+        for e in matrix:
+            assert e.value() == 0.5 or e.value() == 0 or (e.value() == 1 and e.column > 6)
+
+        row_constraint = stormpy.BitVector(13, [0, 1, 3, 4, 7, 8, 9])
+        submatrix = matrix.submatrix(row_constraint, row_constraint)
+        assert submatrix.nr_rows == 7
+        assert submatrix.nr_columns == 7
+        assert submatrix.nr_entries == 10
+        for e in submatrix:
+            assert e.value() == 0.5 or e.value() == 0 or (e.value() == 1 and e.column > 3)
