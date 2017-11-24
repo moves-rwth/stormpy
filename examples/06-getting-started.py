@@ -15,6 +15,8 @@ def example_getting_started_06():
     print(model.model_type)
 
     for state in model.states:
+        if state.id in model.initial_states:
+            print(state)
         for action in state.actions:
             for transition in action.transitions:
                 print("From state {}, with probability {}, go to state {}".format(state, transition.value(), transition.column))
