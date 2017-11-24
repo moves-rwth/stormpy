@@ -150,6 +150,8 @@ Before we obtain an instantiated model, we need to map parameters to values: We 
     >>> instantiated_model = instantiator.instantiate(point)
     >>> result = stormpy.model_checking(instantiated_model, properties[0])
 
+Initial states and labels are set as for the parameter-free case.
+
 
 Checking parametric models
 ------------------------------------
