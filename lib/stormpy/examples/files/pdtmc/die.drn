@@ -1,0 +1,56 @@
+// Exported by storm
+// Original model type: DTMC
+@type: DTMC
+@parameters
+p q 
+@reward_models
+
+@nr_states
+13
+@model
+state 0 init
+	action 0
+		1 : p
+		2 : (-1)*p+1
+state 1
+	action 0
+		3 : q
+		4 : (-1)*q+1
+state 2
+	action 0
+		5 : q
+		6 : (-1)*q+1
+state 3
+	action 0
+		1 : p
+		7 : (-1)*p+1
+state 4
+	action 0
+		8 : p
+		9 : (-1)*p+1
+state 5
+	action 0
+		2 : p
+		10 : (-1)*p+1
+state 6
+	action 0
+		11 : p
+		12 : (-1)*p+1
+state 7
+	action 0
+		7 : 1
+state 8
+	action 0
+		8 : 1
+state 9
+	action 0
+		9 : 1
+state 10
+	action 0
+		10 : 1
+state 11
+	action 0
+		11 : 1
+state 12
+	action 0
+		12 : 1
