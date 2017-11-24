@@ -18,7 +18,7 @@ It is crucial to note that *any* path is eligible, including those that (repeate
 Examining Shortest Paths
 ========================
 
-.. seealso:: `07-shortest-paths.py <https://github.com/moves-rwth/stormpy/blob/master/examples/07-shortest-paths.py>`_
+.. seealso:: `07-shortest-paths.py <https://github.com/moves-rwth/stormpy/blob/master/examples/shortest_paths/01-shortest-paths.py>`_
 
 As in :doc:`getting_started`, we import some required modules and build a model from the example files::
 
