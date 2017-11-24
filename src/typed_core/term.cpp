@@ -22,10 +22,10 @@ void define_term(py::module& m) {
         .def("__sub__",  static_cast<Polynomial (*)(const Term&, const Rational&)>(&carl::operator-))
 
         .def("__mul__",  static_cast<Polynomial (*)(const Term&, const Polynomial&)>(&carl::operator*))
-        .def("__mul__",  static_cast<Term (*)(const Term&, const Term&)>(&carl::operator*))
-        .def("__mul__",  static_cast<Term (*)(const Term&, const Monomial::Arg&)>(&carl::operator*))
-        .def("__mul__",  static_cast<Term (*)(const Term&, carl::Variable)>(&carl::operator*))
-        .def("__mul__",  static_cast<Term (*)(const Term&, const Rational&)>(&carl::operator*))
+        .def("__mul__",  static_cast<Term (*)(Term, const Term&)>(&carl::operator*))
+        .def("__mul__",  static_cast<Term (*)(Term, const Monomial::Arg&)>(&carl::operator*))
+        .def("__mul__",  static_cast<Term (*)(Term, carl::Variable)>(&carl::operator*))
+        .def("__mul__",  static_cast<Term (*)(Term, const Rational&)>(&carl::operator*))
 
         .def(PY_DIV, [](const Term& lhs, const RationalFunction& rhs) { return RationalFunction(Polynomial(lhs)) / rhs; })
         .def(PY_DIV, [](const Term& lhs, const Polynomial& rhs) { return RationalFunction(Polynomial(lhs)) / rhs; })
@@ -42,8 +42,8 @@ void define_term(py::module& m) {
         .def(py::self != py::self)
         .def(py::self == py::self)
 
-        .def_property_readonly("coeff", [] (const Term& arg) -> Rational { return arg.coeff(); })
-        .def_property_readonly("monomial", &Term::monomial)
+        .def_property_readonly("coeff", [] (const Term& arg) { return arg.coeff(); })
+        .def_property_readonly("monomial", [](const Term& arg) { return arg.monomial(); })
 
         .def("__str__", &streamToString<Term>)
 
