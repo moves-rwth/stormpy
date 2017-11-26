@@ -16,16 +16,17 @@ class TestPLA:
         assert model.nr_transitions == 803
         assert model.model_type == stormpy.ModelType.DTMC
         assert model.has_parameters
-        checker = stormpy.pars.create_region_checker(model, formulas[0].raw_formula)
+        env = stormpy.Environment()
+        checker = stormpy.pars.create_region_checker(env, model, formulas[0].raw_formula)
         parameters = model.collect_probability_parameters()
         assert len(parameters) == 2
         region = stormpy.pars.ParameterRegion("0.7<=pL<=0.9,0.75<=pK<=0.95", parameters)
-        result = checker.check_region(region)
+        result = checker.check_region(env, region)
         assert result == stormpy.pars.RegionResult.ALLSAT
         region = stormpy.pars.ParameterRegion("0.4<=pL<=0.65,0.75<=pK<=0.95", parameters)
-        result = checker.check_region(region, stormpy.pars.RegionResultHypothesis.UNKNOWN,
+        result = checker.check_region(env, region, stormpy.pars.RegionResultHypothesis.UNKNOWN,
                                       stormpy.pars.RegionResult.UNKNOWN, True)
         assert result == stormpy.pars.RegionResult.EXISTSBOTH
         region = stormpy.pars.ParameterRegion("0.1<=pL<=0.73,0.2<=pK<=0.715", parameters)
-        result = checker.check_region(region)
+        result = checker.check_region(env, region)
         assert result == stormpy.pars.RegionResult.ALLVIOLATED
