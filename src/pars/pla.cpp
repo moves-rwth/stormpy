@@ -2,21 +2,22 @@
 #include "src/helpers.h"
 #include "storm/api/storm.h"
 
+
 typedef storm::modelchecker::SparseDtmcParameterLiftingModelChecker<storm::models::sparse::Dtmc<storm::RationalFunction>, double> SparseDtmcRegionChecker;
 typedef storm::modelchecker::RegionModelChecker<storm::RationalFunction> RegionModelChecker;
 typedef storm::storage::ParameterRegion<storm::RationalFunction> Region;
 
 // Thin wrappers
-std::shared_ptr<RegionModelChecker> createRegionChecker(std::shared_ptr<storm::models::sparse::Model<storm::RationalFunction>> const& model, std::shared_ptr<storm::logic::Formula> const& formula) {
-    return storm::api::initializeParameterLiftingRegionModelChecker<storm::RationalFunction, double>(model, storm::api::createTask<storm::RationalFunction>(formula, true));
+std::shared_ptr<RegionModelChecker> createRegionChecker(storm::Environment const& env, std::shared_ptr<storm::models::sparse::Model<storm::RationalFunction>> const& model, std::shared_ptr<storm::logic::Formula> const& formula) {
+    return storm::api::initializeParameterLiftingRegionModelChecker<storm::RationalFunction, double>(env, model, storm::api::createTask<storm::RationalFunction>(formula, true));
 }
 
-storm::modelchecker::RegionResult checkRegion(std::shared_ptr<RegionModelChecker>& checker, Region const& region, storm::modelchecker::RegionResultHypothesis const& hypothesis, storm::modelchecker::RegionResult const& initialResult, bool sampleVertices) {
-    return checker->analyzeRegion(region, hypothesis, initialResult, sampleVertices);
+storm::modelchecker::RegionResult checkRegion(std::shared_ptr<RegionModelChecker>& checker, storm::Environment const& env, Region const& region, storm::modelchecker::RegionResultHypothesis const& hypothesis, storm::modelchecker::RegionResult const& initialResult, bool sampleVertices) {
+    return checker->analyzeRegion(env, region, hypothesis, initialResult, sampleVertices);
 }
 
-storm::RationalFunction getBound(std::shared_ptr<RegionModelChecker>& checker, Region const& region, bool maximise) {
-    return checker->getBoundAtInitState(region, maximise ?  storm::solver::OptimizationDirection::Maximize : storm::solver::OptimizationDirection::Minimize);
+storm::RationalFunction getBound(std::shared_ptr<RegionModelChecker>& checker, storm::Environment const& env, Region const& region, bool maximise) {
+    return checker->getBoundAtInitState(env, region, maximise ?  storm::solver::OptimizationDirection::Maximize : storm::solver::OptimizationDirection::Minimize);
 }
 
 
@@ -74,11 +75,11 @@ void define_pla(py::module& m) {
                 auto tmp = storm::api::initializeParameterLiftingRegionModelChecker<storm::RationalFunction, double>(model, task);
                 new (&instance) std::unique_ptr<SparseDtmcRegionChecker>(tmp);
             }, py::arg("model"), py::arg("task")*/
-        .def("check_region", &checkRegion, "Check region", py::arg("region"), py::arg("hypothesis") = storm::modelchecker::RegionResultHypothesis::Unknown, py::arg("initialResult") = storm::modelchecker::RegionResult::Unknown, py::arg("sampleVertices") = false)
-        .def("get_bound", &getBound, "Get bound", py::arg("region"), py::arg("maximise")= true);
+        .def("check_region", &checkRegion, "Check region", py::arg("environment"), py::arg("region"), py::arg("hypothesis") = storm::modelchecker::RegionResultHypothesis::Unknown, py::arg("initialResult") = storm::modelchecker::RegionResult::Unknown, py::arg("sampleVertices") = false)
+        .def("get_bound", &getBound, "Get bound", py::arg("environment"), py::arg("region"), py::arg("maximise")= true);
     ;
 
-    m.def("create_region_checker", &createRegionChecker, "Create region checker", py::arg("model"), py::arg("formula"));
+    m.def("create_region_checker", &createRegionChecker, "Create region checker", py::arg("environment"), py::arg("model"), py::arg("formula"));
     //m.def("is_parameter_lifting_sound", &storm::utility::parameterlifting::validateParameterLiftingSound, "Check if parameter lifting is sound", py::arg("model"), py::arg("formula"));
     m.def("gather_derivatives", &gatherDerivatives, "Gather all derivatives of transition probabilities", py::arg("model"), py::arg("var"));
 }
