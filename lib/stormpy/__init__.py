@@ -150,13 +150,31 @@ def model_checking(model, property):
         return core._model_checking_sparse_engine(model, task)
 
 
+def prob01min_states(model, eventually_formula):
+    assert type(eventually_formula) == logic.EventuallyFormula
+    labelform = eventually_formula.subformula
+    labelprop = core.Property("label-prop", labelform)
+    phiStates = BitVector(model.nr_states, True)
+    psiStates = model_checking(model, labelprop).get_truth_values()
+    return compute_prob01min_states(model, phiStates, psiStates)
+
+
+def prob01max_states(model, eventually_formula):
+    assert type(eventually_formula) == logic.EventuallyFormula
+    labelform = eventually_formula.subformula
+    labelprop = core.Property("label-prop", labelform)
+    phiStates = BitVector(model.nr_states, True)
+    psiStates = model_checking(model, labelprop).get_truth_values()
+    return compute_prob01min_states(model, phiStates, psiStates)
+
+
 def compute_prob01_states(model, phi_states, psi_states):
     """
     Compute prob01 states for properties of the form phi_states until psi_states
 
     :param SparseDTMC model:
     :param BitVector phi_states:
-    :param BitVector psi_states:
+    :param BitVector psi_states: Target states
     """
     if model.model_type != ModelType.DTMC:
         raise StormError("Prob 01 is only defined for DTMCs -- model must be a DTMC")
