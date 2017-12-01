@@ -27,10 +27,12 @@ class SetupConfig():
         except NotImplementedError:
             no_jobs = 1
         return {
+            "carl_dir": "",
+            "carl_parser_dir": "",
+            "disable_cln": False,
+            "disable_parser": False,
             "debug": "False",
             "jobs": str(no_jobs),
-            "carl_dir": "",
-            "carl_parser_dir": ""
         }
 
     def load_from_file(self, path):

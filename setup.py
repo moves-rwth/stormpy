@@ -29,8 +29,10 @@ class CMakeBuild(build_ext):
     user_options = build_ext.user_options + [
         ('carl-dir=', None, 'Path to carl root (binary) location'),
         ('carl-parser-dir=', None, 'Path to carl-parser root (binary) location'),
-        ('jobs=', 'j', 'Number of jobs to use for compiling'),
+        ('disable-cln', None, 'Disable support for CLN'),
+        ('disable-parser', None, 'Disable parsing support'),
         ('debug', None, 'Build in Debug mode'),
+        ('jobs=', 'j', 'Number of jobs to use for compiling'),
     ]
 
     config = SetupConfig()
@@ -84,13 +86,17 @@ class CMakeBuild(build_ext):
             sys.exit(
                 'Pycarl - Error: Carl version {} from \'{}\' is not supported anymore!'.format(carl_version, carl_dir))
 
+        # Check additional support
+        use_cln = cmake_conf.CARL_WITH_CLN and not self.config.get_as_bool("disable_cln")
+        use_parser = cmake_conf.CARL_WITH_PARSER and not self.config.get_as_bool("disable_parser")
+
         # Print build info
         print("Pycarl - Using carl {} from {}".format(carl_version, carl_dir))
-        if cmake_conf.CARL_WITH_PARSER:
+        if use_parser:
             print("Pycarl - Carl parser extension from {} included.".format(carl_parser_dir))
         else:
             print("Pycarl - Warning: No parser support!")
-        if cmake_conf.CARL_WITH_CLN:
+        if use_cln:
             print("Pycarl - Support for CLN found and included.")
         else:
             print("Pycarl - Warning: No support for CLN!")
@@ -101,7 +107,7 @@ class CMakeBuild(build_ext):
         cmake_args += ['-DCMAKE_BUILD_TYPE=' + build_type]
         if carl_dir is not None:
             cmake_args += ['-Dcarl_DIR=' + carl_dir]
-        if carl_parser_dir:
+        if use_parser and carl_parser_dir:
             cmake_args += ['-Dcarl_parser_DIR=' + carl_parser_dir]
         build_args = ['--config', build_type]
         build_args += ['--', '-j{}'.format(self.config.get_as_int("jobs"))]
@@ -113,20 +119,20 @@ class CMakeBuild(build_ext):
                 with open(os.path.join(self._extdir(ext.name), ext.subdir, "_config.py"), "w") as f:
                     f.write("# Generated from setup.py at {}\n".format(datetime.datetime.now()))
                     f.write('CARL_VERSION = "{}"\n'.format(carl_version))
-                    f.write("CARL_WITH_PARSER = {}\n".format(cmake_conf.CARL_WITH_PARSER))
-                    f.write("CARL_WITH_CLN = {}\n".format(cmake_conf.CARL_WITH_CLN))
+                    f.write("CARL_WITH_PARSER = {}\n".format(use_parser))
+                    f.write("CARL_WITH_CLN = {}\n".format(use_cln))
             if "cln" in ext.name:
                 with open(os.path.join(self._extdir(ext.name), ext.subdir, "_config.py"), "w") as f:
                     f.write("# Generated from setup.py at {}\n".format(datetime.datetime.now()))
-                    f.write("CARL_WITH_CLN = {}\n".format(cmake_conf.CARL_WITH_CLN))
-                if not cmake_conf.CARL_WITH_CLN:
+                    f.write("CARL_WITH_CLN = {}\n".format(use_cln))
+                if not use_cln:
                     print("Pycarl - CLN bindings skipped")
                     continue
             if "parse" in ext.name:
                 with open(os.path.join(self._extdir(ext.name), ext.subdir, "_config.py"), "w") as f:
                     f.write("# Generated from setup.py at {}\n".format(datetime.datetime.now()))
-                    f.write("CARL_WITH_PARSER = {}\n".format(cmake_conf.CARL_WITH_PARSER))
-                if not cmake_conf.CARL_WITH_PARSER:
+                    f.write("CARL_WITH_PARSER = {}\n".format(use_parser))
+                if not use_parser:
                     print("Pycarl - Parser bindings skipped")
                     continue
             self.build_extension(ext, cmake_args, build_args)
@@ -138,6 +144,8 @@ class CMakeBuild(build_ext):
         # Set default values for custom cmdline flags
         self.carl_dir = None
         self.carl_parser_dir = None
+        self.disable_cln = None
+        self.disable_parser = None
         self.debug = None
         self.jobs = None
 
@@ -146,6 +154,8 @@ class CMakeBuild(build_ext):
         # Update setup config
         self.config.update("carl_dir", self.carl_dir)
         self.config.update("carl_parser_dir", self.carl_parser_dir)
+        self.config.update("disable_cln", self.disable_cln)
+        self.config.update("disable_parser", self.disable_cln)
         self.config.update("debug", self.debug)
         self.config.update("jobs", self.jobs)
 
