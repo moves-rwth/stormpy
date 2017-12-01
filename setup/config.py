@@ -4,6 +4,10 @@ import multiprocessing
 
 
 class SetupConfig():
+    """
+    Configuration for setup.
+    """
+
     def __init__(self):
         """
         Create config with default values
@@ -11,7 +15,13 @@ class SetupConfig():
         self.config = configparser.ConfigParser()
         self.config["build_ext"] = self._default_values()
 
-    def _default_values(self):
+    @staticmethod
+    def _default_values():
+        """
+        Return default values for config.
+
+        :return: Dict with default values for build settings.
+        """
         try:
             no_jobs = multiprocessing.cpu_count() if multiprocessing.cpu_count() is not None else 1
         except NotImplementedError:

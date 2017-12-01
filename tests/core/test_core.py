@@ -25,7 +25,7 @@ class TestCore:
         import pycarl
         import pycarl._config as config
         assert config.CARL_VERSION
-        assert config.CARL_PARSER == True or config.CARL_PARSER == False
+        assert config.CARL_WITH_PARSER == True or config.CARL_WITH_PARSER == False
         assert config.CARL_WITH_CLN == True or config.CARL_WITH_CLN == False
 
     def test_version(self):

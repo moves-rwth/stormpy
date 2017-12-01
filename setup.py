@@ -1,13 +1,12 @@
 import os
-import multiprocessing
 import sys
 import subprocess
-import importlib
 import datetime
 
 from setuptools import setup, Extension
 from setuptools.command.build_ext import build_ext
 from setuptools.command.test import test
+from distutils.version import StrictVersion
 
 import setup.helper as setup_helper
 from setup.config import SetupConfig
@@ -15,7 +14,8 @@ from setup.config import SetupConfig
 if sys.version_info[0] == 2:
     sys.exit('Sorry, Python 2.x is not supported')
 
-config_path = "build/build_config.cfg"
+# Minimal carl version required
+carl_min_version = "17.10"
 
 
 class CMakeExtension(Extension):
@@ -47,9 +47,11 @@ class CMakeBuild(build_ext):
 
         # Build cmake version info
         build_temp_version = self.build_temp + "-version"
-        if not os.path.exists(build_temp_version):
-            os.makedirs(build_temp_version)
-        self.config.write_config(config_path)
+        setup_helper.ensure_dir_exists(build_temp_version)
+
+        # Write config
+        setup_helper.ensure_dir_exists("build")
+        self.config.write_config("build/build_config.cfg")
 
         cmake_args = []
         carl_dir = self.config.get_as_string("carl_dir")
@@ -59,94 +61,103 @@ class CMakeBuild(build_ext):
         if carl_parser_dir:
             cmake_args += ['-Dcarl_parser_DIR=' + carl_parser_dir]
         output = subprocess.check_output(['cmake', os.path.abspath("cmake")] + cmake_args, cwd=build_temp_version)
-        if sys.version_info[1] >= 5:
-            # Method for Python >= 3.5
-            spec = importlib.util.spec_from_file_location("genconfig",
-                                                          os.path.join(build_temp_version, 'generated/config.py'))
-            self.conf = importlib.util.module_from_spec(spec)
-            spec.loader.exec_module(self.conf)
-        else:
-            # Deprecated method for Python <= 3.4
-            from importlib.machinery import SourceFileLoader
-            self.conf = SourceFileLoader("genconfig",
-                                         os.path.join(build_temp_version, "generated/config.py")).load_module()
+        cmake_conf = setup_helper.load_cmake_config(os.path.join(build_temp_version, 'generated/config.py'))
 
-        # check version
-        major, minor, patch = setup_helper.parse_carl_version(self.conf.CARL_VERSION)
-        setup_helper.check_carl_compatible(self.conf.CARL_DIR, major, minor, patch)
+        # Set carl directory
+        if carl_dir == "":
+            carl_dir = cmake_conf.CARL_DIR
+        if carl_dir != cmake_conf.CARL_DIR:
+            print("Pycarl - Warning: Using different carl directory {} instead of given {}!".format(cmake_conf.CARL_DIR,
+                                                                                                    carl_dir))
+            carl_dir = cmake_conf.CARL_DIR
+        # Set carl-parser directory
+        if carl_parser_dir == "":
+            carl_parser_dir = cmake_conf.CARL_PARSER_DIR
+        if carl_parser_dir != cmake_conf.CARL_PARSER_DIR:
+            print("Pycarl - Warning: Using different carl-parser directory {} instead of given {}!".format(
+                cmake_conf.CARL_PARSER_DIR, carl_parser_dir))
+            carl_parser_dir = cmake_conf.CARL_PARSER_DIR
 
-        print("Pycarl - Using carl {} from {}".format(self.conf.CARL_VERSION, self.conf.CARL_DIR))
-        if self.conf.CARL_PARSER:
-            print("Pycarl - Carl parser extension found and included.")
+        # Check version
+        carl_version, carl_commit = setup_helper.parse_carl_version(cmake_conf.CARL_VERSION)
+        if StrictVersion(carl_version) < StrictVersion(carl_min_version):
+            sys.exit(
+                'Pycarl - Error: Carl version {} from \'{}\' is not supported anymore!'.format(carl_version, carl_dir))
+
+        # Print build info
+        print("Pycarl - Using carl {} from {}".format(carl_version, carl_dir))
+        if cmake_conf.CARL_WITH_PARSER:
+            print("Pycarl - Carl parser extension from {} included.".format(carl_parser_dir))
         else:
             print("Pycarl - Warning: No parser support!")
-        if self.conf.CARL_WITH_CLN:
+        if cmake_conf.CARL_WITH_CLN:
             print("Pycarl - Support for CLN found and included.")
         else:
             print("Pycarl - Warning: No support for CLN!")
 
+        # Set general cmake build options
+        build_type = 'Debug' if self.config.get_as_bool("debug") else 'Release'
+        cmake_args = ['-DPYTHON_EXECUTABLE=' + sys.executable]
+        cmake_args += ['-DCMAKE_BUILD_TYPE=' + build_type]
+        if carl_dir is not None:
+            cmake_args += ['-Dcarl_DIR=' + carl_dir]
+        if carl_parser_dir:
+            cmake_args += ['-Dcarl_parser_DIR=' + carl_parser_dir]
+        build_args = ['--config', build_type]
+        build_args += ['--', '-j{}'.format(self.config.get_as_int("jobs"))]
+
+        # Build extensions
         for ext in self.extensions:
             setup_helper.ensure_dir_exists(os.path.join(self._extdir(ext.name), ext.subdir))
             if "core" in ext.name:
                 with open(os.path.join(self._extdir(ext.name), ext.subdir, "_config.py"), "w") as f:
                     f.write("# Generated from setup.py at {}\n".format(datetime.datetime.now()))
-                    f.write('CARL_VERSION = "{}.{}.{}"\n'.format(major, minor, patch))
-                    f.write("CARL_PARSER = {}\n".format(self.conf.CARL_PARSER))
-                    f.write("CARL_WITH_CLN = {}\n".format(self.conf.CARL_WITH_CLN))
+                    f.write('CARL_VERSION = "{}"\n'.format(carl_version))
+                    f.write("CARL_WITH_PARSER = {}\n".format(cmake_conf.CARL_WITH_PARSER))
+                    f.write("CARL_WITH_CLN = {}\n".format(cmake_conf.CARL_WITH_CLN))
             if "cln" in ext.name:
                 with open(os.path.join(self._extdir(ext.name), ext.subdir, "_config.py"), "w") as f:
                     f.write("# Generated from setup.py at {}\n".format(datetime.datetime.now()))
-                    f.write("CARL_WITH_CLN = {}\n".format(self.conf.CARL_WITH_CLN))
-                if not self.conf.CARL_WITH_CLN:
+                    f.write("CARL_WITH_CLN = {}\n".format(cmake_conf.CARL_WITH_CLN))
+                if not cmake_conf.CARL_WITH_CLN:
                     print("Pycarl - CLN bindings skipped")
                     continue
             if "parse" in ext.name:
                 with open(os.path.join(self._extdir(ext.name), ext.subdir, "_config.py"), "w") as f:
                     f.write("# Generated from setup.py at {}\n".format(datetime.datetime.now()))
-                    f.write("CARL_PARSER = {}\n".format(self.conf.CARL_PARSER))
-                if not self.conf.CARL_PARSER:
+                    f.write("CARL_WITH_PARSER = {}\n".format(cmake_conf.CARL_WITH_PARSER))
+                if not cmake_conf.CARL_WITH_PARSER:
                     print("Pycarl - Parser bindings skipped")
                     continue
-            self.build_extension(ext)
+            self.build_extension(ext, cmake_args, build_args)
 
     def initialize_options(self):
         build_ext.initialize_options(self)
+        # Load setup config
+        self.config.load_from_file("build/build_config.cfg")
+        # Set default values for custom cmdline flags
         self.carl_dir = None
         self.carl_parser_dir = None
         self.debug = None
         self.jobs = None
 
     def finalize_options(self):
-        self.config.load_from_file(config_path)
+        build_ext.finalize_options(self)
+        # Update setup config
         self.config.update("carl_dir", self.carl_dir)
         self.config.update("carl_parser_dir", self.carl_parser_dir)
         self.config.update("debug", self.debug)
         self.config.update("jobs", self.jobs)
-        print('Pycarl - The custom carl directory', self.config.get_as_string("carl_dir"))
-        print('Pycarl - The custom carl-parser directory', self.config.get_as_string("carl_parser_dir"))
-        build_ext.finalize_options(self)
 
-    def build_extension(self, ext):
+    def build_extension(self, ext, general_cmake_args, general_build_args):
         extdir = os.path.abspath(os.path.dirname(self.get_ext_fullpath(ext.name)))
-        cmake_args = ['-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=' + os.path.join(extdir, ext.subdir),
-                      '-DPYTHON_EXECUTABLE=' + sys.executable]
-
-        build_type = 'Debug' if self.config.get_as_bool("debug") else 'Release'
-        build_args = ['--config', build_type]
-        build_args += ['--', '-j{}'.format(self.config.get_as_int("jobs"))]
-        cmake_args += ['-DCMAKE_BUILD_TYPE=' + build_type]
-        carl_dir = self.config.get_as_string("carl_dir")
-        carl_parser_dir = self.config.get_as_string("carl_parser_dir")
-        if carl_dir is not None:
-            cmake_args += ['-Dcarl_DIR=' + carl_dir]
-        if carl_parser_dir:
-            cmake_args += ['-Dcarl_parser_DIR=' + carl_parser_dir]
+        cmake_args = ['-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=' + os.path.join(extdir, ext.subdir)] + general_cmake_args
+        build_args = general_build_args
 
         env = os.environ.copy()
         env['CXXFLAGS'] = '{} -DVERSION_INFO=\\"{}\\"'.format(env.get('CXXFLAGS', ''),
                                                               self.distribution.get_version())
-        if not os.path.exists(self.build_temp):
-            os.makedirs(self.build_temp)
+        setup_helper.ensure_dir_exists(self.build_temp)
         print("Pycarl - CMake args={}".format(cmake_args))
         # Call cmake
         subprocess.check_call(['cmake', ext.sourcedir] + cmake_args, cwd=self.build_temp, env=env)
