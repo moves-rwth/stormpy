@@ -10,6 +10,10 @@ Version 2.0
 - Extended bindings for rational functions and factorized rational functions
 - Variable constructor no longer returns an existing variable if a variable with that name exists
 - expand allows to obtain the expanded polynomial and rational function
+- Extended build script:
+    * uses config file
+    * support for disabling build of cln and parser bindings
+    * fixed debug build type
 
 ### Version 2.0.1 (requires CArL >= 17.08)
 - Added conversions between CLN and GMP
