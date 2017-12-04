@@ -155,7 +155,7 @@ class CMakeBuild(build_ext):
         self.config.update("carl_dir", self.carl_dir)
         self.config.update("carl_parser_dir", self.carl_parser_dir)
         self.config.update("disable_cln", self.disable_cln)
-        self.config.update("disable_parser", self.disable_cln)
+        self.config.update("disable_parser", self.disable_parser)
         self.config.update("debug", self.debug)
         self.config.update("jobs", self.jobs)
 
