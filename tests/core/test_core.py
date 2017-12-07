@@ -30,8 +30,10 @@ class TestCore:
     def test_version(self):
         import pycarl
         from distutils.version import StrictVersion
-        version = StrictVersion(pycarl.carl_version())
-        assert version > StrictVersion("17.07.50")
+        version = StrictVersion(pycarl.__version__)
+        assert version > StrictVersion("2.0.0")
+        carl_version = StrictVersion(pycarl.carl_version())
+        assert carl_version > StrictVersion("17.07.50")
 
     def test_pickle(self):
         import pycarl
