@@ -1,10 +1,10 @@
-from configurations import has_cln, has_parser
+import pycarl
 
-if has_parser:
+if pycarl.has_parser():
     import pycarl.parse
     import pycarl.gmp.parse
     import pycarl.gmp.formula
 
-    if has_cln:
+    if pycarl.has_cln():
         import pycarl.cln.parse
         import pycarl.cln.formula

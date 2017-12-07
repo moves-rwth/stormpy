@@ -23,15 +23,14 @@ class TestCore:
 
     def test_config(self):
         import pycarl
-        import pycarl._config as config
-        assert config.CARL_VERSION
-        assert config.CARL_WITH_PARSER == True or config.CARL_WITH_PARSER == False
-        assert config.CARL_WITH_CLN == True or config.CARL_WITH_CLN == False
+        assert pycarl.carl_version()
+        assert pycarl.has_parser() == True or pycarl.has_parser() == False
+        assert pycarl.has_cln() == True or pycarl.has_cln() == False
 
     def test_version(self):
-        import pycarl._config as config
+        import pycarl
         from distutils.version import StrictVersion
-        version = StrictVersion(config.CARL_VERSION)
+        version = StrictVersion(pycarl.carl_version())
         assert version > StrictVersion("17.07.50")
 
     def test_pickle(self):

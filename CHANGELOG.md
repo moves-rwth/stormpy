@@ -11,6 +11,7 @@ Requires carl version >= 17.12
 - Extended bindings for rational functions and factorized rational functions
 - `Variable` constructor no longer returns an existing variable if a variable with that name exists
 - `expand()` allows to obtain the expanded polynomial and rational function
+- Added methods for getting information about pycarl configuration
 - Extended build script:
     * uses config file
     * support for disabling build of CLN and parser bindings

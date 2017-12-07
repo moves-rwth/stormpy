@@ -1,12 +1,12 @@
 import pytest
 import pycarl
 
-from configurations import PackageSelector, has_cln
+from configurations import PackageSelector
 
 parameters = [(pycarl.gmp, pycarl.convert.gmp_converter)]
 names = ["gmp_converter"]
 
-if has_cln:
+if pycarl.has_cln():
     parameters.append((pycarl.cln, pycarl.convert.cln_converter))
     names.append("cln_converter")
 
