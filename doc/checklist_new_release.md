@@ -7,7 +7,7 @@ The following steps should be performed before releasing a new pycarl version.
    ```
 
 2. Update used carl version:
-  * Update `carl_min_version` in `setup.py`
+   * Update `carl_min_version` in `setup.py`
 
 3. Check that pycarl builds without errors and all tests are successful
    * [Travis](https://travis-ci.org/moves-rwth/pycarl) should run successfully
