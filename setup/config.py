@@ -3,7 +3,7 @@ import os
 import multiprocessing
 
 
-class SetupConfig():
+class SetupConfig:
     """
     Configuration for setup.
     """
@@ -31,7 +31,7 @@ class SetupConfig():
             "carl_parser_dir": "",
             "disable_cln": False,
             "disable_parser": False,
-            "debug": "False",
+            "debug": False,
             "jobs": str(no_jobs),
         }
 

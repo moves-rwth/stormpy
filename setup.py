@@ -42,7 +42,7 @@ class CMakeBuild(build_ext):
 
     def run(self):
         try:
-            out = subprocess.check_output(['cmake', '--version'])
+            _ = subprocess.check_output(['cmake', '--version'])
         except OSError:
             raise RuntimeError("CMake must be installed to build the following extensions: " +
                                ", ".join(e.name for e in self.extensions))
@@ -191,6 +191,7 @@ setup(
     maintainer_email="sebastian.junges@cs.rwth-aachen.de",
     url="http://moves.rwth-aachen.de",
     description="pycarl - Python Bindings for CArL",
+    long_description='',
     packages=['pycarl',
               'pycarl.cln',
               'pycarl.gmp',
@@ -201,7 +202,6 @@ setup(
               'pycarl.gmp.parse',
               'pycarl.cln.parse'],
     package_dir={'': 'lib'},
-    long_description='',
     ext_package='pycarl',
     ext_modules=[CMakeExtension('core', subdir=''),
                  CMakeExtension('cln', subdir='cln'),
