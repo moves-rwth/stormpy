@@ -15,7 +15,7 @@ if sys.version_info[0] == 2:
     sys.exit('Sorry, Python 2.x is not supported')
 
 # Minimal storm version required
-storm_min_version = "1.1.0"
+storm_min_version = "1.2.0"
 
 
 class CMakeExtension(Extension):
@@ -225,7 +225,7 @@ setup(
                  ],
     cmdclass={'build_ext': CMakeBuild, 'test': PyTest},
     zip_safe=False,
-    install_requires=['pycarl>=2.0.1'],
+    install_requires=['pycarl>=2.0.2'],
     setup_requires=['pytest-runner'],
     tests_require=['pytest'],
     python_requires='>=3',
