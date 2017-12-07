@@ -15,7 +15,7 @@ if sys.version_info[0] == 2:
     sys.exit('Sorry, Python 2.x is not supported')
 
 # Minimal carl version required
-carl_min_version = "17.10"
+carl_min_version = "17.12"
 
 
 class CMakeExtension(Extension):
