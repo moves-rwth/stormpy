@@ -24,6 +24,7 @@ linux)
         export N_JOBS=$N_JOBS;
         export OS=$OS;
         export PYTHON=$PYTHON;
+        export CONFIG=$CONFIG;
         export TASK=$TASK;
         cd opt/stormpy;
         travis/build-helper.sh"
