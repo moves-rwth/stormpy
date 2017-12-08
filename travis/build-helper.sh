@@ -23,7 +23,7 @@ run() {
   cd pycarl
   case "$CONFIG" in
   Debug*)
-    python setup.py build_ext --develop -j 1 develop
+    python setup.py build_ext --debug -j 1 develop
     ;;
   *)
     python setup.py build_ext -j 1 develop
@@ -36,7 +36,7 @@ run() {
   travis_fold start build_stormpy
   case "$CONFIG" in
   Debug*)
-    python setup.py build_ext --develop -j 1 develop
+    python setup.py build_ext --debug -j 1 develop
     ;;
   *)
     python setup.py build_ext -j 1 develop
