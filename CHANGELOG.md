@@ -2,7 +2,7 @@ Changelog
 =============
 
 
-Version 1.1.x
+Version 1.2.x
 -------------
 
 ### Version 1.2.0
@@ -14,6 +14,10 @@ Requires storm version >= 1.2.0 and pycarl version >= 2.0.2
 - Support for `submatrix()`
 - Extended documentation
 - Extended build script
+
+
+Version 1.1.x
+-------------
 
 ### Version 1.1.0 (2017/08)
 Requires storm version >= 1.1.0
