@@ -10,6 +10,10 @@ Requires storm version >= 1.2.0 and pycarl version >= 2.0.2
 - Adaptions to changes in Storm
 - Bindings for simplification of parametric models
 - Handling of rewards
+- Building of model with all labels if no formula is given
+- Support for `submatrix()`
+- Extended documentation
+- Extended build script
 
 ### Version 1.1.0 (2017/08)
 Requires storm version >= 1.1.0
