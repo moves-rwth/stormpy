@@ -56,7 +56,6 @@ class TestModel:
             assert reward == 1.0 or reward == 0.0
         assert not model.reward_models["coin_flips"].has_transition_rewards
 
-
     def test_build_parametric_dtmc_from_prism_program(self):
         program = stormpy.parse_prism_program(get_example_path("pdtmc", "brp16_2.pm"))
         prop = "P=? [F s=5]"
@@ -140,6 +139,26 @@ class TestModel:
         assert model.model_type == stormpy.ModelType.MDP
         assert not model.supports_parameters
         assert type(model) is stormpy.SparseMdp
+
+    def test_build_ctmc(self):
+        program = stormpy.parse_prism_program(get_example_path("ctmc", "polling2.sm"), True)
+        formulas = stormpy.parse_properties_for_prism_program("P=? [ F<=3 \"target\" ]", program)
+        model = stormpy.build_model(program, formulas)
+        assert model.nr_states == 12
+        assert model.nr_transitions == 22
+        assert model.model_type == stormpy.ModelType.CTMC
+        assert not model.supports_parameters
+        assert type(model) is stormpy.SparseCtmc
+
+    def test_build_ma(self):
+        program = stormpy.parse_prism_program(get_example_path("ma", "simple.ma"))
+        formulas = stormpy.parse_properties_for_prism_program("P=? [ F<=2 s=2 ]", program)
+        model = stormpy.build_model(program, formulas)
+        assert model.nr_states == 5
+        assert model.nr_transitions == 8
+        assert model.model_type == stormpy.ModelType.MA
+        assert not model.supports_parameters
+        assert type(model) is stormpy.SparseMA
 
     def test_initial_states(self):
         program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))

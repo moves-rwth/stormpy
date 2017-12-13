@@ -145,8 +145,10 @@ void define_model(py::module& m) {
         .def("__str__", getModelInfoPrinter<double>("MDP"))
     ;
     py::class_<storm::models::sparse::Ctmc<double>, std::shared_ptr<storm::models::sparse::Ctmc<double>>>(m, "SparseCtmc", "CTMC in sparse representation", model)
+        .def("__str__", getModelInfoPrinter<double>("CTMC"))
     ;
     py::class_<storm::models::sparse::MarkovAutomaton<double>, std::shared_ptr<storm::models::sparse::MarkovAutomaton<double>>>(m, "SparseMA", "MA in sparse representation", model)
+        .def("__str__", getModelInfoPrinter<double>("MA"))
     ;
     py::class_<storm::models::sparse::StandardRewardModel<double>>(m, "SparseRewardModel", "Reward structure for sparse models")
         .def_property_readonly("has_state_rewards", &RewardModel<double>::hasStateRewards)
@@ -186,9 +188,11 @@ void define_model(py::module& m) {
     ;
 
     py::class_<storm::models::sparse::Ctmc<storm::RationalFunction>, std::shared_ptr<storm::models::sparse::Ctmc<storm::RationalFunction>>>(m, "SparseParametricCtmc", "pCTMC in sparse representation", modelRatFunc)
+        .def("__str__", getModelInfoPrinter<RationalFunction>("ParametricCTMC"))
     ;
 
     py::class_<storm::models::sparse::MarkovAutomaton<storm::RationalFunction>, std::shared_ptr<storm::models::sparse::MarkovAutomaton<storm::RationalFunction>>>(m, "SparseParametricMA", "pMA in sparse representation", modelRatFunc)
+        .def("__str__", getModelInfoPrinter<RationalFunction>("ParametricMA"))
     ;
 
     py::class_<storm::models::sparse::StandardRewardModel<storm::RationalFunction>>(m, "SparseParametricRewardModel", "Reward structure for parametric sparse models")

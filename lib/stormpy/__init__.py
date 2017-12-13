@@ -40,6 +40,10 @@ def build_model(symbolic_description, properties=None):
         return intermediate._as_dtmc()
     elif intermediate.model_type == ModelType.MDP:
         return intermediate._as_mdp()
+    elif intermediate.model_type == ModelType.CTMC:
+        return intermediate._as_ctmc()
+    elif intermediate.model_type == ModelType.MA:
+        return intermediate._as_ma()
     else:
         raise StormError("Not supported non-parametric model constructed")
 
@@ -66,6 +70,10 @@ def build_parametric_model(symbolic_description, properties=None):
         return intermediate._as_pdtmc()
     elif intermediate.model_type == ModelType.MDP:
         return intermediate._as_pmdp()
+    elif intermediate.model_type == ModelType.CTMC:
+        return intermediate._as_pctmc()
+    elif intermediate.model_type == ModelType.MA:
+        return intermediate._as_pma()
     else:
         raise StormError("Not supported parametric model constructed")
 
