@@ -69,22 +69,6 @@ class TestModelChecking:
         reference = [0.16666666666666663, 0.3333333333333333, 0, 0.6666666666666666, 0, 0, 0, 1, 0, 0, 0, 0, 0]
         assert all(map(math.isclose, result.get_values(), reference))
 
-    def test_parametric_state_elimination(self):
-        program = stormpy.parse_prism_program(get_example_path("pdtmc", "brp16_2.pm"))
-        prop = "P=? [F s=5]"
-        formulas = stormpy.parse_properties_for_prism_program(prop, program)
-        model = stormpy.build_parametric_model(program, formulas)
-        assert model.nr_states == 613
-        assert model.nr_transitions == 803
-        assert model.model_type == stormpy.ModelType.DTMC
-        assert model.has_parameters
-        initial_state = model.initial_states[0]
-        assert initial_state == 0
-        result = stormpy.model_checking(model, formulas[0])
-        func = result.at(initial_state)
-        one = stormpy.FactorizedPolynomial(stormpy.RationalRF(1))
-        assert func.denominator == one
-
     def test_model_checking_prob01(self):
         program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
         formulaPhi = stormpy.parse_properties("true")[0]

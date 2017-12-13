@@ -8,6 +8,22 @@ from configurations import pars
 
 @pars
 class TestParametric:
+    def test_parametric_state_elimination(self):
+        program = stormpy.parse_prism_program(get_example_path("pdtmc", "brp16_2.pm"))
+        prop = "P=? [F s=5]"
+        formulas = stormpy.parse_properties_for_prism_program(prop, program)
+        model = stormpy.build_parametric_model(program, formulas)
+        assert model.nr_states == 613
+        assert model.nr_transitions == 803
+        assert model.model_type == stormpy.ModelType.DTMC
+        assert model.has_parameters
+        initial_state = model.initial_states[0]
+        assert initial_state == 0
+        result = stormpy.model_checking(model, formulas[0])
+        func = result.at(initial_state)
+        one = stormpy.FactorizedPolynomial(stormpy.RationalRF(1))
+        assert func.denominator == one
+
     def test_constraints_collector(self):
         from pycarl.formula import FormulaType, Relation
         if stormpy.info.storm_ratfunc_use_cln():
