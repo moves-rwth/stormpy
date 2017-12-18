@@ -38,4 +38,10 @@ void define_expressions(py::module& m) {
         .def("__str__", &streamToString<storm::expressions::Expression>)
     ;
 
+    py::class_<storm::expressions::Type>(m, "ExpressionType", "The type of an expression")
+            .def_property_readonly("is_boolean", &storm::expressions::Type::isBooleanType)
+            .def_property_readonly("is_integer", &storm::expressions::Type::isIntegerType)
+            .def_property_readonly("is_rational", &storm::expressions::Type::isRationalType)
+            .def("__str__", &storm::expressions::Type::getStringRepresentation);
+
 }
