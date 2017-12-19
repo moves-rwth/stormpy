@@ -3,6 +3,7 @@
 
 #include "storm/storage/expressions/ExpressionManager.h"
 #include "storm/storage/expressions/Expression.h"
+#include "storm/parser/ExpressionParser.h"
 
 //Define python bindings
 void define_expressions(py::module& m) {
@@ -37,6 +38,10 @@ void define_expressions(py::module& m) {
         .def("has_rational_type", &storm::expressions::Expression::hasRationalType, "Check if the expression is a rational")
         .def("__str__", &streamToString<storm::expressions::Expression>)
     ;
+
+    py::class_<storm::parser::ExpressionParser>(m, "ExpressionParser", "Parser for storm-expressions")
+            .def(py::init<storm::expressions::ExpressionManager const&>(), "Expression Manager to use", py::arg("expression_manager"))
+            .def("parse", &storm::parser::ExpressionParser::parseFromString, "parse");
 
     py::class_<storm::expressions::Type>(m, "ExpressionType", "The type of an expression")
             .def_property_readonly("is_boolean", &storm::expressions::Type::isBooleanType)
