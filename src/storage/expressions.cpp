@@ -36,12 +36,15 @@ void define_expressions(py::module& m) {
         .def("has_boolean_type", &storm::expressions::Expression::hasBooleanType, "Check if the expression is a boolean")
         .def("has_integer_type", &storm::expressions::Expression::hasIntegerType, "Check if the expression is an integer")
         .def("has_rational_type", &storm::expressions::Expression::hasRationalType, "Check if the expression is a rational")
-        .def("__str__", &streamToString<storm::expressions::Expression>)
+        .def_property_readonly("type", &storm::expressions::Expression::getType, "Get the Type")
+        .def("__str__", &storm::expressions::Expression::toString, "To string")
     ;
 
     py::class_<storm::parser::ExpressionParser>(m, "ExpressionParser", "Parser for storm-expressions")
             .def(py::init<storm::expressions::ExpressionManager const&>(), "Expression Manager to use", py::arg("expression_manager"))
-            .def("parse", &storm::parser::ExpressionParser::parseFromString, "parse");
+            .def("set_identifier_mapping", [](storm::parser::ExpressionParser& p, std::unordered_map<std::string, storm::expressions::Expression> const& identifierMapping) {p.setIdentifierMapping(identifierMapping);}, "sets identifiers")
+            .def("parse", &storm::parser::ExpressionParser::parseFromString, "parse")
+            ;
 
     py::class_<storm::expressions::Type>(m, "ExpressionType", "The type of an expression")
             .def_property_readonly("is_boolean", &storm::expressions::Type::isBooleanType)
