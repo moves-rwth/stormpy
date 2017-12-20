@@ -15,6 +15,9 @@ void define_prism(py::module& m) {
             .def_property_readonly("undefined_constants_are_graph_preserving", &storm::prism::Program::undefinedConstantsAreGraphPreserving, "Flag if the undefined constants do not change the graph structure")
             .def("substitute_constants", &Program::substituteConstants, "Substitute constants within program")
             .def("define_constants", &Program::defineUndefinedConstants, "Define constants")
+            .def("restrict_commands", &Program::restrictCommands, "Restrict commands")
+            .def("simplify", &Program::simplify, "Simplify")
+            .def("used_constants",&Program::usedConstants, "Compute Used Constants")
             .def_property_readonly("expression_manager", &Program::getManager, "Get the expression manager for expressions in this program")
             .def("__str__", &streamToString<storm::prism::Program>);
 
