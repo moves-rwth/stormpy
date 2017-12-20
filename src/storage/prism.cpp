@@ -1,6 +1,7 @@
 #include "prism.h"
 #include <storm/storage/prism/Program.h>
 #include "src/helpers.h"
+#include <storm/storage/expressions/ExpressionManager.h>
 
 using namespace storm::prism;
 
@@ -11,6 +12,9 @@ void define_prism(py::module& m) {
             .def_property_readonly("model_type", &storm::prism::Program::getModelType, "Model type")
             .def_property_readonly("has_undefined_constants", &storm::prism::Program::hasUndefinedConstants, "Flag if program has undefined constants")
             .def_property_readonly("undefined_constants_are_graph_preserving", &storm::prism::Program::undefinedConstantsAreGraphPreserving, "Flag if the undefined constants do not change the graph structure")
+            .def("substitute_constants", &Program::substituteConstants, "Substitute constants within program")
+            .def("define_constants", &Program::defineUndefinedConstants, "Define constants")
+            .def_property_readonly("expression_manager", &Program::getManager, "Get the expression manager for expressions in this program")
             .def("__str__", &streamToString<storm::prism::Program>);
 
 
@@ -28,6 +32,8 @@ void define_prism(py::module& m) {
     py::class_<Constant, std::shared_ptr<Constant>> constant(m, "Constant", "A constant in a Prism program");
     constant.def_property_readonly("name", &Constant::getName, "Constant name")
             .def_property_readonly("defined", &Constant::isDefined, "Is the constant defined?")
-            .def_property_readonly("type", &Constant::getType, "The type of the constant");
+            .def_property_readonly("type", &Constant::getType, "The type of the constant")
+            .def_property_readonly("variable", &Constant::getExpressionVariable, "Expression variable")
+            ;
 
 }
