@@ -6,6 +6,7 @@
 #include "core/bisimulation.h"
 #include "core/input.h"
 #include "core/analysis.h"
+#include "core/counterexample.h"
 #include "core/environment.h"
 
 PYBIND11_MODULE(core, m) {
@@ -23,6 +24,7 @@ PYBIND11_MODULE(core, m) {
     define_export(m);
     define_result(m);
     define_modelchecking(m);
+    define_counterexamples(m);
     define_bisimulation(m);
     define_input(m);
     define_graph_constraints(m);
