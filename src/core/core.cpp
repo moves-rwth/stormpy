@@ -58,14 +58,27 @@ std::shared_ptr<storm::models::ModelBase> buildSparseModel(storm::storage::Symbo
     }
 }
 
+// Thin wrapper for model building using one formula as argument
+template<typename ValueType>
+std::shared_ptr<storm::models::ModelBase> buildSparseModelWithOptions(storm::storage::SymbolicModelDescription const& modelDescription, storm::builder::BuilderOptions const& options, bool jit = false, bool doctor = false) {
+    return storm::api::buildSparseModel<ValueType>(modelDescription, options, jit, doctor);
+
+}
+
 void define_build(py::module& m) {
     // Build model
     m.def("_build_sparse_model_from_prism_program", &buildSparseModel<double>, "Build the model", py::arg("model_description"), py::arg("formulas") = std::vector<std::shared_ptr<storm::logic::Formula const>>(), py::arg("use_jit") = false, py::arg("doctor") = false);
     m.def("_build_sparse_parametric_model_from_prism_program", &buildSparseModel<storm::RationalFunction>, "Build the parametric model", py::arg("model_description"), py::arg("formulas") = std::vector<std::shared_ptr<storm::logic::Formula const>>(), py::arg("use_jit") = false, py::arg("doctor") = false);
+    m.def("build_sparse_model_with_options", &buildSparseModelWithOptions<double>, "Build the model", py::arg("model_description"), py::arg("options"), py::arg("use_jit") = false, py::arg("doctor") = false);
     m.def("_build_sparse_model_from_drn", &storm::api::buildExplicitDRNModel<double>, "Build the model from DRN", py::arg("file"));
     m.def("_build_sparse_parametric_model_from_drn", &storm::api::buildExplicitDRNModel<storm::RationalFunction>, "Build the parametric model from DRN", py::arg("file"));
     m.def("build_sparse_model_from_explicit", &storm::api::buildExplicitModel<double>, "Build the model model from explicit input", py::arg("transition_file"), py::arg("labeling_file"), py::arg("state_reward_file") = "", py::arg("transition_reward_file") = "", py::arg("choice_labeling_file") = "");
 
+
+    py::class_<storm::builder::BuilderOptions>(m, "BuilderOptions", "Options for building process")
+            .def(py::init<std::vector<std::shared_ptr<storm::logic::Formula const>> const&>(), "Initialise with formulae to preserve", py::arg("formulae"))
+            .def(py::init<bool, bool>(), "Initialise without formulae", py::arg("build_all_reward_models"), py::arg("build_all_labels"))
+            .def("set_build_with_choice_origins", &storm::builder::BuilderOptions::setBuildChoiceOrigins, "Build choice origins", py::arg("new_value"));
 }
 
 // Thin wrapper for exporting model
