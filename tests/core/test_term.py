@@ -13,6 +13,13 @@ class TestTerm(PackageSelector):
         assert term.monomial == monomial
         assert str(term) == "1/4*x"
 
+    def test_constant(self, package):
+        pycarl.clear_variable_pool()
+        rational = package.Rational(0.25)
+        term = package.Term(rational)
+        assert term.monomial is None
+        assert term.is_constant()
+
     def test_eq(self, package):
         pycarl.clear_variable_pool()
         var = pycarl.Variable("x")

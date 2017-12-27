@@ -8,6 +8,7 @@ void define_term(py::module& m) {
     py::class_<Term>(m, "Term")
         .def(py::init<Rational, const Monomial::Arg&>())
         .def(py::init<carl::Variable&>())
+        .def(py::init<Rational const&>())
 
         .def("__add__",  static_cast<Polynomial (*)(const Term&, const Polynomial&)>(&carl::operator+))
         .def("__add__",  static_cast<Polynomial (*)(const Term&, const Term&)>(&carl::operator+))
@@ -41,6 +42,7 @@ void define_term(py::module& m) {
 
         .def(py::self != py::self)
         .def(py::self == py::self)
+        .def("is_constant", [](const Term& arg) {return arg.isConstant();})
 
         .def_property_readonly("coeff", [] (const Term& arg) { return arg.coeff(); })
         .def_property_readonly("monomial", [](const Term& arg) { return arg.monomial(); })
