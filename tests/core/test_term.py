@@ -12,6 +12,7 @@ class TestTerm(PackageSelector):
         assert term.coeff == package.Rational(0.25)
         assert term.monomial == monomial
         assert str(term) == "1/4*x"
+        assert term.tdeg == 1
 
     def test_constant(self, package):
         pycarl.clear_variable_pool()
@@ -19,6 +20,7 @@ class TestTerm(PackageSelector):
         term = package.Term(rational)
         assert term.monomial is None
         assert term.is_constant()
+        assert term.tdeg == 0
 
     def test_eq(self, package):
         pycarl.clear_variable_pool()

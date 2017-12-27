@@ -43,8 +43,10 @@ void define_term(py::module& m) {
         .def(py::self != py::self)
         .def(py::self == py::self)
         .def("is_constant", [](const Term& arg) {return arg.isConstant();})
+        .def_property_readonly("tdeg", [](const Term& arg) { return arg.tdeg();} )
 
-        .def_property_readonly("coeff", [] (const Term& arg) { return arg.coeff(); })
+
+            .def_property_readonly("coeff", [] (const Term& arg) { return arg.coeff(); })
         .def_property_readonly("monomial", [](const Term& arg) { return arg.monomial(); })
 
         .def("__str__", &streamToString<Term>)
