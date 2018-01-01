@@ -62,3 +62,13 @@ class TestPolynomial(PackageSelector):
         pol2 = var + package.Integer(1) - var
         assert pol2 == package.Rational(1)
         assert pol2 == package.Integer(1)
+
+    def test_substitute(self, package):
+        pycarl.clear_variable_pool()
+        x = pycarl.Variable("x")
+        y = pycarl.Variable("y")
+        pol1 = package.Polynomial(1) - x
+        sub = {x: -package.Polynomial(y) + 1}
+        res = pol1.substitute(sub)
+        pol2 = package.Polynomial(y)
+        assert res == pol2

@@ -62,6 +62,7 @@ void define_polynomial(py::module& m) {
 
         .def_property_readonly("constant_part", &Polynomial::constantPart)
         .def("evaluate", &Polynomial::evaluate<Rational>)
+        .def("substitute", [](const Polynomial& orig, std::map<carl::Variable, Polynomial>& substitutions) {return orig.substitute(substitutions);})
         .def("gather_variables", static_cast<std::set<carl::Variable> (Polynomial::*)() const>(&Polynomial::gatherVariables))
         .def_property_readonly("total_degree", &Polynomial::totalDegree)//, py::doc("The maximum degree of the terms in the polynomial"))
         .def("degree", &Polynomial::degree)//, py::doc("Computes the degree with respect to the given variable"))
