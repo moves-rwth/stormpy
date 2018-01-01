@@ -71,7 +71,9 @@ void define_polynomial(py::module& m) {
                 return pol.derivative(var, 1);
             }, "Compute the derivative", py::arg("variable"))
         .def("__str__", [](const Polynomial& pol) { return pol.toString(); })
-        .def("to_smt2", [](Polynomial const& pol) {
+            .def("__repr__", [](const Polynomial& pol) { return pol.toString(); })
+
+            .def("to_smt2", [](Polynomial const& pol) {
                 return pol.toString(false, true);
             })
 
@@ -81,7 +83,6 @@ void define_polynomial(py::module& m) {
         .def(py::self == Rational())
         .def("__eq__", [](const Polynomial& lhs, const Integer& rhs) -> bool {return lhs == Rational(rhs);})
         .def("__neq__", [](const Polynomial& lhs, const Integer& rhs) -> bool {return lhs == Rational(rhs);})
-
 
         .def("__len__", &Polynomial::size)
         .def("__getitem__", [](const Polynomial& p, std::size_t index) { return *(p.begin()+index); })
