@@ -69,6 +69,8 @@ class TestPolynomial(PackageSelector):
         y = pycarl.Variable("y")
         pol1 = package.Polynomial(1) - x
         sub = {x: -package.Polynomial(y) + 1}
-        res = pol1.substitute(sub)
-        pol2 = package.Polynomial(y)
-        assert res == pol2
+        assert pol1.substitute(sub) == package.Polynomial(y)
+
+        z = pycarl.Variable("z")
+        sub2 = {z: package.Polynomial(3)}
+        assert pol1.substitute(sub2) == pol1
