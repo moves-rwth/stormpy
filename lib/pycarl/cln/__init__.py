@@ -1,7 +1,7 @@
 from . import _config
 
 if not _config.CARL_WITH_CLN:
-    raise ImportError("CLN is not available!")
+    raise ImportError("CLN is not available in the configured carl library! Did you configure carl with -DUSE_CLN_NUMBERS=ON?")
 from . import cln
 from .cln import *
 
