@@ -24,19 +24,17 @@ def example_building_models_02():
         # And the parametric
     path = stormpy.examples.files.drn_pdtmc_die
     model = stormpy.build_parametric_model_from_drn(path)
-    print(model.model_type)
-    print("Number of states: {}".format(model.nr_states))
+
 
 
 
     parameters = model.collect_probability_parameters()
     bar_parameters = dict()
-
     for p in parameters:
         # Ensure that variables with that name are not recognized by pycarl.
         assert pycarl.variable_with_name(p.name + "_bar").is_no_variable
         bar_parameters[p] = pycarl.Variable(p.name + "_bar")
-        print(pc.Polynomial(1) - p)
+
     substitutions = dict([[pc.Polynomial(1) - p, bar_parameters[p]] for p in parameters])
     print(substitutions)
 
@@ -48,8 +46,6 @@ def example_building_models_02():
         val_pol = val.numerator.polynomial()
         cache = val.numerator.cache()
         for sub, repl in substitutions.items():
-            print(sub)
-            print(val_pol - sub)
             if val_pol - sub == 0:
                 print("Found substitution")
                 e.set_value(make_factorized_rf(repl, cache))
