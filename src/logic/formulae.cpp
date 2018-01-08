@@ -22,6 +22,8 @@ void define_formulae(py::module& m) {
     py::class_<storm::logic::EventuallyFormula, std::shared_ptr<storm::logic::EventuallyFormula>>(m, "EventuallyFormula", "Formula for eventually", unaryPathFormula);
     py::class_<storm::logic::GloballyFormula, std::shared_ptr<storm::logic::GloballyFormula>>(m, "GloballyFormula", "Formula for globally", unaryPathFormula);
     py::class_<storm::logic::BinaryPathFormula, std::shared_ptr<storm::logic::BinaryPathFormula>> binaryPathFormula(m, "BinaryPathFormula", "Path formula with two operands", pathFormula);
+    binaryPathFormula.def_property_readonly("left_subformula", &storm::logic::BinaryPathFormula::getLeftSubformula);
+    binaryPathFormula.def_property_readonly("right_subformula", &storm::logic::BinaryPathFormula::getRightSubformula);
     py::class_<storm::logic::BoundedUntilFormula, std::shared_ptr<storm::logic::BoundedUntilFormula>>(m, "BoundedUntilFormula", "Until Formula with either a step or a time bound.", binaryPathFormula);
     py::class_<storm::logic::ConditionalFormula, std::shared_ptr<storm::logic::ConditionalFormula>>(m, "ConditionalFormula", "Formula with the right hand side being a condition.", formula);
     py::class_<storm::logic::UntilFormula, std::shared_ptr<storm::logic::UntilFormula>>(m, "UntilFormula", "Path Formula for unbounded until", binaryPathFormula);
