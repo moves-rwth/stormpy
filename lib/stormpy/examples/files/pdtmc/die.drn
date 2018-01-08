@@ -4,35 +4,35 @@
 @parameters
 p q 
 @reward_models
-
+coin_flips
 @nr_states
 13
 @model
-state 0 init
+state 0 init [1]
 	action 0
 		1 : p
 		2 : (-1)*p+1
-state 1
+state 1 [1]
 	action 0
 		3 : q
 		4 : (-1)*q+1
-state 2
+state 2 [1]
 	action 0
 		5 : q
 		6 : (-1)*q+1
-state 3
+state 3 [1]
 	action 0
 		1 : p
 		7 : (-1)*p+1
-state 4
+state 4 [1]
 	action 0
 		8 : p
 		9 : (-1)*p+1
-state 5
+state 5 [1]
 	action 0
 		2 : p
 		10 : (-1)*p+1
-state 6
+state 6 [1]
 	action 0
 		11 : p
 		12 : (-1)*p+1
