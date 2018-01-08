@@ -38,6 +38,9 @@ void define_sparse_matrix(py::module& m) {
         .def_property_readonly("nr_columns", &SparseMatrix<double>::getColumnCount, "Number of columns")
         .def_property_readonly("nr_entries", &SparseMatrix<double>::getEntryCount, "Number of non-zero entries")
         .def_property_readonly("_row_group_indices", &SparseMatrix<double>::getRowGroupIndices, "Starting rows of row groups")
+
+        .def("get_row_group_start", [](SparseMatrix<double>& matrix, entry_index<double> row) {return matrix.getRowGroupIndices()[row];})
+        .def("get_row_group_end", [](SparseMatrix<double>& matrix, entry_index<double> row) {return matrix.getRowGroupIndices()[row+1];})
         .def_property_readonly("has_trivial_row_grouping", &SparseMatrix<double>::hasTrivialRowGrouping, "Trivial row grouping")
         .def("get_row", [](SparseMatrix<double>& matrix, entry_index<double> row) {
                 return matrix.getRows(row, row+1);
@@ -87,6 +90,8 @@ void define_sparse_matrix(py::module& m) {
         .def_property_readonly("nr_columns", &SparseMatrix<RationalFunction>::getColumnCount, "Number of columns")
         .def_property_readonly("nr_entries", &SparseMatrix<RationalFunction>::getEntryCount, "Number of non-zero entries")
         .def_property_readonly("_row_group_indices", &SparseMatrix<RationalFunction>::getRowGroupIndices, "Starting rows of row groups")
+        .def("get_row_group_start", [](SparseMatrix<RationalFunction>& matrix, entry_index<RationalFunction> row) {return matrix.getRowGroupIndices()[row];})
+        .def("get_row_group_end", [](SparseMatrix<RationalFunction>& matrix, entry_index<RationalFunction> row) {return matrix.getRowGroupIndices()[row+1];})
         .def_property_readonly("has_trivial_row_grouping", &SparseMatrix<RationalFunction>::hasTrivialRowGrouping, "Trivial row grouping")
         .def("get_row", [](SparseMatrix<RationalFunction>& matrix, entry_index<RationalFunction> row) {
                 return matrix.getRows(row, row+1);
