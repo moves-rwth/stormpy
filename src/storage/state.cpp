@@ -17,12 +17,14 @@ void define_state(py::module& m) {
         .def_property_readonly("id", &SparseModelState<double>::getIndex, "Id")
         .def_property_readonly("labels", &SparseModelState<double>::getLabels, "Labels")
         .def_property_readonly("actions", &SparseModelState<double>::getActions, "Get actions")
+        .def("__int__",&SparseModelState<double>::getIndex)
     ;
     py::class_<SparseModelState<storm::RationalFunction>>(m, "SparseParametricModelState", "State in sparse parametric model")
         .def("__str__", &SparseModelState<storm::RationalFunction>::toString)
         .def_property_readonly("id", &SparseModelState<storm::RationalFunction>::getIndex, "Id")
         .def_property_readonly("labels", &SparseModelState<storm::RationalFunction>::getLabels, "Labels")
         .def_property_readonly("actions", &SparseModelState<storm::RationalFunction>::getActions, "Get actions")
+        .def("__int__",&SparseModelState<storm::RationalFunction>::getIndex)
     ;
     
     // SparseModelActions
