@@ -9,6 +9,7 @@ void define_factorizedpolynomial(py::module& m) {
         .def(py::init<const Polynomial&, const std::shared_ptr<carl::Cache<FactorizationPair>>&>(), py::arg("polynomial"), py::arg("cache"), "Constructor")
 
         .def("is_constant", &FactorizedPolynomial::isConstant)
+        .def("is_one", &FactorizedPolynomial::isOne)
         .def("constant_part", &FactorizedPolynomial::constantPart)
         .def_property("coefficient", &FactorizedPolynomial::coefficient, &FactorizedPolynomial::setCoefficient)
 
