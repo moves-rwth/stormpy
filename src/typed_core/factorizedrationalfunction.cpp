@@ -7,6 +7,7 @@
 
 void define_factorizedrationalfunction(py::module& m) {
     py::class_<FactorizedRationalFunction>(m, "FactorizedRationalFunction", "Represent a rational function, that is the fraction of two factorized polynomials ")
+        .def(py::init<FactorizedPolynomial>())
         .def(py::init<FactorizedPolynomial, FactorizedPolynomial>())
         .def("evaluate", &FactorizedRationalFunction::evaluate)
         .def("gather_variables", static_cast<std::set<carl::Variable> (FactorizedRationalFunction::*)() const>(&FactorizedRationalFunction::gatherVariables))
