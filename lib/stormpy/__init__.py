@@ -137,11 +137,13 @@ def perform_bisimulation(model, properties, bisimulation_type):
         return core._perform_bisimulation(model, formulae, bisimulation_type)
 
 
-def model_checking(model, property):
+def model_checking(model, property, only_initial_states=False):
     """
     Perform model checking on model for property.
     :param model: Model.
     :param property: Property to check for.
+    :param only_initial_states: If True, only results for initial states are computed.
+                                If False, results for all states are computed.
     :return: Model checking result.
     :rtype: CheckResult
     """
@@ -151,10 +153,10 @@ def model_checking(model, property):
         formula = property
 
     if model.supports_parameters:
-        task = core.ParametricCheckTask(formula, False)
+        task = core.ParametricCheckTask(formula, only_initial_states)
         return core._parametric_model_checking_sparse_engine(model, task)
     else:
-        task = core.CheckTask(formula, False)
+        task = core.CheckTask(formula, only_initial_states)
         return core._model_checking_sparse_engine(model, task)
 
 
