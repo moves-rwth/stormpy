@@ -27,10 +27,10 @@ storm::RationalFunction getBoundAtInit(std::shared_ptr<RegionModelChecker>& chec
 }
 
 storm::modelchecker::ExplicitQuantitativeCheckResult<double> getBound_dtmc(std::shared_ptr<DtmcParameterLiftingModelChecker>& checker, storm::Environment const& env, Region const& region, bool maximise) {
-    return res = checker->getBound(env, region, maximise ?  storm::solver::OptimizationDirection::Maximize : storm::solver::OptimizationDirection::Minimize)->asExplicitQuantitativeCheckResult<double>();
+    return checker->getBound(env, region, maximise ?  storm::solver::OptimizationDirection::Maximize : storm::solver::OptimizationDirection::Minimize)->asExplicitQuantitativeCheckResult<double>();
 }
 
-std::unique_ptr<storm::modelchecker::QuantitativeCheckResult<double>> getBound_mdp(std::shared_ptr<MdpParameterLiftingModelChecker>& checker, storm::Environment const& env, Region const& region, bool maximise) {
+storm::modelchecker::ExplicitQuantitativeCheckResult<double> getBound_mdp(std::shared_ptr<MdpParameterLiftingModelChecker>& checker, storm::Environment const& env, Region const& region, bool maximise) {
     return checker->getBound(env, region, maximise ?  storm::solver::OptimizationDirection::Maximize : storm::solver::OptimizationDirection::Minimize)->asExplicitQuantitativeCheckResult<double>();
 }
 
