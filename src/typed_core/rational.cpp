@@ -82,6 +82,8 @@ void define_cln_rational(py::module& m) {
         .def(py::self <= int())
 
 
+        .def("is_one", [](const cln::cl_RA& r) { return carl::isOne(r); })
+        .def("is_minus_one", [](const cln::cl_RA& r) {return carl::isOne(-r); })
         .def("__float__", static_cast<double (*)(cln::cl_RA const&)>(&carl::toDouble))
         .def("__str__", &streamToString<cln::cl_RA>)
 		.def("__repr__", [](const cln::cl_RA& r) { return "<Rational  (cln)" + streamToString<cln::cl_RA>(r) + ">"; })
