@@ -2,6 +2,7 @@
 #include "storm/utility/initialize.h"
 #include "storm/utility/DirectEncodingExporter.h"
 #include "storm/storage/ModelFormulasPair.h"
+#include "storm/solver/OptimizationDirection.h"
 
 void define_core(py::module& m) {
     // Init
@@ -66,6 +67,13 @@ void define_build(py::module& m) {
     m.def("_build_sparse_parametric_model_from_drn", &storm::api::buildExplicitDRNModel<storm::RationalFunction>, "Build the parametric model from DRN", py::arg("file"));
     m.def("build_sparse_model_from_explicit", &storm::api::buildExplicitModel<double>, "Build the model model from explicit input", py::arg("transition_file"), py::arg("labeling_file"), py::arg("state_reward_file") = "", py::arg("transition_reward_file") = "", py::arg("choice_labeling_file") = "");
 
+}
+
+void define_optimality_type(py::module& m) {
+    py::enum_<storm::solver::OptimizationDirection>(m, "OptimizationDirection")
+            .value("Minimize", storm::solver::OptimizationDirection::Minimize)
+            .value("Maximize", storm::solver::OptimizationDirection::Maximize)
+            ;
 }
 
 // Thin wrapper for exporting model

@@ -20,6 +20,7 @@ PYBIND11_MODULE(core, m) {
     define_property(m);
     define_parse(m);
     define_build(m);
+    define_optimality_type(m);
     define_export(m);
     define_result(m);
     define_modelchecking(m);

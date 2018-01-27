@@ -58,10 +58,8 @@ void define_formulae(py::module& m) {
         .def("set_bound", [](storm::logic::OperatorFormula& f, storm::logic::ComparisonType comparisonType, storm::expressions::Expression const& bound) {
             f.setBound(storm::logic::Bound(comparisonType, bound));
         }, "Set bound", py::arg("comparison_type"), py::arg("bound"))
-        // the above method should be sufficient for now; reinstate the following if needed
-        //.def_property("_threshold_expression", &storm::logic::OperatorFormula::getThreshold, &storm::logic::OperatorFormula::setThreshold, "Threshold expression")
-        //.def_property_readonly("_threshold_as_rational", &storm::logic::OperatorFormula::getThresholdAs<storm::RationalNumber>, "Rational threshold of bound, if applicable")
-        //.def_property_readonly("_threshold_expression_has_rational_type", [](storm::logic::OperatorFormula const& f) { return f.getThreshold().hasRationalType(); } , "Check expression type [without needing a Python expression object]")
+        .def_property_readonly("has_optimality_type",  &storm::logic::OperatorFormula::hasOptimalityType, "Flag if an optimality type is present")
+        .def_property_readonly("optimality_type", &storm::logic::OperatorFormula::getOptimalityType, "Flag for the optimality type")
     ;
     py::class_<storm::logic::TimeOperatorFormula, std::shared_ptr<storm::logic::TimeOperatorFormula>>(m, "TimeOperator", "The time operator", operatorFormula);
     py::class_<storm::logic::LongRunAverageOperatorFormula, std::shared_ptr<storm::logic::LongRunAverageOperatorFormula>>(m, "LongRunAvarageOperator", "Long run average operator", operatorFormula);
