@@ -27,6 +27,7 @@ void define_cln_rational(py::module& m) {
         .def("__add__", [](const cln::cl_RA& lhs, const cln::cl_RA& rhs) -> cln::cl_RA { return lhs + rhs; })
         .def("__add__", [](const cln::cl_RA& lhs, carl::sint rhs) -> cln::cl_RA { return lhs + carl::rationalize<cln::cl_RA>(rhs); })
         .def("__add__", [](const cln::cl_RA& lhs, const Polynomial& rhs) -> Polynomial { return lhs + rhs; })
+        .def("__add__", [](const cln::cl_RA& lhs, const FactorizedRationalFunction& rhs) -> FactorizedRationalFunction { return rhs + lhs; })
         .def("__radd__", [](const cln::cl_RA& rhs, carl::sint lhs) -> cln::cl_RA { return carl::rationalize<cln::cl_RA>(lhs) + rhs; })
         .def("__radd__", [](const cln::cl_RA& rhs, carl::Variable::Arg lhs) -> Polynomial { return lhs + rhs; })
 
