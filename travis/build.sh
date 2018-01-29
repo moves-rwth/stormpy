@@ -16,6 +16,7 @@ linux)
     docker exec stormpy mkdir opt/stormpy
     docker cp . stormpy:/opt/stormpy
     # Install virtualenv
+    docker exec stormpy apt-get update
     docker exec stormpy apt-get install -qq -y python python3 virtualenv
     set +e
 
