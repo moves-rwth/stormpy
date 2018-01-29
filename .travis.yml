@@ -47,24 +47,24 @@ jobs:
       script: travis/build.sh
       after_failure:
         - find . -name "*err*.log" -type f -print -exec cat {} \;
-    # ubuntu-16.10
+    # ubuntu-17.10
     - os: linux
       compiler: gcc
-      env: TASK=Test PYTHON=python3 CONFIG=Release LINUX=ubuntu-16.10 COMPILER=gcc
+      env: TASK=Test PYTHON=python3 CONFIG=Release LINUX=ubuntu-17.10 COMPILER=gcc
       install: travis/install_linux.sh
       script: travis/build.sh
       after_failure:
         - find . -name "*err*.log" -type f -print -exec cat {} \;
     - os: linux
       compiler: gcc
-      env: TASK=Test PYTHON=python3 CONFIG=ReleaseCln LINUX=ubuntu-16.10 COMPILER=gcc
+      env: TASK=Test PYTHON=python3 CONFIG=ReleaseCln LINUX=ubuntu-17.10 COMPILER=gcc
       install: travis/install_linux.sh
       script: travis/build.sh
       after_failure:
         - find . -name "*err*.log" -type f -print -exec cat {} \;
     - os: linux
       compiler: gcc
-      env: TASK=Test PYTHON=python3 CONFIG=ReleaseClnParser LINUX=ubuntu-16.10 COMPILER=gcc
+      env: TASK=Test PYTHON=python3 CONFIG=ReleaseClnParser LINUX=ubuntu-17.10 COMPILER=gcc
       install: travis/install_linux.sh
       script: travis/build.sh
       after_failure:
