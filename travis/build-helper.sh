@@ -23,7 +23,7 @@ run() {
   cd carl
   mkdir build
   cd build
-  cmake .. "${CMAKE_ARGS[@]}" "-DUSE_CLN_NUMBERS=$BUILD_CARL_CLN" "-DUSE_GINAC=$BUILD_CARL_CLN"
+  cmake .. "${CMAKE_ARGS[@]}" "-DUSE_COCOA=ON -DUSE_CLN_NUMBERS=$BUILD_CARL_CLN" "-DUSE_GINAC=$BUILD_CARL_CLN"
   make lib_carl -j$N_JOBS
   cd ../..
   travis_fold end install_carl
