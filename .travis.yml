@@ -29,7 +29,7 @@ jobs:
     # docker storm:latest
     - os: linux
       compiler: gcc
-      env: TASK=Test CONFIG=Release DOCKER=storm:latest PYTHON=python3
+      env: TASK=Test CONFIG=Release DOCKER=storm:travis PYTHON=python3
       install:
         travis/install_linux.sh
       script:
@@ -37,7 +37,7 @@ jobs:
     # docker storm-debug:latest
     - os: linux
       compiler: gcc
-      env: TASK=Test CONFIG=Debug DOCKER=storm-debug:latest PYTHON=python3
+      env: TASK=Test CONFIG=Debug DOCKER=storm-debug:travis PYTHON=python3
       install:
         travis/install_linux.sh
       script:
@@ -45,7 +45,7 @@ jobs:
     # Documentation
     - os: linux
       compiler: gcc
-      env: TASK=Documentation CONFIG=Release DOCKER=storm:latest PYTHON=python3
+      env: TASK=Documentation CONFIG=Release DOCKER=storm:travis PYTHON=python3
       install:
         travis/install_linux.sh
       script:
