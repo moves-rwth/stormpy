@@ -5,7 +5,7 @@ import stormpy.examples
 import stormpy.examples.files
 
 
-def example_building_models():
+def example_building_models_01():
     path = stormpy.examples.files.drn_ctmc_dft
     model = stormpy.build_model_from_drn(path)
     print(model.model_type)
@@ -24,6 +24,5 @@ def example_building_models():
     print("Number of states: {}".format(model.nr_states))
 
 
-
 if __name__ == '__main__':
-    example_building_models()
+    example_building_models_01()

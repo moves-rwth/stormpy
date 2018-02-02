@@ -156,7 +156,9 @@ void define_model(py::module& m) {
         .def_property_readonly("has_transition_rewards", &RewardModel<double>::hasTransitionRewards)
         .def_property_readonly("transition_rewards", [](RewardModel<double>& rewardModel) {return rewardModel.getTransitionRewardMatrix();})
         .def_property_readonly("state_rewards", [](RewardModel<double>& rewardModel) {return rewardModel.getStateRewardVector();})
-        .def_property_readonly("state_action_rewards", [](RewardModel<double>& rewardModel) {return rewardModel.getStateActionRewardVector();})
+        .def("get_state_reward", [](RewardModel<double>& rewardModel, uint64_t state) {return rewardModel.getStateReward(state);})
+        .def("get_state_action_reward", [](RewardModel<double>& rewardModel, uint64_t action_index) {return rewardModel.getStateActionReward(action_index);})
+            .def_property_readonly("state_action_rewards", [](RewardModel<double>& rewardModel) {return rewardModel.getStateActionRewardVector();})
         .def("reduce_to_state_based_rewards", [](RewardModel<double>& rewardModel, SparseMatrix<double> const& transitions, bool onlyStateRewards){return rewardModel.reduceToStateBasedRewards(transitions, onlyStateRewards);},  py::arg("transition_matrix"), py::arg("only_state_rewards"), "Reduce to state-based rewards")
     ;
 
@@ -201,6 +203,9 @@ void define_model(py::module& m) {
             .def_property_readonly("has_transition_rewards", &RewardModel<storm::RationalFunction>::hasTransitionRewards)
             .def_property_readonly("transition_rewards", [](RewardModel<storm::RationalFunction>& rewardModel) {return rewardModel.getTransitionRewardMatrix();})
             .def_property_readonly("state_rewards", [](RewardModel<storm::RationalFunction>& rewardModel) {return rewardModel.getStateRewardVector();})
+            .def("get_state_reward", [](RewardModel<storm::RationalFunction>& rewardModel, uint64_t state) {return rewardModel.getStateReward(state);})
+            .def("get_state_action_reward", [](RewardModel<storm::RationalFunction>& rewardModel, uint64_t action_index) {return rewardModel.getStateActionReward(action_index);})
+
             .def_property_readonly("state_action_rewards", [](RewardModel<storm::RationalFunction>& rewardModel) {return rewardModel.getStateActionRewardVector();})
             .def("reduce_to_state_based_rewards", [](RewardModel<storm::RationalFunction>& rewardModel, SparseMatrix<storm::RationalFunction> const& transitions, bool onlyStateRewards){return rewardModel.reduceToStateBasedRewards(transitions, onlyStateRewards);},  py::arg("transition_matrix"), py::arg("only_state_rewards"), "Reduce to state-based rewards")
     ;

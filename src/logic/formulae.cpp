@@ -22,6 +22,8 @@ void define_formulae(py::module& m) {
     py::class_<storm::logic::EventuallyFormula, std::shared_ptr<storm::logic::EventuallyFormula>>(m, "EventuallyFormula", "Formula for eventually", unaryPathFormula);
     py::class_<storm::logic::GloballyFormula, std::shared_ptr<storm::logic::GloballyFormula>>(m, "GloballyFormula", "Formula for globally", unaryPathFormula);
     py::class_<storm::logic::BinaryPathFormula, std::shared_ptr<storm::logic::BinaryPathFormula>> binaryPathFormula(m, "BinaryPathFormula", "Path formula with two operands", pathFormula);
+    binaryPathFormula.def_property_readonly("left_subformula", &storm::logic::BinaryPathFormula::getLeftSubformula);
+    binaryPathFormula.def_property_readonly("right_subformula", &storm::logic::BinaryPathFormula::getRightSubformula);
     py::class_<storm::logic::BoundedUntilFormula, std::shared_ptr<storm::logic::BoundedUntilFormula>>(m, "BoundedUntilFormula", "Until Formula with either a step or a time bound.", binaryPathFormula);
     py::class_<storm::logic::ConditionalFormula, std::shared_ptr<storm::logic::ConditionalFormula>>(m, "ConditionalFormula", "Formula with the right hand side being a condition.", formula);
     py::class_<storm::logic::UntilFormula, std::shared_ptr<storm::logic::UntilFormula>>(m, "UntilFormula", "Path Formula for unbounded until", binaryPathFormula);
@@ -56,10 +58,8 @@ void define_formulae(py::module& m) {
         .def("set_bound", [](storm::logic::OperatorFormula& f, storm::logic::ComparisonType comparisonType, storm::expressions::Expression const& bound) {
             f.setBound(storm::logic::Bound(comparisonType, bound));
         }, "Set bound", py::arg("comparison_type"), py::arg("bound"))
-        // the above method should be sufficient for now; reinstate the following if needed
-        //.def_property("_threshold_expression", &storm::logic::OperatorFormula::getThreshold, &storm::logic::OperatorFormula::setThreshold, "Threshold expression")
-        //.def_property_readonly("_threshold_as_rational", &storm::logic::OperatorFormula::getThresholdAs<storm::RationalNumber>, "Rational threshold of bound, if applicable")
-        //.def_property_readonly("_threshold_expression_has_rational_type", [](storm::logic::OperatorFormula const& f) { return f.getThreshold().hasRationalType(); } , "Check expression type [without needing a Python expression object]")
+        .def_property_readonly("has_optimality_type",  &storm::logic::OperatorFormula::hasOptimalityType, "Flag if an optimality type is present")
+        .def_property_readonly("optimality_type", &storm::logic::OperatorFormula::getOptimalityType, "Flag for the optimality type")
     ;
     py::class_<storm::logic::TimeOperatorFormula, std::shared_ptr<storm::logic::TimeOperatorFormula>>(m, "TimeOperator", "The time operator", operatorFormula);
     py::class_<storm::logic::LongRunAverageOperatorFormula, std::shared_ptr<storm::logic::LongRunAverageOperatorFormula>>(m, "LongRunAvarageOperator", "Long run average operator", operatorFormula);

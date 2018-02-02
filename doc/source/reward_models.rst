@@ -22,6 +22,7 @@ We consider the die again, but with another property which talks about the expec
     >>> assert len(model.reward_models) == 1
 
 The model now has a reward model, as the property talks about rewards.
+When :doc:`building_models` from explicit sources, the reward model is always included if it is defined in the source.
 We can do model checking analogous to probabilities::
 
 
@@ -59,6 +60,5 @@ In this example, we only have state-action rewards. These rewards are a vector, 
     0.0
     0.0
     0.0
-
 
 

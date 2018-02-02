@@ -2,6 +2,7 @@
 #include "storm/utility/initialize.h"
 #include "storm/utility/DirectEncodingExporter.h"
 #include "storm/storage/ModelFormulasPair.h"
+#include "storm/solver/OptimizationDirection.h"
 
 void define_core(py::module& m) {
     // Init
@@ -79,6 +80,13 @@ void define_build(py::module& m) {
             .def(py::init<std::vector<std::shared_ptr<storm::logic::Formula const>> const&>(), "Initialise with formulae to preserve", py::arg("formulae"))
             .def(py::init<bool, bool>(), "Initialise without formulae", py::arg("build_all_reward_models"), py::arg("build_all_labels"))
             .def("set_build_with_choice_origins", &storm::builder::BuilderOptions::setBuildChoiceOrigins, "Build choice origins", py::arg("new_value"));
+}
+
+void define_optimality_type(py::module& m) {
+    py::enum_<storm::solver::OptimizationDirection>(m, "OptimizationDirection")
+            .value("Minimize", storm::solver::OptimizationDirection::Minimize)
+            .value("Maximize", storm::solver::OptimizationDirection::Maximize)
+            ;
 }
 
 // Thin wrapper for exporting model

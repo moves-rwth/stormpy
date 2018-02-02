@@ -46,6 +46,7 @@ void define_expressions(py::module& m) {
             .def("parse", &storm::parser::ExpressionParser::parseFromString, "parse")
             ;
 
+
     py::class_<storm::expressions::Type>(m, "ExpressionType", "The type of an expression")
             .def_property_readonly("is_boolean", &storm::expressions::Type::isBooleanType)
             .def_property_readonly("is_integer", &storm::expressions::Type::isIntegerType)

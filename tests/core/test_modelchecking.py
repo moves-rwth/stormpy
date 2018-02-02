@@ -69,6 +69,17 @@ class TestModelChecking:
         reference = [0.16666666666666663, 0.3333333333333333, 0, 0.6666666666666666, 0, 0, 0, 1, 0, 0, 0, 0, 0]
         assert all(map(math.isclose, result.get_values(), reference))
 
+    def test_model_checking_only_initial(self):
+        program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
+        formulas = stormpy.parse_properties_for_prism_program("Pmax=? [F{\"coin_flips\"}<=3 \"one\"]", program)
+        model = stormpy.build_model(program, formulas)
+        assert len(model.initial_states) == 1
+        initial_state = model.initial_states[0]
+        assert initial_state == 0
+        result = stormpy.model_checking(model, formulas[0], only_initial_states=True)
+        assert not result.result_for_all_states
+        assert math.isclose(result.at(initial_state), 0.125)
+
     def test_model_checking_prob01(self):
         program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
         formulaPhi = stormpy.parse_properties("true")[0]

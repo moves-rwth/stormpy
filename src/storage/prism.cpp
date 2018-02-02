@@ -3,6 +3,7 @@
 #include "src/helpers.h"
 #include <storm/storage/expressions/ExpressionManager.h>
 
+
 using namespace storm::prism;
 
 void define_prism(py::module& m) {
@@ -39,6 +40,7 @@ void define_prism(py::module& m) {
             .def_property_readonly("expression", &Assignment::getExpression, "Expression for the update");
     
 
+
     // PrismType
     py::enum_<storm::prism::Program::ModelType>(m, "PrismModelType", "Type of the prism model")
             .value("DTMC", storm::prism::Program::ModelType::DTMC)
@@ -56,5 +58,6 @@ void define_prism(py::module& m) {
             .def_property_readonly("type", &Constant::getType, "The type of the constant")
             .def_property_readonly("variable", &Constant::getExpressionVariable, "Expression variable")
             ;
+
 
 }
