@@ -1,7 +1,7 @@
 from . import _config
 
 if not _config.CARL_WITH_PARSER:
-    raise ImportError("Parser is not available!")
+    raise ImportError("Parser is not available in the configured carl library! Did you configure carl with '-DBUILD_ADDONS=ON -DBUILD_ADDON_PARSER=ON'?")
 
 from . import parse
 from .parse import *
