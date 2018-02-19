@@ -4,14 +4,13 @@
 branches:
   only:
   - master
+sudo: required
 dist: trusty
 language: generic
 
 # Enable docker support
 services:
 - docker
-sudo: required
-group: deprecated-2017Q2
 
 notifications:
   email:
@@ -37,7 +36,7 @@ jobs:
     # docker storm-debug:latest
     - os: linux
       compiler: gcc
-      env: TASK=Test CONFIG=Debug DOCKER=storm-debug:travis PYTHON=python3
+      env: TASK=Test CONFIG=Debug DOCKER=storm:travis-debug PYTHON=python3
       install:
         travis/install_linux.sh
       script:
