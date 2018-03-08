@@ -83,6 +83,7 @@ void define_pla(py::module& m) {
     py::class_<RegionModelChecker, std::shared_ptr<RegionModelChecker>> regionModelChecker(m, "RegionModelChecker", "Region model checker via paramater lifting");
     regionModelChecker.def("check_region", &checkRegion, "Check region", py::arg("environment"), py::arg("region"), py::arg("hypothesis") = storm::modelchecker::RegionResultHypothesis::Unknown, py::arg("initialResult") = storm::modelchecker::RegionResult::Unknown, py::arg("sampleVertices") = false)
         .def("get_bound", &getBoundAtInit, "Get bound", py::arg("environment"), py::arg("region"), py::arg("maximise")= true)
+        .def("get_split_suggestion", &RegionModelChecker::getRegionSplitEstimate, "Get estimate")
         .def("specify", &specify, "specify arguments",py::arg("environment"), py::arg("model"), py::arg("formula"), py::arg("generate_splitting_estimate") = false, py::arg("allow_model_simplification") = true);
     ;
 
