@@ -31,7 +31,7 @@ linux)
     docker cp . pycarl:/opt/pycarl
     # Install virtualenv
     docker exec pycarl apt-get update
-    docker exec pycarl apt-get install -qq -y libeigen3-dev python3
+    docker exec pycarl apt-get install -qq -y libeigen3-dev python3 python3-venv
     # Install dependencies for carl-parser
     if [[ "$BUILD_CARL_PARSER" == TRUE ]]
     then
