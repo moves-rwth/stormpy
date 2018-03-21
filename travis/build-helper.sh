@@ -12,7 +12,7 @@ travis_fold() {
 # Helper for building and testing
 run() {
   # Create virtual environment
-  virtualenv --python=$PYTHON pycarl-env
+  $PYTHON -m venv pycarl-env
   source pycarl-env/bin/activate
   # Print version
   python --version
