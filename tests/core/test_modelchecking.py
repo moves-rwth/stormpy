@@ -30,6 +30,7 @@ class TestModelChecking:
         result = stormpy.model_checking(model, formulas[0])
         assert math.isclose(result.at(initial_state), 0.3828117384)
 
+
     def test_model_checking_jani_dtmc(self):
         jani_model, properties = stormpy.parse_jani_model(get_example_path("dtmc", "die.jani"))
         formula = properties["Probability to throw a six"]

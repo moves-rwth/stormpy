@@ -3,6 +3,7 @@
 #include "storage/bitvector.h"
 #include "storage/model.h"
 #include "storage/matrix.h"
+#include "storage/scheduler.h"
 #include "storage/prism.h"
 #include "storage/state.h"
 #include "storage/labeling.h"
@@ -23,4 +24,5 @@ PYBIND11_MODULE(storage, m) {
     define_prism(m);
     define_labeling(m);
     define_expressions(m);
+    define_scheduler(m);
 }

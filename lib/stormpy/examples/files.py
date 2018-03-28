@@ -25,3 +25,5 @@ drn_pdtmc_die = _path("pdtmc", "die.drn")
 """DRN format for a pDTMC for the KY-Die"""
 jani_dtmc_die = _path("dtmc", "die.jani")
 """Jani Version of Knuth Yao Die Example"""
+prism_mdp_coin_2_2 = _path("mdp", "coin2-2.nm")
+"""Prism example for coin MDP"""
