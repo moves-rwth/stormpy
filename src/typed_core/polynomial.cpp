@@ -84,7 +84,7 @@ void define_polynomial(py::module& m) {
         .def(py::self != Rational())
         .def(py::self == Rational())
         .def("__eq__", [](const Polynomial& lhs, const Integer& rhs) -> bool {return lhs == Rational(rhs);})
-        .def("__neq__", [](const Polynomial& lhs, const Integer& rhs) -> bool {return lhs == Rational(rhs);})
+        .def("__neq__", [](const Polynomial& lhs, const Integer& rhs) -> bool {return lhs != Rational(rhs);})
 
         .def("__len__", &Polynomial::size)
         .def("__getitem__", [](const Polynomial& p, std::size_t index) { return *(p.begin()+index); })
