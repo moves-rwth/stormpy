@@ -18,6 +18,11 @@ def example_schedulers_01():
     result = stormpy.model_checking(model, formulas[0], extract_scheduler = True)
     assert result.has_scheduler
     print(result.scheduler)
+    assert result.scheduler.memoryless
+    assert result.scheduler.deterministic
+
+    for i in range(0,model.nr_states):
+        print("In state {} choose action {}".format(i,result.scheduler.get_choice(i).get_deterministic_choice()))
 
 
 
