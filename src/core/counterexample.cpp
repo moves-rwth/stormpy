@@ -9,7 +9,7 @@ void define_counterexamples(py::module& m) {
 
 
             py::class_<SMTMinimalLabelSetGenerator<double>>(m, "SMTCounterExampleGenerator", "Highlevel Counterexample Generator with SMT as backend").
-            def_static("build", &SMTMinimalLabelSetGenerator<double>::computeCounterexampleCommandSet)
+            def_static("build", &SMTMinimalLabelSetGenerator<double>::computeCounterexampleLabelSet)
             ;
 
 
