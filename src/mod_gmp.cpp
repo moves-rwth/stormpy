@@ -11,7 +11,7 @@
 #include "typed_core/interval.h"
 
 PYBIND11_MODULE(gmp, m) {
-    m.doc() = "pycarl core cln-typed data and functions";
+    m.doc() = "pycarl core gmp-typed data and functions";
 
     define_gmp_integer(m);
     define_gmp_rational(m);
