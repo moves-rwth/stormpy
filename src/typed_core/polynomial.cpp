@@ -23,7 +23,7 @@ void define_polynomial(py::module& m) {
 
          .def("is_constant", &Polynomial::isConstant)
 
-            .def("__add__", [](const Polynomial& lhs, const Integer& rhs) -> Polynomial { return lhs + Rational(rhs); })
+        .def("__add__", [](const Polynomial& lhs, const Integer& rhs) -> Polynomial { return lhs + Rational(rhs); })
         .def(py::self + Rational())
         .def(py::self + carl::Variable())
         .def("__add__", [](const Polynomial& lhs, Monomial::Arg rhs) -> Polynomial { return lhs + rhs; })
@@ -84,7 +84,7 @@ void define_polynomial(py::module& m) {
         .def(py::self != Rational())
         .def(py::self == Rational())
         .def("__eq__", [](const Polynomial& lhs, const Integer& rhs) -> bool {return lhs == Rational(rhs);})
-        .def("__neq__", [](const Polynomial& lhs, const Integer& rhs) -> bool {return lhs != Rational(rhs);})
+        .def("__ne__", [](const Polynomial& lhs, const Integer& rhs) -> bool {return lhs != Rational(rhs);})
 
         .def("__len__", &Polynomial::size)
         .def("__getitem__", [](const Polynomial& p, std::size_t index) { return *(p.begin()+index); })
