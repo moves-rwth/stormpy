@@ -39,8 +39,8 @@ void define_cln_integer(py::module& m) {
         .def(int() * py::self)
         .def("__mul__", [](const cln::cl_I& lhs, carl::Variable::Arg rhs) -> Term { return cln::cl_RA(lhs) * rhs; })
         .def("__mul__", [](const cln::cl_I& lhs, const Monomial::Arg& rhs) -> Term { return cln::cl_RA(lhs) * rhs; })
-        .def("__rmul__", [](const cln::cl_I& lhs, carl::Variable::Arg rhs) -> Term { return cln::cl_RA(lhs) * rhs; })
-        .def("__rmul__", [](const cln::cl_I& lhs, const Monomial::Arg& rhs) -> Term { return cln::cl_RA(lhs) * rhs; })
+        .def("__rmul__", [](const cln::cl_I& rhs, carl::Variable::Arg lhs) -> Term { return cln::cl_RA(rhs) * lhs; })
+        .def("__rmul__", [](const cln::cl_I& rhs, const Monomial::Arg& lhs) -> Term { return cln::cl_RA(rhs) * lhs; })
 
         .def(PY_DIV, [](const cln::cl_I& lhs, const cln::cl_I& rhs) -> cln::cl_RA { if (carl::isZero(rhs)) throw std::runtime_error("Div by zero"); return lhs / rhs; })
 
@@ -113,8 +113,8 @@ void define_gmp_integer(py::module& m) {
 
         .def("__mul__", [](const mpz_class& lhs, carl::Variable::Arg rhs) -> Term { return mpq_class(lhs) * rhs; })
         .def("__mul__", [](const mpz_class& lhs, const Monomial::Arg& rhs) -> Term { return mpq_class(lhs) * rhs; })
-        .def("__rmul__", [](const mpz_class& lhs, carl::Variable::Arg rhs) -> Term { return mpq_class(lhs) * rhs; })
-        .def("__rmul__", [](const mpz_class& lhs, const Monomial::Arg& rhs) -> Term { return mpq_class(lhs) * rhs; })
+        .def("__rmul__", [](const mpz_class& rhs, carl::Variable::Arg lhs) -> Term { return mpq_class(rhs) * lhs; })
+        .def("__rmul__", [](const mpz_class& rhs, const Monomial::Arg& lhs) -> Term { return mpq_class(rhs) * lhs; })
 
         .def(PY_DIV, [](const mpz_class& lhs, const mpz_class& rhs) -> mpq_class { if (carl::isZero(rhs)) throw std::runtime_error("Div by zero"); return lhs / rhs; })
 

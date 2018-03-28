@@ -43,8 +43,9 @@ void define_polynomial(py::module& m) {
         .def("__mul__", [](const Polynomial& lhs, const Integer& rhs) -> Polynomial { return lhs * Rational(rhs); })
         .def(py::self * Rational())
         .def("__mul__", [](const Polynomial& lhs, carl::Variable::Arg rhs) -> Polynomial { return lhs * rhs; })
+        .def("__rmul__", [](const Polynomial& rhs, carl::Variable::Arg lhs) -> Polynomial { return rhs * lhs; })
         .def("__mul__", [](const Polynomial& lhs, Monomial::Arg rhs) -> Polynomial { return lhs * rhs; })
-        .def("__rmul__", [](const Polynomial& lhs, Monomial::Arg rhs) -> Polynomial { return lhs * rhs; })
+        .def("__rmul__", [](const Polynomial& rhs, Monomial::Arg lhs) -> Polynomial { return rhs * lhs; })
         .def(py::self * Term())
         .def(py::self * py::self)
 

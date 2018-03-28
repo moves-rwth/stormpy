@@ -27,6 +27,7 @@ void define_rationalfunction(py::module& m) {
         .def(py::self - py::self)
 
         .def("__mul__",  static_cast<RationalFunction (*)(const RationalFunction&, const Polynomial&)>(&carl::operator*))
+        .def("__rmul__", [](const RationalFunction& rhs, const Polynomial& lhs) -> RationalFunction { return rhs * lhs; })
         .def("__mul__",  static_cast<RationalFunction (*)(const RationalFunction&, const Term&)>(&carl::operator*))
         .def("__mul__",  static_cast<RationalFunction (*)(const RationalFunction&, const Monomial::Arg&)>(&carl::operator*))
         .def("__mul__",  static_cast<RationalFunction (*)(const RationalFunction&, carl::Variable)>(&carl::operator*))
@@ -63,6 +64,8 @@ void define_rationalfunction(py::module& m) {
 
         .def(py::self == py::self)
         .def(py::self != py::self)
+        .def("__eq__", [](const RationalFunction& lhs, const Polynomial& rhs) -> bool {return lhs == RationalFunction(rhs);})
+        .def("__ne__", [](const RationalFunction& lhs, const Polynomial& rhs) -> bool {return lhs != RationalFunction(rhs);})
 
         .def("__getstate__", [](const RationalFunction&) -> std::tuple<std::string> { throw NoPickling(); })
         .def("__setstate__", [](RationalFunction&, const  std::tuple<std::string>&) { throw NoPickling(); })

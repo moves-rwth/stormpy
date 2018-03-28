@@ -61,3 +61,7 @@ class TestRationalFunction(PackageSelector):
         res = ratfunc1 / ratfunc2
         assert isinstance(res, package.RationalFunction)
         assert res == package.RationalFunction(pol1, package.Polynomial(3))
+        res = var1 / package.Rational("4/3")
+        assert isinstance(res, package.RationalFunction)
+        expected_res = package.Polynomial(package.Rational("3/4") * var1)
+        assert res == expected_res
