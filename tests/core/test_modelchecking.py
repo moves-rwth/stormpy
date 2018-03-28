@@ -18,6 +18,19 @@ class TestModelChecking:
         result = stormpy.model_checking(model, formulas[0])
         assert math.isclose(result.at(initial_state), 0.16666666666666663)
 
+    def test_model_checking_prism_mdp(self):
+        program = stormpy.parse_prism_program(get_example_path("mdp", "coin2-2.nm"))
+        formulas = stormpy.parse_properties_for_prism_program("Pmin=? [ F \"finished\" & \"all_coins_equal_1\"]", program)
+        model = stormpy.build_model(program, formulas)
+        assert model.nr_states == 272
+        assert model.nr_transitions == 492
+        assert len(model.initial_states) == 1
+        initial_state = model.initial_states[0]
+        assert initial_state == 0
+        result = stormpy.model_checking(model, formulas[0])
+        assert math.isclose(result.at(initial_state), 0.3828117384)
+
+
     def test_model_checking_jani_dtmc(self):
         jani_model, properties = stormpy.parse_jani_model(get_example_path("dtmc", "die.jani"))
         formula = properties["Probability to throw a six"]
