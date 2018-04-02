@@ -6,6 +6,7 @@
 #include "storage/distribution.h"
 #include "storage/scheduler.h"
 #include "storage/prism.h"
+#include "storage/jani.h"
 #include "storage/state.h"
 #include "storage/labeling.h"
 #include "storage/expressions.h"
@@ -23,6 +24,7 @@ PYBIND11_MODULE(storage, m) {
     define_sparse_matrix(m);
     define_state(m);
     define_prism(m);
+    define_jani(m);
     define_labeling(m);
     define_expressions(m);
     define_scheduler<double>(m, "Double");

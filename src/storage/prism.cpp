@@ -2,7 +2,7 @@
 #include <storm/storage/prism/Program.h>
 #include "src/helpers.h"
 #include <storm/storage/expressions/ExpressionManager.h>
-
+#include <storm/storage/jani/Model.h>
 
 using namespace storm::prism;
 
@@ -20,6 +20,7 @@ void define_prism(py::module& m) {
             .def("simplify", &Program::simplify, "Simplify")
             .def("used_constants",&Program::usedConstants, "Compute Used Constants")
             .def_property_readonly("expression_manager", &Program::getManager, "Get the expression manager for expressions in this program")
+            .def("to_jani", &Program::toJani, "Transform to Jani program", py::arg("all_variables_global")=false)
             .def("__str__", &streamToString<storm::prism::Program>);
 
     py::class_<Module> module(m, "PrismModule", "A module in a Prism program");
