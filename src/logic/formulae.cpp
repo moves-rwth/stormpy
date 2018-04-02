@@ -1,5 +1,6 @@
 #include "formulae.h"
 #include "storm/logic/Formulas.h"
+#include "storm/logic/CloneVisitor.h"
 
 
 void define_formulae(py::module& m) {
@@ -13,6 +14,7 @@ void define_formulae(py::module& m) {
 
     py::class_<storm::logic::Formula, std::shared_ptr<storm::logic::Formula>> formula(m, "Formula", "Generic Storm Formula");
     formula.def("__str__", &storm::logic::Formula::toString)
+        .def("clone", [](storm::logic::Formula const& f) { storm::logic::CloneVisitor cv; return cv.clone(f);})
     ;
 
     // Path Formulae
