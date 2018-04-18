@@ -31,52 +31,38 @@ jobs:
       env: TASK=Test PYTHON=python3 CONFIG=Release COMPILER=clang STL=libc++
       install: travis/install_osx.sh
       script: travis/build.sh
-      after_failure:
-        - find . -name "*err*.log" -type f -print -exec cat {} \;
     - os: osx
       compiler: clang
       env: TASK=Test PYTHON=python3 CONFIG=ReleaseCln COMPILER=clang STL=libc++
       install: travis/install_osx.sh
       script: travis/build.sh
-      after_failure:
-        - find . -name "*err*.log" -type f -print -exec cat {} \;
     - os: osx
       compiler: clang
       env: TASK=Test PYTHON=python3 CONFIG=ReleaseClnParser COMPILER=clang STL=libc++
       install: travis/install_osx.sh
       script: travis/build.sh
-      after_failure:
-        - find . -name "*err*.log" -type f -print -exec cat {} \;
     # ubuntu-17.10
     - os: linux
       compiler: gcc
       env: TASK=Test PYTHON=python3 CONFIG=Release LINUX=ubuntu-17.10 COMPILER=gcc
       install: travis/install_linux.sh
       script: travis/build.sh
-      after_failure:
-        - find . -name "*err*.log" -type f -print -exec cat {} \;
     - os: linux
       compiler: gcc
       env: TASK=Test PYTHON=python3 CONFIG=ReleaseCln LINUX=ubuntu-17.10 COMPILER=gcc
       install: travis/install_linux.sh
       script: travis/build.sh
-      after_failure:
-        - find . -name "*err*.log" -type f -print -exec cat {} \;
     - os: linux
       compiler: gcc
       env: TASK=Test PYTHON=python3 CONFIG=ReleaseClnParser LINUX=ubuntu-17.10 COMPILER=gcc
       install: travis/install_linux.sh
       script: travis/build.sh
-      after_failure:
-        - find . -name "*err*.log" -type f -print -exec cat {} \;
     # Documentation
     - os: osx
       compiler: clang
       env: TASK=Documentation PYTHON=python3 CONFIG=ReleaseClnParser COMPILER=clang STL=libc++
       install: travis/install_osx.sh
       script: travis/build.sh
-      after_failure:
-        - find . -name "*err*.log" -type f -print -exec cat {} \;
       deploy:
         provider: pages
         skip_cleanup: true
