@@ -15,7 +15,7 @@ if sys.version_info[0] == 2:
     sys.exit('Sorry, Python 2.x is not supported')
 
 # Minimal storm version required
-storm_min_version = "1.2.0"
+storm_min_version = "1.2.2"
 
 
 class CMakeExtension(Extension):
