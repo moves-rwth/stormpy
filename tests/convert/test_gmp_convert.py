@@ -27,7 +27,7 @@ class TestGmpConvert():
         assert isinstance(converted, pycarl.gmp.Rational)
 
     def test_convert_term(self):
-        pycarl.clear_variable_pool()
+        pycarl.clear_pools()
         var = pycarl.Variable("n")
         rational = pycarl.gmp.Integer(-1) / pycarl.gmp.Integer(6)
         monomial = pycarl.create_monomial(var, 3)
@@ -37,7 +37,7 @@ class TestGmpConvert():
         assert isinstance(converted, pycarl.gmp.Term)
 
     def test_convert_polynomial(self):
-        pycarl.clear_variable_pool()
+        pycarl.clear_pools()
         var1 = pycarl.Variable("n")
         var2 = pycarl.Variable("o")
         original = pycarl.gmp.Polynomial(5) * var2 * var1 + var2 * var2 + pycarl.gmp.Integer(3)
@@ -46,7 +46,7 @@ class TestGmpConvert():
         assert isinstance(converted, pycarl.gmp.Polynomial)
 
     def test_convert_rational_function(self):
-        pycarl.clear_variable_pool()
+        pycarl.clear_pools()
         var1 = pycarl.Variable("x")
         var2 = pycarl.Variable("y")
         pol1 = var1 * var2 + pycarl.gmp.Integer(42)
@@ -57,7 +57,7 @@ class TestGmpConvert():
         assert isinstance(converted, pycarl.gmp.RationalFunction)
 
     def test_convert_factorized_polynomial(self):
-        pycarl.clear_variable_pool()
+        pycarl.clear_pools()
         var1 = pycarl.Variable("a")
         var2 = pycarl.Variable("b")
         pol1 = pycarl.gmp.create_factorized_polynomial(pycarl.gmp.Polynomial(4) * (var2 + pycarl.gmp.Integer(-2)))
@@ -70,7 +70,7 @@ class TestGmpConvert():
         assert len(converted.factorization()) == len(original.factorization())
 
     def test_convert_factorized_rational_function(self):
-        pycarl.clear_variable_pool()
+        pycarl.clear_pools()
         var1 = pycarl.Variable("a")
         var2 = pycarl.Variable("b")
         pol1 = pycarl.gmp.create_factorized_polynomial(pycarl.gmp.Polynomial(55) * (var1 + pycarl.gmp.Integer(20)))
@@ -84,7 +84,7 @@ class TestGmpConvert():
         assert len(converted.denominator.factorization()) == len(original.denominator.factorization())
 
     def test_convert_constraint(self):
-        pycarl.clear_variable_pool()
+        pycarl.clear_pools()
         var1 = pycarl.Variable("a")
         pol1 = pycarl.gmp.Polynomial(2) * var1 * var1 + var1 + pycarl.gmp.Integer(4)
         original = pycarl.gmp.formula.Constraint(pol1, pycarl.formula.Relation.GREATER)

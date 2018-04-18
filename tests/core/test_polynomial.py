@@ -4,13 +4,13 @@ from configurations import PackageSelector
 
 class TestPolynomial(PackageSelector):
     def test_init(self, package):
-        pycarl.clear_variable_pool()
+        pycarl.clear_pools()
         var = pycarl.Variable("x")
         pol = package.Polynomial(var)
         assert str(pol) == "x"
 
     def test_addition(self, package):
-        pycarl.clear_variable_pool()
+        pycarl.clear_pools()
         var1 = pycarl.Variable("x")
         var2 = pycarl.Variable("y")
         pol1 = var1 * var1 + package.Integer(2)
@@ -22,7 +22,7 @@ class TestPolynomial(PackageSelector):
         assert res == polOrig
 
     def test_subtraction(self, package):
-        pycarl.clear_variable_pool()
+        pycarl.clear_pools()
         var1 = pycarl.Variable("x")
         pol1 = package.Polynomial(5) * var1 * var1 + 2
         pol2 = package.Polynomial(var1 * var1) + 1
@@ -32,7 +32,7 @@ class TestPolynomial(PackageSelector):
         assert res == polOrig
 
     def test_multiplication(self, package):
-        pycarl.clear_variable_pool()
+        pycarl.clear_pools()
         var1 = pycarl.Variable("x")
         var2 = pycarl.Variable("y")
         pol1 = var1 * var1 + package.Integer(2)
@@ -43,7 +43,7 @@ class TestPolynomial(PackageSelector):
         assert res == polOrig
 
     def test_division(self, package):
-        pycarl.clear_variable_pool()
+        pycarl.clear_pools()
         var1 = pycarl.Variable("x")
         var2 = pycarl.Variable("y")
         pol1 = package.Polynomial(var1 * var1 * var2) + package.Integer(2) * var2
@@ -55,7 +55,7 @@ class TestPolynomial(PackageSelector):
         assert res == package.RationalFunction(polOrig, package.Polynomial(3))
 
     def test_eq(self, package):
-        pycarl.clear_variable_pool()
+        pycarl.clear_pools()
         var = pycarl.Variable("x")
         pol1 = package.Integer(2) * var + package.Integer(3) * var * var
         assert not pol1 == package.Rational(1)
@@ -64,7 +64,7 @@ class TestPolynomial(PackageSelector):
         assert pol2 == package.Integer(1)
 
     def test_substitute(self, package):
-        pycarl.clear_variable_pool()
+        pycarl.clear_pools()
         x = pycarl.Variable("x")
         y = pycarl.Variable("y")
         pol1 = package.Polynomial(1) - x

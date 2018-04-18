@@ -44,3 +44,10 @@ def print_info():
     print("Using carl in version {}".format(carl_version()))
     print("Support for CLN: {}".format(has_cln()))
     print("Support for parsing: {}".format(has_parser()))
+
+def clear_pools():
+    """
+    Clear all pools.
+    """
+    #clear_monomial_pool()
+    clear_variable_pool()

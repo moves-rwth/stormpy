@@ -9,13 +9,13 @@ class TestFactorizedPolynomial(PackageSelector):
         assert str(pol1) == "32"
 
     def test_cache(self, package):
-        pycarl.clear_variable_pool()
+        pycarl.clear_pools()
         x = pycarl.Variable("x")
         p1 = package.create_factorized_polynomial(x * x + package.Integer(3))
         p1.cache()
 
     def test_coefficient(self, package):
-        pycarl.clear_variable_pool()
+        pycarl.clear_pools()
         var1 = pycarl.Variable("a")
         pol1 = package.create_factorized_polynomial(package.Polynomial(5) * (var1 + package.Integer(1)))
         pol2 = package.create_factorized_polynomial(package.Polynomial(3) * var1)
@@ -25,7 +25,7 @@ class TestFactorizedPolynomial(PackageSelector):
         assert res.coefficient == -3
 
     def test_factorization(self, package):
-        pycarl.clear_variable_pool()
+        pycarl.clear_pools()
         var1 = pycarl.Variable("a")
         var2 = pycarl.Variable("b")
         pol1 = package.create_factorized_polynomial(package.Polynomial(5) * (var1 + package.Integer(1)))
@@ -43,7 +43,7 @@ class TestFactorizedPolynomial(PackageSelector):
         assert len(factorization) == 2
 
     def test_derivation(self, package):
-        pycarl.clear_variable_pool()
+        pycarl.clear_pools()
         x = pycarl.Variable("x")
         c = package.FactorizedPolynomial(3)
         derivation = c.derive(x)

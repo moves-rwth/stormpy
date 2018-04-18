@@ -4,7 +4,7 @@ from configurations import PackageSelector
 
 class TestTerm(PackageSelector):
     def test_init(self, package):
-        pycarl.clear_variable_pool()
+        pycarl.clear_pools()
         var = pycarl.Variable("x")
         rational = package.Rational(0.25)
         monomial = pycarl.create_monomial(var, 1)
@@ -15,7 +15,7 @@ class TestTerm(PackageSelector):
         assert term.tdeg == 1
 
     def test_constant(self, package):
-        pycarl.clear_variable_pool()
+        pycarl.clear_pools()
         rational = package.Rational(0.25)
         term = package.Term(rational)
         assert term.monomial is None
@@ -23,7 +23,7 @@ class TestTerm(PackageSelector):
         assert term.tdeg == 0
 
     def test_eq(self, package):
-        pycarl.clear_variable_pool()
+        pycarl.clear_pools()
         var = pycarl.Variable("x")
         term1 = package.Integer(4) * var
         term1 *= var
@@ -31,7 +31,7 @@ class TestTerm(PackageSelector):
         assert term1 / 2 == term2
 
     def test_multiplication(self, package):
-        pycarl.clear_variable_pool()
+        pycarl.clear_pools()
         var = pycarl.Variable("x")
         term1 = package.Integer(2) * var * var
         term2 = package.Integer(3) * var

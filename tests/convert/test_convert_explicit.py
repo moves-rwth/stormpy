@@ -26,7 +26,7 @@ class TestConvertExplicit(PackageSelector):
         assert isinstance(converted, convert_package.Rational)
 
     def test_convert_term(self, package, convert_package, converter):
-        pycarl.clear_variable_pool()
+        pycarl.clear_pools()
         var = pycarl.Variable("n")
         rational = package.Integer(2) / package.Integer(5)
         monomial = pycarl.create_monomial(var, 2)
@@ -36,7 +36,7 @@ class TestConvertExplicit(PackageSelector):
         assert isinstance(converted, convert_package.Term)
 
     def test_convert_polynomial(self, package, convert_package, converter):
-        pycarl.clear_variable_pool()
+        pycarl.clear_pools()
         var1 = pycarl.Variable("n")
         var2 = pycarl.Variable("o")
         original = package.Polynomial(4) * var1 * var2 + var1 * var1 + package.Integer(2)
@@ -45,7 +45,7 @@ class TestConvertExplicit(PackageSelector):
         assert isinstance(converted, convert_package.Polynomial)
 
     def test_convert_rational_function(self, package, convert_package, converter):
-        pycarl.clear_variable_pool()
+        pycarl.clear_pools()
         var1 = pycarl.Variable("x")
         var2 = pycarl.Variable("y")
         pol1 = var1 * var1 + package.Integer(2)
@@ -62,7 +62,7 @@ class TestConvertExplicit(PackageSelector):
         assert isinstance(converted, convert_package.FactorizedPolynomial)
 
     def test_convert_factorized_polynomial(self, package, convert_package, converter):
-        pycarl.clear_variable_pool()
+        pycarl.clear_pools()
         var1 = pycarl.Variable("a")
         var2 = pycarl.Variable("b")
         pol1 = package.create_factorized_polynomial(package.Polynomial(4) * (var2 + package.Integer(-2)))
@@ -75,7 +75,7 @@ class TestConvertExplicit(PackageSelector):
         assert len(converted.factorization()) == len(original.factorization())
 
     def test_convert_factorized_rational_function(self, package, convert_package, converter):
-        pycarl.clear_variable_pool()
+        pycarl.clear_pools()
         var1 = pycarl.Variable("a")
         var2 = pycarl.Variable("b")
         pol1 = package.create_factorized_polynomial(package.Polynomial(4) * (var2 + package.Integer(-2)))
@@ -89,7 +89,7 @@ class TestConvertExplicit(PackageSelector):
         assert len(converted.denominator.factorization()) == len(original.denominator.factorization())
 
     def test_convert_constraint(self, package, convert_package, converter):
-        pycarl.clear_variable_pool()
+        pycarl.clear_pools()
         var1 = pycarl.Variable("a")
         pol1 = package.Polynomial(2) * var1 * var1 + var1 + package.Integer(4)
         original = package.formula.Constraint(pol1, pycarl.formula.Relation.GREATER)

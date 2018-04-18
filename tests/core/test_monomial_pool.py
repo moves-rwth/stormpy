@@ -2,36 +2,31 @@ import pycarl
 from configurations import PackageSelector, cln
 
 
-def test_clear(PackageSelector):
-    pycarl.clear_variable_pool()
-    pycarl.clear_monomial_pool()
-    var = pycarl.Variable("i")
-    pol = package.Polynomial(var)
+class TestMonomialPool(PackageSelector):
+    def test_clear(self, package):
+        pycarl.clear_pools()
+        var = pycarl.Variable("i")
+        pol = package.Polynomial(var)
 
-    pycarl.clear_variable_pool()
-    pycarl.clear_monomial_pool()
-    var = pycarl.Variable("i")
-    pol = package.Polynomial(var)
+        pycarl.clear_pools()
+        var = pycarl.Variable("i")
+        pol = package.Polynomial(var)
 
-    pycarl.clear_variable_pool()
-    pycarl.clear_monomial_pool()
-    var = pycarl.Variable("i")
-    pol = package.Polynomial(var)
+        pycarl.clear_pools()
+        var = pycarl.Variable("i")
+        pol = package.Polynomial(var)
 
 
 @cln
-def test_clear():
-    pycarl.clear_variable_pool()
-    pycarl.clear_monomial_pool()
+def test_clear_cln():
+    pycarl.clear_pools()
     var = pycarl.Variable("i")
     pol = pycarl.cln.Polynomial(var)
 
-    pycarl.clear_variable_pool()
-    pycarl.clear_monomial_pool()
+    pycarl.clear_pools()
     var = pycarl.Variable("i")
     pol = pycarl.gmp.Polynomial(var)
 
-    pycarl.clear_variable_pool()
-    pycarl.clear_monomial_pool()
+    pycarl.clear_pools()
     var = pycarl.Variable("i")
     pol = pycarl.cln.Polynomial(var)

@@ -6,13 +6,13 @@ from configurations import PackageSelector
 
 class TestFormula(PackageSelector):
     def test_init_constraint(self, package):
-        pycarl.clear_variable_pool()
+        pycarl.clear_pools()
         x = pycarl.Variable("x")
         constraint = package.formula.Constraint(x, Relation.GREATER, package.Rational(3))
         formula = package.formula.Formula(constraint)
 
     def test_negation(self, package):
-        pycarl.clear_variable_pool()
+        pycarl.clear_pools()
         x = pycarl.Variable("x")
         constraint = package.formula.Constraint(x, Relation.GREATER, package.Rational(3))
         formula = package.formula.Formula(constraint)
@@ -21,7 +21,7 @@ class TestFormula(PackageSelector):
         assert str(~neg_formula) == str(formula)
 
     def test_conjunction(self, package):
-        pycarl.clear_variable_pool()
+        pycarl.clear_pools()
         x = pycarl.Variable("x")
         y = pycarl.Variable("y")
         constraint1 = package.formula.Constraint(x, Relation.GREATER, package.Rational(3))
