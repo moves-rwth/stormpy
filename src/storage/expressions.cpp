@@ -7,6 +7,9 @@
 
 //Define python bindings
 void define_expressions(py::module& m) {
+    using Expression = storm::expressions::Expression;
+
+
 
     // ExpressionManager
     py::class_<storm::expressions::ExpressionManager, std::shared_ptr<storm::expressions::ExpressionManager>>(m, "ExpressionManager", "Manages variables for expressions")
@@ -16,7 +19,11 @@ void define_expressions(py::module& m) {
         .def("create_rational", [](storm::expressions::ExpressionManager const& manager, storm::RationalNumber number) {
                 return manager.rational(number);
             }, py::arg("rational"), "Create expression from rational number")
-    ;
+        .def("create_boolean_variable", &storm::expressions::ExpressionManager::declareBooleanVariable, "create Boolean variable", py::arg("name"), py::arg("auxiliary") = false)
+        .def("create_integer_variable", &storm::expressions::ExpressionManager::declareIntegerVariable, "create Integer variable", py::arg("name"), py::arg("auxiliary") = false)
+        .def("create_rational_variable", &storm::expressions::ExpressionManager::declareRationalVariable, "create Rational variable", py::arg("name"), py::arg("auxiliary") = false)
+
+            ;
 
     // Variable
     py::class_<storm::expressions::Variable, std::shared_ptr<storm::expressions::Variable>>(m, "Variable", "Represents a variable")
@@ -39,7 +46,21 @@ void define_expressions(py::module& m) {
         .def("has_rational_type", &storm::expressions::Expression::hasRationalType, "Check if the expression is a rational")
         .def_property_readonly("type", &storm::expressions::Expression::getType, "Get the Type")
         .def("__str__", &storm::expressions::Expression::toString, "To string")
-    ;
+
+        .def_static("plus", [](Expression const& lhs, Expression const& rhs) {return lhs + rhs;})
+        .def_static("minus", [](Expression const& lhs, Expression const& rhs) {return lhs - rhs;})
+        .def_static("multiply", [](Expression const& lhs, Expression const& rhs) {return lhs * rhs;})
+        .def_static("and", [](Expression const& lhs, Expression const& rhs) {return lhs && rhs;})
+        .def_static("or", [](Expression const& lhs, Expression const& rhs) {return lhs || rhs;})
+        .def_static("geq", [](Expression const& lhs, Expression const& rhs) {return lhs >= rhs;})
+        .def_static("eq", [](Expression const& lhs, Expression const& rhs) {return lhs == rhs;})
+        .def_static("neq", [](Expression const& lhs, Expression const& rhs) {return lhs != rhs;})
+        .def_static("greater", [](Expression const& lhs, Expression const& rhs) {return lhs > rhs;})
+        .def_static("less", [](Expression const& lhs, Expression const& rhs) {return lhs < rhs;})
+        .def_static("leq", [](Expression const& lhs, Expression const& rhs) {return lhs <= rhs;})
+        .def_static("implies", [](Expression const& lhs, Expression const& rhs) {return storm::expressions::implies(lhs, rhs);})
+        .def_static("iff", [](Expression const& lhs, Expression const& rhs) {return storm::expressions::iff(lhs, rhs);})
+            ;
 
     py::class_<storm::parser::ExpressionParser>(m, "ExpressionParser", "Parser for storm-expressions")
             .def(py::init<storm::expressions::ExpressionManager const&>(), "Expression Manager to use", py::arg("expression_manager"))
