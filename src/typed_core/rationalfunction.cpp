@@ -18,6 +18,11 @@ void define_rationalfunction(py::module& m) {
         .def("__add__",  static_cast<RationalFunction (*)(const RationalFunction&, carl::Variable)>(&carl::operator+))
         .def("__add__",  static_cast<RationalFunction (*)(const RationalFunction&, const Rational&)>(&carl::operator+))
         .def(py::self + py::self)
+        .def("__radd__", [](const RationalFunction& rhs, const Polynomial& lhs) -> RationalFunction {return rhs + lhs;})
+        .def("__radd__", [](const RationalFunction& rhs, const Term& lhs) -> RationalFunction {return rhs + lhs;})
+        .def("__radd__", [](const RationalFunction& rhs, const Monomial::Arg& lhs) -> RationalFunction {return rhs + lhs;})
+        .def("__radd__", [](const RationalFunction& rhs, carl::Variable::Arg lhs) -> RationalFunction {return rhs + lhs;})
+        .def("__radd__", [](const RationalFunction& rhs, const Rational& lhs) -> RationalFunction {return rhs + lhs;})
 
         .def("__sub__",  static_cast<RationalFunction (*)(const RationalFunction&, const Polynomial&)>(&carl::operator-))
         .def("__sub__",  static_cast<RationalFunction (*)(const RationalFunction&, const Term&)>(&carl::operator-))
