@@ -13,7 +13,7 @@ linux)
     set -e
     docker run -d -it --name stormpy --privileged movesrwth/$DOCKER
     # Copy local content into container
-    docker exec stormpy mkdir opt/stormpy
+    docker exec stormpy mkdir /opt/stormpy
     docker cp . stormpy:/opt/stormpy
     # Install virtualenv
     docker exec stormpy apt-get update
@@ -27,7 +27,7 @@ linux)
         export PYTHON=$PYTHON;
         export CONFIG=$CONFIG;
         export TASK=$TASK;
-        cd opt/stormpy;
+        cd /opt/stormpy;
         travis/build-helper.sh"
     exit $?
     ;;
