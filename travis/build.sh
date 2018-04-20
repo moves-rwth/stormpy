@@ -25,7 +25,7 @@ linux)
     docker rm -f pycarl &>/dev/null
     # Run container
     set -e
-    docker run -d -it --name pycarl --privileged mvolk/storm-basesystem:$LINUX
+    docker run -d -it --name pycarl --privileged movesrwth/storm-basesystem:$LINUX
     # Copy local content into container
     docker exec pycarl mkdir opt/pycarl
     docker cp . pycarl:/opt/pycarl
