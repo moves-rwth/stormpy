@@ -75,11 +75,9 @@ jobs:
         on:
           branch: master
 
-# Allow failures of stable versions as new features might have been added
-allow_failures:
+  # Allow failures of stable versions as new features might have been added
+  allow_failures:
     - os: linux
-      compiler: gcc
       env: TASK=Test CONFIG=Release DOCKER=storm:1.2.1 PYTHON=python3
     - os: linux
-      compiler: gcc
       env: TASK=Test CONFIG=Debug DOCKER=storm:1.2.1-debug PYTHON=python3
