@@ -27,7 +27,7 @@ linux)
     set -e
     docker run -d -it --name pycarl --privileged movesrwth/storm-basesystem:$LINUX
     # Copy local content into container
-    docker exec pycarl mkdir opt/pycarl
+    docker exec pycarl mkdir /opt/pycarl
     docker cp . pycarl:/opt/pycarl
     # Install virtualenv
     docker exec pycarl apt-get update
@@ -50,7 +50,7 @@ linux)
         export OS=$OS;
         export BUILD_CARL_CLN=$BUILD_CARL_CLN;
         export BUILD_CARL_PARSER=$BUILD_CARL_PARSER;
-        cd opt/pycarl;
+        cd /opt/pycarl;
         travis/build-helper.sh"
     exit $?
     ;;
