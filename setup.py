@@ -17,6 +17,9 @@ if sys.version_info[0] == 2:
 # Minimal storm version required
 storm_min_version = "1.2.2"
 
+# Get the long description from the README file
+with open(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
 
 class CMakeExtension(Extension):
     def __init__(self, name, sourcedir='', subdir=''):
@@ -210,7 +213,7 @@ setup(
     maintainer_email="sebastian.junges@cs.rwth-aachen.de",
     url="http://moves.rwth-aachen.de",
     description="stormpy - Python Bindings for Storm",
-    long_description='',
+    long_description=long_description,
     packages=['stormpy', 'stormpy.info', 'stormpy.logic', 'stormpy.storage', 'stormpy.utility',
               'stormpy.pars', 'stormpy.dft'],
     package_dir={'': 'lib'},

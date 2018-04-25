@@ -1,0 +1,5 @@
+include CMakeLists.txt
+recursive-include setup/ *.py
+recursive-include cmake/ *
+recursive-include src/ *
+recursive-include resources/ *
