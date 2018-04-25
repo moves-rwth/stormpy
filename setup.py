@@ -21,6 +21,7 @@ storm_min_version = "1.2.2"
 with open(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
+
 class CMakeExtension(Extension):
     def __init__(self, name, sourcedir='', subdir=''):
         Extension.__init__(self, name, sources=[])
@@ -214,8 +215,24 @@ setup(
     url="http://moves.rwth-aachen.de",
     description="stormpy - Python Bindings for Storm",
     long_description=long_description,
-    packages=['stormpy', 'stormpy.info', 'stormpy.logic', 'stormpy.storage', 'stormpy.utility',
-              'stormpy.pars', 'stormpy.dft'],
+    project_urls={
+        'Documentation': 'https://moves-rwth.github.io/stormpy/',
+        'Source': 'https://github.com/moves-rwth/stormpy/',
+        'Tracker': 'https://github.com/moves-rwth/stormpy/issues',
+    },
+    classifiers=[
+        'Intended Audience :: Science/Research',
+        'Topic :: Scientific/Engineering',
+        'Topic :: Software Development :: Libraries :: Python Modules',
+    ],
+
+    packages=['stormpy',
+              'stormpy.info',
+              'stormpy.logic',
+              'stormpy.storage',
+              'stormpy.utility',
+              'stormpy.dft',
+              'stormpy.pars'],
     package_dir={'': 'lib'},
     ext_package='stormpy',
     ext_modules=[CMakeExtension('core', subdir=''),
@@ -224,8 +241,8 @@ setup(
                  CMakeExtension('storage', subdir='storage'),
                  CMakeExtension('utility', subdir='utility'),
                  CMakeExtension('dft', subdir='dft'),
-                 CMakeExtension('pars', subdir='pars'),
-                 ],
+                 CMakeExtension('pars', subdir='pars')],
+
     cmdclass={'build_ext': CMakeBuild, 'test': PyTest},
     zip_safe=False,
     install_requires=['pycarl>=2.0.2'],
