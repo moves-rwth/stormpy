@@ -196,10 +196,11 @@ setup(
     url="https://github.com/moves-rwth/pycarl/",
     description="pycarl - Python Bindings for CArL",
     long_description=long_description,
+    long_description_content_type='text/text/markdown',
     project_urls={
         'Documentation': 'https://moves-rwth.github.io/pycarl/',
         'Source': 'https://github.com/moves-rwth/pycarl/',
-        'Tracker': 'https://github.com/moves-rwth/pycarl/issues',
+        'Bug reports': 'https://github.com/moves-rwth/pycarl/issues',
     },
     classifiers=[
         'Intended Audience :: Science/Research',
