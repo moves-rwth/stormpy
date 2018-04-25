@@ -17,6 +17,9 @@ if sys.version_info[0] == 2:
 # Minimal carl version required
 carl_min_version = "17.12"
 
+# Get the long description from the README file
+with open(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
 
 class CMakeExtension(Extension):
     def __init__(self, name, sourcedir='', subdir=''):
@@ -191,7 +194,7 @@ setup(
     maintainer_email="sebastian.junges@cs.rwth-aachen.de",
     url="http://moves.rwth-aachen.de",
     description="pycarl - Python Bindings for CArL",
-    long_description='',
+    long_description=long_description,
     packages=['pycarl',
               'pycarl.cln',
               'pycarl.gmp',
