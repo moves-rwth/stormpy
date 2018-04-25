@@ -1,3 +1,8 @@
+import sys
+
+if sys.version_info[0] == 2:
+    raise ImportError('Python 2.x is not supported for pycarl.')
+
 from . import core
 from .core import *
 from . import infinity, _config
@@ -45,9 +50,10 @@ def print_info():
     print("Support for CLN: {}".format(has_cln()))
     print("Support for parsing: {}".format(has_parser()))
 
+
 def clear_pools():
     """
     Clear all pools.
     """
-    #clear_monomial_pool()
+    # clear_monomial_pool()
     clear_variable_pool()
