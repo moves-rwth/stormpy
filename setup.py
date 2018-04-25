@@ -21,6 +21,7 @@ carl_min_version = "17.12"
 with open(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
+
 class CMakeExtension(Extension):
     def __init__(self, name, sourcedir='', subdir=''):
         Extension.__init__(self, name, sources=[])
@@ -188,13 +189,24 @@ class PyTest(test):
 setup(
     name='pycarl',
     version=setup_helper.obtain_version(),
-    author="H. Bruintjes",
-    author_email="h.bruintjes@cs.rwth-aachen.de",
-    maintainer="S. Junges",
-    maintainer_email="sebastian.junges@cs.rwth-aachen.de",
-    url="http://moves.rwth-aachen.de",
+    author="S. Junges",
+    author_email="sebastian.junges@cs.rwth-aachen.de",
+    maintainer="M. Volk",
+    maintainer_email="matthias.volk@cs.rwth-aachen.de",
+    url="https://github.com/moves-rwth/pycarl/",
     description="pycarl - Python Bindings for CArL",
     long_description=long_description,
+    project_urls={
+        'Documentation': 'https://moves-rwth.github.io/pycarl/',
+        'Source': 'https://github.com/moves-rwth/pycarl/',
+        'Tracker': 'https://github.com/moves-rwth/pycarl/issues',
+    },
+    classifiers=[
+        'Intended Audience :: Science/Research',
+        'Topic :: Scientific/Engineering',
+        'Topic :: Software Development :: Libraries :: Python Modules',
+    ],
+
     packages=['pycarl',
               'pycarl.cln',
               'pycarl.gmp',
