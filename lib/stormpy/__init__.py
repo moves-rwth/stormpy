@@ -147,8 +147,7 @@ def model_checking(model, property, only_initial_states=False, extract_scheduler
     Perform model checking on model for property.
     :param model: Model.
     :param property: Property to check for.
-    :param only_initial_states: If True, only results for initial states are computed.
-                                If False, results for all states are computed.
+    :param only_initial_states: If True, only results for initial states are computed, otherwise for all states.
     :param extract_scheduler: If True, try to extract a scheduler
     :return: Model checking result.
     :rtype: CheckResult
