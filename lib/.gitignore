@@ -1,5 +1,0 @@
-*.so
-*.pyc
-__pycache__/
-**/_config.py
-pycarl.egg-info/

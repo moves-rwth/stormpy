@@ -1,6 +1,14 @@
+*.so
+*.py[cod]
+lib/**/_config.py
+.eggs/
+*.egg-info/
 build/
 dist/
 .idea/
-.DS_Store
 __pycache__/
 _build/
+.pytest_cache/
+.idea/
+
+.DS_Store
