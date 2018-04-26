@@ -196,7 +196,7 @@ setup(
     url="https://github.com/moves-rwth/pycarl/",
     description="pycarl - Python Bindings for CArL",
     long_description=long_description,
-    long_description_content_type='text/text/markdown',
+    long_description_content_type='text/markdown',
     project_urls={
         'Documentation': 'https://moves-rwth.github.io/pycarl/',
         'Source': 'https://github.com/moves-rwth/pycarl/',
