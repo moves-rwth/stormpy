@@ -2,6 +2,11 @@ cmake_minimum_required(VERSION 3.0.0)
 project(storm-version)
 find_package(storm REQUIRED)
 
+
+# Set configuration
+set(STORM_DIR ${storm_DIR})
+set(STORM_VERSION ${storm_VERSION})
+
 # Check for storm-pars
 if(EXISTS "${storm_DIR}/lib/libstorm-pars.dylib")
     set(HAVE_STORM_PARS TRUE)
@@ -19,10 +24,6 @@ elseif(EXISTS "${storm_DIR}/lib/libstorm-dft.so")
 else()
     set(HAVE_STORM_DFT FALSE)
 endif()
-
-# Set configuration
-set(STORM_DIR ${storm_DIR})
-set(STORM_VERSION ${storm_VERSION})
 
 if(HAVE_STORM_PARS)
     set(HAVE_STORM_PARS_BOOL "True")
@@ -47,8 +48,5 @@ if(STORM_USE_CLN_RF)
 else()
     set(STORM_CLN_RF_BOOL "False")
 endif()
-
-
-
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.py.in ${CMAKE_CURRENT_BINARY_DIR}/generated/config.py @ONLY)
