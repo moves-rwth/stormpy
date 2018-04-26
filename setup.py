@@ -228,6 +228,7 @@ setup(
     ],
 
     packages=['stormpy',
+              'stormpy.exceptions',
               'stormpy.info',
               'stormpy.logic',
               'stormpy.storage',
