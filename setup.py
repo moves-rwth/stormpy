@@ -215,7 +215,7 @@ setup(
     url="http://moves.rwth-aachen.de",
     description="stormpy - Python Bindings for Storm",
     long_description=long_description,
-    long_description_content_type='text/text/markdown',
+    long_description_content_type='text/markdown',
     project_urls={
         'Documentation': 'https://moves-rwth.github.io/stormpy/',
         'Source': 'https://github.com/moves-rwth/stormpy/',
