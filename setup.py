@@ -5,7 +5,6 @@ import datetime
 
 from setuptools import setup, Extension, find_packages
 from setuptools.command.build_ext import build_ext
-from setuptools.command.test import test
 from distutils.version import StrictVersion
 
 import setup.helper as setup_helper
@@ -178,14 +177,6 @@ class CMakeBuild(build_ext):
         subprocess.check_call(['cmake', '--build', '.', '--target', ext.name] + build_args, cwd=self.build_temp)
 
 
-class PyTest(test):
-    def run_tests(self):
-        # import here, cause outside the eggs aren't loaded
-        import pytest
-        errno = pytest.main(['tests'])
-        sys.exit(errno)
-
-
 setup(
     name='pycarl',
     version=setup_helper.obtain_version(),
@@ -207,6 +198,7 @@ setup(
         'Topic :: Scientific/Engineering',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
+
     packages=find_packages('lib'),
     package_dir={'': 'lib'},
     include_package_data=True,
@@ -221,7 +213,7 @@ setup(
                  CMakeExtension('parse-gmp', subdir='gmp/parse'),
                  CMakeExtension('parse-cln', subdir='cln/parse')],
 
-    cmdclass={'build_ext': CMakeBuild, 'test': PyTest},
+    cmdclass={'build_ext': CMakeBuild},
     zip_safe=False,
     setup_requires=['pytest-runner'],
     tests_require=['pytest'],
