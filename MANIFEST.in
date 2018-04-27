@@ -3,3 +3,4 @@ recursive-include setup/ *.py
 recursive-include cmake/ *
 recursive-include src/ *
 recursive-include resources/ *
+recursive-include lib/stormpy/examples/files/ *

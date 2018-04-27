@@ -3,7 +3,7 @@ import sys
 import subprocess
 import datetime
 
-from setuptools import setup, Extension
+from setuptools import setup, Extension, find_packages
 from setuptools.command.build_ext import build_ext
 from setuptools.command.test import test
 from distutils.version import StrictVersion
@@ -212,7 +212,7 @@ setup(
     author_email="matthias.volk@cs.rwth-aachen.de",
     maintainer="S. Junges",
     maintainer_email="sebastian.junges@cs.rwth-aachen.de",
-    url="http://moves.rwth-aachen.de",
+    url="https://github.com/moves-rwth/stormpy/",
     description="stormpy - Python Bindings for Storm",
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -227,15 +227,10 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
 
-    packages=['stormpy',
-              'stormpy.exceptions',
-              'stormpy.info',
-              'stormpy.logic',
-              'stormpy.storage',
-              'stormpy.utility',
-              'stormpy.dft',
-              'stormpy.pars'],
+    packages=find_packages('lib'),
     package_dir={'': 'lib'},
+    include_package_data=True,
+    package_data={'stormpy.examples': ['examples/files/*']},
     ext_package='stormpy',
     ext_modules=[CMakeExtension('core', subdir=''),
                  CMakeExtension('info', subdir='info'),
