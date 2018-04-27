@@ -211,6 +211,7 @@ setup(
     packages=['pycarl',
               'pycarl.cln',
               'pycarl.gmp',
+              'pycarl.convert',
               'pycarl.formula',
               'pycarl.cln.formula',
               'pycarl.gmp.formula',
