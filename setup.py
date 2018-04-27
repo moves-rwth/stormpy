@@ -5,7 +5,6 @@ import datetime
 
 from setuptools import setup, Extension, find_packages
 from setuptools.command.build_ext import build_ext
-from setuptools.command.test import test
 from distutils.version import StrictVersion
 
 import setup.helper as setup_helper
@@ -197,14 +196,6 @@ class CMakeBuild(build_ext):
         subprocess.check_call(['cmake', '--build', '.', '--target', ext.name] + build_args, cwd=self.build_temp)
 
 
-class PyTest(test):
-    def run_tests(self):
-        # import here, cause outside the eggs aren't loaded
-        import pytest
-        errno = pytest.main(['tests'])
-        sys.exit(errno)
-
-
 setup(
     name="stormpy",
     version=setup_helper.obtain_version(),
@@ -240,7 +231,7 @@ setup(
                  CMakeExtension('dft', subdir='dft'),
                  CMakeExtension('pars', subdir='pars')],
 
-    cmdclass={'build_ext': CMakeBuild, 'test': PyTest},
+    cmdclass={'build_ext': CMakeBuild},
     zip_safe=False,
     install_requires=['pycarl>=2.0.2'],
     setup_requires=['pytest-runner'],
