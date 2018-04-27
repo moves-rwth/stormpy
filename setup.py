@@ -3,7 +3,7 @@ import sys
 import subprocess
 import datetime
 
-from setuptools import setup, Extension
+from setuptools import setup, Extension, find_packages
 from setuptools.command.build_ext import build_ext
 from setuptools.command.test import test
 from distutils.version import StrictVersion
@@ -207,18 +207,9 @@ setup(
         'Topic :: Scientific/Engineering',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
-
-    packages=['pycarl',
-              'pycarl.cln',
-              'pycarl.gmp',
-              'pycarl.convert',
-              'pycarl.formula',
-              'pycarl.cln.formula',
-              'pycarl.gmp.formula',
-              'pycarl.parse',
-              'pycarl.gmp.parse',
-              'pycarl.cln.parse'],
+    packages=find_packages('lib'),
     package_dir={'': 'lib'},
+    include_package_data=True,
     ext_package='pycarl',
     ext_modules=[CMakeExtension('core', subdir=''),
                  CMakeExtension('cln', subdir='cln'),
