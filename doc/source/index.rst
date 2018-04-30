@@ -13,7 +13,11 @@ Welcome to pycarl's documentation!
    :caption: Contents:
 
    installation
-   api
+   getting_started
+
+
+.. include:: api.rst
+
 
 
 Indices and tables

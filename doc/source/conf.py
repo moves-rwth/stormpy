@@ -51,7 +51,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'pycarl'
-copyright = '2017, Harold Bruintjes, Sebastian Junges, Matthias Volk'
+copyright = '2016-2018, Harold Bruintjes, Sebastian Junges, Matthias Volk'
 author = 'Harold Bruintjes, Sebastian Junges, Matthias Volk'
 
 # The version info for the project you're documenting, acts as replacement for

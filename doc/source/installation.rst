@@ -7,27 +7,42 @@ Requirements
 
 Before installing pycarl, make sure
 
-- `carl <https://smtrat.github.io/carl>`_
-
-is available on your system.
-
-.. topic:: Virtual Environments
-
-	Virtual environments create isolated environments for your projects. This helps to keep your system clean, work with different versions of packages and different version of python. While it is not required, we recommend the use of
-	such virtual environments. To get you started, we recommend `this guide <http://docs.python-guide.org/en/latest/dev/virtualenvs/>`_ or `this primer <https://realpython.com/blog/python/python-virtual-environments-a-primer>`_.
-
-In order to have full parsing capabilities, you additionally need `carl-parser <https://github.com/smtrat/carl-parser>`_
+- Python 3 is available on your system. Pycarl does not work with python 2.
+- `carl <https://smtrat.github.io/carl>`_ is available on your system.
+- *(optional)* in order to have full parsing capabilities, you additionally need `carl-parser <https://github.com/smtrat/carl-parser>`_.
 
 
 Installation Steps
 ====================
+
+Virtual Environments
+--------------------
+
+Virtual environments create isolated environments for your projects.
+This helps to keep your system clean, work with different versions of packages and different version of python.
+While it is not required, we recommend the use of such virtual environments. To get you started, we recommend
+`this guide <http://docs.python-guide.org/en/latest/dev/virtualenvs/>`_ or
+`this primer <https://realpython.com/blog/python/python-virtual-environments-a-primer>`_.
+
+In short you can create a virtual environment ``env`` with::
+
+	$ pip install virtualenv
+	$ virtualenv -p python3 env
+	$ source env/bin/activate
+
+The last step activates the virtual environment.
+Whenever using the environment the console prompt is prefixed with ``(env)``.
+
+
+Building pycarl
+---------------
 
 Clone pycarl into any suitable location::
 
 	$ git clone https://github.com/moves-rwth/pycarl.git
 	$ cd pycarl
 
-Here, build pycarl in develop mode using your favourite python distribution way of installing: e.g.::
+Build pycarl in develop mode using your favourite python distribution way of installing: e.g.::
 
 	$ python3 setup.py develop
 
@@ -36,16 +51,28 @@ or::
 	$ pip install -ve .
 
 
-.. topic:: Specifying which carl library to use
+Optional build arguments
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+The build step also takes optional arguments for a more advanced configuration of pycarl.
+
+*	*Specifying which carl library to use*
 
 	If you have multiple versions of carl or cmake is not able to find your carl version,
-	you can specify the `--carl-dir YOUR-PATH-TO-CARL` flag in the build_ext step::
+	you can specify the ``--carl-dir YOUR-PATH-TO-CARL`` flag in the ``build_ext`` step::
 
-		$ python3 setup.py build_ext --carl-dir YOUR-PATH-TO-CARL develop
+	$ python3 setup.py build_ext --carl-dir YOUR-PATH-TO-CARL develop
 
+*	*Building pycarl in debug mode*
 
+	If you want to build pycarl in debug mode you can add the ``--debug`` flag in the ``build_ext`` step::
+
+	$ python3 setup.py build_ext --debug develop
+
+Testing pycarl installation
+---------------------------
 After building, you can run the test files by::
 
 	$ py.test tests/
 
-If you do not experience any issues, you can now use pycarl. To get started, consult the test files in `tests/` or the :doc:`api` (work in progress)
+If you do not experience any issues, you can now use pycarl. To get started, follow the :doc:`getting_started`, consult the test files in ``tests/`` or the :doc:`api` (work in progress)

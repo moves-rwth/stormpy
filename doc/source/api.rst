@@ -1,12 +1,12 @@
-******************
-API Documentation
-******************
-
+Pycarl API Reference
+====================================
 Work in progress!
 
 .. toctree::
     :maxdepth: 2
-    :caption: Contents:
+    :caption: Modules:
 
-    core
-
+    api/core
+    api/convert
+    api/formula
+    api/parse
