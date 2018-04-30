@@ -19,16 +19,8 @@ Stormpy is a set of python bindings for the probabilistic model checker `Storm <
    advanced_topics
    contributors
 
-   
-Stormpy API Reference
-====================================
-.. toctree::
-   :maxdepth: 2
-   :caption: Modules:
-	
-   code_stormpy_core
-   code_stormpy_logic
-   code_stormpy_storage
+
+.. include:: api.rst
 
 
 Indices and tables

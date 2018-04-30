@@ -8,6 +8,6 @@ This guide is a collection of examples meant to bridge the gap between the getti
     :maxdepth: 2
     :caption: Contents:
 
-    building_models
-    reward_models
-    shortest_paths
+    doc/building_models
+    doc/reward_models
+    doc/shortest_paths

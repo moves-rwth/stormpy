@@ -11,15 +11,17 @@ This guide is intended for people which have a basic understanding of probabilis
 `Storm website <http://www.stormchecker.org/>`_.
 While we assume some very basic programming concepts, we refrain from using more advanced concepts of python throughout the guide.
 
-We start with a selection of high-level constructs in stormpy, and go into more details afterwards. More in-depth examples can be found in the :doc:`advanced_examples`.
+We start with a selection of high-level constructs in stormpy, and go into more details afterwards. More in-depth examples can be found in the :doc:`advanced_topics`.
 
 .. seealso:: The code examples are also given in the `examples/ <https://github.com/moves-rwth/stormpy/blob/master/examples/>`_ folder. These boxes throughout the text will tell you which example contains the code discussed.
 
-In order to do this, we import stormpy::
+We start by launching the python 3 interpreter::
+
+	$ python3
+
+First we import stormpy::
 
     >>>	import stormpy
-    >>>	import stormpy.core
-	
 	
 Building models 
 ------------------------------------------------

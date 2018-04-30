@@ -5,11 +5,3 @@ Stormpy.core
    :members:
    :undoc-members:
    :imported-members:
-
-Core members
-=========================
-
-
-.. automodule:: stormpy.core
-   :members:
-   :undoc-members:
