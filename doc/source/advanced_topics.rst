@@ -11,3 +11,4 @@ This guide is a collection of examples meant to bridge the gap between the getti
     doc/building_models
     doc/reward_models
     doc/shortest_paths
+    doc/parametric_models
