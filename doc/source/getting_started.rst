@@ -11,7 +11,7 @@ We start by launching the python 3 interpreter::
 
 	$ python3
 
-First we importing pycarl::
+First we import pycarl::
 
     >>>	import pycarl
 

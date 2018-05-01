@@ -5,7 +5,7 @@ Pycarl core
 Number independent types
 ---------------------------
 
-.. automodule:: pycarl.core
+.. automodule:: pycarl
     :members:
     :undoc-members:
     :imported-members:

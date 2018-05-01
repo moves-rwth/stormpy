@@ -75,4 +75,4 @@ After building, you can run the test files by::
 
 	$ py.test tests/
 
-If you do not experience any issues, you can now use pycarl. To get started, follow the :doc:`getting_started`, consult the test files in ``tests/`` or the :doc:`api` (work in progress)
+If you do not experience any issues, you can now use pycarl. To get started, follow the :doc:`getting_started`, consult the test files in ``tests/`` or the :doc:`api` (work in progress).
