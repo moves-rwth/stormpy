@@ -20,15 +20,15 @@ void define_factorizedrationalfunction(py::module& m) {
                 return RationalFunction(rf.constantPart());
             } else {
                 return RationalFunction(rf.nominator().polynomialWithCoefficient(), rf.denominator().polynomialWithCoefficient());
-            }; }
-        )
+            };
+        })
         .def("derive", [](FactorizedRationalFunction const& ratFunc, carl::Variable const& var) {
                 return ratFunc.derivative(var, 1);
             }, "Compute the derivative", py::arg("variable"))
         .def("__str__", &streamToString<FactorizedRationalFunction>)
-            .def("to_smt2", [](FactorizedRationalFunction const& rf) {
-                return rf.toString(false, true);
-            })
+        .def("to_smt2", [](FactorizedRationalFunction const& rf) {
+            return rf.toString(false, true);
+        })
 
         .def(py::self - py::self)
         .def(py::self + py::self)

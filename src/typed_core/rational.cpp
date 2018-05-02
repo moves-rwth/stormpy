@@ -15,13 +15,17 @@ void define_cln_rational(py::module& m) {
         .def("__init__", [](cln::cl_RA &instance, carl::sint val) -> void { auto tmp = carl::rationalize<cln::cl_RA>(val); new (&instance) cln::cl_RA(tmp); })
         .def("__init__", [](cln::cl_RA &instance, const cln::cl_I& numerator, const cln::cl_I& denominator) -> void { new (&instance) cln::cl_RA(cln::cl_RA(numerator)/cln::cl_RA(denominator)); })
         .def("__init__", [](cln::cl_RA &instance, const std::string& val) -> void {
-            cln::cl_RA tmp;
-            bool suc = carl::try_parse<cln::cl_RA>(val, tmp);
-            if(!suc) {
-               throw std::invalid_argument("Cannot translate " + val + " into a rational.");
-            }
-            new (&instance) cln::cl_RA(tmp); })
-        .def("__init__", [](cln::cl_RA &instance, mpq_class const& val) -> void { auto tmp = carl::convert<mpq_class, cln::cl_RA>(val); new (&instance) cln::cl_RA(tmp);})
+                cln::cl_RA tmp;
+                bool suc = carl::try_parse<cln::cl_RA>(val, tmp);
+                if(!suc) {
+                   throw std::invalid_argument("Cannot translate " + val + " into a rational.");
+                }
+                new (&instance) cln::cl_RA(tmp);
+            })
+        .def("__init__", [](cln::cl_RA &instance, mpq_class const& val) -> void {
+                auto tmp = carl::convert<mpq_class, cln::cl_RA>(val);
+                new (&instance) cln::cl_RA(tmp);
+            })
 
 
         .def("__add__", [](const cln::cl_RA& lhs, const cln::cl_RA& rhs) -> cln::cl_RA { return lhs + rhs; })
@@ -45,9 +49,21 @@ void define_cln_rational(py::module& m) {
         .def("__rmul__", [](const cln::cl_RA& rhs, carl::sint lhs) -> cln::cl_RA { return carl::rationalize<cln::cl_RA>(lhs) * rhs; })
         .def("__rmul__", [](const cln::cl_RA& rhs, carl::Variable::Arg lhs) -> Term { return rhs * lhs; })
 
-        .def(PY_DIV, [](const cln::cl_RA& lhs, const cln::cl_RA& rhs) -> cln::cl_RA { if (carl::isZero(rhs)) throw std::runtime_error("Div by zero"); return lhs / rhs; })
-        .def(PY_DIV, [](const cln::cl_RA& lhs, carl::sint rhs) -> cln::cl_RA { if (rhs == 0.0) throw std::runtime_error("Div by zero"); return lhs / carl::rationalize<cln::cl_RA>(rhs); })
-        .def(PY_RDIV, [](const cln::cl_RA& rhs, carl::sint lhs) -> cln::cl_RA { if (carl::isZero(rhs)) throw std::runtime_error("Div by zero"); return carl::rationalize<cln::cl_RA>(lhs) / rhs; })
+        .def(PY_DIV, [](const cln::cl_RA& lhs, const cln::cl_RA& rhs) -> cln::cl_RA {
+                if (carl::isZero(rhs))
+                    throw std::runtime_error("Div by zero");
+                return lhs / rhs;
+            })
+        .def(PY_DIV, [](const cln::cl_RA& lhs, carl::sint rhs) -> cln::cl_RA {
+                if (rhs == 0.0)
+                    throw std::runtime_error("Div by zero");
+                return lhs / carl::rationalize<cln::cl_RA>(rhs);
+            })
+        .def(PY_RDIV, [](const cln::cl_RA& rhs, carl::sint lhs) -> cln::cl_RA {
+                if (carl::isZero(rhs))
+                    throw std::runtime_error("Div by zero");
+                return carl::rationalize<cln::cl_RA>(lhs) / rhs;
+            })
 
         .def(PY_DIV, [](const Rational& lhs, const RationalFunction& rhs) { return RationalFunction(lhs) / rhs; })
         .def(PY_DIV, [](const Rational& lhs, const Polynomial& rhs) { return RationalFunction(lhs) / rhs; })
@@ -97,16 +113,20 @@ void define_cln_rational(py::module& m) {
             return carl::getNum(val);
         })
         .def_property_readonly("numerator", [](const cln::cl_RA& val) ->  cln::cl_I {
-            return carl::getNum(val);
-        })
+                return carl::getNum(val);
+            })
         .def_property_readonly("denominator", [](const cln::cl_RA& val) ->  cln::cl_I {
-            return carl::getDenom(val);
-        })
+                return carl::getDenom(val);
+            })
 
         .def("__getstate__", [](const cln::cl_RA& val) {
-            return std::pair<std::string, std::string>(carl::toString(carl::getNum(val)), carl::toString(carl::getDenom(val)));})
+                return std::pair<std::string, std::string>(carl::toString(carl::getNum(val)), carl::toString(carl::getDenom(val)));
+            })
 
-        .def("__setstate__", [](cln::cl_RA& val, std::pair<std::string, std::string> data) {cln::cl_RA res = carl::parse<cln::cl_RA>(data.first) / carl::parse<cln::cl_RA>(data.second); new (&val) cln::cl_RA(res); })
+        .def("__setstate__", [](cln::cl_RA& val, std::pair<std::string, std::string> data) {
+                cln::cl_RA res = carl::parse<cln::cl_RA>(data.first) / carl::parse<cln::cl_RA>(data.second);
+                new (&val) cln::cl_RA(res);
+            })
         .def("__hash__", [](const cln::cl_RA& v) { std::hash<cln::cl_RA> h; return h(v);})
     ;
 
@@ -123,12 +143,13 @@ void define_gmp_rational(py::module& m) {
         .def("__init__", [](mpq_class &instance, carl::sint val) -> void { auto tmp = carl::rationalize<mpq_class>(val); new (&instance) mpq_class(tmp); })
         .def("__init__", [](mpq_class &instance, const mpz_class& numerator, const mpz_class& denominator) -> void { new (&instance) mpq_class(mpq_class(numerator)/mpq_class(denominator)); })
         .def("__init__", [](mpq_class &instance, const std::string& val) -> void {
-            mpq_class tmp;
-            bool suc = carl::try_parse<mpq_class>(val, tmp);
-            if(!suc) {
-                throw std::invalid_argument("Cannot translate " + val + " into a rational.");
-            }
-            new (&instance) mpq_class(tmp); })
+                mpq_class tmp;
+                bool suc = carl::try_parse<mpq_class>(val, tmp);
+                if(!suc) {
+                    throw std::invalid_argument("Cannot translate " + val + " into a rational.");
+                }
+                new (&instance) mpq_class(tmp);
+            })
         .def("__add__", [](const mpq_class& lhs, const mpq_class& rhs) -> mpq_class { return lhs + rhs; })
         .def("__add__", [](const mpq_class& lhs, carl::sint rhs) -> mpq_class { return lhs + carl::rationalize<mpq_class>(rhs); })
         .def("__radd__", [](const mpq_class& rhs, carl::sint lhs) -> mpq_class { return carl::rationalize<mpq_class>(lhs) + rhs; })
@@ -147,9 +168,21 @@ void define_gmp_rational(py::module& m) {
         .def("__rmul__", [](const mpq_class& rhs, carl::sint lhs) -> mpq_class { return carl::rationalize<mpq_class>(lhs) * rhs; })
         .def("__rmul__", [](const mpq_class& rhs, carl::Variable::Arg lhs) -> Term { return rhs * lhs; })
 
-        .def(PY_DIV, [](const mpq_class& lhs, const mpq_class& rhs) -> mpq_class { if (carl::isZero(rhs)) throw std::runtime_error("Div by zero"); return lhs / rhs; })
-        .def(PY_DIV, [](const mpq_class& lhs, carl::sint rhs) -> mpq_class { if (rhs == 0.0) throw std::runtime_error("Div by zero"); return lhs / carl::rationalize<mpq_class>(rhs); })
-        .def(PY_RDIV, [](const mpq_class& rhs, carl::sint lhs) -> mpq_class { if (carl::isZero(rhs)) throw std::runtime_error("Div by zero"); return carl::rationalize<mpq_class>(lhs) / rhs; })
+        .def(PY_DIV, [](const mpq_class& lhs, const mpq_class& rhs) -> mpq_class {
+                if (carl::isZero(rhs))
+                    throw std::runtime_error("Div by zero");
+                return lhs / rhs;
+            })
+        .def(PY_DIV, [](const mpq_class& lhs, carl::sint rhs) -> mpq_class {
+                if (rhs == 0.0)
+                    throw std::runtime_error("Div by zero");
+                return lhs / carl::rationalize<mpq_class>(rhs);
+            })
+        .def(PY_RDIV, [](const mpq_class& rhs, carl::sint lhs) -> mpq_class {
+                if (carl::isZero(rhs))
+                    throw std::runtime_error("Div by zero");
+                return carl::rationalize<mpq_class>(lhs) / rhs;
+            })
 
         .def(PY_DIV, [](const Rational& lhs, const RationalFunction& rhs) { return RationalFunction(lhs) / rhs; })
         .def(PY_DIV, [](const Rational& lhs, const Polynomial& rhs) { return RationalFunction(lhs) / rhs; })
@@ -194,19 +227,23 @@ void define_gmp_rational(py::module& m) {
 
 
         .def_property_readonly("nominator", [](const mpq_class& val) -> mpz_class {
-            return carl::getNum(val);
-        })
+                return carl::getNum(val);
+            })
         .def_property_readonly("numerator", [](const mpq_class& val) -> mpz_class {
-            return carl::getNum(val);
-        })
+                return carl::getNum(val);
+            })
         .def_property_readonly("denominator", [](const mpq_class& val) -> mpz_class {
-            return carl::getDenom(val);
-        })
+                return carl::getDenom(val);
+            })
 
         .def("__getstate__", [](const mpq_class& val) {
-            return std::pair<std::string, std::string>(carl::toString(carl::getNum(val)), carl::toString(carl::getDenom(val)));})
+                return std::pair<std::string, std::string>(carl::toString(carl::getNum(val)), carl::toString(carl::getDenom(val)));
+            })
 
-        .def("__setstate__", [](mpq_class& val, std::pair<std::string, std::string> data) {mpq_class res = carl::parse<mpq_class>(data.first) / carl::parse<mpq_class>(data.second); new (&val) mpq_class(res); })
+        .def("__setstate__", [](mpq_class& val, std::pair<std::string, std::string> data) {
+                mpq_class res = carl::parse<mpq_class>(data.first) / carl::parse<mpq_class>(data.second);
+                new (&val) mpq_class(res);
+            })
         .def("__hash__", [](const mpq_class& v) { std::hash<mpq_class> h; return h(v);})
     ;
 

@@ -16,14 +16,14 @@ PYBIND11_MODULE(parse, m) {
 
 
     py::enum_<carlparser::ParserReturnType>(m, "_ParserReturnType")
-            .value("Rational", carlparser::ParserReturnType::Rational)
-            .value("Variable", carlparser::ParserReturnType::Variable)
-            .value("Monomial", carlparser::ParserReturnType::Monomial)
-            .value("Term", carlparser::ParserReturnType::Term)
-            .value("Polynomial", carlparser::ParserReturnType::Polynomial)
-            .value("RationalFunction", carlparser::ParserReturnType::RationalFunction)
-            .value("Constraint", carlparser::ParserReturnType::Constraint)
-            .value("Formula", carlparser::ParserReturnType::Formula)
-            ;
+        .value("Rational", carlparser::ParserReturnType::Rational)
+        .value("Variable", carlparser::ParserReturnType::Variable)
+        .value("Monomial", carlparser::ParserReturnType::Monomial)
+        .value("Term", carlparser::ParserReturnType::Term)
+        .value("Polynomial", carlparser::ParserReturnType::Polynomial)
+        .value("RationalFunction", carlparser::ParserReturnType::RationalFunction)
+        .value("Constraint", carlparser::ParserReturnType::Constraint)
+        .value("Formula", carlparser::ParserReturnType::Formula)
+    ;
 
 }

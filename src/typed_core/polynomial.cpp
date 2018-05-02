@@ -21,7 +21,7 @@ void define_polynomial(py::module& m) {
         .def(py::init<Rational>())
         .def(py::init<std::vector<Term>&>())
 
-         .def("is_constant", &Polynomial::isConstant)
+        .def("is_constant", &Polynomial::isConstant)
 
         .def("__add__", [](const Polynomial& lhs, const Integer& rhs) -> Polynomial { return lhs + Rational(rhs); })
         .def(py::self + Rational())
@@ -49,7 +49,6 @@ void define_polynomial(py::module& m) {
         .def(py::self * Term())
         .def(py::self * py::self)
 
-
         .def(PY_DIV, [](const Polynomial& lhs, const RationalFunction& rhs) { return RationalFunction(lhs) / rhs; })
         .def(PY_DIV, [](const Polynomial& lhs, const Polynomial& rhs) { return RationalFunction(lhs, rhs); })
         .def(PY_DIV, [](const Polynomial& lhs, const Term& rhs) { return RationalFunction(lhs) / rhs; })
@@ -74,9 +73,8 @@ void define_polynomial(py::module& m) {
                 return pol.derivative(var, 1);
             }, "Compute the derivative", py::arg("variable"))
         .def("__str__", [](const Polynomial& pol) { return pol.toString(); })
-            .def("__repr__", [](const Polynomial& pol) { return pol.toString(); })
-
-            .def("to_smt2", [](Polynomial const& pol) {
+        .def("__repr__", [](const Polynomial& pol) { return pol.toString(); })
+        .def("to_smt2", [](Polynomial const& pol) {
                 return pol.toString(false, true);
             })
 
@@ -89,11 +87,11 @@ void define_polynomial(py::module& m) {
 
         .def("__len__", &Polynomial::size)
         .def("__getitem__", [](const Polynomial& p, std::size_t index) { return *(p.begin()+index); })
-        .def("__iter__", [](const Polynomial& p) { return py::make_iterator(p.begin(), p.end()); },
-                         py::keep_alive<0, 1>() /* Essential: keep object alive while iterator exists */)
+        .def("__iter__", [](const Polynomial& p) {
+                return py::make_iterator(p.begin(), p.end());
+            }, py::keep_alive<0, 1>() /* Essential: keep object alive while iterator exists */)
         .def("__getstate__", [](const Polynomial& val) -> std::tuple<std::string> { throw NoPickling(); })
         .def("__setstate__", [](Polynomial& val, const std::tuple<std::string>& data) { throw NoPickling(); })
         .def("__hash__", [](const Polynomial& v) { std::hash<Polynomial> h; return h(v);})
-
     ;
 }

@@ -12,18 +12,16 @@
 PYBIND11_MODULE(parse, m) {
     m.doc() = "pycarl parse typed functions";
 
-
-
     py::class_<ParserResultWrapper<Polynomial>>(m, "_ParserResultWrapper")
-            .def("get_type", &ParserResultWrapper<Polynomial>::getType)
-            .def("as_rational", &ParserResultWrapper<Polynomial>::asRational)
-            .def("as_variable", &ParserResultWrapper<Polynomial>::asVariable)
-            .def("as_monomial", &ParserResultWrapper<Polynomial>::asMonomial)
-            .def("as_term", &ParserResultWrapper<Polynomial>::asTerm)
-            .def("as_polynomial", &ParserResultWrapper<Polynomial>::asPolynomial)
-            .def("as_rational_function", &ParserResultWrapper<Polynomial>::asRationalFunction)
-            .def("as_constraint", &ParserResultWrapper<Polynomial>::asConstraint)
-            .def("as_formula", &ParserResultWrapper<Polynomial>::asFormula)
+        .def("get_type", &ParserResultWrapper<Polynomial>::getType)
+        .def("as_rational", &ParserResultWrapper<Polynomial>::asRational)
+        .def("as_variable", &ParserResultWrapper<Polynomial>::asVariable)
+        .def("as_monomial", &ParserResultWrapper<Polynomial>::asMonomial)
+        .def("as_term", &ParserResultWrapper<Polynomial>::asTerm)
+        .def("as_polynomial", &ParserResultWrapper<Polynomial>::asPolynomial)
+        .def("as_rational_function", &ParserResultWrapper<Polynomial>::asRationalFunction)
+        .def("as_constraint", &ParserResultWrapper<Polynomial>::asConstraint)
+        .def("as_formula", &ParserResultWrapper<Polynomial>::asFormula)
     ;
 
     m.def("_deserialize", &from_string);

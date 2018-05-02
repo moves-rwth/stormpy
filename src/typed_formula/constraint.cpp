@@ -18,30 +18,30 @@ void define_constraint(py::module& m) {
         .def(py::init<Polynomial, carl::Relation>())
         .def("__str__", &streamToString<Constraint>)
         .def("to_smt2", [](Constraint const& c) {
-            return c.toString(2, false, true);
-        })
+                return c.toString(2, false, true);
+            })
 
         .def("__invert__", [](const Constraint& lhs){
-            return Formula(carl::FormulaType::NOT, Formula(lhs));
-        })
+                return Formula(carl::FormulaType::NOT, Formula(lhs));
+            })
         .def("__and__", [](const Constraint& lhs, const Constraint& rhs){
-            return Formula(carl::FormulaType::AND, {Formula(lhs), Formula(rhs)});
-        })
+                return Formula(carl::FormulaType::AND, {Formula(lhs), Formula(rhs)});
+            })
         .def("__and__", [](const Constraint& lhs, const Formula& rhs){
-            return Formula(carl::FormulaType::AND, {Formula(lhs), rhs});
-        })
+                return Formula(carl::FormulaType::AND, {Formula(lhs), rhs});
+            })
         .def("__or__", [](const Constraint& lhs, const Constraint& rhs){
-            return Formula(carl::FormulaType::OR, {Formula(lhs), Formula(lhs)});
-        })
+                return Formula(carl::FormulaType::OR, {Formula(lhs), Formula(lhs)});
+            })
         .def("__or__", [](const Constraint& lhs, const Formula& rhs){
-            return Formula(carl::FormulaType::OR, {Formula(lhs), rhs});
-        })
+                return Formula(carl::FormulaType::OR, {Formula(lhs), rhs});
+            })
         .def("__xor__", [](const Constraint& lhs, const Constraint& rhs){
-            return Formula(carl::FormulaType::XOR, {Formula(lhs), Formula(rhs)});
-        })
+                return Formula(carl::FormulaType::XOR, {Formula(lhs), Formula(rhs)});
+            })
         .def("__xor__", [](const Constraint& lhs, const Formula& rhs){
-            return Formula(carl::FormulaType::XOR, {Formula(lhs), rhs});
-        })
+                return Formula(carl::FormulaType::XOR, {Formula(lhs), rhs});
+            })
 
         //.def("satisfied_by", [](const Constraint& constraint, const carl::EvaluationMap<Rational>& evaluation) { return Formula(constraint).satisfiedBy(evaluation); })
 
@@ -49,7 +49,7 @@ void define_constraint(py::module& m) {
         .def_property_readonly("lhs", &Constraint::lhs)
         .def("__getstate__", [](const Constraint& val) -> std::tuple<std::string> { throw NoPickling(); })
         .def("__setstate__", [](Constraint& val, const std::tuple<std::string>& data) { throw NoPickling(); })
-        ;
+    ;
 }
 //
 void define_simple_constraint(py::module& m) {
@@ -62,8 +62,7 @@ void define_simple_constraint(py::module& m) {
         .def("rel", &SimpleConstraint::rel, "Get the relation of the constraint")
         .def("__getstate__", [](const SimpleConstraint& val) -> std::tuple<std::string> { throw NoPickling(); })
         .def("__setstate__", [](SimpleConstraint& val, const std::tuple<std::string>& data) { throw NoPickling(); })
-        
-        ;
+    ;
     
     py::class_<SimpleConstraintRatFunc>(m, "SimpleConstraintRatFunc")
         .def(py::init<bool>())
@@ -75,6 +74,5 @@ void define_simple_constraint(py::module& m) {
 
         .def("__getstate__", [](const SimpleConstraintRatFunc& val) -> std::tuple<std::string> { throw NoPickling(); })
         .def("__setstate__", [](SimpleConstraintRatFunc& val, const std::tuple<std::string>& data) { throw NoPickling(); })
-        
-        ;
+    ;
 }

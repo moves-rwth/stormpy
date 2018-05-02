@@ -29,8 +29,8 @@ void define_variable(py::module& m) {
 
     py::class_<carl::Variable>(m, "Variable")
         .def("__init__", [](carl::Variable &instance, carl::Variable const& other) {
-            new(&instance) carl::Variable(other);
-        })
+                new(&instance) carl::Variable(other);
+            })
         .def("__init__", [](carl::Variable &instance, std::string name, carl::VariableType type) {
                 carl::Variable tmp = freshVariable(name, type);
                 new(&instance) carl::Variable(tmp);
@@ -50,12 +50,13 @@ void define_variable(py::module& m) {
         .def(py::self > py::self)
         .def(py::self >= py::self)
 
-        .def_property_readonly("name", [](const carl::Variable& r) -> std::string
-        { if (r != carl::Variable::NO_VARIABLE) {
-            return r.name();
-        } else {
-            return std::string("__NOVAR__");
-        }})
+        .def_property_readonly("name", [](const carl::Variable& r) -> std::string {
+                if (r != carl::Variable::NO_VARIABLE) {
+                    return r.name();
+                } else {
+                    return std::string("__NOVAR__");
+                }
+            })
         .def_property_readonly("type", &carl::Variable::type)
         .def_property_readonly("id", &carl::Variable::id)
         .def_property_readonly("rank", &carl::Variable::rank)
@@ -65,18 +66,20 @@ void define_variable(py::module& m) {
             // TODO get state has an issue if there are several variables with the same name; they cannot be distinguished afterwards
         .def("__getstate__", [](const carl::Variable& v) { return std::make_tuple<std::string, std::string>(v.name(), carl::to_string(v.type()));})
 
-        .def("__setstate__", [](carl::Variable& v, const std::tuple<std::string, std::string>& data ) { carl::Variable tmp = getOrCreateVariable(std::get<0>(data), carl::variableTypeFromString(std::get<1>(data)));
-            new(&v) carl::Variable(tmp); })
+        .def("__setstate__", [](carl::Variable& v, const std::tuple<std::string, std::string>& data ) {
+                carl::Variable tmp = getOrCreateVariable(std::get<0>(data), carl::variableTypeFromString(std::get<1>(data)));
+                new(&v) carl::Variable(tmp);
+            })
         .def("__hash__", [](const carl::Variable& v) { std::hash<carl::Variable> h; return h(v);})
 
     ;
 
     m.def("variable_with_name", [](std::string const& name){
-        return carl::VariablePool::getInstance().findVariableWithName(name);
-    }, "Get a variable from the pool with the given name.");
+            return carl::VariablePool::getInstance().findVariableWithName(name);
+        }, "Get a variable from the pool with the given name.");
 
 
     m.def("clear_variable_pool", [](){
-	carl::VariablePool::getInstance().clear();
-    }, "Clear variable pool and remove all variables");
+            carl::VariablePool::getInstance().clear();
+        }, "Clear variable pool and remove all variables");
 }

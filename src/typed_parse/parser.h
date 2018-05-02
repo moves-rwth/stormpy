@@ -46,9 +46,6 @@ struct ParserResultWrapper {
     carl::Formula<Pol> asFormula() const {
         return boost::get<carl::Formula<Pol>>(_content);
     }
-
-
-
 };
 
 ParserResultWrapper<Polynomial> from_string(const std::string& input);

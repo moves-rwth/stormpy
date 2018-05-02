@@ -99,7 +99,7 @@ void define_interval(py::module& m) {
 		.def("__repr__", [](const Interval& i) { return "<Interval " + streamToString<Interval>(i) + ">"; })
         .def("__getstate__", [](const Interval& val) -> std::tuple<std::string> { throw NoPickling(); })
         .def("__setstate__", [](Interval& val, const std::tuple<std::string>& data) { throw NoPickling(); })
-	    ;
+	;
 	
 	m.def("isInteger", [](const Interval& i){ return carl::isInteger(i); });
 	m.def("div", [](const Interval& l, const Interval& r){ return carl::div(l, r); });
