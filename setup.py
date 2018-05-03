@@ -58,7 +58,7 @@ class CMakeBuild(build_ext):
         self.config.write_config("build/build_config.cfg")
 
         cmake_args = []
-        storm_dir = self.config.get_as_string("storm_dir")
+        storm_dir = os.path.expanduser(self.config.get_as_string("storm_dir"))
         if storm_dir:
             cmake_args += ['-Dstorm_DIR=' + storm_dir]
         _ = subprocess.check_output(['cmake', os.path.abspath("cmake")] + cmake_args, cwd=build_temp_version)
