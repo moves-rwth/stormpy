@@ -63,11 +63,25 @@ The build step also takes optional arguments for a more advanced configuration o
 
 	$ python3 setup.py build_ext --carl-dir YOUR-PATH-TO-CARL develop
 
+*	*Disabling functionality*
+
+	If you want to disable certain functionality in pycarl from being built you can use the following flags:
+
+	* ``--disable-cln`` to disable support for CLN numbers
+	* ``--disable-parser`` to disable support for full parsing capabilities
+
 *	*Building pycarl in debug mode*
 
 	If you want to build pycarl in debug mode you can add the ``--debug`` flag in the ``build_ext`` step::
 
 	$ python3 setup.py build_ext --debug develop
+
+*	*Setting number of build threads*
+
+	The build of pycarl uses all available cores per default.
+	If you want to configure the number of threads manually you can specify the ``--jobs`` (or ``-j``) flag::
+
+	$ python3 setup.py build_ext --jobs 2 develop
 
 Testing pycarl installation
 ---------------------------
