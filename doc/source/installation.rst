@@ -58,20 +58,34 @@ or::
 Optional build arguments
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-The build step also takes optional arguments for a more advanced configuration of stormpy.
+The build step ``build_ext`` also takes optional arguments for a more advanced configuration of stormpy.
 
 *	*Specifying which Storm library to use*
 
 	If you have multiple versions of Storm or cmake is not able to find your Storm version,
-	you can specify the ``--storm-dir YOUR-PATH-TO-STORM`` flag in the ``build_ext`` step::
+	you can specify the ``--storm-dir YOUR-PATH-TO-STORM`` flag::
 
 	$ python3 setup.py build_ext --storm-dir YOUR-PATH-TO-STORM develop
 
+*	*Disabling functionality*
+
+	If you want to disable certain functionality in stormpy from being built you can use the following flags:
+
+	* ``--disable-dft`` to disable support for dynamic fault trees (DFTs)
+	* ``--disable-pars`` to disable support for parametric models
+
 *	*Building stormpy in debug mode*
 
-	If you want to build stormpy in debug mode you can add the ``--debug`` flag in the ``build_ext`` step::
+	If you want to build stormpy in debug mode you can add the ``--debug`` flag::
 
 	$ python3 setup.py build_ext --debug develop
+
+*	*Setting number of build threads*
+
+	The build of stormpy uses all available cores per default.
+	If you want to configure the number of threads manually you can specify the ``--jobs`` (or ``-j``) flag::
+
+	$ python3 setup.py build_ext --jobs 2 develop
 
 
 Testing stormpy installation
