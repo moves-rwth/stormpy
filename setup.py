@@ -59,8 +59,8 @@ class CMakeBuild(build_ext):
         self.config.write_config("build/build_config.cfg")
 
         cmake_args = []
-        carl_dir = self.config.get_as_string("carl_dir")
-        carl_parser_dir = self.config.get_as_string("carl_parser_dir")
+        carl_dir = os.path.expanduser(self.config.get_as_string("carl_dir"))
+        carl_parser_dir = os.path.expanduser(self.config.get_as_string("carl_parser_dir"))
         if carl_dir:
             cmake_args += ['-Dcarl_DIR=' + carl_dir]
         if carl_parser_dir:
