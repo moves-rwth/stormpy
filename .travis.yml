@@ -29,40 +29,30 @@ jobs:
     - os: linux
       compiler: gcc
       env: TASK=Test CONFIG=Release DOCKER=storm:travis PYTHON=python3
-      install:
-        travis/install_linux.sh
       script:
         travis/build.sh
     # Docker Storm master in debug mode
     - os: linux
       compiler: gcc
       env: TASK=Test CONFIG=Debug DOCKER=storm:travis-debug PYTHON=python3
-      install:
-        travis/install_linux.sh
       script:
         travis/build.sh
     # Docker Storm stable
     - os: linux
       compiler: gcc
       env: TASK=Test CONFIG=Release DOCKER=storm:1.2.1 PYTHON=python3
-      install:
-        travis/install_linux.sh
       script:
         travis/build.sh
     # Docker Storm stable in debug mode
     - os: linux
       compiler: gcc
       env: TASK=Test CONFIG=Debug DOCKER=storm:1.2.1-debug PYTHON=python3
-      install:
-        travis/install_linux.sh
       script:
         travis/build.sh
     # Documentation
     - os: linux
       compiler: gcc
       env: TASK=Documentation CONFIG=Release DOCKER=storm:travis PYTHON=python3
-      install:
-        travis/install_linux.sh
       script:
         travis/build.sh
       before_deploy:
