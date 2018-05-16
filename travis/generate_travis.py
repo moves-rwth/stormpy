@@ -84,7 +84,6 @@ if __name__ == "__main__":
                 buildConfig += "    - os: linux\n"
                 buildConfig += "      compiler: {}\n".format(config[1])
                 buildConfig += "      env: TASK=Test PYTHON={} CONFIG={} LINUX={} COMPILER={}\n".format(python, build, linux, compiler)
-                buildConfig += "      install: travis/install_linux.sh\n"
                 buildConfig += "      script: travis/build.sh\n"
             s += buildConfig
 

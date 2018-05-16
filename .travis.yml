@@ -45,17 +45,14 @@ jobs:
     - os: linux
       compiler: gcc
       env: TASK=Test PYTHON=python3 CONFIG=Release LINUX=ubuntu-17.10 COMPILER=gcc
-      install: travis/install_linux.sh
       script: travis/build.sh
     - os: linux
       compiler: gcc
       env: TASK=Test PYTHON=python3 CONFIG=ReleaseCln LINUX=ubuntu-17.10 COMPILER=gcc
-      install: travis/install_linux.sh
       script: travis/build.sh
     - os: linux
       compiler: gcc
       env: TASK=Test PYTHON=python3 CONFIG=ReleaseClnParser LINUX=ubuntu-17.10 COMPILER=gcc
-      install: travis/install_linux.sh
       script: travis/build.sh
     # Documentation
     - os: osx
