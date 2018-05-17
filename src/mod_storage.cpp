@@ -20,6 +20,7 @@ PYBIND11_MODULE(storage, m) {
 
     define_bitvector(m);
     define_model(m);
+    define_sparse_model(m);
     define_sparse_matrix(m);
     define_state(m);
     define_prism(m);

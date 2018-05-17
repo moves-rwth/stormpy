@@ -22,15 +22,46 @@ except ImportError:
 
 core._set_up("")
 
+def _convert_sparse_model(model, parametric=False):
+    """
+    Convert (parametric) model in sparse representation into model corresponding to exact model type.
+    :param model: Sparse model.
+    :param parametric: Flag indicating if the model is parametric.
+    :return: Model corresponding to exact model type.
+    """
+    if parametric:
+        assert model.supports_parameters
+        if model.model_type == ModelType.DTMC:
+            return model._as_sparse_pdtmc()
+        elif model.model_type == ModelType.MDP:
+            return model._as_sparse_pmdp()
+        elif model.model_type == ModelType.CTMC:
+            return model._as_sparse_pctmc()
+        elif model.model_type == ModelType.MA:
+            return model._as_sparse_pma()
+        else:
+            raise StormError("Not supported parametric model constructed")
+    else:
+        assert not model.supports_parameters
+        if model.model_type == ModelType.DTMC:
+            return model._as_sparse_dtmc()
+        elif model.model_type == ModelType.MDP:
+            return model._as_sparse_mdp()
+        elif model.model_type == ModelType.CTMC:
+            return model._as_sparse_ctmc()
+        elif model.model_type == ModelType.MA:
+            return model._as_sparse_ma()
+        else:
+            raise StormError("Not supported non-parametric model constructed")
+
 
 def build_model(symbolic_description, properties=None):
     """
-    Build a model from a symbolic description.
+    Build a model in sparse representation from a symbolic description.
 
     :param symbolic_description: Symbolic model description to translate into a model.
     :param List[Property] properties: List of properties that should be preserved during the translation. If None, then all properties are preserved.
     :return: Model in sparse representation.
-    :rtype: SparseDtmc or SparseMdp
     """
     if not symbolic_description.undefined_constants_are_graph_preserving:
         raise StormError("Program still contains undefined constants")
@@ -40,91 +71,49 @@ def build_model(symbolic_description, properties=None):
         intermediate = core._build_sparse_model_from_prism_program(symbolic_description, formulae)
     else:
         intermediate = core._build_sparse_model_from_prism_program(symbolic_description)
-    assert not intermediate.supports_parameters
-    if intermediate.model_type == ModelType.DTMC:
-        return intermediate._as_dtmc()
-    elif intermediate.model_type == ModelType.MDP:
-        return intermediate._as_mdp()
-    elif intermediate.model_type == ModelType.CTMC:
-        return intermediate._as_ctmc()
-    elif intermediate.model_type == ModelType.MA:
-        return intermediate._as_ma()
-    else:
-        raise StormError("Not supported non-parametric model constructed")
+    return _convert_sparse_model(intermediate, parametric=False)
 
 
 def build_parametric_model(symbolic_description, properties=None):
     """
-    Build a parametric model from a symbolic description.
+    Build a parametric model in sparse representation from a symbolic description.
     
     :param symbolic_description: Symbolic model description to translate into a model.
     :param List[Property] properties: List of properties that should be preserved during the translation. If None, then all properties are preserved.
     :return: Parametric model in sparse representation.
-    :rtype: SparseParametricDtmc or SparseParametricMdp
     """
     if not symbolic_description.undefined_constants_are_graph_preserving:
         raise StormError("Program still contains undefined constants")
 
     if properties:
         formulae = [prop.raw_formula for prop in properties]
+        intermediate = core._build_sparse_parametric_model_from_prism_program(symbolic_description, formulae)
     else:
-        formulae = []
-    intermediate = core._build_sparse_parametric_model_from_prism_program(symbolic_description, formulae)
-    assert intermediate.supports_parameters
-    if intermediate.model_type == ModelType.DTMC:
-        return intermediate._as_pdtmc()
-    elif intermediate.model_type == ModelType.MDP:
-        return intermediate._as_pmdp()
-    elif intermediate.model_type == ModelType.CTMC:
-        return intermediate._as_pctmc()
-    elif intermediate.model_type == ModelType.MA:
-        return intermediate._as_pma()
-    else:
-        raise StormError("Not supported parametric model constructed")
+        intermediate = core._build_sparse_parametric_model_from_prism_program(symbolic_description)
+    return _convert_sparse_model(intermediate, parametric=True)
 
 
 def build_model_from_drn(file):
     """
-    Build a model from the explicit DRN representation.
+    Build a model in sparse representation from the explicit DRN representation.
 
     :param String file: DRN file containing the model.
     :return: Model in sparse representation.
-    :rtype: SparseDtmc or SparseMdp or SparseCTMC or SparseMA
     """
     intermediate = core._build_sparse_model_from_drn(file)
-    assert not intermediate.supports_parameters
-    if intermediate.model_type == ModelType.DTMC:
-        return intermediate._as_dtmc()
-    elif intermediate.model_type == ModelType.MDP:
-        return intermediate._as_mdp()
-    elif intermediate.model_type == ModelType.CTMC:
-        return intermediate._as_ctmc()
-    elif intermediate.model_type == ModelType.MA:
-        return intermediate._as_ma()
-    else:
-        raise StormError("Not supported non-parametric model constructed")
+    return _convert_sparse_model(intermediate, parametric=False)
 
 
 def build_parametric_model_from_drn(file):
     """
-    Build a parametric model from the explicit DRN representation.
+    Build a parametric model in sparse representation from the explicit DRN representation.
 
     :param String file: DRN file containing the model.
     :return: Parametric model in sparse representation.
-    :rtype: SparseParametricDtmc or SparseParametricMdp or SparseParametricCTMC or SparseParametricMA
     """
     intermediate = core._build_sparse_parametric_model_from_drn(file)
-    assert intermediate.supports_parameters
-    if intermediate.model_type == ModelType.DTMC:
-        return intermediate._as_pdtmc()
-    elif intermediate.model_type == ModelType.MDP:
-        return intermediate._as_pmdp()
-    elif intermediate.model_type == ModelType.CTMC:
-        return intermediate._as_pctmc()
-    elif intermediate.model_type == ModelType.MA:
-        return intermediate._as_pma()
-    else:
-        raise StormError("Not supported parametric model constructed")
+    return _convert_sparse_model(intermediate, parametric=True)
+
 
 
 def perform_bisimulation(model, properties, bisimulation_type):
