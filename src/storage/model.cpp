@@ -15,36 +15,30 @@
 
 // Typedefs
 using RationalFunction = storm::RationalFunction;
-using state_type = storm::storage::sparse::state_type;
-template<typename ValueType> using SparseRewardModel = storm::models::sparse::StandardRewardModel<ValueType>;
-
 using ModelBase = storm::models::ModelBase;
+
 template<typename ValueType> using SparseModel = storm::models::sparse::Model<ValueType>;
 template<typename ValueType> using SparseDtmc = storm::models::sparse::Dtmc<ValueType>;
 template<typename ValueType> using SparseMdp = storm::models::sparse::Mdp<ValueType>;
 template<typename ValueType> using SparseCtmc = storm::models::sparse::Ctmc<ValueType>;
 template<typename ValueType> using SparseMarkovAutomaton = storm::models::sparse::MarkovAutomaton<ValueType>;
+template<typename ValueType> using SparseRewardModel = storm::models::sparse::StandardRewardModel<ValueType>;
 
 
-// Thin wrapper for getting initial states
+
+// Thin wrappers
 template<typename ValueType>
-std::vector<state_type> getInitialStates(SparseModel<ValueType> const& model) {
-    std::vector<state_type> initialStates;
+std::vector<storm::storage::sparse::state_type> getSparseInitialStates(SparseModel<ValueType> const& model) {
+    std::vector<storm::storage::sparse::state_type> initialStates;
     for (auto entry : model.getInitialStates()) {
         initialStates.push_back(entry);
     }
     return initialStates;
 }
 
-// Thin wrapper for getting transition matrix
 template<typename ValueType>
 storm::storage::SparseMatrix<ValueType>& getTransitionMatrix(SparseModel<ValueType>& model) {
     return model.getTransitionMatrix();
-}
-
-template<typename ValueType>
-storm::storage::SparseMatrix<ValueType> getBackwardTransitionMatrix(SparseModel<ValueType> const& model) {
-    return std::move(model.getBackwardTransitions());
 }
 
 // requires pycarl.Variable
@@ -123,9 +117,7 @@ void define_model(py::module& m) {
         .def("_as_sparse_pma", [](ModelBase &modelbase) {
                 return modelbase.as<SparseMarkovAutomaton<RationalFunction>>();
             }, "Get model as sparse pMA")
-         .def("_as_symbolic_dtmc", [](ModelBase &modelbase) {
-                return modelbase.as<SymbolicDtmc<double>>();
-            }, "Get model as symbolic DTMC")
+ 
     ;
 }
 
@@ -133,18 +125,17 @@ void define_model(py::module& m) {
 // Bindings for sparse models
 void define_sparse_model(py::module& m) {
 
-
-    // Models
+    // Models with double numbers
     py::class_<SparseModel<double>, std::shared_ptr<SparseModel<double>>, ModelBase> model(m, "_SparseModel", "A probabilistic model where transitions are represented by doubles and saved in a sparse matrix");
     model.def_property_readonly("labeling", &getLabeling<double>, "Labels")
         .def("labels_state", &SparseModel<double>::getLabelsOfState, py::arg("state"), "Get labels of state")
-        .def_property_readonly("initial_states", &getInitialStates<double>, "Initial states")
+        .def_property_readonly("initial_states", &getSparseInitialStates<double>, "Initial states")
         .def_property_readonly("states", [](SparseModel<double>& model) {
                 return SparseModelStates<double>(model);
             }, "Get states")
         .def_property_readonly("reward_models", [](SparseModel<double>& model) {return model.getRewardModels(); }, "Reward models")
         .def_property_readonly("transition_matrix", &getTransitionMatrix<double>, py::return_value_policy::reference, py::keep_alive<1, 0>(), "Transition matrix")
-        .def_property_readonly("backward_transition_matrix", &getBackwardTransitionMatrix<double>, py::return_value_policy::reference, py::keep_alive<1, 0>(), "Backward transition matrix")
+        .def_property_readonly("backward_transition_matrix", &SparseModel<double>::getBackwardTransitions, py::return_value_policy::reference, py::keep_alive<1, 0>(), "Backward transition matrix")
         .def("reduce_to_state_based_rewards", &SparseModel<double>::reduceToStateBasedRewards)
         .def("__str__", getModelInfoPrinter<double>())
     ;
@@ -169,23 +160,24 @@ void define_sparse_model(py::module& m) {
         .def_property_readonly("state_rewards", [](SparseRewardModel<double>& rewardModel) {return rewardModel.getStateRewardVector();})
         .def("get_state_reward", [](SparseRewardModel<double>& rewardModel, uint64_t state) {return rewardModel.getStateReward(state);})
         .def("get_state_action_reward", [](SparseRewardModel<double>& rewardModel, uint64_t action_index) {return rewardModel.getStateActionReward(action_index);})
-            .def_property_readonly("state_action_rewards", [](SparseRewardModel<double>& rewardModel) {return rewardModel.getStateActionRewardVector();})
+        .def_property_readonly("state_action_rewards", [](SparseRewardModel<double>& rewardModel) {return rewardModel.getStateActionRewardVector();})
         .def("reduce_to_state_based_rewards", [](SparseRewardModel<double>& rewardModel, storm::storage::SparseMatrix<double> const& transitions, bool onlyStateRewards){return rewardModel.reduceToStateBasedRewards(transitions, onlyStateRewards);},  py::arg("transition_matrix"), py::arg("only_state_rewards"), "Reduce to state-based rewards")
     ;
 
 
+    // Parametric models
     py::class_<SparseModel<RationalFunction>, std::shared_ptr<SparseModel<RationalFunction>>, ModelBase> modelRatFunc(m, "_SparseParametricModel", "A probabilistic model where transitions are represented by rational functions and saved in a sparse matrix");
     modelRatFunc.def("collect_probability_parameters", &probabilityVariables, "Collect parameters")
         .def("collect_reward_parameters", &rewardVariables, "Collect reward parameters")
         .def_property_readonly("labeling", &getLabeling<RationalFunction>, "Labels")
         .def("labels_state", &SparseModel<RationalFunction>::getLabelsOfState, py::arg("state"), "Get labels of state")
-        .def_property_readonly("initial_states", &getInitialStates<RationalFunction>, "Initial states")
+        .def_property_readonly("initial_states", &getSparseInitialStates<RationalFunction>, "Initial states")
         .def_property_readonly("states", [](SparseModel<RationalFunction>& model) {
                 return SparseModelStates<RationalFunction>(model);
             }, "Get states")
         .def_property_readonly("reward_models", [](SparseModel<RationalFunction> const& model) {return model.getRewardModels(); }, "Reward models")
         .def_property_readonly("transition_matrix", &getTransitionMatrix<RationalFunction>, py::return_value_policy::reference, py::keep_alive<1, 0>(), "Transition matrix")
-        .def_property_readonly("backward_transition_matrix", &getBackwardTransitionMatrix<RationalFunction>, py::return_value_policy::reference, py::keep_alive<1, 0>(), "Backward transition matrix")
+        .def_property_readonly("backward_transition_matrix", &SparseModel<RationalFunction>::getBackwardTransitions, py::return_value_policy::reference, py::keep_alive<1, 0>(), "Backward transition matrix")
         .def("reduce_to_state_based_rewards", &SparseModel<RationalFunction>::reduceToStateBasedRewards)
         .def("__str__", getModelInfoPrinter<RationalFunction>("ParametricModel"))
     ;
