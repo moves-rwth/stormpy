@@ -10,6 +10,8 @@
 #include "storage/labeling.h"
 #include "storage/expressions.h"
 
+#include "storm/storage/dd/DdType.h"
+
 PYBIND11_MODULE(storage, m) {
     m.doc() = "Data structures in Storm";
 
@@ -22,6 +24,7 @@ PYBIND11_MODULE(storage, m) {
     define_model(m);
     define_sparse_model(m);
     define_sparse_matrix(m);
+    define_symbolic_model<storm::dd::DdType::Sylvan>(m, "Sylvan");
     define_state(m);
     define_prism(m);
     define_labeling(m);

@@ -8,6 +8,12 @@
 #include "storm/models/sparse/Ctmc.h"
 #include "storm/models/sparse/MarkovAutomaton.h"
 #include "storm/models/sparse/StandardRewardModel.h"
+#include "storm/models/symbolic/Model.h"
+#include "storm/models/symbolic/Dtmc.h"
+#include "storm/models/symbolic/Mdp.h"
+#include "storm/models/symbolic/Ctmc.h"
+#include "storm/models/symbolic/MarkovAutomaton.h"
+#include "storm/models/symbolic/StandardRewardModel.h"
 
 #include <functional>
 #include <string>
@@ -23,6 +29,13 @@ template<typename ValueType> using SparseMdp = storm::models::sparse::Mdp<ValueT
 template<typename ValueType> using SparseCtmc = storm::models::sparse::Ctmc<ValueType>;
 template<typename ValueType> using SparseMarkovAutomaton = storm::models::sparse::MarkovAutomaton<ValueType>;
 template<typename ValueType> using SparseRewardModel = storm::models::sparse::StandardRewardModel<ValueType>;
+
+template<storm::dd::DdType DdType, typename ValueType> using SymbolicModel = storm::models::symbolic::Model<DdType, ValueType>;
+template<storm::dd::DdType DdType, typename ValueType> using SymbolicDtmc = storm::models::symbolic::Dtmc<DdType, ValueType>;
+template<storm::dd::DdType DdType, typename ValueType> using SymbolicMdp = storm::models::symbolic::Mdp<DdType, ValueType>;
+template<storm::dd::DdType DdType, typename ValueType> using SymbolicCtmc = storm::models::symbolic::Ctmc<DdType, ValueType>;
+template<storm::dd::DdType DdType, typename ValueType> using SymbolicMarkovAutomaton = storm::models::symbolic::MarkovAutomaton<DdType, ValueType>;
+template<storm::dd::DdType DdType, typename ValueType> using SymbolicRewardModel = storm::models::symbolic::StandardRewardModel<DdType, ValueType>;
 
 
 
@@ -117,7 +130,30 @@ void define_model(py::module& m) {
         .def("_as_sparse_pma", [](ModelBase &modelbase) {
                 return modelbase.as<SparseMarkovAutomaton<RationalFunction>>();
             }, "Get model as sparse pMA")
- 
+         .def("_as_symbolic_dtmc", [](ModelBase &modelbase) {
+                return modelbase.as<SymbolicDtmc<storm::dd::DdType::Sylvan, double>>();
+            }, "Get model as symbolic DTMC")
+        .def("_as_symbolic_pdtmc", [](ModelBase &modelbase) {
+                return modelbase.as<SymbolicDtmc<storm::dd::DdType::Sylvan, RationalFunction>>();
+            }, "Get model as symbolic pDTMC")
+        .def("_as_symbolic_mdp", [](ModelBase &modelbase) {
+                return modelbase.as<SymbolicMdp<storm::dd::DdType::Sylvan, double>>();
+            }, "Get model as symbolic MDP")
+        .def("_as_symbolic_pmdp", [](ModelBase &modelbase) {
+                return modelbase.as<SymbolicMdp<storm::dd::DdType::Sylvan, RationalFunction>>();
+            }, "Get model as symbolic pMDP")
+        .def("_as_symbolic_ctmc", [](ModelBase &modelbase) {
+                return modelbase.as<SymbolicCtmc<storm::dd::DdType::Sylvan, double>>();
+            }, "Get model as symbolic CTMC")
+        .def("_as_symbolic_pctmc", [](ModelBase &modelbase) {
+                return modelbase.as<SymbolicCtmc<storm::dd::DdType::Sylvan, RationalFunction>>();
+            }, "Get model as symbolic pCTMC")
+        .def("_as_symbolic_ma", [](ModelBase &modelbase) {
+                return modelbase.as<SymbolicMarkovAutomaton<storm::dd::DdType::Sylvan, double>>();
+            }, "Get model as symbolic MA")
+        .def("_as_symbolic_pma", [](ModelBase &modelbase) {
+                return modelbase.as<SymbolicMarkovAutomaton<storm::dd::DdType::Sylvan, RationalFunction>>();
+            }, "Get model as symbolic pMA")
     ;
 }
 
@@ -210,3 +246,70 @@ void define_sparse_model(py::module& m) {
 
 }
 
+
+// Bindings for symbolic models
+template<storm::dd::DdType DdType>
+void define_symbolic_model(py::module& m, std::string vt_suffix) {
+
+    // Set class names
+    std::string prefixClassName = "Symbolic" + vt_suffix;
+    std::string prefixParametricClassName = "Symbolic" + vt_suffix + "Parametric";
+
+
+    // Models with double numbers
+    py::class_<SymbolicModel<DdType, double>, std::shared_ptr<SymbolicModel<DdType, double>>, ModelBase> model(m, ("_"+prefixClassName+"Model").c_str(), "A probabilistic model where transitions are represented by doubles and saved in a symbolic representation");
+    model.def_property_readonly("reward_models", [](SymbolicModel<DdType, double>& model) {return model.getRewardModels(); }, "Reward models")
+        .def("reduce_to_state_based_rewards", &SymbolicModel<DdType, double>::reduceToStateBasedRewards)
+        .def("__str__", getModelInfoPrinter<double>())
+    ;
+    py::class_<SymbolicDtmc<DdType, double>, std::shared_ptr<SymbolicDtmc<DdType, double>>>(m, (prefixClassName+"Dtmc").c_str(), "DTMC in symbolic representation", model)
+        .def("__str__", getModelInfoPrinter<double>("DTMC"))
+    ;
+    py::class_<SymbolicMdp<DdType, double>, std::shared_ptr<SymbolicMdp<DdType, double>>>(m, (prefixClassName+"Mdp").c_str(), "MDP in symbolic representation", model)
+        .def("__str__", getModelInfoPrinter<double>("MDP"))
+    ;
+    py::class_<SymbolicCtmc<DdType, double>, std::shared_ptr<SymbolicCtmc<DdType, double>>>(m, (prefixClassName+"Ctmc").c_str(), "CTMC in symbolic representation", model)
+        .def("__str__", getModelInfoPrinter<double>("CTMC"))
+    ;
+    py::class_<SymbolicMarkovAutomaton<DdType, double>, std::shared_ptr<SymbolicMarkovAutomaton<DdType, double>>>(m, (prefixClassName+"MA").c_str(), "MA in symbolic representation", model)
+        .def("__str__", getModelInfoPrinter<double>("MA"))
+    ;
+
+    py::class_<SymbolicRewardModel<DdType, double>>(m, (prefixClassName+"RewardModel").c_str(), "Reward structure for symbolic models")
+        .def_property_readonly("has_state_rewards", &SymbolicRewardModel<DdType, double>::hasStateRewards)
+        .def_property_readonly("has_state_action_rewards", &SymbolicRewardModel<DdType, double>::hasStateActionRewards)
+        .def_property_readonly("has_transition_rewards", &SymbolicRewardModel<DdType, double>::hasTransitionRewards)
+    ;
+
+
+    // Parametric models
+    py::class_<SymbolicModel<DdType, RationalFunction>, std::shared_ptr<SymbolicModel<DdType, RationalFunction>>, ModelBase> modelRatFunc(m, ("_"+prefixParametricClassName+"Model").c_str(), "A probabilistic model where transitions are represented by rational functions and saved in a symbolic representation");
+    modelRatFunc.def("collect_probability_parameters", &probabilityVariables, "Collect parameters")
+        .def("collect_reward_parameters", &rewardVariables, "Collect reward parameters")
+        .def_property_readonly("reward_models", [](SymbolicModel<DdType, RationalFunction> const& model) {return model.getRewardModels(); }, "Reward models")
+        .def("reduce_to_state_based_rewards", &SymbolicModel<DdType, RationalFunction>::reduceToStateBasedRewards)
+        .def("__str__", getModelInfoPrinter<RationalFunction>("ParametricModel"))
+    ;
+
+    py::class_<SymbolicDtmc<DdType, RationalFunction>, std::shared_ptr<SymbolicDtmc<DdType, RationalFunction>>>(m, (prefixParametricClassName+"Dtmc").c_str(), "pDTMC in symbolic representation", modelRatFunc)
+        .def("__str__", getModelInfoPrinter<RationalFunction>("ParametricDTMC"))
+    ;
+    py::class_<SymbolicMdp<DdType, RationalFunction>, std::shared_ptr<SymbolicMdp<DdType, RationalFunction>>>(m, (prefixParametricClassName+"Mdp").c_str(), "pMDP in symbolic representation", modelRatFunc)
+        .def("__str__", getModelInfoPrinter<RationalFunction>("ParametricMDP"))
+    ;
+    py::class_<SymbolicCtmc<DdType, RationalFunction>, std::shared_ptr<SymbolicCtmc<DdType, RationalFunction>>>(m, (prefixParametricClassName+"Ctmc").c_str(), "pCTMC in symbolic representation", modelRatFunc)
+        .def("__str__", getModelInfoPrinter<RationalFunction>("ParametricCTMC"))
+    ;
+    py::class_<SymbolicMarkovAutomaton<DdType, RationalFunction>, std::shared_ptr<SymbolicMarkovAutomaton<DdType, RationalFunction>>>(m, (prefixParametricClassName+"MA").c_str(), "pMA in symbolic representation", modelRatFunc)
+        .def("__str__", getModelInfoPrinter<RationalFunction>("ParametricMA"))
+    ;
+
+    py::class_<SymbolicRewardModel<DdType, RationalFunction>>(m, (prefixParametricClassName+"RewardModel").c_str(), "Reward structure for parametric symbolic models")
+            .def_property_readonly("has_state_rewards", &SymbolicRewardModel<DdType, RationalFunction>::hasStateRewards)
+            .def_property_readonly("has_state_action_rewards", &SymbolicRewardModel<DdType, RationalFunction>::hasStateActionRewards)
+            .def_property_readonly("has_transition_rewards", &SymbolicRewardModel<DdType, RationalFunction>::hasTransitionRewards)
+    ;
+
+}
+
+template void define_symbolic_model<storm::dd::DdType::Sylvan>(py::module& m, std::string vt_suffix);
