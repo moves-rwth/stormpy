@@ -217,11 +217,37 @@ def perform_bisimulation(model, properties, bisimulation_type):
     :param bisimulation_type: Type of bisimulation (weak or strong).
     :return: Model after bisimulation.
     """
+    return perform_sparse_bisimulation(model, properties, bisimulation_type)
+
+
+def perform_sparse_bisimulation(model, properties, bisimulation_type):
+    """
+    Perform bisimulation on model in sparse representation.
+    :param model: Model.
+    :param properties: Properties to preserve during bisimulation.
+    :param bisimulation_type: Type of bisimulation (weak or strong).
+    :return: Model after bisimulation.
+    """
     formulae = [prop.raw_formula for prop in properties]
     if model.supports_parameters:
         return core._perform_parametric_bisimulation(model, formulae, bisimulation_type)
     else:
         return core._perform_bisimulation(model, formulae, bisimulation_type)
+
+
+def perform_symbolic_bisimulation(model, properties):
+    """
+    Perform bisimulation on model in symbolic representation.
+    :param model: Model.
+    :param properties: Properties to preserve during bisimulation.
+    :return: Model after bisimulation.
+    """
+    formulae = [prop.raw_formula for prop in properties]
+    bisimulation_type = BisimulationType.STRONG
+    if model.supports_parameters:
+        return core._perform_symbolic_parametric_bisimulation(model, formulae, bisimulation_type)
+    else:
+        return core._perform_symbolic_bisimulation(model, formulae, bisimulation_type)
 
 
 def model_checking(model, property, only_initial_states=False, extract_scheduler=False):
