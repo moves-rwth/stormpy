@@ -2,7 +2,10 @@
 #include "storm/utility/initialize.h"
 #include "storm/utility/DirectEncodingExporter.h"
 #include "storm/storage/ModelFormulasPair.h"
+#include "storm/storage/dd/DdType.h"
 #include "storm/solver/OptimizationDirection.h"
+#include "storm/models/symbolic/StandardRewardModel.h"
+
 
 void define_core(py::module& m) {
     // Init
@@ -59,10 +62,24 @@ std::shared_ptr<storm::models::sparse::Model<ValueType>> buildSparseModel(storm:
     }
 }
 
+// Thin wrapper for model building using symbolic representation
+template<storm::dd::DdType DdType, typename ValueType>
+std::shared_ptr<storm::models::symbolic::Model<DdType, ValueType>> buildSymbolicModel(storm::storage::SymbolicModelDescription const& modelDescription, std::vector<std::shared_ptr<storm::logic::Formula const>> const& formulas) {
+    if (formulas.empty()) {
+        // Build full model
+        return storm::api::buildSymbolicModel<DdType, ValueType>(modelDescription, formulas, true);
+    } else {
+        // Only build labels necessary for formulas
+        return storm::api::buildSymbolicModel<DdType, ValueType>(modelDescription, formulas, false);
+    }
+}
+
 void define_build(py::module& m) {
     // Build model
     m.def("_build_sparse_model_from_symbolic_description", &buildSparseModel<double>, "Build the model in sparse representation", py::arg("model_description"), py::arg("formulas") = std::vector<std::shared_ptr<storm::logic::Formula const>>(), py::arg("use_jit") = false, py::arg("doctor") = false);
     m.def("_build_sparse_parametric_model_from_symbolic_description", &buildSparseModel<storm::RationalFunction>, "Build the parametric model in sparse representation", py::arg("model_description"), py::arg("formulas") = std::vector<std::shared_ptr<storm::logic::Formula const>>(), py::arg("use_jit") = false, py::arg("doctor") = false);
+    m.def("_build_symbolic_model_from_symbolic_description", &buildSymbolicModel<storm::dd::DdType::Sylvan, double>, "Build the model in symbolic representation", py::arg("model_description"), py::arg("formulas") = std::vector<std::shared_ptr<storm::logic::Formula const>>());
+    m.def("_build_symbolic_parametric_model_from_symbolic_description", &buildSymbolicModel<storm::dd::DdType::Sylvan, storm::RationalFunction>, "Build the parametric model in symbolic representation", py::arg("model_description"), py::arg("formulas") = std::vector<std::shared_ptr<storm::logic::Formula const>>());
     m.def("_build_sparse_model_from_drn", &storm::api::buildExplicitDRNModel<double>, "Build the model from DRN", py::arg("file"));
     m.def("_build_sparse_parametric_model_from_drn", &storm::api::buildExplicitDRNModel<storm::RationalFunction>, "Build the parametric model from DRN", py::arg("file"));
     m.def("build_sparse_model_from_explicit", &storm::api::buildExplicitModel<double>, "Build the model model from explicit input", py::arg("transition_file"), py::arg("labeling_file"), py::arg("state_reward_file") = "", py::arg("transition_reward_file") = "", py::arg("choice_labeling_file") = "");

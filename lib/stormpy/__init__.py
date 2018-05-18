@@ -56,6 +56,39 @@ def _convert_sparse_model(model, parametric=False):
             raise StormError("Not supported non-parametric model constructed")
 
 
+def _convert_symbolic_model(model, parametric=False):
+    """
+    Convert (parametric) model in symbolic representation into model corresponding to exact model type.
+    :param model: Symbolic model.
+    :param parametric: Flag indicating if the model is parametric.
+    :return: Model corresponding to exact model type.
+    """
+    if parametric:
+        assert model.supports_parameters
+        if model.model_type == ModelType.DTMC:
+            return model._as_symbolic_pdtmc()
+        elif model.model_type == ModelType.MDP:
+            return model._as_symbolic_pmdp()
+        elif model.model_type == ModelType.CTMC:
+            return model._as_symbolic_pctmc()
+        elif model.model_type == ModelType.MA:
+            return model._as_symbolic_pma()
+        else:
+            raise StormError("Not supported parametric model constructed")
+    else:
+        assert not model.supports_parameters
+        if model.model_type == ModelType.DTMC:
+            return model._as_symbolic_dtmc()
+        elif model.model_type == ModelType.MDP:
+            return model._as_symbolic_mdp()
+        elif model.model_type == ModelType.CTMC:
+            return model._as_symbolic_ctmc()
+        elif model.model_type == ModelType.MA:
+            return model._as_symbolic_ma()
+        else:
+            raise StormError("Not supported non-parametric model constructed")
+
+
 def build_model(symbolic_description, properties=None):
     """
     Build a model in sparse representation from a symbolic description.
@@ -92,6 +125,44 @@ def build_parametric_model(symbolic_description, properties=None):
     else:
         intermediate = core._build_sparse_parametric_model_from_symbolic_description(symbolic_description)
     return _convert_sparse_model(intermediate, parametric=True)
+
+
+def build_symbolic_model(symbolic_description, properties=None):
+    """
+    Build a model in symbolic representation from a symbolic description.
+
+    :param symbolic_description: Symbolic model description to translate into a model.
+    :param List[Property] properties: List of properties that should be preserved during the translation. If None, then all properties are preserved.
+    :return: Model in symbolic representation.
+    """
+    if not symbolic_description.undefined_constants_are_graph_preserving:
+        raise StormError("Program still contains undefined constants")
+
+    if properties:
+        formulae = [prop.raw_formula for prop in properties]
+        intermediate = core._build_symbolic_model_from_symbolic_description(symbolic_description, formulae)
+    else:
+        intermediate = core._build_symbolic_model_from_symbolic_description(symbolic_description)
+    return _convert_symbolic_model(intermediate, parametric=False)
+
+
+def build_symbolic_parametric_model(symbolic_description, properties=None):
+    """
+    Build a parametric model in symbolic representation from a symbolic description.
+
+    :param symbolic_description: Symbolic model description to translate into a model.
+    :param List[Property] properties: List of properties that should be preserved during the translation. If None, then all properties are preserved.
+    :return: Parametric model in symbolic representation.
+    """
+    if not symbolic_description.undefined_constants_are_graph_preserving:
+        raise StormError("Program still contains undefined constants")
+
+    if properties:
+        formulae = [prop.raw_formula for prop in properties]
+        intermediate = core._build_symbolic_parametric_model_from_symbolic_description(symbolic_description, formulae)
+    else:
+        intermediate = core._build_symbolic_parametric_model_from_symbolic_description(symbolic_description)
+    return _convert_symbolic_model(intermediate, parametric=True)
 
 
 def build_model_from_drn(file):
