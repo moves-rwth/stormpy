@@ -332,6 +332,17 @@ def check_model_hybrid(model, property, only_initial_states=False):
         task = core.CheckTask(formula, only_initial_states)
         return core._model_checking_hybrid_engine(model, task)
 
+def transform_to_sparse_model(model):
+    """
+    Transform model in symbolic representation into model in sparse representation.
+    :param model: Symbolic model.
+    :return: Sparse model.
+    """
+    if model.supports_parameters:
+        return core._transform_to_sparse_parametric_model(model)
+    else:
+        return core._transform_to_sparse_model(model)
+
 
 def prob01min_states(model, eventually_formula):
     assert type(eventually_formula) == logic.EventuallyFormula
