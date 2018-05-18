@@ -97,6 +97,28 @@ def build_model(symbolic_description, properties=None):
     :param List[Property] properties: List of properties that should be preserved during the translation. If None, then all properties are preserved.
     :return: Model in sparse representation.
     """
+    return build_sparse_model(symbolic_description, properties=properties)
+
+
+def build_parametric_model(symbolic_description, properties=None):
+    """
+    Build a parametric model in sparse representation from a symbolic description.
+
+    :param symbolic_description: Symbolic model description to translate into a model.
+    :param List[Property] properties: List of properties that should be preserved during the translation. If None, then all properties are preserved.
+    :return: Parametric model in sparse representation.
+    """
+    return build_sparse_parametric_model(symbolic_description, properties=properties)
+
+
+def build_sparse_model(symbolic_description, properties=None):
+    """
+    Build a model in sparse representation from a symbolic description.
+
+    :param symbolic_description: Symbolic model description to translate into a model.
+    :param List[Property] properties: List of properties that should be preserved during the translation. If None, then all properties are preserved.
+    :return: Model in sparse representation.
+    """
     if not symbolic_description.undefined_constants_are_graph_preserving:
         raise StormError("Program still contains undefined constants")
 
@@ -108,7 +130,7 @@ def build_model(symbolic_description, properties=None):
     return _convert_sparse_model(intermediate, parametric=False)
 
 
-def build_parametric_model(symbolic_description, properties=None):
+def build_sparse_parametric_model(symbolic_description, properties=None):
     """
     Build a parametric model in sparse representation from a symbolic description.
     
@@ -212,6 +234,20 @@ def model_checking(model, property, only_initial_states=False, extract_scheduler
     :return: Model checking result.
     :rtype: CheckResult
     """
+    return check_model_sparse(model, property, only_initial_states=only_initial_states,
+                              extract_scheduler=extract_scheduler)
+
+
+def check_model_sparse(model, property, only_initial_states=False, extract_scheduler=False):
+    """
+    Perform model checking on model for property.
+    :param model: Model.
+    :param property: Property to check for.
+    :param only_initial_states: If True, only results for initial states are computed, otherwise for all states.
+    :param extract_scheduler: If True, try to extract a scheduler
+    :return: Model checking result.
+    :rtype: CheckResult
+    """
     if isinstance(property, Property):
         formula = property.raw_formula
     else:
@@ -225,6 +261,50 @@ def model_checking(model, property, only_initial_states=False, extract_scheduler
         task = core.CheckTask(formula, only_initial_states)
         task.set_produce_schedulers(extract_scheduler)
         return core._model_checking_sparse_engine(model, task)
+
+
+def check_model_dd(model, property, only_initial_states=False):
+    """
+    Perform model checking using dd engine.
+    :param model: Model.
+    :param property: Property to check for.
+    :param only_initial_states: If True, only results for initial states are computed, otherwise for all states.
+    :return: Model checking result.
+    :rtype: CheckResult
+    """
+    if isinstance(property, Property):
+        formula = property.raw_formula
+    else:
+        formula = property
+
+    if model.supports_parameters:
+        task = core.ParametricCheckTask(formula, only_initial_states)
+        return core._parametric_model_checking_dd_engine(model, task)
+    else:
+        task = core.CheckTask(formula, only_initial_states)
+        return core._model_checking_dd_engine(model, task)
+
+
+def check_model_hybrid(model, property, only_initial_states=False):
+    """
+    Perform model checking using hybrid engine.
+    :param model: Model.
+    :param property: Property to check for.
+    :param only_initial_states: If True, only results for initial states are computed, otherwise for all states.
+    :return: Model checking result.
+    :rtype: CheckResult
+    """
+    if isinstance(property, Property):
+        formula = property.raw_formula
+    else:
+        formula = property
+
+    if model.supports_parameters:
+        task = core.ParametricCheckTask(formula, only_initial_states)
+        return core._parametric_model_checking_hybrid_engine(model, task)
+    else:
+        task = core.CheckTask(formula, only_initial_states)
+        return core._model_checking_hybrid_engine(model, task)
 
 
 def prob01min_states(model, eventually_formula):
