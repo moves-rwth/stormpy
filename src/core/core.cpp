@@ -46,9 +46,9 @@ void define_parse(py::module& m) {
     ;
 }
 
-// Thin wrapper for model building using one formula as argument
+// Thin wrapper for model building using sparse representation
 template<typename ValueType>
-std::shared_ptr<storm::models::ModelBase> buildSparseModel(storm::storage::SymbolicModelDescription const& modelDescription, std::vector<std::shared_ptr<storm::logic::Formula const>> const& formulas, bool jit = false, bool doctor = false) {
+std::shared_ptr<storm::models::sparse::Model<ValueType>> buildSparseModel(storm::storage::SymbolicModelDescription const& modelDescription, std::vector<std::shared_ptr<storm::logic::Formula const>> const& formulas, bool jit = false, bool doctor = false) {
     if (formulas.empty()) {
         // Build all labels and rewards
         storm::builder::BuilderOptions options(true, true);
@@ -61,8 +61,8 @@ std::shared_ptr<storm::models::ModelBase> buildSparseModel(storm::storage::Symbo
 
 void define_build(py::module& m) {
     // Build model
-    m.def("_build_sparse_model_from_prism_program", &buildSparseModel<double>, "Build the model", py::arg("model_description"), py::arg("formulas") = std::vector<std::shared_ptr<storm::logic::Formula const>>(), py::arg("use_jit") = false, py::arg("doctor") = false);
-    m.def("_build_sparse_parametric_model_from_prism_program", &buildSparseModel<storm::RationalFunction>, "Build the parametric model", py::arg("model_description"), py::arg("formulas") = std::vector<std::shared_ptr<storm::logic::Formula const>>(), py::arg("use_jit") = false, py::arg("doctor") = false);
+    m.def("_build_sparse_model_from_symbolic_description", &buildSparseModel<double>, "Build the model in sparse representation", py::arg("model_description"), py::arg("formulas") = std::vector<std::shared_ptr<storm::logic::Formula const>>(), py::arg("use_jit") = false, py::arg("doctor") = false);
+    m.def("_build_sparse_parametric_model_from_symbolic_description", &buildSparseModel<storm::RationalFunction>, "Build the parametric model in sparse representation", py::arg("model_description"), py::arg("formulas") = std::vector<std::shared_ptr<storm::logic::Formula const>>(), py::arg("use_jit") = false, py::arg("doctor") = false);
     m.def("_build_sparse_model_from_drn", &storm::api::buildExplicitDRNModel<double>, "Build the model from DRN", py::arg("file"));
     m.def("_build_sparse_parametric_model_from_drn", &storm::api::buildExplicitDRNModel<storm::RationalFunction>, "Build the parametric model from DRN", py::arg("file"));
     m.def("build_sparse_model_from_explicit", &storm::api::buildExplicitModel<double>, "Build the model model from explicit input", py::arg("transition_file"), py::arg("labeling_file"), py::arg("state_reward_file") = "", py::arg("transition_reward_file") = "", py::arg("choice_labeling_file") = "");
@@ -71,15 +71,15 @@ void define_build(py::module& m) {
 
 void define_optimality_type(py::module& m) {
     py::enum_<storm::solver::OptimizationDirection>(m, "OptimizationDirection")
-            .value("Minimize", storm::solver::OptimizationDirection::Minimize)
-            .value("Maximize", storm::solver::OptimizationDirection::Maximize)
-            ;
+        .value("Minimize", storm::solver::OptimizationDirection::Minimize)
+        .value("Maximize", storm::solver::OptimizationDirection::Maximize)
+    ;
 }
 
 // Thin wrapper for exporting model
 template<typename ValueType>
 void exportDRN(std::shared_ptr<storm::models::sparse::Model<ValueType>> model, std::string const& file) {
-     std::ofstream stream;
+    std::ofstream stream;
     storm::utility::openFile(file, stream);
     storm::exporter::explicitExportSparseModel(stream, model, {});
     storm::utility::closeFile(stream);

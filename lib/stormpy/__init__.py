@@ -22,6 +22,7 @@ except ImportError:
 
 core._set_up("")
 
+
 def _convert_sparse_model(model, parametric=False):
     """
     Convert (parametric) model in sparse representation into model corresponding to exact model type.
@@ -68,9 +69,9 @@ def build_model(symbolic_description, properties=None):
 
     if properties:
         formulae = [prop.raw_formula for prop in properties]
-        intermediate = core._build_sparse_model_from_prism_program(symbolic_description, formulae)
+        intermediate = core._build_sparse_model_from_symbolic_description(symbolic_description, formulae)
     else:
-        intermediate = core._build_sparse_model_from_prism_program(symbolic_description)
+        intermediate = core._build_sparse_model_from_symbolic_description(symbolic_description)
     return _convert_sparse_model(intermediate, parametric=False)
 
 
@@ -87,9 +88,9 @@ def build_parametric_model(symbolic_description, properties=None):
 
     if properties:
         formulae = [prop.raw_formula for prop in properties]
-        intermediate = core._build_sparse_parametric_model_from_prism_program(symbolic_description, formulae)
+        intermediate = core._build_sparse_parametric_model_from_symbolic_description(symbolic_description, formulae)
     else:
-        intermediate = core._build_sparse_parametric_model_from_prism_program(symbolic_description)
+        intermediate = core._build_sparse_parametric_model_from_symbolic_description(symbolic_description)
     return _convert_sparse_model(intermediate, parametric=True)
 
 
@@ -113,7 +114,6 @@ def build_parametric_model_from_drn(file):
     """
     intermediate = core._build_sparse_parametric_model_from_drn(file)
     return _convert_sparse_model(intermediate, parametric=True)
-
 
 
 def perform_bisimulation(model, properties, bisimulation_type):
