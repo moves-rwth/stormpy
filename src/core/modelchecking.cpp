@@ -1,5 +1,6 @@
 #include "modelchecking.h"
 #include "result.h"
+#include "storm/models/symbolic/StandardRewardModel.h"
 
 template<typename ValueType>
 using CheckTask = storm::modelchecker::CheckTask<storm::logic::Formula, ValueType>;
