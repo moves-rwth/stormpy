@@ -190,7 +190,7 @@ class CMakeBuild(build_ext):
         env['CXXFLAGS'] = '{} -DVERSION_INFO=\\"{}\\"'.format(env.get('CXXFLAGS', ''),
                                                               self.distribution.get_version())
         setup_helper.ensure_dir_exists(self.build_temp)
-        print("Pycarl - CMake args={}".format(cmake_args))
+        print("Stormpy - CMake args={}".format(cmake_args))
         # Call cmake
         subprocess.check_call(['cmake', ext.sourcedir] + cmake_args, cwd=self.build_temp, env=env)
         subprocess.check_call(['cmake', '--build', '.', '--target', ext.name] + build_args, cwd=self.build_temp)
