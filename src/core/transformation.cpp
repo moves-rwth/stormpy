@@ -1,4 +1,5 @@
 #include "transformation.h"
+#include "storm/models/symbolic/StandardRewardModel.h"
 
 void define_transformation(py::module& m) {
     // Transform model
