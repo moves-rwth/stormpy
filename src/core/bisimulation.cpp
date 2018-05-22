@@ -1,4 +1,5 @@
 #include "bisimulation.h"
+#include "storm/models/symbolic/StandardRewardModel.h"
 
 
 template <storm::dd::DdType DdType, typename ValueType>
