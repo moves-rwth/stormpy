@@ -9,6 +9,7 @@ option(STORMPY_DISABLE_SIGNATURE_DOC "disables the signature in the documentatio
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/config.h.in ${CMAKE_CURRENT_BINARY_DIR}/src/generated/config.h)
 
 message(STATUS "STORM-DIR: ${storm_DIR}")
+message(STATUS "STORM-INCLUDE-DIR: ${storm_INCLUDE_DIR}")
 
 function(stormpy_module NAME)
     # second, optional argument are ADDITIONAL_LIBRARIES
