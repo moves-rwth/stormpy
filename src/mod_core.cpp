@@ -8,6 +8,7 @@
 #include "core/analysis.h"
 #include "core/counterexample.h"
 #include "core/environment.h"
+#include "core/transformation.h"
 
 PYBIND11_MODULE(core, m) {
     m.doc() = "core";
@@ -30,4 +31,5 @@ PYBIND11_MODULE(core, m) {
     define_input(m);
     define_graph_constraints(m);
     define_environment(m);
+    define_transformation(m);
 }

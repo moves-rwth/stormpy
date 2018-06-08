@@ -8,7 +8,7 @@ from configurations import pars
 
 @pars
 class TestParametric:
-    def test_parametric_state_elimination(self):
+    def test_parametric_model_checking_sparse(self):
         program = stormpy.parse_prism_program(get_example_path("pdtmc", "brp16_2.pm"))
         prop = "P=? [F s=5]"
         formulas = stormpy.parse_properties_for_prism_program(prop, program)
@@ -23,6 +23,32 @@ class TestParametric:
         func = result.at(initial_state)
         one = stormpy.FactorizedPolynomial(stormpy.RationalRF(1))
         assert func.denominator == one
+
+    def test_parametric_model_checking_dd(self):
+        program = stormpy.parse_prism_program(get_example_path("pdtmc", "parametric_die.pm"))
+        prop = "P=? [F s=5]"
+        formulas = stormpy.parse_properties_for_prism_program(prop, program)
+        model = stormpy.build_symbolic_parametric_model(program, formulas)
+        assert model.nr_states == 11
+        assert model.nr_transitions == 17
+        assert model.model_type == stormpy.ModelType.DTMC
+        assert model.has_parameters
+        result = stormpy.check_model_dd(model, formulas[0])
+        assert type(result) is stormpy.SymbolicParametricQuantitativeCheckResult
+
+    def test_parametric_model_checking_hybrid(self):
+        program = stormpy.parse_prism_program(get_example_path("pdtmc", "parametric_die.pm"))
+        prop = "P=? [F s=5]"
+        formulas = stormpy.parse_properties_for_prism_program(prop, program)
+        model = stormpy.build_symbolic_parametric_model(program, formulas)
+        assert model.nr_states == 11
+        assert model.nr_transitions == 17
+        assert model.model_type == stormpy.ModelType.DTMC
+        assert model.has_parameters
+        result = stormpy.check_model_hybrid(model, formulas[0])
+        assert type(result) is stormpy.HybridParametricQuantitativeCheckResult
+        values = result.get_values()
+        assert len(values) == 3
 
     def test_constraints_collector(self):
         from pycarl.formula import FormulaType, Relation

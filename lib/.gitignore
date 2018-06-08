@@ -1,4 +1,0 @@
-*.so
-__pycache__/
-stormpy.egg-info/
-**/_config.py

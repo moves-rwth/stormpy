@@ -11,15 +11,17 @@ This guide is intended for people which have a basic understanding of probabilis
 `Storm website <http://www.stormchecker.org/>`_.
 While we assume some very basic programming concepts, we refrain from using more advanced concepts of python throughout the guide.
 
-We start with a selection of high-level constructs in stormpy, and go into more details afterwards. More in-depth examples can be found in the :doc:`advanced_examples`.
+We start with a selection of high-level constructs in stormpy, and go into more details afterwards. More in-depth examples can be found in the :doc:`advanced_topics`.
 
 .. seealso:: The code examples are also given in the `examples/ <https://github.com/moves-rwth/stormpy/blob/master/examples/>`_ folder. These boxes throughout the text will tell you which example contains the code discussed.
 
-In order to do this, we import stormpy::
+We start by launching the python 3 interpreter::
+
+	$ python3
+
+First we import stormpy::
 
     >>>	import stormpy
-    >>>	import stormpy.core
-	
 	
 Building models 
 ------------------------------------------------
@@ -124,58 +126,11 @@ A good way to get the result for the initial states is as follows::
     >>> print(result.at(initial_state))
     0.5
 
-Instantiating parametric models
-------------------------------------
-.. seealso:: `04-getting-started.py <https://github.com/moves-rwth/stormpy/blob/master/examples/04-getting-started.py>`_
-
-Input formats such as prism allow to specify programs with open constants. We refer to these open constants as parameters.
-If the constants only influence the probabilities or rates, but not the topology of the underlying model, we can build these models as parametric models::
-
-    >>> model = stormpy.build_parametric_model(prism_program, properties)
-    >>> parameters = model.collect_probability_parameters()
-    >>> for x in parameters:
-    ...     print(x)
-
-In order to obtain a standard DTMC, MDP or other Markov model, we need to instantiate these models by means of a model instantiator::
-
-    >>> import stormpy.pars
-    >>> instantiator = stormpy.pars.PDtmcInstantiator(model)
-
-Before we obtain an instantiated model, we need to map parameters to values: We build such a dictionary as follows::
-
-    >>> point = dict()
-    >>> for x in parameters:
-    ...    print(x.name)
-    ...    point[x] = 0.4
-    >>> instantiated_model = instantiator.instantiate(point)
-    >>> result = stormpy.model_checking(instantiated_model, properties[0])
-
-Initial states and labels are set as for the parameter-free case.
-
-
-Checking parametric models
-------------------------------------
-.. seealso:: `05-getting-started.py <https://github.com/moves-rwth/stormpy/blob/master/examples/05-getting-started.py>`_
-
-It is also possible to check the parametric model directly, similar as before in :ref:`getting-started-checking-properties`::
-
-    >>> result = stormpy.model_checking(model, properties[0])
-    >>> initial_state = model.initial_states[0]
-    >>> func = result.at(initial_state)
-
-We collect the constraints ensuring that underlying model is well-formed and the graph structure does not change.
-
-    >>> collector = stormpy.ConstraintCollector(model)
-    >>> for formula in collector.wellformed_constraints:
-    ...     print(formula)
-    >>> for formula in collector.graph_preserving_constraints:
-    ...     print(formula)
-
 .. _getting-started-investigating-the-model:
 
 Investigating the model
 -------------------------------------
-.. seealso:: `06-getting-started.py <https://github.com/moves-rwth/stormpy/blob/master/examples/06-getting-started.py>`_
+.. seealso:: `04-getting-started.py <https://github.com/moves-rwth/stormpy/blob/master/examples/04-getting-started.py>`_
 
 One powerful part of the Storm model checker is to quickly create the Markov chain from higher-order descriptions, as seen above::
 

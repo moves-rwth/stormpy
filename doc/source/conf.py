@@ -56,7 +56,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'stormpy'
-copyright = '2016--2017 Moves RWTH Aachen'
+copyright = '2016--2018 Moves RWTH Aachen'
 author = 'Sebastian Junges, Matthias Volk'
 
 # The version info for the project you're documenting, acts as replacement for

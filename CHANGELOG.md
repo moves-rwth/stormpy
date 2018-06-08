@@ -5,6 +5,9 @@ Changelog
 Version 1.2.x
 -------------
 
+### Version 1.2.x
+Requires storm version >= 1.2.2 and pycarl version >= 2.0.2
+
 ### Version 1.2.0
 Requires storm version >= 1.2.0 and pycarl version >= 2.0.2
 - Adaptions to changes in Storm

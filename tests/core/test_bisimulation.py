@@ -31,6 +31,21 @@ class TestBisimulation:
         assert initial_state_bisim == 34
         assert math.isclose(result.at(initial_state), result_bisim.at(initial_state_bisim), rel_tol=1e-4)
 
+    def test_symbolic_bisimulation(self):
+        program = stormpy.parse_prism_program(get_example_path("dtmc", "crowds5_5.pm"))
+        prop = "P=? [F \"observe0Greater1\"]"
+        properties = stormpy.parse_properties_for_prism_program(prop, program)
+        model = stormpy.build_symbolic_model(program, properties)
+        assert model.nr_states == 7403
+        assert model.nr_transitions == 13041
+        assert model.model_type == stormpy.ModelType.DTMC
+        assert not model.supports_parameters
+        model_bisim = stormpy.perform_symbolic_bisimulation(model, properties)
+        assert model_bisim.nr_states == 65
+        assert model_bisim.nr_transitions == 105
+        assert model_bisim.model_type == stormpy.ModelType.DTMC
+        assert not model_bisim.supports_parameters
+
     def test_parametric_bisimulation(self):
         program = stormpy.parse_prism_program(get_example_path("pdtmc", "brp16_2.pm"))
         assert program.nr_modules == 5

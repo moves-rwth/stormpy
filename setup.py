@@ -3,9 +3,8 @@ import sys
 import subprocess
 import datetime
 
-from setuptools import setup, Extension
+from setuptools import setup, Extension, find_packages
 from setuptools.command.build_ext import build_ext
-from setuptools.command.test import test
 from distutils.version import StrictVersion
 
 import setup.helper as setup_helper
@@ -15,7 +14,11 @@ if sys.version_info[0] == 2:
     sys.exit('Sorry, Python 2.x is not supported')
 
 # Minimal storm version required
-storm_min_version = "1.2.0"
+storm_min_version = "1.2.2"
+
+# Get the long description from the README file
+with open(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
 
 
 class CMakeExtension(Extension):
@@ -55,7 +58,7 @@ class CMakeBuild(build_ext):
         self.config.write_config("build/build_config.cfg")
 
         cmake_args = []
-        storm_dir = self.config.get_as_string("storm_dir")
+        storm_dir = os.path.expanduser(self.config.get_as_string("storm_dir"))
         if storm_dir:
             cmake_args += ['-Dstorm_DIR=' + storm_dir]
         _ = subprocess.check_output(['cmake', os.path.abspath("cmake")] + cmake_args, cwd=build_temp_version)
@@ -187,18 +190,10 @@ class CMakeBuild(build_ext):
         env['CXXFLAGS'] = '{} -DVERSION_INFO=\\"{}\\"'.format(env.get('CXXFLAGS', ''),
                                                               self.distribution.get_version())
         setup_helper.ensure_dir_exists(self.build_temp)
-        print("Pycarl - CMake args={}".format(cmake_args))
+        print("Stormpy - CMake args={}".format(cmake_args))
         # Call cmake
         subprocess.check_call(['cmake', ext.sourcedir] + cmake_args, cwd=self.build_temp, env=env)
         subprocess.check_call(['cmake', '--build', '.', '--target', ext.name] + build_args, cwd=self.build_temp)
-
-
-class PyTest(test):
-    def run_tests(self):
-        # import here, cause outside the eggs aren't loaded
-        import pytest
-        errno = pytest.main(['tests'])
-        sys.exit(errno)
 
 
 setup(
@@ -208,12 +203,25 @@ setup(
     author_email="matthias.volk@cs.rwth-aachen.de",
     maintainer="S. Junges",
     maintainer_email="sebastian.junges@cs.rwth-aachen.de",
-    url="http://moves.rwth-aachen.de",
+    url="https://github.com/moves-rwth/stormpy/",
     description="stormpy - Python Bindings for Storm",
-    long_description='',
-    packages=['stormpy', 'stormpy.info', 'stormpy.logic', 'stormpy.storage', 'stormpy.utility',
-              'stormpy.pars', 'stormpy.dft'],
+    long_description=long_description,
+    long_description_content_type='text/markdown',
+    project_urls={
+        'Documentation': 'https://moves-rwth.github.io/stormpy/',
+        'Source': 'https://github.com/moves-rwth/stormpy/',
+        'Bug reports': 'https://github.com/moves-rwth/stormpy/issues',
+    },
+    classifiers=[
+        'Intended Audience :: Science/Research',
+        'Topic :: Scientific/Engineering',
+        'Topic :: Software Development :: Libraries :: Python Modules',
+    ],
+
+    packages=find_packages('lib'),
     package_dir={'': 'lib'},
+    include_package_data=True,
+    package_data={'stormpy.examples': ['examples/files/*']},
     ext_package='stormpy',
     ext_modules=[CMakeExtension('core', subdir=''),
                  CMakeExtension('info', subdir='info'),
@@ -221,9 +229,9 @@ setup(
                  CMakeExtension('storage', subdir='storage'),
                  CMakeExtension('utility', subdir='utility'),
                  CMakeExtension('dft', subdir='dft'),
-                 CMakeExtension('pars', subdir='pars'),
-                 ],
-    cmdclass={'build_ext': CMakeBuild, 'test': PyTest},
+                 CMakeExtension('pars', subdir='pars')],
+
+    cmdclass={'build_ext': CMakeBuild},
     zip_safe=False,
     install_requires=['pycarl>=2.0.2'],
     setup_requires=['pytest-runner'],
