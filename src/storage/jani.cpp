@@ -1,6 +1,7 @@
 #include "jani.h"
 #include <storm/storage/jani/Model.h>
 #include <storm/storage/jani/JSONExporter.h>
+#include <storm/storage/expressions/ExpressionManager.h>
 #include "src/helpers.h"
 
 using namespace storm::jani;
@@ -14,10 +15,16 @@ std::string janiToString(Model const& m) {
 void define_jani(py::module& m) {
     py::class_<Model, std::shared_ptr<Model>> md(m, "JaniModel", "A Jani Model");
     md.def_property_readonly("name", &Model::getName, "model name")
+     .def_property_readonly("model_type", &storm::jani::Model::getModelType, "Model type")
             .def_property_readonly("automata", [](const Model& model) {return model.getAutomata();}, "get automata")
             .def_property_readonly("constants", [](const Model& model) {return model.getConstants();}, "get constants")
             .def("restrict_edges", &Model::restrictEdges, "restrict model to edges given by set", py::arg("edge_set"))
+            .def_property_readonly("expression_manager", &Model::getExpressionManager, "get expression manager", pybind11::return_value_policy::reference_internal)
+            .def_property_readonly("has_undefined_constants", &Model::hasUndefinedConstants, "Flag if program has undefined constants")
+            .def_property_readonly("undefined_constants_are_graph_preserving", &Model::undefinedConstantsAreGraphPreserving, "Flag if the undefined constants do not change the graph structure")
             .def("__str__", &janiToString)
+            .def("define_constants", &Model::defineUndefinedConstants, "define constants with a mapping from the corresponding expression variables to expressions", py::arg("map"))
+            .def("substitute_constants", &Model::substituteConstants, "substitute constants")
             .def("get_automaton_index", &Model::getAutomatonIndex, "get index for automaton name")
             .def_static("encode_edge_and_automaton_index", &Model::encodeAutomatonAndEdgeIndices, "get edge/automaton-index")
             .def_static("decode_edge_and_automaton_index", &Model::decodeAutomatonAndEdgeIndices, "get edge and automaton from edge/automaton index")
