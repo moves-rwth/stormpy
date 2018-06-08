@@ -11,6 +11,15 @@ void define_core(py::module& m) {
             storm::settings::initializeAll("StoRM-Py", "stormpy");
             storm::settings::SettingsManager::manager().setFromString(args);
         }, "Initialize Storm", py::arg("arguments"));
+
+    m.def("_set_loglevel_debug", []() {
+        storm::utility::setLogLevel(l3pp::LogLevel::DEBUG);
+    }, "set loglevel for storm to debug");
+    m.def("_set_loglevel_trace", []() {
+        storm::utility::setLogLevel(l3pp::LogLevel::TRACE);
+    });
+
+
 }
 
 void define_parse(py::module& m) {
