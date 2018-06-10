@@ -3,7 +3,7 @@
 
 #include "storm/storage/expressions/ExpressionManager.h"
 #include "storm/storage/expressions/Expression.h"
-#include "storm/parser/ExpressionParser.h"
+#include "storm-parsers/parser/ExpressionParser.h"
 
 //Define python bindings
 void define_expressions(py::module& m) {

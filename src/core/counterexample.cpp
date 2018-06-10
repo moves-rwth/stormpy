@@ -1,5 +1,6 @@
 #include "counterexample.h"
 #include "storm/environment/Environment.h"
+#include "storm-counterexamples/api/counterexamples.h"
 
 using namespace storm::counterexamples;
 

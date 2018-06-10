@@ -5,6 +5,7 @@
 #include "storm/storage/dd/DdType.h"
 #include "storm/solver/OptimizationDirection.h"
 #include "storm/models/symbolic/StandardRewardModel.h"
+#include "storm-parsers/api/storm-parsers.h"
 
 
 void define_core(py::module& m) {
