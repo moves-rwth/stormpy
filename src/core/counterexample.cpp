@@ -19,6 +19,9 @@ void define_counterexamples(py::module& m) {
                     .def_readwrite("encode_reachability", &CexGeneratorOptions::encodeReachability)
                     .def_readwrite("silent", &CexGeneratorOptions::silent)
                     .def_readwrite("use_dynamic_constraints", &CexGeneratorOptions::useDynamicConstraints)
+                    .def_readwrite("maximum_counterexamples", &CexGeneratorOptions::maximumCounterexamples)
+                    .def_readwrite("continue_after_first_counterexample",  &CexGeneratorOptions::continueAfterFirstCounterexampleUntil)
+
             ;
             py::class_<SMTMinimalLabelSetGenerator<double>>(m, "SMTCounterExampleGenerator", "Highlevel Counterexample Generator with SMT as backend").
             def_static("build", &SMTMinimalLabelSetGenerator<double>::computeCounterexampleLabelSet, "Compute counterexample", py::arg("env"), py::arg("symbolic_model"), py::arg("model"), py::arg("formula"), py::arg("dontcare"), py::arg("options"))
