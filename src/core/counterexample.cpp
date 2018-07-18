@@ -24,8 +24,16 @@ void define_counterexamples(py::module& m) {
 
             ;
             py::class_<SMTMinimalLabelSetGenerator<double>>(m, "SMTCounterExampleGenerator", "Highlevel Counterexample Generator with SMT as backend").
-            def_static("build", &SMTMinimalLabelSetGenerator<double>::computeCounterexampleLabelSet, "Compute counterexample", py::arg("env"), py::arg("symbolic_model"), py::arg("model"), py::arg("formula"), py::arg("dontcare"), py::arg("options"))
+                def_static("precompute", &SMTMinimalLabelSetGenerator<double>::precompute, "Precompute input for counterexample generation", py::arg("env"), py::arg("symbolic_model"), py::arg("model"), py::arg("formula")).
+                def_static("build", &SMTMinimalLabelSetGenerator<double>::computeCounterexampleLabelSet, "Compute counterexample", py::arg("env"), py::arg("stats"), py::arg("symbolic_model"), py::arg("model"), py::arg("cex_input"), py::arg("dontcare"), py::arg("options"))
+
+
             ;
+
+    using CexInput = SMTMinimalLabelSetGenerator<double>::CexInput;
+        py::class_<CexInput>(m, "SMTCounterExampleInput", "Precomputed input for counterexample generation")
+                .def("add_reward_and_threshold", &CexInput::addRewardThresholdCombination, "add another reward structure and threshold", py::arg("reward_name"), py::arg("threshold"));
+
 
 
 }
