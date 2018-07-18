@@ -7,6 +7,14 @@ Version 1.2.x
 
 ### Version 1.2.x
 Requires storm version >= 1.2.2 and pycarl version >= 2.0.2
+- Adaptions to changes in Storm
+- Bindings for symbolic models:
+    * building symbolic models
+    * bisimulation
+    * transforming symbolic to sparse models
+- Extraction of schedulers and queries on schedulers
+- Extended PLA bindings
+- Extended documentation
 
 ### Version 1.2.0
 Requires storm version >= 1.2.0 and pycarl version >= 2.0.2

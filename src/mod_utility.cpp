@@ -2,6 +2,7 @@
 
 #include "utility/shortestPaths.h"
 #include "utility/smtsolver.h"
+#include "utility/chrono.h"
 
 
 PYBIND11_MODULE(utility, m) {
@@ -9,4 +10,5 @@ PYBIND11_MODULE(utility, m) {
 
     define_ksp(m);
     define_smt(m);
+    define_chrono(m);
 }
