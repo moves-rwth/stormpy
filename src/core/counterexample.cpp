@@ -12,6 +12,19 @@ void define_counterexamples(py::module& m) {
             .def("__str__", [](boost::container::flat_set<uint64_t> const& set) { std::stringstream str; str << "["; for(auto const& i : set) { str << i << ", ";} str << "]"; return str.str(); })
             .def("__len__", [](boost::container::flat_set<uint64_t> const& set) { return set.size();})
             ;
+
+    using CexGeneratorStats = SMTMinimalLabelSetGenerator<double>::GeneratorStats;
+
+    py::class_<CexGeneratorStats>(m, "SMTCounterExampleGeneratorStats", "Stats for highlevel counterexample generation")
+            .def(py::init<>())
+            .def_readonly("analysis_time", &CexGeneratorStats::analysisTime)
+            .def_readonly("setup_time", &CexGeneratorStats::setupTime)
+            .def_readonly("model_checking_time", &CexGeneratorStats::modelCheckingTime)
+            .def_readonly("solver_time", &CexGeneratorStats::solverTime);
+
+
+
+
     using CexGeneratorOptions =  SMTMinimalLabelSetGenerator<double>::Options;
             py::class_<CexGeneratorOptions>(m, "SMTCounterExampleGeneratorOptions", "Options for highlevel counterexample generation")
                     .def(py::init<>())
