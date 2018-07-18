@@ -6,13 +6,14 @@
 #include "storm/solver/OptimizationDirection.h"
 #include "storm/models/symbolic/StandardRewardModel.h"
 #include "storm-parsers/api/storm-parsers.h"
-
+#include "storm-counterexamples/settings/modules/CounterexampleGeneratorSettings.h"
 
 void define_core(py::module& m) {
     // Init
     m.def("_set_up", [](std::string const& args) {
             storm::utility::setUp();
             storm::settings::initializeAll("StoRM-Py", "stormpy");
+            storm::settings::addModule<storm::settings::modules::CounterexampleGeneratorSettings>();
             storm::settings::SettingsManager::manager().setFromString(args);
         }, "Initialize Storm", py::arg("arguments"));
 
