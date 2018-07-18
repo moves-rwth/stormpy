@@ -2,10 +2,13 @@
 #include "storm/environment/Environment.h"
 #include "storm-counterexamples/api/counterexamples.h"
 
+
 using namespace storm::counterexamples;
 
 // Define python bindings
 void define_counterexamples(py::module& m) {
+
+
     py::class_<boost::container::flat_set<uint_fast64_t>>(m, "FlatSet", "Container to pass to program")
             .def(py::init<>())
             .def("insert", [](boost::container::flat_set<uint_fast64_t>& flatset, uint64_t value) {flatset.insert(value);})
@@ -21,9 +24,6 @@ void define_counterexamples(py::module& m) {
             .def_readonly("setup_time", &CexGeneratorStats::setupTime)
             .def_readonly("model_checking_time", &CexGeneratorStats::modelCheckingTime)
             .def_readonly("solver_time", &CexGeneratorStats::solverTime);
-
-
-
 
     using CexGeneratorOptions =  SMTMinimalLabelSetGenerator<double>::Options;
             py::class_<CexGeneratorOptions>(m, "SMTCounterExampleGeneratorOptions", "Options for highlevel counterexample generation")
