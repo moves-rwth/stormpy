@@ -29,7 +29,7 @@ We can do model checking analogous to probabilities::
     >>> initial_state = model.initial_states[0]
     >>> result = stormpy.model_checking(model, properties[0])
     >>> print("Result: {}".format(result.at(initial_state)))
-    Result: 3.6666666666666665
+    Result: 3.666666666666667
 
 
 The reward model has a name which we can obtain as follows::
