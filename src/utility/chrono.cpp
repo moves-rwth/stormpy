@@ -1,6 +1,8 @@
 #include "chrono.h"
 #include "src/helpers.h"
 
+#include <chrono>
+
 void define_chrono(py::module& m) {
     py::class_<std::chrono::milliseconds>(m, "milliseconds")
             .def("count", &std::chrono::milliseconds::count)
