@@ -72,7 +72,9 @@ void define_formulae(py::module& m) {
     py::class_<storm::logic::TimeOperatorFormula, std::shared_ptr<storm::logic::TimeOperatorFormula>>(m, "TimeOperator", "The time operator", operatorFormula);
     py::class_<storm::logic::LongRunAverageOperatorFormula, std::shared_ptr<storm::logic::LongRunAverageOperatorFormula>>(m, "LongRunAvarageOperator", "Long run average operator", operatorFormula);
     py::class_<storm::logic::ProbabilityOperatorFormula, std::shared_ptr<storm::logic::ProbabilityOperatorFormula>>(m, "ProbabilityOperator", "Probability operator", operatorFormula);
-    py::class_<storm::logic::RewardOperatorFormula, std::shared_ptr<storm::logic::RewardOperatorFormula>>(m, "RewardOperator", "Reward operator", operatorFormula);
+    py::class_<storm::logic::RewardOperatorFormula, std::shared_ptr<storm::logic::RewardOperatorFormula>>(m, "RewardOperator", "Reward operator", operatorFormula)
+            .def("has_reward_name", &storm::logic::RewardOperatorFormula::hasRewardModelName)
+            .def_property_readonly("reward_name", &storm::logic::RewardOperatorFormula::getRewardModelName);
     py::class_<storm::logic::BinaryStateFormula, std::shared_ptr<storm::logic::BinaryStateFormula>> binaryStateFormula(m, "BinaryStateFormula", "State formula with two operands", stateFormula);
     py::class_<storm::logic::BinaryBooleanStateFormula, std::shared_ptr<storm::logic::BinaryBooleanStateFormula>>(m, "BooleanBinaryStateFormula", "Boolean binary state formula", binaryStateFormula);
 }
