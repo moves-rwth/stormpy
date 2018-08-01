@@ -1,6 +1,8 @@
 #include "common.h"
 
 #include "dft/dft.h"
+#include "dft/io.h"
+#include "dft/analysis.h"
 
 PYBIND11_MODULE(dft, m) {
     m.doc() = "Functionality for DFT analysis";
@@ -11,4 +13,7 @@ PYBIND11_MODULE(dft, m) {
 #endif
 
     define_dft(m);
+    define_input(m);
+    define_output(m);
+    define_analysis(m);
 }

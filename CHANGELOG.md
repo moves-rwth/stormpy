@@ -14,6 +14,7 @@ Requires storm version >= 1.2.2 and pycarl version >= 2.0.2
     * transforming symbolic to sparse models
 - Extraction of schedulers and queries on schedulers
 - Extended PLA bindings
+- Extended DFT bindings
 - Extended documentation
 
 ### Version 1.2.0
