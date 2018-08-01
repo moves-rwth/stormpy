@@ -17,6 +17,7 @@ void define_formulae(py::module& m) {
     py::class_<storm::logic::Formula, std::shared_ptr<storm::logic::Formula>> formula(m, "Formula", "Generic Storm Formula");
     formula.def("__str__", &storm::logic::Formula::toString)
         .def("clone", [](storm::logic::Formula const& f) { storm::logic::CloneVisitor cv; return cv.clone(f);})
+        .def("substitute", [](storm::logic::Formula const& f, std::map<storm::expressions::Variable, storm::expressions::Expression> const& map) { return f.substitute(map); }, "Substitute variables", py::arg("constants_map"))
         .def("substitute_labels_by_labels", [](storm::logic::Formula const& f, std::map<std::string, std::string> const& labelSubs) {storm::logic::LabelSubstitutionVisitor lsv(labelSubs); return lsv.substitute(f);}, "substitute label occurences", py::arg("replacements"))
         .def_property_readonly("is_probability_operator", &storm::logic::Formula::isProbabilityOperatorFormula, "is it a probability operator")
         .def_property_readonly("is_reward_operator", &storm::logic::Formula::isRewardOperatorFormula, "is it a reward operator")
@@ -57,12 +58,20 @@ void define_formulae(py::module& m) {
     operatorFormula.def_property_readonly("has_bound", &storm::logic::OperatorFormula::hasBound, "Flag if formula is bounded")
         .def_property("comparison_type", &storm::logic::OperatorFormula::getComparisonType, &storm::logic::OperatorFormula::setComparisonType, "Comparison type of bound")
         .def_property_readonly("threshold", [](storm::logic::OperatorFormula const& f) {
-            if (!f.getThreshold().hasRationalType()) {
-                throw std::runtime_error("Can't get non-rational threshold (not implemented)");
-            } else {
+            if (f.getThreshold().containsVariables()) {
+                throw std::runtime_error("To obtain the threshold as an expression, use threshold_expr");
+            }
+            if (f.getThreshold().hasRationalType()) {
                 return f.getThresholdAs<storm::RationalNumber>();
+            } else if (f.getThreshold().hasIntegerType()) {
+                return storm::utility::convertNumber<storm::RationalNumber>(f.getThreshold().evaluateAsInt());
+            } else {
+                throw std::runtime_error("Can't get non-rational threshold (not implemented)");
             }
         }, "Threshold of bound (currently only applicable to rational expressions)")
+        .def_property_readonly("threshold_expr", [](storm::logic::OperatorFormula const& f) {
+            return f.getThreshold();
+        })
         .def("set_bound", [](storm::logic::OperatorFormula& f, storm::logic::ComparisonType comparisonType, storm::expressions::Expression const& bound) {
             f.setBound(storm::logic::Bound(comparisonType, bound));
         }, "Set bound", py::arg("comparison_type"), py::arg("bound"))
