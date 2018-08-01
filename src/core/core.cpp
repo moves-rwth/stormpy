@@ -3,6 +3,7 @@
 #include "storm/utility/DirectEncodingExporter.h"
 #include "storm/storage/ModelFormulasPair.h"
 #include "storm/storage/dd/DdType.h"
+#include "storm/storage/jani/Property.h"
 #include "storm/solver/OptimizationDirection.h"
 #include "storm/models/symbolic/StandardRewardModel.h"
 #include "storm-parsers/api/storm-parsers.h"
