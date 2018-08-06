@@ -27,3 +27,7 @@ jani_dtmc_die = _path("dtmc", "die.jani")
 """Jani Version of Knuth Yao Die Example"""
 prism_mdp_coin_2_2 = _path("mdp", "coin2-2.nm")
 """Prism example for coin MDP"""
+dft_galileo_hecs = _path("dft", "hecs.dft")
+"""DFT example for HECS (Galileo format)"""
+dft_json_and = _path("dft", "and.json")
+"""DFT example for AND gate (JSON format)"""

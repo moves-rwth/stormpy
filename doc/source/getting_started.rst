@@ -58,6 +58,7 @@ Moreover, initial states and deadlocks are indicated with a labelling function. 
 	
 We will investigate ways to examine the model in more detail in :ref:`getting-started-investigating-the-model`.
 
+.. _getting-started-building-properties:
 
 Building properties
 --------------------------
