@@ -2,7 +2,7 @@
 Reward Models
 **************
 
-In :doc:`getting_started`, we mainly looked at probabilities in the Markov models and properties that refer to these probabilities.
+In :doc:`../getting_started`, we mainly looked at probabilities in the Markov models and properties that refer to these probabilities.
 In this section, we discuss reward models.
 
 Exploring reward models
