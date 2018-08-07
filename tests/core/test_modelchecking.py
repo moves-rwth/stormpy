@@ -33,7 +33,8 @@ class TestModelChecking:
     def test_model_checking_jani_dtmc(self):
         jani_model, properties = stormpy.parse_jani_model(get_example_path("dtmc", "die.jani"))
         formula = properties["Probability to throw a six"]
-        model = stormpy.build_model(jani_model, [formula])
+        formula2 = properties["Expected number of coin flips"]
+        model = stormpy.build_model(jani_model, [formula, formula2])
         assert model.nr_states == 13
         assert model.nr_transitions == 20
         assert len(model.initial_states) == 1
@@ -41,19 +42,8 @@ class TestModelChecking:
         assert initial_state == 0
         result = stormpy.model_checking(model, formula)
         assert math.isclose(result.at(initial_state), 1 / 6)
-
-    def test_model_checking_jani_dtmc(self):
-        jani_model, properties = stormpy.parse_jani_model(get_example_path("dtmc", "die.jani"))
-        formula = properties["Expected number of coin flips"]
-        model = stormpy.build_model(jani_model, [formula])
-        assert model.nr_states == 13
-        assert model.nr_transitions == 20
-        assert len(model.initial_states) == 1
-        initial_state = model.initial_states[0]
-        assert initial_state == 0
-        # Unsupported formula yields None result
-        result = stormpy.model_checking(model, formula)
-        assert result is None
+        result = stormpy.model_checking(model, formula2)
+        assert math.isclose(result.at(initial_state), 11 / 3)
 
     def test_model_checking_dtmc_all_labels(self):
         program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
