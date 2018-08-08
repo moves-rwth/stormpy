@@ -8,12 +8,12 @@ import stormpy.examples.files
 def example_dfts_01():
     # Load from JSON
     path_json = stormpy.examples.files.dft_json_and
-    dft_small = stormpy.dft.load_dft_json(path_json)
+    dft_small = stormpy.dft.load_dft_json_file(path_json)
     print(dft_small)
 
     # Load from Galileo
     path = stormpy.examples.files.dft_galileo_hecs
-    dft = stormpy.dft.load_dft_galileo(path)
+    dft = stormpy.dft.load_dft_galileo_file(path)
     print("DFT with {} elements.".format(dft.nr_elements()))
     print("DFT has {} BEs and {} dynamic elements.".format(dft.nr_be(), dft.nr_dynamic()))
 
