@@ -46,6 +46,7 @@ void define_expressions(py::module& m) {
         .def("has_integer_type", &storm::expressions::Expression::hasIntegerType, "Check if the expression is an integer")
         .def("has_rational_type", &storm::expressions::Expression::hasRationalType, "Check if the expression is a rational")
         .def_property_readonly("type", &storm::expressions::Expression::getType, "Get the Type")
+        .def_property_readonly("manager", &storm::expressions::Expression::getManager, "Get the manager")
         .def("__str__", &storm::expressions::Expression::toString, "To string")
 
         .def_static("plus", [](Expression const& lhs, Expression const& rhs) {return lhs + rhs;})
