@@ -48,3 +48,4 @@ In our example we compute the `Mean-time-to-failure (MTTF)`::
     >>> result = results[0]
     >>> print("MTTF: {:.2f}".format(result))
     MTTF: 363.89
+
