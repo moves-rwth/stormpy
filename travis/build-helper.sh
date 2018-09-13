@@ -21,6 +21,7 @@ run() {
   travis_fold start install_carl
   git clone https://github.com/smtrat/carl.git
   cd carl
+  git checkout 18.08
   mkdir build
   cd build
   cmake .. "${CMAKE_ARGS[@]}" "-DUSE_CLN_NUMBERS=$BUILD_CARL_CLN" "-DUSE_GINAC=$BUILD_CARL_CLN"
