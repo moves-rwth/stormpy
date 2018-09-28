@@ -3,6 +3,7 @@
 #include "src/helpers.h"
 #include <storm/storage/expressions/ExpressionManager.h>
 #include <storm/storage/jani/Model.h>
+#include <storm/storage/jani/Property.h>
 
 using namespace storm::prism;
 
@@ -20,7 +21,9 @@ void define_prism(py::module& m) {
             .def("simplify", &Program::simplify, "Simplify")
             .def("used_constants",&Program::usedConstants, "Compute Used Constants")
             .def_property_readonly("expression_manager", &Program::getManager, "Get the expression manager for expressions in this program")
-            .def("to_jani", &Program::toJaniWithLabelRenaming, "Transform to Jani program", py::arg("all_variables_global")=false, py::arg("suffix") = "", py::arg("standard_compliant")=false)
+            .def("to_jani", [](storm::prism::Program const& program, std::vector<storm::jani::Property> const& properties, bool allVariablesGlobal, std::string suffix) {
+                    return program.toJani(properties, allVariablesGlobal, suffix);
+                }, "Transform to Jani program", py::arg("properties"), py::arg("all_variables_global") = true, py::arg("suffix") = "")
             .def("__str__", &streamToString<storm::prism::Program>);
 
     py::class_<Module> module(m, "PrismModule", "A module in a Prism program");

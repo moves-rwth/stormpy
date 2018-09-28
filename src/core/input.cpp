@@ -18,9 +18,11 @@ void define_property(py::module& m) {
 void define_input(py::module& m) {
 
     // Parse Prism program
-    m.def("parse_prism_program", &storm::api::parseProgram, "Parse Prism program", py::arg("path"), py::arg("prism_compat") = false);
+    m.def("parse_prism_program", &storm::api::parseProgram, "Parse Prism program", py::arg("path"), py::arg("prism_compat") = false, py::arg("simplify") = true);
     // Parse Jani model
-    m.def("parse_jani_model", &storm::api::parseJaniModel, "Parse Jani model", py::arg("path"));
+    m.def("parse_jani_model", [](std::string const& path){
+            return storm::api::parseJaniModel(path);
+        }, "Parse Jani model", py::arg("path"));
 
     // JaniType
     py::enum_<storm::jani::ModelType>(m, "JaniModelType", "Type of the Jani model")

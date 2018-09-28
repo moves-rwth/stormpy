@@ -32,13 +32,17 @@ void define_jani(py::module& m) {
     ;
 
     py::class_<Automaton, std::shared_ptr<Automaton>> automaton(m, "JaniAutomaton", "A Jani Automation");
-    automaton.def_property_readonly("edges",[](const Automaton& a) {return a.getEdges();}, "get edges")
-            .def_property_readonly("name", &Automaton::getName)
+    automaton.def_property_readonly("edges",[](const Automaton& a) {
+            return a.getEdges();
+        }, "get edges")
+        .def_property_readonly("name", &Automaton::getName)
     ;
 
     py::class_<Edge, std::shared_ptr<Edge>> edge(m, "JaniEdge", "A Jani Edge");
     edge.def_property_readonly("source_location_index", &Edge::getSourceLocationIndex, "index for source location")
-        .def_property_readonly("destinations", &Edge::getDestinations, "edge destinations")
+        .def_property_readonly("destinations", [](Edge const& e) {
+                return e.getDestinations();
+             }, "edge destinations")
         .def_property_readonly("nr_destinations", &Edge::getNumberOfDestinations, "nr edge destinations")
         .def_property_readonly("guard", &Edge::getGuard, "edge guard")
         .def("substitute", &Edge::substitute, py::arg("mapping"))
