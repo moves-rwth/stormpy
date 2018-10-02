@@ -397,3 +397,18 @@ def compute_prob01max_states(model, phi_states, psi_states):
         return core._compute_prob01states_max_rationalfunc(model, phi_states, psi_states)
     else:
         return core._compute_prob01states_max_double(model, phi_states, psi_states)
+
+def topological_sort(model, forward=True, initial=[]):
+    """
+
+    :param model:
+    :param forward:
+    :return:
+    """
+    matrix = model.transition_matrix if forward else model.backward_transition_matrix
+    if isinstance(model, storage._SparseParametricModel):
+        return storage._topological_sort_rf(matrix, initial)
+    elif isinstance(model, storage._SparseModel):
+        return storage._topological_sort_double(matrix, initial)
+    else:
+        raise StormError("Unknown kind of model.")
