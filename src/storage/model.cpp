@@ -5,6 +5,7 @@
 #include "storm/models/sparse/Model.h"
 #include "storm/models/sparse/Dtmc.h"
 #include "storm/models/sparse/Mdp.h"
+#include "storm/models/sparse/Pomdp.h"
 #include "storm/models/sparse/Ctmc.h"
 #include "storm/models/sparse/MarkovAutomaton.h"
 #include "storm/models/sparse/StandardRewardModel.h"
@@ -26,6 +27,7 @@ using ModelBase = storm::models::ModelBase;
 template<typename ValueType> using SparseModel = storm::models::sparse::Model<ValueType>;
 template<typename ValueType> using SparseDtmc = storm::models::sparse::Dtmc<ValueType>;
 template<typename ValueType> using SparseMdp = storm::models::sparse::Mdp<ValueType>;
+template<typename ValueType> using SparsePomdp = storm::models::sparse::Pomdp<ValueType>;
 template<typename ValueType> using SparseCtmc = storm::models::sparse::Ctmc<ValueType>;
 template<typename ValueType> using SparseMarkovAutomaton = storm::models::sparse::MarkovAutomaton<ValueType>;
 template<typename ValueType> using SparseRewardModel = storm::models::sparse::StandardRewardModel<ValueType>;
@@ -94,6 +96,7 @@ void define_model(py::module& m) {
     py::enum_<storm::models::ModelType>(m, "ModelType", "Type of the model")
         .value("DTMC", storm::models::ModelType::Dtmc)
         .value("MDP", storm::models::ModelType::Mdp)
+        .value("POMDP", storm::models::ModelType::Pomdp)
         .value("CTMC", storm::models::ModelType::Ctmc)
         .value("MA", storm::models::ModelType::MarkovAutomaton)
     ;
@@ -118,6 +121,9 @@ void define_model(py::module& m) {
         .def("_as_sparse_pmdp", [](ModelBase &modelbase) {
                 return modelbase.as<SparseMdp<RationalFunction>>();
             }, "Get model as sparse pMDP")
+        .def("_as_sparse_pomdp", [](ModelBase &modelbase) {
+                return modelbase.as<SparsePomdp<double>>();
+            }, "Get model as sparse POMDP")
         .def("_as_sparse_ctmc", [](ModelBase &modelbase) {
                 return modelbase.as<SparseCtmc<double>>();
             }, "Get model as sparse CTMC")
@@ -184,6 +190,11 @@ void define_sparse_model(py::module& m) {
     py::class_<SparseMdp<double>, std::shared_ptr<SparseMdp<double>>>(m, "SparseMdp", "MDP in sparse representation", model)
         .def("__str__", getModelInfoPrinter<double>("MDP"))
     ;
+    py::class_<SparsePomdp<double>, std::shared_ptr<SparsePomdp<double>>>(m, "SparsePomdp", "POMDP in sparse representation", model)
+            .def("__str__", getModelInfoPrinter<double>("POMDP"))
+            .def_property_readonly("observations", &SparsePomdp<double>::getObservations)
+            .def_property_readonly("nr_observations", &SparsePomdp<double>::getNrObservations)
+            ;
     py::class_<SparseCtmc<double>, std::shared_ptr<SparseCtmc<double>>>(m, "SparseCtmc", "CTMC in sparse representation", model)
         .def("__str__", getModelInfoPrinter<double>("CTMC"))
     ;

@@ -106,6 +106,14 @@ class TestSparseModel:
         assert not model.supports_parameters
         assert type(model) is stormpy.SparseCtmc
 
+    def test_build_pomdp(self):
+        program = stormpy.parse_prism_program(get_example_path("pomdp", "maze_2.prism"))
+        formulas = stormpy.parse_properties_for_prism_program("P=? [F \"goal\"]", program)
+        model = stormpy.build_model(program, formulas)
+        assert model.nr_states == 16
+        assert model.nr_observations == 8
+
+
     def test_build_ma(self):
         program = stormpy.parse_prism_program(get_example_path("ma", "simple.ma"))
         formulas = stormpy.parse_properties_for_prism_program("P=? [ F<=2 s=2 ]", program)

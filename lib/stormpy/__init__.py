@@ -48,6 +48,8 @@ def _convert_sparse_model(model, parametric=False):
             return model._as_sparse_dtmc()
         elif model.model_type == ModelType.MDP:
             return model._as_sparse_mdp()
+        elif model.model_type == ModelType.POMDP:
+            return model._as_sparse_pomdp()
         elif model.model_type == ModelType.CTMC:
             return model._as_sparse_ctmc()
         elif model.model_type == ModelType.MA:
