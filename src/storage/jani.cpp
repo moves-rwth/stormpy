@@ -44,15 +44,21 @@ void define_jani(py::module& m) {
         .def("add_location", &Automaton::addLocation, "location"_a, "adds a new location, returns the index")
         .def("add_initial_location", [](Automaton& aut, uint64_t index) { aut.addInitialLocation(index); }, "index"_a)
         .def_property_readonly("initial_location_indices", &Automaton::getInitialLocationIndices)
+        .def_property("initial_states_restriction", [](Automaton& aut) { aut.getInitialStatesExpression(); }, &Automaton::setInitialStatesRestriction, "initial state restriction")
+        .def("add_edge", &Automaton::addEdge, "edge"_a)
 
     ;
 
     py::class_<Edge, std::shared_ptr<Edge>> edge(m, "JaniEdge", "A Jani Edge");
-    edge.def_property_readonly("source_location_index", &Edge::getSourceLocationIndex, "index for source location")
+    edge.def(py::init<uint64_t, uint64_t, boost::optional<storm::expressions::Expression>, std::shared_ptr<TemplateEdge>, std::vector<std::pair<uint64_t, storm::expressions::Expression>>>(),
+            "source_location_index"_a, "action_index"_a, "rate"_a, "template_edge"_a, "destinations_with_probabilities"_a)
+        .def_property_readonly("source_location_index", &Edge::getSourceLocationIndex, "index for source location")
         .def_property_readonly("destinations", [](Edge const& e) {
                 return e.getDestinations();
              }, "edge destinations")
+        .def_property_readonly("action_index", &Edge::getActionIndex, "action index")
         .def_property_readonly("template_edge", &Edge::getTemplateEdge, "template edge")
+        .def_property_readonly("rate", &Edge::getOptionalRate, "edge rate")
         .def_property_readonly("nr_destinations", &Edge::getNumberOfDestinations, "nr edge destinations")
         .def_property_readonly("guard", &Edge::getGuard, "edge guard")
         .def("substitute", &Edge::substitute, py::arg("mapping"))
@@ -64,6 +70,7 @@ void define_jani(py::module& m) {
             .def_property_readonly("assignments", [](TemplateEdge& te) { return te.getAssignments(); })
             .def_property("guard", &TemplateEdge::getGuard, &TemplateEdge::setGuard)
             .def_property_readonly("destinations",[](TemplateEdge& te) { return te.getDestinations(); })
+            .def("add_destination", &TemplateEdge::addDestination)
             ;
 
     py::class_<EdgeDestination, std::shared_ptr<EdgeDestination>> edgeDestination(m, "JaniEdgeDestination", "Destination in Jani");
@@ -72,11 +79,17 @@ void define_jani(py::module& m) {
         .def_property_readonly("assignments", &EdgeDestination::getOrderedAssignments)
     ;
 
+    py::class_<TemplateEdgeDestination, std::shared_ptr<TemplateEdgeDestination>> templateEdgeDestination(m, "JaniTemplateEdgeDestination", "Template edge destination, internal data structure for edge destinations");
+    templateEdgeDestination.def(py::init<OrderedAssignments>(), "ordered_assignments"_a)
+            .def_property_readonly("assignments", [](TemplateEdgeDestination& ted) {return ted.getOrderedAssignments();});
+
     py::class_<OrderedAssignments, std::shared_ptr<OrderedAssignments>> orderedAssignments(m, "JaniOrderedAssignments", "Set of assignments");
     orderedAssignments.def("__iter__", [](OrderedAssignments &v) {
                 return py::make_iterator(v.begin(), v.end());
             }, py::keep_alive<0, 1>()) /* Keep vector alive while iterator is used */
         .def("__str__", &streamToString<OrderedAssignments>)
+        .def("clone", &OrderedAssignments::clone, "clone assignments (performs a deep copy)")
+        .def("add", [](OrderedAssignments& oa, Assignment const& newAssignment, bool addToExisting) {return oa.add(newAssignment, addToExisting); }, "new_assignment"_a, "add_to_existing"_a = false)
     ;
 
     py::class_<Assignment, std::shared_ptr<Assignment>> assignment(m, "JaniAssignment", "Jani Assignment");
@@ -101,6 +114,10 @@ void define_jani(py::module& m) {
     variable.def_property_readonly("name", &Variable::getName, "name of constant")
             .def_property_readonly("expression_variable", &Variable::getExpressionVariable, "expression variable for this variable")
             ;
+
+    py::class_<BoundedIntegerVariable> bivariable(m, "JaniBoundedIntegerVariable", "A Bounded Integer", variable);
+    bivariable.def(py::init<std::string, storm::expressions::Variable, storm::expressions::Expression, storm::expressions::Expression, storm::expressions::Expression>(),
+                "name"_a, "expression_variable"_a, "init_value"_a, "lower_bound"_a, "upper_bound"_a);
 
     py::class_<Constant, std::shared_ptr<Constant>> constant(m, "JaniConstant", "A Constant in JANI");
     constant.def_property_readonly("defined", &Constant::isDefined, "is constant defined by some expression")
