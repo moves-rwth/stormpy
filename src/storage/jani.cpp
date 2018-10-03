@@ -26,16 +26,25 @@ void define_jani(py::module& m) {
         .def("__str__", &janiToString)
         .def("define_constants", &Model::defineUndefinedConstants, "define constants with a mapping from the corresponding expression variables to expressions", py::arg("map"))
         .def("substitute_constants", &Model::substituteConstants, "substitute constants")
-        .def("get_automaton_index", &Model::getAutomatonIndex, "get index for automaton name")
+        .def("get_automaton_index", &Model::getAutomatonIndex, "name"_a, "get index for automaton name")
+        .def("replace_automaton", &Model::replaceAutomaton, "index"_a, "new_automaton"_a, "replace automaton at index")
         .def_static("encode_edge_and_automaton_index", &Model::encodeAutomatonAndEdgeIndices, "get edge/automaton-index")
         .def_static("decode_edge_and_automaton_index", &Model::decodeAutomatonAndEdgeIndices, "get edge and automaton from edge/automaton index")
     ;
 
     py::class_<Automaton, std::shared_ptr<Automaton>> automaton(m, "JaniAutomaton", "A Jani Automation");
-    automaton.def_property_readonly("edges",[](const Automaton& a) {
+    automaton.def(py::init<std::string, storm::expressions::Variable>())
+        .def_property_readonly("edges",[](const Automaton& a) {
             return a.getEdges();
         }, "get edges")
         .def_property_readonly("name", &Automaton::getName)
+        .def_property_readonly("location_variable", &Automaton::getLocationExpressionVariable)
+        .def_property_readonly("variables", [](Automaton& aut) {return aut.getVariables();})
+        .def_property_readonly("locations", [](Automaton& aut) {return aut.getLocations();})
+        .def("add_location", &Automaton::addLocation, "location"_a, "adds a new location, returns the index")
+        .def("add_initial_location", [](Automaton& aut, uint64_t index) { aut.addInitialLocation(index); }, "index"_a)
+        .def_property_readonly("initial_location_indices", &Automaton::getInitialLocationIndices)
+
     ;
 
     py::class_<Edge, std::shared_ptr<Edge>> edge(m, "JaniEdge", "A Jani Edge");
@@ -43,6 +52,7 @@ void define_jani(py::module& m) {
         .def_property_readonly("destinations", [](Edge const& e) {
                 return e.getDestinations();
              }, "edge destinations")
+        .def_property_readonly("template_edge", &Edge::getTemplateEdge, "template edge")
         .def_property_readonly("nr_destinations", &Edge::getNumberOfDestinations, "nr edge destinations")
         .def_property_readonly("guard", &Edge::getGuard, "edge guard")
         .def("substitute", &Edge::substitute, py::arg("mapping"))
@@ -50,7 +60,11 @@ void define_jani(py::module& m) {
     ;
 
     py::class_<TemplateEdge, std::shared_ptr<TemplateEdge>> templateEdge(m, "JaniTemplateEdge", "Template edge, internal data structure for edges");
-    templateEdge.def(py::init<storm::expressions::Expression>());
+    templateEdge.def(py::init<storm::expressions::Expression>())
+            .def_property_readonly("assignments", [](TemplateEdge& te) { return te.getAssignments(); })
+            .def_property("guard", &TemplateEdge::getGuard, &TemplateEdge::setGuard)
+            .def_property_readonly("destinations",[](TemplateEdge& te) { return te.getDestinations(); })
+            ;
 
     py::class_<EdgeDestination, std::shared_ptr<EdgeDestination>> edgeDestination(m, "JaniEdgeDestination", "Destination in Jani");
     edgeDestination.def_property_readonly("target_location_index", &EdgeDestination::getLocationIndex)
@@ -69,6 +83,24 @@ void define_jani(py::module& m) {
     assignment.def("__str__", &streamToString<Assignment>)
         .def_property("expression", &Assignment::getAssignedExpression, &Assignment::setAssignedExpression)
     ;
+
+    py::class_<Location, std::shared_ptr<Location>> location(m, "JaniLocation", "A Location in JANI");
+    location.def_property_readonly("name", &Location::getName, "name of the location")
+            .def_property_readonly("assignments", [](Location& loc) {loc.getAssignments();}, "location assignments")
+            ;
+
+    py::class_<VariableSet, std::shared_ptr<VariableSet>> variableSet(m, "JaniVariableSet", "Jani Set of Variables");
+    variableSet.def(py::init<>())
+        .def("__iter__", [](VariableSet &v) {
+            return py::make_iterator(v.begin(), v.end());
+        }, py::keep_alive<0, 1>())
+        .def("add_variable", [](VariableSet& vs, Variable& v) { vs.addVariable(v);} )
+    ;
+
+    py::class_<Variable, std::shared_ptr<Variable>> variable(m, "JaniVariable", "A Variable in JANI");
+    variable.def_property_readonly("name", &Variable::getName, "name of constant")
+            .def_property_readonly("expression_variable", &Variable::getExpressionVariable, "expression variable for this variable")
+            ;
 
     py::class_<Constant, std::shared_ptr<Constant>> constant(m, "JaniConstant", "A Constant in JANI");
     constant.def_property_readonly("defined", &Constant::isDefined, "is constant defined by some expression")
