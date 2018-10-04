@@ -34,7 +34,7 @@ class CMakeBuild(build_ext):
         ('disable-dft', None, 'Disable support for DFTs'),
         ('disable-pars', None, 'Disable support for parametric models'),
         ('debug', None, 'Build in Debug mode'),
-        ('jobs=', 'j', 'Number of jobs to use for compiling'),
+        ('jobs=', 'j', 'Number of jobs to use for compiling')
     ]
 
     config = SetupConfig()
@@ -50,12 +50,13 @@ class CMakeBuild(build_ext):
                                ", ".join(e.name for e in self.extensions))
 
         # Build cmake version info
+        print("Stormpy - Building into {}".format(self.build_temp))
         build_temp_version = self.build_temp + "-version"
         setup_helper.ensure_dir_exists(build_temp_version)
 
         # Write config
-        setup_helper.ensure_dir_exists("build")
-        self.config.write_config("build/build_config.cfg")
+        setup_helper.ensure_dir_exists(self.build_temp)
+        self.config.write_config(os.path.join(self.build_temp, "build_config.cfg"))
 
         cmake_args = []
         storm_dir = os.path.expanduser(self.config.get_as_string("storm_dir"))
