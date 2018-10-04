@@ -14,11 +14,13 @@ std::string janiToString(Model const& m) {
 }
 
 void define_jani(py::module& m) {
+
     py::class_<Model, std::shared_ptr<Model>> md(m, "JaniModel", "A Jani Model");
     md.def_property_readonly("name", &Model::getName, "model name")
         .def_property_readonly("model_type", &storm::jani::Model::getModelType, "Model type")
-        .def_property_readonly("automata", [](const Model& model) {return model.getAutomata();}, "get automata")
-        .def_property_readonly("constants", [](const Model& model) {return model.getConstants();}, "get constants")
+        .def("set_model_type", &Model::setModelType, "Sets (only) the model type")
+        .def_property_readonly("automata", [](const Model& model) -> auto& {return model.getAutomata();}, "get automata")
+        .def_property_readonly("constants", [](const Model& model) -> auto& {return model.getConstants();}, "get constants")
         .def("restrict_edges", &Model::restrictEdges, "restrict model to edges given by set", py::arg("edge_set"))
         .def_property_readonly("expression_manager", &Model::getExpressionManager, "get expression manager", pybind11::return_value_policy::reference_internal)
         .def_property_readonly("has_undefined_constants", &Model::hasUndefinedConstants, "Flag if program has undefined constants")
@@ -26,10 +28,12 @@ void define_jani(py::module& m) {
         .def("__str__", &janiToString)
         .def("define_constants", &Model::defineUndefinedConstants, "define constants with a mapping from the corresponding expression variables to expressions", py::arg("map"))
         .def("substitute_constants", &Model::substituteConstants, "substitute constants")
+        .def("remove_constant", &Model::removeConstant, "remove a constant. Make sure the constant does not appear in the model.", "constant_name"_a)
         .def("get_automaton_index", &Model::getAutomatonIndex, "name"_a, "get index for automaton name")
         .def("replace_automaton", &Model::replaceAutomaton, "index"_a, "new_automaton"_a, "replace automaton at index")
         .def_static("encode_edge_and_automaton_index", &Model::encodeAutomatonAndEdgeIndices, "get edge/automaton-index")
         .def_static("decode_edge_and_automaton_index", &Model::decodeAutomatonAndEdgeIndices, "get edge and automaton from edge/automaton index")
+        .def("finalize", &Model::finalize,"finalizes the model. After this action, be careful changing the data structure.")
     ;
 
     py::class_<Automaton, std::shared_ptr<Automaton>> automaton(m, "JaniAutomaton", "A Jani Automation");
@@ -39,8 +43,8 @@ void define_jani(py::module& m) {
         }, "get edges")
         .def_property_readonly("name", &Automaton::getName)
         .def_property_readonly("location_variable", &Automaton::getLocationExpressionVariable)
-        .def_property_readonly("variables", [](Automaton& aut) {return aut.getVariables();})
-        .def_property_readonly("locations", [](Automaton& aut) {return aut.getLocations();})
+        .def_property_readonly("variables", [](Automaton& aut) -> VariableSet& {return aut.getVariables();}, py::return_value_policy::reference_internal)
+        .def_property_readonly("locations", [](Automaton& aut) -> auto& {return aut.getLocations();})
         .def("add_location", &Automaton::addLocation, "location"_a, "adds a new location, returns the index")
         .def("add_initial_location", [](Automaton& aut, uint64_t index) { aut.addInitialLocation(index); }, "index"_a)
         .def_property_readonly("initial_location_indices", &Automaton::getInitialLocationIndices)
@@ -107,7 +111,9 @@ void define_jani(py::module& m) {
         .def("__iter__", [](VariableSet &v) {
             return py::make_iterator(v.begin(), v.end());
         }, py::keep_alive<0, 1>())
-        .def("add_variable", [](VariableSet& vs, Variable& v) { vs.addVariable(v);} )
+        .def("add_variable", [](VariableSet& vs, Variable& v) { vs.addVariable(v); })
+        .def("add_bounded_integer_variable", [](VariableSet& vs, BoundedIntegerVariable& v) { return vs.addVariable(v);}, "variable"_a)
+        .def("empty", &VariableSet::empty, "is there a variable in the set?")
     ;
 
     py::class_<Variable, std::shared_ptr<Variable>> variable(m, "JaniVariable", "A Variable in JANI");
