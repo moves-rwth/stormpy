@@ -39,6 +39,7 @@ void define_expressions(py::module& m) {
 
     // Expression
     py::class_<storm::expressions::Expression, std::shared_ptr<storm::expressions::Expression>>(m, "Expression", "Holds an expression")
+        .def(py::init<Expression>(), "other_expression"_a)
         .def("contains_variables", &storm::expressions::Expression::containsVariables, "Check if the expression contains variables.")
         .def("contains_variable", &storm::expressions::Expression::containsVariable, "Check if the expression contains any of the given variables.", py::arg("variables"))
         .def("get_variables" , &storm::expressions::Expression::getVariables, "Get the variables")
