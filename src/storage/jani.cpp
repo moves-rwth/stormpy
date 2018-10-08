@@ -31,9 +31,11 @@ void define_jani(py::module& m) {
         .def("remove_constant", &Model::removeConstant, "remove a constant. Make sure the constant does not appear in the model.", "constant_name"_a)
         .def("get_automaton_index", &Model::getAutomatonIndex, "name"_a, "get index for automaton name")
         .def("replace_automaton", &Model::replaceAutomaton, "index"_a, "new_automaton"_a, "replace automaton at index")
+        .def("check_valid", &Model::checkValid, "Some basic checks to ensure validity")
         .def_static("encode_edge_and_automaton_index", &Model::encodeAutomatonAndEdgeIndices, "get edge/automaton-index")
         .def_static("decode_edge_and_automaton_index", &Model::decodeAutomatonAndEdgeIndices, "get edge and automaton from edge/automaton index")
         .def("finalize", &Model::finalize,"finalizes the model. After this action, be careful changing the data structure.")
+        .def("to_dot", [](Model& model) {std::stringstream ss; model.writeDotToStream(ss); return ss.str(); })
     ;
 
     py::class_<Automaton, std::shared_ptr<Automaton>> automaton(m, "JaniAutomaton", "A Jani Automation");
