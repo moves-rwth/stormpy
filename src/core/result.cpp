@@ -8,6 +8,17 @@
 
 #include "storm/models/symbolic/StandardRewardModel.h"
 
+template<typename ValueType>
+std::shared_ptr<storm::modelchecker::QualitativeCheckResult> createFilterInitialStatesSparse(std::shared_ptr<storm::models::sparse::Model<ValueType>> model) {
+    return std::make_unique<storm::modelchecker::ExplicitQualitativeCheckResult>(model->getInitialStates());
+}
+
+template<storm::dd::DdType DdType, typename ValueType>
+std::shared_ptr<storm::modelchecker::QualitativeCheckResult> createFilterInitialStatesSymbolic(std::shared_ptr<storm::models::symbolic::Model<DdType, ValueType>> model) {
+   return std::make_unique<storm::modelchecker::SymbolicQualitativeCheckResult<DdType>>(model->getReachableStates(), model->getInitialStates());
+}
+
+
 // Define python bindings
 void define_result(py::module& m) {
 
@@ -35,6 +46,7 @@ void define_result(py::module& m) {
         .def("as_explicit_parametric_quantitative", [](storm::modelchecker::CheckResult const& result) {
                 return result.asExplicitQuantitativeCheckResult<storm::RationalFunction>();
             }, "Convert into explicit quantitative result")
+        .def("filter", &storm::modelchecker::CheckResult::filter, py::arg("filter"), "Filter the result")
         .def("__str__",  [](storm::modelchecker::CheckResult const& result) {
                 std::stringstream stream;
                 result.writeToStream(stream);
@@ -45,16 +57,20 @@ void define_result(py::module& m) {
     // QualitativeCheckResult
     py::class_<storm::modelchecker::QualitativeCheckResult, std::shared_ptr<storm::modelchecker::QualitativeCheckResult>> qualitativeCheckResult(m, "_QualitativeCheckResult", "Abstract class for qualitative model checking results", checkResult);
     py::class_<storm::modelchecker::ExplicitQualitativeCheckResult, std::shared_ptr<storm::modelchecker::ExplicitQualitativeCheckResult>>(m, "ExplicitQualitativeCheckResult", "Explicit qualitative model checking result", qualitativeCheckResult)
-            .def("at", [](storm::modelchecker::ExplicitQualitativeCheckResult const& result, storm::storage::sparse::state_type state) {
+        .def("at", [](storm::modelchecker::ExplicitQualitativeCheckResult const& result, storm::storage::sparse::state_type state) {
                 return result[state];
             }, py::arg("state"), "Get result for given state")
-            .def("get_truth_values", &storm::modelchecker::ExplicitQualitativeCheckResult::getTruthValuesVector, "Get BitVector representing the truth values")
+        .def("get_truth_values", &storm::modelchecker::ExplicitQualitativeCheckResult::getTruthValuesVector, "Get BitVector representing the truth values")
     ;
     py::class_<storm::modelchecker::SymbolicQualitativeCheckResult<storm::dd::DdType::Sylvan>, std::shared_ptr<storm::modelchecker::SymbolicQualitativeCheckResult<storm::dd::DdType::Sylvan>>>(m, "SymbolicQualitativeCheckResult", "Symbolic qualitative model checking result", qualitativeCheckResult)
     ;
 
     // QuantitativeCheckResult
     py::class_<storm::modelchecker::QuantitativeCheckResult<double>, std::shared_ptr<storm::modelchecker::QuantitativeCheckResult<double>>> quantitativeCheckResult(m, "_QuantitativeCheckResult", "Abstract class for quantitative model checking results", checkResult);
+    quantitativeCheckResult.def_property_readonly("min", &storm::modelchecker::QuantitativeCheckResult<double>::getMin, "Minimal value")
+        .def_property_readonly("max", &storm::modelchecker::QuantitativeCheckResult<double>::getMax, "Maximal value")
+    ;
+
     py::class_<storm::modelchecker::ExplicitQuantitativeCheckResult<double>, std::shared_ptr<storm::modelchecker::ExplicitQuantitativeCheckResult<double>>>(m, "ExplicitQuantitativeCheckResult", "Explicit quantitative model checking result", quantitativeCheckResult)
         .def("at", [](storm::modelchecker::ExplicitQuantitativeCheckResult<double> const& result, storm::storage::sparse::state_type state) {
             return result[state];
@@ -80,6 +96,10 @@ void define_result(py::module& m) {
     py::class_<storm::modelchecker::HybridQuantitativeCheckResult<storm::dd::DdType::Sylvan, storm::RationalFunction>, std::shared_ptr<storm::modelchecker::HybridQuantitativeCheckResult<storm::dd::DdType::Sylvan, storm::RationalFunction>>>(m, "HybridParametricQuantitativeCheckResult", "Symbolic parametric hybrid quantitative model checking result", quantitativeCheckResult)
         .def("get_values", &storm::modelchecker::HybridQuantitativeCheckResult<storm::dd::DdType::Sylvan, storm::RationalFunction>::getExplicitValueVector, "Get model checking result values for all states")
     ;
+
+
+    m.def("create_filter_initial_states_sparse", &createFilterInitialStatesSparse<double>, "Create a filter for the initial states on a sparse model", py::arg("model"));
+    m.def("create_filter_initial_states_symbolic", &createFilterInitialStatesSymbolic<storm::dd::DdType::Sylvan, double>, "Create a filter for the initial states on a symbolic model", py::arg("model"));
 
 }
 
