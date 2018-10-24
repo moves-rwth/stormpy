@@ -17,7 +17,7 @@ We use some standard examples::
     >>> import stormpy.examples
     >>> import stormpy.examples.files
 
-Storm supports the DRN format.
+Storm supports the explicit DRN format.
 From this, models can be built directly::
 
     >>> path = stormpy.examples.files.drn_ctmc_dft
