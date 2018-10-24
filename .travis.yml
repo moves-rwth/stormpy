@@ -41,18 +41,18 @@ jobs:
       env: TASK=Test PYTHON=python3 CONFIG=ReleaseClnParser COMPILER=clang STL=libc++
       install: travis/install_osx.sh
       script: travis/build.sh
-    # ubuntu-17.10
+    # ubuntu-18.04
     - os: linux
       compiler: gcc
-      env: TASK=Test PYTHON=python3 CONFIG=Release LINUX=ubuntu-17.10 COMPILER=gcc
+      env: TASK=Test PYTHON=python3 CONFIG=Release LINUX=ubuntu-18.04 COMPILER=gcc
       script: travis/build.sh
     - os: linux
       compiler: gcc
-      env: TASK=Test PYTHON=python3 CONFIG=ReleaseCln LINUX=ubuntu-17.10 COMPILER=gcc
+      env: TASK=Test PYTHON=python3 CONFIG=ReleaseCln LINUX=ubuntu-18.04 COMPILER=gcc
       script: travis/build.sh
     - os: linux
       compiler: gcc
-      env: TASK=Test PYTHON=python3 CONFIG=ReleaseClnParser LINUX=ubuntu-17.10 COMPILER=gcc
+      env: TASK=Test PYTHON=python3 CONFIG=ReleaseClnParser LINUX=ubuntu-18.04 COMPILER=gcc
       script: travis/build.sh
     # Documentation
     - os: osx
