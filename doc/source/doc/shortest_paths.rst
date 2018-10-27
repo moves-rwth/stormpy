@@ -29,7 +29,7 @@ As in :doc:`../getting_started`, we import some required modules and build a mod
     >>> model = stormpy.build_model(prism_program)
 
 
-We also import the `ShortestPathsGenerator`::
+We also import the ``ShortestPathsGenerator``::
 
     >>> from stormpy.utility import ShortestPathsGenerator
 
@@ -40,7 +40,7 @@ and choose a target state (by its ID) to which we want to compute the shortest p
 It is also possible to specify a set of target states (as a list, e.g., ``[8, 10, 11]``) or a label in the model if applicable (e.g., ``"observe0Greater1"``).
 For simplicity, we will stick to using a single state for now.
 
-We initialize a `ShortestPathsGenerator` instance::
+We initialize a ``ShortestPathsGenerator`` instance::
 
     >>> spg = ShortestPathsGenerator(model, state_id)
 

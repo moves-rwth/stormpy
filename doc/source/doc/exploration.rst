@@ -37,7 +37,7 @@ The iteration over the model is as before, but now, for every action, we can hav
     ...            print("From state {} by action {}, with probability {}, go to state {}".format(state, action, transition.value(), transition.column))
     -etc-
 
-The output (omitted for brievety) contains sentences like:
+The output (omitted for brievety) contains sentences like::
 
     From state 1 by action 0, with probability 1.0, go to state 2
     From state 1 by action 1, with probability 1.0, go to state 1
@@ -48,7 +48,7 @@ Internally, storm can hold hints to the origin of the actions, which may be help
 As the availability and the encoding of this data depends on the input model, we discuss these features in :doc:`highlevel_models`.
 
 
-Storm currently supports deterministic rewards on states or actions. More information can be found in that :doc:`reward_models`.
+Storm currently supports deterministic rewards on states or actions. More information can be found in :doc:`reward_models`.
 
 
 Reading POMDPs
@@ -63,7 +63,6 @@ Internally, POMDPs extend MDPs. Thus, iterating over the MDP is done as before.
     >>> import stormpy.examples.files
     >>> program = stormpy.parse_prism_program(stormpy.examples.files.prism_pomdp_maze)
     >>> prop = "R=? [F \"goal\"]"
-
     >>> properties = stormpy.parse_properties_for_prism_program(prop, program, None)
     >>> model = stormpy.build_model(program, properties)
 
