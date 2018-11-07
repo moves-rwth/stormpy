@@ -15,7 +15,7 @@ if sys.version_info[0] == 2:
 
 # Minimal carl version required
 carl_min_version = "17.12"
-carl_stable14_version = "14.1"
+carl_master14_version = "14."
 
 # Get the long description from the README file
 with open(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'README.md'), encoding='utf-8') as f:
@@ -86,11 +86,10 @@ class CMakeBuild(build_ext):
 
         # Check version
         carl_version, carl_commit = setup_helper.parse_carl_version(cmake_conf.CARL_VERSION)
-        if carl_version == carl_stable14_version:
-            print("Pycarl - Warning: Carl version number indicates an old version, but this may be due to usage of another branch.")
+        if carl_version.startswith(carl_master14_version):
+            print("Pycarl - Using carl with master14 branch.")
         elif StrictVersion(carl_version) < StrictVersion(carl_min_version):
-            sys.exit(
-                'Pycarl - Error: Carl version {} from \'{}\' is not supported anymore!'.format(carl_version, carl_dir))
+            sys.exit("Pycarl - Error: carl version {} from '{}' is not supported anymore!".format(carl_version, carl_dir))
 
         # Check additional support
         use_cln = cmake_conf.CARL_WITH_CLN and not self.config.get_as_bool("disable_cln")
@@ -99,7 +98,7 @@ class CMakeBuild(build_ext):
         # Print build info
         print("Pycarl - Using carl {} from {}".format(carl_version, carl_dir))
         if use_parser:
-            print("Pycarl - Carl parser extension from {} included.".format(carl_parser_dir))
+            print("Pycarl - carl parser extension from {} included.".format(carl_parser_dir))
         else:
             print("Pycarl - Warning: No parser support!")
         if use_cln:
