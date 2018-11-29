@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include "counterexample.h"
 #include "storm/environment/Environment.h"
 #include "storm-counterexamples/api/counterexamples.h"
@@ -11,9 +13,15 @@ void define_counterexamples(py::module& m) {
 
     py::class_<boost::container::flat_set<uint_fast64_t>>(m, "FlatSet", "Container to pass to program")
             .def(py::init<>())
+            .def(py::init<boost::container::flat_set<uint64_t>>(), "other"_a)
             .def("insert", [](boost::container::flat_set<uint_fast64_t>& flatset, uint64_t value) {flatset.insert(value);})
+            .def("is_subset_of", [](boost::container::flat_set<uint64_t> const& left, boost::container::flat_set<uint64_t> const& right) {return std::includes(right.begin(), right.end(), left.begin(), left.end()); })
+            .def("insert_set", [](boost::container::flat_set<uint64_t>& left, boost::container::flat_set<uint64_t> const& additional) { for(auto const& i : additional) {left.insert(i);}})
             .def("__str__", [](boost::container::flat_set<uint64_t> const& set) { std::stringstream str; str << "["; for(auto const& i : set) { str << i << ", ";} str << "]"; return str.str(); })
             .def("__len__", [](boost::container::flat_set<uint64_t> const& set) { return set.size();})
+            .def("__iter__", [](boost::container::flat_set<uint_fast64_t> &v) {
+                return py::make_iterator(v.begin(), v.end());
+            }, py::keep_alive<0, 1>()) /* Keep vector alive while iterator is used */
             ;
 
     using CexGeneratorStats = SMTMinimalLabelSetGenerator<double>::GeneratorStats;
