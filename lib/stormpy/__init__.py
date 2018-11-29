@@ -163,7 +163,7 @@ def build_symbolic_model(symbolic_description, properties=None):
         raise StormError("Program still contains undefined constants")
 
     if properties:
-        formulae = [prop.raw_formula for prop in properties]
+        formulae = [(prop.raw_formula if isinstance(prop, Property) else prop) for prop in properties]
         intermediate = core._build_symbolic_model_from_symbolic_description(symbolic_description, formulae)
     else:
         intermediate = core._build_symbolic_model_from_symbolic_description(symbolic_description)
@@ -182,7 +182,7 @@ def build_symbolic_parametric_model(symbolic_description, properties=None):
         raise StormError("Program still contains undefined constants")
 
     if properties:
-        formulae = [prop.raw_formula for prop in properties]
+        formulae = [(prop.raw_formula if isinstance(property, Property) else prop) for prop in properties]
         intermediate = core._build_symbolic_parametric_model_from_symbolic_description(symbolic_description, formulae)
     else:
         intermediate = core._build_symbolic_parametric_model_from_symbolic_description(symbolic_description)
