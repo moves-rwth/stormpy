@@ -75,9 +75,13 @@ void define_formulae(py::module& m) {
         .def("set_bound", [](storm::logic::OperatorFormula& f, storm::logic::ComparisonType comparisonType, storm::expressions::Expression const& bound) {
             f.setBound(storm::logic::Bound(comparisonType, bound));
         }, "Set bound", py::arg("comparison_type"), py::arg("bound"))
+        .def("remove_bound", &storm::logic::OperatorFormula::removeBound)
         .def_property_readonly("has_optimality_type",  &storm::logic::OperatorFormula::hasOptimalityType, "Flag if an optimality type is present")
         .def_property_readonly("optimality_type", &storm::logic::OperatorFormula::getOptimalityType, "Flag for the optimality type")
-    ;
+        .def("set_optimality_type", &storm::logic::OperatorFormula::setOptimalityType, "set the optimality type (use remove optimiality type for clearing)", "new_optimality_type"_a)
+        .def("remove_optimality_type", &storm::logic::OperatorFormula::removeOptimalityType, "remove the optimality type")
+
+            ;
     py::class_<storm::logic::TimeOperatorFormula, std::shared_ptr<storm::logic::TimeOperatorFormula>>(m, "TimeOperator", "The time operator", operatorFormula);
     py::class_<storm::logic::LongRunAverageOperatorFormula, std::shared_ptr<storm::logic::LongRunAverageOperatorFormula>>(m, "LongRunAvarageOperator", "Long run average operator", operatorFormula);
     py::class_<storm::logic::ProbabilityOperatorFormula, std::shared_ptr<storm::logic::ProbabilityOperatorFormula>>(m, "ProbabilityOperator", "Probability operator", operatorFormula)
