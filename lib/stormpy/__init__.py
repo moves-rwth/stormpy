@@ -412,3 +412,17 @@ def topological_sort(model, forward=True, initial=[]):
         return storage._topological_sort_double(matrix, initial)
     else:
         raise StormError("Unknown kind of model.")
+
+def construct_submodel(model, states, actions, keep_unreachable_states = True, options = SubsystemBuilderOptions()):
+    """
+
+    :param model: The model
+    :param states: Which states should be preserved
+    :param actions: Which actions should be preserved
+    :param keep_unreachable_states: If False, run a reachability analysis.
+    :return: A model with fewer states/actions
+    """
+    if isinstance(model, storage._SparseModel):
+        return core._construct_subsystem_double(model, states, actions, keep_unreachable_states, options)
+    else:
+        raise NotImplementedError()
