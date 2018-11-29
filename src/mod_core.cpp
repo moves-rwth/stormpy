@@ -18,7 +18,9 @@ PYBIND11_MODULE(core, m) {
 //    options.disable_function_signatures();
 #endif
 
+    define_environment(m);
     define_core(m);
+
     define_property(m);
     define_parse(m);
     define_build(m);
@@ -30,6 +32,5 @@ PYBIND11_MODULE(core, m) {
     define_bisimulation(m);
     define_input(m);
     define_graph_constraints(m);
-    define_environment(m);
     define_transformation(m);
 }
