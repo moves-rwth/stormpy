@@ -16,6 +16,8 @@
 #include "storm/models/symbolic/MarkovAutomaton.h"
 #include "storm/models/symbolic/StandardRewardModel.h"
 
+#include "storm/storage/Scheduler.h"
+
 #include <functional>
 #include <string>
 #include <sstream>
@@ -105,6 +107,7 @@ void define_model(py::module& m) {
     py::class_<ModelBase, std::shared_ptr<ModelBase>> modelBase(m, "_ModelBase", "Base class for all models");
     modelBase.def_property_readonly("nr_states", &ModelBase::getNumberOfStates, "Number of states")
         .def_property_readonly("nr_transitions", &ModelBase::getNumberOfTransitions, "Number of transitions")
+        .def_property_readonly("nr_choices", &ModelBase::getNumberOfChoices, "Number of choices")
         .def_property_readonly("model_type", &ModelBase::getType, "Model type")
         .def_property_readonly("supports_parameters", &ModelBase::supportsParameters, "Flag whether model supports parameters")
         .def_property_readonly("has_parameters", &ModelBase::hasParameters, "Flag whether model has parameters")
@@ -183,11 +186,14 @@ void define_sparse_model(py::module& m) {
         .def_property_readonly("backward_transition_matrix", &SparseModel<double>::getBackwardTransitions, py::return_value_policy::reference, py::keep_alive<1, 0>(), "Backward transition matrix")
         .def("reduce_to_state_based_rewards", &SparseModel<double>::reduceToStateBasedRewards)
         .def("__str__", getModelInfoPrinter<double>())
+        .def("to_dot", [](SparseModel<double>& model) { std::stringstream ss; model.writeDotToStream(ss); return ss.str(); }, "Write dot to a string")
     ;
     py::class_<SparseDtmc<double>, std::shared_ptr<SparseDtmc<double>>>(m, "SparseDtmc", "DTMC in sparse representation", model)
         .def("__str__", getModelInfoPrinter<double>("DTMC"))
     ;
     py::class_<SparseMdp<double>, std::shared_ptr<SparseMdp<double>>>(m, "SparseMdp", "MDP in sparse representation", model)
+        .def_property_readonly("nondeterministic_choice_indices", [](SparseMdp<double> const& mdp) { return mdp.getNondeterministicChoiceIndices(); })
+        .def("apply_scheduler", [](SparseMdp<double> const& mdp, storm::storage::Scheduler<double> const& scheduler, bool dropUnreachableStates) { return mdp.applyScheduler(scheduler, dropUnreachableStates); } , "apply scheduler", "scheduler"_a, "drop_unreachable_states"_a = true)
         .def("__str__", getModelInfoPrinter<double>("MDP"))
     ;
     py::class_<SparsePomdp<double>, std::shared_ptr<SparsePomdp<double>>>(m, "SparsePomdp", "POMDP in sparse representation", model)
@@ -209,6 +215,7 @@ void define_sparse_model(py::module& m) {
         .def_property_readonly("transition_rewards", [](SparseRewardModel<double>& rewardModel) {return rewardModel.getTransitionRewardMatrix();})
         .def_property_readonly("state_rewards", [](SparseRewardModel<double>& rewardModel) {return rewardModel.getStateRewardVector();})
         .def("get_state_reward", [](SparseRewardModel<double>& rewardModel, uint64_t state) {return rewardModel.getStateReward(state);})
+        .def("get_zero_reward_states", &SparseRewardModel<double>::getStatesWithZeroReward<double>, "get states where all rewards are zero", py::arg("transition_matrix"))
         .def("get_state_action_reward", [](SparseRewardModel<double>& rewardModel, uint64_t action_index) {return rewardModel.getStateActionReward(action_index);})
         .def_property_readonly("state_action_rewards", [](SparseRewardModel<double>& rewardModel) {return rewardModel.getStateActionRewardVector();})
         .def("reduce_to_state_based_rewards", [](SparseRewardModel<double>& rewardModel, storm::storage::SparseMatrix<double> const& transitions, bool onlyStateRewards){return rewardModel.reduceToStateBasedRewards(transitions, onlyStateRewards);},  py::arg("transition_matrix"), py::arg("only_state_rewards"), "Reduce to state-based rewards")
@@ -237,6 +244,8 @@ void define_sparse_model(py::module& m) {
         .def("__str__", getModelInfoPrinter<RationalFunction>("ParametricDTMC"))
     ;
     py::class_<SparseMdp<RationalFunction>, std::shared_ptr<SparseMdp<RationalFunction>>>(m, "SparseParametricMdp", "pMDP in sparse representation", modelRatFunc)
+        .def_property_readonly("nondeterministic_choice_indices", [](SparseMdp<double> const& mdp) { return mdp.getNondeterministicChoiceIndices(); })
+        .def("apply_scheduler", [](SparseMdp<double> const& mdp, storm::storage::Scheduler<double> const& scheduler, bool dropUnreachableStates) { return mdp.applyScheduler(scheduler, dropUnreachableStates); } , "apply scheduler", "scheduler"_a, "drop_unreachable_states"_a = true)
         .def("__str__", getModelInfoPrinter<RationalFunction>("ParametricMDP"))
     ;
     py::class_<SparseCtmc<RationalFunction>, std::shared_ptr<SparseCtmc<RationalFunction>>>(m, "SparseParametricCtmc", "pCTMC in sparse representation", modelRatFunc)
