@@ -23,27 +23,22 @@ run() {
   cd carl
   mkdir build
   cd build
-  cmake .. "${CMAKE_ARGS[@]}" "-DUSE_CLN_NUMBERS=$BUILD_CARL_CLN" "-DUSE_GINAC=$BUILD_CARL_CLN"
-  make lib_carl -j$N_JOBS
-  cd ../..
-  travis_fold end install_carl
-
-  # Install carl-parser
+  PARSER_ARGS=""
   if [[ "$BUILD_CARL_PARSER" == TRUE ]]
   then
-    travis_fold start install_carl_parser
-    git clone https://github.com/smtrat/carl-parser.git
-    cd carl-parser
-    mkdir build
-    cd build
-    cmake .. "${CMAKE_ARGS[@]}"
+    # Build Carl with carl-parser
+    cmake .. "${CMAKE_ARGS[@]}" "-DUSE_CLN_NUMBERS=$BUILD_CARL_CLN" "-DUSE_GINAC=$BUILD_CARL_CLN" "-DBUILD_ADDONS=ON" "-DBUILD_ADDON_PARSER=ON"
     make -j$N_JOBS
     # Build a second time to avoid problems in macOS
     cmake .
     make
-    cd ../..
-    travis_fold end install_carl_parser
+  else
+    # Build Carl without parser
+    cmake .. "${CMAKE_ARGS[@]}" "-DUSE_CLN_NUMBERS=$BUILD_CARL_CLN" "-DUSE_GINAC=$BUILD_CARL_CLN"
+    make lib_carl -j$N_JOBS
   fi
+  cd ../..
+  travis_fold end install_carl
 
   # Build Pycarl
   travis_fold start build_pycarl
