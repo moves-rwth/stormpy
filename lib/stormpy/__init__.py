@@ -125,7 +125,7 @@ def build_sparse_model(symbolic_description, properties=None):
         raise StormError("Program still contains undefined constants")
 
     if properties:
-        formulae = [prop.raw_formula for prop in properties]
+        formulae = [(prop.raw_formula if isinstance(prop, Property) else prop) for prop in properties]
         intermediate = core._build_sparse_model_from_symbolic_description(symbolic_description, formulae)
     else:
         intermediate = core._build_sparse_model_from_symbolic_description(symbolic_description)
@@ -144,7 +144,7 @@ def build_sparse_parametric_model(symbolic_description, properties=None):
         raise StormError("Program still contains undefined constants")
 
     if properties:
-        formulae = [prop.raw_formula for prop in properties]
+        formulae = [(prop.raw_formula if isinstance(prop, Property) else prop) for prop in properties]
         intermediate = core._build_sparse_parametric_model_from_symbolic_description(symbolic_description, formulae)
     else:
         intermediate = core._build_sparse_parametric_model_from_symbolic_description(symbolic_description)
@@ -182,7 +182,7 @@ def build_symbolic_parametric_model(symbolic_description, properties=None):
         raise StormError("Program still contains undefined constants")
 
     if properties:
-        formulae = [(prop.raw_formula if isinstance(property, Property) else prop) for prop in properties]
+        formulae = [(prop.raw_formula if isinstance(prop, Property) else prop) for prop in properties]
         intermediate = core._build_symbolic_parametric_model_from_symbolic_description(symbolic_description, formulae)
     else:
         intermediate = core._build_symbolic_parametric_model_from_symbolic_description(symbolic_description)
@@ -230,7 +230,7 @@ def perform_sparse_bisimulation(model, properties, bisimulation_type):
     :param bisimulation_type: Type of bisimulation (weak or strong).
     :return: Model after bisimulation.
     """
-    formulae = [prop.raw_formula for prop in properties]
+    formulae = [(prop.raw_formula if isinstance(prop, Property) else prop) for prop in properties]
     if model.supports_parameters:
         return core._perform_parametric_bisimulation(model, formulae, bisimulation_type)
     else:
@@ -244,7 +244,7 @@ def perform_symbolic_bisimulation(model, properties):
     :param properties: Properties to preserve during bisimulation.
     :return: Model after bisimulation.
     """
-    formulae = [prop.raw_formula for prop in properties]
+    formulae = [(prop.raw_formula if isinstance(prop, Property) else prop) for prop in properties]
     bisimulation_type = BisimulationType.STRONG
     if model.supports_parameters:
         return core._perform_symbolic_parametric_bisimulation(model, formulae, bisimulation_type)
