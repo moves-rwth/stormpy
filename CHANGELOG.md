@@ -1,21 +1,26 @@
 Changelog
 =============
 
-
-Version 1.2.x
+Version 1.3.x
 -------------
 
-### Version 1.2.x
-Requires storm version >= 1.2.2 and pycarl version >= 2.0.2
+### Version 1.3.0 (2018/12)
+Requires storm version >= 1.3.0 and pycarl version >= 2.0.2
 - Adaptions to changes in Storm
 - Bindings for symbolic models:
     * building symbolic models
     * bisimulation
     * transforming symbolic to sparse models
 - Extraction of schedulers and queries on schedulers
+- High-level counterexamples connected
+- Drastically extended JANI bindings
+- Extended bindings for expressions
 - Extended PLA bindings
 - Extended DFT bindings
 - Extended documentation
+
+Version 1.2.x
+-------------
 
 ### Version 1.2.0
 Requires storm version >= 1.2.0 and pycarl version >= 2.0.2
