@@ -27,6 +27,8 @@ jani_dtmc_die = _path("dtmc", "die.jani")
 """Jani Version of Knuth Yao Die Example"""
 prism_mdp_coin_2_2 = _path("mdp", "coin2-2.nm")
 """Prism example for coin MDP"""
+prism_pmdp_coin_two_dice = _path("pmdp", "two_dice.nm")
+"""Prism example for parametric two dice"""
 prism_mdp_maze = _path("mdp", "maze_2.nm")
 """Prism example for the maze MDP"""
 prism_pomdp_maze = _path("pomdp", "maze_2.prism")
