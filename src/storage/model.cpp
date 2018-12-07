@@ -189,23 +189,28 @@ void define_sparse_model(py::module& m) {
         .def("to_dot", [](SparseModel<double>& model) { std::stringstream ss; model.writeDotToStream(ss); return ss.str(); }, "Write dot to a string")
     ;
     py::class_<SparseDtmc<double>, std::shared_ptr<SparseDtmc<double>>>(m, "SparseDtmc", "DTMC in sparse representation", model)
-        .def("__str__", getModelInfoPrinter<double>("DTMC"))
+            .def(py::init<SparseDtmc<double>>(), py::arg("other_model"))
+            .def("__str__", getModelInfoPrinter<double>("DTMC"))
     ;
     py::class_<SparseMdp<double>, std::shared_ptr<SparseMdp<double>>>(m, "SparseMdp", "MDP in sparse representation", model)
+        .def(py::init<SparseMdp<double>>(), py::arg("other_model"))
         .def_property_readonly("nondeterministic_choice_indices", [](SparseMdp<double> const& mdp) { return mdp.getNondeterministicChoiceIndices(); })
         .def("apply_scheduler", [](SparseMdp<double> const& mdp, storm::storage::Scheduler<double> const& scheduler, bool dropUnreachableStates) { return mdp.applyScheduler(scheduler, dropUnreachableStates); } , "apply scheduler", "scheduler"_a, "drop_unreachable_states"_a = true)
         .def("__str__", getModelInfoPrinter<double>("MDP"))
     ;
     py::class_<SparsePomdp<double>, std::shared_ptr<SparsePomdp<double>>>(m, "SparsePomdp", "POMDP in sparse representation", model)
+            .def(py::init<SparsePomdp<double>>(), py::arg("other_model"))
             .def("__str__", getModelInfoPrinter<double>("POMDP"))
             .def_property_readonly("observations", &SparsePomdp<double>::getObservations)
             .def_property_readonly("nr_observations", &SparsePomdp<double>::getNrObservations)
             ;
     py::class_<SparseCtmc<double>, std::shared_ptr<SparseCtmc<double>>>(m, "SparseCtmc", "CTMC in sparse representation", model)
-        .def("__str__", getModelInfoPrinter<double>("CTMC"))
+            .def(py::init<SparseCtmc<double>>(), py::arg("other_model"))
+            .def("__str__", getModelInfoPrinter<double>("CTMC"))
     ;
     py::class_<SparseMarkovAutomaton<double>, std::shared_ptr<SparseMarkovAutomaton<double>>>(m, "SparseMA", "MA in sparse representation", model)
-        .def("__str__", getModelInfoPrinter<double>("MA"))
+            .def(py::init<SparseMarkovAutomaton<double>>(), py::arg("other_model"))
+            .def("__str__", getModelInfoPrinter<double>("MA"))
     ;
 
     py::class_<SparseRewardModel<double>>(m, "SparseRewardModel", "Reward structure for sparse models")
