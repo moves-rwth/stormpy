@@ -15,6 +15,7 @@ if sys.version_info[0] == 2:
 
 # Minimal carl version required
 carl_min_version = "17.12"
+carl_max_version = "18.08"
 carl_master14_version = "14."
 
 # Get the long description from the README file
@@ -90,6 +91,8 @@ class CMakeBuild(build_ext):
             print("Pycarl - Using carl with master14 branch.")
         elif StrictVersion(carl_version) < StrictVersion(carl_min_version):
             sys.exit("Pycarl - Error: carl version {} from '{}' is not supported anymore!".format(carl_version, carl_dir))
+        elif StrictVersion(carl_version) > StrictVersion(carl_max_version):
+            sys.exit("Pycarl - Error: carl version {} from '{}' is not supported!".format(carl_version, carl_dir))
 
         # Check additional support
         use_cln = cmake_conf.CARL_WITH_CLN and not self.config.get_as_bool("disable_cln")
