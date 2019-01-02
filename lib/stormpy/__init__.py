@@ -15,7 +15,7 @@ from pycarl import Variable  # needed for building parametric models
 
 __version__ = "unknown"
 try:
-    from _version import __version__
+    from ._version import __version__
 except ImportError:
     # We're running in a tree that doesn't have a _version.py, so we don't know what our version is.
     pass
