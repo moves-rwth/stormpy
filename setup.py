@@ -234,7 +234,7 @@ setup(
 
     cmdclass={'build_ext': CMakeBuild},
     zip_safe=False,
-    install_requires=['pycarl>=2.0.2'],
+    install_requires=['pycarl>=2.0.3'],
     setup_requires=['pytest-runner'],
     tests_require=['pytest'],
     python_requires='>=3',
