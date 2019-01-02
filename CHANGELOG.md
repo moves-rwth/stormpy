@@ -5,7 +5,7 @@ Version 1.3.x
 -------------
 
 ### Version 1.3.0 (2019/01)
-Requires storm version >= 1.3.0 and pycarl version >= 2.0.2
+Requires storm version >= 1.3.0 and pycarl version >= 2.0.3
 - Adaptions to changes in Storm
 - Bindings for symbolic models:
     * building symbolic models
