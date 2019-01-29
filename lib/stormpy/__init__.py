@@ -334,6 +334,7 @@ def check_model_hybrid(model, property, only_initial_states=False, environment=E
         task = core.CheckTask(formula, only_initial_states)
         return core._model_checking_hybrid_engine(model, task, environment=environment)
 
+
 def transform_to_sparse_model(model):
     """
     Transform model in symbolic representation into model in sparse representation.
@@ -344,6 +345,20 @@ def transform_to_sparse_model(model):
         return core._transform_to_sparse_parametric_model(model)
     else:
         return core._transform_to_sparse_model(model)
+
+
+def transform_to_discrete_time_model(model, properties):
+    """
+    Transform continuous-time model to discrete time model.
+    :param model: Continuous-time model.
+    :param properties: List of properties to transform as well.
+    :return: Tuple (Discrete-time model, converted properties).
+    """
+    formulae = [(prop.raw_formula if isinstance(prop, Property) else prop) for prop in properties]
+    if model.supports_parameters:
+        return core._transform_to_discrete_time_parametric_model(model, formulae)
+    else:
+        return core._transform_to_discrete_time_model(model, formulae)
 
 
 def prob01min_states(model, eventually_formula):
@@ -398,6 +413,7 @@ def compute_prob01max_states(model, phi_states, psi_states):
     else:
         return core._compute_prob01states_max_double(model, phi_states, psi_states)
 
+
 def topological_sort(model, forward=True, initial=[]):
     """
 
@@ -413,7 +429,8 @@ def topological_sort(model, forward=True, initial=[]):
     else:
         raise StormError("Unknown kind of model.")
 
-def construct_submodel(model, states, actions, keep_unreachable_states = True, options = SubsystemBuilderOptions()):
+
+def construct_submodel(model, states, actions, keep_unreachable_states=True, options=SubsystemBuilderOptions()):
     """
 
     :param model: The model

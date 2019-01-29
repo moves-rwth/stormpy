@@ -1,4 +1,5 @@
 #include "transformation.h"
+#include "storm/api/transformation.h"
 #include "storm/models/symbolic/StandardRewardModel.h"
 #include "storm/transformer/SubsystemBuilder.h"
 
@@ -8,10 +9,18 @@ storm::transformer::SubsystemBuilderReturnType<VT> constructSubsystem(storm::mod
     return storm::transformer::buildSubsystem(originalModel, subsystemStates, subsystemActions, keepUnreachableStates, options);
 }
 
+template<typename ValueType>
+std::pair<std::shared_ptr<storm::models::sparse::Model<ValueType>>, std::vector<std::shared_ptr<storm::logic::Formula const>>> transformContinuousToDiscreteTimeSparseModel(std::shared_ptr<storm::models::sparse::Model<ValueType>> const& model, std::vector<std::shared_ptr<storm::logic::Formula const>> const& formulas) {
+    return storm::api::transformContinuousToDiscreteTimeSparseModel(model, formulas);
+}
+
 void define_transformation(py::module& m) {
     // Transform model
     m.def("_transform_to_sparse_model", &storm::api::transformSymbolicToSparseModel<storm::dd::DdType::Sylvan, double>, "Transform symbolic model into sparse model", py::arg("model"), py::arg("formulae") = std::vector<std::shared_ptr<storm::logic::Formula const>>());
     m.def("_transform_to_sparse_parametric_model", &storm::api::transformSymbolicToSparseModel<storm::dd::DdType::Sylvan, storm::RationalFunction>, "Transform symbolic parametric model into sparse parametric model", py::arg("model"), py::arg("formulae") = std::vector<std::shared_ptr<storm::logic::Formula const>>());
+
+    m.def("_transform_to_discrete_time_model", &transformContinuousToDiscreteTimeSparseModel<double>, "Transform continuous time model to discrete time model", py::arg("model"), py::arg("formulae") = std::vector<std::shared_ptr<storm::logic::Formula const>>());
+    m.def("_transform_to_discrete_time_parametric_model", &transformContinuousToDiscreteTimeSparseModel<storm::RationalFunction>, "Transform continuous time model to discrete time model", py::arg("model"), py::arg("formulae") = std::vector<std::shared_ptr<storm::logic::Formula const>>());
 
     py::class_<storm::transformer::SubsystemBuilderReturnType<double>>(m, "SubsystemBuilderReturnTypeDouble", "Result of the construction of a subsystem")
             .def_readonly("model", &storm::transformer::SubsystemBuilderReturnType<double>::model, "the submodel")
