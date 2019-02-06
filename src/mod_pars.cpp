@@ -15,4 +15,5 @@ PYBIND11_MODULE(pars, m) {
     define_pars(m);
     define_pla(m);
     define_model_instantiator(m);
+    define_model_instantiation_checker(m);
 }
