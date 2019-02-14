@@ -28,8 +28,6 @@ brew update
 travis_fold end brew_update
 
 travis_fold start brew_install_util
-# For md5sum
-install_brew_package md5sha1sum
 # For `timeout'
 install_brew_package coreutils
 
