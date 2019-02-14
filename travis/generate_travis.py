@@ -26,6 +26,8 @@ python_versions = [
 
 
 if __name__ == "__main__":
+    allow_failures = []
+
     s = ""
     # Initial config
     s += "#\n"
@@ -65,13 +67,18 @@ if __name__ == "__main__":
         s += "    # {}\n".format(osx)
         for python in python_versions:
             buildConfig = ""
+            allow_fail = ""
             for build in build_types:
                 buildConfig += "    - os: osx\n"
+                allow_fail += "    - os: osx\n"
                 buildConfig += "      compiler: {}\n".format(config[1])
                 buildConfig += "      env: TASK=Test PYTHON={} CONFIG={} COMPILER={} STL=libc++\n".format(python, build, compiler)
+                allow_fail += "      env: TASK=Test PYTHON={} CONFIG={} COMPILER={} STL=libc++\n".format(python, build, compiler)
                 buildConfig += "      install: travis/install_osx.sh\n"
                 buildConfig += "      script: travis/build.sh\n"
             s += buildConfig
+        if "Parser" in build:
+            allow_failures.append(allow_fail)
 
     # Linux via Docker
     for config in configs_linux:
@@ -88,18 +95,19 @@ if __name__ == "__main__":
             s += buildConfig
 
     # Documentation
-    config = configs_mac[0]
-    osx = config[0]
+    config = configs_linux[0]
+    linux = config[0]
     compiler = "{}{}".format(config[1], config[2])
     s += "    # Documentation\n".format()
     python = python_versions[0]
     buildConfig = ""
     build = build_types[-1]
-    buildConfig += "    - os: osx\n"
+    buildConfig += "    - os: linux\n"
     buildConfig += "      compiler: {}\n".format(config[1])
     buildConfig += "      env: TASK=Documentation PYTHON={} CONFIG={} COMPILER={} STL=libc++\n".format(python, build, compiler)
-    buildConfig += "      install: travis/install_osx.sh\n"
     buildConfig += "      script: travis/build.sh\n"
+    buildConfig += "      before_deploy:\n"
+    buildConfig += "        docker cp pycarl:/opt/pycarl/. .\n"
     buildConfig += "      deploy:\n"
     buildConfig += "        provider: pages\n"
     buildConfig += "        skip_cleanup: true\n"
@@ -108,5 +116,11 @@ if __name__ == "__main__":
     buildConfig += "        on:\n"
     buildConfig += "          branch: master\n"
     s += buildConfig
+
+
+    if len(allow_failures) > 0:
+        s += "  allow_failures:\n"
+        for fail in allow_failures:
+            s += fail
 
     print(s)
