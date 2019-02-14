@@ -31,7 +31,7 @@ run() {
     make lib_carl carl-parser -j$N_JOBS
     # Build a second time to avoid problems in macOS
     cmake .
-    make
+    make lib_carl carl-parser -j$N_JOBS
   else
     # Build Carl without parser
     cmake .. "${CMAKE_ARGS[@]}" "-DUSE_CLN_NUMBERS=$BUILD_CARL_CLN" "-DUSE_GINAC=$BUILD_CARL_CLN"
