@@ -131,6 +131,15 @@ def convert_constraint(constraint):
     else:
         raise TypeError("Constraint of type {} cannot be convert to cln".format(type(constraint)))
 
+def convert_formula(formula):
+    if  isinstance(formula, pycarl.cln.formula.Formula):
+        return formula
+    elif isinstance(formula, pycarl.gmp.formula.Formula):
+        subformulae = [convert(subf) for subf in formula]
+        return pycarl.gmp.formula.Formula(formula.type, subformulae)
+    else:
+        raise TypeError("Formula of type {} cannot be convert to gmp".format(type(formula)))
+
 
 def convert(data):
     """
@@ -155,5 +164,7 @@ def convert(data):
         return convert_factorized_rational_function(data)
     elif isinstance(data, pycarl.cln.formula.Constraint) or isinstance(data, pycarl.gmp.formula.Constraint):
         return convert_constraint(data)
+    elif isinstance(data, pycarl.cln.formula.formula.Formula) or isinstance(data, pycarl.gmp.formula.Formula):
+        return convert_formula(data)
     else:
         raise TypeError("Unknown type {} for conversion to cln".format(type(data)))

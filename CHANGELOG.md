@@ -5,6 +5,9 @@ Changelog
 Version 2.0.x
 -------------
 
+### Version 2.0.4 (under development)
+- Extended conversion of number types to formulae
+
 ### Version 2.0.3 (2019/01)
 Requires carl with branch `master14` or a carl version between 17.12 and 18.08
 
