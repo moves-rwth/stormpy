@@ -46,10 +46,10 @@ travis_fold end brew_install_util
 
 # Install dependencies
 travis_fold start brew_install_dependencies
-install_brew_package gmp --c++11
+install_brew_package gmp
 install_brew_package cln
 install_brew_package ginac
-install_brew_package boost --c++11
+install_brew_package boost
 install_brew_package eigen
 install_brew_package python
 install_brew_package python3
