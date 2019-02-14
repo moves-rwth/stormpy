@@ -86,17 +86,17 @@ if __name__ == "__main__":
         s += "    # {}\n".format(osx)
         for python in python_versions:
             buildConfig = ""
-            allow_fail = ""
             for build in build_types:
+                allow_fail = ""
                 buildConfig += "    - os: osx\n"
                 allow_fail += "    - os: osx\n"
                 buildConfig += "      compiler: {}\n".format(config[1])
                 buildConfig += "      env: TASK=Test PYTHON={} CONFIG={} COMPILER={} STL=libc++\n".format(python, build, compiler)
                 allow_fail += "      env: TASK=Test PYTHON={} CONFIG={} COMPILER={} STL=libc++\n".format(python, build, compiler)
                 buildConfig += "      script: travis/build.sh\n"
+            if "Parser" in build:
+                allow_failures.append(allow_fail)
             s += buildConfig
-        if "Parser" in build:
-            allow_failures.append(allow_fail)
 
     # Linux via Docker
     for config in configs_linux:
@@ -122,7 +122,7 @@ if __name__ == "__main__":
     build = build_types[-1]
     buildConfig += "    - os: linux\n"
     buildConfig += "      compiler: {}\n".format(config[1])
-    buildConfig += "      env: TASK=Documentation PYTHON={} CONFIG={} COMPILER={} STL=libc++\n".format(python, build, compiler)
+    buildConfig += "      env: TASK=Documentation PYTHON={} CONFIG={} LINUX={} COMPILER={}\n".format(python, build, linux, compiler)
     buildConfig += "      script: travis/build.sh\n"
     buildConfig += "      before_deploy:\n"
     buildConfig += "        docker cp pycarl:/opt/pycarl/. .\n"
