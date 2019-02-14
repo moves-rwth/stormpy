@@ -30,6 +30,7 @@ void define_polynomial(py::module& m) {
         .def("__radd__", [](const Polynomial& lhs, Monomial::Arg rhs) -> Polynomial { return lhs + rhs; })
         .def(py::self + Term())
         .def(py::self + py::self)
+        .def("__add__", [](const Polynomial& lhs, const RationalFunction& rhs) -> RationalFunction { return rhs + lhs; })
 
         .def("__sub__", [](const Polynomial& lhs, const Integer& rhs) -> Polynomial { return lhs - Rational(rhs); })
         .def(py::self - Rational())
