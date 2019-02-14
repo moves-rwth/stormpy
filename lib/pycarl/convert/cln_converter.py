@@ -135,8 +135,15 @@ def convert_formula(formula):
     if  isinstance(formula, pycarl.cln.formula.Formula):
         return formula
     elif isinstance(formula, pycarl.gmp.formula.Formula):
-        subformulae = [convert(subf) for subf in formula]
-        return pycarl.gmp.formula.Formula(formula.type, subformulae)
+        if formula.type == pycarl.formula.FormulaType.TRUE:
+            return pycarl.cln.formula.Formula(pycarl.cln.formula.Constraint(True))
+        if formula.type == pycarl.formula.FormulaType.FALSE:
+            return pycarl.cln.formula.Formula(pycarl.cln.formula.Constraint(False))
+        if formula.type == pycarl.formula.FormulaType.CONSTRAINT:
+            return convert_constraint(formula.get_constraint())
+        if isinstance(formula, pycarl.gmp.formula.Formula):
+            csubformulae = [pycarl.cln.formula.Formula(convert(subf)) for subf in formula.get_subformulas()]
+            return pycarl.cln.formula.Formula(formula.type, csubformulae)
     else:
         raise TypeError("Formula of type {} cannot be convert to gmp".format(type(formula)))
 
