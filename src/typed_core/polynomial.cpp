@@ -63,7 +63,7 @@ void define_polynomial(py::module& m) {
         .def("__pos__", [](const Polynomial& var) {return Polynomial(var);})
         .def("__neg__", [](const Polynomial& var) {return var * Polynomial(-1);})
 
-        .def("constant_part", &Polynomial::constantPart)
+        .def("constant_part", [](const Polynomial& pol) -> Rational { return pol.constantPart(); })
         .def("evaluate", &Polynomial::evaluate<Rational>)
         .def("substitute", [](const Polynomial& orig, std::map<carl::Variable, Polynomial>& substitutions) {return orig.substitute(substitutions);})
         .def("gather_variables", static_cast<std::set<carl::Variable> (Polynomial::*)() const>(&Polynomial::gatherVariables))
