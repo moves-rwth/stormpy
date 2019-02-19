@@ -50,6 +50,33 @@ class TestParametric:
         values = result.get_values()
         assert len(values) == 3
 
+    def test_parameters(self):
+        program = stormpy.parse_prism_program(get_example_path("pdtmc", "brp16_2.pm"))
+        formulas = stormpy.parse_properties_for_prism_program("P=? [F s=5]", program)
+        model = stormpy.build_parametric_model(program, formulas)
+        model_parameters = model.collect_probability_parameters()
+        reward_parameters = model.collect_reward_parameters()
+        all_parameters = model.collect_all_parameters()
+        assert len(model_parameters) == 2
+        assert len(reward_parameters) == 0
+        assert len(all_parameters) == 2
+
+        program_reward = stormpy.parse_prism_program(get_example_path("pdtmc", "brp_rewards16_2.pm"))
+        formulas_reward = stormpy.parse_properties_for_prism_program("Rmin=? [ F \"target\" ]", program_reward)
+        model = stormpy.build_parametric_model(program_reward, formulas_reward)
+        model_parameters = model.collect_probability_parameters()
+        reward_parameters = model.collect_reward_parameters()
+        all_parameters = model.collect_all_parameters()
+        assert len(model_parameters) == 2
+        assert len(reward_parameters) == 2
+        assert len(all_parameters) == 4
+
+        model = stormpy.build_symbolic_parametric_model(program, formulas)
+        assert len(model.get_parameters()) == 4
+
+        model = stormpy.build_symbolic_parametric_model(program_reward, formulas_reward)
+        assert len(model.get_parameters()) == 4
+
     def test_constraints_collector(self):
         from pycarl.formula import FormulaType, Relation
         if stormpy.info.storm_ratfunc_use_cln():

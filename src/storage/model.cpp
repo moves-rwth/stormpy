@@ -67,6 +67,15 @@ std::set<storm::RationalFunctionVariable> rewardVariables(SparseModel<RationalFu
     return storm::models::sparse::getRewardParameters(model);
 }
 
+std::set<storm::RationalFunctionVariable> allVariables(SparseModel<RationalFunction> const& model) {
+    return storm::models::sparse::getAllParameters(model);
+}
+
+
+/*std::set<storm::RationalFunctionVariable> getParameters(SymbolicModel<RationalFunction> const& model) {
+    return model->getParameters();
+}*/
+
 template<typename ValueType>
 std::function<std::string (storm::models::Model<ValueType> const&)> getModelInfoPrinter(std::string name = "Model") {
     // look, C++ has lambdas and stuff!
@@ -231,6 +240,7 @@ void define_sparse_model(py::module& m) {
     py::class_<SparseModel<RationalFunction>, std::shared_ptr<SparseModel<RationalFunction>>, ModelBase> modelRatFunc(m, "_SparseParametricModel", "A probabilistic model where transitions are represented by rational functions and saved in a sparse matrix");
     modelRatFunc.def("collect_probability_parameters", &probabilityVariables, "Collect parameters")
         .def("collect_reward_parameters", &rewardVariables, "Collect reward parameters")
+        .def("collect_all_parameters", &allVariables, "Collect all parameters")
         .def_property_readonly("labeling", &getLabeling<RationalFunction>, "Labels")
         .def("labels_state", &SparseModel<RationalFunction>::getLabelsOfState, py::arg("state"), "Get labels of state")
         .def_property_readonly("initial_states", &getSparseInitialStates<RationalFunction>, "Initial states")
@@ -313,8 +323,7 @@ void define_symbolic_model(py::module& m, std::string vt_suffix) {
 
     // Parametric models
     py::class_<SymbolicModel<DdType, RationalFunction>, std::shared_ptr<SymbolicModel<DdType, RationalFunction>>, ModelBase> modelRatFunc(m, ("_"+prefixParametricClassName+"Model").c_str(), "A probabilistic model where transitions are represented by rational functions and saved in a symbolic representation");
-    modelRatFunc.def("collect_probability_parameters", &probabilityVariables, "Collect parameters")
-        .def("collect_reward_parameters", &rewardVariables, "Collect reward parameters")
+    modelRatFunc.def("get_parameters", &SymbolicModel<DdType, RationalFunction>::getParameters, "Get parameters")
         .def_property_readonly("reward_models", [](SymbolicModel<DdType, RationalFunction> const& model) {return model.getRewardModels(); }, "Reward models")
         .def("reduce_to_state_based_rewards", &SymbolicModel<DdType, RationalFunction>::reduceToStateBasedRewards)
         .def("__str__", getModelInfoPrinter<RationalFunction>("ParametricModel"))
