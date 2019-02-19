@@ -62,3 +62,18 @@ class TestFactorizedPolynomial(PackageSelector):
         p3 = package.Polynomial(package.Integer(2) * x)
         expected = package.create_factorized_polynomial(p3)
         assert derivation == expected
+
+    def test_constant(self, package):
+        pycarl.clear_pools()
+        var1 = pycarl.Variable("x")
+        var2 = pycarl.Variable("y")
+        pol = package.create_factorized_polynomial(package.Polynomial(var1 * var1 * var2) + package.Integer(2) * var2 + package.Integer(4))
+        assert pol.constant_part() == 4
+        pol = package.FactorizedPolynomial(package.Rational(-8/3))
+        assert pol.is_constant()
+        print(type(pol))
+        assert pol.constant_part() == package.Rational(-8/3)
+        pol = package.FactorizedPolynomial(1)
+        assert pol.is_constant()
+        print(type(pol))
+        assert pol.constant_part() == 1

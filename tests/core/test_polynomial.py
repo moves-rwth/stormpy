@@ -54,6 +54,21 @@ class TestPolynomial(PackageSelector):
         polOrig += package.Integer(2)
         assert res == package.RationalFunction(polOrig, package.Polynomial(3))
 
+    def test_constant(self, package):
+        pycarl.clear_pools()
+        var1 = pycarl.Variable("x")
+        var2 = pycarl.Variable("y")
+        pol = package.Polynomial(var1 * var1 * var2) + package.Integer(2) * var2 + package.Integer(4)
+        assert pol.constant_part() == 4
+        pol = package.Polynomial(package.Rational(-8/3))
+        assert pol.is_constant()
+        print(type(pol))
+        assert pol.constant_part() == package.Rational(-8/3)
+        pol = package.Polynomial(1)
+        assert pol.is_constant()
+        print(type(pol))
+        assert pol.constant_part() == 1
+
     def test_eq(self, package):
         pycarl.clear_pools()
         var = pycarl.Variable("x")
