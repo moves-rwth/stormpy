@@ -36,6 +36,8 @@ class TestExpressions:
         manager = stormpy.ExpressionManager()
         ep = stormpy.ExpressionParser(manager)
         ep.set_identifier_mapping(dict())
-        print(ep.parse("true"))
-        print(ep.parse("1.0"))
-        assert ep.parse("1.0").has_rational_type()
+        ex_true = ep.parse("true")
+        assert str(ex_true) == "true"
+        ex_one = ep.parse("1.0")
+        assert str(ex_one) == "1"
+        assert ex_one.has_rational_type()
