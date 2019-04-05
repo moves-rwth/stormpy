@@ -19,6 +19,8 @@ prism_pdtmc_die = _path("pdtmc", "parametric_die.pm")
 """Knuth Yao Die -- 2 unfair coins Example"""
 prism_dtmc_brp = _path("dtmc", "brp-16-2.pm")
 """Bounded Retransmission Protocol"""
+prism_ma_simple = _path("ma", "simple.ma")
+"""Prism file for a simple Markov automaton"""
 drn_ctmc_dft = _path("ctmc", "dft.drn")
 """DRN format for a CTMC from a DFT"""
 drn_pdtmc_die = _path("pdtmc", "die.drn")
