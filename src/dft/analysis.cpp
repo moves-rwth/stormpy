@@ -7,8 +7,10 @@
 
 // Thin wrapper for DFT analysis
 template<typename ValueType>
-std::vector<ValueType> analyzeDFT(storm::storage::DFT<ValueType> const& dft, std::vector<std::shared_ptr<storm::logic::Formula const>> const& properties, bool symred, bool allowModularisation, bool enableDC) {
-    typename storm::modelchecker::DFTModelChecker<ValueType>::dft_results dftResults = storm::api::analyzeDFT(dft, properties, symred, allowModularisation, enableDC, false);
+//std::vector<ValueType> analyzeDFT(storm::storage::DFT<ValueType> const& dft, std::vector<std::shared_ptr<storm::logic::Formula const>> const& properties, bool symred, bool allowModularisation, std::set<size_t> const& relevantEvents = {}, double approximationError = 0.0, storm::builder::ApproximationHeuristic approximationHeuristic = storm::builder::ApproximationHeuristic::DEPTH) {
+std::vector<ValueType> analyzeDFT(storm::storage::DFT<ValueType> const& dft, std::vector<std::shared_ptr<storm::logic::Formula const>> const& properties, bool symred, bool allowModularisation, std::set<size_t> const& relevantEvents) {
+    typename storm::modelchecker::DFTModelChecker<ValueType>::dft_results dftResults = storm::api::analyzeDFT(dft, properties, symred, allowModularisation, relevantEvents, 0.0, storm::builder::ApproximationHeuristic::DEPTH, false);
+
     std::vector<ValueType> results;
     for (auto result : dftResults) {
         results.push_back(boost::get<ValueType>(result));
@@ -20,6 +22,6 @@ std::vector<ValueType> analyzeDFT(storm::storage::DFT<ValueType> const& dft, std
 // Define python bindings
 void define_analysis(py::module& m) {
 
-    m.def("analyze_dft", &analyzeDFT<double>, "Analyze the DFT", py::arg("dft"), py::arg("properties"), py::arg("symred")=true, py::arg("allow_modularisation")=false, py::arg("enable_dont_care")=true);
+    m.def("analyze_dft", &analyzeDFT<double>, "Analyze the DFT", py::arg("dft"), py::arg("properties"), py::arg("symred")=true, py::arg("allow_modularisation")=false, py::arg("relevant_events")=std::set<size_t>());
 
 }
