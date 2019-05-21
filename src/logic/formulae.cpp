@@ -1,5 +1,8 @@
 #include "formulae.h"
 #include "storm/logic/Formulas.h"
+#include "storm/logic/CloneVisitor.h"
+#include "storm/logic/LabelSubstitutionVisitor.h"
+
 
 
 void define_formulae(py::module& m) {
@@ -13,7 +16,13 @@ void define_formulae(py::module& m) {
 
     py::class_<storm::logic::Formula, std::shared_ptr<storm::logic::Formula>> formula(m, "Formula", "Generic Storm Formula");
     formula.def("__str__", &storm::logic::Formula::toString)
-    ;
+        .def("clone", [](storm::logic::Formula const& f) { storm::logic::CloneVisitor cv; return cv.clone(f);})
+        .def("substitute", [](storm::logic::Formula const& f, std::map<storm::expressions::Variable, storm::expressions::Expression> const& map) { return f.substitute(map); }, "Substitute variables", py::arg("constants_map"))
+        .def("substitute_labels_by_labels", [](storm::logic::Formula const& f, std::map<std::string, std::string> const& labelSubs) {storm::logic::LabelSubstitutionVisitor lsv(labelSubs); return lsv.substitute(f);}, "substitute label occurences", py::arg("replacements"))
+        .def_property_readonly("is_probability_operator", &storm::logic::Formula::isProbabilityOperatorFormula, "is it a probability operator")
+        .def_property_readonly("is_reward_operator", &storm::logic::Formula::isRewardOperatorFormula, "is it a reward operator")
+
+            ;
 
     // Path Formulae
     py::class_<storm::logic::PathFormula, std::shared_ptr<storm::logic::PathFormula>> pathFormula(m, "PathFormula", "Formula about the probability of a set of paths in an automaton", formula);
@@ -49,22 +58,38 @@ void define_formulae(py::module& m) {
     operatorFormula.def_property_readonly("has_bound", &storm::logic::OperatorFormula::hasBound, "Flag if formula is bounded")
         .def_property("comparison_type", &storm::logic::OperatorFormula::getComparisonType, &storm::logic::OperatorFormula::setComparisonType, "Comparison type of bound")
         .def_property_readonly("threshold", [](storm::logic::OperatorFormula const& f) {
-            if (!f.getThreshold().hasRationalType()) {
-                throw std::runtime_error("Can't get non-rational threshold (not implemented)");
-            } else {
+            if (f.getThreshold().containsVariables()) {
+                throw std::runtime_error("To obtain the threshold as an expression, use threshold_expr");
+            }
+            if (f.getThreshold().hasRationalType()) {
                 return f.getThresholdAs<storm::RationalNumber>();
+            } else if (f.getThreshold().hasIntegerType()) {
+                return storm::utility::convertNumber<storm::RationalNumber>(f.getThreshold().evaluateAsInt());
+            } else {
+                throw std::runtime_error("Can't get non-rational threshold (not implemented)");
             }
         }, "Threshold of bound (currently only applicable to rational expressions)")
+        .def_property_readonly("threshold_expr", [](storm::logic::OperatorFormula const& f) {
+            return f.getThreshold();
+        })
         .def("set_bound", [](storm::logic::OperatorFormula& f, storm::logic::ComparisonType comparisonType, storm::expressions::Expression const& bound) {
             f.setBound(storm::logic::Bound(comparisonType, bound));
         }, "Set bound", py::arg("comparison_type"), py::arg("bound"))
+        .def("remove_bound", &storm::logic::OperatorFormula::removeBound)
         .def_property_readonly("has_optimality_type",  &storm::logic::OperatorFormula::hasOptimalityType, "Flag if an optimality type is present")
         .def_property_readonly("optimality_type", &storm::logic::OperatorFormula::getOptimalityType, "Flag for the optimality type")
-    ;
+        .def("set_optimality_type", &storm::logic::OperatorFormula::setOptimalityType, "set the optimality type (use remove optimiality type for clearing)", "new_optimality_type"_a)
+        .def("remove_optimality_type", &storm::logic::OperatorFormula::removeOptimalityType, "remove the optimality type")
+
+            ;
     py::class_<storm::logic::TimeOperatorFormula, std::shared_ptr<storm::logic::TimeOperatorFormula>>(m, "TimeOperator", "The time operator", operatorFormula);
     py::class_<storm::logic::LongRunAverageOperatorFormula, std::shared_ptr<storm::logic::LongRunAverageOperatorFormula>>(m, "LongRunAvarageOperator", "Long run average operator", operatorFormula);
-    py::class_<storm::logic::ProbabilityOperatorFormula, std::shared_ptr<storm::logic::ProbabilityOperatorFormula>>(m, "ProbabilityOperator", "Probability operator", operatorFormula);
-    py::class_<storm::logic::RewardOperatorFormula, std::shared_ptr<storm::logic::RewardOperatorFormula>>(m, "RewardOperator", "Reward operator", operatorFormula);
+    py::class_<storm::logic::ProbabilityOperatorFormula, std::shared_ptr<storm::logic::ProbabilityOperatorFormula>>(m, "ProbabilityOperator", "Probability operator", operatorFormula)
+            .def(py::init<std::shared_ptr<storm::logic::Formula>>(), "construct probability operator formula", py::arg("subformula"))
+    ;
+    py::class_<storm::logic::RewardOperatorFormula, std::shared_ptr<storm::logic::RewardOperatorFormula>>(m, "RewardOperator", "Reward operator", operatorFormula)
+            .def("has_reward_name", &storm::logic::RewardOperatorFormula::hasRewardModelName)
+            .def_property_readonly("reward_name", &storm::logic::RewardOperatorFormula::getRewardModelName);
     py::class_<storm::logic::BinaryStateFormula, std::shared_ptr<storm::logic::BinaryStateFormula>> binaryStateFormula(m, "BinaryStateFormula", "State formula with two operands", stateFormula);
     py::class_<storm::logic::BinaryBooleanStateFormula, std::shared_ptr<storm::logic::BinaryBooleanStateFormula>>(m, "BooleanBinaryStateFormula", "Boolean binary state formula", binaryStateFormula);
 }

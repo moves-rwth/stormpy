@@ -1,6 +1,8 @@
 #include "matrix.h"
 #include "storm/storage/SparseMatrix.h"
 #include "storm/storage/BitVector.h"
+
+#include "storm/utility/graph.h"
 #include "src/helpers.h"
 
 template<typename ValueType> using SparseMatrix = storm::storage::SparseMatrix<ValueType>;
@@ -80,6 +82,10 @@ void define_sparse_matrix(py::module& m) {
                 return matrix.getRows(start, stop);
             }, py::return_value_policy::reference, py::keep_alive<1, 0>())
     ;
+
+    m.def("_topological_sort_double", [](SparseMatrix<double>& matrix, std::vector<uint64_t> initial) { return storm::utility::graph::getTopologicalSort(matrix, initial); }, "matrix"_a, "initial"_a,  "get topological sort w.r.t. a transition matrix");
+    m.def("_topological_sort_rf", [](SparseMatrix<storm::RationalFunction>& matrix, std::vector<uint64_t> initial) { return storm::utility::graph::getTopologicalSort(matrix, initial); }, "matrix"_a, "initial"_a,  "get topological sort w.r.t. a transition matrix");
+
 
     py::class_<SparseMatrix<RationalFunction>>(m, "ParametricSparseMatrix", "Parametric sparse matrix")
         .def("__iter__", [](SparseMatrix<RationalFunction>& matrix) {

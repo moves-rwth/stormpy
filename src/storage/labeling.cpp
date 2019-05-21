@@ -3,6 +3,7 @@
 
 #include "storm/models/sparse/ItemLabeling.h"
 #include "storm/models/sparse/StateLabeling.h"
+#include "storm/models/sparse/ChoiceLabeling.h"
 
 // Define python bindings
 void define_labeling(py::module& m) {
@@ -30,4 +31,6 @@ void define_labeling(py::module& m) {
         .def("__str__", &streamToString<storm::models::sparse::StateLabeling>)
     ;
 
+
+    py::class_<storm::models::sparse::ChoiceLabeling>(m, "ChoiceLabeling", "Labeling for choices", labeling);
 }

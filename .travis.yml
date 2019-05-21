@@ -25,28 +25,34 @@ notifications:
 #
 jobs:
   include:
-    # docker storm:latest
+    # Docker Storm master
     - os: linux
       compiler: gcc
       env: TASK=Test CONFIG=Release DOCKER=storm:travis PYTHON=python3
-      install:
-        travis/install_linux.sh
       script:
         travis/build.sh
-    # docker storm-debug:latest
+    # Docker Storm master in debug mode
     - os: linux
       compiler: gcc
       env: TASK=Test CONFIG=Debug DOCKER=storm:travis-debug PYTHON=python3
-      install:
-        travis/install_linux.sh
+      script:
+        travis/build.sh
+    # Docker Storm stable
+    - os: linux
+      compiler: gcc
+      env: TASK=Test CONFIG=Release DOCKER=storm:1.3.0 PYTHON=python3
+      script:
+        travis/build.sh
+    # Docker Storm stable in debug mode
+    - os: linux
+      compiler: gcc
+      env: TASK=Test CONFIG=Debug DOCKER=storm:1.3.0-debug PYTHON=python3
       script:
         travis/build.sh
     # Documentation
     - os: linux
       compiler: gcc
       env: TASK=Documentation CONFIG=Release DOCKER=storm:travis PYTHON=python3
-      install:
-        travis/install_linux.sh
       script:
         travis/build.sh
       before_deploy:
@@ -59,3 +65,9 @@ jobs:
         on:
           branch: master
 
+  # Allow failures of stable versions as new features might have been added
+  allow_failures:
+    - os: linux
+      env: TASK=Test CONFIG=Release DOCKER=storm:1.3.0 PYTHON=python3
+    - os: linux
+      env: TASK=Test CONFIG=Debug DOCKER=storm:1.3.0-debug PYTHON=python3

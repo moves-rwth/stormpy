@@ -8,6 +8,11 @@ This guide is a collection of examples meant to bridge the gap between the getti
     :maxdepth: 2
     :caption: Contents:
 
-    building_models
-    reward_models
-    shortest_paths
+    doc/building_models
+    doc/engines
+    doc/exploration
+    doc/reward_models
+    doc/schedulers
+    doc/shortest_paths
+    doc/parametric_models
+    doc/dfts

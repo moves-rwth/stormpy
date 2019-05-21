@@ -11,15 +11,17 @@ This guide is intended for people which have a basic understanding of probabilis
 `Storm website <http://www.stormchecker.org/>`_.
 While we assume some very basic programming concepts, we refrain from using more advanced concepts of python throughout the guide.
 
-We start with a selection of high-level constructs in stormpy, and go into more details afterwards. More in-depth examples can be found in the :doc:`advanced_examples`.
+We start with a selection of high-level constructs in stormpy, and go into more details afterwards. More in-depth examples can be found in the :doc:`advanced_topics`.
 
 .. seealso:: The code examples are also given in the `examples/ <https://github.com/moves-rwth/stormpy/blob/master/examples/>`_ folder. These boxes throughout the text will tell you which example contains the code discussed.
 
-In order to do this, we import stormpy::
+We start by launching the python 3 interpreter::
+
+	$ python3
+
+First we import stormpy::
 
     >>>	import stormpy
-    >>>	import stormpy.core
-	
 	
 Building models 
 ------------------------------------------------
@@ -39,7 +41,7 @@ With this, we can now import the path of our prism file::
 	>>> path = stormpy.examples.files.prism_dtmc_die
 	>>> prism_program = stormpy.parse_prism_program(path)
 	
-The `prism_program` can be translated into Markov chains::
+The ``prism_program`` can be translated into a Markov chain::
 
     >>> model = stormpy.build_model(prism_program)
     >>> print("Number of states: {}".format(model.nr_states))
@@ -54,15 +56,16 @@ Moreover, initial states and deadlocks are indicated with a labelling function. 
     >>> print("Labels: {}".format(model.labeling.get_labels()))
     Labels: ...
 	
-We will investigate ways to examine the model in more detail in :ref:`getting-started-investigating-the-model`.
+We will investigate ways to examine the model in more detail later in :ref:`getting-started-investigating-the-model`.
 
+.. _getting-started-building-properties:
 
 Building properties
 --------------------------
 .. seealso:: `02-getting-started.py <https://github.com/moves-rwth/stormpy/blob/master/examples/02-getting-started.py>`_
 
 Storm takes properties in the prism-property format. 
-To express that one is interested in the reachability of any state where the prism program variable s is 2, one would formulate::
+To express that one is interested in the reachability of any state where the prism program variable ``s`` is 2, one would formulate::
 
 	P=? [F s=2]
 
@@ -73,7 +76,7 @@ Stormpy can be used to parse this. As the variables in the property refer to a p
 
 Notice that properties is now a list of properties containing a single element. 
 
-However, if we build the model as before, then the appropriate information that the variable s=2 in some states is not present.
+However, if we build the model as before, then the appropriate information that the variable ``s=2`` in some states is not present.
 In order to label the states accordingly, we should notify Storm upon building the model that we would like to preserve given properties. 
 Storm will then add the labels accordingly::
 
@@ -82,7 +85,7 @@ Storm will then add the labels accordingly::
     Labels in the model: ['(s = 2)', 'deadlock', 'init']
 
 Model building however now behaves slightly different: Only the properties passed are preserved, which means that model building might skip parts of the model.
-In particular, to check the probability of eventually reaching a state x where s=2, successor states of x are not relevant::
+In particular, to check the probability of eventually reaching a state ``x`` where ``s=2``, successor states of ``x`` are not relevant::
 
     >>> print("Number of states: {}".format(model.nr_states))
     Number of states: 8
@@ -91,7 +94,7 @@ If we consider another property, however, such as::
 
 	P=? [F s=7 & d=2]
 
-then Storm is only skipping exploration of successors of the particular state y where s=7 and d=2. In this model, state y has a self-loop, so effectively, the whole model is explored.
+then Storm is only skipping exploration of successors of the particular state ``y`` where ``s=7`` and ``d=2``. In this model, state ``y`` has a self-loop, so effectively, the whole model is explored.
 
 .. _getting-started-checking-properties:
 
@@ -124,58 +127,11 @@ A good way to get the result for the initial states is as follows::
     >>> print(result.at(initial_state))
     0.5
 
-Instantiating parametric models
-------------------------------------
-.. seealso:: `04-getting-started.py <https://github.com/moves-rwth/stormpy/blob/master/examples/04-getting-started.py>`_
-
-Input formats such as prism allow to specify programs with open constants. We refer to these open constants as parameters.
-If the constants only influence the probabilities or rates, but not the topology of the underlying model, we can build these models as parametric models::
-
-    >>> model = stormpy.build_parametric_model(prism_program, properties)
-    >>> parameters = model.collect_probability_parameters()
-    >>> for x in parameters:
-    ...     print(x)
-
-In order to obtain a standard DTMC, MDP or other Markov model, we need to instantiate these models by means of a model instantiator::
-
-    >>> import stormpy.pars
-    >>> instantiator = stormpy.pars.PDtmcInstantiator(model)
-
-Before we obtain an instantiated model, we need to map parameters to values: We build such a dictionary as follows::
-
-    >>> point = dict()
-    >>> for x in parameters:
-    ...    print(x.name)
-    ...    point[x] = 0.4
-    >>> instantiated_model = instantiator.instantiate(point)
-    >>> result = stormpy.model_checking(instantiated_model, properties[0])
-
-Initial states and labels are set as for the parameter-free case.
-
-
-Checking parametric models
-------------------------------------
-.. seealso:: `05-getting-started.py <https://github.com/moves-rwth/stormpy/blob/master/examples/05-getting-started.py>`_
-
-It is also possible to check the parametric model directly, similar as before in :ref:`getting-started-checking-properties`::
-
-    >>> result = stormpy.model_checking(model, properties[0])
-    >>> initial_state = model.initial_states[0]
-    >>> func = result.at(initial_state)
-
-We collect the constraints ensuring that underlying model is well-formed and the graph structure does not change.
-
-    >>> collector = stormpy.ConstraintCollector(model)
-    >>> for formula in collector.wellformed_constraints:
-    ...     print(formula)
-    >>> for formula in collector.graph_preserving_constraints:
-    ...     print(formula)
-
 .. _getting-started-investigating-the-model:
 
 Investigating the model
 -------------------------------------
-.. seealso:: `06-getting-started.py <https://github.com/moves-rwth/stormpy/blob/master/examples/06-getting-started.py>`_
+.. seealso:: `04-getting-started.py <https://github.com/moves-rwth/stormpy/blob/master/examples/04-getting-started.py>`_
 
 One powerful part of the Storm model checker is to quickly create the Markov chain from higher-order descriptions, as seen above::
 
@@ -224,7 +180,7 @@ Thus::
     ...    assert len(state.actions) <= 1
 
 
-We can also check if a state is indeed an initial state. Notice that model.initial_states contains state ids, not states.::
+We can also check if a state is indeed an initial state. Notice that ``model.initial_states`` contains state ids, not states.::
 
     >>> for state in model.states:
     ...     if state.id in model.initial_states:

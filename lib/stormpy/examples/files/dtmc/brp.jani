@@ -1,2033 +1,1401 @@
-
 {
-    "jani-version":1,
-    "name":"brp",
-    "type":"dtmc",
-    "features":[
+    "actions": [
+        {
+            "name": "NewFile"
+        },
+        {
+            "name": "SyncWait"
+        },
+        {
+            "name": "TO_Ack"
+        },
+        {
+            "name": "TO_Msg"
+        },
+        {
+            "name": "aA"
+        },
+        {
+            "name": "aB"
+        },
+        {
+            "name": "aF"
+        },
+        {
+            "name": "aG"
+        }
+    ],
+    "automata": [
+        {
+            "edges": [
+                {
+                    "destinations": [
+                        {
+                            "assignments": [
+                                {
+                                    "ref": "s",
+                                    "value": 5
+                                },
+                                {
+                                    "ref": "srep",
+                                    "value": 1
+                                }
+                            ],
+                            "location": "l"
+                        }
+                    ],
+                    "guard": {
+                        "comment": "(((s = 3) & (nrtr = MAX)) & (i < N))",
+                        "exp": {
+                            "left": {
+                                "left": {
+                                    "left": "s",
+                                    "op": "=",
+                                    "right": 3
+                                },
+                                "op": "∧",
+                                "right": {
+                                    "left": "nrtr",
+                                    "op": "=",
+                                    "right": "MAX"
+                                }
+                            },
+                            "op": "∧",
+                            "right": {
+                                "left": "i",
+                                "op": "<",
+                                "right": "N"
+                            }
+                        }
+                    },
+                    "location": "l"
+                },
+                {
+                    "destinations": [
+                        {
+                            "assignments": [
+                                {
+                                    "ref": "s",
+                                    "value": 5
+                                },
+                                {
+                                    "ref": "srep",
+                                    "value": 2
+                                }
+                            ],
+                            "location": "l"
+                        }
+                    ],
+                    "guard": {
+                        "comment": "(((s = 3) & (nrtr = MAX)) & (i = N))",
+                        "exp": {
+                            "left": {
+                                "left": {
+                                    "left": "s",
+                                    "op": "=",
+                                    "right": 3
+                                },
+                                "op": "∧",
+                                "right": {
+                                    "left": "nrtr",
+                                    "op": "=",
+                                    "right": "MAX"
+                                }
+                            },
+                            "op": "∧",
+                            "right": {
+                                "left": "i",
+                                "op": "=",
+                                "right": "N"
+                            }
+                        }
+                    },
+                    "location": "l"
+                },
+                {
+                    "destinations": [
+                        {
+                            "assignments": [
+                                {
+                                    "ref": "s",
+                                    "value": 1
+                                },
+                                {
+                                    "ref": "i",
+                                    "value": {
+                                        "left": "i",
+                                        "op": "+",
+                                        "right": 1
+                                    }
+                                }
+                            ],
+                            "location": "l"
+                        }
+                    ],
+                    "guard": {
+                        "comment": "((s = 4) & (i < N))",
+                        "exp": {
+                            "left": {
+                                "left": "s",
+                                "op": "=",
+                                "right": 4
+                            },
+                            "op": "∧",
+                            "right": {
+                                "left": "i",
+                                "op": "<",
+                                "right": "N"
+                            }
+                        }
+                    },
+                    "location": "l"
+                },
+                {
+                    "destinations": [
+                        {
+                            "assignments": [
+                                {
+                                    "ref": "s",
+                                    "value": 0
+                                },
+                                {
+                                    "ref": "srep",
+                                    "value": 3
+                                }
+                            ],
+                            "location": "l"
+                        }
+                    ],
+                    "guard": {
+                        "comment": "((s = 4) & (i = N))",
+                        "exp": {
+                            "left": {
+                                "left": "s",
+                                "op": "=",
+                                "right": 4
+                            },
+                            "op": "∧",
+                            "right": {
+                                "left": "i",
+                                "op": "=",
+                                "right": "N"
+                            }
+                        }
+                    },
+                    "location": "l"
+                },
+                {
+                    "action": "NewFile",
+                    "destinations": [
+                        {
+                            "assignments": [
+                                {
+                                    "ref": "s",
+                                    "value": 1
+                                },
+                                {
+                                    "ref": "srep",
+                                    "value": 0
+                                },
+                                {
+                                    "ref": "i",
+                                    "value": 1
+                                }
+                            ],
+                            "location": "l"
+                        }
+                    ],
+                    "guard": {
+                        "comment": "(s = 0)",
+                        "exp": {
+                            "left": "s",
+                            "op": "=",
+                            "right": 0
+                        }
+                    },
+                    "location": "l"
+                },
+                {
+                    "action": "SyncWait",
+                    "destinations": [
+                        {
+                            "assignments": [
+                                {
+                                    "ref": "s",
+                                    "value": 6
+                                }
+                            ],
+                            "location": "l"
+                        }
+                    ],
+                    "guard": {
+                        "comment": "(s = 5)",
+                        "exp": {
+                            "left": "s",
+                            "op": "=",
+                            "right": 5
+                        }
+                    },
+                    "location": "l"
+                },
+                {
+                    "action": "SyncWait",
+                    "destinations": [
+                        {
+                            "assignments": [
+                                {
+                                    "ref": "s_ab",
+                                    "value": false
+                                },
+                                {
+                                    "ref": "s",
+                                    "value": 0
+                                }
+                            ],
+                            "location": "l"
+                        }
+                    ],
+                    "guard": {
+                        "comment": "(s = 6)",
+                        "exp": {
+                            "left": "s",
+                            "op": "=",
+                            "right": 6
+                        }
+                    },
+                    "location": "l"
+                },
+                {
+                    "action": "TO_Ack",
+                    "destinations": [
+                        {
+                            "assignments": [
+                                {
+                                    "ref": "s",
+                                    "value": 3
+                                }
+                            ],
+                            "location": "l"
+                        }
+                    ],
+                    "guard": {
+                        "comment": "(s = 2)",
+                        "exp": {
+                            "left": "s",
+                            "op": "=",
+                            "right": 2
+                        }
+                    },
+                    "location": "l"
+                },
+                {
+                    "action": "TO_Msg",
+                    "destinations": [
+                        {
+                            "assignments": [
+                                {
+                                    "ref": "s",
+                                    "value": 3
+                                }
+                            ],
+                            "location": "l"
+                        }
+                    ],
+                    "guard": {
+                        "comment": "(s = 2)",
+                        "exp": {
+                            "left": "s",
+                            "op": "=",
+                            "right": 2
+                        }
+                    },
+                    "location": "l"
+                },
+                {
+                    "action": "aB",
+                    "destinations": [
+                        {
+                            "assignments": [
+                                {
+                                    "ref": "s_ab",
+                                    "value": {
+                                        "exp": "s_ab",
+                                        "op": "¬"
+                                    }
+                                },
+                                {
+                                    "ref": "s",
+                                    "value": 4
+                                }
+                            ],
+                            "location": "l"
+                        }
+                    ],
+                    "guard": {
+                        "comment": "(s = 2)",
+                        "exp": {
+                            "left": "s",
+                            "op": "=",
+                            "right": 2
+                        }
+                    },
+                    "location": "l"
+                },
+                {
+                    "action": "aF",
+                    "destinations": [
+                        {
+                            "assignments": [
+                                {
+                                    "ref": "bs",
+                                    "value": "s_ab"
+                                },
+                                {
+                                    "ref": "fs",
+                                    "value": {
+                                        "left": "i",
+                                        "op": "=",
+                                        "right": 1
+                                    }
+                                },
+                                {
+                                    "ref": "ls",
+                                    "value": {
+                                        "left": "i",
+                                        "op": "=",
+                                        "right": "N"
+                                    }
+                                },
+                                {
+                                    "ref": "s",
+                                    "value": 2
+                                },
+                                {
+                                    "ref": "nrtr",
+                                    "value": 0
+                                }
+                            ],
+                            "location": "l"
+                        }
+                    ],
+                    "guard": {
+                        "comment": "(s = 1)",
+                        "exp": {
+                            "left": "s",
+                            "op": "=",
+                            "right": 1
+                        }
+                    },
+                    "location": "l"
+                },
+                {
+                    "action": "aF",
+                    "destinations": [
+                        {
+                            "assignments": [
+                                {
+                                    "ref": "bs",
+                                    "value": "s_ab"
+                                },
+                                {
+                                    "ref": "fs",
+                                    "value": {
+                                        "left": "i",
+                                        "op": "=",
+                                        "right": 1
+                                    }
+                                },
+                                {
+                                    "ref": "ls",
+                                    "value": {
+                                        "left": "i",
+                                        "op": "=",
+                                        "right": "N"
+                                    }
+                                },
+                                {
+                                    "ref": "s",
+                                    "value": 2
+                                },
+                                {
+                                    "ref": "nrtr",
+                                    "value": {
+                                        "left": "nrtr",
+                                        "op": "+",
+                                        "right": 1
+                                    }
+                                }
+                            ],
+                            "location": "l"
+                        }
+                    ],
+                    "guard": {
+                        "comment": "((s = 3) & (nrtr < MAX))",
+                        "exp": {
+                            "left": {
+                                "left": "s",
+                                "op": "=",
+                                "right": 3
+                            },
+                            "op": "∧",
+                            "right": {
+                                "left": "nrtr",
+                                "op": "<",
+                                "right": "MAX"
+                            }
+                        }
+                    },
+                    "location": "l"
+                }
+            ],
+            "initial-locations": [
+                "l"
+            ],
+            "locations": [
+                {
+                    "name": "l"
+                }
+            ],
+            "name": "sender",
+            "variables": []
+        },
+        {
+            "edges": [
+                {
+                    "destinations": [
+                        {
+                            "assignments": [
+                                {
+                                    "ref": "r_ab",
+                                    "value": "br"
+                                },
+                                {
+                                    "ref": "r",
+                                    "value": 2
+                                }
+                            ],
+                            "location": "l"
+                        }
+                    ],
+                    "guard": {
+                        "comment": "(r = 1)",
+                        "exp": {
+                            "left": "r",
+                            "op": "=",
+                            "right": 1
+                        }
+                    },
+                    "location": "l"
+                },
+                {
+                    "destinations": [
+                        {
+                            "assignments": [
+                                {
+                                    "ref": "r",
+                                    "value": 3
+                                },
+                                {
+                                    "ref": "rrep",
+                                    "value": 1
+                                }
+                            ],
+                            "location": "l"
+                        }
+                    ],
+                    "guard": {
+                        "comment": "((((r = 2) & (r_ab = br)) & (fr = true)) & (lr = false))",
+                        "exp": {
+                            "left": {
+                                "left": {
+                                    "left": {
+                                        "left": "r",
+                                        "op": "=",
+                                        "right": 2
+                                    },
+                                    "op": "∧",
+                                    "right": {
+                                        "left": "r_ab",
+                                        "op": "=",
+                                        "right": "br"
+                                    }
+                                },
+                                "op": "∧",
+                                "right": {
+                                    "left": "fr",
+                                    "op": "=",
+                                    "right": true
+                                }
+                            },
+                            "op": "∧",
+                            "right": {
+                                "left": "lr",
+                                "op": "=",
+                                "right": false
+                            }
+                        }
+                    },
+                    "location": "l"
+                },
+                {
+                    "destinations": [
+                        {
+                            "assignments": [
+                                {
+                                    "ref": "r",
+                                    "value": 3
+                                },
+                                {
+                                    "ref": "rrep",
+                                    "value": 2
+                                }
+                            ],
+                            "location": "l"
+                        }
+                    ],
+                    "guard": {
+                        "comment": "((((r = 2) & (r_ab = br)) & (fr = false)) & (lr = false))",
+                        "exp": {
+                            "left": {
+                                "left": {
+                                    "left": {
+                                        "left": "r",
+                                        "op": "=",
+                                        "right": 2
+                                    },
+                                    "op": "∧",
+                                    "right": {
+                                        "left": "r_ab",
+                                        "op": "=",
+                                        "right": "br"
+                                    }
+                                },
+                                "op": "∧",
+                                "right": {
+                                    "left": "fr",
+                                    "op": "=",
+                                    "right": false
+                                }
+                            },
+                            "op": "∧",
+                            "right": {
+                                "left": "lr",
+                                "op": "=",
+                                "right": false
+                            }
+                        }
+                    },
+                    "location": "l"
+                },
+                {
+                    "destinations": [
+                        {
+                            "assignments": [
+                                {
+                                    "ref": "r",
+                                    "value": 3
+                                },
+                                {
+                                    "ref": "rrep",
+                                    "value": 3
+                                }
+                            ],
+                            "location": "l"
+                        }
+                    ],
+                    "guard": {
+                        "comment": "((((r = 2) & (r_ab = br)) & (fr = false)) & (lr = true))",
+                        "exp": {
+                            "left": {
+                                "left": {
+                                    "left": {
+                                        "left": "r",
+                                        "op": "=",
+                                        "right": 2
+                                    },
+                                    "op": "∧",
+                                    "right": {
+                                        "left": "r_ab",
+                                        "op": "=",
+                                        "right": "br"
+                                    }
+                                },
+                                "op": "∧",
+                                "right": {
+                                    "left": "fr",
+                                    "op": "=",
+                                    "right": false
+                                }
+                            },
+                            "op": "∧",
+                            "right": {
+                                "left": "lr",
+                                "op": "=",
+                                "right": true
+                            }
+                        }
+                    },
+                    "location": "l"
+                },
+                {
+                    "action": "SyncWait",
+                    "destinations": [
+                        {
+                            "assignments": [
+                                {
+                                    "ref": "r",
+                                    "value": 0
+                                }
+                            ],
+                            "location": "l"
+                        }
+                    ],
+                    "guard": {
+                        "comment": "(r = 0)",
+                        "exp": {
+                            "left": "r",
+                            "op": "=",
+                            "right": 0
+                        }
+                    },
+                    "location": "l"
+                },
+                {
+                    "action": "SyncWait",
+                    "destinations": [
+                        {
+                            "assignments": [
+                                {
+                                    "ref": "r",
+                                    "value": 5
+                                }
+                            ],
+                            "location": "l"
+                        }
+                    ],
+                    "guard": {
+                        "comment": "((r = 4) & (ls = true))",
+                        "exp": {
+                            "left": {
+                                "left": "r",
+                                "op": "=",
+                                "right": 4
+                            },
+                            "op": "∧",
+                            "right": {
+                                "left": "ls",
+                                "op": "=",
+                                "right": true
+                            }
+                        }
+                    },
+                    "location": "l"
+                },
+                {
+                    "action": "SyncWait",
+                    "destinations": [
+                        {
+                            "assignments": [
+                                {
+                                    "ref": "r",
+                                    "value": 5
+                                },
+                                {
+                                    "ref": "rrep",
+                                    "value": 4
+                                }
+                            ],
+                            "location": "l"
+                        }
+                    ],
+                    "guard": {
+                        "comment": "((r = 4) & (ls = false))",
+                        "exp": {
+                            "left": {
+                                "left": "r",
+                                "op": "=",
+                                "right": 4
+                            },
+                            "op": "∧",
+                            "right": {
+                                "left": "ls",
+                                "op": "=",
+                                "right": false
+                            }
+                        }
+                    },
+                    "location": "l"
+                },
+                {
+                    "action": "SyncWait",
+                    "destinations": [
+                        {
+                            "assignments": [
+                                {
+                                    "ref": "r",
+                                    "value": 0
+                                },
+                                {
+                                    "ref": "rrep",
+                                    "value": 0
+                                }
+                            ],
+                            "location": "l"
+                        }
+                    ],
+                    "guard": {
+                        "comment": "(r = 5)",
+                        "exp": {
+                            "left": "r",
+                            "op": "=",
+                            "right": 5
+                        }
+                    },
+                    "location": "l"
+                },
+                {
+                    "action": "aA",
+                    "destinations": [
+                        {
+                            "assignments": [
+                                {
+                                    "ref": "r_ab",
+                                    "value": {
+                                        "exp": "r_ab",
+                                        "op": "¬"
+                                    }
+                                },
+                                {
+                                    "ref": "r",
+                                    "value": 4
+                                }
+                            ],
+                            "location": "l"
+                        }
+                    ],
+                    "guard": {
+                        "comment": "(r = 3)",
+                        "exp": {
+                            "left": "r",
+                            "op": "=",
+                            "right": 3
+                        }
+                    },
+                    "location": "l"
+                },
+                {
+                    "action": "aA",
+                    "destinations": [
+                        {
+                            "assignments": [
+                                {
+                                    "ref": "r",
+                                    "value": 4
+                                }
+                            ],
+                            "location": "l"
+                        }
+                    ],
+                    "guard": {
+                        "comment": "((r = 2) & !((r_ab = br)))",
+                        "exp": {
+                            "left": {
+                                "left": "r",
+                                "op": "=",
+                                "right": 2
+                            },
+                            "op": "∧",
+                            "right": {
+                                "exp": {
+                                    "left": "r_ab",
+                                    "op": "=",
+                                    "right": "br"
+                                },
+                                "op": "¬"
+                            }
+                        }
+                    },
+                    "location": "l"
+                },
+                {
+                    "action": "aG",
+                    "destinations": [
+                        {
+                            "assignments": [
+                                {
+                                    "ref": "fr",
+                                    "value": "fs"
+                                },
+                                {
+                                    "ref": "lr",
+                                    "value": "ls"
+                                },
+                                {
+                                    "ref": "br",
+                                    "value": "bs"
+                                },
+                                {
+                                    "ref": "recv",
+                                    "value": "T"
+                                },
+                                {
+                                    "ref": "r",
+                                    "value": 1
+                                }
+                            ],
+                            "location": "l"
+                        }
+                    ],
+                    "guard": {
+                        "comment": "(r = 0)",
+                        "exp": {
+                            "left": "r",
+                            "op": "=",
+                            "right": 0
+                        }
+                    },
+                    "location": "l"
+                },
+                {
+                    "action": "aG",
+                    "destinations": [
+                        {
+                            "assignments": [
+                                {
+                                    "ref": "fr",
+                                    "value": "fs"
+                                },
+                                {
+                                    "ref": "lr",
+                                    "value": "ls"
+                                },
+                                {
+                                    "ref": "br",
+                                    "value": "bs"
+                                },
+                                {
+                                    "ref": "recv",
+                                    "value": "T"
+                                },
+                                {
+                                    "ref": "r",
+                                    "value": 2
+                                }
+                            ],
+                            "location": "l"
+                        }
+                    ],
+                    "guard": {
+                        "comment": "(r = 4)",
+                        "exp": {
+                            "left": "r",
+                            "op": "=",
+                            "right": 4
+                        }
+                    },
+                    "location": "l"
+                }
+            ],
+            "initial-locations": [
+                "l"
+            ],
+            "locations": [
+                {
+                    "name": "l"
+                }
+            ],
+            "name": "receiver",
+            "variables": []
+        },
+        {
+            "edges": [
+                {
+                    "action": "NewFile",
+                    "destinations": [
+                        {
+                            "assignments": [
+                                {
+                                    "ref": "T",
+                                    "value": true
+                                }
+                            ],
+                            "location": "l"
+                        }
+                    ],
+                    "guard": {
+                        "comment": "(T = false)",
+                        "exp": {
+                            "left": "T",
+                            "op": "=",
+                            "right": false
+                        }
+                    },
+                    "location": "l"
+                }
+            ],
+            "initial-locations": [
+                "l"
+            ],
+            "locations": [
+                {
+                    "name": "l"
+                }
+            ],
+            "name": "checker",
+            "variables": []
+        },
+        {
+            "edges": [
+                {
+                    "action": "TO_Msg",
+                    "destinations": [
+                        {
+                            "assignments": [
+                                {
+                                    "ref": "k",
+                                    "value": 0
+                                }
+                            ],
+                            "location": "l"
+                        }
+                    ],
+                    "guard": {
+                        "comment": "(k = 2)",
+                        "exp": {
+                            "left": "k",
+                            "op": "=",
+                            "right": 2
+                        }
+                    },
+                    "location": "l"
+                },
+                {
+                    "action": "aF",
+                    "destinations": [
+                        {
+                            "assignments": [
+                                {
+                                    "ref": "k",
+                                    "value": 1
+                                }
+                            ],
+                            "location": "l",
+                            "probability": {
+                                "comment": "49/50",
+                                "exp": 0.98
+                            }
+                        },
+                        {
+                            "assignments": [
+                                {
+                                    "ref": "k",
+                                    "value": 2
+                                }
+                            ],
+                            "location": "l",
+                            "probability": {
+                                "comment": "1/50",
+                                "exp": 0.02
+                            }
+                        }
+                    ],
+                    "guard": {
+                        "comment": "(k = 0)",
+                        "exp": {
+                            "left": "k",
+                            "op": "=",
+                            "right": 0
+                        }
+                    },
+                    "location": "l"
+                },
+                {
+                    "action": "aG",
+                    "destinations": [
+                        {
+                            "assignments": [
+                                {
+                                    "ref": "k",
+                                    "value": 0
+                                }
+                            ],
+                            "location": "l"
+                        }
+                    ],
+                    "guard": {
+                        "comment": "(k = 1)",
+                        "exp": {
+                            "left": "k",
+                            "op": "=",
+                            "right": 1
+                        }
+                    },
+                    "location": "l"
+                }
+            ],
+            "initial-locations": [
+                "l"
+            ],
+            "locations": [
+                {
+                    "name": "l"
+                }
+            ],
+            "name": "channelK",
+            "variables": []
+        },
+        {
+            "edges": [
+                {
+                    "action": "TO_Ack",
+                    "destinations": [
+                        {
+                            "assignments": [
+                                {
+                                    "ref": "l",
+                                    "value": 0
+                                }
+                            ],
+                            "location": "l"
+                        }
+                    ],
+                    "guard": {
+                        "comment": "(l = 2)",
+                        "exp": {
+                            "left": "l",
+                            "op": "=",
+                            "right": 2
+                        }
+                    },
+                    "location": "l"
+                },
+                {
+                    "action": "aA",
+                    "destinations": [
+                        {
+                            "assignments": [
+                                {
+                                    "ref": "l",
+                                    "value": 1
+                                }
+                            ],
+                            "location": "l",
+                            "probability": {
+                                "comment": "99/100",
+                                "exp": 0.99
+                            }
+                        },
+                        {
+                            "assignments": [
+                                {
+                                    "ref": "l",
+                                    "value": 2
+                                }
+                            ],
+                            "location": "l",
+                            "probability": {
+                                "comment": "1/100",
+                                "exp": 0.01
+                            }
+                        }
+                    ],
+                    "guard": {
+                        "comment": "(l = 0)",
+                        "exp": {
+                            "left": "l",
+                            "op": "=",
+                            "right": 0
+                        }
+                    },
+                    "location": "l"
+                },
+                {
+                    "action": "aB",
+                    "destinations": [
+                        {
+                            "assignments": [
+                                {
+                                    "ref": "l",
+                                    "value": 0
+                                }
+                            ],
+                            "location": "l"
+                        }
+                    ],
+                    "guard": {
+                        "comment": "(l = 1)",
+                        "exp": {
+                            "left": "l",
+                            "op": "=",
+                            "right": 1
+                        }
+                    },
+                    "location": "l"
+                }
+            ],
+            "initial-locations": [
+                "l"
+            ],
+            "locations": [
+                {
+                    "name": "l"
+                }
+            ],
+            "name": "channelL",
+            "variables": []
+        }
+    ],
+    "constants": [
+        {
+            "name": "N",
+            "type": "int"
+        },
+        {
+            "name": "MAX",
+            "type": "int"
+        }
+    ],
+    "features": [
         "derived-operators"
     ],
-    "actions":[
-        {
-            "name":"NewFile"
-        },
-        {
-            "name":"aF"
-        },
-        {
-            "name":"aB"
-        },
-        {
-            "name":"TO_Msg"
-        },
-        {
-            "name":"TO_Ack"
-        },
-        {
-            "name":"τ"
-        },
-        {
-            "name":"SyncWait"
-        },
-        {
-            "name":"aG"
-        },
-        {
-            "name":"aA"
-        }
-    ],
-    "constants":[
-        {
-            "name":"N",
-            "type":"int"
-        },
-        {
-            "name":"MAX",
-            "type":"int"
-        }
-    ],
-    "variables":[
-        {
-            "name":"s",
-            "type":{
-                "kind":"bounded",
-                "base":"int",
-                "lower-bound":0,
-                "upper-bound":6
-            }
-        },
-        {
-            "name":"srep",
-            "type":{
-                "kind":"bounded",
-                "base":"int",
-                "lower-bound":0,
-                "upper-bound":3
-            }
-        },
-        {
-            "name":"nrtr",
-            "type":{
-                "kind":"bounded",
-                "base":"int",
-                "lower-bound":0,
-                "upper-bound":"MAX"
-            }
-        },
-        {
-            "name":"i",
-            "type":{
-                "kind":"bounded",
-                "base":"int",
-                "lower-bound":0,
-                "upper-bound":"N"
-            }
-        },
-        {
-            "name":"bs",
-            "type":"bool"
-        },
-        {
-            "name":"s_ab",
-            "type":"bool"
-        },
-        {
-            "name":"fs",
-            "type":"bool"
-        },
-        {
-            "name":"ls",
-            "type":"bool"
-        },
-        {
-            "name":"r",
-            "type":{
-                "kind":"bounded",
-                "base":"int",
-                "lower-bound":0,
-                "upper-bound":5
-            }
-        },
-        {
-            "name":"rrep",
-            "type":{
-                "kind":"bounded",
-                "base":"int",
-                "lower-bound":0,
-                "upper-bound":4
-            }
-        },
-        {
-            "name":"fr",
-            "type":"bool"
-        },
-        {
-            "name":"lr",
-            "type":"bool"
-        },
-        {
-            "name":"br",
-            "type":"bool"
-        },
-        {
-            "name":"r_ab",
-            "type":"bool"
-        },
-        {
-            "name":"recv",
-            "type":"bool"
-        },
-        {
-            "name":"T",
-            "type":"bool"
-        },
-        {
-            "name":"k",
-            "type":{
-                "kind":"bounded",
-                "base":"int",
-                "lower-bound":0,
-                "upper-bound":2
-            }
-        },
-        {
-            "name":"l",
-            "type":{
-                "kind":"bounded",
-                "base":"int",
-                "lower-bound":0,
-                "upper-bound":2
-            }
-        },
-        {
-            "name":"reward_",
-            "type":"real",
-            "initial-value":0.0,
-            "transient":true
-        }
-    ],
-    "restrict-initial":{
-        "exp":{
-            "op":"∧",
-            "left":{
-                "op":"∧",
-                "left":{
-                    "op":"∧",
-                    "left":{
-                        "op":"∧",
-                        "left":{
-                            "op":"∧",
-                            "left":{
-                                "op":"∧",
-                                "left":{
-                                    "op":"∧",
-                                    "left":{
-                                        "op":"∧",
-                                        "left":{
-                                            "op":"∧",
-                                            "left":{
-                                                "op":"∧",
-                                                "left":{
-                                                    "op":"∧",
-                                                    "left":{
-                                                        "op":"∧",
-                                                        "left":{
-                                                            "op":"∧",
-                                                            "left":{
-                                                                "op":"∧",
-                                                                "left":{
-                                                                    "op":"∧",
-                                                                    "left":{
-                                                                        "op":"∧",
-                                                                        "left":{
-                                                                            "op":"∧",
-                                                                            "left":{
-                                                                                "op":"=",
-                                                                                "left":"s",
-                                                                                "right":0
-                                                                            },
-                                                                            "right":{
-                                                                                "op":"=",
-                                                                                "left":"srep",
-                                                                                "right":0
-                                                                            }
-                                                                        },
-                                                                        "right":{
-                                                                            "op":"=",
-                                                                            "left":"nrtr",
-                                                                            "right":0
-                                                                        }
-                                                                    },
-                                                                    "right":{
-                                                                        "op":"=",
-                                                                        "left":"i",
-                                                                        "right":0
-                                                                    }
-                                                                },
-                                                                "right":{
-                                                                    "op":"=",
-                                                                    "left":"bs",
-                                                                    "right":false
-                                                                }
-                                                            },
-                                                            "right":{
-                                                                "op":"=",
-                                                                "left":"s_ab",
-                                                                "right":false
-                                                            }
-                                                        },
-                                                        "right":{
-                                                            "op":"=",
-                                                            "left":"fs",
-                                                            "right":false
-                                                        }
-                                                    },
-                                                    "right":{
-                                                        "op":"=",
-                                                        "left":"ls",
-                                                        "right":false
-                                                    }
-                                                },
-                                                "right":{
-                                                    "op":"=",
-                                                    "left":"r",
-                                                    "right":0
-                                                }
-                                            },
-                                            "right":{
-                                                "op":"=",
-                                                "left":"rrep",
-                                                "right":0
-                                            }
-                                        },
-                                        "right":{
-                                            "op":"=",
-                                            "left":"fr",
-                                            "right":false
-                                        }
-                                    },
-                                    "right":{
-                                        "op":"=",
-                                        "left":"lr",
-                                        "right":false
-                                    }
-                                },
-                                "right":{
-                                    "op":"=",
-                                    "left":"br",
-                                    "right":false
-                                }
-                            },
-                            "right":{
-                                "op":"=",
-                                "left":"r_ab",
-                                "right":false
-                            }
-                        },
-                        "right":{
-                            "op":"=",
-                            "left":"recv",
-                            "right":false
-                        }
-                    },
-                    "right":{
-                        "op":"=",
-                        "left":"T",
-                        "right":false
-                    }
-                },
-                "right":{
-                    "op":"=",
-                    "left":"k",
-                    "right":0
-                }
-            },
-            "right":{
-                "op":"=",
-                "left":"l",
-                "right":0
-            }
-        }
+    "jani-version": 1,
+    "name": "jani_from_prism",
+    "properties": [],
+    "restrict-initial": {
+        "exp": true
     },
-    "properties":[
-        {
-            "name":"Property_brp_0",
-            "expression":{
-                "op":"filter",
-                "fun":"min",
-                "values":{
-                    "op":"Pmax",
-                    "exp":{
-                        "op":"U",
-                        "left":true,
-                        "right":{
-                            "op":"∧",
-                            "left":{
-                                "op":"∧",
-                                "left":{
-                                    "op":"=",
-                                    "left":"srep",
-                                    "right":1
-                                },
-                                "right":{
-                                    "op":"=",
-                                    "left":"rrep",
-                                    "right":3
-                                }
-                            },
-                            "right":"recv"
-                        }
-                    }
-                },
-                "states":{
-                    "op":"initial"
-                }
-            },
-            "comment":"P=?[ F srep=1 & rrep=3 & recv ]"
-        },
-        {
-            "name":"Property_brp_1",
-            "expression":{
-                "op":"filter",
-                "fun":"max",
-                "values":{
-                    "op":"Pmax",
-                    "exp":{
-                        "op":"U",
-                        "left":true,
-                        "right":{
-                            "op":"∧",
-                            "left":{
-                                "op":"∧",
-                                "left":{
-                                    "op":"=",
-                                    "left":"srep",
-                                    "right":1
-                                },
-                                "right":{
-                                    "op":"=",
-                                    "left":"rrep",
-                                    "right":3
-                                }
-                            },
-                            "right":"recv"
-                        }
-                    }
-                },
-                "states":{
-                    "op":"initial"
-                }
-            },
-            "comment":"P=?[ F srep=1 & rrep=3 & recv ]"
-        },
-        {
-            "name":"Property_brp_2",
-            "expression":{
-                "op":"filter",
-                "fun":"min",
-                "values":{
-                    "op":"Pmax",
-                    "exp":{
-                        "op":"U",
-                        "left":true,
-                        "right":{
-                            "op":"∧",
-                            "left":{
-                                "op":"∧",
-                                "left":{
-                                    "op":"=",
-                                    "left":"srep",
-                                    "right":3
-                                },
-                                "right":{
-                                    "op":"¬",
-                                    "exp":{
-                                        "op":"=",
-                                        "left":"rrep",
-                                        "right":3
-                                    }
-                                }
-                            },
-                            "right":"recv"
-                        }
-                    }
-                },
-                "states":{
-                    "op":"initial"
-                }
-            },
-            "comment":"P=?[ F srep=3 & !(rrep=3) & recv ]"
-        },
-        {
-            "name":"Property_brp_3",
-            "expression":{
-                "op":"filter",
-                "fun":"max",
-                "values":{
-                    "op":"Pmax",
-                    "exp":{
-                        "op":"U",
-                        "left":true,
-                        "right":{
-                            "op":"∧",
-                            "left":{
-                                "op":"∧",
-                                "left":{
-                                    "op":"=",
-                                    "left":"srep",
-                                    "right":3
-                                },
-                                "right":{
-                                    "op":"¬",
-                                    "exp":{
-                                        "op":"=",
-                                        "left":"rrep",
-                                        "right":3
-                                    }
-                                }
-                            },
-                            "right":"recv"
-                        }
-                    }
-                },
-                "states":{
-                    "op":"initial"
-                }
-            },
-            "comment":"P=?[ F srep=3 & !(rrep=3) & recv ]"
-        },
-        {
-            "name":"Property_brp_4",
-            "expression":{
-                "op":"filter",
-                "fun":"min",
-                "values":{
-                    "op":"Pmax",
-                    "exp":{
-                        "op":"U",
-                        "left":true,
-                        "right":{
-                            "op":"=",
-                            "left":"s",
-                            "right":5
-                        }
-                    }
-                },
-                "states":{
-                    "op":"initial"
-                }
-            },
-            "comment":"P=?[ F s=5 ]"
-        },
-        {
-            "name":"Property_brp_5",
-            "expression":{
-                "op":"filter",
-                "fun":"max",
-                "values":{
-                    "op":"Pmax",
-                    "exp":{
-                        "op":"U",
-                        "left":true,
-                        "right":{
-                            "op":"=",
-                            "left":"s",
-                            "right":5
-                        }
-                    }
-                },
-                "states":{
-                    "op":"initial"
-                }
-            },
-            "comment":"P=?[ F s=5 ]"
-        },
-        {
-            "name":"Property_brp_6",
-            "expression":{
-                "op":"filter",
-                "fun":"min",
-                "values":{
-                    "op":"Pmax",
-                    "exp":{
-                        "op":"U",
-                        "left":true,
-                        "right":{
-                            "op":"∧",
-                            "left":{
-                                "op":"=",
-                                "left":"s",
-                                "right":5
-                            },
-                            "right":{
-                                "op":"=",
-                                "left":"srep",
-                                "right":2
-                            }
-                        }
-                    }
-                },
-                "states":{
-                    "op":"initial"
-                }
-            },
-            "comment":"P=?[ F s=5 & srep=2 ]"
-        },
-        {
-            "name":"Property_brp_7",
-            "expression":{
-                "op":"filter",
-                "fun":"max",
-                "values":{
-                    "op":"Pmax",
-                    "exp":{
-                        "op":"U",
-                        "left":true,
-                        "right":{
-                            "op":"∧",
-                            "left":{
-                                "op":"=",
-                                "left":"s",
-                                "right":5
-                            },
-                            "right":{
-                                "op":"=",
-                                "left":"srep",
-                                "right":2
-                            }
-                        }
-                    }
-                },
-                "states":{
-                    "op":"initial"
-                }
-            },
-            "comment":"P=?[ F s=5 & srep=2 ]"
-        },
-        {
-            "name":"Property_brp_8",
-            "expression":{
-                "op":"filter",
-                "fun":"min",
-                "values":{
-                    "op":"Pmax",
-                    "exp":{
-                        "op":"U",
-                        "left":true,
-                        "right":{
-                            "op":"∧",
-                            "left":{
-                                "op":"∧",
-                                "left":{
-                                    "op":"=",
-                                    "left":"s",
-                                    "right":5
-                                },
-                                "right":{
-                                    "op":"=",
-                                    "left":"srep",
-                                    "right":1
-                                }
-                            },
-                            "right":{
-                                "op":">",
-                                "left":"i",
-                                "right":8
-                            }
-                        }
-                    }
-                },
-                "states":{
-                    "op":"initial"
-                }
-            },
-            "comment":"P=?[ F s=5 & srep=1 & i>8 ]"
-        },
-        {
-            "name":"Property_brp_9",
-            "expression":{
-                "op":"filter",
-                "fun":"max",
-                "values":{
-                    "op":"Pmax",
-                    "exp":{
-                        "op":"U",
-                        "left":true,
-                        "right":{
-                            "op":"∧",
-                            "left":{
-                                "op":"∧",
-                                "left":{
-                                    "op":"=",
-                                    "left":"s",
-                                    "right":5
-                                },
-                                "right":{
-                                    "op":"=",
-                                    "left":"srep",
-                                    "right":1
-                                }
-                            },
-                            "right":{
-                                "op":">",
-                                "left":"i",
-                                "right":8
-                            }
-                        }
-                    }
-                },
-                "states":{
-                    "op":"initial"
-                }
-            },
-            "comment":"P=?[ F s=5 & srep=1 & i>8 ]"
-        },
-        {
-            "name":"Property_brp_10",
-            "expression":{
-                "op":"filter",
-                "fun":"min",
-                "values":{
-                    "op":"Pmax",
-                    "exp":{
-                        "op":"U",
-                        "left":true,
-                        "right":{
-                            "op":"∧",
-                            "left":{
-                                "op":"¬",
-                                "exp":{
-                                    "op":"=",
-                                    "left":"srep",
-                                    "right":0
-                                }
-                            },
-                            "right":{
-                                "op":"¬",
-                                "exp":"recv"
-                            }
-                        }
-                    }
-                },
-                "states":{
-                    "op":"initial"
-                }
-            },
-            "comment":"P=?[ F !(srep=0) & !recv ]"
-        },
-        {
-            "name":"Property_brp_11",
-            "expression":{
-                "op":"filter",
-                "fun":"max",
-                "values":{
-                    "op":"Pmax",
-                    "exp":{
-                        "op":"U",
-                        "left":true,
-                        "right":{
-                            "op":"∧",
-                            "left":{
-                                "op":"¬",
-                                "exp":{
-                                    "op":"=",
-                                    "left":"srep",
-                                    "right":0
-                                }
-                            },
-                            "right":{
-                                "op":"¬",
-                                "exp":"recv"
-                            }
-                        }
-                    }
-                },
-                "states":{
-                    "op":"initial"
-                }
-            },
-            "comment":"P=?[ F !(srep=0) & !recv ]"
-        }
-    ],
-    "automata":[
-        {
-            "name":"sender",
-            "locations":[
-                {
-                    "name":"location"
-                }
-            ],
-            "initial-locations":[
-                "location"
-            ],
-            "edges":[
-                {
-                    "location":"location",
-                    "action":"NewFile",
-                    "guard":{
-                        "exp":{
-                            "op":"=",
-                            "left":"s",
-                            "right":0
-                        }
-                    },
-                    "destinations":[
-                        {
-                            "probability":{
-                                "exp":1
-                            },
-                            "location":"location",
-                            "assignments":[
-                                {
-                                    "ref":"s",
-                                    "value":1
-                                },
-                                {
-                                    "ref":"i",
-                                    "value":1
-                                },
-                                {
-                                    "ref":"srep",
-                                    "value":0
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "location":"location",
-                    "action":"aF",
-                    "guard":{
-                        "exp":{
-                            "op":"=",
-                            "left":"s",
-                            "right":1
-                        }
-                    },
-                    "destinations":[
-                        {
-                            "probability":{
-                                "exp":1
-                            },
-                            "location":"location",
-                            "assignments":[
-                                {
-                                    "ref":"s",
-                                    "value":2
-                                },
-                                {
-                                    "ref":"fs",
-                                    "value":{
-                                        "op":"=",
-                                        "left":"i",
-                                        "right":1
-                                    }
-                                },
-                                {
-                                    "ref":"ls",
-                                    "value":{
-                                        "op":"=",
-                                        "left":"i",
-                                        "right":"N"
-                                    }
-                                },
-                                {
-                                    "ref":"bs",
-                                    "value":"s_ab"
-                                },
-                                {
-                                    "ref":"nrtr",
-                                    "value":0
-                                },
-                                {
-                                    "ref":"reward_",
-                                    "value":{
-                                        "op":"ite",
-                                        "if":{
-                                            "op":"=",
-                                            "left":"i",
-                                            "right":1
-                                        },
-                                        "then":1,
-                                        "else":0
-                                    }
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "location":"location",
-                    "action":"aB",
-                    "guard":{
-                        "exp":{
-                            "op":"=",
-                            "left":"s",
-                            "right":2
-                        }
-                    },
-                    "destinations":[
-                        {
-                            "probability":{
-                                "exp":1
-                            },
-                            "location":"location",
-                            "assignments":[
-                                {
-                                    "ref":"s",
-                                    "value":4
-                                },
-                                {
-                                    "ref":"s_ab",
-                                    "value":{
-                                        "op":"¬",
-                                        "exp":"s_ab"
-                                    }
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "location":"location",
-                    "action":"TO_Msg",
-                    "guard":{
-                        "exp":{
-                            "op":"=",
-                            "left":"s",
-                            "right":2
-                        }
-                    },
-                    "destinations":[
-                        {
-                            "probability":{
-                                "exp":1
-                            },
-                            "location":"location",
-                            "assignments":[
-                                {
-                                    "ref":"s",
-                                    "value":3
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "location":"location",
-                    "action":"TO_Ack",
-                    "guard":{
-                        "exp":{
-                            "op":"=",
-                            "left":"s",
-                            "right":2
-                        }
-                    },
-                    "destinations":[
-                        {
-                            "probability":{
-                                "exp":1
-                            },
-                            "location":"location",
-                            "assignments":[
-                                {
-                                    "ref":"s",
-                                    "value":3
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "location":"location",
-                    "action":"aF",
-                    "guard":{
-                        "exp":{
-                            "op":"∧",
-                            "left":{
-                                "op":"=",
-                                "left":"s",
-                                "right":3
-                            },
-                            "right":{
-                                "op":"<",
-                                "left":"nrtr",
-                                "right":"MAX"
-                            }
-                        }
-                    },
-                    "destinations":[
-                        {
-                            "probability":{
-                                "exp":1
-                            },
-                            "location":"location",
-                            "assignments":[
-                                {
-                                    "ref":"s",
-                                    "value":2
-                                },
-                                {
-                                    "ref":"fs",
-                                    "value":{
-                                        "op":"=",
-                                        "left":"i",
-                                        "right":1
-                                    }
-                                },
-                                {
-                                    "ref":"ls",
-                                    "value":{
-                                        "op":"=",
-                                        "left":"i",
-                                        "right":"N"
-                                    }
-                                },
-                                {
-                                    "ref":"bs",
-                                    "value":"s_ab"
-                                },
-                                {
-                                    "ref":"nrtr",
-                                    "value":{
-                                        "op":"+",
-                                        "left":"nrtr",
-                                        "right":1
-                                    }
-                                },
-                                {
-                                    "ref":"reward_",
-                                    "value":{
-                                        "op":"ite",
-                                        "if":{
-                                            "op":"=",
-                                            "left":"i",
-                                            "right":1
-                                        },
-                                        "then":1,
-                                        "else":0
-                                    }
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "location":"location",
-                    "action":"τ",
-                    "guard":{
-                        "exp":{
-                            "op":"∧",
-                            "left":{
-                                "op":"∧",
-                                "left":{
-                                    "op":"=",
-                                    "left":"s",
-                                    "right":3
-                                },
-                                "right":{
-                                    "op":"=",
-                                    "left":"nrtr",
-                                    "right":"MAX"
-                                }
-                            },
-                            "right":{
-                                "op":"<",
-                                "left":"i",
-                                "right":"N"
-                            }
-                        }
-                    },
-                    "destinations":[
-                        {
-                            "probability":{
-                                "exp":1
-                            },
-                            "location":"location",
-                            "assignments":[
-                                {
-                                    "ref":"s",
-                                    "value":5
-                                },
-                                {
-                                    "ref":"srep",
-                                    "value":1
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "location":"location",
-                    "action":"τ",
-                    "guard":{
-                        "exp":{
-                            "op":"∧",
-                            "left":{
-                                "op":"∧",
-                                "left":{
-                                    "op":"=",
-                                    "left":"s",
-                                    "right":3
-                                },
-                                "right":{
-                                    "op":"=",
-                                    "left":"nrtr",
-                                    "right":"MAX"
-                                }
-                            },
-                            "right":{
-                                "op":"=",
-                                "left":"i",
-                                "right":"N"
-                            }
-                        }
-                    },
-                    "destinations":[
-                        {
-                            "probability":{
-                                "exp":1
-                            },
-                            "location":"location",
-                            "assignments":[
-                                {
-                                    "ref":"s",
-                                    "value":5
-                                },
-                                {
-                                    "ref":"srep",
-                                    "value":2
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "location":"location",
-                    "action":"τ",
-                    "guard":{
-                        "exp":{
-                            "op":"∧",
-                            "left":{
-                                "op":"=",
-                                "left":"s",
-                                "right":4
-                            },
-                            "right":{
-                                "op":"<",
-                                "left":"i",
-                                "right":"N"
-                            }
-                        }
-                    },
-                    "destinations":[
-                        {
-                            "probability":{
-                                "exp":1
-                            },
-                            "location":"location",
-                            "assignments":[
-                                {
-                                    "ref":"s",
-                                    "value":1
-                                },
-                                {
-                                    "ref":"i",
-                                    "value":{
-                                        "op":"+",
-                                        "left":"i",
-                                        "right":1
-                                    }
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "location":"location",
-                    "action":"τ",
-                    "guard":{
-                        "exp":{
-                            "op":"∧",
-                            "left":{
-                                "op":"=",
-                                "left":"s",
-                                "right":4
-                            },
-                            "right":{
-                                "op":"=",
-                                "left":"i",
-                                "right":"N"
-                            }
-                        }
-                    },
-                    "destinations":[
-                        {
-                            "probability":{
-                                "exp":1
-                            },
-                            "location":"location",
-                            "assignments":[
-                                {
-                                    "ref":"s",
-                                    "value":0
-                                },
-                                {
-                                    "ref":"srep",
-                                    "value":3
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "location":"location",
-                    "action":"SyncWait",
-                    "guard":{
-                        "exp":{
-                            "op":"=",
-                            "left":"s",
-                            "right":5
-                        }
-                    },
-                    "destinations":[
-                        {
-                            "probability":{
-                                "exp":1
-                            },
-                            "location":"location",
-                            "assignments":[
-                                {
-                                    "ref":"s",
-                                    "value":6
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "location":"location",
-                    "action":"SyncWait",
-                    "guard":{
-                        "exp":{
-                            "op":"=",
-                            "left":"s",
-                            "right":6
-                        }
-                    },
-                    "destinations":[
-                        {
-                            "probability":{
-                                "exp":1
-                            },
-                            "location":"location",
-                            "assignments":[
-                                {
-                                    "ref":"s",
-                                    "value":0
-                                },
-                                {
-                                    "ref":"s_ab",
-                                    "value":false
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "name":"receiver",
-            "locations":[
-                {
-                    "name":"location"
-                }
-            ],
-            "initial-locations":[
-                "location"
-            ],
-            "edges":[
-                {
-                    "location":"location",
-                    "action":"SyncWait",
-                    "guard":{
-                        "exp":{
-                            "op":"=",
-                            "left":"r",
-                            "right":0
-                        }
-                    },
-                    "destinations":[
-                        {
-                            "probability":{
-                                "exp":1
-                            },
-                            "location":"location",
-                            "assignments":[
-                                {
-                                    "ref":"r",
-                                    "value":0
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "location":"location",
-                    "action":"aG",
-                    "guard":{
-                        "exp":{
-                            "op":"=",
-                            "left":"r",
-                            "right":0
-                        }
-                    },
-                    "destinations":[
-                        {
-                            "probability":{
-                                "exp":1
-                            },
-                            "location":"location",
-                            "assignments":[
-                                {
-                                    "ref":"r",
-                                    "value":1
-                                },
-                                {
-                                    "ref":"fr",
-                                    "value":"fs"
-                                },
-                                {
-                                    "ref":"lr",
-                                    "value":"ls"
-                                },
-                                {
-                                    "ref":"br",
-                                    "value":"bs"
-                                },
-                                {
-                                    "ref":"recv",
-                                    "value":"T"
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "location":"location",
-                    "action":"τ",
-                    "guard":{
-                        "exp":{
-                            "op":"=",
-                            "left":"r",
-                            "right":1
-                        }
-                    },
-                    "destinations":[
-                        {
-                            "probability":{
-                                "exp":1
-                            },
-                            "location":"location",
-                            "assignments":[
-                                {
-                                    "ref":"r",
-                                    "value":2
-                                },
-                                {
-                                    "ref":"r_ab",
-                                    "value":"br"
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "location":"location",
-                    "action":"τ",
-                    "guard":{
-                        "exp":{
-                            "op":"∧",
-                            "left":{
-                                "op":"∧",
-                                "left":{
-                                    "op":"∧",
-                                    "left":{
-                                        "op":"=",
-                                        "left":"r",
-                                        "right":2
-                                    },
-                                    "right":{
-                                        "op":"=",
-                                        "left":"r_ab",
-                                        "right":"br"
-                                    }
-                                },
-                                "right":{
-                                    "op":"=",
-                                    "left":"fr",
-                                    "right":true
-                                }
-                            },
-                            "right":{
-                                "op":"=",
-                                "left":"lr",
-                                "right":false
-                            }
-                        }
-                    },
-                    "destinations":[
-                        {
-                            "probability":{
-                                "exp":1
-                            },
-                            "location":"location",
-                            "assignments":[
-                                {
-                                    "ref":"r",
-                                    "value":3
-                                },
-                                {
-                                    "ref":"rrep",
-                                    "value":1
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "location":"location",
-                    "action":"τ",
-                    "guard":{
-                        "exp":{
-                            "op":"∧",
-                            "left":{
-                                "op":"∧",
-                                "left":{
-                                    "op":"∧",
-                                    "left":{
-                                        "op":"=",
-                                        "left":"r",
-                                        "right":2
-                                    },
-                                    "right":{
-                                        "op":"=",
-                                        "left":"r_ab",
-                                        "right":"br"
-                                    }
-                                },
-                                "right":{
-                                    "op":"=",
-                                    "left":"fr",
-                                    "right":false
-                                }
-                            },
-                            "right":{
-                                "op":"=",
-                                "left":"lr",
-                                "right":false
-                            }
-                        }
-                    },
-                    "destinations":[
-                        {
-                            "probability":{
-                                "exp":1
-                            },
-                            "location":"location",
-                            "assignments":[
-                                {
-                                    "ref":"r",
-                                    "value":3
-                                },
-                                {
-                                    "ref":"rrep",
-                                    "value":2
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "location":"location",
-                    "action":"τ",
-                    "guard":{
-                        "exp":{
-                            "op":"∧",
-                            "left":{
-                                "op":"∧",
-                                "left":{
-                                    "op":"∧",
-                                    "left":{
-                                        "op":"=",
-                                        "left":"r",
-                                        "right":2
-                                    },
-                                    "right":{
-                                        "op":"=",
-                                        "left":"r_ab",
-                                        "right":"br"
-                                    }
-                                },
-                                "right":{
-                                    "op":"=",
-                                    "left":"fr",
-                                    "right":false
-                                }
-                            },
-                            "right":{
-                                "op":"=",
-                                "left":"lr",
-                                "right":true
-                            }
-                        }
-                    },
-                    "destinations":[
-                        {
-                            "probability":{
-                                "exp":1
-                            },
-                            "location":"location",
-                            "assignments":[
-                                {
-                                    "ref":"r",
-                                    "value":3
-                                },
-                                {
-                                    "ref":"rrep",
-                                    "value":3
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "location":"location",
-                    "action":"aA",
-                    "guard":{
-                        "exp":{
-                            "op":"∧",
-                            "left":{
-                                "op":"=",
-                                "left":"r",
-                                "right":2
-                            },
-                            "right":{
-                                "op":"¬",
-                                "exp":{
-                                    "op":"=",
-                                    "left":"r_ab",
-                                    "right":"br"
-                                }
-                            }
-                        }
-                    },
-                    "destinations":[
-                        {
-                            "probability":{
-                                "exp":1
-                            },
-                            "location":"location",
-                            "assignments":[
-                                {
-                                    "ref":"r",
-                                    "value":4
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "location":"location",
-                    "action":"aA",
-                    "guard":{
-                        "exp":{
-                            "op":"=",
-                            "left":"r",
-                            "right":3
-                        }
-                    },
-                    "destinations":[
-                        {
-                            "probability":{
-                                "exp":1
-                            },
-                            "location":"location",
-                            "assignments":[
-                                {
-                                    "ref":"r",
-                                    "value":4
-                                },
-                                {
-                                    "ref":"r_ab",
-                                    "value":{
-                                        "op":"¬",
-                                        "exp":"r_ab"
-                                    }
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "location":"location",
-                    "action":"aG",
-                    "guard":{
-                        "exp":{
-                            "op":"=",
-                            "left":"r",
-                            "right":4
-                        }
-                    },
-                    "destinations":[
-                        {
-                            "probability":{
-                                "exp":1
-                            },
-                            "location":"location",
-                            "assignments":[
-                                {
-                                    "ref":"r",
-                                    "value":2
-                                },
-                                {
-                                    "ref":"fr",
-                                    "value":"fs"
-                                },
-                                {
-                                    "ref":"lr",
-                                    "value":"ls"
-                                },
-                                {
-                                    "ref":"br",
-                                    "value":"bs"
-                                },
-                                {
-                                    "ref":"recv",
-                                    "value":"T"
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "location":"location",
-                    "action":"SyncWait",
-                    "guard":{
-                        "exp":{
-                            "op":"∧",
-                            "left":{
-                                "op":"=",
-                                "left":"r",
-                                "right":4
-                            },
-                            "right":{
-                                "op":"=",
-                                "left":"ls",
-                                "right":true
-                            }
-                        }
-                    },
-                    "destinations":[
-                        {
-                            "probability":{
-                                "exp":1
-                            },
-                            "location":"location",
-                            "assignments":[
-                                {
-                                    "ref":"r",
-                                    "value":5
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "location":"location",
-                    "action":"SyncWait",
-                    "guard":{
-                        "exp":{
-                            "op":"∧",
-                            "left":{
-                                "op":"=",
-                                "left":"r",
-                                "right":4
-                            },
-                            "right":{
-                                "op":"=",
-                                "left":"ls",
-                                "right":false
-                            }
-                        }
-                    },
-                    "destinations":[
-                        {
-                            "probability":{
-                                "exp":1
-                            },
-                            "location":"location",
-                            "assignments":[
-                                {
-                                    "ref":"r",
-                                    "value":5
-                                },
-                                {
-                                    "ref":"rrep",
-                                    "value":4
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "location":"location",
-                    "action":"SyncWait",
-                    "guard":{
-                        "exp":{
-                            "op":"=",
-                            "left":"r",
-                            "right":5
-                        }
-                    },
-                    "destinations":[
-                        {
-                            "probability":{
-                                "exp":1
-                            },
-                            "location":"location",
-                            "assignments":[
-                                {
-                                    "ref":"r",
-                                    "value":0
-                                },
-                                {
-                                    "ref":"rrep",
-                                    "value":0
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "name":"checker",
-            "locations":[
-                {
-                    "name":"location"
-                }
-            ],
-            "initial-locations":[
-                "location"
-            ],
-            "edges":[
-                {
-                    "location":"location",
-                    "action":"NewFile",
-                    "guard":{
-                        "exp":{
-                            "op":"=",
-                            "left":"T",
-                            "right":false
-                        }
-                    },
-                    "destinations":[
-                        {
-                            "probability":{
-                                "exp":1
-                            },
-                            "location":"location",
-                            "assignments":[
-                                {
-                                    "ref":"T",
-                                    "value":true
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "name":"channelK",
-            "locations":[
-                {
-                    "name":"location"
-                }
-            ],
-            "initial-locations":[
-                "location"
-            ],
-            "edges":[
-                {
-                    "location":"location",
-                    "action":"aF",
-                    "guard":{
-                        "exp":{
-                            "op":"=",
-                            "left":"k",
-                            "right":0
-                        }
-                    },
-                    "destinations":[
-                        {
-                            "probability":{
-                                "exp":0.9800000
-                            },
-                            "location":"location",
-                            "assignments":[
-                                {
-                                    "ref":"k",
-                                    "value":1
-                                }
-                            ]
-                        },
-                        {
-                            "probability":{
-                                "exp":0.0200000
-                            },
-                            "location":"location",
-                            "assignments":[
-                                {
-                                    "ref":"k",
-                                    "value":2
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "location":"location",
-                    "action":"aG",
-                    "guard":{
-                        "exp":{
-                            "op":"=",
-                            "left":"k",
-                            "right":1
-                        }
-                    },
-                    "destinations":[
-                        {
-                            "probability":{
-                                "exp":1
-                            },
-                            "location":"location",
-                            "assignments":[
-                                {
-                                    "ref":"k",
-                                    "value":0
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "location":"location",
-                    "action":"TO_Msg",
-                    "guard":{
-                        "exp":{
-                            "op":"=",
-                            "left":"k",
-                            "right":2
-                        }
-                    },
-                    "destinations":[
-                        {
-                            "probability":{
-                                "exp":1
-                            },
-                            "location":"location",
-                            "assignments":[
-                                {
-                                    "ref":"k",
-                                    "value":0
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "name":"channelL",
-            "locations":[
-                {
-                    "name":"location"
-                }
-            ],
-            "initial-locations":[
-                "location"
-            ],
-            "edges":[
-                {
-                    "location":"location",
-                    "action":"aA",
-                    "guard":{
-                        "exp":{
-                            "op":"=",
-                            "left":"l",
-                            "right":0
-                        }
-                    },
-                    "destinations":[
-                        {
-                            "probability":{
-                                "exp":0.9900000
-                            },
-                            "location":"location",
-                            "assignments":[
-                                {
-                                    "ref":"l",
-                                    "value":1
-                                }
-                            ]
-                        },
-                        {
-                            "probability":{
-                                "exp":0.0100000
-                            },
-                            "location":"location",
-                            "assignments":[
-                                {
-                                    "ref":"l",
-                                    "value":2
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "location":"location",
-                    "action":"aB",
-                    "guard":{
-                        "exp":{
-                            "op":"=",
-                            "left":"l",
-                            "right":1
-                        }
-                    },
-                    "destinations":[
-                        {
-                            "probability":{
-                                "exp":1
-                            },
-                            "location":"location",
-                            "assignments":[
-                                {
-                                    "ref":"l",
-                                    "value":0
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "location":"location",
-                    "action":"TO_Ack",
-                    "guard":{
-                        "exp":{
-                            "op":"=",
-                            "left":"l",
-                            "right":2
-                        }
-                    },
-                    "destinations":[
-                        {
-                            "probability":{
-                                "exp":1
-                            },
-                            "location":"location",
-                            "assignments":[
-                                {
-                                    "ref":"l",
-                                    "value":0
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        }
-    ],
-    "system":{
-        "elements":[
+    "system": {
+        "elements": [
             {
-                "automaton":"sender"
+                "automaton": "sender"
             },
             {
-                "automaton":"receiver"
+                "automaton": "receiver"
             },
             {
-                "automaton":"checker"
+                "automaton": "checker"
             },
             {
-                "automaton":"channelK"
+                "automaton": "channelK"
             },
             {
-                "automaton":"channelL"
+                "automaton": "channelL"
             }
         ],
-        "syncs":[
+        "syncs": [
             {
-                "synchronise":[
-                    "aB",
+                "result": "NewFile",
+                "synchronise": [
+                    "NewFile",
                     null,
+                    "NewFile",
                     null,
-                    null,
-                    "aB"
-                ],
-                "result":"aB"
+                    null
+                ]
             },
             {
-                "synchronise":[
+                "result": "SyncWait",
+                "synchronise": [
+                    "SyncWait",
+                    "SyncWait",
+                    null,
+                    null,
+                    null
+                ]
+            },
+            {
+                "result": "TO_Ack",
+                "synchronise": [
                     "TO_Ack",
                     null,
                     null,
                     null,
                     "TO_Ack"
-                ],
-                "result":"TO_Ack"
+                ]
             },
             {
-                "synchronise":[
+                "result": "TO_Msg",
+                "synchronise": [
+                    "TO_Msg",
+                    null,
+                    null,
+                    "TO_Msg",
+                    null
+                ]
+            },
+            {
+                "result": "aA",
+                "synchronise": [
                     null,
                     "aA",
                     null,
                     null,
                     "aA"
-                ],
-                "result":"aA"
+                ]
             },
             {
-                "synchronise":[
+                "result": "aB",
+                "synchronise": [
+                    "aB",
+                    null,
+                    null,
+                    null,
+                    "aB"
+                ]
+            },
+            {
+                "result": "aF",
+                "synchronise": [
                     "aF",
                     null,
                     null,
                     "aF",
                     null
-                ],
-                "result":"aF"
+                ]
             },
             {
-                "synchronise":[
-                    "TO_Msg",
-                    null,
-                    null,
-                    "TO_Msg",
-                    null
-                ],
-                "result":"TO_Msg"
-            },
-            {
-                "synchronise":[
+                "result": "aG",
+                "synchronise": [
                     null,
                     "aG",
                     null,
                     "aG",
                     null
-                ],
-                "result":"aG"
-            },
-            {
-                "synchronise":[
-                    "NewFile",
-                    null,
-                    "NewFile",
-                    null,
-                    null
-                ],
-                "result":"NewFile"
-            },
-            {
-                "synchronise":[
-                    "SyncWait",
-                    "SyncWait",
-                    null,
-                    null,
-                    null
-                ],
-                "result":"SyncWait"
-            },
-            {
-                "synchronise":[
-                    "τ",
-                    null,
-                    null,
-                    null,
-                    null
-                ],
-                "result":"τ"
-            },
-            {
-                "synchronise":[
-                    null,
-                    "τ",
-                    null,
-                    null,
-                    null
-                ],
-                "result":"τ"
+                ]
             }
         ]
-    }
+    },
+    "type": "dtmc",
+    "variables": [
+        {
+            "initial-value": 0,
+            "name": "s",
+            "type": {
+                "base": "int",
+                "kind": "bounded",
+                "lower-bound": 0,
+                "upper-bound": 6
+            }
+        },
+        {
+            "initial-value": 0,
+            "name": "srep",
+            "type": {
+                "base": "int",
+                "kind": "bounded",
+                "lower-bound": 0,
+                "upper-bound": 3
+            }
+        },
+        {
+            "initial-value": 0,
+            "name": "nrtr",
+            "type": {
+                "base": "int",
+                "kind": "bounded",
+                "lower-bound": 0,
+                "upper-bound": "MAX"
+            }
+        },
+        {
+            "initial-value": 0,
+            "name": "i",
+            "type": {
+                "base": "int",
+                "kind": "bounded",
+                "lower-bound": 0,
+                "upper-bound": "N"
+            }
+        },
+        {
+            "initial-value": false,
+            "name": "bs",
+            "type": "bool"
+        },
+        {
+            "initial-value": false,
+            "name": "s_ab",
+            "type": "bool"
+        },
+        {
+            "initial-value": false,
+            "name": "fs",
+            "type": "bool"
+        },
+        {
+            "initial-value": false,
+            "name": "ls",
+            "type": "bool"
+        },
+        {
+            "initial-value": 0,
+            "name": "r",
+            "type": {
+                "base": "int",
+                "kind": "bounded",
+                "lower-bound": 0,
+                "upper-bound": 5
+            }
+        },
+        {
+            "initial-value": 0,
+            "name": "rrep",
+            "type": {
+                "base": "int",
+                "kind": "bounded",
+                "lower-bound": 0,
+                "upper-bound": 4
+            }
+        },
+        {
+            "initial-value": false,
+            "name": "fr",
+            "type": "bool"
+        },
+        {
+            "initial-value": false,
+            "name": "lr",
+            "type": "bool"
+        },
+        {
+            "initial-value": false,
+            "name": "br",
+            "type": "bool"
+        },
+        {
+            "initial-value": false,
+            "name": "r_ab",
+            "type": "bool"
+        },
+        {
+            "initial-value": false,
+            "name": "recv",
+            "type": "bool"
+        },
+        {
+            "initial-value": false,
+            "name": "T",
+            "type": "bool"
+        },
+        {
+            "initial-value": 0,
+            "name": "k",
+            "type": {
+                "base": "int",
+                "kind": "bounded",
+                "lower-bound": 0,
+                "upper-bound": 2
+            }
+        },
+        {
+            "initial-value": 0,
+            "name": "l",
+            "type": {
+                "base": "int",
+                "kind": "bounded",
+                "lower-bound": 0,
+                "upper-bound": 2
+            }
+        }
+    ]
 }

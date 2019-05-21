@@ -6,7 +6,9 @@
 #include "core/bisimulation.h"
 #include "core/input.h"
 #include "core/analysis.h"
+#include "core/counterexample.h"
 #include "core/environment.h"
+#include "core/transformation.h"
 
 PYBIND11_MODULE(core, m) {
     m.doc() = "core";
@@ -16,7 +18,9 @@ PYBIND11_MODULE(core, m) {
 //    options.disable_function_signatures();
 #endif
 
+    define_environment(m);
     define_core(m);
+
     define_property(m);
     define_parse(m);
     define_build(m);
@@ -24,8 +28,9 @@ PYBIND11_MODULE(core, m) {
     define_export(m);
     define_result(m);
     define_modelchecking(m);
+    define_counterexamples(m);
     define_bisimulation(m);
     define_input(m);
     define_graph_constraints(m);
-    define_environment(m);
+    define_transformation(m);
 }

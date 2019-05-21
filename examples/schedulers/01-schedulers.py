@@ -7,7 +7,6 @@ import stormpy.examples.files
 
 def example_schedulers_01():
     path = stormpy.examples.files.prism_mdp_coin_2_2
-
     formula_str = "Pmin=? [F \"finished\" & \"all_coins_equal_1\"]"
 
     program = stormpy.parse_prism_program(path)
@@ -15,15 +14,17 @@ def example_schedulers_01():
     model = stormpy.build_model(program, formulas)
     initial_state = model.initial_states[0]
     assert initial_state == 0
-    result = stormpy.model_checking(model, formulas[0], extract_scheduler = True)
+    result = stormpy.model_checking(model, formulas[0], extract_scheduler=True)
     assert result.has_scheduler
-    print(result.scheduler)
-    assert result.scheduler.memoryless
-    assert result.scheduler.deterministic
+    scheduler = result.scheduler
+    print(scheduler)
+    assert scheduler.memoryless
+    assert scheduler.deterministic
 
-    for i in range(0,model.nr_states):
-        print("In state {} choose action {}".format(i,result.scheduler.get_choice(i).get_deterministic_choice()))
-
+    for state in model.states:
+        choice = scheduler.get_choice(state)
+        action = choice.get_deterministic_choice()
+        print("In state {} choose action {}".format(state, action))
 
 
 if __name__ == '__main__':

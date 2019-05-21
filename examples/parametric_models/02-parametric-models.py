@@ -11,7 +11,7 @@ import stormpy.examples.files
 import stormpy._config as config
 
 
-def example_getting_started_05():
+def example_parametric_models_02():
     # Check support for parameters
     if not config.storm_with_pars:
         print("Support parameters is missing. Try building storm-pars.")
@@ -45,4 +45,4 @@ def example_getting_started_05():
 
 
 if __name__ == '__main__':
-    example_getting_started_05()
+    example_parametric_models_02()

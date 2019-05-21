@@ -31,3 +31,13 @@ class TestExpressions:
         assert not expression.has_boolean_type()
         assert not expression.has_integer_type()
         assert expression.has_rational_type()
+
+    def test_expression_parser(self):
+        manager = stormpy.ExpressionManager()
+        ep = stormpy.ExpressionParser(manager)
+        ep.set_identifier_mapping(dict())
+        ex_true = ep.parse("true")
+        assert str(ex_true) == "true"
+        ex_one = ep.parse("1.0")
+        assert str(ex_one) == "1"
+        assert ex_one.has_rational_type()

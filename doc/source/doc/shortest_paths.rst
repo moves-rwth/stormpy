@@ -18,9 +18,9 @@ It is crucial to note that *any* path is eligible, including those that (repeate
 Examining Shortest Paths
 ========================
 
-.. seealso:: `07-shortest-paths.py <https://github.com/moves-rwth/stormpy/blob/master/examples/shortest_paths/01-shortest-paths.py>`_
+.. seealso:: `01-shortest-paths.py <https://github.com/moves-rwth/stormpy/blob/master/examples/shortest_paths/01-shortest-paths.py>`_
 
-As in :doc:`getting_started`, we import some required modules and build a model from the example files::
+As in :doc:`../getting_started`, we import some required modules and build a model from the example files::
 
     >>> import stormpy.examples
     >>> import stormpy.examples.files
@@ -29,7 +29,7 @@ As in :doc:`getting_started`, we import some required modules and build a model 
     >>> model = stormpy.build_model(prism_program)
 
 
-We also import the `ShortestPathsGenerator`::
+We also import the ``ShortestPathsGenerator``::
 
     >>> from stormpy.utility import ShortestPathsGenerator
 
@@ -40,7 +40,7 @@ and choose a target state (by its ID) to which we want to compute the shortest p
 It is also possible to specify a set of target states (as a list, e.g., ``[8, 10, 11]``) or a label in the model if applicable (e.g., ``"observe0Greater1"``).
 For simplicity, we will stick to using a single state for now.
 
-We initialize a `ShortestPathsGenerator` instance::
+We initialize a ``ShortestPathsGenerator`` instance::
 
     >>> spg = ShortestPathsGenerator(model, state_id)
 
