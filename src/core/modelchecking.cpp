@@ -28,11 +28,11 @@ std::shared_ptr<storm::modelchecker::CheckResult> modelCheckingHybridEngine(std:
 
 std::vector<double> computeAllUntilProbabilities(storm::Environment const& env, CheckTask<double> const& task, std::shared_ptr<storm::models::sparse::Ctmc<double>> ctmc, storm::storage::BitVector const& phiStates, storm::storage::BitVector const& psiStates) {
     storm::solver::SolveGoal<double> goal(*ctmc, task);
-    return storm::modelchecker::helper::SparseCtmcCslHelper::computeAllUntilProbabilities(env, std::move(goal), ctmc->getTransitionMatrix(), ctmc->getBackwardTransitions(), ctmc->getExitRateVector(), ctmc->getInitialStates(), phiStates, psiStates);
+    return storm::modelchecker::helper::SparseCtmcCslHelper::computeAllUntilProbabilities(env, std::move(goal), ctmc->getTransitionMatrix(), ctmc->getExitRateVector(), ctmc->getInitialStates(), phiStates, psiStates);
 }
 
 std::vector<double> computeTransientProbabilities(storm::Environment const& env, std::shared_ptr<storm::models::sparse::Ctmc<double>> ctmc, storm::storage::BitVector const& phiStates, storm::storage::BitVector const& psiStates, double timeBound) {
-    return storm::modelchecker::helper::SparseCtmcCslHelper::computeAllTransientProbabilities(env, ctmc->getTransitionMatrix(), ctmc->getBackwardTransitions(), ctmc->getInitialStates(), phiStates, psiStates, ctmc->getExitRateVector(), timeBound);
+    return storm::modelchecker::helper::SparseCtmcCslHelper::computeAllTransientProbabilities(env, ctmc->getTransitionMatrix(), ctmc->getInitialStates(), phiStates, psiStates, ctmc->getExitRateVector(), timeBound);
 }
 
 
