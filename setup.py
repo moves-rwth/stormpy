@@ -15,7 +15,7 @@ if sys.version_info[0] == 2:
 
 # Minimal carl version required
 carl_min_version = "17.12"
-carl_max_version = "18.08"
+carl_max_version = "19.12"
 carl_master14_version = "14."
 
 # Get the long description from the README file
