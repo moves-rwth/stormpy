@@ -22,6 +22,7 @@ class TestExpressions:
         assert not expression.has_boolean_type()
         assert expression.has_integer_type()
         assert not expression.has_rational_type()
+        assert expression.evaluate_as_int() == 2
 
     def test_rational_expression(self):
         manager = stormpy.ExpressionManager()
@@ -31,6 +32,7 @@ class TestExpressions:
         assert not expression.has_boolean_type()
         assert not expression.has_integer_type()
         assert expression.has_rational_type()
+        assert expression.evaluate_as_double() == 0.2
 
     def test_expression_parser(self):
         manager = stormpy.ExpressionManager()

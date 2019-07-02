@@ -3,12 +3,15 @@
 
 #include "storm/storage/expressions/ExpressionManager.h"
 #include "storm/storage/expressions/Expression.h"
+#include "storm/storage/expressions/Valuation.h"
+#include "storm/storage/expressions/OperatorType.h"
 #include "storm-parsers/parser/ExpressionParser.h"
 
 //Define python bindings
 void define_expressions(py::module& m) {
     using Expression = storm::expressions::Expression;
     using Variable = storm::expressions::Variable;
+    using Valuation = storm::expressions::Valuation;
 
 
 
@@ -23,7 +26,6 @@ void define_expressions(py::module& m) {
         .def("create_boolean_variable", &storm::expressions::ExpressionManager::declareBooleanVariable, "create Boolean variable", py::arg("name"), py::arg("auxiliary") = false)
         .def("create_integer_variable", &storm::expressions::ExpressionManager::declareIntegerVariable, "create Integer variable", py::arg("name"), py::arg("auxiliary") = false)
         .def("create_rational_variable", &storm::expressions::ExpressionManager::declareRationalVariable, "create Rational variable", py::arg("name"), py::arg("auxiliary") = false)
-
             ;
 
     // Variable
@@ -37,20 +39,62 @@ void define_expressions(py::module& m) {
         .def("get_expression", &storm::expressions::Variable::getExpression, "Get expression from variable")
     ;
 
+
+
+    py::enum_<storm::expressions::OperatorType>(m, "OperatorType", "Type of an operator (of any sort)")
+            .value("And", storm::expressions::OperatorType::And)
+            .value("Or", storm::expressions::OperatorType::Or)
+            .value("Xor", storm::expressions::OperatorType::Xor)
+            .value("Implies", storm::expressions::OperatorType::Implies)
+            .value("Iff", storm::expressions::OperatorType::Iff)
+            .value("Plus", storm::expressions::OperatorType::Plus)
+            .value("Minus", storm::expressions::OperatorType::Minus)
+            .value("Times", storm::expressions::OperatorType::Times)
+            .value("Divide", storm::expressions::OperatorType::Divide)
+            .value("Min", storm::expressions::OperatorType::Min)
+            .value("Max", storm::expressions::OperatorType::Max)
+            .value("Power", storm::expressions::OperatorType::Power)
+            .value("Modulo", storm::expressions::OperatorType::Modulo)
+            .value("Equal", storm::expressions::OperatorType::Equal)
+            .value("NotEqual", storm::expressions::OperatorType::NotEqual)
+            .value("Less", storm::expressions::OperatorType::Less)
+            .value("LessOrEqual", storm::expressions::OperatorType::LessOrEqual)
+            .value("Greater", storm::expressions::OperatorType::Greater)
+            .value("GreaterOrEqual", storm::expressions::OperatorType::GreaterOrEqual)
+            .value("Not", storm::expressions::OperatorType::Not)
+            .value("Floor", storm::expressions::OperatorType::Floor)
+            .value("Ceil", storm::expressions::OperatorType::Ceil)
+            .value("Ite", storm::expressions::OperatorType::Ite)
+            ;
+
+
     // Expression
-    py::class_<storm::expressions::Expression, std::shared_ptr<storm::expressions::Expression>>(m, "Expression", "Holds an expression")
-        .def(py::init<Expression>(), "other_expression"_a)
+    py::class_<storm::expressions::Expression, std::shared_ptr<storm::expressions::Expression>> expression(m, "Expression", "Holds an expression");
+    expression.def(py::init<Expression>(), "other_expression"_a)
         .def("contains_variables", &storm::expressions::Expression::containsVariables, "Check if the expression contains variables.")
         .def("contains_variable", &storm::expressions::Expression::containsVariable, "Check if the expression contains any of the given variables.", py::arg("variables"))
         .def("get_variables" , &storm::expressions::Expression::getVariables, "Get the variables")
             .def("is_literal", &storm::expressions::Expression::isLiteral, "Check if the expression is a literal")
+            .def("is_variable", &storm::expressions::Expression::isVariable, "Check if the expression is a variable")
+            .def("identifier", &storm::expressions::Expression::getIdentifier, "Retrieves the identifier associated with this expression if this expression is a variable")
         .def("has_boolean_type", &storm::expressions::Expression::hasBooleanType, "Check if the expression is a boolean")
         .def("has_integer_type", &storm::expressions::Expression::hasIntegerType, "Check if the expression is an integer")
         .def("has_rational_type", &storm::expressions::Expression::hasRationalType, "Check if the expression is a rational")
         .def_property_readonly("type", &storm::expressions::Expression::getType, "Get the Type")
         .def_property_readonly("manager", &storm::expressions::Expression::getManager, "Get the manager")
         .def("substitute", [](Expression const& expr, std::map<Variable, Expression> const& map) { return expr.substitute(map);}, "substitution_map"_a)
+        .def("evaluate_as_int", [](Expression const& expr)
+                                {return expr.evaluateAsInt();}, "Get the integer value this expression evaluates to")
+        .def("evaluate_as_bool", [](Expression const& expr)
+            {return expr.evaluateAsBool();}, "Get the boolean value this expression evaluates to")
+        .def("evaluate_as_double", [](Expression const& expr)
+            {return expr.evaluateAsDouble();}, "Get the double value this expression evaluates to")
         .def("__str__", &storm::expressions::Expression::toString, "To string")
+        .def_property_readonly("is_function_application", &storm::expressions::Expression::isFunctionApplication, "True iff the expression is a function application (of any sort")
+        .def_property_readonly("operator", &storm::expressions::Expression::getOperator, "The operator of the expression (if it is a function application)")
+        .def_property_readonly("arity", &storm::expressions::Expression::getArity, "The arity of the expression")
+        .def("get_operand", &storm::expressions::Expression::getOperand
+                , "Get the operand at the given index", py::arg("operandIndex"))
 
         .def_static("Plus", [](Expression const& lhs, Expression const& rhs) {return lhs + rhs;})
         .def_static("Minus", [](Expression const& lhs, Expression const& rhs) {return lhs - rhs;})
@@ -66,6 +110,7 @@ void define_expressions(py::module& m) {
         .def_static("Implies", [](Expression const& lhs, Expression const& rhs) {return storm::expressions::implies(lhs, rhs);})
         .def_static("Iff", [](Expression const& lhs, Expression const& rhs) {return storm::expressions::iff(lhs, rhs);})
             ;
+
 
     py::class_<storm::parser::ExpressionParser>(m, "ExpressionParser", "Parser for storm-expressions")
             .def(py::init<storm::expressions::ExpressionManager const&>(), "Expression Manager to use", py::arg("expression_manager"))

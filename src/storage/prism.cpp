@@ -20,16 +20,25 @@ void define_prism(py::module& m) {
             .def("restrict_commands", &Program::restrictCommands, "Restrict commands")
             .def("simplify", &Program::simplify, "Simplify")
             .def("used_constants",&Program::usedConstants, "Compute Used Constants")
+            .def_property_readonly("hasUndefinedConstants", &Program::hasUndefinedConstants, "Does the program have undefined constants?")
+            .def_property_readonly("isDeterministicModel", &Program::isDeterministicModel, "Does the program describe a deterministic model?")
             .def_property_readonly("expression_manager", &Program::getManager, "Get the expression manager for expressions in this program")
             .def("to_jani", [](storm::prism::Program const& program, std::vector<storm::jani::Property> const& properties, bool allVariablesGlobal, std::string suffix) {
                     return program.toJani(properties, allVariablesGlobal, suffix);
                 }, "Transform to Jani program", py::arg("properties"), py::arg("all_variables_global") = true, py::arg("suffix") = "")
-            .def("__str__", &streamToString<storm::prism::Program>);
+            .def("__str__", &streamToString<storm::prism::Program>)
+            .def_property_readonly("variables", &Program::getAllExpressionVariables, "Get all Expression Variables used by the program")
+            .def("get_label_expression", [](storm::prism::Program const& program, std::string const& label){
+                return program.getLabelExpression(label);
+            }, "Get the expression of the given label.", py::arg("label"))
+            ;
 
     py::class_<Module> module(m, "PrismModule", "A module in a Prism program");
     module.def_property_readonly("commands", [](Module const& module) {return module.getCommands();}, "Commands in the module")
             .def_property_readonly("name", &Module::getName, "Name of the module")
-                    ;
+            .def_property_readonly("integer_variables", &Module::getIntegerVariables, "All integer Variables of this module")
+            .def_property_readonly("boolean_variables", &Module::getBooleanVariables, "All boolean Variables of this module")
+            ;
 
     py::class_<Command> command(m, "PrismCommand", "A command in a Prism program");
     command.def_property_readonly("global_index", &Command::getGlobalIndex, "Get global index")
@@ -37,7 +46,9 @@ void define_prism(py::module& m) {
             .def_property_readonly("updates", &Command::getUpdates, "Updates in the command");
 
     py::class_<Update> update(m, "PrismUpdate", "An update in a Prism command");
-    update.def_property_readonly("assignments", &Update::getAssignments, "Assignments in the update");
+    update.def_property_readonly("assignments", &Update::getAssignments, "Assignments in the update")
+           .def_property_readonly("probability_expression", &Update::getLikelihoodExpression, "The probability expression for this update")
+           ;//Added by Kevin
 
     py::class_<Assignment> assignment(m, "PrismAssignment", "An assignment in prism");
     assignment.def_property_readonly("variable", &Assignment::getVariable, "Variable that is updated")
@@ -62,6 +73,20 @@ void define_prism(py::module& m) {
             .def_property_readonly("type", &Constant::getType, "The type of the constant")
             .def_property_readonly("expression_variable", &Constant::getExpressionVariable, "Expression variable")
             ;
+
+
+    // Added by Kevin
+    py::class_<Variable, std::shared_ptr<Variable>> variable(m, "Prism_Variable", "A program variable in a Prism program");
+    variable.def_property_readonly("name", &Variable::getName, "Variable Name")
+            .def_property_readonly("initial_value_expression", &Variable::getInitialValueExpression, "The expression represented the initial value of the variable")
+            ;
+
+    py::class_<IntegerVariable, std::shared_ptr<IntegerVariable>> integer_variable(m, "Prism_Integer_Variable", variable, "A program integer variable in a Prism program");
+    integer_variable.def_property_readonly("lower_bound_expression", &IntegerVariable::getLowerBoundExpression, "The the lower bound expression of this integer variable")
+                    .def_property_readonly("upper_bound_expression", &IntegerVariable::getUpperBoundExpression, "The the upper bound expression of this integer variable")
+                    ;
+
+    py::class_<BooleanVariable, std::shared_ptr<BooleanVariable>> boolean_variable(m, "Prism_Boolean_Variable", variable, "A program boolean variable in a Prism program");
 
 
 }
