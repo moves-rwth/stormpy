@@ -12,6 +12,7 @@ class TestPrism:
         jani_model, new_properties = program.to_jani(orig_properties)
         assert len(new_properties) == len(orig_properties)
 
+
     def test_prism_to_jani_labels(self):
         program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
         orig_properties = stormpy.parse_properties_for_prism_program("P=? [F \"two\"]", program)
@@ -28,3 +29,9 @@ class TestPrism:
         orig_properties = stormpy.parse_properties_for_prism_program("P=? [F s=7]", program)
         jani_model, new_properties = program.to_jani(orig_properties, suffix = "2")
         assert len(new_properties) == len(orig_properties)
+
+    def test_prism_variables(selfs):
+        program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
+        module = program.modules[0]
+        assert len(module.integer_variables) == 2
+        assert len(module.boolean_variables) == 0

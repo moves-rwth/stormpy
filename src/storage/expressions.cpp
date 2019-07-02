@@ -28,6 +28,8 @@ void define_expressions(py::module& m) {
         .def("create_rational_variable", &storm::expressions::ExpressionManager::declareRationalVariable, "create Rational variable", py::arg("name"), py::arg("auxiliary") = false)
             ;
 
+
+
     // Variable
     py::class_<storm::expressions::Variable, std::shared_ptr<storm::expressions::Variable>>(m, "Variable", "Represents a variable")
         .def_property_readonly("name", &storm::expressions::Variable::getName, "Variable name")
@@ -38,6 +40,7 @@ void define_expressions(py::module& m) {
         .def("has_bitvector_type", &storm::expressions::Variable::hasBitVectorType, "Check if the variable is of bitvector type")
         .def("get_expression", &storm::expressions::Variable::getExpression, "Get expression from variable")
     ;
+
 
 
 

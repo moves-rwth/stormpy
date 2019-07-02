@@ -9,6 +9,7 @@ class TestExpressions:
         manager = stormpy.ExpressionManager()
         expression = manager.create_boolean(True)
         assert expression.is_literal()
+        assert expression.evaluate_as_bool
         assert not expression.contains_variables()
         assert expression.has_boolean_type()
         assert not expression.has_integer_type()

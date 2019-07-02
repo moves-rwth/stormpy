@@ -75,7 +75,7 @@ void define_prism(py::module& m) {
             ;
 
 
-    // Added by Kevin
+
     py::class_<Variable, std::shared_ptr<Variable>> variable(m, "Prism_Variable", "A program variable in a Prism program");
     variable.def_property_readonly("name", &Variable::getName, "Variable Name")
             .def_property_readonly("initial_value_expression", &Variable::getInitialValueExpression, "The expression represented the initial value of the variable")
