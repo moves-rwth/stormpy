@@ -92,6 +92,8 @@ void define_expressions(py::module& m) {
             {return expr.evaluateAsBool();}, "Get the boolean value this expression evaluates to")
         .def("evaluate_as_double", [](Expression const& expr)
             {return expr.evaluateAsDouble();}, "Get the double value this expression evaluates to")
+            .def("evaluate_as_rational", [](Expression const& expr)
+            {return expr.evaluateAsRational();}, "Get the rational number this expression evaluates to")
         .def("__str__", &storm::expressions::Expression::toString, "To string")
         .def_property_readonly("is_function_application", &storm::expressions::Expression::isFunctionApplication, "True iff the expression is a function application (of any sort")
         .def_property_readonly("operator", &storm::expressions::Expression::getOperator, "The operator of the expression (if it is a function application)")
