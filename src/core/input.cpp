@@ -24,6 +24,20 @@ void define_input(py::module& m) {
             return storm::api::parseJaniModel(path);
         }, "Parse Jani model", py::arg("path"));
 
+    m.def("preprocess_prism_program", [](storm::storage::SymbolicModelDescription const& input, std::vector<storm::jani::Property> properties, std::string constantDefinitionString){
+            // Substitute constant definitions in symbolic input.
+            std::map<storm::expressions::Variable, storm::expressions::Expression> constantDefinitions;
+            storm::storage::SymbolicModelDescription output;
+            std::vector<storm::jani::Property> outputProperties;
+            constantDefinitions = input.parseConstantDefinitions(constantDefinitionString);
+            output = input.preprocess(constantDefinitions);
+            if (!properties.empty()) {
+                outputProperties = storm::api::substituteConstantsInProperties(properties, constantDefinitions);
+            }
+            //ensureNoUndefinedPropertyConstants(outputProperties);
+            return std::pair<storm::storage::SymbolicModelDescription, std::vector<storm::jani::Property>>(output, outputProperties);
+        }, "Preprocess Prism program", py::arg("prism_program"), py::arg("properties"), py::arg("constant_definition_string"));
+
     // JaniType
     py::enum_<storm::jani::ModelType>(m, "JaniModelType", "Type of the Jani model")
         .value("DTMC", storm::jani::ModelType::DTMC)
