@@ -13,19 +13,19 @@ void define_core(py::module& m) {
     // Init
     m.def("_set_up", [](std::string const& args) {
             storm::utility::setUp();
-            storm::settings::initializeAll("StoRM-Py", "stormpy");
+            storm::settings::initializeAll("stormpy", "stormpy");
             storm::settings::addModule<storm::settings::modules::CounterexampleGeneratorSettings>();
-            storm::settings::SettingsManager::manager().setFromString(args);
+            storm::settings::mutableManager().setFromString(args);
         }, "Initialize Storm", py::arg("arguments"));
-
+    m.def("set_settings", [](std::vector<std::string> const& args) {
+            storm::settings::mutableManager().setFromExplodedString(args);
+        }, "Set settings", py::arg("arguments"));
     m.def("_set_loglevel_debug", []() {
         storm::utility::setLogLevel(l3pp::LogLevel::DEBUG);
     }, "set loglevel for storm to debug");
     m.def("_set_loglevel_trace", []() {
         storm::utility::setLogLevel(l3pp::LogLevel::TRACE);
     });
-
-
 }
 
 void define_parse(py::module& m) {
