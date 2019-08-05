@@ -76,3 +76,18 @@ class TestBisimulation:
         assert initial_state_bisim == 316
         ratFunc_bisim = result_bisim.at(initial_state_bisim)
         assert ratFunc == ratFunc_bisim
+
+    def test_symbolic_parametric_bisimulation(self):
+        program = stormpy.parse_prism_program(get_example_path("pdtmc", "brp16_2.pm"))
+        prop = "P=? [F \"error\"]"
+        properties = stormpy.parse_properties_for_prism_program(prop, program)
+        model = stormpy.build_symbolic_parametric_model(program, properties)
+        assert model.nr_states == 613
+        assert model.nr_transitions == 803
+        assert model.model_type == stormpy.ModelType.DTMC
+        assert model.has_parameters
+        model_bisim = stormpy.perform_symbolic_bisimulation(model, properties)
+        assert model_bisim.nr_states == 326
+        assert model_bisim.nr_transitions == 454
+        assert model_bisim.model_type == stormpy.ModelType.DTMC
+        assert model_bisim.has_parameters
