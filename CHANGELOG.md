@@ -4,6 +4,11 @@ Changelog
 Version 1.3.x
 -------------
 
+### Version 1.3.1 (under development)
+- Changed constructor of `ParameterRegion` to take a valuation instead of string.
+  Use `ParameterRegion.create_from_string()` to create a region from string.
+
+
 ### Version 1.3.0 (2019/01)
 Requires storm version >= 1.3.0 and pycarl version >= 2.0.3
 - Adaptions to changes in Storm

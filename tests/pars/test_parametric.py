@@ -135,3 +135,24 @@ class TestParametric:
         model, formula = stormpy.pars.simplify_model(model, formula)
         assert model.nr_states == 17
         assert model.nr_transitions == 50
+
+    def test_region(self):
+        program = stormpy.parse_prism_program(get_example_path("pdtmc", "brp16_2.pm"))
+        prop = "P<=0.84 [F s=5 ]"
+        formulas = stormpy.parse_properties_for_prism_program(prop, program)
+        model = stormpy.build_parametric_model(program, formulas)
+        parameters = model.collect_probability_parameters()
+        assert len(parameters) == 2
+        region = stormpy.pars.ParameterRegion.create_from_string("0.7<=pL<=0.9,0.75<=pK<=0.95", parameters)
+        assert region.area == stormpy.RationalRF(1) / stormpy.RationalRF(25)
+        for par in parameters:
+            if par.name == "pL":
+                pL = par
+            elif par.name == "pK":
+                pK = par
+            else:
+                assert False
+        dec = stormpy.RationalRF(100)
+        region_valuation = {pL: (stormpy.RationalRF(70) / dec, stormpy.RationalRF(90) / dec), pK: (stormpy.RationalRF(75) / dec, stormpy.RationalRF(95) / dec)}
+        region = stormpy.pars.ParameterRegion(region_valuation)
+        assert region.area == stormpy.RationalRF(1) / stormpy.RationalRF(25)

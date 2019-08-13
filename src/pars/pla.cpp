@@ -73,13 +73,23 @@ void define_pla(py::module& m) {
 
     // Region
     py::class_<Region, std::shared_ptr<Region>>(m, "ParameterRegion", "Parameter region")
-       .def("__init__", [](Region &instance, std::string const& regionString, std::set<Region::VariableType> const& variables) -> void {
-                new (&instance) Region(storm::api::parseRegion<storm::RationalFunction>(regionString, variables));
-            })
+        .def("__init__", [](Region &instance, std::map<Region::VariableType, std::pair<Region::CoefficientType, Region::CoefficientType>> valuation) -> void {
+                Region::Valuation lowerValuation;
+                Region::Valuation upperValuation;
+                for (auto const& val : valuation) {
+                    lowerValuation[val.first] = val.second.first;
+                    upperValuation[val.first] = val.second.second;
+                }
+                new (&instance) Region(lowerValuation, upperValuation);
+            }, "Create region from valuation of var -> (lower_bound, upper_bound)", py::arg("valuation"))
+        .def_static("create_from_string", [](std::string const& regionString, std::set<Region::VariableType> const& variables) -> Region {
+                return storm::api::parseRegion<storm::RationalFunction>(regionString, variables);
+            }, "Create region from string", py::arg("region_string"), py::arg("variables"))
+        .def_property_readonly("area", &Region::area, "Get area")
+        .def("__str__", &streamToString<Region>)
     ;
 
     // RegionModelChecker
-
     py::class_<RegionModelChecker, std::shared_ptr<RegionModelChecker>> regionModelChecker(m, "RegionModelChecker", "Region model checker via paramater lifting");
     regionModelChecker.def("check_region", &checkRegion, "Check region", py::arg("environment"), py::arg("region"), py::arg("hypothesis") = storm::modelchecker::RegionResultHypothesis::Unknown, py::arg("initialResult") = storm::modelchecker::RegionResult::Unknown, py::arg("sampleVertices") = false)
         .def("get_bound", &getBoundAtInit, "Get bound", py::arg("environment"), py::arg("region"), py::arg("maximise")= true)
