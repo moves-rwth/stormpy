@@ -35,7 +35,7 @@ linux)
     # Install dependencies for carl-parser
     if [[ "$BUILD_CARL_PARSER" == TRUE ]]
     then
-        docker exec pycarl apt-get install -qq -y openjdk-8-jdk maven uuid-dev pkg-config
+        docker exec pycarl apt-get install -qq -y maven uuid-dev
     fi
     set +e
 

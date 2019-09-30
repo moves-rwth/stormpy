@@ -12,13 +12,15 @@ travis_fold() {
 # Helper for building and testing
 run() {
   # Create virtual environment
+  travis_fold start virtualenv
   $PYTHON -m venv pycarl-env
   source pycarl-env/bin/activate
   # Print version
   python --version
+  travis_fold end virtualenv
 
   # Build Carl
-  travis_fold start install_carl
+  travis_fold start build_carl
   git clone --single-branch -b master14 https://github.com/smtrat/carl
   cd carl
   mkdir build
@@ -38,7 +40,7 @@ run() {
     make lib_carl -j$N_JOBS
   fi
   cd ../..
-  travis_fold end install_carl
+  travis_fold end build_carl
 
   # Build Pycarl
   travis_fold start build_pycarl

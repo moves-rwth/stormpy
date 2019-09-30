@@ -3,7 +3,9 @@
 configs_linux = [
     # OS, compiler
     ("ubuntu-18.04", "gcc", ""),
-    #("debian-9", "gcc", ""),
+    ("debian-9", "gcc", ""),
+    ("ubuntu-18.10", "gcc", ""),
+    ("ubuntu-19.04", "gcc", ""),
 ]
 
 # Configurations for Mac
@@ -14,7 +16,7 @@ configs_mac = [
 
 # Build types
 build_types = [
-#    "Debug",
+    "DebugClnParser",
     "Release",
     "ReleaseCln",
     "ReleaseClnParser",
