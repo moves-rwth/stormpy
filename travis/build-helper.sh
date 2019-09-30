@@ -58,27 +58,23 @@ run() {
   esac
   travis_fold end build_stormpy
 
-  # Perform task
-  case $TASK in
-  Test*)
+  # Perform tasks
+  if [[ "$TASK" == *Test* ]]
+  then
     # Run tests
     set +e
     python setup.py test
-    ;;
+  fi
 
-  Documentation*)
+  if [[ "$TASK" == *Documentation* ]]
+  then
     # Generate documentation
     pip install sphinx sphinx_bootstrap_theme
     cd doc
     make html
     touch build/html/.nojekyll
     rm -r build/html/_sources
-    ;;
-
-  *)
-    echo "Unrecognized value of TASK: $TASK"
-    exit 1
-  esac
+  fi
 }
 
 
