@@ -1,5 +1,12 @@
 #!/bin/bash -x
 
+# Helper for travis folding
+travis_fold() {
+  local action=$1
+  local name=$2
+  echo -en "travis_fold:${action}:${name}\r"
+}
+
 N_JOBS=2
 
 OS=$TRAVIS_OS_NAME
@@ -29,14 +36,17 @@ linux)
     # Copy local content into container
     docker exec pycarl mkdir /opt/pycarl
     docker cp . pycarl:/opt/pycarl
-    # Install virtualenv
+
+    travis_fold start install_dependencies
     docker exec pycarl apt-get update
+    # Install virtualenv
     docker exec pycarl apt-get install -qq -y libeigen3-dev python3 python3-venv
     # Install dependencies for carl-parser
     if [[ "$BUILD_CARL_PARSER" == TRUE ]]
     then
         docker exec pycarl apt-get install -qq -y maven uuid-dev
     fi
+    travis_fold end install_dependencies
     set +e
 
     # Execute main process
