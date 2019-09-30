@@ -4,7 +4,7 @@ configs_linux = [
     # OS, compiler
     ("ubuntu-18.04", "gcc", ""),
     ("debian-9", "gcc", ""),
-    ("ubuntu-18.10", "gcc", ""),
+    ("debian-10", "gcc", ""),
     ("ubuntu-19.04", "gcc", ""),
 ]
 
@@ -28,8 +28,6 @@ python_versions = [
 
 
 if __name__ == "__main__":
-    allow_failures = []
-
     s = ""
     # Initial config
     s += "#\n"
@@ -89,15 +87,10 @@ if __name__ == "__main__":
         for python in python_versions:
             buildConfig = ""
             for build in build_types:
-                allow_fail = ""
                 buildConfig += "    - os: osx\n"
-                allow_fail += "    - os: osx\n"
                 buildConfig += "      compiler: {}\n".format(config[1])
                 buildConfig += "      env: TASK=Test PYTHON={} CONFIG={} COMPILER={} STL=libc++\n".format(python, build, compiler)
-                allow_fail += "      env: TASK=Test PYTHON={} CONFIG={} COMPILER={} STL=libc++\n".format(python, build, compiler)
                 buildConfig += "      script: travis/build.sh\n"
-            if "Parser" in build:
-                allow_failures.append(allow_fail)
             s += buildConfig
 
     # Linux via Docker
@@ -115,7 +108,7 @@ if __name__ == "__main__":
             s += buildConfig
 
     # Documentation
-    config = configs_linux[0]
+    config = configs_linux[-1]
     linux = config[0]
     compiler = "{}{}".format(config[1], config[2])
     s += "    # Documentation\n".format()
@@ -136,11 +129,5 @@ if __name__ == "__main__":
     buildConfig += "        on:\n"
     buildConfig += "          branch: master\n"
     s += buildConfig
-
-
-    if len(allow_failures) > 0:
-        s += "  allow_failures:\n"
-        for fail in allow_failures:
-            s += fail
 
     print(s)
