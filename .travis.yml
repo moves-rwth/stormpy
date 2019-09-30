@@ -31,12 +31,20 @@ jobs:
       env: TASK=Test CONFIG=Release DOCKER=storm:travis PYTHON=python3
       script:
         travis/build.sh
+      deploy:
+        - provider: script
+          skip_cleanup: true
+          script: bash travis/deploy_docker.sh stormpy
     # Docker Storm master in debug mode
     - os: linux
       compiler: gcc
       env: TASK=Test CONFIG=Debug DOCKER=storm:travis-debug PYTHON=python3
       script:
         travis/build.sh
+      deploy:
+        - provider: script
+          skip_cleanup: true
+          script: bash travis/deploy_docker.sh stormpy
     # Docker Storm stable
     - os: linux
       compiler: gcc
