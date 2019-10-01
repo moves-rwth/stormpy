@@ -25,8 +25,8 @@ run() {
 
   # Create virtual environment
   travis_fold start virtualenv
-  virtualenv --python=$PYTHON stormpy-env
-  source stormpy-env/bin/activate
+  virtualenv --python=$PYTHON venv
+  source venv/bin/activate
   # Print version
   python --version
   travis_fold end virtualenv
