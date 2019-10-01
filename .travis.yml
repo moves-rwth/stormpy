@@ -118,3 +118,9 @@ jobs:
         on:
           branch: master
 
+  # Allow failures with Debian 9 for now
+  allow_failures:
+    - os: linux
+      env: TASK=Test PYTHON=python3 CONFIG=DebugClnParser LINUX=debian-9 COMPILER=gcc
+    - os: linux
+      env: TASK=Test PYTHON=python3 CONFIG=ReleaseClnParser LINUX=debian-9 COMPILER=gcc
