@@ -11,6 +11,8 @@ travis_fold() {
 
 # Helper for building and testing
 run() {
+  # We start in /opt/stormpy
+  cd ..
 
   # Build carl-parser
   travis_fold start build_carl_parser
@@ -48,6 +50,7 @@ run() {
 
   # Build stormpy
   travis_fold start build_stormpy
+  cd stormpy
   case "$CONFIG" in
   Debug*)
     python setup.py build_ext --storm-dir /opt/storm/build/ --debug -j 1 develop
