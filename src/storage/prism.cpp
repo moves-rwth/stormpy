@@ -79,6 +79,7 @@ void define_prism(py::module& m) {
     py::class_<Variable, std::shared_ptr<Variable>> variable(m, "Prism_Variable", "A program variable in a Prism program");
     variable.def_property_readonly("name", &Variable::getName, "Variable Name")
             .def_property_readonly("initial_value_expression", &Variable::getInitialValueExpression, "The expression represented the initial value of the variable")
+            .def_property_readonly("expression_variable", &Variable::getExpressionVariable, "The expression variable corresponding to the variable")
             ;
 
     py::class_<IntegerVariable, std::shared_ptr<IntegerVariable>> integer_variable(m, "Prism_Integer_Variable", variable, "A program integer variable in a Prism program");

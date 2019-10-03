@@ -8,6 +8,7 @@
 #include "storage/prism.h"
 #include "storage/jani.h"
 #include "storage/state.h"
+#include "src/storage/valuation.h"
 #include "storage/choiceorigins.h"
 #include "storage/labeling.h"
 #include "storage/expressions.h"
@@ -24,6 +25,8 @@ PYBIND11_MODULE(storage, m) {
 
     define_bitvector(m);
     define_model(m);
+    define_statevaluation(m);
+    define_simplevaluation(m);
     define_sparse_model(m);
     define_sparse_matrix(m);
     define_symbolic_model<storm::dd::DdType::Sylvan>(m, "Sylvan");
