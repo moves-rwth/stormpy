@@ -11,11 +11,27 @@ travis_fold() {
 
 # Helper for building and testing
 run() {
+  # We start in /opt/stormpy
+  cd ..
+
+  # Build carl-parser
+  travis_fold start build_carl_parser
+  git clone --single-branch -b master14 https://github.com/ths-rwth/carl-parser
+  cd carl-parser
+  mkdir build
+  cd build
+  cmake .. "${CMAKE_ARGS[@]}"
+  make carl-parser -j 1
+  cd ../..
+  travis_fold end build_carl_parser
+
   # Create virtual environment
-  virtualenv --python=$PYTHON stormpy-env
-  source stormpy-env/bin/activate
+  travis_fold start virtualenv
+  virtualenv --python=$PYTHON venv
+  source venv/bin/activate
   # Print version
   python --version
+  travis_fold end virtualenv
 
   # Build pycarl
   travis_fold start build_pycarl
@@ -29,11 +45,12 @@ run() {
     python setup.py build_ext -j 1 develop
     ;;
   esac
-  travis_fold end build_pycarl
   cd ..
+  travis_fold end build_pycarl
 
   # Build stormpy
   travis_fold start build_stormpy
+  cd stormpy
   case "$CONFIG" in
   Debug*)
     python setup.py build_ext --storm-dir /opt/storm/build/ --debug -j 1 develop
@@ -44,32 +61,34 @@ run() {
   esac
   travis_fold end build_stormpy
 
-  # Perform task
-  case $TASK in
-  Test)
+  # Perform tasks
+  if [[ "$TASK" == *Test* ]]
+  then
     # Run tests
     set +e
     python setup.py test
-    ;;
+  fi
 
-  Documentation)
+  if [[ "$TASK" == *Documentation* ]]
+  then
     # Generate documentation
     pip install sphinx sphinx_bootstrap_theme
     cd doc
     make html
     touch build/html/.nojekyll
     rm -r build/html/_sources
-    ;;
-
-  *)
-    echo "Unrecognized value of TASK: $TASK"
-    exit 1
-  esac
+  fi
 }
 
 
 # This only exists in OS X, but it doesn't cause issues in Linux (the dir doesn't exist, so it's
 # ignored).
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+
+case "$CONFIG" in
+Debug*)           CMAKE_ARGS=(-DCMAKE_BUILD_TYPE=Debug   -DCMAKE_CXX_FLAGS="$STLARG") ;;
+Release*)         CMAKE_ARGS=(-DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="$STLARG") ;;
+*) echo "Unrecognized value of CONFIG: $CONFIG"; exit 1 ;;
+esac
 
 run

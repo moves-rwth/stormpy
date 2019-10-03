@@ -164,8 +164,6 @@ class CMakeBuild(build_ext):
 
     def initialize_options(self):
         build_ext.initialize_options(self)
-        # Load setup config
-        self.config.load_from_file("build/build_config.cfg")
         # Set default values for custom cmdline flags
         self.storm_dir = None
         self.disable_dft = None
@@ -175,6 +173,9 @@ class CMakeBuild(build_ext):
 
     def finalize_options(self):
         build_ext.finalize_options(self)
+        # Load setup config
+        # This can only be done after the finalization step, because otherwise build_temp is not initialized yet.
+        self.config.load_from_file(os.path.join(self.build_temp, "build_config.cfg"))
         # Update setup config
         self.config.update("storm_dir", self.storm_dir)
         self.config.update("disable_dft", self.disable_dft)
