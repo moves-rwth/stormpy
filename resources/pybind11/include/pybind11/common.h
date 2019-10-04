@@ -19,7 +19,7 @@
 #if !defined(_MSC_VER) && !defined(__INTEL_COMPILER)
 #  if __cplusplus >= 201402L
 #    define PYBIND11_CPP14
-#    if __cplusplus > 201402L /* Temporary: should be updated to >= the final C++17 value once known */
+#    if __cplusplus >= 201703L /* Temporary: should be updated to >= the final C++17 value once known */
 #      define PYBIND11_CPP17
 #    endif
 #  endif
