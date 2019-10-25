@@ -39,6 +39,8 @@ void define_expressions(py::module& m) {
         .def("has_numerical_type", &storm::expressions::Variable::hasNumericalType, "Check if the variable is of numerical type")
         .def("has_bitvector_type", &storm::expressions::Variable::hasBitVectorType, "Check if the variable is of bitvector type")
         .def("get_expression", &storm::expressions::Variable::getExpression, "Get expression from variable")
+        .def("__eq__", &storm::expressions::Variable::operator==)
+        .def("__hash__", &storm::expressions::Variable::getIndex)
     ;
 
 

@@ -18,4 +18,5 @@ void define_simplevaluation(py::module& m) {
     py::class_<storm::expressions::SimpleValuation, std::shared_ptr<storm::expressions::SimpleValuation>> simplevaluation(m, "SimpleValuation",  "Valuations for storm variables");
     simplevaluation.def("get_boolean_value", &storm::expressions::SimpleValuation::getBooleanValue);
     simplevaluation.def("get_integer_value", &storm::expressions::SimpleValuation::getIntegerValue);
+    simplevaluation.def("__str__", &storm::expressions::SimpleValuation::toString);
 }
