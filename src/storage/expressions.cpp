@@ -122,7 +122,7 @@ void define_expressions(py::module& m) {
     py::class_<storm::parser::ExpressionParser>(m, "ExpressionParser", "Parser for storm-expressions")
             .def(py::init<storm::expressions::ExpressionManager const&>(), "Expression Manager to use", py::arg("expression_manager"))
             .def("set_identifier_mapping", [](storm::parser::ExpressionParser& p, std::unordered_map<std::string, storm::expressions::Expression> const& identifierMapping) {p.setIdentifierMapping(identifierMapping);}, "sets identifiers")
-            .def("parse", &storm::parser::ExpressionParser::parseFromString, "parse")
+            .def("parse", &storm::parser::ExpressionParser::parseFromString, py::arg("string"), py::arg("ignore_error") = false, "parse")
             ;
 
 

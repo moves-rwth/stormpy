@@ -57,12 +57,16 @@ void define_prism(py::module& m) {
     py::class_<Command> command(m, "PrismCommand", "A command in a Prism program");
     command.def_property_readonly("global_index", &Command::getGlobalIndex, "Get global index")
             .def_property_readonly("guard_expression", &Command::getGuardExpression, "Get guard expression")
-            .def_property_readonly("updates", &Command::getUpdates, "Updates in the command")
+            .def_property_readonly("updates", [](Command const& command) {
+                    return command.getUpdates();
+                }, "Updates in the command")
             .def("__str__", &streamToString<Command>)
             ;
 
     py::class_<Update> update(m, "PrismUpdate", "An update in a Prism command");
-    update.def_property_readonly("assignments", &Update::getAssignments, "Assignments in the update")
+    update.def_property_readonly("assignments", [](Update const& update) {
+                    return update.getAssignments();
+                }, "Assignments in the update")
            .def_property_readonly("probability_expression", &Update::getLikelihoodExpression, "The probability expression for this update")
            .def("__str__", &streamToString<Update>)
            ;
