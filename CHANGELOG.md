@@ -5,9 +5,14 @@ Changelog
 Version 2.0.x
 -------------
 
-### Version 2.0.4 (under development)
+### Version 2.0.5 (under development)
+
+
+### Version 2.0.4 (2019/11)
 - Extended conversion of number types to formulae
+- (minor) changed `constant_part` to function for `Polynomial`
 - (minor) added an additional operator on polynomials
+- Fix for compilation with Xcode 11
 
 ### Version 2.0.3 (2019/01)
 Requires carl with branch `master14` or a carl version between 17.12 and 18.08
