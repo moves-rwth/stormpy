@@ -10,7 +10,7 @@ def example_getting_started_04():
     prism_program = stormpy.parse_prism_program(path)
 
     formula_str = "P=? [F s=7 & d=2]"
-    properties = stormpy.parse_properties_for_prism_program(formula_str, prism_program)
+    properties = stormpy.parse_properties(formula_str, prism_program)
     model = stormpy.build_model(prism_program, properties)
 
     print(model.model_type)

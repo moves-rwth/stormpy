@@ -16,7 +16,7 @@ In all of the examples so far we used the default sparse engine:
     >>> import stormpy.examples
     >>> import stormpy.examples.files
 	>>> prism_program = stormpy.parse_prism_program(stormpy.examples.files.prism_dtmc_die)
-    >>> properties = stormpy.parse_properties_for_prism_program('P=? [F "one"]', prism_program)
+    >>> properties = stormpy.parse_properties('P=? [F "one"]', prism_program)
     >>> sparse_model = stormpy.build_sparse_model(prism_program, properties)
     >>> print(type(sparse_model))
     <class 'stormpy.storage.storage.SparseDtmc'>

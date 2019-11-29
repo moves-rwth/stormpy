@@ -17,7 +17,7 @@ We consider the die again, but with another property which talks about the expec
     >>> program = stormpy.parse_prism_program(stormpy.examples.files.prism_dtmc_die)
     >>> prop = "R=? [F \"done\"]"
 
-    >>> properties = stormpy.parse_properties_for_prism_program(prop, program, None)
+    >>> properties = stormpy.parse_properties(prop, program, None)
     >>> model = stormpy.build_model(program, properties)
     >>> assert len(model.reward_models) == 1
 

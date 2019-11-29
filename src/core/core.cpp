@@ -30,7 +30,7 @@ void define_core(py::module& m) {
 
 void define_parse(py::module& m) {
     // Parse formulas
-    m.def("parse_properties", [](std::string const& inputString, boost::optional<std::set<std::string>> const& propertyFilter = boost::none) {
+    m.def("parse_properties_without_context", [](std::string const& inputString, boost::optional<std::set<std::string>> const& propertyFilter = boost::none) {
                 return storm::api::parseProperties(inputString, propertyFilter);
             }, R"dox(
           

@@ -22,7 +22,7 @@ As in :doc:`../getting_started`, we import some required modules and build a mod
     >>> path = stormpy.examples.files.prism_mdp_coin_2_2
     >>> formula_str = "Pmin=? [F \"finished\" & \"all_coins_equal_1\"]"
     >>> program = stormpy.parse_prism_program(path)
-    >>> formulas = stormpy.parse_properties_for_prism_program(formula_str, program)
+    >>> formulas = stormpy.parse_properties(formula_str, program)
     >>> model = stormpy.build_model(program, formulas)
 
 Next we check the model and make sure to extract the scheduler:

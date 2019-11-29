@@ -72,7 +72,7 @@ To express that one is interested in the reachability of any state where the pri
 Stormpy can be used to parse this. As the variables in the property refer to a program, the program has to be passed as an additional parameter::
 
     >>> formula_str = "P=? [F s=2]"
-    >>> properties = stormpy.parse_properties_for_prism_program(formula_str, prism_program)
+    >>> properties = stormpy.parse_properties(formula_str, prism_program)
 
 Notice that properties is now a list of properties containing a single element. 
 
@@ -105,7 +105,7 @@ Checking properties
 The last lesson taught us to construct properties and models with matching state labels. 
 Now default checking routines are just a simple command away::
 
-    >>> properties = stormpy.parse_properties_for_prism_program(formula_str, prism_program)
+    >>> properties = stormpy.parse_properties(formula_str, prism_program)
     >>> model = stormpy.build_model(prism_program, properties)
     >>> result = stormpy.model_checking(model, properties[0])
     

@@ -443,3 +443,25 @@ def construct_submodel(model, states, actions, keep_unreachable_states=True, opt
         return core._construct_subsystem_double(model, states, actions, keep_unreachable_states, options)
     else:
         raise NotImplementedError()
+
+def parse_properties(properties, context = None, filters = None):
+    """
+
+    :param properties: A string with the pctl properties
+    :param context: A symbolic model that gives meaning to variables and constants.
+    :param filters: filters, if applicable.
+    :return: A list of properties
+    """
+    if context is None:
+        return core.parse_properties_without_context(properties, filters)
+    elif type(context) == core.SymbolicModelDescription:
+        if context.is_prism_program():
+            return core.parse_properties_for_prism_program(properties, context.as_prism_program(), filters)
+        else:
+            core.parse_properties_for_prism_program(properties, context.as_jani_model(), filters)
+    elif type(context) == storage.PrismProgram:
+        return core.parse_properties_for_prism_program(properties, context, filters)
+    elif type(context) == storage.JaniModel:
+        core.parse_properties_for_jani_model(properties, context, filters)
+    else:
+        raise StormError("Unclear context. Please pass a symbolic model description")
