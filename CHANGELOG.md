@@ -1,13 +1,22 @@
 Changelog
 =============
 
-Version 1.3.x
+Version 1.4.0
 -------------
 
-### Version 1.3.1 (under development)
+### Version 1.4.0 (under development)
+Requires storm version >= 1.4.0
 - Changed constructor of `ParameterRegion` to take a valuation instead of string.
   Use `ParameterRegion.create_from_string()` to create a region from string.
+- Added InstantiationModelChecker for pMDPs
+- Added transformation of CTMCs to DTMCs
+- Further bindings for Prism Programs and their preprocessing
+- SettingsManager updated
+- Allow building models annotated with valuations
+- A custom state exploration that allows to explore successor states of a prism program
 
+Version 1.3.x
+-------------
 
 ### Version 1.3.0 (2019/01)
 Requires storm version >= 1.3.0 and pycarl version >= 2.0.3
