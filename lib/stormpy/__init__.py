@@ -262,8 +262,15 @@ def model_checking(model, property, only_initial_states=False, extract_scheduler
     :return: Model checking result.
     :rtype: CheckResult
     """
-    return check_model_sparse(model, property, only_initial_states=only_initial_states,
+    if model.is_sparse_model:
+        return check_model_sparse(model, property, only_initial_states=only_initial_states,
                               extract_scheduler=extract_scheduler, environment=environment)
+    else:
+        assert(model.is_symbolic_model)
+        if extract_scheduler:
+            raise StormError("Model checking based on dd engine does not support extracting schedulers right now.")
+        return check_model_dd(model, property, only_initial_states=only_initial_states,
+                            environment=environment)
 
 
 def check_model_sparse(model, property, only_initial_states=False, extract_scheduler=False, environment=Environment()):
