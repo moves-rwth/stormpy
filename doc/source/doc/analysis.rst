@@ -12,24 +12,43 @@ As always::
     >>>	import stormpy
     >>> import stormpy.examples
 	>>> import stormpy.examples.files
+    >>> path = stormpy.examples.files.prism_dtmc_die
+	>>> prism_program = stormpy.parse_prism_program(path)
+	>>> formula_str = "P=? [F s=7 & d=2]"
+    >>> properties = stormpy.parse_properties(formula_str, prism_program)
 
 
 Qualitative Analysis
 ======================
 
 
-More to come...
-
-Model checking algorithms
-=========================
+Adapting the model checking engine
+==================================
 .. seealso:: `02-analysis.py <https://github.com/moves-rwth/stormpy/blob/master/examples/analysis/02-analysis.py>`_
+
+Instead of using the sparse representation, models can also be built symbolically::
+
+    >>> model = stormpy.build_symbolic_model(prism_program, properties)
+    >>> result = stormpy.model_checking(model, properties[0])
+
+To access the result, the result has to be filtered::
+
+    >>> filter = stormpy.create_filter_initial_states_symbolic(model)
+    >>> result.filter(filter)
+    >>> assert result.min == result.max
+
+Then, result.min (or result.max) contains the result. Notice that if there are multiple initial states, result.min will not be equal to result.max.
+
+Besides this analysis on the DD, there are approaches that combine both representation.
+Stormpy does support them, but we have not yet documented them.
+
+Adapting model checking algorithms
+==================================
+.. seealso:: `03-analysis.py <https://github.com/moves-rwth/stormpy/blob/master/examples/analysis/03-analysis.py>`_
 
 Reconsider the model checking example from the getting started guide::
 
-	>>> path = stormpy.examples.files.prism_dtmc_die
-	>>> prism_program = stormpy.parse_prism_program(path)
-    >>> properties = stormpy.parse_properties(formula_str, prism_program)
-    >>> model = stormpy.build_model(prism_program, properties)
+	>>> model = stormpy.build_model(prism_program, properties)
     >>> result = stormpy.model_checking(model, properties[0])
 
 We can also vary the model checking algorithm::
@@ -42,8 +61,9 @@ We can also vary the model checking algorithm::
 Finally, we allow to change some parameters of the algorithms. E.g., in iterative approaches,
 we allow to change the number of iterations::
 
-    >>> env.solver_environment.maximum_iterations = 3
+    >>> env.solver_environment.native_solver_environment.maximum_iterations = 3
     >>> result = stormpy.model_checking(model, properties[0])
 
 Notice that by setting such parameters, the result may be off from the actual model checking algorithm.
 
+Environments can be used likewise for symbolic model checking. See the example for more information.
