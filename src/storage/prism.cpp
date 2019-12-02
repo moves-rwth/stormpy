@@ -99,19 +99,19 @@ void define_prism(py::module& m) {
 
 
 
-    py::class_<Variable, std::shared_ptr<Variable>> variable(m, "Prism_Variable", "A program variable in a Prism program");
-    variable.def_property_readonly("name", &Variable::getName, "Variable Name")
+    py::class_<Variable, std::shared_ptr<Variable>> variable(m, "PrismVariable", "A program variable in a Prism program");
+    variable.def_property_readonly("name", &Variable::getName, "Variable name")
             .def_property_readonly("initial_value_expression", &Variable::getInitialValueExpression, "The expression represented the initial value of the variable")
             .def_property_readonly("expression_variable", &Variable::getExpressionVariable, "The expression variable corresponding to the variable")
             ;
 
-    py::class_<IntegerVariable, std::shared_ptr<IntegerVariable>> integer_variable(m, "Prism_Integer_Variable", variable, "A program integer variable in a Prism program");
+    py::class_<IntegerVariable, std::shared_ptr<IntegerVariable>> integer_variable(m, "PrismIntegerVariable", variable, "A program integer variable in a Prism program");
     integer_variable.def_property_readonly("lower_bound_expression", &IntegerVariable::getLowerBoundExpression, "The the lower bound expression of this integer variable")
                     .def_property_readonly("upper_bound_expression", &IntegerVariable::getUpperBoundExpression, "The the upper bound expression of this integer variable")
                     .def("__str__", &streamToString<IntegerVariable>)
                     ;
 
-    py::class_<BooleanVariable, std::shared_ptr<BooleanVariable>> boolean_variable(m, "Prism_Boolean_Variable", variable, "A program boolean variable in a Prism program");
+    py::class_<BooleanVariable, std::shared_ptr<BooleanVariable>> boolean_variable(m, "PrismBooleanVariable", variable, "A program boolean variable in a Prism program");
     boolean_variable.def("__str__", &streamToString<BooleanVariable>);
 
     define_stateGeneration<uint32_t, storm::RationalNumber>(m);
