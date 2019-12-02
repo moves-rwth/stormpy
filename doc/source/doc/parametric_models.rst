@@ -58,3 +58,10 @@ We collect the constraints ensuring that underlying model is well-formed and the
     >>> for formula in collector.graph_preserving_constraints:
     ...     print(formula)
 
+Collecting information about the parametric models
+==================================================
+.. seealso:: `03-parametric-models.py <https://github.com/moves-rwth/stormpy/blob/master/examples//parametric_models/03-parametric-models.py>`_
+
+This example shows three implementations to obtain the number of transitions with probability one in a parametric model.
+
+
