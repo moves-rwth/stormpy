@@ -8,6 +8,7 @@ This guide is a collection of examples meant to bridge the gap between the getti
     :maxdepth: 2
     :caption: Contents:
 
+    doc/analysis
     doc/building_models
     doc/engines
     doc/exploration
