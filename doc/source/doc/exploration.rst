@@ -53,7 +53,7 @@ Storm currently supports deterministic rewards on states or actions. More inform
 
 Reading POMDPs
 ======================
-.. seealso:: `02-exploration.py <https://github.com/moves-rwth/stormpy/blob/master/examples/exploration/01-exploration.py>`_
+.. seealso:: `02-exploration.py <https://github.com/moves-rwth/stormpy/blob/master/examples/exploration/02-exploration.py>`_
 
 
 Internally, POMDPs extend MDPs. Thus, iterating over the MDP is done as before.
@@ -94,6 +94,15 @@ Additionally, POMDPs have a set of observations, which are internally just numbe
     State 13 has observation id 2
     State 14 has observation id 4
     State 15 has observation id 5
+
+
+Sorting states
+==============
+.. seealso:: `03-exploration.py <https://github.com/moves-rwth/stormpy/blob/master/examples/exploration/03-exploration.py>`_
+
+
+Often, one may sort the states according to the graph structure.
+Storm supports some of these sorting algorithms, e.g., topological sort.
 
 
 
