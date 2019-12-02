@@ -6,6 +6,9 @@ Version 1.4.0
 
 ### Version 1.4.0 (under development)
 Requires storm version >= 1.4.0
+- Adaptions to changes in Storm
+- Extended simple accessors such as `parse_properties`, `model_checking`, to handle variety of inputs.
+- Added and extended environments
 - Changed constructor of `ParameterRegion` to take a valuation instead of string.
   Use `ParameterRegion.create_from_string()` to create a region from string.
 - Added InstantiationModelChecker for pMDPs
@@ -14,6 +17,7 @@ Requires storm version >= 1.4.0
 - SettingsManager updated
 - Allow building models annotated with valuations
 - A custom state exploration that allows to explore successor states of a prism program
+- Extended documentation, in particular examples.
 
 Version 1.3.x
 -------------
