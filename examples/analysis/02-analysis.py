@@ -5,6 +5,8 @@ import stormpy.examples
 import stormpy.examples.files
 
 
+from stormpy.storage import Expression
+
 def example_analysis_02():
     path = stormpy.examples.files.prism_dtmc_die
     prism_program = stormpy.parse_prism_program(path)
@@ -17,6 +19,29 @@ def example_analysis_02():
     result.filter(filter)
     assert result.min == result.max
     print(result.min)
+
+
+    # Create an auxiliary mapping to build expressions that matches some state.
+    variables = dict()
+    for m in prism_program.modules:
+        for v in m.integer_variables:
+            variables[v.name] = v.expression_variable.get_expression()
+    expr_manager = prism_program.expression_manager
+
+    expr_for_state_1 = Expression.And(Expression.Eq(variables["s"],expr_manager.create_integer(1)),
+                                    Expression.Eq(variables["d"],expr_manager.create_integer(0)))
+    expr_for_state_2 = Expression.And(Expression.Eq(variables["s"],expr_manager.create_integer(4)),
+                                      Expression.Eq(variables["d"],expr_manager.create_integer(0)))
+
+    result = stormpy.model_checking(model, properties[0])
+    cached_res = result.clone()
+    cached_res.filter(stormpy.create_filter_symbolic(model,expr_for_state_1))
+    print(cached_res.min)
+    result.filter(stormpy.create_filter_symbolic(model,expr_for_state_2))
+    assert result.min == result.max
+    print(result.min)
+
+
 
 if __name__ == '__main__':
     example_analysis_02()
