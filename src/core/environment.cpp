@@ -9,6 +9,7 @@
 #include "storm/environment/solver/TopologicalSolverEnvironment.h"
 #include "storm/environment/solver/MultiplierEnvironment.h"
 #include "storm/environment/solver/MinMaxSolverEnvironment.h"
+#include "storm/environment/solver/LongRunAverageSolverEnvironment.h"
 
 void define_environment(py::module& m) {
     py::enum_<storm::solver::EquationSolverType>(m, "EquationSolverType", "Solver type for equation systems")
