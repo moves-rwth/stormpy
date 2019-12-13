@@ -165,12 +165,38 @@ class ValuationMapping {
 };
 
 template <typename StateType, typename ValueType>
-class StateGenerator {
-    typedef std::unordered_map<StateType, storm::generator::CompressedState> IdToStateMap;
+class GeneratorChoice {
+    public:
+    typedef std::vector<uint_fast64_t> origins_type;
     typedef std::vector<std::pair<StateType, ValueType>> distribution_type;
-    typedef distribution_type choice_type; // currently we just collapse choices into distributions
-    typedef std::vector<choice_type> choice_list_type;
 
+    origins_type origins;
+    distribution_type distribution;
+
+    private:
+    static origins_type getOriginsVector(storm::generator::Choice<ValueType, StateType> &choice) {
+        auto originsSet = boost::any_cast<storm::storage::FlatSet<uint_fast64_t>>(&choice.getOriginData());
+        if (originsSet != nullptr) {
+          return origins_type(originsSet->begin(), originsSet->end());
+        } else {
+          STORM_LOG_THROW(false, storm::exceptions::NotImplementedException,
+                          "Type of choice origin data (aka "
+                              << choice.getOriginData().type().name()
+                              << ") is not implemented.");
+        }
+    }
+
+    public:
+    GeneratorChoice(storm::generator::Choice<ValueType, StateType> &choice) : origins(getOriginsVector(choice)), distribution(choice.begin(), choice.end()) {}
+};
+
+template <typename StateType, typename ValueType>
+class StateGenerator {
+    public:
+    typedef std::unordered_map<StateType, storm::generator::CompressedState> IdToStateMap;
+    typedef std::vector<GeneratorChoice<StateType, ValueType>> choice_list_type;
+
+    private:
     storm::prism::Program const& program;
     storm::generator::PrismNextStateGenerator<ValueType, StateType> generator;
     std::function<StateType (storm::generator::CompressedState const&)> stateToIdCallback;
@@ -182,8 +208,14 @@ class StateGenerator {
     IdToStateMap stateMap;
     boost::optional<StateType> currentStateIndex;
 
+    static storm::generator::NextStateGeneratorOptions makeNextStateGeneratorOptions() {
+        storm::generator::NextStateGeneratorOptions options;
+        options.setBuildChoiceOrigins(true);
+        return options;
+    }
+
     public:
-        StateGenerator(storm::prism::Program const& program_) : program(program_), generator(program_), stateStorage(generator.getStateSize()) {
+        StateGenerator(storm::prism::Program const& program_) : program(program_), generator(program_, StateGenerator<StateType, ValueType>::makeNextStateGeneratorOptions()), stateStorage(generator.getStateSize()) {
             stateToIdCallback = [this] (storm::generator::CompressedState const& state) -> StateType {
                 StateType newIndex = stateStorage.getNumberOfStates();
                 std::pair<StateType, std::size_t> indexBucketPair = stateStorage.stateToId.findOrAddAndGetBucket(state, newIndex);
@@ -237,8 +269,8 @@ class StateGenerator {
             }
             choice_list_type choices_result;
             auto behavior = generator.expand(stateToIdCallback);
-            for (auto choice : behavior.getChoices()) {
-                choices_result.push_back(choice_type(choice.begin(), choice.end()));
+            for (auto& choice : behavior.getChoices()) {
+                choices_result.push_back(GeneratorChoice<StateType, ValueType>(choice));
             }
 
             return choices_result;
@@ -254,6 +286,20 @@ void define_stateGeneration(py::module& m) {
         .def_readonly("integer_values", &ValuationMapping::integerValues)
         .def_readonly("rational_values", &ValuationMapping::rationalValues)
         .def("__str__", &ValuationMapping::toString);
+
+    py::class_<GeneratorChoice<StateType, ValueType>,
+              std::shared_ptr<GeneratorChoice<StateType, ValueType>>>
+        generator_choice(m, "GeneratorChoice", R"doc(
+            Representation of a choice taken by the generator.
+
+            :ivar origins: A list of command ids that generated this choice.
+            :vartype origins: List[int]
+            :ivar distribution: The probability distribution of this choice.
+            :vartype distribution: List[Pair[StateId, Probability]]
+    )doc");
+    generator_choice
+        .def_readonly("origins", &GeneratorChoice<StateType, ValueType>::origins)
+        .def_readonly("distribution", &GeneratorChoice<StateType, ValueType>::distribution);
 
     py::class_<StateGenerator<StateType, ValueType>, std::shared_ptr<StateGenerator<StateType, ValueType>>> state_generator(m, "StateGenerator", R"doc(
         Interactively explore states using Storm's PrismNextStateGenerator.
@@ -285,6 +331,6 @@ void define_stateGeneration(py::module& m) {
         .def("expand", &StateGenerator<StateType, ValueType>::expand, R"doc(
             Expand the currently loaded state and return its successors.
 
-            :rtype: [[(state_id, probability)]]
+            :rtype: [GeneratorChoice]
         )doc");
 }
