@@ -1,10 +1,12 @@
 Changelog
 =============
 
-Version 1.4.0
+Version 1.4.x
 -------------
 
-### Version 1.4.0 (under development)
+### Version 1.4.2 (under development) 
+
+### Version 1.4.1
 Requires storm version >= 1.4.0
 - Adaptions to changes in Storm
 - Extended simple accessors such as `parse_properties`, `model_checking`, to handle variety of inputs.
@@ -18,6 +20,10 @@ Requires storm version >= 1.4.0
 - Allow building models annotated with valuations
 - A custom state exploration that allows to explore successor states of a prism program
 - Extended documentation, in particular examples.
+
+### Version 1.4.0
+Skipped for compatibility with Storm.
+
 
 Version 1.3.x
 -------------
