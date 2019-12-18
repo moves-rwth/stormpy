@@ -5,7 +5,7 @@ import stormpy.examples
 import stormpy.examples.files
 
 
-def example_building_models_01():
+def example_building_models_03():
     path = stormpy.examples.files.prism_pdtmc_brp
     prism_program = stormpy.parse_prism_program(path)
     formula_str = "P=? [F s=5]"
@@ -27,4 +27,4 @@ def example_building_models_01():
 
 
 if __name__ == '__main__':
-    example_building_models_01()
+    example_building_models_03()
