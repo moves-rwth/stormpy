@@ -6,20 +6,22 @@ Version 1.4.x
 
 ### Version 1.4.2 (under development) 
 
-### Version 1.4.1
-Requires storm version >= 1.4.0
+### Version 1.4.1 (2019/12)
+Requires storm version >= 1.4.1 and pycarl version >= 2.0.4
 - Adaptions to changes in Storm
 - Extended simple accessors such as `parse_properties`, `model_checking`, to handle variety of inputs.
 - Added and extended environments
 - Changed constructor of `ParameterRegion` to take a valuation instead of string.
   Use `ParameterRegion.create_from_string()` to create a region from string.
-- Added InstantiationModelChecker for pMDPs
+- Added InstantiationModelChecker for pMDPs and allow instations with rational numbers
 - Added transformation of CTMCs to DTMCs
 - Further bindings for Prism Programs and their preprocessing
 - SettingsManager updated
 - Allow building models annotated with valuations
 - A custom state exploration that allows to explore successor states of a prism program
 - Extended documentation, in particular examples.
+- Fix for compilation with Xcode 11
+
 
 ### Version 1.4.0
 Skipped for compatibility with Storm.
@@ -43,6 +45,7 @@ Requires storm version >= 1.3.0 and pycarl version >= 2.0.3
 - Extended DFT bindings
 - Extended documentation
 - Improved and extended setup
+
 
 Version 1.2.x
 -------------
@@ -75,6 +78,7 @@ Requires storm version >= 1.1.0
 Version 1.0.x
 -------------
 Skipped, to keep on par with storm
+
 
 Version 0.9.x
 -------------
