@@ -6,6 +6,8 @@ import stormpy.core
 import stormpy.examples
 import stormpy.examples.files
 
+import stormpy._config as config
+
 def example_parametric_models_03():
     if not config.storm_with_pars:
         print("Support parameters is missing. Try building storm-pars.")
