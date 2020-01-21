@@ -71,27 +71,10 @@ std::set<storm::RationalFunctionVariable> allVariables(SparseModel<RationalFunct
     return storm::models::sparse::getAllParameters(model);
 }
 
-
-/*std::set<storm::RationalFunctionVariable> getParameters(SymbolicModel<RationalFunction> const& model) {
-    return model->getParameters();
-}*/
-
-template<typename ValueType>
-std::function<std::string (storm::models::Model<ValueType> const&)> getModelInfoPrinter(std::string name = "Model") {
-    // look, C++ has lambdas and stuff!
-    return [name](storm::models::Model<ValueType> const& model) {
-        std::stringstream ss;
-        model.printModelInformationToStream(ss);
-
-        // attempting a slightly readable output
-        std::string text = name + " (";
-        std::string line;
-        for (int i = 0; std::getline(ss, line); i++) {
-            if (line != "-------------------------------------------------------------- ")
-                text += line + " ";
-        }
-        return text + ")";
-    };
+std::string getModelInfoPrinter(ModelBase const& model) {
+    std::stringstream ss;
+    model.printModelInformationToStream(ss);
+    return ss.str();
 }
 
 template<typename ValueType>
@@ -198,32 +181,32 @@ void define_sparse_model(py::module& m) {
         .def("has_state_valuations", [](SparseModel<double> const& model) {return model.hasStateValuations();}, "has state valuation?")
         .def_property_readonly("state_valuations",  [](SparseModel<double> const& model) {return model.getStateValuations();}, "state valuations")
         .def("reduce_to_state_based_rewards", &SparseModel<double>::reduceToStateBasedRewards)
-        .def("__str__", getModelInfoPrinter<double>())
+        .def("__str__", &getModelInfoPrinter)
         .def("to_dot", [](SparseModel<double>& model) { std::stringstream ss; model.writeDotToStream(ss); return ss.str(); }, "Write dot to a string")
     ;
     py::class_<SparseDtmc<double>, std::shared_ptr<SparseDtmc<double>>>(m, "SparseDtmc", "DTMC in sparse representation", model)
-            .def(py::init<SparseDtmc<double>>(), py::arg("other_model"))
-            .def("__str__", getModelInfoPrinter<double>("DTMC"))
+        .def(py::init<SparseDtmc<double>>(), py::arg("other_model"))
+        .def("__str__", &getModelInfoPrinter)
     ;
     py::class_<SparseMdp<double>, std::shared_ptr<SparseMdp<double>>>(m, "SparseMdp", "MDP in sparse representation", model)
         .def(py::init<SparseMdp<double>>(), py::arg("other_model"))
         .def_property_readonly("nondeterministic_choice_indices", [](SparseMdp<double> const& mdp) { return mdp.getNondeterministicChoiceIndices(); })
         .def("apply_scheduler", [](SparseMdp<double> const& mdp, storm::storage::Scheduler<double> const& scheduler, bool dropUnreachableStates) { return mdp.applyScheduler(scheduler, dropUnreachableStates); } , "apply scheduler", "scheduler"_a, "drop_unreachable_states"_a = true)
-        .def("__str__", getModelInfoPrinter<double>("MDP"))
+        .def("__str__", &getModelInfoPrinter)
     ;
     py::class_<SparsePomdp<double>, std::shared_ptr<SparsePomdp<double>>>(m, "SparsePomdp", "POMDP in sparse representation", model)
-            .def(py::init<SparsePomdp<double>>(), py::arg("other_model"))
-            .def("__str__", getModelInfoPrinter<double>("POMDP"))
-            .def_property_readonly("observations", &SparsePomdp<double>::getObservations)
-            .def_property_readonly("nr_observations", &SparsePomdp<double>::getNrObservations)
-            ;
+        .def(py::init<SparsePomdp<double>>(), py::arg("other_model"))
+        .def("__str__", &getModelInfoPrinter)
+        .def_property_readonly("observations", &SparsePomdp<double>::getObservations)
+        .def_property_readonly("nr_observations", &SparsePomdp<double>::getNrObservations)
+    ;
     py::class_<SparseCtmc<double>, std::shared_ptr<SparseCtmc<double>>>(m, "SparseCtmc", "CTMC in sparse representation", model)
-            .def(py::init<SparseCtmc<double>>(), py::arg("other_model"))
-            .def("__str__", getModelInfoPrinter<double>("CTMC"))
+        .def(py::init<SparseCtmc<double>>(), py::arg("other_model"))
+        .def("__str__", &getModelInfoPrinter)
     ;
     py::class_<SparseMarkovAutomaton<double>, std::shared_ptr<SparseMarkovAutomaton<double>>>(m, "SparseMA", "MA in sparse representation", model)
-            .def(py::init<SparseMarkovAutomaton<double>>(), py::arg("other_model"))
-            .def("__str__", getModelInfoPrinter<double>("MA"))
+        .def(py::init<SparseMarkovAutomaton<double>>(), py::arg("other_model"))
+        .def("__str__", &getModelInfoPrinter)
     ;
 
     py::class_<SparseRewardModel<double>>(m, "SparseRewardModel", "Reward structure for sparse models")
@@ -257,36 +240,36 @@ void define_sparse_model(py::module& m) {
         .def("has_state_valuations", [](SparseModel<RationalFunction> const& model) {return model.hasStateValuations();}, "has state valuation?")
         .def_property_readonly("state_valuations",  [](SparseModel<RationalFunction> const& model) {return model.getStateValuations();}, "state valuations")
         .def("reduce_to_state_based_rewards", &SparseModel<RationalFunction>::reduceToStateBasedRewards)
-        .def("__str__", getModelInfoPrinter<RationalFunction>("ParametricModel"))
+        .def("__str__", &getModelInfoPrinter)
         .def("to_dot", [](SparseModel<RationalFunction>& model) { std::stringstream ss; model.writeDotToStream(ss); return ss.str(); }, "Write dot to a string")
     ;
 
     py::class_<SparseDtmc<RationalFunction>, std::shared_ptr<SparseDtmc<RationalFunction>>>(m, "SparseParametricDtmc", "pDTMC in sparse representation", modelRatFunc)
-        .def("__str__", getModelInfoPrinter<RationalFunction>("ParametricDTMC"))
+        .def("__str__", &getModelInfoPrinter)
     ;
     py::class_<SparseMdp<RationalFunction>, std::shared_ptr<SparseMdp<RationalFunction>>>(m, "SparseParametricMdp", "pMDP in sparse representation", modelRatFunc)
-        .def_property_readonly("nondeterministic_choice_indices", [](SparseMdp<double> const& mdp) { return mdp.getNondeterministicChoiceIndices(); })
-        .def("apply_scheduler", [](SparseMdp<double> const& mdp, storm::storage::Scheduler<double> const& scheduler, bool dropUnreachableStates) { return mdp.applyScheduler(scheduler, dropUnreachableStates); } , "apply scheduler", "scheduler"_a, "drop_unreachable_states"_a = true)
-        .def("__str__", getModelInfoPrinter<RationalFunction>("ParametricMDP"))
+        .def_property_readonly("nondeterministic_choice_indices", [](SparseMdp<RationalFunction> const& mdp) { return mdp.getNondeterministicChoiceIndices(); })
+        .def("apply_scheduler", [](SparseMdp<RationalFunction> const& mdp, storm::storage::Scheduler<RationalFunction> const& scheduler, bool dropUnreachableStates) { return mdp.applyScheduler(scheduler, dropUnreachableStates); } , "apply scheduler", "scheduler"_a, "drop_unreachable_states"_a = true)
+        .def("__str__", &getModelInfoPrinter)
     ;
     py::class_<SparseCtmc<RationalFunction>, std::shared_ptr<SparseCtmc<RationalFunction>>>(m, "SparseParametricCtmc", "pCTMC in sparse representation", modelRatFunc)
-        .def("__str__", getModelInfoPrinter<RationalFunction>("ParametricCTMC"))
+        .def("__str__", &getModelInfoPrinter)
     ;
     py::class_<SparseMarkovAutomaton<RationalFunction>, std::shared_ptr<SparseMarkovAutomaton<RationalFunction>>>(m, "SparseParametricMA", "pMA in sparse representation", modelRatFunc)
-        .def("__str__", getModelInfoPrinter<RationalFunction>("ParametricMA"))
+        .def("__str__", &getModelInfoPrinter)
     ;
 
     py::class_<SparseRewardModel<RationalFunction>>(m, "SparseParametricRewardModel", "Reward structure for parametric sparse models")
-            .def_property_readonly("has_state_rewards", &SparseRewardModel<RationalFunction>::hasStateRewards)
-            .def_property_readonly("has_state_action_rewards", &SparseRewardModel<RationalFunction>::hasStateActionRewards)
-            .def_property_readonly("has_transition_rewards", &SparseRewardModel<RationalFunction>::hasTransitionRewards)
-            .def_property_readonly("transition_rewards", [](SparseRewardModel<RationalFunction>& rewardModel) {return rewardModel.getTransitionRewardMatrix();})
-            .def_property_readonly("state_rewards", [](SparseRewardModel<RationalFunction>& rewardModel) {return rewardModel.getStateRewardVector();})
-            .def("get_state_reward", [](SparseRewardModel<RationalFunction>& rewardModel, uint64_t state) {return rewardModel.getStateReward(state);})
-            .def("get_state_action_reward", [](SparseRewardModel<RationalFunction>& rewardModel, uint64_t action_index) {return rewardModel.getStateActionReward(action_index);})
+        .def_property_readonly("has_state_rewards", &SparseRewardModel<RationalFunction>::hasStateRewards)
+        .def_property_readonly("has_state_action_rewards", &SparseRewardModel<RationalFunction>::hasStateActionRewards)
+        .def_property_readonly("has_transition_rewards", &SparseRewardModel<RationalFunction>::hasTransitionRewards)
+        .def_property_readonly("transition_rewards", [](SparseRewardModel<RationalFunction>& rewardModel) {return rewardModel.getTransitionRewardMatrix();})
+        .def_property_readonly("state_rewards", [](SparseRewardModel<RationalFunction>& rewardModel) {return rewardModel.getStateRewardVector();})
+        .def("get_state_reward", [](SparseRewardModel<RationalFunction>& rewardModel, uint64_t state) {return rewardModel.getStateReward(state);})
+        .def("get_state_action_reward", [](SparseRewardModel<RationalFunction>& rewardModel, uint64_t action_index) {return rewardModel.getStateActionReward(action_index);})
 
-            .def_property_readonly("state_action_rewards", [](SparseRewardModel<RationalFunction>& rewardModel) {return rewardModel.getStateActionRewardVector();})
-            .def("reduce_to_state_based_rewards", [](SparseRewardModel<RationalFunction>& rewardModel, storm::storage::SparseMatrix<RationalFunction> const& transitions, bool onlyStateRewards){return rewardModel.reduceToStateBasedRewards(transitions, onlyStateRewards);},  py::arg("transition_matrix"), py::arg("only_state_rewards"), "Reduce to state-based rewards")
+        .def_property_readonly("state_action_rewards", [](SparseRewardModel<RationalFunction>& rewardModel) {return rewardModel.getStateActionRewardVector();})
+        .def("reduce_to_state_based_rewards", [](SparseRewardModel<RationalFunction>& rewardModel, storm::storage::SparseMatrix<RationalFunction> const& transitions, bool onlyStateRewards){return rewardModel.reduceToStateBasedRewards(transitions, onlyStateRewards);},  py::arg("transition_matrix"), py::arg("only_state_rewards"), "Reduce to state-based rewards")
     ;
 
 }
@@ -308,19 +291,19 @@ void define_symbolic_model(py::module& m, std::string vt_suffix) {
         .def_property_readonly("initial_states", &SymbolicModel<DdType, double>::getInitialStates, "initial states as DD")
         .def("get_states", [](SymbolicModel<DdType, double> const& model, storm::expressions::Expression const& expr) {return model.getStates(expr);}, py::arg("expression"), "Get states that are described by the expression")
         .def("reduce_to_state_based_rewards", &SymbolicModel<DdType, double>::reduceToStateBasedRewards)
-        .def("__str__", getModelInfoPrinter<double>())
+        .def("__str__", &getModelInfoPrinter)
     ;
     py::class_<SymbolicDtmc<DdType, double>, std::shared_ptr<SymbolicDtmc<DdType, double>>>(m, (prefixClassName+"Dtmc").c_str(), "DTMC in symbolic representation", model)
-        .def("__str__", getModelInfoPrinter<double>("DTMC"))
+        .def("__str__", &getModelInfoPrinter)
     ;
     py::class_<SymbolicMdp<DdType, double>, std::shared_ptr<SymbolicMdp<DdType, double>>>(m, (prefixClassName+"Mdp").c_str(), "MDP in symbolic representation", model)
-        .def("__str__", getModelInfoPrinter<double>("MDP"))
+        .def("__str__", &getModelInfoPrinter)
     ;
     py::class_<SymbolicCtmc<DdType, double>, std::shared_ptr<SymbolicCtmc<DdType, double>>>(m, (prefixClassName+"Ctmc").c_str(), "CTMC in symbolic representation", model)
-        .def("__str__", getModelInfoPrinter<double>("CTMC"))
+        .def("__str__", &getModelInfoPrinter)
     ;
     py::class_<SymbolicMarkovAutomaton<DdType, double>, std::shared_ptr<SymbolicMarkovAutomaton<DdType, double>>>(m, (prefixClassName+"MA").c_str(), "MA in symbolic representation", model)
-        .def("__str__", getModelInfoPrinter<double>("MA"))
+        .def("__str__", &getModelInfoPrinter)
     ;
 
     py::class_<SymbolicRewardModel<DdType, double>>(m, (prefixClassName+"RewardModel").c_str(), "Reward structure for symbolic models")
@@ -338,26 +321,26 @@ void define_symbolic_model(py::module& m, std::string vt_suffix) {
         .def_property_readonly("initial_states", &SymbolicModel<DdType, RationalFunction>::getInitialStates, "initial states as DD")
         .def("get_states", [](SymbolicModel<DdType, RationalFunction> const& model, storm::expressions::Expression const& expr) {return model.getStates(expr);}, py::arg("expression"), "Get states that are described by the expression")
         .def("reduce_to_state_based_rewards", &SymbolicModel<DdType, RationalFunction>::reduceToStateBasedRewards)
-        .def("__str__", getModelInfoPrinter<RationalFunction>("ParametricModel"))
+        .def("__str__", &getModelInfoPrinter)
     ;
 
     py::class_<SymbolicDtmc<DdType, RationalFunction>, std::shared_ptr<SymbolicDtmc<DdType, RationalFunction>>>(m, (prefixParametricClassName+"Dtmc").c_str(), "pDTMC in symbolic representation", modelRatFunc)
-        .def("__str__", getModelInfoPrinter<RationalFunction>("ParametricDTMC"))
+        .def("__str__", &getModelInfoPrinter)
     ;
     py::class_<SymbolicMdp<DdType, RationalFunction>, std::shared_ptr<SymbolicMdp<DdType, RationalFunction>>>(m, (prefixParametricClassName+"Mdp").c_str(), "pMDP in symbolic representation", modelRatFunc)
-        .def("__str__", getModelInfoPrinter<RationalFunction>("ParametricMDP"))
+        .def("__str__", &getModelInfoPrinter)
     ;
     py::class_<SymbolicCtmc<DdType, RationalFunction>, std::shared_ptr<SymbolicCtmc<DdType, RationalFunction>>>(m, (prefixParametricClassName+"Ctmc").c_str(), "pCTMC in symbolic representation", modelRatFunc)
-        .def("__str__", getModelInfoPrinter<RationalFunction>("ParametricCTMC"))
+        .def("__str__", &getModelInfoPrinter)
     ;
     py::class_<SymbolicMarkovAutomaton<DdType, RationalFunction>, std::shared_ptr<SymbolicMarkovAutomaton<DdType, RationalFunction>>>(m, (prefixParametricClassName+"MA").c_str(), "pMA in symbolic representation", modelRatFunc)
-        .def("__str__", getModelInfoPrinter<RationalFunction>("ParametricMA"))
+        .def("__str__", &getModelInfoPrinter)
     ;
 
     py::class_<SymbolicRewardModel<DdType, RationalFunction>>(m, (prefixParametricClassName+"RewardModel").c_str(), "Reward structure for parametric symbolic models")
-            .def_property_readonly("has_state_rewards", &SymbolicRewardModel<DdType, RationalFunction>::hasStateRewards)
-            .def_property_readonly("has_state_action_rewards", &SymbolicRewardModel<DdType, RationalFunction>::hasStateActionRewards)
-            .def_property_readonly("has_transition_rewards", &SymbolicRewardModel<DdType, RationalFunction>::hasTransitionRewards)
+        .def_property_readonly("has_state_rewards", &SymbolicRewardModel<DdType, RationalFunction>::hasStateRewards)
+        .def_property_readonly("has_state_action_rewards", &SymbolicRewardModel<DdType, RationalFunction>::hasStateActionRewards)
+        .def_property_readonly("has_transition_rewards", &SymbolicRewardModel<DdType, RationalFunction>::hasTransitionRewards)
     ;
 
 }
