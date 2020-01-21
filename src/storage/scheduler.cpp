@@ -19,6 +19,7 @@ void define_scheduler(py::module& m, std::string vt_suffix) {
             .def_property_readonly("memoryless", &Scheduler::isMemorylessScheduler, "Is the scheduler memoryless?")
             .def_property_readonly("memory_size", &Scheduler::getNumberOfMemoryStates, "How much memory does the scheduler take?")
             .def_property_readonly("deterministic", &Scheduler::isDeterministicScheduler, "Is the scheduler deterministic?")
+            .def_property_readonly("partial", &Scheduler::isPartialScheduler, "Is the scheduler partial?")
             .def("get_choice", &Scheduler::getChoice, py::arg("state_index"), py::arg("memory_index") = 0)
             .def("compute_action_support", &Scheduler::computeActionSupport, "nondeterministic_choice_indices"_a)
     ;

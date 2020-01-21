@@ -119,7 +119,6 @@ class TestSparseModel:
         assert model.nr_states == 16
         assert model.nr_observations == 8
 
-
     def test_build_ma(self):
         program = stormpy.parse_prism_program(get_example_path("ma", "simple.ma"), False, True)
         formulas = stormpy.parse_properties_for_prism_program("Pmax=? [ F<=2 s=2 ]", program)
@@ -129,6 +128,22 @@ class TestSparseModel:
         assert model.model_type == stormpy.ModelType.MA
         assert not model.supports_parameters
         assert type(model) is stormpy.SparseMA
+
+    def test_convert_ma_to_ctmc(self):
+        program = stormpy.parse_prism_program(get_example_path("ma", "ctmc.ma"), True)
+        formulas = stormpy.parse_properties_for_prism_program("P=? [ F<=3 s=2 ]", program)
+        model = stormpy.build_model(program, formulas)
+        assert model.nr_states == 4
+        assert model.nr_transitions == 6
+        assert model.model_type == stormpy.ModelType.MA
+        assert type(model) is stormpy.SparseMA
+
+        assert model.convertible_to_ctmc
+        ctmc = model.convert_to_ctmc()
+        assert ctmc.nr_states == 4
+        assert ctmc.nr_transitions == 6
+        assert ctmc.model_type == stormpy.ModelType.CTMC
+        assert type(ctmc) is stormpy.SparseCtmc
 
     def test_initial_states(self):
         program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))

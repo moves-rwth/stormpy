@@ -206,7 +206,11 @@ void define_sparse_model(py::module& m) {
     ;
     py::class_<SparseMarkovAutomaton<double>, std::shared_ptr<SparseMarkovAutomaton<double>>>(m, "SparseMA", "MA in sparse representation", model)
         .def(py::init<SparseMarkovAutomaton<double>>(), py::arg("other_model"))
+        .def_property_readonly("nondeterministic_choice_indices", [](SparseMarkovAutomaton<double> const& ma) { return ma.getNondeterministicChoiceIndices(); })
+        .def("apply_scheduler", [](SparseMarkovAutomaton<double> const& ma, storm::storage::Scheduler<double> const& scheduler, bool dropUnreachableStates) { return ma.applyScheduler(scheduler, dropUnreachableStates); } , "apply scheduler", "scheduler"_a, "drop_unreachable_states"_a = true)
         .def("__str__", &getModelInfoPrinter)
+        .def_property_readonly("convertible_to_ctmc", &SparseMarkovAutomaton<double>::isConvertibleToCtmc, "Check whether the MA can be converted into a CTMC.")
+        .def("convert_to_ctmc", &SparseMarkovAutomaton<double>::convertToCtmc, "Convert the MA into a CTMC.")
     ;
 
     py::class_<SparseRewardModel<double>>(m, "SparseRewardModel", "Reward structure for sparse models")
@@ -256,6 +260,8 @@ void define_sparse_model(py::module& m) {
         .def("__str__", &getModelInfoPrinter)
     ;
     py::class_<SparseMarkovAutomaton<RationalFunction>, std::shared_ptr<SparseMarkovAutomaton<RationalFunction>>>(m, "SparseParametricMA", "pMA in sparse representation", modelRatFunc)
+        .def_property_readonly("nondeterministic_choice_indices", [](SparseMarkovAutomaton<RationalFunction> const& ma) { return ma.getNondeterministicChoiceIndices(); })
+        .def("apply_scheduler", [](SparseMarkovAutomaton<RationalFunction> const& ma, storm::storage::Scheduler<RationalFunction> const& scheduler, bool dropUnreachableStates) { return ma.applyScheduler(scheduler, dropUnreachableStates); } , "apply scheduler", "scheduler"_a, "drop_unreachable_states"_a = true)
         .def("__str__", &getModelInfoPrinter)
     ;
 
