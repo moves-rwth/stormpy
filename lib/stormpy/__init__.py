@@ -264,13 +264,13 @@ def model_checking(model, property, only_initial_states=False, extract_scheduler
     """
     if model.is_sparse_model:
         return check_model_sparse(model, property, only_initial_states=only_initial_states,
-                              extract_scheduler=extract_scheduler, environment=environment)
+                                  extract_scheduler=extract_scheduler, environment=environment)
     else:
-        assert(model.is_symbolic_model)
+        assert (model.is_symbolic_model)
         if extract_scheduler:
             raise StormError("Model checking based on dd engine does not support extracting schedulers right now.")
         return check_model_dd(model, property, only_initial_states=only_initial_states,
-                            environment=environment)
+                              environment=environment)
 
 
 def check_model_sparse(model, property, only_initial_states=False, extract_scheduler=False, environment=Environment()):
@@ -368,6 +368,21 @@ def transform_to_discrete_time_model(model, properties):
         return core._transform_to_discrete_time_model(model, formulae)
 
 
+def eliminate_non_markovian_chains(ma, properties, label_behavior):
+    """
+    Eliminate chains of non-Markovian states if possible.
+    :param ma: Markov automaton.
+    :param properties: List of properties to transform as well.
+    :param label_behavior: Behavior of labels while elimination.
+    :return: Tuple (converted MA, converted properties).
+    """
+    formulae = [(prop.raw_formula if isinstance(prop, Property) else prop) for prop in properties]
+    if ma.supports_parameters:
+        return core._eliminate_non_markovian_chains_parametric(ma, formulae, label_behavior)
+    else:
+        return core._eliminate_non_markovian_chains(ma, formulae, label_behavior)
+
+
 def prob01min_states(model, eventually_formula):
     assert type(eventually_formula) == logic.EventuallyFormula
     labelform = eventually_formula.subformula
@@ -451,7 +466,8 @@ def construct_submodel(model, states, actions, keep_unreachable_states=True, opt
     else:
         raise NotImplementedError()
 
-def parse_properties(properties, context = None, filters = None):
+
+def parse_properties(properties, context=None, filters=None):
     """
 
     :param properties: A string with the pctl properties

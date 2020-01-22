@@ -79,3 +79,53 @@ class TestTransformation:
         assert initial_state == 0
         result = stormpy.model_checking(mdp, mdp_formulas[0])
         assert math.isclose(result.at(initial_state), 0.08333333333)
+
+    def test_eliminate_non_markovian_chains(self):
+        program = stormpy.parse_prism_program(get_example_path("ma", "stream2.ma"), False, True)
+        formulas = stormpy.parse_properties_for_prism_program("Pmin=? [ F \"done\"];Tmin=? [ F \"done\" ]", program)
+        ma = stormpy.build_model(program, formulas)
+        assert ma.nr_states == 12
+        assert ma.nr_transitions == 14
+        assert ma.model_type == stormpy.ModelType.MA
+        assert len(ma.initial_states) == 1
+        initial_state = ma.initial_states[0]
+        assert initial_state == 0
+        assert len(formulas) == 2
+        result = stormpy.model_checking(ma, formulas[0])
+        assert math.isclose(result.at(initial_state), 1)
+
+        # Keep labels
+        ma_elim, ma_formulas_elim = stormpy.eliminate_non_markovian_chains(ma, formulas, stormpy.EliminationLabelBehavior.KEEP_LABELS)
+        assert ma_elim.nr_states == 9
+        assert ma_elim.nr_transitions == 11
+        assert ma_elim.model_type == stormpy.ModelType.MA
+        assert len(ma_elim.initial_states) == 1
+        initial_state = ma_elim.initial_states[0]
+        assert initial_state == 0
+        assert len(ma_formulas_elim) == 1
+        result = stormpy.model_checking(ma_elim, ma_formulas_elim[0])
+        assert math.isclose(result.at(initial_state), 1)
+
+        # Merge labels
+        ma_elim, ma_formulas_elim = stormpy.eliminate_non_markovian_chains(ma, formulas, stormpy.EliminationLabelBehavior.MERGE_LABELS)
+        assert ma_elim.nr_states == 8
+        assert ma_elim.nr_transitions == 10
+        assert ma_elim.model_type == stormpy.ModelType.MA
+        assert len(ma_elim.initial_states) == 1
+        initial_state = ma_elim.initial_states[0]
+        assert initial_state == 0
+        assert len(ma_formulas_elim) == 1
+        result = stormpy.model_checking(ma_elim, ma_formulas_elim[0])
+        assert math.isclose(result.at(initial_state), 1)
+
+        # Delete labels
+        ma_elim, ma_formulas_elim = stormpy.eliminate_non_markovian_chains(ma, formulas, stormpy.EliminationLabelBehavior.DELETE_LABELS)
+        assert ma_elim.nr_states == 8
+        assert ma_elim.nr_transitions == 10
+        assert ma_elim.model_type == stormpy.ModelType.MA
+        assert len(ma_elim.initial_states) == 1
+        initial_state = ma_elim.initial_states[0]
+        assert initial_state == 0
+        assert len(ma_formulas_elim) == 1
+        result = stormpy.model_checking(ma_elim, ma_formulas_elim[0])
+        assert math.isclose(result.at(initial_state), 1)
