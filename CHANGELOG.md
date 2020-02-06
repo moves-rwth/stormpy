@@ -6,6 +6,9 @@ Version 1.4.x
 
 ### Version 1.4.2 (under development) 
 
+- Extended expression operators with {conjunction, disjunction}
+- Added information collector to extract information from jani models
+
 ### Version 1.4.1 (2019/12)
 Requires storm version >= 1.4.1 and pycarl version >= 2.0.4
 - Adaptions to changes in Storm

@@ -3,6 +3,7 @@
 #include <storm/storage/jani/JSONExporter.h>
 #include <storm/storage/expressions/ExpressionManager.h>
 #include <storm/logic/RewardAccumulationEliminationVisitor.h>
+#include <storm/storage/jani/traverser/InformationCollector.h>
 #include "src/helpers.h"
 
 using namespace storm::jani;
@@ -158,5 +159,11 @@ void define_jani(py::module& m) {
         }, "Eliminate reward accumulations", py::arg("model"), py::arg("properties"));
 
 
+    py::class_<InformationObject> informationObject(m, "JaniInformationObject", "An object holding information about a JANI model");
+    informationObject.def_readwrite("model_type", &InformationObject::modelType)
+            .def_readwrite("nr_automata", &InformationObject::nrAutomata)
+            .def_readwrite("nr_edges", &InformationObject::nrEdges)
+            .def_readwrite("nr_variables", &InformationObject::nrVariables);
+    m.def("collect_information", [](const Model& model) {return storm::jani::collect(model);});
 
 }
