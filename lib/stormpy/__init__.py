@@ -189,25 +189,27 @@ def build_symbolic_parametric_model(symbolic_description, properties=None):
     return _convert_symbolic_model(intermediate, parametric=True)
 
 
-def build_model_from_drn(file):
+def build_model_from_drn(file, options = DirectEncodingParserOptions()):
     """
     Build a model in sparse representation from the explicit DRN representation.
 
     :param String file: DRN file containing the model.
+    :param DirectEncodingParserOptions: Options for the parser.
     :return: Model in sparse representation.
     """
-    intermediate = core._build_sparse_model_from_drn(file)
+    intermediate = core._build_sparse_model_from_drn(file, options)
     return _convert_sparse_model(intermediate, parametric=False)
 
 
-def build_parametric_model_from_drn(file):
+def build_parametric_model_from_drn(file, options = DirectEncodingParserOptions()):
     """
     Build a parametric model in sparse representation from the explicit DRN representation.
 
     :param String file: DRN file containing the model.
+    :param DirectEncodingParserOptions: Options for the parser.
     :return: Parametric model in sparse representation.
     """
-    intermediate = core._build_sparse_parametric_model_from_drn(file)
+    intermediate = core._build_sparse_parametric_model_from_drn(file, options)
     return _convert_sparse_model(intermediate, parametric=True)
 
 
