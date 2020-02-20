@@ -106,8 +106,8 @@ class TestSparseModel:
         assert not model.supports_parameters
         assert type(model) is stormpy.SparseCtmc
         model_for_formula = stormpy.build_model(program, formulas)
-        assert model_for_formula.nr_states == 1
-        assert model_for_formula.nr_transitions == 1
+        assert model_for_formula.nr_states == 12
+        assert model_for_formula.nr_transitions == 21
         assert model_for_formula.model_type == stormpy.ModelType.CTMC
         assert not model_for_formula.supports_parameters
         assert type(model_for_formula) is stormpy.SparseCtmc
@@ -229,7 +229,7 @@ class TestSymbolicSylvanModel:
         formulas = stormpy.parse_properties_for_prism_program("P=? [ F<=3 \"target\" ]", program)
         model = stormpy.build_symbolic_model(program, formulas)
         assert model.nr_states == 12
-        assert model.nr_transitions == 22
+        assert model.nr_transitions == 21
         assert model.model_type == stormpy.ModelType.CTMC
         assert not model.supports_parameters
         assert type(model) is stormpy.SymbolicSylvanCtmc

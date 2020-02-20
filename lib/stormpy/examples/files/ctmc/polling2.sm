@@ -50,4 +50,4 @@ rewards "served"
 	[serve1] true : 1;
 endrewards
 
-label "target" = s=1&a=0;
+label "target" = s=1&a=1;
