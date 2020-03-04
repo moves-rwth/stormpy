@@ -1,10 +1,11 @@
 The following steps should be performed before releasing a new stormpy version.
 
 1. Update `CHANGELOG.md`
-   To get all the commits from an author since the last tag execute:
+   * To get all the commits from an author since the last tag execute:
    ```console
    git log last_tag..HEAD --author "author_name"
    ```
+   * Set release month
 
 2. Update used tool versions:
    * Update `storm_min_version` in `setup.py`
@@ -26,6 +27,15 @@ The following steps should be performed before releasing a new stormpy version.
    git remote add github https://github.com/moves-rwth/stormpy.git
    git push github new_version
    ```
-   The new tag should now be visible on [GitHub](https://github.com/moves-rwth/stormpy/tags)
+   The new tag should now be visible on [GitHub](https://github.com/moves-rwth/stormpy/tags).
 
-6. [Add new release](https://github.com/moves-rwth/stormpy/releases/new) in GitHub
+6. [Add new release](https://github.com/moves-rwth/stormpy/releases/new) in GitHub.
+
+7. Create new python package for release on [Pypi](https://pypi.org/project/stormpy/):
+   ```console
+   python3 setup.py sdist
+   python3 -m pip install --user --upgrade twine
+   python3 -m twine upload dist/*
+   ```
+
+8. Create [Docker containers](https://hub.docker.com/r/movesrwth/stormpy) for new version.
