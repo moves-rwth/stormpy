@@ -4,7 +4,7 @@ project(pystorm)
 find_package(storm REQUIRED)
 add_subdirectory(resources/pybind11)
 
-option(STORMPY_DISABLE_SIGNATURE_DOC "disables the signature in the documentation" ON)
+option(STORMPY_DISABLE_SIGNATURE_DOC "Disable the signature in the documentation" OFF)
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/config.h.in ${CMAKE_CURRENT_BINARY_DIR}/src/generated/config.h)
 

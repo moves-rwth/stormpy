@@ -4,6 +4,11 @@
 PYBIND11_MODULE(info, m) {
     m.doc() = "Storm information";
 
+#ifdef STORMPY_DISABLE_SIGNATURE_DOC
+    py::options options;
+    options.disable_function_signatures();
+#endif
+
     py::class_<storm::utility::StormVersion>(m, "Version", "Version information for Storm")
         // static properties are still called with self as argument (which we ignore), see
         // https://pybind11.readthedocs.io/en/master/advanced/classes.html#static-properties

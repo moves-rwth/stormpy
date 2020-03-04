@@ -15,7 +15,7 @@ PYBIND11_MODULE(core, m) {
 
 #ifdef STORMPY_DISABLE_SIGNATURE_DOC
     py::options options;
-//    options.disable_function_signatures();
+    options.disable_function_signatures();
 #endif
 
     define_environment(m);
