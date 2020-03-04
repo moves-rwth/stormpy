@@ -29,6 +29,7 @@ class SetupConfig:
         return {
             "storm_dir": "",
             "disable_dft": False,
+            "disable_gspn": False,
             "disable_pars": False,
             "debug": False,
             "jobs": str(no_jobs),
