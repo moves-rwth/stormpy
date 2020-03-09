@@ -87,8 +87,13 @@ The build step also takes optional arguments for a more advanced configuration o
 
 Testing pycarl installation
 ---------------------------
-After building, you can run the test files by::
+After building, you can run the test files by either::
 
+	$ python setup.py test
+
+or by invoking pytest directly with::
+
+	$ pip install pytest
 	$ py.test tests/
 
 If you do not experience any issues, you can now use pycarl. To get started, follow the :doc:`getting_started`, consult the test files in ``tests/`` or the :doc:`api` (work in progress).
