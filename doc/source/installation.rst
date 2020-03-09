@@ -91,9 +91,14 @@ The build step ``build_ext`` also takes optional arguments for a more advanced c
 Testing stormpy installation
 ----------------------------
 
-After building, you can run the test files by::
+After building, you can run the test files by either::
 
-	py.test tests/
-	
+	$ python setup.py test
+
+or by invoking pytest directly with::
+
+	$ pip install pytest
+	$ py.test tests/
+
 If the tests pass, you can now use stormpy.
 To get started, continue with our :doc:`getting_started`, consult the test files in ``tests/`` or the :doc:`api` (work in progress).
