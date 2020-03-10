@@ -32,10 +32,14 @@ class TestFormulas:
         assert str(formulas[1]) == "R[exp]" + prop
 
     def test_jani_formula(self):
-        _, properties = stormpy.parse_jani_model(get_example_path("dtmc", "brp.jani"))
-        for name, prop in properties.items():
-            assert "Property_brp_" in name
-            assert isinstance(prop, stormpy.Property)
+        _, properties = stormpy.parse_jani_model(get_example_path("dtmc", "die.jani"))
+        assert len(properties) == 2
+        prop = properties[0]
+        assert isinstance(prop, stormpy.Property)
+        assert prop.name == "Probability to throw a six"
+        prop = properties[1]
+        assert isinstance(prop, stormpy.Property)
+        assert prop.name == "Expected number of coin flips"
 
     def test_bounds(self):
         prop = "P=? [F \"one\"]"

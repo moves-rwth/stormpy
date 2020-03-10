@@ -31,8 +31,7 @@ class TestModelChecking:
         assert math.isclose(result.at(initial_state), 49 / 128, rel_tol=1e-5)
 
     def test_model_checking_jani_dtmc(self):
-        jani_model, properties = stormpy.parse_jani_model(get_example_path("dtmc", "die.jani"))
-        formulas = [properties["Probability to throw a six"], properties["Expected number of coin flips"]]
+        jani_model, formulas = stormpy.parse_jani_model(get_example_path("dtmc", "die.jani"))
         formulas = stormpy.eliminate_reward_accumulations(jani_model, formulas)
         assert len(formulas) == 2
         model = stormpy.build_model(jani_model, formulas)
