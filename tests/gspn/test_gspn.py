@@ -9,4 +9,12 @@ from configurations import gspn
 @gspn
 class TestGSPNBuilder:
     def test_build_gspn(self):
-        assert True
+        # assert True
+        # builder: ~/storm/src/storm-dft/transformations/DFTToGSPNTransformator.cpp
+        name = "gspn_test"
+        builder = stormpy.gspn.GSPNBuilder()
+        builder.set_name(name)
+        gspn = builder.build_gspn()
+        assert gspn.name() == name
+
+
