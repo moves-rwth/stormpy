@@ -164,6 +164,6 @@ void define_jani(py::module& m) {
             .def_readwrite("nr_automata", &InformationObject::nrAutomata)
             .def_readwrite("nr_edges", &InformationObject::nrEdges)
             .def_readwrite("nr_variables", &InformationObject::nrVariables);
-    m.def("collect_information", [](const Model& model) {return storm::jani::collect(model);});
+    m.def("collect_information", [](const Model& model) {return storm::jani::collectModelInformation(model);});
 
 }
