@@ -16,7 +16,7 @@ void define_dft(py::module& m) {
 
 
     // DFT class
-    py::class_<DFT<double>, std::shared_ptr<DFT<double>>>(m, "DFT", "DFT")
+    py::class_<DFT<double>, std::shared_ptr<DFT<double>>>(m, "DFT", "Dynamic Fault Tree")
         .def("nr_elements", &DFT<double>::nrElements, "Total number of elements")
         .def("nr_be", &DFT<double>::nrBasicElements, "Number of basic elements")
         .def("nr_dynamic", &DFT<double>::nrDynamicElements, "Number of dynamic elements")

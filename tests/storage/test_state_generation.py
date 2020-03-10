@@ -67,7 +67,6 @@ def test_knuth_yao_die():
         number_states += 1
 
         valuation = generator.current_state_to_valuation()
-        print(valuation)
         assert valuation.integer_values[s_variable] <= 7
         assert generator.current_state_satisfies(upper_bound_invariant)
 
