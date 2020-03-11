@@ -22,10 +22,28 @@ class TestGSPNBuilder:
         layout_xyr = stormpy.gspn.LayoutInfo(2, 3, 4)
         assert layout_xyr.rotation == 4
 
+    def test_place(self):
+        p_id = 4
+        place = stormpy.gspn.Place(id = p_id)
+        assert p_id == place.get_id()
+
+        assert place.has_restricted_capacity() == False
+        # todo this does not work (boost::optional<uint64_t> ?):
+        place.set_capacity(cap = 5)
+        #assert place.has_restricted_capacity() == True
+        #assert place.get_capacity() == 5
+
+        p_name = "P_0"
+        place.set_name(name = p_name)
+        assert place.get_name() == p_name
+
+        p_tokens = 2
+        place.set_number_of_initial_tokens(p_tokens)
+        assert place.get_number_of_initial_tokens() == p_tokens
+
+
 
     def test_build_gspn(self):
-
-
 
         gspn_name = "gspn_test"
         builder = stormpy.gspn.GSPNBuilder()
@@ -46,15 +64,16 @@ class TestGSPNBuilder:
         # todo test addNormalArc
         # todo test setTransitionLayoutInfo ...
 
-
-        #builder.setTransitionLayoutInfo(tPropagationDontCare,layout);
-
+        # todo test setLayout info
+        layout = stormpy.gspn.LayoutInfo(1,2)
+        builder.set_transition_layout_info(ti_id_0, layout)
 
         gspn = builder.build_gspn()
         assert gspn.name() == gspn_name
 
         gspn_new_name = "new_name"
         gspn.set_name(gspn_new_name)
+
         assert gspn.name() == gspn_new_name
 
 
