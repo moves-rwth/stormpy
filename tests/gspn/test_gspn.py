@@ -1,7 +1,6 @@
 import os
 
 import stormpy
-from helpers.helper import get_example_path
 
 from configurations import gspn
 
@@ -9,13 +8,13 @@ from configurations import gspn
 @gspn
 class TestGSPNBuilder:
     def test_build_gspn(self):
-        # assert True
-        # builder: ~/storm/src/storm-dft/transformations/DFTToGSPNTransformator.cpp
+
         gspn_name = "gspn_test"
         builder = stormpy.gspn.GSPNBuilder()
         builder.set_name(gspn_name)
         # todo place tests, set_place_layout_info (boost)
         # p_id_0 = builder.add_place(capacity = 1, initialTokens=0, name="place_test")
+        # p_id_0 = builder.add_place(1, 0, "place_test")
 
         ti_id_0 = builder.add_immediate_transition()
         ti_id_1 = builder.add_immediate_transition(priority=0, weight=0.5, name="ti_1")
@@ -32,6 +31,10 @@ class TestGSPNBuilder:
 
         gspn = builder.build_gspn()
         assert gspn.name() == gspn_name
+
+        gspn_new_name = "new_name"
+        gspn.set_name(gspn_new_name)
+        assert gspn.name() == gspn_new_name
 
 
 

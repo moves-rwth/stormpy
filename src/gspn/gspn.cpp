@@ -13,26 +13,39 @@ void define_gspn(py::module& m) {
     // GSPN class
     py::class_<GSPN, std::shared_ptr<GSPN>>(m, "GSPN", "Generalized Stochastic Petri Net")
         .def("name", &GSPN::getName, "Name of GSPN")
-        // todo getter
+        .def("set_name", &GSPN::setName, "Set name of GSPN")
+
+        //todo constructor
+        // .def(py::init<std::string const&, std::vector<Place>, ... >())
+
+        // todo write tests:
+        .def_static("timed_transition_id_to_transition_id", &GSPN::timedTransitionIdToTransitionId)
+        .def_static("immediate_transition_id_to_transition_id", &GSPN::immediateTransitionIdToTransitionId)
+        .def_static("transition_id_to_timed_transition_id", &GSPN::transitionIdToTimedTransitionId)
+        .def_static("transition_id_to_immediate_transition_id", &GSPN::transitionIdToImmediateTransitionId)
+
+        // getNumberOfPlaces, getNumberOfImmediateTransitions, getNumberOfTimedTransitions, ...
+
+        //todo private?
     ;
-//}
-// todo ? void define_gspn_builder(py::module& m) {
+
     // GSPN_Builder class
     py::class_<GSPNBuilder, std::shared_ptr<GSPNBuilder>>(m, "GSPNBuilder", "Generalized Stochastic Petri Net Builder")
             .def(py::init(), "Constructor")
             .def("set_name", &GSPNBuilder::setGspnName, "Set name of GSPN", py::arg("name"))
 
-            // todo: boost::optional
-            //.def("add_place", &GSPNBuilder::addPlace, "Add a place to the GSPN", py::arg("capacity") = 1, py::arg("initialTokens") = 0, py::arg("name") = std::string(""))
+            // todo: boost::optional<uint64_t> capacity
+            //.def("add_place", &GSPNBuilder::addPlace, "Add a place to the GSPN", py::arg("capacity") = boost::optional<uint64_t>(1), py::arg("initialTokens") = uint_fast64_t(0), py::arg("name") = std::string(""))
             //.def("set_place_layout_info", &GSPNBuilder::setPlaceLayoutInfo, "Set place layout information", py::arg("placeId"), py::arg("layoutInfo"))
 
+            // todo GSPNBuilder::RateType(0) ?
             .def("add_immediate_transition", &GSPNBuilder::addImmediateTransition, "Adds an immediate transition to the GSPN", py::arg("priority") = uint_fast64_t(0), py::arg("weight") = double(0), py::arg("name") = std::string(""))
 
             // todo: boost::optional<uint64_t>
             .def("add_timed_transition", py::overload_cast<uint_fast64_t const&, double const& , std::string const&>(&GSPNBuilder::addTimedTransition), "Adds an timed transition to the GSPN", py::arg("priority"), py::arg("rate"), py::arg("name") = std::string(""))
             .def("add_timed_transition", py::overload_cast<uint_fast64_t const&, double const& , boost::optional<uint64_t>, std::string const&>(&GSPNBuilder::addTimedTransition), "Adds an timed transition to the GSPN", py::arg("priority"), py::arg("rate"), py::arg("numServers"), py::arg("name") = "")
 
-            // todo descriptions
+            // todo add descriptions
             .def("add_input_arc", py::overload_cast<uint_fast64_t const&, uint_fast64_t const&, uint_fast64_t const&>(&GSPNBuilder::addInputArc), py::arg("from"),  py::arg("to"),  py::arg("multiplicity"))
             .def("add_input_arc", py::overload_cast<std::string const&, std::string const&, uint64_t>(&GSPNBuilder::addInputArc), py::arg("from"),  py::arg("to"),  py::arg("multiplicity"))
             .def("add_inhibition_arc", py::overload_cast<uint_fast64_t const&, uint_fast64_t const&, uint_fast64_t const&>(&GSPNBuilder::addInhibitionArc), py::arg("from"),  py::arg("to"),  py::arg("multiplicity"))
@@ -47,7 +60,7 @@ void define_gspn(py::module& m) {
 
             .def("build_gspn", &GSPNBuilder::buildGspn, "Construct GSPN", py::arg("exprManager") = nullptr, py::arg("constantsSubstitution") = std::map<storm::expressions::Variable, storm::expressions::Expression>())
 
-            // todo prvate?
+            // todo private fcts and attributes?
             // .def("is_timed_transition_id", &GSPNBuilder::isTimedTransitionId, py::arg("tid"))
             // .def("is_immediate_transition_id", &GSPNBuilder::isImmediateTransitionId, py::arg("tid"))
             // getTransition
