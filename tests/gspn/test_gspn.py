@@ -30,8 +30,8 @@ class TestGSPNBuilder:
         assert place.has_restricted_capacity() == False
         # todo this does not work (boost::optional<uint64_t> ?):
         place.set_capacity(cap = 5)
-        #assert place.has_restricted_capacity() == True
-        #assert place.get_capacity() == 5
+        # assert place.has_restricted_capacity() == True
+        # assert place.get_capacity() == 5
 
         p_name = "P_0"
         place.set_name(name = p_name)
@@ -41,6 +41,26 @@ class TestGSPNBuilder:
         place.set_number_of_initial_tokens(p_tokens)
         assert place.get_number_of_initial_tokens() == p_tokens
 
+    def test_transition(self):
+        # test TimedTrasnition
+        tt = stormpy.gspn.TimedTransition()
+        tt_name = " tt"
+        tt.set_name(tt_name)
+        assert tt_name == tt.get_name()
+        tt_rate = 0.2
+        tt.set_rate(tt_rate)
+        assert tt_rate == tt.get_rate()
+
+        # test ImmediateTransition
+        ti = stormpy.gspn.ImmediateTransition()
+        ti_name = " ti"
+        ti.set_name(ti_name)
+        assert ti_name == ti.get_name()
+        assert ti.no_weight_attached() == True
+        ti_weight = 0.2
+        ti.set_weight(ti_weight)
+        assert ti_weight == ti.get_weight()
+        assert ti.no_weight_attached() == False
 
 
     def test_build_gspn(self):
