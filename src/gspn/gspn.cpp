@@ -7,9 +7,19 @@
 
 using GSPN = storm::gspn::GSPN;
 using GSPNBuilder = storm::gspn::GspnBuilder;
+using LayoutInfo = storm::gspn::LayoutInfo;
 
 
 void define_gspn(py::module& m) {
+    // LayoutInfo class
+    py::class_<LayoutInfo>(m, "LayoutInfo")
+            .def(py::init<>())
+            .def(py::init<double, double, double>(), py::arg("x"), py::arg("y"), py::arg("rotation") = 0.0)  //todo add rotation predefined
+            .def_readwrite("x", &LayoutInfo::x)
+            .def_readwrite("y", &LayoutInfo::y)
+            .def_readwrite("rotation", &LayoutInfo::rotation)
+    ;
+
     // GSPN class
     py::class_<GSPN, std::shared_ptr<GSPN>>(m, "GSPN", "Generalized Stochastic Petri Net")
         .def("name", &GSPN::getName, "Name of GSPN")
@@ -35,14 +45,14 @@ void define_gspn(py::module& m) {
             .def("set_name", &GSPNBuilder::setGspnName, "Set name of GSPN", py::arg("name"))
 
             // todo: boost::optional<uint64_t> capacity
-            //.def("add_place", &GSPNBuilder::addPlace, "Add a place to the GSPN", py::arg("capacity") = boost::optional<uint64_t>(1), py::arg("initialTokens") = uint_fast64_t(0), py::arg("name") = std::string(""))
+            //.def("add_place", &GSPNBuilder::addPlace, "Add a place to the GSPN", py::arg("capacity") = 1, py::arg("initialTokens") = 0, py::arg("name") = "")
+
             //.def("set_place_layout_info", &GSPNBuilder::setPlaceLayoutInfo, "Set place layout information", py::arg("placeId"), py::arg("layoutInfo"))
 
-            // todo GSPNBuilder::RateType(0) ?
-            .def("add_immediate_transition", &GSPNBuilder::addImmediateTransition, "Adds an immediate transition to the GSPN", py::arg("priority") = uint_fast64_t(0), py::arg("weight") = double(0), py::arg("name") = std::string(""))
+            .def("add_immediate_transition", &GSPNBuilder::addImmediateTransition, "Adds an immediate transition to the GSPN", py::arg("priority") = 0, py::arg("weight") = 0, py::arg("name") = "")
 
             // todo: boost::optional<uint64_t>
-            .def("add_timed_transition", py::overload_cast<uint_fast64_t const&, double const& , std::string const&>(&GSPNBuilder::addTimedTransition), "Adds an timed transition to the GSPN", py::arg("priority"), py::arg("rate"), py::arg("name") = std::string(""))
+            .def("add_timed_transition", py::overload_cast<uint_fast64_t const&, double const& , std::string const&>(&GSPNBuilder::addTimedTransition), "Adds an timed transition to the GSPN", py::arg("priority"), py::arg("rate"), py::arg("name") = "")
             .def("add_timed_transition", py::overload_cast<uint_fast64_t const&, double const& , boost::optional<uint64_t>, std::string const&>(&GSPNBuilder::addTimedTransition), "Adds an timed transition to the GSPN", py::arg("priority"), py::arg("rate"), py::arg("numServers"), py::arg("name") = "")
 
             // todo add descriptions
@@ -56,14 +66,11 @@ void define_gspn(py::module& m) {
             // todo LayoutInfo
             //.def("set_transition_layout_info", &GSPNBuilder::setTransitionLayoutInfo, "set transition layout information", py::arg("transitionId"), py::arg("layoutInfo"))
 
-            .def("add_normal_arc", &GSPNBuilder::addNormalArc, "Add normal arc from a named element to a named element", py::arg("from"), py::arg("to"), py::arg("multiplicity") = uint64_t(1))
+            .def("add_normal_arc", &GSPNBuilder::addNormalArc, "Add normal arc from a named element to a named element", py::arg("from"), py::arg("to"), py::arg("multiplicity") = 1)
 
             .def("build_gspn", &GSPNBuilder::buildGspn, "Construct GSPN", py::arg("exprManager") = nullptr, py::arg("constantsSubstitution") = std::map<storm::expressions::Variable, storm::expressions::Expression>())
 
-            // todo private fcts and attributes?
-            // .def("is_timed_transition_id", &GSPNBuilder::isTimedTransitionId, py::arg("tid"))
-            // .def("is_immediate_transition_id", &GSPNBuilder::isImmediateTransitionId, py::arg("tid"))
-            // getTransition
 
-            ;
+
+    ;
 }
