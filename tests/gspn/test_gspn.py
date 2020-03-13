@@ -4,6 +4,8 @@ import stormpy
 
 from configurations import gspn
 
+from helpers.helper import get_example_path
+
 
 @gspn
 class TestGSPNBuilder:
@@ -62,6 +64,10 @@ class TestGSPNBuilder:
         assert ti_weight == ti.get_weight()
         assert ti.no_weight_attached() == False
 
+    #def test_gspn(self):
+        # todo
+        #immediateTransitions =
+        #gspn = stormpy.gspn.GSPN("gspn", places, immediateTransitions, timedTransitions, orderedPartitions, actualExprManager, constantsSubstitution)
 
     def test_build_gspn(self):
 
@@ -69,8 +75,10 @@ class TestGSPNBuilder:
         builder = stormpy.gspn.GSPNBuilder()
         builder.set_name(gspn_name)
         # todo place tests, set_place_layout_info (boost)
-        # p_id_0 = builder.add_place()
-        # p_id_0 = builder.add_place(1, 0, "place_test")
+        #p_id_0 = builder.add_place()
+        # p_id_0 = builder.add_place(capacity = 1, initialTokens = 0, name = "place_test")
+        # p_layout = stormpy.gspn.LayoutInfo(1, 2)
+        # builder.set_place_layout_info(p_id_0, t_layout)
 
         ti_id_0 = builder.add_immediate_transition()
         ti_id_1 = builder.add_immediate_transition(priority=0, weight=0.5, name="ti_1")
@@ -82,19 +90,34 @@ class TestGSPNBuilder:
         # todo tests for add_ (add_place needed)
         # builder.add_input_arc(ti_id_0, ti_id_1, multiplicity = 2)
         # todo test addNormalArc
-        # todo test setTransitionLayoutInfo ...
 
-        # todo test setLayout info
-        layout = stormpy.gspn.LayoutInfo(1,2)
-        builder.set_transition_layout_info(ti_id_0, layout)
+        t_layout = stormpy.gspn.LayoutInfo(1, 2)
+        builder.set_transition_layout_info(ti_id_0, t_layout)
 
         gspn = builder.build_gspn()
         assert gspn.name() == gspn_name
 
         gspn_new_name = "new_name"
         gspn.set_name(gspn_new_name)
-
         assert gspn.name() == gspn_new_name
+
+    def test_export_to_pnpro(self, tmpdir):
+        gspn_name = "gspn_test"
+        builder = stormpy.gspn.GSPNBuilder()
+        builder.set_name(gspn_name)
+        gspn = builder.build_gspn()
+        # todo add trans and places (layout?)
+        assert gspn.name() == gspn_name
+        #todo assert gspn.nr trans etc
+        export_file = os.path.join(str(tmpdir), "gspn.pnpro")
+        gspn.export_gspn_pnpro_file(export_file)
+
+
+        #todo: load and assert gspn.nr trans etc
+        # gspn_from_file = stormpy.gspn.load_gspn_file(export_file)
+        # assert gspn_from_file.nr ==...
+
+    #def test_export_to_pnml(self, tmpdir):
 
 
 
