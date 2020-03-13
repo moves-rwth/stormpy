@@ -4,6 +4,7 @@
 #include "storm-gspn/storage/gspn/GspnBuilder.h"
 #include "storm/settings/SettingsManager.h"
 
+#include "storm-gspn/parser/GspnParser.h"
 #include "storm/utility/file.h"
 
 using GSPN = storm::gspn::GSPN;
@@ -14,12 +15,19 @@ using TimedTransition = storm::gspn::TimedTransition<GSPN::RateType>;
 using ImmediateTransition = storm::gspn::ImmediateTransition<GSPN::WeightType>;
 using Transition = storm::gspn::Transition;
 using TransitionPartition = storm::gspn::TransitionPartition;
+using GSPNParser = storm::parser::GspnParser;
 
-// todo to toPnproFile, totoPnmlFile (switch? to_pnpro)
-void gspnToFile(GSPN const& gspn, std::string const& filepath) {
+
+void gspnToFile(GSPN const& gspn, std::string const& filepath, std::string const& option) {
     std::ofstream fs;
     storm::utility::openFile(filepath, fs);
-    gspn.toPnpro(fs);  //gspn.toPnml(fs);
+
+    if(option == "to-pnpro") {
+        gspn.toPnpro(fs);
+    }
+    else if (option == "to-pnml"){
+        gspn.toPnml(fs);
+    }
     storm::utility::closeFile(fs);
 }
 
@@ -42,7 +50,7 @@ void define_gspn(py::module& m) {
         .def("add_immediate_transition", &GSPNBuilder::addImmediateTransition, "Adds an immediate transition to the GSPN", py::arg("priority") = 0, py::arg("weight") = 0, py::arg("name") = "")
 
 
-                // todo: boost::optional<uint64_t> + write tests:
+         // todo: problem with boost::optional<uint64_t> + write tests:
         .def("add_timed_transition", py::overload_cast<uint_fast64_t const&, double const& , std::string const&>(&GSPNBuilder::addTimedTransition), "Adds an timed transition to the GSPN", py::arg("priority"), py::arg("rate"), py::arg("name") = "")
         .def("add_timed_transition", py::overload_cast<uint_fast64_t const&, double const& , boost::optional<uint64_t>, std::string const&>(&GSPNBuilder::addTimedTransition), "Adds an timed transition to the GSPN", py::arg("priority"), py::arg("rate"), py::arg("numServers"), py::arg("name") = "")
         .def("set_transition_layout_info", &GSPNBuilder::setTransitionLayoutInfo, "set transition layout information", py::arg("transitionId"), py::arg("layoutInfo"))
@@ -62,10 +70,8 @@ void define_gspn(py::module& m) {
     py::class_<GSPN, std::shared_ptr<GSPN>>(m, "GSPN", "Generalized Stochastic Petri Net")
         // Constructor
         .def(py::init<std::string const& , std::vector<Place> const& , std::vector<ImmediateTransition> const& ,
-                     std::vector<TimedTransition> const& , std::vector<TransitionPartition> const& ,
-                     std::shared_ptr<storm::expressions::ExpressionManager> const& , std::map<storm::expressions::Variable,
-                             storm::expressions::Expression> const& > (),
-             "name"_a, "places"_a, "itransitions"_a, "ttransitions"_a, "partitions"_a, "exprManager"_a, "constantsSubstitution"_a = std::map<storm::expressions::Variable, storm::expressions::Expression>())
+                     std::vector<TimedTransition> const& , std::vector<TransitionPartition> const& , std::shared_ptr<storm::expressions::ExpressionManager> const& , std::map<storm::expressions::Variable,
+                     storm::expressions::Expression> const& > (), "name"_a, "places"_a, "itransitions"_a, "ttransitions"_a, "partitions"_a, "exprManager"_a, "constantsSubstitution"_a = std::map<storm::expressions::Variable, storm::expressions::Expression>())
 
         .def("name", &GSPN::getName, "Name of GSPN")
         .def("set_name", &GSPN::setName, "Set name of GSPN")
@@ -73,19 +79,28 @@ void define_gspn(py::module& m) {
         .def("get_number_of_immediate_transitions", &GSPN::getNumberOfImmediateTransitions, "Get the number of immediate transitions in this GSPN")
         .def("get_number_of_timed_transitions", &GSPN::getNumberOfTimedTransitions, "Get the timed transitions in this GSPN")
 
-                // todo write tests:
+        // todo write tests:
         .def_static("timed_transition_id_to_transition_id", &GSPN::timedTransitionIdToTransitionId)
         .def_static("immediate_transition_id_to_transition_id", &GSPN::immediateTransitionIdToTransitionId)
         .def_static("transition_id_to_timed_transition_id", &GSPN::transitionIdToTimedTransitionId)
         .def_static("transition_id_to_immediate_transition_id", &GSPN::transitionIdToImmediateTransitionId)
 
-                // todo: getPartitions, getNumberOfPlaces, getNumberOfImmediateTransitions, getNumberOfTimedTransitions, ... and test (returns vector)
-                // todo getPlace getTra... + tests (returns pointer to place/..)
+        // todo: getPartitions, getNumberOfPlaces, getNumberOfImmediateTransitions, getNumberOfTimedTransitions, ... and test (returns vector)
+        // todo getPlace getTra... + tests (returns pointer to place/..)
 
-                // todo export (see JaniToString)  toPnpro, toPnml
-        .def("export_gspn_pnpro_file", &gspnToFile, "filepath"_a)
-        .def("export_gspn_pnml_file", &gspnToFile, "filepath"_a)
+        // GSPN export
+        .def("export_gspn_pnpro_file", [](GSPN& g, std::string const& filepath) -> void { gspnToFile(g, filepath, "to-pnpro"); }, "filepath"_a)
+        .def("export_gspn_pnml_file", [](GSPN& g, std::string const& filepath) -> void { gspnToFile(g, filepath, "to-pnml"); }, "filepath"_a)
+
     ;
+
+    // GspnParser class
+    py::class_<GSPNParser, std::shared_ptr<GSPNParser>>(m, "GSPNParser")
+         .def(py::init<>())
+         //todo .def("parse", )
+    ;
+
+
 
     // LayoutInfo class
     py::class_<LayoutInfo>(m, "LayoutInfo")
@@ -146,8 +161,6 @@ void define_gspn(py::module& m) {
         .def("set_weight", &ImmediateTransition::setWeight, "weight"_a, "Set weight of this transition")
         .def("no_weight_attached", &ImmediateTransition::noWeightAttached, "True iff no weight is attached")
     ;
-
-
 
 
 
