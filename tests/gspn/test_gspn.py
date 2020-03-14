@@ -80,43 +80,53 @@ class TestGSPNBuilder:
         # p_layout = stormpy.gspn.LayoutInfo(1, 2)
         # builder.set_place_layout_info(p_id_0, t_layout)
 
-        ti_id_0 = builder.add_immediate_transition()
-        ti_id_1 = builder.add_immediate_transition(priority=0, weight=0.5, name="ti_1")
+        ti_0 = builder.add_immediate_transition()
+        ti_1 = builder.add_immediate_transition(priority=0, weight=0.5, name="ti_1")
 
-        tt_id_0 = builder.add_timed_transition(priority=0, rate=0.5, name="tt_0")
+        tt_0 = builder.add_timed_transition(priority=0, rate=0.5, name="tt_0")
         # todo problems with sumServers (boost)
-        # tt_id_1 = builder.add_timed_transition(priority=0, rate=0.5, numServers=2, name="tt_1")
+        # tt_1 = builder.add_timed_transition(priority=0, rate=0.5, numServers=2, name="tt_1")
 
         # todo tests for add_ (add_place needed)
         # builder.add_input_arc(ti_id_0, ti_id_1, multiplicity = 2)
-        # todo test addNormalArc
+        # builder.add_normal_arc
+        # builder.add_output_arc
 
         t_layout = stormpy.gspn.LayoutInfo(1, 2)
-        builder.set_transition_layout_info(ti_id_0, t_layout)
+        builder.set_transition_layout_info(ti_0, t_layout)
 
         gspn = builder.build_gspn()
-        assert gspn.name() == gspn_name
+        assert gspn.get_name() == gspn_name
 
         gspn_new_name = "new_name"
         gspn.set_name(gspn_new_name)
-        assert gspn.name() == gspn_new_name
+        assert gspn.get_name() == gspn_new_name
 
     def test_export_to_pnpro(self, tmpdir):
-        gspn_name = "gspn_test"
+
         builder = stormpy.gspn.GSPNBuilder()
-        builder.set_name(gspn_name)
+        builder.set_name("gspn_test")
+        ti_0 = builder.add_immediate_transition(priority=0, weight=0.5, name="ti_0")
         gspn = builder.build_gspn()
-        # todo add trans and places (layout?)
-        assert gspn.name() == gspn_name
-        #todo assert gspn.nr trans etc
+        # todo add trans and places (place layout after import?)
+
         export_file = os.path.join(str(tmpdir), "gspn.pnpro")
+        # export gspn to pnpro
         gspn.export_gspn_pnpro_file(export_file)
+        # import gspn
+        gspn_parser = stormpy.gspn.GSPNParser()
+        gspn_import = gspn_parser.parse(export_file)
+        assert gspn_import.get_name() == gspn.get_name()
+        assert gspn_import.get_number_of_timed_transitions() == gspn.get_number_of_timed_transitions()
+        assert gspn_import.get_number_of_immediate_transitions() == gspn.get_number_of_immediate_transitions()
+        assert gspn_import.get_number_of_places() == gspn.get_number_of_places()
+        # tets transition name
+        # ti_0_import = gspn_import.
 
-
-        #todo: load and assert gspn.nr trans etc
-        # gspn_from_file = stormpy.gspn.load_gspn_file(export_file)
         # assert gspn_from_file.nr ==...
+        #asser name of ti
 
+    # todo test to_pnml (cp test to pnpro)
     #def test_export_to_pnml(self, tmpdir):
 
 
