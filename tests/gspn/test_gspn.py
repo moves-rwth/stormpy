@@ -32,8 +32,8 @@ class TestGSPNBuilder:
         assert place.has_restricted_capacity() == False
         # todo this does not work (boost::optional<uint64_t> problem?):
         place.set_capacity(cap = 5)
-        # assert place.has_restricted_capacity() == True
-        # assert place.get_capacity() == 5
+        assert place.has_restricted_capacity() == True
+        assert place.get_capacity() == 5
 
         p_name = "P_0"
         place.set_name(name = p_name)
@@ -44,7 +44,7 @@ class TestGSPNBuilder:
         assert place.get_number_of_initial_tokens() == p_tokens
 
     def test_transition(self):
-        # test TimedTrasnition
+        # test TimedTransition
         tt = stormpy.gspn.TimedTransition()
         tt_name = " tt"
         tt.set_name(tt_name)
@@ -72,17 +72,17 @@ class TestGSPNBuilder:
         builder.set_name(gspn_name)
 
         # todo place tests, set_place_layout_info (boost)
-        # p_0 = builder.add_place()
-        # p_1 = builder.add_place(capacity = 2, initialTokens = 0, name = "place_test")
-        # p_layout = stormpy.gspn.LayoutInfo(1, 2)
-        # builder.set_place_layout_info(p_0, t_layout)
+        p_0 = builder.add_place()
+        p_1 = builder.add_place(capacity = 2, initialTokens = 0, name = "place_test")
+        p_layout = stormpy.gspn.LayoutInfo(1, 2)
+        builder.set_place_layout_info(p_0, p_layout)
 
         ti_0 = builder.add_immediate_transition(priority=1, weight=0.5, name="ti_0")
         ti_1 = builder.add_immediate_transition()
 
         tt_0 = builder.add_timed_transition(priority=2, rate=0.4, name="tt_0")
         # todo problems with sumServers (boost)
-        # tt_1 = builder.add_timed_transition(priority=0, rate=0.5, numServers=2, name="tt_1")
+        tt_1 = builder.add_timed_transition(priority=0, rate=0.5, numServers=2, name="tt_1")
 
         # todo tests for add_ (add_place needed)
         # builder.add_input_arc(ti_id_0, ti_id_1, multiplicity = 2)
@@ -96,8 +96,8 @@ class TestGSPNBuilder:
 
         assert gspn.get_name() == gspn_name
         assert gspn.get_number_of_immediate_transitions() == 2
-        # assert gspn.get_number_of_timed_transitions() == 2
-        # assert gspn.get_number_of_places() == 2
+        assert gspn.get_number_of_timed_transitions() == 2
+        assert gspn.get_number_of_places() == 2
         cp_ti_0 = gspn.get_immediate_transition("ti_0")
         assert cp_ti_0.get_id() == ti_0
         assert cp_ti_0.get_weight() == 0.5
@@ -106,9 +106,9 @@ class TestGSPNBuilder:
         assert cp_tt_0.get_id() == tt_0
         assert cp_tt_0.get_rate() == 0.4
         assert cp_tt_0.get_priority() == 2
-        # cp_p_0 = gspn.get_immediate_transition("p_0")
-        # assert cp_p_0.get_id() == p_0
-        # assert cp_p_0.get_capacity() == 2
+        cp_p_1 = gspn.get_place("place_test")
+        assert cp_p_1.get_id() == p_1
+        assert cp_p_1.get_capacity() == 2
 
         gspn_new_name = "new_name"
         gspn.set_name(gspn_new_name)
@@ -162,8 +162,4 @@ class TestGSPNBuilder:
         assert gspn_import.get_number_of_places() == gspn.get_number_of_places()
         cp_ti_0 = gspn_import.get_immediate_transition("ti_0")
         assert cp_ti_0.get_id() == ti_0
-
-
-
-
 

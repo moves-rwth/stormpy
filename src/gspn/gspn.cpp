@@ -40,8 +40,8 @@ void define_gspn(py::module& m) {
         .def("set_name", &GSPNBuilder::setGspnName, "Set name of GSPN", "name"_a)
 
         // todo: boost::optional<uint64_t> capacity
-        //.def("add_place", &GSPNBuilder::addPlace, "Add a place to the GSPN", py::arg("capacity") = 1, py::arg("initialTokens") = 0, py::arg("name") = "")
-        //.def("set_place_layout_info", &GSPNBuilder::setPlaceLayoutInfo, "Set place layout information", py::arg("placeId"), py::arg("layoutInfo"))
+        .def("add_place", &GSPNBuilder::addPlace, "Add a place to the GSPN", py::arg("capacity") = 1, py::arg("initialTokens") = 0, py::arg("name") = "")
+        .def("set_place_layout_info", &GSPNBuilder::setPlaceLayoutInfo, "Set place layout information", py::arg("placeId"), py::arg("layoutInfo"))
 
         // does not work either:
         //.def("add_place", [](GSPNBuilder& b, boost::optional<uint64_t> capacity = boost::optional<uint64_t>(1), uint_fast64_t const& initialTokens = 0, std::string const& name = "") {
@@ -51,7 +51,7 @@ void define_gspn(py::module& m) {
 
          // todo: problem with boost::optional<uint64_t> + write tests:
         .def("add_timed_transition", py::overload_cast<uint_fast64_t const&, double const& , std::string const&>(&GSPNBuilder::addTimedTransition), "Adds an timed transition to the GSPN", "priority"_a, "rate"_a, "name"_a = "")
-        .def("add_timed_transition", py::overload_cast<uint_fast64_t const&, double const& , boost::optional<uint64_t>, std::string const&>(&GSPNBuilder::addTimedTransition), "Adds an timed transition to the GSPN", "priority"_a, "rate"_a, "numServers"_a, "name"_a = "")
+        .def("add_timed_transition", py::overload_cast<uint_fast64_t const&, double const& , boost::optional<uint64_t> const&, std::string const&>(&GSPNBuilder::addTimedTransition), "Adds an timed transition to the GSPN", "priority"_a, "rate"_a, "numServers"_a, "name"_a = "")
         .def("set_transition_layout_info", &GSPNBuilder::setTransitionLayoutInfo, "set transition layout information", "transitionId"_a, "layoutInfo"_a)
 
         // todo write tests
