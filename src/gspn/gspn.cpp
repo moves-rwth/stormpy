@@ -39,22 +39,15 @@ void define_gspn(py::module& m) {
         .def(py::init(), "Constructor")
         .def("set_name", &GSPNBuilder::setGspnName, "Set name of GSPN", "name"_a)
 
-        // todo: boost::optional<uint64_t> capacity
         .def("add_place", &GSPNBuilder::addPlace, "Add a place to the GSPN", py::arg("capacity") = 1, py::arg("initialTokens") = 0, py::arg("name") = "")
-        .def("set_place_layout_info", &GSPNBuilder::setPlaceLayoutInfo, "Set place layout information", py::arg("placeId"), py::arg("layoutInfo"))
-
-        // does not work either:
-        //.def("add_place", [](GSPNBuilder& b, boost::optional<uint64_t> capacity = boost::optional<uint64_t>(1), uint_fast64_t const& initialTokens = 0, std::string const& name = "") {
-        //    b.addPlace(capacity, initialTokens, name); } , py::arg("capacity") = boost::optional<uint64_t>(1), py::arg("initialTokens") = 0, py::arg("name") = "")
+        .def("set_place_layout_info", &GSPNBuilder::setPlaceLayoutInfo, "Set place layout information", py::arg("place_id"), py::arg("layout_info"))
 
         .def("add_immediate_transition", &GSPNBuilder::addImmediateTransition, "Adds an immediate transition to the GSPN", "priority"_a = 0, "weight"_a = 0, "name"_a = "")
 
-         // todo: problem with boost::optional<uint64_t> + write tests:
         .def("add_timed_transition", py::overload_cast<uint_fast64_t const&, double const& , std::string const&>(&GSPNBuilder::addTimedTransition), "Adds an timed transition to the GSPN", "priority"_a, "rate"_a, "name"_a = "")
         .def("add_timed_transition", py::overload_cast<uint_fast64_t const&, double const& , boost::optional<uint64_t> const&, std::string const&>(&GSPNBuilder::addTimedTransition), "Adds an timed transition to the GSPN", "priority"_a, "rate"_a, "numServers"_a, "name"_a = "")
         .def("set_transition_layout_info", &GSPNBuilder::setTransitionLayoutInfo, "set transition layout information", "transitionId"_a, "layoutInfo"_a)
 
-        // todo write tests
         .def("add_input_arc", py::overload_cast<uint_fast64_t const&, uint_fast64_t const&, uint_fast64_t const&>(&GSPNBuilder::addInputArc), "from"_a , "to"_a,  "multiplicity"_a)
         .def("add_input_arc", py::overload_cast<std::string const&, std::string const&, uint64_t>(&GSPNBuilder::addInputArc), "from"_a,  "to"_a, "multiplicity"_a)
         .def("add_inhibition_arc", py::overload_cast<uint_fast64_t const&, uint_fast64_t const&, uint_fast64_t const&>(&GSPNBuilder::addInhibitionArc), "from"_a,  "to"_a,  "multiplicity"_a)
@@ -90,6 +83,8 @@ void define_gspn(py::module& m) {
         .def("get_place", [](GSPN const& g, std::string const& name) -> const Place& {return *(g.getPlace(name)); }, "name"_a)
         .def("get_timed_transition", [](GSPN const& g, std::string const& name) -> const TimedTransition& {return *(g.getTimedTransition(name)); }, "name"_a)
         .def("get_immediate_transition", [](GSPN const& g, std::string const& name) -> const ImmediateTransition& {return *(g.getImmediateTransition(name)); }, "name"_a)
+        .def("get_transition",[](GSPN const& g, std::string const& name) -> const Transition& {return *(g.getTransition(name)); }, "name"_a)
+
         .def("get_partitions", &GSPN::getPartitions, "Get the partitions of this GSPN")
         .def("get_places", &GSPN::getPlaces, "Get the places of this GSPN")
         .def("get_timed_transitions", &GSPN::getTimedTransitions, "Get the timed transitions of this GSPN")
