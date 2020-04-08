@@ -33,7 +33,7 @@ void define_sparse_matrix(py::module& m) {
 
     // SparseMatrixBuilder
     py::class_<SparseMatrixBuilder<double>>(m, "SparseMatrixBuilder", "Builder of sparse matrix")
-            .def(py::init<double , double , double , bool , bool , double>(), "rows"_a = 0, "columns"_a = 0, "entries"_a = 0, "forceDimensions"_a = true, "hasCustomRowGrouping"_a = false, "rowGroups"_a = 0)
+            .def(py::init<double , double , double , bool , bool , double>(), "rows"_a = 0, "columns"_a = 0, "entries"_a = 0, "force_dimensions"_a = true, "has_custom_row_grouping"_a = false, "row_groups"_a = 0)
 
             .def("add_next_value", &SparseMatrixBuilder<double>::addNextValue, R"dox(
 
@@ -51,7 +51,7 @@ void define_sparse_matrix(py::module& m) {
             )dox", py::arg("row"), py::arg("column"), py::arg("value"))
 
             .def("new_row_group", &SparseMatrixBuilder<double>::newRowGroup, py::arg("starting_row"), "Start a new row group in the matrix")
-            .def("build", &SparseMatrixBuilder<double>::build, py::arg("overriddenRowCount") = 0, py::arg("overriddenColumnCount") = 0, py::arg("overriddenRowGroupCount") = 0, "Finalize the sparse matrix")
+            .def("build", &SparseMatrixBuilder<double>::build, py::arg("overridden_row_count") = 0, py::arg("overridden_column_count") = 0, py::arg("overridden-row_group_count") = 0, "Finalize the sparse matrix")
             .def("get_last_row", &SparseMatrixBuilder<double>::getLastRow, "Get the most recently used row")
             .def("get_current_row_group_count", &SparseMatrixBuilder<double>::getCurrentRowGroupCount, "Get the current row group count")
             .def("get_last_column", &SparseMatrixBuilder<double>::getLastColumn, "the most recently used column")
