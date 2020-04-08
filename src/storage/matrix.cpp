@@ -6,6 +6,7 @@
 #include "src/helpers.h"
 
 template<typename ValueType> using SparseMatrix = storm::storage::SparseMatrix<ValueType>;
+template<typename ValueType> using SparseMatrixBuilder = storm::storage::SparseMatrixBuilder<ValueType>;
 template<typename ValueType> using entry_index = typename storm::storage::SparseMatrix<ValueType>::index_type;
 template<typename ValueType> using MatrixEntry = storm::storage::MatrixEntry<entry_index<ValueType>, ValueType>;
 using RationalFunction = storm::RationalFunction;
@@ -29,6 +30,42 @@ void define_sparse_matrix(py::module& m) {
         .def("set_value", &MatrixEntry<RationalFunction>::setValue, py::arg("value"), "Set value")
         .def_property_readonly("column", &MatrixEntry<RationalFunction>::getColumn, "Column")
     ;
+
+    // SparseMatrixBuilder
+    py::class_<SparseMatrixBuilder<double>>(m, "SparseMatrixBuilder", "Builder of sparse matrix")
+            .def(py::init<double , double , double , bool , bool , double>(), "rows"_a = 0, "columns"_a = 0, "entries"_a = 0, "forceDimensions"_a = true, "hasCustomRowGrouping"_a = false, "rowGroups"_a = 0)
+
+            .def("add_next_value", &SparseMatrixBuilder<double>::addNextValue, R"dox(
+
+              Sets the matrix entry at the given row and column to the given value. After all entries have been added,
+              a call to finalize(false) is mandatory.
+
+              Note: this is a linear setter. That is, it must be called consecutively for each entry, row by row and
+              column by column. As multiple entries per column are admitted, consecutive calls to this method are
+              admitted to mention the same row-column-pair. If rows are skipped entirely, the corresponding rows are
+              treated as empty. If these constraints are not met, an exception is thrown.
+
+              :param double row: The row in which the matrix entry is to be set
+              :param double column: The column in which the matrix entry is to be set
+              :param double const&  value: The value that is to be set at the specified row and column
+            )dox", py::arg("row"), py::arg("column"), py::arg("value"))
+
+            .def("new_row_group", &SparseMatrixBuilder<double>::newRowGroup, py::arg("starting_row"), "Start a new row group in the matrix")
+            .def("build", &SparseMatrixBuilder<double>::build, py::arg("overriddenRowCount") = 0, py::arg("overriddenColumnCount") = 0, py::arg("overriddenRowGroupCount") = 0, "Finalize the sparse matrix")
+            .def("get_last_row", &SparseMatrixBuilder<double>::getLastRow, "Get the most recently used row")
+            .def("get_current_row_group_count", &SparseMatrixBuilder<double>::getCurrentRowGroupCount, "Get the current row group count")
+            .def("get_last_column", &SparseMatrixBuilder<double>::getLastColumn, "the most recently used column")
+            .def("replace_columns", &SparseMatrixBuilder<double>::replaceColumns, R"dox(
+
+              Replaces all columns with id >= offset according to replacements.
+              Every state  with id offset+i is replaced by the id in replacements[i]. Afterwards the columns are sorted.
+
+              :param std::vector<double> const& replacements: replacements Mapping indicating the replacements from offset+i -> value of i
+              :param double offset: Offset to add to each id in vector index.
+              )dox", py::arg("replacements"), py::arg("offset"))
+            ;
+
+    // todo py::class_<SparseMatrixBuilder<RationalFunction>>(m, "SparseMatrixBuilder", "Builder of parametric sparse matrix")
 
     // SparseMatrix
     py::class_<SparseMatrix<double>>(m, "SparseMatrix", "Sparse matrix")
