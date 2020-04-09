@@ -30,7 +30,7 @@ def _dfs_explore(program, callback):
         successors = generator.expand()
         assert len(successors) <= 1
         for choice in successors:
-            for state_id, _prob in choice:
+            for state_id, _prob in choice.distribution:
                 queue.push(state_id)
         current_state_id = queue.pop()
         if current_state_id is None:
