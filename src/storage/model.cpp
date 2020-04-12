@@ -106,6 +106,8 @@ void define_model(py::module& m) {
         .def_property_readonly("is_exact", &ModelBase::isExact, "Flag whether model is exact")
         .def_property_readonly("is_sparse_model", &ModelBase::isSparseModel, "Flag whether the model is stored as a sparse model")
         .def_property_readonly("is_symbolic_model", &ModelBase::isSymbolicModel, "Flag whether the model is stored using decision diagrams")
+        .def_property_readonly("is_discrete_time_model", &ModelBase::isDiscreteTimeModel, "Flag whether the model is a discrete time model")
+        .def_property_readonly("is_nondeterministic_model", &ModelBase::isNondeterministicModel, "Flag whether the model contains nondeterminism")
         .def("_as_sparse_dtmc", [](ModelBase &modelbase) {
                 return modelbase.as<SparseDtmc<double>>();
             }, "Get model as sparse DTMC")
