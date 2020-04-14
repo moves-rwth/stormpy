@@ -14,7 +14,7 @@ def example_simulator_01():
     simulator = stormpy.simulator.create_simulator(model, seed=42)
     final_outcomes = dict()
     for n in range(1000):
-        for i in range(100):
+        while not simulator.is_done():
             observation = simulator.step()
         if observation not in final_outcomes:
             final_outcomes[observation] = 1
@@ -30,7 +30,7 @@ def example_simulator_01():
     simulator.set_observation_mode(stormpy.simulator.SimulatorObservationMode.PROGRAM_LEVEL)
     final_outcomes = dict()
     for n in range(1000):
-        for i in range(100):
+        while not simulator.is_done():
             observation = simulator.step()
         if observation not in final_outcomes:
             final_outcomes[observation] = 1

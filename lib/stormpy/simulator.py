@@ -16,15 +16,34 @@ class Simulator:
         self._observation_mode = SimulatorObservationMode.STATE_LEVEL
 
     def step(self, action=None):
+        """
+        Do a step taking the passed action.
+
+        :param action: The index of the action, for deterministic actions, action may be None.
+        :return: The observation (on state or program level).
+        """
         raise NotImplementedError("Abstract superclass")
 
     def restart(self):
+        """
+        Reset the simulator to the initial state
+        """
         raise NotImplementedError("Abstract superclass")
 
     def is_done(self):
+        """
+        Is the simulator in a sink state?
+
+        :return: Yes, if the simulator is in a sink state.
+        """
         return False
 
     def set_observation_mode(self, mode):
+        """
+
+        :param mode: STATE_LEVEL or PROGRAM_LEVEL
+        :type mode:
+        """
         if not isinstance(mode, SimulatorObservationMode):
             raise RuntimeError("Observation mode must be a SimulatorObservationMode")
         self._observation_mode = mode
