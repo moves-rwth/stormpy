@@ -183,6 +183,7 @@ void define_sparse_model(py::module& m) {
         .def("has_state_valuations", [](SparseModel<double> const& model) {return model.hasStateValuations();}, "has state valuation?")
         .def_property_readonly("state_valuations",  [](SparseModel<double> const& model) {return model.getStateValuations();}, "state valuations")
         .def("reduce_to_state_based_rewards", &SparseModel<double>::reduceToStateBasedRewards)
+        .def("is_sink_state", &SparseModel<double>::isSinkState, py::arg("state"))
         .def("__str__", &getModelInfoPrinter)
         .def("to_dot", [](SparseModel<double>& model) { std::stringstream ss; model.writeDotToStream(ss); return ss.str(); }, "Write dot to a string")
     ;
@@ -246,6 +247,7 @@ void define_sparse_model(py::module& m) {
         .def("has_state_valuations", [](SparseModel<RationalFunction> const& model) {return model.hasStateValuations();}, "has state valuation?")
         .def_property_readonly("state_valuations",  [](SparseModel<RationalFunction> const& model) {return model.getStateValuations();}, "state valuations")
         .def("reduce_to_state_based_rewards", &SparseModel<RationalFunction>::reduceToStateBasedRewards)
+        .def("is_sink_state", &SparseModel<RationalFunction>::isSinkState, py::arg("state"))
         .def("__str__", &getModelInfoPrinter)
         .def("to_dot", [](SparseModel<RationalFunction>& model) { std::stringstream ss; model.writeDotToStream(ss); return ss.str(); }, "Write dot to a string")
     ;
