@@ -42,3 +42,7 @@ endif()
 if(HAVE_STORM_DFT)
     stormpy_module(dft storm-dft "${storm-dft_INCLUDE_DIR}")
 endif()
+
+if(HAVE_STORM_POMDP)
+    stormpy_module(pomdp storm-pomdp "${storm-pomdp_INCLUDE_DIR}")
+endif()

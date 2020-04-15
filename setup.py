@@ -33,6 +33,7 @@ class CMakeBuild(build_ext):
         ('storm-dir=', None, 'Path to storm root (binary) location'),
         ('disable-dft', None, 'Disable support for DFTs'),
         ('disable-pars', None, 'Disable support for parametric models'),
+        ('disable-pomdp', None, 'Disable support for POMDP analysis'),
         ('debug', None, 'Build in Debug mode'),
         ('jobs=', 'j', 'Number of jobs to use for compiling')
     ]
@@ -84,6 +85,7 @@ class CMakeBuild(build_ext):
         # Check additional support
         use_dft = cmake_conf.HAVE_STORM_DFT and not self.config.get_as_bool("disable_dft")
         use_pars = cmake_conf.HAVE_STORM_PARS and not self.config.get_as_bool("disable_pars")
+        use_pomdp = cmake_conf.HAVE_STORM_POMDP #and not self.config.get_as_bool("disable_pomdp")
 
         # Print build info
         print("Stormpy - Using storm {} from {}".format(storm_version, storm_dir))
@@ -95,6 +97,10 @@ class CMakeBuild(build_ext):
             print("Stormpy - Support for parametric models found and included.")
         else:
             print("Stormpy - Warning: No support for parametric models!")
+        if use_pomdp:
+            print("Stormpy - Support for POMDP analysis found and included.")
+        else:
+            print("Stormpy - Warning: No support for POMDP analysis!")
 
         # Set general cmake build options
         build_type = 'Debug' if self.config.get_as_bool("debug") else 'Release'
@@ -106,6 +112,8 @@ class CMakeBuild(build_ext):
             cmake_args += ['-DHAVE_STORM_DFT=ON']
         if use_pars:
             cmake_args += ['-DHAVE_STORM_PARS=ON']
+        if use_pomdp:
+            cmake_args += ['-DHAVE_STORM_POMDP=ON']
         build_args = ['--config', build_type]
         build_args += ['--', '-j{}'.format(self.config.get_as_int("jobs"))]
 
@@ -160,6 +168,13 @@ class CMakeBuild(build_ext):
                 if not use_pars:
                     print("Stormpy - Bindings for parametric models skipped")
                     continue
+            elif ext.name == "pomdp":
+                with open(os.path.join(self._extdir(ext.name), ext.subdir, "_config.py"), "w") as f:
+                    f.write("# Generated from setup.py at {}\n".format(datetime.datetime.now()))
+                    f.write("storm_with_pomdp = {}".format(use_pomdp))
+                if not use_pomdp:
+                    print("Stormpy - Bindings for POMDP analysis skipped")
+                    continue
             self.build_extension(ext, cmake_args, build_args)
 
     def initialize_options(self):
@@ -168,6 +183,7 @@ class CMakeBuild(build_ext):
         self.storm_dir = None
         self.disable_dft = None
         self.disable_pars = None
+        self.disable_pomdp = None
         self.debug = None
         self.jobs = None
 
@@ -180,6 +196,7 @@ class CMakeBuild(build_ext):
         self.config.update("storm_dir", self.storm_dir)
         self.config.update("disable_dft", self.disable_dft)
         self.config.update("disable_pars", self.disable_pars)
+        self.config.update("disable_pomdp", self.disable_pomdp)
         self.config.update("debug", self.debug)
         self.config.update("jobs", self.jobs)
 
@@ -231,7 +248,8 @@ setup(
                  CMakeExtension('storage', subdir='storage'),
                  CMakeExtension('utility', subdir='utility'),
                  CMakeExtension('dft', subdir='dft'),
-                 CMakeExtension('pars', subdir='pars')],
+                 CMakeExtension('pars', subdir='pars'),
+                 CMakeExtension('pomdp', subdir='pomdp')],
 
     cmdclass={'build_ext': CMakeBuild},
     zip_safe=False,
