@@ -7,6 +7,9 @@ class SimulatorObservationMode(Enum):
     STATE_LEVEL = 0,
     PROGRAM_LEVEL = 1
 
+class SimulatorActionMode(Enum):
+    INDEX_LEVEL = 0
+
 class Simulator:
     """
     Base class for simulators.
@@ -14,6 +17,16 @@ class Simulator:
     def __init__(self, seed=None):
         self._seed = seed
         self._observation_mode = SimulatorObservationMode.STATE_LEVEL
+        self._action_mode = SimulatorActionMode.INDEX_LEVEL
+
+    def available_actions(self):
+        """
+        Returns an iterable over the available actions. The action mode may be used to select how actions are referred to.
+        TODO: Support multiple action modes
+
+        :return:
+        """
+        raise NotImplementedError("Abstract Superclass")
 
     def step(self, action=None):
         """
@@ -62,26 +75,35 @@ class SparseSimulator(Simulator):
             self._engine.set_seed(seed)
         self._state_valuations = None
 
-    def step(self, action=None):
-        if action is None:
-            if self._model.is_nondeterministic_model:
-                raise RuntimeError("Must specify an action in nondeterministic models")
-            check = self._engine.step(0)
-            assert check
-        else:
-            if action >= self._model.get_nondeterministic_choices():
-                raise RuntimeError(f"Only {self._model.get_nondeterministic_choices()} actions available")
-            check = self._engine.step(action)
-            assert check
+    def available_actions(self):
+        return range(self.nr_available_actions())
+
+    def nr_available_actions(self):
+        return self._model.get_nr_available_actions(self._engine.get_current_state())
+
+    def _report_observation(self):
         if self._observation_mode == SimulatorObservationMode.STATE_LEVEL:
             return self._engine.get_current_state()
         elif self._observation_mode == SimulatorObservationMode.PROGRAM_LEVEL:
             return self._state_valuations.get_state(self._engine.get_current_state())
 
-        assert False, "Observation Mode not recognised."
+    def step(self, action=None):
+        if action is None:
+            if self._model.is_nondeterministic_model and self.nr_available_actions() > 1:
+                raise RuntimeError("Must specify an action in nondeterministic models.")
+            check = self._engine.step(0)
+            assert check
+        else:
+            if action >= self.nr_available_actions():
+                raise RuntimeError(f"Only {self.nr_available_actions()} actions available")
+            check = self._engine.step(action)
+            assert check
+        return self._report_observation()
+
 
     def restart(self):
         self._engine.reset_to_initial_state()
+        return self._report_observation()
 
     def is_done(self):
         return self._model.is_sink_state(self._engine.get_current_state())

@@ -4,8 +4,9 @@ import stormpy.simulator
 
 import stormpy.examples
 import stormpy.examples.files
-
-
+"""
+Simulator for deterministic models
+"""
 def example_simulator_01():
     path = stormpy.examples.files.prism_dtmc_die
     prism_program = stormpy.parse_prism_program(path)
