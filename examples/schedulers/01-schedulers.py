@@ -26,6 +26,10 @@ def example_schedulers_01():
         action = choice.get_deterministic_choice()
         print("In state {} choose action {}".format(state, action))
 
+    dtmc = model.apply_scheduler(scheduler)
+    print(dtmc)
+
+
 
 if __name__ == '__main__':
     example_schedulers_01()
