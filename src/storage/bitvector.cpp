@@ -30,6 +30,9 @@ void define_bitvector(py::module& m) {
         })
         .def("__setitem__", [](BitVector& b, uint_fast64_t i, bool v) { b.set(i, v); })
 
+        .def("__iter__",  [](const BitVector &b) { return py::make_iterator(b.begin(), b.end()); },
+                              py::keep_alive<0, 1>() /* Essential: keep object alive while iterator exists */)
+
         .def(py::self == py::self)
         .def(py::self != py::self)
 
