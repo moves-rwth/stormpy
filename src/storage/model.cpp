@@ -191,16 +191,17 @@ void define_sparse_model(py::module& m) {
         .def(py::init<SparseDtmc<double>>(), py::arg("other_model"))
         .def("__str__", &getModelInfoPrinter)
     ;
-    py::class_<SparseMdp<double>, std::shared_ptr<SparseMdp<double>>>(m, "SparseMdp", "MDP in sparse representation", model)
-        .def(py::init<SparseMdp<double>>(), py::arg("other_model"))
+    py::class_<SparseMdp<double>, std::shared_ptr<SparseMdp<double>>> mdp(m, "SparseMdp", "MDP in sparse representation", model);
+    mdp.def(py::init<SparseMdp<double>>(), py::arg("other_model"))
         .def_property_readonly("nondeterministic_choice_indices", [](SparseMdp<double> const& mdp) { return mdp.getNondeterministicChoiceIndices(); })
         .def("get_nr_available_actions", [](SparseMdp<double> const& mdp, uint64_t stateIndex) { return mdp.getNondeterministicChoiceIndices()[stateIndex+1] - mdp.getNondeterministicChoiceIndices()[stateIndex] ; }, py::arg("state"))
         .def("apply_scheduler", [](SparseMdp<double> const& mdp, storm::storage::Scheduler<double> const& scheduler, bool dropUnreachableStates) { return mdp.applyScheduler(scheduler, dropUnreachableStates); } , "apply scheduler", "scheduler"_a, "drop_unreachable_states"_a = true)
         .def("__str__", &getModelInfoPrinter)
     ;
-    py::class_<SparsePomdp<double>, std::shared_ptr<SparsePomdp<double>>>(m, "SparsePomdp", "POMDP in sparse representation", model)
+    py::class_<SparsePomdp<double>, std::shared_ptr<SparsePomdp<double>>>(m, "SparsePomdp", "POMDP in sparse representation", mdp)
         .def(py::init<SparsePomdp<double>>(), py::arg("other_model"))
         .def("__str__", &getModelInfoPrinter)
+        .def("get_observation", &SparsePomdp<double>::getObservation, py::arg("state"))
         .def_property_readonly("observations", &SparsePomdp<double>::getObservations)
         .def_property_readonly("nr_observations", &SparsePomdp<double>::getNrObservations)
     ;
