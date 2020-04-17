@@ -1,5 +1,6 @@
 import stormpy
-import numpy as np
+
+from configurations import numpy_avail
 
 
 class TestMatrixBuilder:
@@ -166,7 +167,9 @@ class TestMatrixBuilder:
         assert matrix.get_row_group_start(1) == 4
         assert matrix.get_row_group_end(1) == 5
 
+    @numpy_avail
     def test_matrix_from_numpy(self):
+        import numpy as np
         array = np.array([[0, 2],
                           [3, 4],
                           [0.1, 24],
@@ -185,7 +188,9 @@ class TestMatrixBuilder:
             for e in row:
                 assert (e.value() == array[r, e.column])
 
+    @numpy_avail
     def test_parametric_matrix_from_numpy(self):
+        import numpy as np
         one_pol = stormpy.RationalRF(1)
         one_pol = stormpy.FactorizedPolynomial(one_pol)
         first_val = stormpy.FactorizedRationalFunction(one_pol, one_pol)
@@ -212,7 +217,9 @@ class TestMatrixBuilder:
             for e in row:
                 assert (e.value() == array[r, e.column])
 
+    @numpy_avail
     def test_matrix_from_numpy_row_grouping(self):
+        import numpy as np
         array = np.array([[0, 2],
                           [3, 4],
                           [0.1, 24],
@@ -238,7 +245,9 @@ class TestMatrixBuilder:
         assert matrix.get_row_group_start(1) == 3
         assert matrix.get_row_group_end(1) == 4
 
+    @numpy_avail
     def test_parametric_matrix_from_numpy_row_grouping(self):
+        import numpy as np
         one_pol = stormpy.RationalRF(1)
         one_pol = stormpy.FactorizedPolynomial(one_pol)
         first_val = stormpy.FactorizedRationalFunction(one_pol, one_pol)
