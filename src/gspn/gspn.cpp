@@ -42,17 +42,17 @@ void define_gspn(py::module& m) {
         .def("add_place", &GSPNBuilder::addPlace, "Add a place to the GSPN", py::arg("capacity") = 1, py::arg("initialTokens") = 0, py::arg("name") = "")
         .def("set_place_layout_info", &GSPNBuilder::setPlaceLayoutInfo, "Set place layout information", py::arg("place_id"), py::arg("layout_info"))
 
-        .def("add_immediate_transition", &GSPNBuilder::addImmediateTransition, "Adds an immediate transition to the GSPN", "priority"_a = 0, "weight"_a = 0, "name"_a = "")
+        .def("add_immediate_transition", &GSPNBuilder::addImmediateTransition, "Add an immediate transition to the GSPN", "priority"_a = 0, "weight"_a = 0, "name"_a = "")
 
-        .def("add_timed_transition", py::overload_cast<uint_fast64_t const&, double const& , std::string const&>(&GSPNBuilder::addTimedTransition), "Adds an timed transition to the GSPN", "priority"_a, "rate"_a, "name"_a = "")
-        .def("add_timed_transition", py::overload_cast<uint_fast64_t const&, double const& , boost::optional<uint64_t> const&, std::string const&>(&GSPNBuilder::addTimedTransition), "Adds an timed transition to the GSPN", "priority"_a, "rate"_a, "numServers"_a, "name"_a = "")
-        .def("set_transition_layout_info", &GSPNBuilder::setTransitionLayoutInfo, "set transition layout information", "transitionId"_a, "layoutInfo"_a)
+        .def("add_timed_transition", py::overload_cast<uint_fast64_t const&, double const& , std::string const&>(&GSPNBuilder::addTimedTransition), "Add a timed transition to the GSPN", "priority"_a, "rate"_a, "name"_a = "")
+        .def("add_timed_transition", py::overload_cast<uint_fast64_t const&, double const& , boost::optional<uint64_t> const&, std::string const&>(&GSPNBuilder::addTimedTransition), "Add a timed transition to the GSPN", "priority"_a, "rate"_a, "numServers"_a, "name"_a = "")
+        .def("set_transition_layout_info", &GSPNBuilder::setTransitionLayoutInfo, "Set transition layout information", "transitionId"_a, "layoutInfo"_a)
 
-        .def("add_input_arc", py::overload_cast<uint_fast64_t const&, uint_fast64_t const&, uint_fast64_t const&>(&GSPNBuilder::addInputArc), "from"_a , "to"_a,  "multiplicity"_a)
-        .def("add_input_arc", py::overload_cast<std::string const&, std::string const&, uint64_t>(&GSPNBuilder::addInputArc), "from"_a,  "to"_a, "multiplicity"_a)
-        .def("add_inhibition_arc", py::overload_cast<uint_fast64_t const&, uint_fast64_t const&, uint_fast64_t const&>(&GSPNBuilder::addInhibitionArc), "from"_a,  "to"_a,  "multiplicity"_a)
-        .def("add_inhibition_arc", py::overload_cast<std::string const&, std::string const&, uint64_t>(&GSPNBuilder::addInhibitionArc), "from"_a,  "to"_a,  "multiplicity"_a)
-        .def("add_output_arc", py::overload_cast<uint_fast64_t const&, uint_fast64_t const&, uint_fast64_t const&>(&GSPNBuilder::addOutputArc), "from"_a,  "to"_a,  "multiplicity"_a)
+        .def("add_input_arc", py::overload_cast<uint_fast64_t const&, uint_fast64_t const&, uint_fast64_t const&>(&GSPNBuilder::addInputArc), "from"_a , "to"_a,  "multiplicity"_a = 1, "Add a new input arc from a place to an transition")
+        .def("add_input_arc", py::overload_cast<std::string const&, std::string const&, uint64_t>(&GSPNBuilder::addInputArc), "from"_a,  "to"_a, "multiplicity"_a = 1, "Add a new input arc from a place to an transition")
+        .def("add_inhibition_arc", py::overload_cast<uint_fast64_t const&, uint_fast64_t const&, uint_fast64_t const&>(&GSPNBuilder::addInhibitionArc), "from"_a,  "to"_a,  "multiplicity"_a = 1, "Add an new input arc from a place to an transition")
+        .def("add_inhibition_arc", py::overload_cast<std::string const&, std::string const&, uint64_t>(&GSPNBuilder::addInhibitionArc), "from"_a,  "to"_a,  "multiplicity"_a = 1, "Add a new input arc from a place to an transition")
+        .def("add_output_arc", py::overload_cast<uint_fast64_t const&, uint_fast64_t const&, uint_fast64_t const&>(&GSPNBuilder::addOutputArc), "from"_a,  "to"_a,  "multiplicity"_a = 1, "Add a new output arc from a place to an transition")
         .def("add_output_arc", py::overload_cast<std::string const&, std::string const&, uint64_t>(&GSPNBuilder::addOutputArc), "from"_a,  "to"_a,  "multiplicity"_a)
         .def("add_normal_arc", &GSPNBuilder::addNormalArc, "Add normal arc from a named element to a named element", "from"_a, "to"_a, "multiplicity"_a = 1)
 
@@ -79,11 +79,11 @@ void define_gspn(py::module& m) {
         .def("get_number_of_immediate_transitions", &GSPN::getNumberOfImmediateTransitions, "Get the number of immediate transitions in this GSPN")
         .def("get_number_of_timed_transitions", &GSPN::getNumberOfTimedTransitions, "Get the number of timed transitions in this GSPN")
 
-        .def("get_place", [](GSPN const& g, uint64_t id) -> const Place& {return *(g.getPlace(id)); }, "id"_a)
-        .def("get_place", [](GSPN const& g, std::string const& name) -> const Place& {return *(g.getPlace(name)); }, "name"_a)
-        .def("get_timed_transition", [](GSPN const& g, std::string const& name) -> const TimedTransition& {return *(g.getTimedTransition(name)); }, "name"_a)
-        .def("get_immediate_transition", [](GSPN const& g, std::string const& name) -> const ImmediateTransition& {return *(g.getImmediateTransition(name)); }, "name"_a)
-        .def("get_transition",[](GSPN const& g, std::string const& name) -> const Transition& {return *(g.getTransition(name)); }, "name"_a)
+        .def("get_place", [](GSPN const& g, uint64_t id) -> const Place& {return *(g.getPlace(id)); }, "id"_a, "Returns the place with the corresponding id")
+        .def("get_place", [](GSPN const& g, std::string const& name) -> const Place& {return *(g.getPlace(name)); }, "name"_a, "Returns the place with the corresponding name")
+        .def("get_timed_transition", [](GSPN const& g, std::string const& name) -> const TimedTransition& {return *(g.getTimedTransition(name)); }, "name"_a, "Returns the timed transition with the corresponding name")
+        .def("get_immediate_transition", [](GSPN const& g, std::string const& name) -> const ImmediateTransition& {return *(g.getImmediateTransition(name)); }, "name"_a, "Returns the immediate transition with the corresponding name")
+        .def("get_transition",[](GSPN const& g, std::string const& name) -> const Transition& {return *(g.getTransition(name)); }, "name"_a, "Returns the transition with the corresponding name")
 
         .def("get_partitions", &GSPN::getPartitions, "Get the partitions of this GSPN")
         .def("get_places", &GSPN::getPlaces, "Get the places of this GSPN")
@@ -91,15 +91,14 @@ void define_gspn(py::module& m) {
         .def("get_immediate_transitions", &GSPN::getImmediateTransitions, "Get the immediate transitions of this GSPN")
         .def("get_initial_marking", &GSPN::getInitialMarking, "Computes the initial marking of this GSPN")
 
-        //todo tests:
         .def_static("timed_transition_id_to_transition_id", &GSPN::timedTransitionIdToTransitionId)
         .def_static("immediate_transition_id_to_transition_id", &GSPN::immediateTransitionIdToTransitionId)
         .def_static("transition_id_to_timed_transition_id", &GSPN::transitionIdToTimedTransitionId)
         .def_static("transition_id_to_immediate_transition_id", &GSPN::transitionIdToImmediateTransitionId)
 
         // GSPN export
-        .def("export_gspn_pnpro_file", [](GSPN& g, std::string const& filepath) -> void { gspnToFile(g, filepath, "to-pnpro"); }, "filepath"_a)
-        .def("export_gspn_pnml_file", [](GSPN& g, std::string const& filepath) -> void { gspnToFile(g, filepath, "to-pnml"); }, "filepath"_a)
+        .def("export_gspn_pnpro_file", [](GSPN& g, std::string const& filepath) -> void { gspnToFile(g, filepath, "to-pnpro"); }, "filepath"_a, "Export GSPN to PNPRO file")
+        .def("export_gspn_pnml_file", [](GSPN& g, std::string const& filepath) -> void { gspnToFile(g, filepath, "to-pnml"); }, "filepath"_a, "Export GSPN to PNML file")
     ;
 
     // LayoutInfo class

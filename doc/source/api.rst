@@ -14,4 +14,5 @@ Work in progress!
    api/utility
 
    api/dft
+   api/gspn
    api/pars
