@@ -130,9 +130,32 @@ void define_gspn(py::module& m) {
         .def("get_id", &Transition::getID, "Get id of this transition")
         .def("set_name", &Transition::setName, "name"_a, "Set name of this transition")
         .def("get_name", &Transition::getName, "Get name of this transition")
-        .def("set_priority", &Transition::getID, "Get priority of this transition")
+        .def("set_priority", &Transition::setPriority, "priority"_a, "Set priority of this transition")
         .def("get_priority", &Transition::getPriority, "Get priority of this transition")
-        // todo add missing
+
+        .def("set_input_arc_multiplicity", &Transition::setInputArcMultiplicity, "place"_a, "multiplicity"_a, "Set the multiplicity of the input arc originating from the place.")
+        .def("remove_input_arc", &Transition::removeInputArc, "place"_a, "Remove an input arc connected to a given place.")
+        .def("exists_input_arc", &Transition::existsInputArc, "place"_a, "Check whether the given place is connected to this transition via an input arc.")
+
+        .def("set_output_arc_multiplicity", &Transition::setOutputArcMultiplicity, "place"_a, "multiplicity"_a, "Set the multiplicity of the output arc going to the place.")
+        .def("remove_output_arc", &Transition::removeOutputArc, "place"_a, "Remove an output arc connected to a given place.")
+        .def("exists_output_arc", &Transition::existsOutputArc, "place"_a, "Check whether the given place is connected to this transition via an output arc.")
+
+        .def("set_inhibition_arc_multiplicity", &Transition::setInhibitionArcMultiplicity,  "place"_a, "multiplicity"_a, "Set the multiplicity of the inhibition arc originating from the place.")
+        .def("remove_inhibition_arc", &Transition::removeInhibitionArc, "place"_a, "Remove an inhibition arc connected to a given place.")
+        .def("exists_inhibition_arc", &Transition::existsInhibitionArc, "place"_a, "Check whether the given place is connected to this transition via an inhibition arc.")
+
+        .def("get_input_places", &Transition::getInputPlaces)
+        .def("get_output_places", &Transition::getOutputPlaces)
+        .def("get_inhibition_places", &Transition::getInhibitionPlaces)
+
+        .def("get_input_arc_multiplicity", &Transition::getInputArcMultiplicity, "place"_a, "Returns the corresponding multiplicity.")
+        .def("get_inhibition_arc_multiplicity", &Transition::getInhibitionArcMultiplicity, "place"_a, "Returns the corresponding multiplicity.")
+        .def("get_output_arc_multiplicity", &Transition::getOutputArcMultiplicity, "place"_a, "Returns the corresponding multiplicity.")
+
+        .def("is_enabled", &Transition::isEnabled, "marking"_a, "Check if the given marking enables the transition.")
+        .def("fire", &Transition::fire, "marking"_a, "Fire the transition if possible.")
+
     ;
 
     // TimedTransition class

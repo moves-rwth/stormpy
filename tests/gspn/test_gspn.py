@@ -27,9 +27,9 @@ class TestGSPNBuilder:
         place = stormpy.gspn.Place(id=p_id)
         assert p_id == place.get_id()
 
-        assert place.has_restricted_capacity() == False
+        assert not place.has_restricted_capacity() 
         place.set_capacity(cap=5)
-        assert place.has_restricted_capacity() == True
+        assert place.has_restricted_capacity()
         assert place.get_capacity() == 5
 
         p_name = "P_0"
@@ -49,6 +49,30 @@ class TestGSPNBuilder:
         tt_rate = 0.2
         tt.set_rate(tt_rate)
         assert tt_rate == tt.get_rate()
+
+        # connect a place to this transition and test arcs
+        place = stormpy.gspn.Place(0)
+        # test input arcs
+        assert not tt.exists_input_arc(place)
+        tt.set_input_arc_multiplicity(place, 2)
+        assert tt.exists_input_arc(place)
+        assert tt.get_input_arc_multiplicity(place) == 2
+        tt.remove_input_arc(place)
+        assert not tt.exists_input_arc(place)
+        # test output arcs
+        assert not tt.exists_output_arc(place)
+        tt.set_output_arc_multiplicity(place, 3)
+        assert tt.exists_output_arc(place)
+        assert tt.get_output_arc_multiplicity(place) == 3
+        tt.remove_output_arc(place)
+        assert not tt.exists_output_arc(place)
+        # test inhibition arcs
+        assert not tt.exists_inhibition_arc(place)
+        tt.set_inhibition_arc_multiplicity(place, 5)
+        assert tt.exists_inhibition_arc(place)
+        assert tt.get_inhibition_arc_multiplicity(place) == 5
+        tt.remove_inhibition_arc(place)
+        assert not tt.exists_inhibition_arc(place)
 
         # test ImmediateTransition
         ti = stormpy.gspn.ImmediateTransition()
