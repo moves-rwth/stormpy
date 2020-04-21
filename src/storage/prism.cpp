@@ -35,6 +35,7 @@ void define_prism(py::module& m) {
             .def("restrict_commands", &Program::restrictCommands, "Restrict commands")
             .def("simplify", &Program::simplify, "Simplify")
             .def("used_constants",&Program::usedConstants, "Compute Used Constants")
+            .def("get_module", [](Program const& prog, std::string const& name) {return prog.getModule(name);}, py::arg("module_name"))
             .def_property_readonly("hasUndefinedConstants", &Program::hasUndefinedConstants, "Does the program have undefined constants?")
             .def_property_readonly("isDeterministicModel", &Program::isDeterministicModel, "Does the program describe a deterministic model?")
             .def_property_readonly("expression_manager", &Program::getManager, "Get the expression manager for expressions in this program")
@@ -53,6 +54,8 @@ void define_prism(py::module& m) {
             .def_property_readonly("name", &Module::getName, "Name of the module")
             .def_property_readonly("integer_variables", &Module::getIntegerVariables, "All integer Variables of this module")
             .def_property_readonly("boolean_variables", &Module::getBooleanVariables, "All boolean Variables of this module")
+            .def("get_integer_variable", &Module::getIntegerVariable, py::arg("variable_name"))
+            .def("get_boolean_variable", &Module::getBooleanVariable, py::arg("variable_name"))
             .def("__str__", &streamToString<Module>)
             ;
 
