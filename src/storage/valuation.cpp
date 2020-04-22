@@ -9,7 +9,7 @@
 void define_statevaluation(py::module& m) {
 
     py::class_<storm::storage::sparse::StateValuations, std::shared_ptr<storm::storage::sparse::StateValuations>> statevaluation(m,"StateValuation", "Valuations for explicit states");
-    statevaluation.def("get_state", &storm::storage::sparse::StateValuations::getStateValuation, py::return_value_policy::reference)
+    statevaluation.def("get_state", &storm::storage::sparse::StateValuations::getStateValuation, py::return_value_policy::reference_internal)
             ;
 
 }
