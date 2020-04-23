@@ -91,15 +91,18 @@ void define_gspn(py::module& m) {
         .def("get_immediate_transitions", &GSPN::getImmediateTransitions, "Get the immediate transitions of this GSPN")
         .def("get_initial_marking", &GSPN::getInitialMarking, "Computes the initial marking of this GSPN")
 
-        .def_static("timed_transition_id_to_transition_id", &GSPN::timedTransitionIdToTransitionId)
-        .def_static("immediate_transition_id_to_transition_id", &GSPN::immediateTransitionIdToTransitionId)
-        .def_static("transition_id_to_timed_transition_id", &GSPN::transitionIdToTimedTransitionId)
-        .def_static("transition_id_to_immediate_transition_id", &GSPN::transitionIdToImmediateTransitionId)
+        .def("is_valid", &GSPN::isValid, "Perform some checks")
 
         // GSPN export
         .def("export_gspn_pnpro_file", [](GSPN& g, std::string const& filepath) -> void { gspnToFile(g, filepath, "to-pnpro"); }, "filepath"_a, "Export GSPN to PNPRO file")
         .def("export_gspn_pnml_file", [](GSPN& g, std::string const& filepath) -> void { gspnToFile(g, filepath, "to-pnml"); }, "filepath"_a, "Export GSPN to PNML file")
+
+        .def_static("timed_transition_id_to_transition_id", &GSPN::timedTransitionIdToTransitionId)
+        .def_static("immediate_transition_id_to_transition_id", &GSPN::immediateTransitionIdToTransitionId)
+        .def_static("transition_id_to_timed_transition_id", &GSPN::transitionIdToTimedTransitionId)
+        .def_static("transition_id_to_immediate_transition_id", &GSPN::transitionIdToImmediateTransitionId)
     ;
+
 
     // LayoutInfo class
     py::class_<LayoutInfo>(m, "LayoutInfo")

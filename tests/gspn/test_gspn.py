@@ -123,6 +123,7 @@ class TestGSPNBuilder:
         gspn = builder.build_gspn()
 
         assert gspn.get_name() == gspn_name
+        assert gspn.is_valid()
         assert gspn.get_number_of_immediate_transitions() == 2
         assert gspn.get_number_of_timed_transitions() == 2
         assert gspn.get_number_of_places() == 4

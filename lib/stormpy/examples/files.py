@@ -43,3 +43,5 @@ dft_json_and = _path("dft", "and.json")
 """DFT example for AND gate (JSON format)"""
 gspn_pnpro_simple = _path("gspn", "gspn_simple.pnpro")
 """GSPN example (PNPRO format)"""
+gspn_pnml_simple = _path("gspn", "gspn_simple.pnml")
+"""GSPN example (PNML format)"""
