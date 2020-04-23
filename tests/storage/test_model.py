@@ -116,7 +116,7 @@ class TestSparseModel:
         program = stormpy.parse_prism_program(get_example_path("pomdp", "maze_2.prism"))
         formulas = stormpy.parse_properties_for_prism_program("P=? [F \"goal\"]", program)
         model = stormpy.build_model(program, formulas)
-        assert model.nr_states == 16
+        assert model.nr_states == 15
         assert model.nr_observations == 8
 
     def test_build_ma(self):
