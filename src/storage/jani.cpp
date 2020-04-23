@@ -34,6 +34,7 @@ void define_jani(py::module& m) {
         .def("define_constants", &Model::defineUndefinedConstants, "define constants with a mapping from the corresponding expression variables to expressions", py::arg("map"))
         .def("substitute_constants", &Model::substituteConstants, "substitute constants")
         .def("remove_constant", &Model::removeConstant, "remove a constant. Make sure the constant does not appear in the model.", "constant_name"_a)
+        .def("get_automaton", [](Model const& model, std::string const& name) {return model.getAutomaton(name);}, "name"_a)
         .def("get_automaton_index", &Model::getAutomatonIndex, "name"_a, "get index for automaton name")
         .def("add_automaton", &Model::addAutomaton, "automaton"_a, "add an automaton (with a unique name)")
         .def("set_standard_system_composition", &Model::setStandardSystemComposition, "sets the composition to the standard composition")
