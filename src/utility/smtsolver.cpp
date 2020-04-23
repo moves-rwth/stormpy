@@ -1,6 +1,8 @@
 #include "smtsolver.h"
 #include <storm/solver/Z3SmtSolver.h>
 #include "storm/storage/expressions/ExpressionManager.h"
+#include <storm/solver/SmtSolver.h>
+#include <storm/utility/solver.h>
 
 void define_smt(py::module& m) {
     using SmtSolver              = storm::solver::SmtSolver;
@@ -29,4 +31,6 @@ void define_smt(py::module& m) {
 
     py::class_<Z3SmtSolver> z3solver(m, "Z3SmtSolver", "z3 API for storm smtsolver wrapper", smtsolver);
     z3solver.def(pybind11::init<storm::expressions::ExpressionManager&>());
+
+    py::class_<storm::utility::solver::SmtSolverFactory, std::shared_ptr<storm::utility::solver::SmtSolverFactory>> (m, "SmtSolverFactory", "Factory for creating SMT Solvers");
 }
