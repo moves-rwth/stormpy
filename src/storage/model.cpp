@@ -196,6 +196,7 @@ void define_sparse_model(py::module& m) {
     mdp.def(py::init<SparseMdp<double>>(), py::arg("other_model"))
         .def_property_readonly("nondeterministic_choice_indices", [](SparseMdp<double> const& mdp) { return mdp.getNondeterministicChoiceIndices(); })
         .def("get_nr_available_actions", [](SparseMdp<double> const& mdp, uint64_t stateIndex) { return mdp.getNondeterministicChoiceIndices()[stateIndex+1] - mdp.getNondeterministicChoiceIndices()[stateIndex] ; }, py::arg("state"))
+        .def("get_choice_index", [](SparseMdp<double> const& mdp, uint64_t state, uint64_t actOff) { return mdp.getNondeterministicChoiceIndices()[state]+actOff; }, py::arg("state"), py::arg("action_offset"), "gets the choice index for the offset action from the given state.")
         .def("apply_scheduler", [](SparseMdp<double> const& mdp, storm::storage::Scheduler<double> const& scheduler, bool dropUnreachableStates) { return mdp.applyScheduler(scheduler, dropUnreachableStates); } , "apply scheduler", "scheduler"_a, "drop_unreachable_states"_a = true)
         .def("__str__", &getModelInfoPrinter)
     ;
