@@ -33,6 +33,7 @@ PYBIND11_MODULE(storage, m) {
     define_state(m);
     define_prism(m);
     define_jani(m);
+    define_jani_transformers(m);
     define_labeling(m);
     define_origins(m);
     define_expressions(m);
