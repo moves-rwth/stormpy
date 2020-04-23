@@ -169,6 +169,7 @@ void define_sparse_model(py::module& m) {
     // Models with double numbers
     py::class_<SparseModel<double>, std::shared_ptr<SparseModel<double>>, ModelBase> model(m, "_SparseModel", "A probabilistic model where transitions are represented by doubles and saved in a sparse matrix");
     model.def_property_readonly("labeling", &getLabeling<double>, "Labels")
+        .def("has_choice_labeling", [](SparseModel<double> const& model) {model.hasChoiceLabeling();}, "Does the model have an associated choice labelling?")
         .def_property_readonly("choice_labeling", [](SparseModel<double> const& model) {return model.getChoiceLabeling();}, "get choice labelling")
         .def("has_choice_origins", [](SparseModel<double> const& model) {return model.hasChoiceOrigins();}, "has choice origins?")
         .def_property_readonly("choice_origins", [](SparseModel<double> const& model) {return model.getChoiceOrigins();})
