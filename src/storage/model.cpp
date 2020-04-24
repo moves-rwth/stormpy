@@ -181,6 +181,7 @@ void define_sparse_model(py::module& m) {
         .def_property_readonly("reward_models", [](SparseModel<double>& model) {return model.getRewardModels(); }, "Reward models")
         .def_property_readonly("transition_matrix", &getTransitionMatrix<double>, py::return_value_policy::reference, py::keep_alive<1, 0>(), "Transition matrix")
         .def_property_readonly("backward_transition_matrix", &SparseModel<double>::getBackwardTransitions, py::return_value_policy::reference, py::keep_alive<1, 0>(), "Backward transition matrix")
+        .def("get_reward_model", [](SparseModel<double>& model, std::string const& name) {return model.getRewardModel(name);}, py::return_value_policy::reference, py::keep_alive<1, 0>(), "Reward model")
         .def("has_state_valuations", [](SparseModel<double> const& model) {return model.hasStateValuations();}, "has state valuation?")
         .def_property_readonly("state_valuations",  [](SparseModel<double> const& model) {return model.getStateValuations();}, "state valuations")
         .def("reduce_to_state_based_rewards", &SparseModel<double>::reduceToStateBasedRewards)
