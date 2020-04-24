@@ -43,9 +43,10 @@ In the following, we describe how to construct GSPNs via the GSPNBuilder.
 First, we create an instance of the GSPNBuilder and set the name of the GSPN::
 
     >>> builder = stormpy.gspn.GSPNBuilder()
-    >>> builder.set_name("gspn")
+    >>> builder.set_name("my_gspn")
 
-In the next step, we add an immediate transition to the GSPN. Additionally, we define the position of the transition by setting its layout information::
+In the next step, we add an immediate transition to the GSPN.
+Additionally, we define the position of the transition by setting its layout information::
 
     >>> it_1 = builder.add_immediate_transition(1, 0.0, "it_1")
     >>> it_layout = stormpy.gspn.LayoutInfo(1.5, 2.0)
@@ -79,8 +80,7 @@ We can now build the GSPN::
     >>> gspn = builder.build_gspn()
 
 After building, we can export the GSPN.
-GSPNs can be saved in the PNPRO format via ``export_gspn_pnpro_file(path)``
-and in the PNML format via ``export_gspn_pnml_file(path)``.
+GSPNs can be saved in the PNPRO format via ``export_gspn_pnpro_file(path)`` and in the PNML format via ``export_gspn_pnml_file(path)``.
 We export the GSPN into the PNPRO format::
 
     >>> export_path = stormpy.examples.files.gspn_pnpro_simple
