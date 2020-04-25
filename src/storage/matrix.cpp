@@ -63,9 +63,40 @@ void define_sparse_matrix(py::module& m) {
               :param std::vector<double> const& replacements: replacements Mapping indicating the replacements from offset+i -> value of i
               :param double offset: Offset to add to each id in vector index.
               )dox", py::arg("replacements"), py::arg("offset"))
-            ;
+    ;
 
-    // todo py::class_<SparseMatrixBuilder<RationalFunction>>(m, "SparseMatrixBuilder", "Builder of parametric sparse matrix")
+    py::class_<SparseMatrixBuilder<RationalFunction>>(m, "ParametricSparseMatrixBuilder", "Builder of parametric sparse matrix")
+            .def(py::init<double , double , double , bool , bool , double>(), "rows"_a = 0, "columns"_a = 0, "entries"_a = 0, "force_dimensions"_a = true, "has_custom_row_grouping"_a = false, "row_groups"_a = 0)
+
+            .def("add_next_value", &SparseMatrixBuilder<RationalFunction>::addNextValue, R"dox(
+
+              Sets the matrix entry at the given row and column to the given value. After all entries have been added,
+              a call to finalize(false) is mandatory.
+
+              Note: this is a linear setter. That is, it must be called consecutively for each entry, row by row and
+              column by column. As multiple entries per column are admitted, consecutive calls to this method are
+              admitted to mention the same row-column-pair. If rows are skipped entirely, the corresponding rows are
+              treated as empty. If these constraints are not met, an exception is thrown.
+
+              :param double row: The row in which the matrix entry is to be set
+              :param double column: The column in which the matrix entry is to be set
+              :param RationalFunction const&  value: The value that is to be set at the specified row and column
+            )dox", py::arg("row"), py::arg("column"), py::arg("value"))
+
+            .def("new_row_group", &SparseMatrixBuilder<RationalFunction>::newRowGroup, py::arg("starting_row"), "Start a new row group in the matrix")
+            .def("build", &SparseMatrixBuilder<RationalFunction>::build, py::arg("overridden_row_count") = 0, py::arg("overridden_column_count") = 0, py::arg("overridden-row_group_count") = 0, "Finalize the sparse matrix")
+            .def("get_last_row", &SparseMatrixBuilder<RationalFunction>::getLastRow, "Get the most recently used row")
+            .def("get_current_row_group_count", &SparseMatrixBuilder<RationalFunction>::getCurrentRowGroupCount, "Get the current row group count")
+            .def("get_last_column", &SparseMatrixBuilder<RationalFunction>::getLastColumn, "the most recently used column")
+            .def("replace_columns", &SparseMatrixBuilder<RationalFunction>::replaceColumns, R"dox(
+
+              Replaces all columns with id >= offset according to replacements.
+              Every state  with id offset+i is replaced by the id in replacements[i]. Afterwards the columns are sorted.
+
+              :param std::vector<double> const& replacements: replacements Mapping indicating the replacements from offset+i -> value of i
+              :param double offset: Offset to add to each id in vector index.
+              )dox", py::arg("replacements"), py::arg("offset"))
+    ;
 
     // SparseMatrix
     py::class_<SparseMatrix<double>>(m, "SparseMatrix", "Sparse matrix")
