@@ -128,6 +128,10 @@ class TestGSPNBuilder:
         assert gspn.get_number_of_timed_transitions() == 2
         assert gspn.get_number_of_places() == 4
 
+        assert len(gspn.get_places()) == 4
+        assert len(gspn.get_immediate_transitions()) == 2
+        assert len(gspn.get_timed_transitions()) == 2
+
         # test places
         p_0 = gspn.get_place(id_p_0)
         assert p_0.get_id() == id_p_0

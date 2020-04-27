@@ -6,11 +6,11 @@ Loading GSPNs
 ==============
 
 ..
-    .. seealso:: `01-gspn.py <link to github: 01-gspn.py>`_
+    .. seealso:: `01-gspn.py <link: /examples/gspns/001-gspn.py>`_
 ..
 
 
-Generalized stochastic Petri nets can be given in either in the PNPRO format or in the PNML format.
+Generalized stochastic Petri nets can be given either in the PNPRO format or in the PNML format.
 We start by loading a GSPN stored in the PNML format::
 
     >>> import stormpy
@@ -36,7 +36,7 @@ After loading, we can display some properties of the GSPN::
 Building GSPNs
 =============================
 ..
-    todo .. seealso:: `02-gspn.py <link to github: 02-gspn.py>`_
+    todo .. seealso:: `02-gspn.py <link: /examples/gspns/02-gspn.py>`_
 ..
 
 In the following, we describe how to construct GSPNs via the GSPNBuilder.
@@ -52,7 +52,7 @@ Additionally, we define the position of the transition by setting its layout inf
     >>> it_layout = stormpy.gspn.LayoutInfo(1.5, 2.0)
     >>> builder.set_transition_layout_info(it_1, it_layout)
 
-Add timed transition and set its layout information::
+We add a timed transition and set its layout information::
 
     >>> tt_1 = builder.add_timed_transition(0, 0.4, "tt_1")
     >>> tt_layout = stormpy.gspn.LayoutInfo(12.5, 2.0)
@@ -68,7 +68,8 @@ Next, we add two places to the GSPN and set their layouts::
     >>> p2_layout = stormpy.gspn.LayoutInfo(18.5, 2.0)
     >>> builder.set_place_layout_info(place_2, p2_layout)
 
-Places and transitions can be linked by output, inhibition or input arcs::
+Places and transitions can be linked by output, inhibition or input arcs.
+We add the arcs of our GSPN as follows::
 
     >>> builder.add_output_arc(it_1, place_1)
     >>> builder.add_inhibition_arc(place_1, it_1)

@@ -40,21 +40,62 @@ void define_gspn(py::module& m) {
         .def("set_name", &GSPNBuilder::setGspnName, "Set name of GSPN", "name"_a)
 
         .def("add_place", &GSPNBuilder::addPlace, "Add a place to the GSPN", py::arg("capacity") = 1, py::arg("initialTokens") = 0, py::arg("name") = "")
-        .def("set_place_layout_info", &GSPNBuilder::setPlaceLayoutInfo, "Set place layout information", py::arg("place_id"), py::arg("layout_info"))
+        .def("set_place_layout_info", &GSPNBuilder::setPlaceLayoutInfo, py::arg("place_id"), py::arg("layout_info"), R"doc(
+             Set place layout information.
+
+            :param uint64_t id: The ID of the place.
+            :param stormpy.LayoutInfo layout_info: The layout information.
+        )doc")
 
         .def("add_immediate_transition", &GSPNBuilder::addImmediateTransition, "Add an immediate transition to the GSPN", "priority"_a = 0, "weight"_a = 0, "name"_a = "")
-
         .def("add_timed_transition", py::overload_cast<uint_fast64_t const&, double const& , std::string const&>(&GSPNBuilder::addTimedTransition), "Add a timed transition to the GSPN", "priority"_a, "rate"_a, "name"_a = "")
-        .def("add_timed_transition", py::overload_cast<uint_fast64_t const&, double const& , boost::optional<uint64_t> const&, std::string const&>(&GSPNBuilder::addTimedTransition), "Add a timed transition to the GSPN", "priority"_a, "rate"_a, "numServers"_a, "name"_a = "")
-        .def("set_transition_layout_info", &GSPNBuilder::setTransitionLayoutInfo, "Set transition layout information", "transitionId"_a, "layoutInfo"_a)
+        .def("add_timed_transition", py::overload_cast<uint_fast64_t const&, double const& , boost::optional<uint64_t> const&, std::string const&>(&GSPNBuilder::addTimedTransition), "priority"_a, "rate"_a, "numServers"_a, "name"_a = "")
+        .def("set_transition_layout_info", &GSPNBuilder::setTransitionLayoutInfo, "transitionId"_a, "layoutInfo"_a, R"doc(
+             Set transition layout information.
 
-        .def("add_input_arc", py::overload_cast<uint_fast64_t const&, uint_fast64_t const&, uint_fast64_t const&>(&GSPNBuilder::addInputArc), "from"_a , "to"_a,  "multiplicity"_a = 1, "Add a new input arc from a place to an transition")
-        .def("add_input_arc", py::overload_cast<std::string const&, std::string const&, uint64_t>(&GSPNBuilder::addInputArc), "from"_a,  "to"_a, "multiplicity"_a = 1, "Add a new input arc from a place to an transition")
-        .def("add_inhibition_arc", py::overload_cast<uint_fast64_t const&, uint_fast64_t const&, uint_fast64_t const&>(&GSPNBuilder::addInhibitionArc), "from"_a,  "to"_a,  "multiplicity"_a = 1, "Add an new input arc from a place to an transition")
-        .def("add_inhibition_arc", py::overload_cast<std::string const&, std::string const&, uint64_t>(&GSPNBuilder::addInhibitionArc), "from"_a,  "to"_a,  "multiplicity"_a = 1, "Add a new input arc from a place to an transition")
-        .def("add_output_arc", py::overload_cast<uint_fast64_t const&, uint_fast64_t const&, uint_fast64_t const&>(&GSPNBuilder::addOutputArc), "from"_a,  "to"_a,  "multiplicity"_a = 1, "Add a new output arc from a place to an transition")
+            :param uint64_t id: The ID of the transition.
+            :param stormpy.LayoutInfo layout_info: The layout information.
+        )doc")
+
+        .def("add_input_arc", py::overload_cast<uint_fast64_t const&, uint_fast64_t const&, uint_fast64_t const&>(&GSPNBuilder::addInputArc), "from"_a , "to"_a,  "multiplicity"_a = 1, R"doc(
+             Add a new input arc from a place to a transition
+
+            :param from: The ID or name of the place from which the arc is originating.
+            :type from: uint_64_t or str
+            :param uint_64_t to: The ID or name of the transition to which the arc goes to.
+            :type from: uint_64_t or str
+            :param uint64_t multiplicity: The multiplicity of the arc, default = 1.
+        )doc")
+        .def("add_input_arc", py::overload_cast<std::string const&, std::string const&, uint64_t>(&GSPNBuilder::addInputArc), "from"_a,  "to"_a, "multiplicity"_a = 1)
+        .def("add_inhibition_arc", py::overload_cast<uint_fast64_t const&, uint_fast64_t const&, uint_fast64_t const&>(&GSPNBuilder::addInhibitionArc), "from"_a,  "to"_a,  "multiplicity"_a = 1, R"doc(
+             Add an new inhibition arc from a place to a transition.
+
+            :param from: The ID or name of the place from which the arc is originating.
+            :type from: uint_64_t or str
+            :param to: The ID or name of the transition to which the arc goes to.
+            :type to: uint_64_t or str
+            :param uint64_t multiplicity: The multiplicity of the arc, default = 1.
+        )doc")
+        .def("add_inhibition_arc", py::overload_cast<std::string const&, std::string const&, uint64_t>(&GSPNBuilder::addInhibitionArc), "from"_a,  "to"_a,  "multiplicity"_a = 1)
+        .def("add_output_arc", py::overload_cast<uint_fast64_t const&, uint_fast64_t const&, uint_fast64_t const&>(&GSPNBuilder::addOutputArc), "from"_a,  "to"_a,  "multiplicity"_a = 1, R"doc(
+             Add an new output arc from a transition to a place.
+
+            :param from: The ID or name of the transition from which the arc is originating.
+            :type from: uint_64_t or str
+            :param to: The ID or name of the place to which the arc goes to.
+            :type to: uint_64_t or str
+            :param uint64_t multiplicity: The multiplicity of the arc, default = 1.
+        )doc")
         .def("add_output_arc", py::overload_cast<std::string const&, std::string const&, uint64_t>(&GSPNBuilder::addOutputArc), "from"_a,  "to"_a,  "multiplicity"_a)
-        .def("add_normal_arc", &GSPNBuilder::addNormalArc, "Add normal arc from a named element to a named element", "from"_a, "to"_a, "multiplicity"_a = 1)
+        .def("add_normal_arc", &GSPNBuilder::addNormalArc, "from"_a, "to"_a, "multiplicity"_a = 1, R"doc(
+             Add an arc from a named element to a named element.
+             Can be both input or output arc, but not an inhibition arc.
+             Convenience function for textual format parsers.
+
+            :param str from: Source element in the GSPN from where this arc starts.
+            :param str to: Target element in the GSPN where this arc ends.
+            :param uint64_t multiplicity: Multiplicity of the arc, default = 1.
+        )doc")
 
         .def("build_gspn", &GSPNBuilder::buildGspn, "Construct GSPN", "exprManager"_a = nullptr, "constantsSubstitution"_a = std::map<storm::expressions::Variable, storm::expressions::Expression>())
     ;
@@ -79,16 +120,33 @@ void define_gspn(py::module& m) {
         .def("get_number_of_immediate_transitions", &GSPN::getNumberOfImmediateTransitions, "Get the number of immediate transitions in this GSPN")
         .def("get_number_of_timed_transitions", &GSPN::getNumberOfTimedTransitions, "Get the number of timed transitions in this GSPN")
 
-        .def("get_place", [](GSPN const& g, uint64_t id) -> const Place& {return *(g.getPlace(id)); }, "id"_a, "Returns the place with the corresponding id")
-        .def("get_place", [](GSPN const& g, std::string const& name) -> const Place& {return *(g.getPlace(name)); }, "name"_a, "Returns the place with the corresponding name")
+        .def("get_place", [](GSPN const& g, uint64_t id) -> const Place& {return *(g.getPlace(id)); }, "id"_a, R"doc(
+             Returns the place with the corresponding id.
+
+            :param uint64_t id: The ID of the place.
+            :rtype: stormpy.Place
+        )doc")
+        .def("get_place", [](GSPN const& g, std::string const& name) -> const Place& {return *(g.getPlace(name)); }, "name"_a)
         .def("get_timed_transition", [](GSPN const& g, std::string const& name) -> const TimedTransition& {return *(g.getTimedTransition(name)); }, "name"_a, "Returns the timed transition with the corresponding name")
         .def("get_immediate_transition", [](GSPN const& g, std::string const& name) -> const ImmediateTransition& {return *(g.getImmediateTransition(name)); }, "name"_a, "Returns the immediate transition with the corresponding name")
         .def("get_transition",[](GSPN const& g, std::string const& name) -> const Transition& {return *(g.getTransition(name)); }, "name"_a, "Returns the transition with the corresponding name")
 
         .def("get_partitions", &GSPN::getPartitions, "Get the partitions of this GSPN")
-        .def("get_places", &GSPN::getPlaces, "Get the places of this GSPN")
-        .def("get_timed_transitions", &GSPN::getTimedTransitions, "Get the timed transitions of this GSPN")
-        .def("get_immediate_transitions", &GSPN::getImmediateTransitions, "Get the immediate transitions of this GSPN")
+        .def("get_places", &GSPN::getPlaces, R"doc(
+             Returns a vector of the places of this GSPN.
+
+            :rtype: list[stormpy.Place]
+        )doc")
+        .def("get_timed_transitions", &GSPN::getTimedTransitions, R"doc(
+             Returns a vector of the timed transitions of this GSPN.
+
+            :rtype: list[stormpy.TimedTransition]
+        )doc")
+        .def("get_immediate_transitions", &GSPN::getImmediateTransitions, R"doc(
+             Returns the immediate transitions of this GSPN.
+
+            :rtype: list[stormpy.ImmediateTransition]
+        )doc")
         .def("get_initial_marking", &GSPN::getInitialMarking, "Computes the initial marking of this GSPN")
 
         .def("is_valid", &GSPN::isValid, "Perform some checks")
