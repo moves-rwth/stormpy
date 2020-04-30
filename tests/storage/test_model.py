@@ -153,6 +153,14 @@ class TestSparseModel:
         assert len(initial_states) == 1
         assert 0 in initial_states
 
+    def test_choice_origins(self):
+        program, _ = stormpy.parse_jani_model(get_example_path("dtmc", "die.jani"))
+        a = stormpy.FlatSet()
+
+        options = stormpy.BuilderOptions([])
+        options.set_build_with_choice_origins()
+        model = stormpy.build_sparse_model_with_options(program, options)
+        a = model.choice_origins.get_edge_index_set(3)
 
 class TestSymbolicSylvanModel:
     def test_build_dtmc_from_prism_program(self):

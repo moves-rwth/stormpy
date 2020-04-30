@@ -1,4 +1,3 @@
-#include <algorithm>
 
 #include "counterexample.h"
 #include "storm/environment/Environment.h"
@@ -10,16 +9,17 @@ using namespace storm::counterexamples;
 // Define python bindings
 void define_counterexamples(py::module& m) {
 
+    using FlatSet = boost::container::flat_set<unsigned long long, std::__1::less<unsigned long long>, boost::container::new_allocator<unsigned long long>>;
 
-    py::class_<boost::container::flat_set<uint_fast64_t>>(m, "FlatSet", "Container to pass to program")
+    py::class_<FlatSet>(m, "FlatSet", "Container to pass to program")
             .def(py::init<>())
-            .def(py::init<boost::container::flat_set<uint64_t>>(), "other"_a)
-            .def("insert", [](boost::container::flat_set<uint_fast64_t>& flatset, uint64_t value) {flatset.insert(value);})
-            .def("is_subset_of", [](boost::container::flat_set<uint64_t> const& left, boost::container::flat_set<uint64_t> const& right) {return std::includes(right.begin(), right.end(), left.begin(), left.end()); })
-            .def("insert_set", [](boost::container::flat_set<uint64_t>& left, boost::container::flat_set<uint64_t> const& additional) { for(auto const& i : additional) {left.insert(i);}})
-            .def("__str__", [](boost::container::flat_set<uint64_t> const& set) { std::stringstream str; str << "["; for(auto const& i : set) { str << i << ", ";} str << "]"; return str.str(); })
-            .def("__len__", [](boost::container::flat_set<uint64_t> const& set) { return set.size();})
-            .def("__iter__", [](boost::container::flat_set<uint_fast64_t> &v) {
+            .def(py::init<FlatSet>(), "other"_a)
+            .def("insert", [](FlatSet& flatset, uint64_t value) {flatset.insert(value);})
+            .def("is_subset_of", [](FlatSet const& left, FlatSet const& right) {return std::includes(right.begin(), right.end(), left.begin(), left.end()); })
+            .def("insert_set", [](FlatSet& left, FlatSet const& additional) { for(auto const& i : additional) {left.insert(i);}})
+            .def("__str__", [](FlatSet const& set) { std::stringstream str; str << "["; for(auto const& i : set) { str << i << ", ";} str << "]"; return str.str(); })
+            .def("__len__", [](FlatSet const& set) { return set.size();})
+            .def("__iter__", [](FlatSet &v) {
                 return py::make_iterator(v.begin(), v.end());
             }, py::keep_alive<0, 1>()) /* Keep vector alive while iterator is used */
             ;
