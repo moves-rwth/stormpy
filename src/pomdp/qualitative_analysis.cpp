@@ -43,4 +43,6 @@ void define_qualitative_policy_search_nt(py::module& m) {
     mssqopts.def(py::init<>());
 
     py::class_<storm::pomdp::WinningRegion> winningRegion(m, "BeliefSupportWinningRegion");
+    winningRegion.def_static("load_from_file", &storm::pomdp::WinningRegion::loadFromFile, py::arg("filepath"));
+    winningRegion.def("store_to_file", &storm::pomdp::WinningRegion::storeToFile, py::arg("filepath"));
 }

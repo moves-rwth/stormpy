@@ -33,6 +33,8 @@ void define_bitvector(py::module& m) {
         .def("__iter__",  [](const BitVector &b) { return py::make_iterator(b.begin(), b.end()); },
                               py::keep_alive<0, 1>() /* Essential: keep object alive while iterator exists */)
 
+        .def("store_as_string", [](const BitVector& bv) {std::stringstream strs; bv.store(strs); return strs.str();})
+        .def_static("load_from_string", &BitVector::load, py::arg("description"))
         .def(py::self == py::self)
         .def(py::self != py::self)
 
