@@ -9,7 +9,7 @@ using namespace storm::counterexamples;
 // Define python bindings
 void define_counterexamples(py::module& m) {
 
-    using FlatSet = boost::container::flat_set<unsigned long long, std::__1::less<unsigned long long>, boost::container::new_allocator<unsigned long long>>;
+    using FlatSet = boost::container::flat_set<uint64_t, std::less<uint64_t>, boost::container::new_allocator<uint64_t>>;
 
     py::class_<FlatSet>(m, "FlatSet", "Container to pass to program")
             .def(py::init<>())
