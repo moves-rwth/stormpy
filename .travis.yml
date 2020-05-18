@@ -36,6 +36,7 @@ addons:
     - python
     - python3
     - maven
+    update: true # fix for current problem with "unknown command 'bundle'"
 
 #
 # Configuration
