@@ -2,10 +2,11 @@
 # Configuration for Linux
 configs_linux = [
     # OS, compiler
-    ("ubuntu-18.04", "gcc", ""),
     ("debian-9", "gcc", ""),
+    ("ubuntu-18.04", "gcc", ""),
     ("debian-10", "gcc", ""),
-    ("ubuntu-19.04", "gcc", ""),
+    ("ubuntu-19.10", "gcc", ""),
+    ("ubuntu-20.04", "gcc", ""),
 ]
 
 # Configurations for Mac

@@ -59,15 +59,6 @@ jobs:
       compiler: clang
       env: TASK=Test PYTHON=python3 CONFIG=ReleaseClnParser COMPILER=clang STL=libc++
       script: travis/build.sh
-    # ubuntu-18.04
-    - os: linux
-      compiler: gcc
-      env: TASK=Test PYTHON=python3 CONFIG=DebugClnParser LINUX=ubuntu-18.04 COMPILER=gcc
-      script: travis/build.sh
-    - os: linux
-      compiler: gcc
-      env: TASK=Test PYTHON=python3 CONFIG=ReleaseClnParser LINUX=ubuntu-18.04 COMPILER=gcc
-      script: travis/build.sh
     # debian-9
     - os: linux
       compiler: gcc
@@ -76,6 +67,15 @@ jobs:
     - os: linux
       compiler: gcc
       env: TASK=Test PYTHON=python3 CONFIG=ReleaseClnParser LINUX=debian-9 COMPILER=gcc
+      script: travis/build.sh
+    # ubuntu-18.04
+    - os: linux
+      compiler: gcc
+      env: TASK=Test PYTHON=python3 CONFIG=DebugClnParser LINUX=ubuntu-18.04 COMPILER=gcc
+      script: travis/build.sh
+    - os: linux
+      compiler: gcc
+      env: TASK=Test PYTHON=python3 CONFIG=ReleaseClnParser LINUX=ubuntu-18.04 COMPILER=gcc
       script: travis/build.sh
     # debian-10
     - os: linux
@@ -86,27 +86,36 @@ jobs:
       compiler: gcc
       env: TASK=Test PYTHON=python3 CONFIG=ReleaseClnParser LINUX=debian-10 COMPILER=gcc
       script: travis/build.sh
-    # ubuntu-19.04
+    # ubuntu-19.10
     - os: linux
       compiler: gcc
-      env: TASK=Test PYTHON=python3 CONFIG=DebugClnParser LINUX=ubuntu-19.04 COMPILER=gcc
+      env: TASK=Test PYTHON=python3 CONFIG=DebugClnParser LINUX=ubuntu-19.10 COMPILER=gcc
       script: travis/build.sh
     - os: linux
       compiler: gcc
-      env: TASK=Test PYTHON=python3 CONFIG=Release LINUX=ubuntu-19.04 COMPILER=gcc
+      env: TASK=Test PYTHON=python3 CONFIG=ReleaseClnParser LINUX=ubuntu-19.10 COMPILER=gcc
+      script: travis/build.sh
+    # ubuntu-20.04
+    - os: linux
+      compiler: gcc
+      env: TASK=Test PYTHON=python3 CONFIG=DebugClnParser LINUX=ubuntu-20.04 COMPILER=gcc
       script: travis/build.sh
     - os: linux
       compiler: gcc
-      env: TASK=Test PYTHON=python3 CONFIG=ReleaseCln LINUX=ubuntu-19.04 COMPILER=gcc
+      env: TASK=Test PYTHON=python3 CONFIG=Release LINUX=ubuntu-20.04 COMPILER=gcc
       script: travis/build.sh
     - os: linux
       compiler: gcc
-      env: TASK=Test PYTHON=python3 CONFIG=ReleaseClnParser LINUX=ubuntu-19.04 COMPILER=gcc
+      env: TASK=Test PYTHON=python3 CONFIG=ReleaseCln LINUX=ubuntu-20.04 COMPILER=gcc
+      script: travis/build.sh
+    - os: linux
+      compiler: gcc
+      env: TASK=Test PYTHON=python3 CONFIG=ReleaseClnParser LINUX=ubuntu-20.04 COMPILER=gcc
       script: travis/build.sh
     # Documentation
     - os: linux
       compiler: gcc
-      env: TASK=Documentation PYTHON=python3 CONFIG=ReleaseClnParser LINUX=ubuntu-19.04 COMPILER=gcc
+      env: TASK=Documentation PYTHON=python3 CONFIG=ReleaseClnParser LINUX=ubuntu-20.04 COMPILER=gcc
       script: travis/build.sh
       before_deploy:
         docker cp pycarl:/opt/pycarl/. .
