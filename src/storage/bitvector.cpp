@@ -50,7 +50,6 @@ void define_bitvector(py::module& m) {
 
         .def("__str__", &streamToString<BitVector>)
 
-        // TODO (when needed): iterator
     ;
 
 }
