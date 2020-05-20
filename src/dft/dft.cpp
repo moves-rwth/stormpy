@@ -3,6 +3,7 @@
 #include "storm-dft/storage/dft/DFT.h"
 #include "storm/settings/SettingsManager.h"
 #include "storm-dft/settings/modules/FaultTreeSettings.h"
+#include "storm-dft/settings/modules/DftIOSettings.h"
 
 
 template<typename ValueType> using DFT = storm::storage::DFT<ValueType>;
@@ -12,6 +13,7 @@ void define_dft(py::module& m) {
 
     m.def("_set_up", []() {
             storm::settings::addModule<storm::settings::modules::FaultTreeSettings>();
+            storm::settings::addModule<storm::settings::modules::DftIOSettings>();
         }, "Initialize Storm-dft");
 
 
