@@ -65,7 +65,6 @@ run() {
   if [[ "$TASK" == *Test* ]]
   then
     # Run tests
-    set +e
     python setup.py test
   fi
 
