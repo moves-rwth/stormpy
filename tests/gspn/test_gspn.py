@@ -27,7 +27,7 @@ class TestGSPNBuilder:
         place = stormpy.gspn.Place(id=p_id)
         assert p_id == place.get_id()
 
-        assert not place.has_restricted_capacity() 
+        assert not place.has_restricted_capacity()
         place.set_capacity(cap=5)
         assert place.has_restricted_capacity()
         assert place.get_capacity() == 5
@@ -90,9 +90,9 @@ class TestGSPNBuilder:
         builder = stormpy.gspn.GSPNBuilder()
 
         id_p_0 = builder.add_place()
-        id_p_1 = builder.add_place(initialTokens=1)
-        id_p_2 = builder.add_place(initialTokens=0, name="place_2")
-        id_p_3 = builder.add_place(capacity=2, initialTokens=3, name="place_3")
+        id_p_1 = builder.add_place(initial_tokens=1)
+        id_p_2 = builder.add_place(initial_tokens=0, name="place_2")
+        id_p_3 = builder.add_place(capacity=2, initial_tokens=3, name="place_3")
         p_layout = stormpy.gspn.LayoutInfo(1, 2)
         builder.set_place_layout_info(id_p_0, p_layout)
 
@@ -100,7 +100,7 @@ class TestGSPNBuilder:
         id_ti_1 = builder.add_immediate_transition()
 
         id_tt_0 = builder.add_timed_transition(priority=2, rate=0.4, name="tt_0")
-        id_tt_1 = builder.add_timed_transition(priority=0, rate=0.5, numServers=2, name="tt_1")
+        id_tt_1 = builder.add_timed_transition(priority=0, rate=0.5, num_servers=2, name="tt_1")
 
         t_layout = stormpy.gspn.LayoutInfo(1, 2)
         builder.set_transition_layout_info(id_ti_0, t_layout)
@@ -176,9 +176,9 @@ class TestGSPNBuilder:
 
         # add places and transitions
         id_p_0 = builder.add_place()
-        id_p_1 = builder.add_place(initialTokens=3, name="place_1", capacity=2)
+        id_p_1 = builder.add_place(initial_tokens=3, name="place_1", capacity=2)
         id_ti_0 = builder.add_immediate_transition(priority=0, weight=0.5, name="ti_0")
-        id_tt_0 = builder.add_timed_transition(priority=0, rate=0.5, numServers=2, name="tt_0")
+        id_tt_0 = builder.add_timed_transition(priority=0, rate=0.5, num_servers=2, name="tt_0")
 
         gspn = builder.build_gspn()
 
@@ -217,9 +217,9 @@ class TestGSPNBuilder:
 
         # add places and transitions
         id_p_0 = builder.add_place()
-        id_p_1 = builder.add_place(initialTokens=3, name="place_1", capacity=2)
+        id_p_1 = builder.add_place(initial_tokens=3, name="place_1", capacity=2)
         id_ti_0 = builder.add_immediate_transition(priority=0, weight=0.5, name="ti_0")
-        id_tt_0 = builder.add_timed_transition(priority=0, rate=0.5, numServers=2, name="tt_0")
+        id_tt_0 = builder.add_timed_transition(priority=0, rate=0.5, num_servers=2, name="tt_0")
 
         gspn = builder.build_gspn()
 

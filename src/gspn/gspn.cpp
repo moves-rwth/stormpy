@@ -18,14 +18,14 @@ using TransitionPartition = storm::gspn::TransitionPartition;
 using GSPNParser = storm::parser::GspnParser;
 
 
-void gspnToFile(GSPN const& gspn, std::string const& filepath, std::string const& option) {
+void gspnToFile(GSPN const& gspn, std::string const& filepath, bool toPnpro) {
     std::ofstream fs;
     storm::utility::openFile(filepath, fs);
 
-    if(option == "to-pnpro") {
+    if(toPnpro) {
         gspn.toPnpro(fs);
     }
-    else if (option == "to-pnml"){
+    else {
         gspn.toPnml(fs);
     }
     storm::utility::closeFile(fs);
@@ -39,7 +39,7 @@ void define_gspn(py::module& m) {
         .def(py::init(), "Constructor")
         .def("set_name", &GSPNBuilder::setGspnName, "Set name of GSPN", "name"_a)
 
-        .def("add_place", &GSPNBuilder::addPlace, "Add a place to the GSPN", py::arg("capacity") = 1, py::arg("initialTokens") = 0, py::arg("name") = "")
+        .def("add_place", &GSPNBuilder::addPlace, "Add a place to the GSPN", py::arg("capacity") = 1, py::arg("initial_tokens") = 0, py::arg("name") = "")
         .def("set_place_layout_info", &GSPNBuilder::setPlaceLayoutInfo, py::arg("place_id"), py::arg("layout_info"), R"doc(
              Set place layout information.
 
@@ -49,8 +49,8 @@ void define_gspn(py::module& m) {
 
         .def("add_immediate_transition", &GSPNBuilder::addImmediateTransition, "Add an immediate transition to the GSPN", "priority"_a = 0, "weight"_a = 0, "name"_a = "")
         .def("add_timed_transition", py::overload_cast<uint_fast64_t const&, double const& , std::string const&>(&GSPNBuilder::addTimedTransition), "Add a timed transition to the GSPN", "priority"_a, "rate"_a, "name"_a = "")
-        .def("add_timed_transition", py::overload_cast<uint_fast64_t const&, double const& , boost::optional<uint64_t> const&, std::string const&>(&GSPNBuilder::addTimedTransition), "priority"_a, "rate"_a, "numServers"_a, "name"_a = "")
-        .def("set_transition_layout_info", &GSPNBuilder::setTransitionLayoutInfo, "transitionId"_a, "layoutInfo"_a, R"doc(
+        .def("add_timed_transition", py::overload_cast<uint_fast64_t const&, double const& , boost::optional<uint64_t> const&, std::string const&>(&GSPNBuilder::addTimedTransition), "priority"_a, "rate"_a, "num_servers"_a, "name"_a = "")
+        .def("set_transition_layout_info", &GSPNBuilder::setTransitionLayoutInfo, "transition_id"_a, "layout_info"_a, R"doc(
              Set transition layout information.
 
             :param uint64_t id: The ID of the transition.
@@ -97,21 +97,21 @@ void define_gspn(py::module& m) {
             :param uint64_t multiplicity: Multiplicity of the arc, default = 1.
         )doc")
 
-        .def("build_gspn", &GSPNBuilder::buildGspn, "Construct GSPN", "exprManager"_a = nullptr, "constantsSubstitution"_a = std::map<storm::expressions::Variable, storm::expressions::Expression>())
+        .def("build_gspn", &GSPNBuilder::buildGspn, "Construct GSPN", "expression_manager"_a = nullptr, "constants_substitution"_a = std::map<storm::expressions::Variable, storm::expressions::Expression>())
     ;
 
     // GspnParser class
     py::class_<GSPNParser, std::shared_ptr<GSPNParser>>(m, "GSPNParser")
          .def(py::init<>())
-         .def("parse", [](GSPNParser& p, std::string const& filename, std::string const& constantDefinitions) -> GSPN& {return *(p.parse(filename,constantDefinitions)); }, "filename"_a,  "constantDefinitions"_a = "")
+         .def("parse", [](GSPNParser& p, std::string const& filename, std::string const& constantDefinitions) -> GSPN& {return *(p.parse(filename,constantDefinitions)); }, "filename"_a,  "constant_definitions"_a = "")
     ;
 
     // GSPN class
     py::class_<GSPN, std::shared_ptr<GSPN>>(m, "GSPN", "Generalized Stochastic Petri Net")
         // Constructor
-        .def(py::init<std::string const& , std::vector<Place> const& , std::vector<ImmediateTransition> const& ,
-                     std::vector<TimedTransition> const& , std::vector<TransitionPartition> const& , std::shared_ptr<storm::expressions::ExpressionManager> const& , std::map<storm::expressions::Variable,
-                     storm::expressions::Expression> const& > (), "name"_a, "places"_a, "itransitions"_a, "ttransitions"_a, "partitions"_a, "exprManager"_a, "constantsSubstitution"_a = std::map<storm::expressions::Variable, storm::expressions::Expression>())
+        .def(py::init<std::string const&, std::vector<Place> const&, std::vector<ImmediateTransition> const&,
+                     std::vector<TimedTransition> const&, std::vector<TransitionPartition> const&, std::shared_ptr<storm::expressions::ExpressionManager> const&, std::map<storm::expressions::Variable,
+                     storm::expressions::Expression> const&>(), "name"_a, "places"_a, "immediate_transitions"_a, "timed_transitions"_a, "partitions"_a, "expression_manager"_a, "constants_substitution"_a = std::map<storm::expressions::Variable, storm::expressions::Expression>())
 
         .def("get_name", &GSPN::getName, "Get name of GSPN")
         .def("set_name", &GSPN::setName, "Set name of GSPN")
@@ -152,8 +152,8 @@ void define_gspn(py::module& m) {
         .def("is_valid", &GSPN::isValid, "Perform some checks")
 
         // GSPN export
-        .def("export_gspn_pnpro_file", [](GSPN& g, std::string const& filepath) -> void { gspnToFile(g, filepath, "to-pnpro"); }, "filepath"_a, "Export GSPN to PNPRO file")
-        .def("export_gspn_pnml_file", [](GSPN& g, std::string const& filepath) -> void { gspnToFile(g, filepath, "to-pnml"); }, "filepath"_a, "Export GSPN to PNML file")
+        .def("export_gspn_pnpro_file", [](GSPN& g, std::string const& filepath) -> void { gspnToFile(g, filepath, true); }, "filepath"_a, "Export GSPN to PNPRO file")
+        .def("export_gspn_pnml_file", [](GSPN& g, std::string const& filepath) -> void { gspnToFile(g, filepath, false); }, "filepath"_a, "Export GSPN to PNML file")
 
         .def_static("timed_transition_id_to_transition_id", &GSPN::timedTransitionIdToTransitionId)
         .def_static("immediate_transition_id_to_transition_id", &GSPN::immediateTransitionIdToTransitionId)
