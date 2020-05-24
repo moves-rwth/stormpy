@@ -4,7 +4,7 @@ Generalized Stochastic Petri Nets
 
 Loading GSPNs
 ==============
-.. seealso:: `01-gspn.py <https://github.com/moves-rwth/stormpy/blob/master/examples/gspns/01-gspn.py>`_
+.. seealso:: `01-gspns.py <https://github.com/moves-rwth/stormpy/blob/master/examples/gspns/01-gspns.py>`_
 
 
 Generalized stochastic Petri nets can be given either in the PNPRO format or in the PNML format.
@@ -32,7 +32,7 @@ After loading, we can display some properties of the GSPN::
 
 Building GSPNs
 =============================
-.. seealso:: `02-gspn.py <https://github.com/moves-rwth/stormpy/blob/master/examples/gspns/02-gspn.py>`_
+.. seealso:: `02-gspns.py <https://github.com/moves-rwth/stormpy/blob/master/examples/gspns/02-gspns.py>`_
 
 In the following, we describe how to construct GSPNs via the ``GSPNBuilder``.
 First, we create an instance of the ``GSPNBuilder`` and set the name of the GSPN::
