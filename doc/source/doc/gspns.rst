@@ -4,10 +4,7 @@ Generalized Stochastic Petri Nets
 
 Loading GSPNs
 ==============
-
-..
-    .. seealso:: `01-gspn.py <link: /examples/gspns/001-gspn.py>`_
-..
+.. seealso:: `01-gspn.py <https://github.com/moves-rwth/stormpy/blob/master/examples/gspns/01-gspn.py>`_
 
 
 Generalized stochastic Petri nets can be given either in the PNPRO format or in the PNML format.
@@ -35,12 +32,10 @@ After loading, we can display some properties of the GSPN::
 
 Building GSPNs
 =============================
-..
-    todo .. seealso:: `02-gspn.py <link: /examples/gspns/02-gspn.py>`_
-..
+.. seealso:: `02-gspn.py <https://github.com/moves-rwth/stormpy/blob/master/examples/gspns/02-gspn.py>`_
 
-In the following, we describe how to construct GSPNs via the GSPNBuilder.
-First, we create an instance of the GSPNBuilder and set the name of the GSPN::
+In the following, we describe how to construct GSPNs via the ``GSPNBuilder``.
+First, we create an instance of the ``GSPNBuilder`` and set the name of the GSPN::
 
     >>> builder = stormpy.gspn.GSPNBuilder()
     >>> builder.set_name("my_gspn")
@@ -68,7 +63,7 @@ Next, we add two places to the GSPN and set their layouts::
     >>> p2_layout = stormpy.gspn.LayoutInfo(18.5, 2.0)
     >>> builder.set_place_layout_info(place_2, p2_layout)
 
-Places and transitions can be linked by output, inhibition or input arcs.
+Places and transitions can be linked by input, output and inhibition arcs.
 We add the arcs of our GSPN as follows::
 
     >>> builder.add_output_arc(it_1, place_1)
@@ -80,7 +75,7 @@ We can now build the GSPN::
 
     >>> gspn = builder.build_gspn()
 
-After building, we can export the GSPN.
+After building, we export the GSPN.
 GSPNs can be saved in the PNPRO format via ``export_gspn_pnpro_file(path)`` and in the PNML format via ``export_gspn_pnml_file(path)``.
 We export the GSPN into the PNPRO format::
 
