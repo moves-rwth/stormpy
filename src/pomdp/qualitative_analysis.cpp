@@ -15,19 +15,28 @@ std::shared_ptr<storm::pomdp::MemlessStrategySearchQualitative<ValueType>> creat
     // After preprocessing, this might be done cheaper.
     storm::storage::BitVector targetStates = qualitativeAnalysis.analyseProb1(formula.asProbabilityOperatorFormula());
     storm::storage::BitVector surelyNotAlmostSurelyReachTarget = qualitativeAnalysis.analyseProbSmaller1(formula.asProbabilityOperatorFormula());
-
     storm::expressions::ExpressionManager expressionManager;
     std::shared_ptr<storm::utility::solver::SmtSolverFactory> smtSolverFactory = std::make_shared<storm::utility::solver::Z3SmtSolverFactory>();
-
     return std::make_shared<storm::pomdp::MemlessStrategySearchQualitative<ValueType>>(pomdp, targetStates, surelyNotAlmostSurelyReachTarget, smtSolverFactory, options);
+}
 
+template<typename ValueType>
+SparsePomdp<ValueType> preparePOMDPForQualitativeSearch(SparsePomdp<ValueType> const& origPomdp, storm::logic::Formula const& formula) {
+    SparsePomdp<ValueType> pomdp = SparsePomdp<ValueType>(origPomdp);
+    storm::analysis::QualitativeAnalysisOnGraphs<ValueType> qualitativeAnalysis(pomdp);
+    // After preprocessing, this might be done cheaper.
+    storm::storage::BitVector surelyNotAlmostSurelyReachTarget = qualitativeAnalysis.analyseProbSmaller1(formula.asProbabilityOperatorFormula());
+    pomdp.getTransitionMatrix().makeRowGroupsAbsorbing(surelyNotAlmostSurelyReachTarget);
+    return pomdp;
 }
 
 template<typename ValueType>
 void define_qualitative_policy_search(py::module& m, std::string const& vtSuffix) {
     m.def(("create_iterative_qualitative_search_solver_" + vtSuffix).c_str(), &createWinningRegionSolver<ValueType>, "Create solver " ,py::arg("pomdp"), py::arg("formula"), py::arg("options"));
+    m.def(("prepare_pomdp_for_qualitative_search_" +vtSuffix).c_str(), &preparePOMDPForQualitativeSearch<ValueType>, "Preprocess POMDP", py::arg("pomdp"), py::arg("formula"));
     py::class_<storm::pomdp::MemlessStrategySearchQualitative<ValueType>, std::shared_ptr<storm::pomdp::MemlessStrategySearchQualitative<ValueType>>> mssq(m, ("IterativeQualitativeSearchSolver" + vtSuffix).c_str(), "Solver for POMDPs that solves qualitative queries");
     mssq.def("compute_winning_region", &storm::pomdp::MemlessStrategySearchQualitative<ValueType>::computeWinningRegion, py::arg("lookahead"));
+    mssq.def("compute_winning_policy_for_initial_states", &storm::pomdp::MemlessStrategySearchQualitative<ValueType>::analyzeForInitialStates, py::arg("lookahead"));
     mssq.def_property_readonly("last_winning_region", &storm::pomdp::MemlessStrategySearchQualitative<ValueType>::getLastWinningRegion, "get the last computed winning region");
 
     py::class_<storm::pomdp::WinningRegionQueryInterface<ValueType>> wrqi(m, ("BeliefSupportWinningRegionQueryInterface" + vtSuffix).c_str());
