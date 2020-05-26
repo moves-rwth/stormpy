@@ -9,9 +9,8 @@
 void define_statevaluation(py::module& m) {
 
     py::class_<storm::storage::sparse::StateValuations, std::shared_ptr<storm::storage::sparse::StateValuations>> statevaluation(m,"StateValuation", "Valuations for explicit states");
-    statevaluation.def("get_state", &storm::storage::sparse::StateValuations::getStateValuation, py::return_value_policy::reference_internal)
-            ;
-
+    statevaluation.def("get_boolean_value", &storm::storage::sparse::StateValuations::getBooleanValue, py::arg("state"), py::arg("variable"));
+    statevaluation.def("get_integer_value", &storm::storage::sparse::StateValuations::getIntegerValue, py::arg("state"), py::arg("variable"));
 }
 
 void define_simplevaluation(py::module& m) {
