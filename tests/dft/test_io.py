@@ -36,7 +36,7 @@ class TestDftLoad:
         assert dft.nr_dynamic() == 1
         assert not dft.can_have_nondeterminism()
 
-
+@dft
 class TestDftExport:
     def test_export_dft_json_string(self):
         dft = stormpy.dft.load_dft_galileo_file(get_example_path("dft", "hecs.dft"))

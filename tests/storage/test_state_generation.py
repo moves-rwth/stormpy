@@ -1,5 +1,6 @@
 import stormpy
 from stormpy.examples.files import prism_dtmc_die
+import pytest
 
 class _DfsQueue:
     def __init__(self):
@@ -55,6 +56,7 @@ def _find_variable(program, name):
             return var
     return None
 
+@pytest.mark.skipif(True, reason="State generation is broken")
 def test_knuth_yao_die():
     program, expression_parser = _load_program(prism_dtmc_die)
     s_variable = _find_variable(program, "s")

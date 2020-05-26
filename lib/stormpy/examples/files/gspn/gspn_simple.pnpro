@@ -1,0 +1,16 @@
+<project name="storm-export" version="121">
+  <gspn name="my_gspn" >
+    <nodes>
+      <place marking="1" name ="place_1" x="6.5" y="2" />
+      <place marking="0" name ="place_2" x="18.5" y="2" />
+      <transition name="tt_1" type="EXP" nservers="1" delay="0.4000000000" x="12.50000000" y="2.000000000" />
+      <transition name="it_1" type="IMM" priority="1" weight="1.000000000" x="1.500000000" y="2.000000000" />
+    </nodes>
+    <edges>
+      <arc head="tt_1" tail="place_1" kind="INPUT" mult="1" />
+      <arc head="place_2" tail="tt_1" kind="OUTPUT" mult="1" />
+      <arc head="it_1" tail="place_1" kind="INHIBITOR" mult="1" />
+      <arc head="place_1" tail="it_1" kind="OUTPUT" mult="1" />
+    </edges>
+  </gspn>
+</project>

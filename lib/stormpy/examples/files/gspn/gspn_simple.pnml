@@ -1,0 +1,130 @@
+<pnml>
+  <net id="simple_gspn">
+    <place id="place_1">
+      <initialMarking>
+        <value>Default,1</value>
+      </initialMarking>
+      <capacity>
+        <value>Default,1</value>
+      </capacity>
+    </place>
+    <place id="place_2">
+      <initialMarking>
+        <value>Default,0</value>
+      </initialMarking>
+      <capacity>
+        <value>Default,1</value>
+      </capacity>
+    </place>
+    <place id="place_3">
+      <initialMarking>
+        <value>Default,0</value>
+      </initialMarking>
+      <capacity>
+        <value>Default,1</value>
+      </capacity>
+    </place>
+    <place id="place_4">
+      <initialMarking>
+        <value>Default,0</value>
+      </initialMarking>
+      <capacity>
+        <value>Default,1</value>
+      </capacity>
+    </place>
+    <transition id="it_1">
+      <rate>
+        <value>1</value>
+      </rate>
+      <timed>
+        <value>false</value>
+      </timed>
+    </transition>
+    <transition id="it_2">
+      <rate>
+        <value>1</value>
+      </rate>
+      <timed>
+        <value>false</value>
+      </timed>
+    </transition>
+    <transition id="it_3">
+      <rate>
+        <value>1</value>
+      </rate>
+      <timed>
+        <value>false</value>
+      </timed>
+    </transition>
+    <transition id="tt_1">
+      <rate>
+        <value>0.4</value>
+      </rate>
+      <timed>
+        <value>true</value>
+      </timed>
+    </transition>
+    <transition id="tt_2">
+      <rate>
+        <value>0.4</value>
+      </rate>
+      <timed>
+        <value>true</value>
+      </timed>
+    </transition>
+    <arc id="arc0" source="place_1" target="it_1" >
+      <inscription>
+        <value>Default,1</value>
+      </inscription>
+      <type value="inhibition" />
+    </arc>
+    <arc id="arc1" source="it_1" target="place_1" >
+      <inscription>
+        <value>Default,1</value>
+      </inscription>
+      <type value="normal" />
+    </arc>
+    <arc id="arc2" source="place_2" target="it_2" >
+      <inscription>
+        <value>Default,1</value>
+      </inscription>
+      <type value="normal" />
+    </arc>
+    <arc id="arc3" source="it_2" target="place_3" >
+      <inscription>
+        <value>Default,1</value>
+      </inscription>
+      <type value="normal" />
+    </arc>
+    <arc id="arc4" source="place_4" target="it_3" >
+      <inscription>
+        <value>Default,1</value>
+      </inscription>
+      <type value="normal" />
+    </arc>
+    <arc id="arc5" source="place_1" target="tt_1" >
+      <inscription>
+        <value>Default,1</value>
+      </inscription>
+      <type value="normal" />
+    </arc>
+    <arc id="arc6" source="tt_1" target="place_2" >
+      <inscription>
+        <value>Default,1</value>
+      </inscription>
+      <type value="normal" />
+    </arc>
+    <arc id="arc7" source="place_3" target="tt_2" >
+      <inscription>
+        <value>Default,1</value>
+      </inscription>
+      <type value="normal" />
+    </arc>
+    <arc id="arc8" source="tt_2" target="place_4" >
+      <inscription>
+        <value>Default,1</value>
+      </inscription>
+      <type value="normal" />
+    </arc>
+  </net>
+</pnml>

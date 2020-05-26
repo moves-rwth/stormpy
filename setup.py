@@ -14,7 +14,7 @@ if sys.version_info[0] == 2:
     sys.exit('Sorry, Python 2.x is not supported')
 
 # Minimal storm version required
-storm_min_version = "1.4.2"
+storm_min_version = "1.5.2"
 
 # Get the long description from the README file
 with open(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'README.md'), encoding='utf-8') as f:
@@ -32,6 +32,7 @@ class CMakeBuild(build_ext):
     user_options = build_ext.user_options + [
         ('storm-dir=', None, 'Path to storm root (binary) location'),
         ('disable-dft', None, 'Disable support for DFTs'),
+        ('disable-gspn', None, 'Disable support for GSPNs'),
         ('disable-pars', None, 'Disable support for parametric models'),
         ('disable-pomdp', None, 'Disable support for POMDP analysis'),
         ('debug', None, 'Build in Debug mode'),
@@ -84,6 +85,7 @@ class CMakeBuild(build_ext):
 
         # Check additional support
         use_dft = cmake_conf.HAVE_STORM_DFT and not self.config.get_as_bool("disable_dft")
+        use_gspn = cmake_conf.HAVE_STORM_GSPN and not self.config.get_as_bool("disable_gspn")
         use_pars = cmake_conf.HAVE_STORM_PARS and not self.config.get_as_bool("disable_pars")
         use_pomdp = cmake_conf.HAVE_STORM_POMDP #and not self.config.get_as_bool("disable_pomdp")
 
@@ -93,6 +95,10 @@ class CMakeBuild(build_ext):
             print("Stormpy - Support for DFTs found and included.")
         else:
             print("Stormpy - Warning: No support for DFTs!")
+        if use_gspn:
+            print("Stormpy - Support for GSPNs found and included.")
+        else:
+            print("Stormpy - Warning: No support for GSPNs!")
         if use_pars:
             print("Stormpy - Support for parametric models found and included.")
         else:
@@ -110,6 +116,8 @@ class CMakeBuild(build_ext):
             cmake_args += ['-Dstorm_DIR=' + storm_dir]
         if use_dft:
             cmake_args += ['-DHAVE_STORM_DFT=ON']
+        if use_gspn:
+            cmake_args += ['-DHAVE_STORM_GSPN=ON']
         if use_pars:
             cmake_args += ['-DHAVE_STORM_PARS=ON']
         if use_pomdp:
@@ -146,6 +154,7 @@ class CMakeBuild(build_ext):
                     f.write("FactorizedRationalFunction = pycarl.{}.FactorizedRationalFunction\n".format(rfpackage))
                     f.write("\n")
                     f.write("storm_with_dft = {}\n".format(use_dft))
+                    f.write("storm_with_gspn = {}\n".format(use_gspn))
                     f.write("storm_with_pars = {}\n".format(use_pars))
 
             elif ext.name == "info":
@@ -160,6 +169,13 @@ class CMakeBuild(build_ext):
                     f.write("storm_with_dft = {}".format(use_dft))
                 if not use_dft:
                     print("Stormpy - DFT bindings skipped")
+                    continue
+            elif ext.name == "gspn":
+                with open(os.path.join(self._extdir(ext.name), ext.subdir, "_config.py"), "w") as f:
+                    f.write("# Generated from setup.py at {}\n".format(datetime.datetime.now()))
+                    f.write("storm_with_gspn = {}".format(use_gspn))
+                if not use_gspn:
+                    print("Stormpy - GSPN bindings skipped")
                     continue
             elif ext.name == "pars":
                 with open(os.path.join(self._extdir(ext.name), ext.subdir, "_config.py"), "w") as f:
@@ -182,6 +198,7 @@ class CMakeBuild(build_ext):
         # Set default values for custom cmdline flags
         self.storm_dir = None
         self.disable_dft = None
+        self.disable_gspn = None
         self.disable_pars = None
         self.disable_pomdp = None
         self.debug = None
@@ -195,6 +212,7 @@ class CMakeBuild(build_ext):
         # Update setup config
         self.config.update("storm_dir", self.storm_dir)
         self.config.update("disable_dft", self.disable_dft)
+        self.config.update("disable_gspn", self.disable_gspn)
         self.config.update("disable_pars", self.disable_pars)
         self.config.update("disable_pomdp", self.disable_pomdp)
         self.config.update("debug", self.debug)
@@ -248,6 +266,7 @@ setup(
                  CMakeExtension('storage', subdir='storage'),
                  CMakeExtension('utility', subdir='utility'),
                  CMakeExtension('dft', subdir='dft'),
+                 CMakeExtension('gspn', subdir='gspn'),
                  CMakeExtension('pars', subdir='pars'),
                  CMakeExtension('pomdp', subdir='pomdp')],
 
