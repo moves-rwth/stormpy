@@ -4,6 +4,8 @@ import stormpy.core
 import stormpy.examples
 import stormpy.examples.files
 
+import json
+
 
 def example_building_models_03():
     path = stormpy.examples.files.prism_pdtmc_brp
@@ -14,15 +16,17 @@ def example_building_models_03():
     options = stormpy.BuilderOptions([p.raw_formula for p in properties])
     options.set_build_state_valuations()
     model = stormpy.build_sparse_parametric_model_with_options(prism_program, options)
-    eval2 = model.state_valuations.get_state(2)
+
+    valuations = model.state_valuations
+    values2 = json.loads(valuations.get_json(2))
+    print(values2)
+
     integer_variables = []
-    boolean_variables = []
     for module in prism_program.modules:
         print("module {}".format(module.name))
         integer_variables += module.integer_variables
-        boolean_variables += module.boolean_variables
 
-    print(",".join(["{}: {}".format(str(iv.name), eval2.get_integer_value(iv.expression_variable)) for iv in integer_variables]))
+    print(", ".join(["{}: {}".format(str(iv.name), valuations.get_integer_value(2, iv.expression_variable)) for iv in integer_variables]))
 
 
 
