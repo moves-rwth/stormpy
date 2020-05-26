@@ -122,7 +122,7 @@ void define_prism(py::module& m) {
     py::class_<BooleanVariable, std::shared_ptr<BooleanVariable>> boolean_variable(m, "PrismBooleanVariable", variable, "A program boolean variable in a Prism program");
     boolean_variable.def("__str__", &streamToString<BooleanVariable>);
 
-    define_stateGeneration<uint32_t, storm::RationalNumber>(m);
+    //define_stateGeneration<uint32_t, storm::RationalNumber>(m);
 }
 
 class ValuationMapping {
@@ -364,59 +364,59 @@ std::map<uint32_t, std::pair<storm::RationalNumber, storm::RationalNumber>> simu
 
 template <typename StateType, typename ValueType>
 void define_stateGeneration(py::module& m) {
-    py::class_<ValuationMapping, std::shared_ptr<ValuationMapping>> valuation_mapping(m, "ValuationMapping", "A valuation mapping for a state consists of a mapping from variable to value for each of the three types.");
-    valuation_mapping
-        .def_readonly("boolean_values", &ValuationMapping::booleanValues)
-        .def_readonly("integer_values", &ValuationMapping::integerValues)
-        .def_readonly("rational_values", &ValuationMapping::rationalValues)
-        .def("__str__", &ValuationMapping::toString);
-
-    py::class_<GeneratorChoice<StateType, ValueType>,
-              std::shared_ptr<GeneratorChoice<StateType, ValueType>>>
-        generator_choice(m, "GeneratorChoice", R"doc(
-            Representation of a choice taken by the generator.
-
-            :ivar origins: A list of command ids that generated this choice.
-            :vartype origins: List[int]
-            :ivar distribution: The probability distribution of this choice.
-            :vartype distribution: List[Pair[StateId, Probability]]
-    )doc");
-    generator_choice
-        .def_readonly("origins", &GeneratorChoice<StateType, ValueType>::origins)
-        .def_readonly("distribution", &GeneratorChoice<StateType, ValueType>::distribution);
-
-    py::class_<StateGenerator<StateType, ValueType>, std::shared_ptr<StateGenerator<StateType, ValueType>>> state_generator(m, "StateGenerator", R"doc(
-        Interactively explore states using Storm's PrismNextStateGenerator.
-
-        :ivar program: A PRISM program.
-    )doc");
-    state_generator
-        .def(py::init<storm::prism::Program const&>())
-        .def("load_initial_state", &StateGenerator<StateType, ValueType>::loadInitialState, R"doc(
-            Loads the (unique) initial state.
-            Multiple initial states are not supported.
-
-            :rtype: the ID of the initial state.
-        )doc")
-        .def("load", &StateGenerator<StateType, ValueType>::load, R"doc(
-            :param state_id: The ID of the state to load.
-        )doc")
-        .def("current_state_to_valuation", &StateGenerator<StateType, ValueType>::currentStateToValuation, R"doc(
-            Return a valuation for the currently loaded state.
-
-            :rtype: stormpy.ValuationMapping
-        )doc")
-        .def("current_state_satisfies", &StateGenerator<StateType, ValueType>::satisfies, R"doc(
-            Check if the currently loaded state satisfies the given expression.
-
-            :param stormpy.Expression expression: The expression to check against.
-            :rtype: bool
-        )doc")
-        .def("expand", &StateGenerator<StateType, ValueType>::expand, R"doc(
-            Expand the currently loaded state and return its successors.
-
-            :rtype: [GeneratorChoice]
-        )doc");
-
-    m.def("simulate", &simulate);
+//    py::class_<ValuationMapping, std::shared_ptr<ValuationMapping>> valuation_mapping(m, "ValuationMapping", "A valuation mapping for a state consists of a mapping from variable to value for each of the three types.");
+//    valuation_mapping
+//        .def_readonly("boolean_values", &ValuationMapping::booleanValues)
+//        .def_readonly("integer_values", &ValuationMapping::integerValues)
+//        .def_readonly("rational_values", &ValuationMapping::rationalValues)
+//        .def("__str__", &ValuationMapping::toString);
+//
+//    py::class_<GeneratorChoice<StateType, ValueType>,
+//              std::shared_ptr<GeneratorChoice<StateType, ValueType>>>
+//        generator_choice(m, "GeneratorChoice", R"doc(
+//            Representation of a choice taken by the generator.
+//
+//            :ivar origins: A list of command ids that generated this choice.
+//            :vartype origins: List[int]
+//            :ivar distribution: The probability distribution of this choice.
+//            :vartype distribution: List[Pair[StateId, Probability]]
+//    )doc");
+//    generator_choice
+//        .def_readonly("origins", &GeneratorChoice<StateType, ValueType>::origins)
+//        .def_readonly("distribution", &GeneratorChoice<StateType, ValueType>::distribution);
+//
+//    py::class_<StateGenerator<StateType, ValueType>, std::shared_ptr<StateGenerator<StateType, ValueType>>> state_generator(m, "StateGenerator", R"doc(
+//        Interactively explore states using Storm's PrismNextStateGenerator.
+//
+//        :ivar program: A PRISM program.
+//    )doc");
+//    state_generator
+//        .def(py::init<storm::prism::Program const&>())
+//        .def("load_initial_state", &StateGenerator<StateType, ValueType>::loadInitialState, R"doc(
+//            Loads the (unique) initial state.
+//            Multiple initial states are not supported.
+//
+//            :rtype: the ID of the initial state.
+//        )doc")
+//        .def("load", &StateGenerator<StateType, ValueType>::load, R"doc(
+//            :param state_id: The ID of the state to load.
+//        )doc")
+//        .def("current_state_to_valuation", &StateGenerator<StateType, ValueType>::currentStateToValuation, R"doc(
+//            Return a valuation for the currently loaded state.
+//
+//            :rtype: stormpy.ValuationMapping
+//        )doc")
+//        .def("current_state_satisfies", &StateGenerator<StateType, ValueType>::satisfies, R"doc(
+//            Check if the currently loaded state satisfies the given expression.
+//
+//            :param stormpy.Expression expression: The expression to check against.
+//            :rtype: bool
+//        )doc")
+//        .def("expand", &StateGenerator<StateType, ValueType>::expand, R"doc(
+//            Expand the currently loaded state and return its successors.
+//
+//            :rtype: [GeneratorChoice]
+//        )doc");
+//
+//    m.def("simulate", &simulate);
 }
