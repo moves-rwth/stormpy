@@ -33,30 +33,32 @@ addons:
     - ginac
     - boost
     - eigen
-    - python
     - python3
     - maven
-    update: true # fix for current problem with "unknown command 'bundle'"
 
 #
 # Configuration
 #
 jobs:
   include:
-    # osx
+    # xcode11.4
     - os: osx
+      osx_image: xcode11.4
       compiler: clang
       env: TASK=Test PYTHON=python3 CONFIG=DebugClnParser COMPILER=clang STL=libc++
       script: travis/build.sh
     - os: osx
+      osx_image: xcode11.4
       compiler: clang
       env: TASK=Test PYTHON=python3 CONFIG=Release COMPILER=clang STL=libc++
       script: travis/build.sh
     - os: osx
+      osx_image: xcode11.4
       compiler: clang
       env: TASK=Test PYTHON=python3 CONFIG=ReleaseCln COMPILER=clang STL=libc++
       script: travis/build.sh
     - os: osx
+      osx_image: xcode11.4
       compiler: clang
       env: TASK=Test PYTHON=python3 CONFIG=ReleaseClnParser COMPILER=clang STL=libc++
       script: travis/build.sh

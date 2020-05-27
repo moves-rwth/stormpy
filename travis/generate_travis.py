@@ -12,7 +12,7 @@ configs_linux = [
 # Configurations for Mac
 configs_mac = [
     # OS, compiler
-    ("osx", "clang", ""),
+    ("xcode11.4", "clang", ""),
 ]
 
 # Build types
@@ -68,7 +68,6 @@ if __name__ == "__main__":
     s += "    - ginac\n"
     s += "    - boost\n"
     s += "    - eigen\n"
-    s += "    - python\n"
     s += "    - python3\n"
     s += "    - maven\n"
     s += "\n"
@@ -89,6 +88,7 @@ if __name__ == "__main__":
             buildConfig = ""
             for build in build_types:
                 buildConfig += "    - os: osx\n"
+                buildConfig += "      osx_image: {}\n".format(osx)
                 buildConfig += "      compiler: {}\n".format(config[1])
                 buildConfig += "      env: TASK=Test PYTHON={} CONFIG={} COMPILER={} STL=libc++\n".format(python, build, compiler)
                 buildConfig += "      script: travis/build.sh\n"
