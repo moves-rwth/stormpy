@@ -92,8 +92,7 @@ Additionally, POMDPs have a set of observations, which are internally just numbe
     State 11 has observation id 0
     State 12 has observation id 2
     State 13 has observation id 2
-    State 14 has observation id 4
-    State 15 has observation id 5
+    State 14 has observation id 5
 
 
 Sorting states
