@@ -22,10 +22,8 @@ template<typename ValueType> using ModelComponents = storm::storage::sparse::Mod
 // <storm::RationalNumber>
 // <double, storm::models::sparse::StandardRewardModel<storm::Interval>>
 
-// todo
-//  1. create constructor for sparseModels double in models.h using model comp.
-//  2. write tests
-// 3. rationalfct
+// todo write tests
+// Parametric models, Valuetype: <storm::RationalFunction> todo
 
 void define_model_components(py::module& m) {
 
