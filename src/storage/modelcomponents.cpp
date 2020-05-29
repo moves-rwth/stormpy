@@ -8,31 +8,37 @@
 
 
 
-template<typename ValueType> using SparseMatrix = storm::storage::SparseMatrix<ValueType>;
+
 using stateLabeling = storm::models::sparse::StateLabeling;
 using BitVector = storm::storage::BitVector;
+template<typename ValueType> using SparseMatrix = storm::storage::SparseMatrix<ValueType>;
+template<typename ValueType> using SparseRewardModel = storm::models::sparse::StandardRewardModel<ValueType>;
 
-template<typename ValueType> using StandardRewardModel = storm::models::sparse::StandardRewardModel<ValueType>;
-template<typename ValueType, typename RewardModelType = StandardRewardModel<ValueType>> using ModelComponents = storm::storage::sparse::ModelComponents<ValueType, RewardModelType>;
+template<typename ValueType> using ModelComponents = storm::storage::sparse::ModelComponents<ValueType>;
 
-// other: todo
-// <storm::RationalNumber> <double, storm::models::sparse::StandardRewardModel<storm::Interval>><storm::RationalFunction>;
-// py::class_<ModelComponents<double, StandardRewardModel<storm::Interval>>>(m, "ModelComponents", "ModelComponents description..")
+// others: todo
+// <storm::RationalFunction>;
+//
+// <storm::RationalNumber>
+// <double, storm::models::sparse::StandardRewardModel<storm::Interval>>
 
-
+// todo
+//  1. create constructor for sparseModels double in models.h using model comp.
+//  2. write tests
+// 3. rationalfct
 
 void define_model_components(py::module& m) {
 
     py::class_<ModelComponents<double>>(m, "ModelComponents", "ModelComponents description..")
-            .def(py::init<SparseMatrix<double> const &, stateLabeling const &, std::unordered_map<std::string, StandardRewardModel<double>> const &,
+            .def(py::init<SparseMatrix<double> const &, stateLabeling const &, std::unordered_map<std::string, SparseRewardModel<double>> const &,
                 bool, boost::optional<BitVector> const &, boost::optional<SparseMatrix<storm::storage::sparse::state_type>> const &>(),
                 "Construct from Prism program", py::arg("transition_matrix"), py::arg("state_labeling") = stateLabeling(),
-                py::arg("reward_models") =  std::unordered_map<std::string, StandardRewardModel<double>>(), py::arg("rate_transitions") = false,
+                py::arg("reward_models") =  std::unordered_map<std::string, SparseRewardModel<double>>(), py::arg("rate_transitions") = false,
                 py::arg("markovian_states") = boost::none, py::arg("player1_matrix") = boost::none)
 
             .def(py::init<>()) // for rvalue ? todo
 
-            // general components (for all model types)
+            // General components (for all model types)
             .def_readwrite("transition_matrix", &ModelComponents<double>::transitionMatrix)
             .def_readwrite("state_labeling", &ModelComponents<double>::stateLabeling)
             .def_readwrite("reward_models", &ModelComponents<double>::rewardModels, "Reward models associated with the model")

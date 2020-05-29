@@ -3,6 +3,6 @@
 
 #include "common.h"
 
-void define_model_cmponents(py::module& m);
+void define_model_components(py::module& m);
 
 #endif /* PYSTORM_MODELCOMPONENTS_H */
