@@ -1,8 +1,8 @@
-#ifndef PYSTORM_MODELCOMPONENTS_H
-#define PYSTORM_MODELCOMPONENTS_H
+#ifndef PYTHON_STORAGE_SPARSEMODELCOMPONENTS_H
+#define PYTHON_STORAGE_SPARSEMODELCOMPONENTS_H
 
 #include "common.h"
 
-void define_model_components(py::module& m);
+void define_sparse_modelcomponents(py::module& m);
 
-#endif /* PYSTORM_MODELCOMPONENTS_H */
+#endif /* PYTHON_STORAGE_SPARSEMODELCOMPONENTS_H */
