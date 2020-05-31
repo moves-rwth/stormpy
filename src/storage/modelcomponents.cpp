@@ -25,15 +25,16 @@ template<typename ValueType> using SparseModelComponents = storm::storage::spars
 
 void define_sparse_modelcomponents(py::module& m) {
 
-    py::class_<SparseModelComponents<double>>(m, "SparseModelComponents", "ModelComponents description..") //todo
+    // shared_ptr? todo
+    py::class_<SparseModelComponents<double>, std::shared_ptr<SparseModelComponents<double>>>(m, "SparseModelComponents", "ModelComponents description..") //todo
 
         .def(py::init<SparseMatrix<double> const&, StateLabeling const&, std::unordered_map<std::string, SparseRewardModel<double>> const&,
             bool, boost::optional<BitVector> const&, boost::optional<SparseMatrix<storm::storage::sparse::state_type>> const&>(),
-            py::arg("transition_matrix"), py::arg("state_labeling") = storm::models::sparse::StateLabeling(),
+            py::arg("transition_matrix") = SparseMatrix<double>(), py::arg("state_labeling") = storm::models::sparse::StateLabeling(),
             py::arg("reward_models") =  std::unordered_map<std::string, SparseRewardModel<double>>(), py::arg("rate_transitions") = false,
             py::arg("markovian_states") = boost::none, py::arg("player1_matrix") = boost::none)
 
-        //.def(py::init<>()) // for rvalue ? todo
+
 
         // General components (for all model types)
         .def_readwrite("transition_matrix", &SparseModelComponents<double>::transitionMatrix)

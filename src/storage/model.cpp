@@ -212,7 +212,7 @@ void define_sparse_model(py::module& m) {
     ;
     py::class_<SparsePomdp<double>, std::shared_ptr<SparsePomdp<double>>>(m, "SparsePomdp", "POMDP in sparse representation", mdp)
         .def(py::init<SparsePomdp<double>>(), py::arg("other_model"))
-        .def(py::init<ModelComponents<double> const&, bool>(), py::arg("components"), py::arg("canonicFlag")=false) //todo tests
+        .def(py::init<ModelComponents<double> const&, bool>(), py::arg("components"), py::arg("canonic_flag")=false) //todo tests
         .def("__str__", &getModelInfoPrinter)
         .def("get_observation", &SparsePomdp<double>::getObservation, py::arg("state"))
         .def_property_readonly("observations", &SparsePomdp<double>::getObservations)
@@ -234,7 +234,6 @@ void define_sparse_model(py::module& m) {
     ;
 
     py::class_<SparseRewardModel<double>>(m, "SparseRewardModel", "Reward structure for sparse models")
-        //todo init?
         .def_property_readonly("has_state_rewards", &SparseRewardModel<double>::hasStateRewards)
         .def_property_readonly("has_state_action_rewards", &SparseRewardModel<double>::hasStateActionRewards)
         .def_property_readonly("has_transition_rewards", &SparseRewardModel<double>::hasTransitionRewards)
