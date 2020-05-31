@@ -16,6 +16,7 @@ void define_environment(py::module& m) {
     py::enum_<storm::solver::NativeLinearEquationSolverMethod>(m, "NativeLinearEquationSolverMethod", "Method for linear equation systems with the native solver")
         .value("power_iteration", storm::solver::NativeLinearEquationSolverMethod::Power)
         .value("sound_value_iteration", storm::solver::NativeLinearEquationSolverMethod::SoundValueIteration)
+        .value("optimistic_value_iteration", storm::solver::NativeLinearEquationSolverMethod::OptimisticValueIteration)
         .value("interval_iteration", storm::solver::NativeLinearEquationSolverMethod::IntervalIteration)
         .value("rational_search", storm::solver::NativeLinearEquationSolverMethod::RationalSearch)
         .value("jacobi", storm::solver::NativeLinearEquationSolverMethod::Jacobi)
@@ -32,6 +33,7 @@ void define_environment(py::module& m) {
         .value("rational_search", storm::solver::MinMaxMethod::RationalSearch)
         .value("interval_iteration", storm::solver::MinMaxMethod::IntervalIteration)
         .value("sound_value_iteration", storm::solver::MinMaxMethod::SoundValueIteration)
+        .value("optimistic_value_iteration", storm::solver::MinMaxMethod::OptimisticValueIteration)
         .value("topological_cuda", storm::solver::MinMaxMethod::TopologicalCuda)
     ;
 
