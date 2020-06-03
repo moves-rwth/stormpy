@@ -3,6 +3,6 @@
 
 #include "common.h"
 
-void define_sparse_modelcomponents(py::module& m);
+void define_sparse_model_components(py::module& m);
 
 #endif /* PYTHON_STORAGE_SPARSEMODELCOMPONENTS_H */

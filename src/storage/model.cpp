@@ -221,11 +221,14 @@ void define_sparse_model(py::module& m) {
     py::class_<SparseCtmc<double>, std::shared_ptr<SparseCtmc<double>>>(m, "SparseCtmc", "CTMC in sparse representation", model)
         .def(py::init<SparseCtmc<double>>(), py::arg("other_model"))
         .def(py::init<ModelComponents<double> const&>(), py::arg("components")) //todo tests
+        .def_property_readonly("exit_rates", [](SparseCtmc<double> const& ctmc) { return ctmc.getExitRateVector(); }) //todo new: tests
         .def("__str__", &getModelInfoPrinter)
     ;
     py::class_<SparseMarkovAutomaton<double>, std::shared_ptr<SparseMarkovAutomaton<double>>>(m, "SparseMA", "MA in sparse representation", model)
         .def(py::init<SparseMarkovAutomaton<double>>(), py::arg("other_model"))
-        .def(py::init<ModelComponents<double> const&>(), py::arg("components")) //todo tests
+        .def(py::init<ModelComponents<double> const&>(), py::arg("components")) // todo tests
+        .def_property_readonly("exit_rates", [](SparseMarkovAutomaton<double> const& ma) { return ma.getExitRates(); }) //todo new: tests
+        .def_property_readonly("markovian_states", [](SparseMarkovAutomaton<double> const& ma) { return ma.getMarkovianStates(); }) //todo new: tests
         .def_property_readonly("nondeterministic_choice_indices", [](SparseMarkovAutomaton<double> const& ma) { return ma.getNondeterministicChoiceIndices(); })
         .def("apply_scheduler", [](SparseMarkovAutomaton<double> const& ma, storm::storage::Scheduler<double> const& scheduler, bool dropUnreachableStates) { return ma.applyScheduler(scheduler, dropUnreachableStates); } , "apply scheduler", "scheduler"_a, "drop_unreachable_states"_a = true)
         .def("__str__", &getModelInfoPrinter)

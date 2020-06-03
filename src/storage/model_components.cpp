@@ -1,4 +1,4 @@
-#include "modelcomponents.h"
+#include "model_components.h"
 
 #include "storm/models/sparse/StandardRewardModel.h"
 #include "storm/models/symbolic/StandardRewardModel.h"
@@ -23,7 +23,7 @@ template<typename ValueType> using SparseModelComponents = storm::storage::spars
 
 // Parametric models, Valuetype: <storm::RationalFunction> todo
 
-void define_sparse_modelcomponents(py::module& m) {
+void define_sparse_model_components(py::module& m) {
 
     // shared_ptr? todo
     py::class_<SparseModelComponents<double>, std::shared_ptr<SparseModelComponents<double>>>(m, "SparseModelComponents", "ModelComponents description..") //todo
@@ -49,7 +49,7 @@ void define_sparse_modelcomponents(py::module& m) {
 
         // Continuous time specific components (CTMCs, Markov Automata):
         .def_readwrite("rate_transitions", &SparseModelComponents<double>::rateTransitions, "True iff the transition values (for Markovian choices) are interpreted as rates")
-        .def_readwrite("exit_Rates", &SparseModelComponents<double>::exitRates, "The exit rate for each state. Must be given for CTMCs and MAs, if rate_transitions is false. Otherwise, it is optional.")
+        .def_readwrite("exit_rates", &SparseModelComponents<double>::exitRates, "The exit rate for each state. Must be given for CTMCs and MAs, if rate_transitions is false. Otherwise, it is optional.")
         .def_readwrite("markovian_states", &SparseModelComponents<double>::markovianStates, "A vector that stores which states are markovian (only for Markov Automata)")
 
         // Stochastic two player game specific components:
