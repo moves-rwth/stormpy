@@ -15,17 +15,11 @@ template<typename ValueType> using SparseRewardModel = storm::models::sparse::St
 
 template<typename ValueType> using SparseModelComponents = storm::storage::sparse::ModelComponents<ValueType>;
 
-// others: todo
-// <storm::RationalFunction>;
-//
-// <storm::RationalNumber>
-// <double, storm::models::sparse::StandardRewardModel<storm::Interval>>
 
 // Parametric models, Valuetype: <storm::RationalFunction> todo
 
 void define_sparse_model_components(py::module& m) {
 
-    // shared_ptr? todo
     py::class_<SparseModelComponents<double>, std::shared_ptr<SparseModelComponents<double>>>(m, "SparseModelComponents", "ModelComponents description..") //todo
 
         .def(py::init<SparseMatrix<double> const&, StateLabeling const&, std::unordered_map<std::string, SparseRewardModel<double>> const&,
@@ -34,11 +28,9 @@ void define_sparse_model_components(py::module& m) {
             py::arg("reward_models") =  std::unordered_map<std::string, SparseRewardModel<double>>(), py::arg("rate_transitions") = false,
             py::arg("markovian_states") = boost::none, py::arg("player1_matrix") = boost::none)
 
-
-
         // General components (for all model types)
-        .def_readwrite("transition_matrix", &SparseModelComponents<double>::transitionMatrix)
-        .def_readwrite("state_labeling", &SparseModelComponents<double>::stateLabeling)
+        .def_readwrite("transition_matrix", &SparseModelComponents<double>::transitionMatrix, "The transition matrix")
+        .def_readwrite("state_labeling", &SparseModelComponents<double>::stateLabeling, "The state labeling")
         .def_readwrite("reward_models", &SparseModelComponents<double>::rewardModels, "Reward models associated with the model")
         .def_readwrite("choice_labeling", &SparseModelComponents<double>::choiceLabeling, "A vector that stores a labeling for each choice")
         .def_readwrite("state_valuations", &SparseModelComponents<double>::stateValuations, "A vector that stores for each state to which variable valuation it belongs")

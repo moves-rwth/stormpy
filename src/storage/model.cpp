@@ -198,12 +198,12 @@ void define_sparse_model(py::module& m) {
     ;
     py::class_<SparseDtmc<double>, std::shared_ptr<SparseDtmc<double>>>(m, "SparseDtmc", "DTMC in sparse representation", model)
         .def(py::init<SparseDtmc<double>>(), py::arg("other_model"))
-        .def(py::init<ModelComponents<double> const&>(), py::arg("components")) //todo tests
+        .def(py::init<ModelComponents<double> const&>(), py::arg("components"))
         .def("__str__", &getModelInfoPrinter)
     ;
     py::class_<SparseMdp<double>, std::shared_ptr<SparseMdp<double>>> mdp(m, "SparseMdp", "MDP in sparse representation", model);
     mdp.def(py::init<SparseMdp<double>>(), py::arg("other_model"))
-        .def(py::init<ModelComponents<double> const&, storm::models::ModelType>(), py::arg("components"), py::arg("type")=storm::models::ModelType::Mdp) //todo tests
+        .def(py::init<ModelComponents<double> const&, storm::models::ModelType>(), py::arg("components"), py::arg("type")=storm::models::ModelType::Mdp)
         .def_property_readonly("nondeterministic_choice_indices", [](SparseMdp<double> const& mdp) { return mdp.getNondeterministicChoiceIndices(); })
         .def("get_nr_available_actions", [](SparseMdp<double> const& mdp, uint64_t stateIndex) { return mdp.getNondeterministicChoiceIndices()[stateIndex+1] - mdp.getNondeterministicChoiceIndices()[stateIndex] ; }, py::arg("state"))
         .def("get_choice_index", [](SparseMdp<double> const& mdp, uint64_t state, uint64_t actOff) { return mdp.getNondeterministicChoiceIndices()[state]+actOff; }, py::arg("state"), py::arg("action_offset"), "gets the choice index for the offset action from the given state.")
@@ -212,7 +212,7 @@ void define_sparse_model(py::module& m) {
     ;
     py::class_<SparsePomdp<double>, std::shared_ptr<SparsePomdp<double>>>(m, "SparsePomdp", "POMDP in sparse representation", mdp)
         .def(py::init<SparsePomdp<double>>(), py::arg("other_model"))
-        .def(py::init<ModelComponents<double> const&, bool>(), py::arg("components"), py::arg("canonic_flag")=false) //todo tests
+        .def(py::init<ModelComponents<double> const&, bool>(), py::arg("components"), py::arg("canonic_flag")=false)
         .def("__str__", &getModelInfoPrinter)
         .def("get_observation", &SparsePomdp<double>::getObservation, py::arg("state"))
         .def_property_readonly("observations", &SparsePomdp<double>::getObservations)
@@ -220,14 +220,14 @@ void define_sparse_model(py::module& m) {
     ;
     py::class_<SparseCtmc<double>, std::shared_ptr<SparseCtmc<double>>>(m, "SparseCtmc", "CTMC in sparse representation", model)
         .def(py::init<SparseCtmc<double>>(), py::arg("other_model"))
-        .def(py::init<ModelComponents<double> const&>(), py::arg("components")) //todo tests
+        .def(py::init<ModelComponents<double> const&>(), py::arg("components"))
         .def_property_readonly("exit_rates", [](SparseCtmc<double> const& ctmc) { return ctmc.getExitRateVector(); }) //todo new: tests
         .def("__str__", &getModelInfoPrinter)
     ;
     py::class_<SparseMarkovAutomaton<double>, std::shared_ptr<SparseMarkovAutomaton<double>>>(m, "SparseMA", "MA in sparse representation", model)
         .def(py::init<SparseMarkovAutomaton<double>>(), py::arg("other_model"))
-        .def(py::init<ModelComponents<double> const&>(), py::arg("components")) // todo tests
-        .def_property_readonly("exit_rates", [](SparseMarkovAutomaton<double> const& ma) { return ma.getExitRates(); }) //todo new: tests
+        .def(py::init<ModelComponents<double> const&>(), py::arg("components"))
+        .def_property_readonly("exit_rates", [](SparseMarkovAutomaton<double> const& ma) { return ma.getExitRates(); })
         .def_property_readonly("markovian_states", [](SparseMarkovAutomaton<double> const& ma) { return ma.getMarkovianStates(); }) //todo new: tests
         .def_property_readonly("nondeterministic_choice_indices", [](SparseMarkovAutomaton<double> const& ma) { return ma.getNondeterministicChoiceIndices(); })
         .def("apply_scheduler", [](SparseMarkovAutomaton<double> const& ma, storm::storage::Scheduler<double> const& scheduler, bool dropUnreachableStates) { return ma.applyScheduler(scheduler, dropUnreachableStates); } , "apply scheduler", "scheduler"_a, "drop_unreachable_states"_a = true)
