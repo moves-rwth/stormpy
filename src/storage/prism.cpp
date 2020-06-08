@@ -97,7 +97,7 @@ void define_prism(py::module& m) {
             ;
 
 
-    py::class_<Constant, std::shared_ptr<Constant>> constant(m, "Constant", "A constant in a Prism program");
+    py::class_<Constant, std::shared_ptr<Constant>> constant(m, "PrismConstant", "A constant in a Prism program");
     constant.def_property_readonly("name", &Constant::getName, "Constant name")
             .def_property_readonly("defined", &Constant::isDefined, "Is the constant defined?")
             .def_property_readonly("type", &Constant::getType, "The type of the constant")
