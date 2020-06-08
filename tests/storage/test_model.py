@@ -157,7 +157,7 @@ class TestSparseModel:
         program, _ = stormpy.parse_jani_model(get_example_path("dtmc", "die.jani"))
         a = stormpy.FlatSet()
 
-        options = stormpy.BuilderOptions([])
+        options = stormpy.BuilderOptions()
         options.set_build_with_choice_origins()
         model = stormpy.build_sparse_model_with_options(program, options)
         a = model.choice_origins.get_edge_index_set(3)

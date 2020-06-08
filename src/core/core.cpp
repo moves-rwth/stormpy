@@ -113,7 +113,7 @@ void define_build(py::module& m) {
 
     py::class_<storm::builder::BuilderOptions>(m, "BuilderOptions", "Options for building process")
             .def(py::init<std::vector<std::shared_ptr<storm::logic::Formula const>> const&>(), "Initialise with formulae to preserve", py::arg("formulae"))
-            .def(py::init<bool, bool>(), "Initialise without formulae", py::arg("build_all_reward_models"), py::arg("build_all_labels"))
+            .def(py::init<bool, bool>(), "Initialise without formulae", py::arg("build_all_reward_models")=true, py::arg("build_all_labels")=true)
             .def_property_readonly("preserved_label_names", &storm::builder::BuilderOptions::getLabelNames, "Labels preserved")
             .def("set_build_state_valuations", &storm::builder::BuilderOptions::setBuildStateValuations, "Build state valuations", py::arg("new_value")=true)
             .def("set_build_with_choice_origins", &storm::builder::BuilderOptions::setBuildChoiceOrigins, "Build choice origins", py::arg("new_value")=true)
