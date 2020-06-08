@@ -1,13 +1,32 @@
 Changelog
 =============
 
-Version 1.4.x
+Version 1.6.x
 -------------
 
-### Version 1.4.2 (under development) 
+### Version 1.6.0 (2020/06)
+Requires storm version >= 1.6.0 and pycarl version >= 2.0.4
 
+- Adaptions to changes in Storm: most notably state valuations
+- Support for GSPNs: parsing, exploring, building
+- Support for matrix building
 - Extended expression operators with {conjunction, disjunction}
 - Added information collector to extract information from jani models
+- Bindings for elimination of chains of non-Markovian states
+
+
+Version 1.5.x
+-------------
+
+### Version 1.5.1
+Skipped for compatibility with Storm.
+
+### Version 1.5.0
+Skipped for compatibility with Storm.
+
+
+Version 1.4.x
+-------------
 
 ### Version 1.4.1 (2019/12)
 Requires storm version >= 1.4.1 and pycarl version >= 2.0.4
