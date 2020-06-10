@@ -4,6 +4,8 @@ Changelog
 Version 1.6.x
 -------------
 
+### Version 1.6.1 (under development)
+
 ### Version 1.6.0 (2020/06)
 Requires storm version >= 1.6.0 and pycarl version >= 2.0.4
 
