@@ -2,7 +2,7 @@ import os
 
 import stormpy
 
-from configurations import gspn
+from configurations import gspn, xml
 
 
 @gspn
@@ -211,6 +211,7 @@ class TestGSPNBuilder:
         tt_0 = gspn_import.get_timed_transition("tt_0")
         assert tt_0.get_id() == id_tt_0
 
+    @xml
     def test_export_to_pnml(self, tmpdir):
         builder = stormpy.gspn.GSPNBuilder()
         builder.set_name("gspn_test")

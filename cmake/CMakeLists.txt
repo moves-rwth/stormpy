@@ -55,6 +55,12 @@ else()
     set(STORM_CLN_RF_BOOL "False")
 endif()
 
+if(STORM_HAVE_XERCES)
+    set(STORM_XERCES_BOOL "True")
+else()
+    set(STORM_XERCES_BOOL "False")
+endif()
+
 if(HAVE_STORM_DFT)
     set(HAVE_STORM_DFT_BOOL "True")
 else()
