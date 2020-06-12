@@ -21,6 +21,7 @@ void define_labeling(py::module& m) {
 
     // StateLabeling
     py::class_<storm::models::sparse::StateLabeling, std::shared_ptr<storm::models::sparse::StateLabeling>>(m, "StateLabeling", "Labeling for states", labeling)
+        .def(py::init<uint_fast64_t>(), "state_count"_a)  // todo tests
         .def("get_labels_of_state", &storm::models::sparse::StateLabeling::getLabelsOfState, "Get labels of given state", py::arg("state"))
         .def("add_label_to_state", &storm::models::sparse::StateLabeling::addLabelToState, "Add label to state", py::arg("label"), py::arg("state"))
         .def("has_state_label", &storm::models::sparse::StateLabeling::getStateHasLabel, "Check if the given state has the given label", py::arg("label"), py::arg("state"))
@@ -32,6 +33,8 @@ void define_labeling(py::module& m) {
     ;
 
 
-    py::class_<storm::models::sparse::ChoiceLabeling>(m, "ChoiceLabeling", "Labeling for choices", labeling).
-            def("get_labels_of_choice", &storm::models::sparse::ChoiceLabeling::getLabelsOfChoice, py::arg("choice"), "get labels of a choice");
+    py::class_<storm::models::sparse::ChoiceLabeling>(m, "ChoiceLabeling", "Labeling for choices", labeling)
+            .def(py::init<uint_fast64_t>(), "choice_count"_a)  // todo tests
+            .def("get_labels_of_choice", &storm::models::sparse::ChoiceLabeling::getLabelsOfChoice, py::arg("choice"), "get labels of a choice")
+    ;
 }

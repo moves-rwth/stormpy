@@ -4,6 +4,7 @@
 #include "storm/storage/sparse/StateValuations.h"
 #include "storm/storage/expressions/SimpleValuation.h"
 #include "storm/storage/expressions/Variable.h"
+#include "storm/storage/expressions/ExpressionManager.h"
 
 // Thin wrappers
 std::string toJson(storm::storage::sparse::StateValuations const& valuations, storm::storage::sparse::state_type const& stateIndex, boost::optional<std::set<storm::expressions::Variable>> const& selectedVariables) {
@@ -20,6 +21,7 @@ void define_statevaluation(py::module& m) {
         .def("get_rational_value", &storm::storage::sparse::StateValuations::getRationalValue, py::arg("state"), py::arg("variable"))
         .def("get_string", &storm::storage::sparse::StateValuations::toString, py::arg("state"), py::arg("pretty")=true, py::arg("selected_variables")=boost::none)
         .def("get_json", &toJson, py::arg("state"), py::arg("selected_variables")=boost::none)
+        .def("get_nr_of_states", &storm::storage::sparse::StateValuations::getNumberOfStates);
     ;
 
 }
