@@ -66,6 +66,21 @@ class TestSparseModelComponents:
         reward_models['coin_flips'] = stormpy.SparseRewardModel(optional_state_action_reward_vector=action_reward)
 
         # todo state valuations
+        manager = stormpy.ExpressionManager() # todo correct?
+        var_s = manager.create_integer_variable(name='s')
+        var_d = manager.create_integer_variable(name='d')
+        v_builder = stormpy.StateValuationsBuilder()
+
+        v_builder.add_variable(var_s)
+        v_builder.add_variable(var_d)
+
+
+        for s in range(7):
+            v_builder.add_state(state=s,boolean_values=[],integer_values=[s,0],rational_values=[])
+        for s in range(7,13):
+            v_builder.add_state(state=s,boolean_values=[],integer_values=[7,s-6],rational_values=[])
+
+        state_valuations = v_builder.build(13)
 
         # todo choice origins:
         prism_program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
@@ -83,7 +98,7 @@ class TestSparseModelComponents:
                                                    reward_models=reward_models)
         components.choice_origins = choice_origins
 
-        # todo components.state_valuations = state_valuations
+        components.state_valuations = state_valuations
 
         dtmc = stormpy.storage.SparseDtmc(components)
 
@@ -114,7 +129,7 @@ class TestSparseModelComponents:
         # choice_labeling
         assert not dtmc.has_choice_labeling()
         # todo state_valuations
-        #  assert dtmc.has_state_valuations() and more tests
+        assert dtmc.has_state_valuations() # todo  more tests
         # todo choice_origins
-        #  assert dtmc.has_choice_origins() and more tests
-        # assert dtmc.choice_origins is components.choice_origins  # todo
+        assert dtmc.has_choice_origins() #todo more tests
+        assert dtmc.choice_origins is components.choice_origins
