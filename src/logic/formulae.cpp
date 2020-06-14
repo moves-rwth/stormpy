@@ -28,6 +28,9 @@ void define_formulae(py::module& m) {
     py::class_<storm::logic::PathFormula, std::shared_ptr<storm::logic::PathFormula>> pathFormula(m, "PathFormula", "Formula about the probability of a set of paths in an automaton", formula);
     py::class_<storm::logic::UnaryPathFormula, std::shared_ptr<storm::logic::UnaryPathFormula>> unaryPathFormula(m, "UnaryPathFormula", "Path formula with one operand", pathFormula);
     unaryPathFormula.def_property_readonly("subformula", &storm::logic::UnaryPathFormula::getSubformula, "the subformula");
+    unaryPathFormula.def_property_readonly("is_eventually_formula", &storm::logic::UnaryPathFormula::isEventuallyFormula);
+    unaryPathFormula.def_property_readonly("is_bounded_until_formula", &storm::logic::UnaryPathFormula::isBoundedUntilFormula);
+    unaryPathFormula.def_property_readonly("is_until_formula", &storm::logic::UnaryPathFormula::isUntilFormula);
     py::class_<storm::logic::EventuallyFormula, std::shared_ptr<storm::logic::EventuallyFormula>>(m, "EventuallyFormula", "Formula for eventually", unaryPathFormula);
     py::class_<storm::logic::GloballyFormula, std::shared_ptr<storm::logic::GloballyFormula>>(m, "GloballyFormula", "Formula for globally", unaryPathFormula);
     py::class_<storm::logic::BinaryPathFormula, std::shared_ptr<storm::logic::BinaryPathFormula>> binaryPathFormula(m, "BinaryPathFormula", "Path formula with two operands", pathFormula);
