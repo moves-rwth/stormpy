@@ -15,6 +15,7 @@
 #include "storm/exceptions/InvalidTypeException.h"
 #include "storm/exceptions/InvalidStateException.h"
 #include "storm/exceptions/InvalidAccessException.h"
+#include <storm/utility/solver.h>
 
 
 using namespace storm::prism;
@@ -31,6 +32,7 @@ void define_prism(py::module& m) {
             .def_property_readonly("has_undefined_constants", &storm::prism::Program::hasUndefinedConstants, "Flag if program has undefined constants")
             .def_property_readonly("undefined_constants_are_graph_preserving", &storm::prism::Program::undefinedConstantsAreGraphPreserving, "Flag if the undefined constants do not change the graph structure")
             .def("substitute_constants", &Program::substituteConstants, "Substitute constants within program")
+            .def("substitute_formulas", &Program::substituteFormulas, "Substitute formulas within program")
             .def("define_constants", &Program::defineUndefinedConstants, "Define constants")
             .def("restrict_commands", &Program::restrictCommands, "Restrict commands")
             .def("simplify", &Program::simplify, "Simplify")
@@ -41,6 +43,7 @@ void define_prism(py::module& m) {
             .def_property_readonly("hasUndefinedConstants", &Program::hasUndefinedConstants, "Does the program have undefined constants?")
             .def_property_readonly("isDeterministicModel", &Program::isDeterministicModel, "Does the program describe a deterministic model?")
             .def_property_readonly("expression_manager", &Program::getManager, "Get the expression manager for expressions in this program")
+            .def("flatten", &Program::flattenModules, "Put program into a single module", py::arg("smt_factory")=std::shared_ptr<storm::utility::solver::SmtSolverFactory>(new storm::utility::solver::SmtSolverFactory()))
             .def("to_jani", [](storm::prism::Program const& program, std::vector<storm::jani::Property> const& properties, bool allVariablesGlobal, std::string suffix) {
                     return program.toJani(properties, allVariablesGlobal, suffix);
                 }, "Transform to Jani program", py::arg("properties"), py::arg("all_variables_global") = true, py::arg("suffix") = "")
@@ -49,6 +52,7 @@ void define_prism(py::module& m) {
             .def("get_label_expression", [](storm::prism::Program const& program, std::string const& label){
                 return program.getLabelExpression(label);
             }, "Get the expression of the given label.", py::arg("label"))
+            .def_property_readonly("labels", &Program::getLabels, "Get all labels in the program")
             ;
 
     py::class_<Module> module(m, "PrismModule", "A module in a Prism program");
@@ -84,7 +88,9 @@ void define_prism(py::module& m) {
             .def("__str__", &streamToString<Assignment>)
             ;
 
-
+    py::class_<Label> label(m, "PrismLabel", "A label in prism");
+    label.def_property_readonly("name", &Label::getName);
+    label.def_property_readonly("expression", &Label::getStatePredicateExpression);
 
     // PrismType
     py::enum_<storm::prism::Program::ModelType>(m, "PrismModelType", "Type of the prism model")
@@ -96,7 +102,6 @@ void define_prism(py::module& m) {
             .value("UNDEFINED", storm::prism::Program::ModelType::UNDEFINED)
             ;
 
-
     py::class_<Constant, std::shared_ptr<Constant>> constant(m, "PrismConstant", "A constant in a Prism program");
     constant.def_property_readonly("name", &Constant::getName, "Constant name")
             .def_property_readonly("defined", &Constant::isDefined, "Is the constant defined?")
@@ -104,8 +109,6 @@ void define_prism(py::module& m) {
             .def_property_readonly("expression_variable", &Constant::getExpressionVariable, "Expression variable")
             .def_property_readonly("definition", &Constant::getExpression, "Defining expression")
             ;
-
-
 
     py::class_<Variable, std::shared_ptr<Variable>> variable(m, "PrismVariable", "A program variable in a Prism program");
     variable.def_property_readonly("name", &Variable::getName, "Variable name")
