@@ -76,9 +76,9 @@ class TestSparseModelComponents:
 
 
         for s in range(7):
-            v_builder.add_state(state=s,boolean_values=[],integer_values=[s,0],rational_values=[])
+            v_builder.add_state(state=s,integer_values=[s,0])
         for s in range(7,13):
-            v_builder.add_state(state=s,boolean_values=[],integer_values=[7,s-6],rational_values=[])
+            v_builder.add_state(state=s,integer_values=[7,s-6])
 
         state_valuations = v_builder.build(13)
 
