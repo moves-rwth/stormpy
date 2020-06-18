@@ -143,11 +143,15 @@ class SparseSimulator(Simulator):
 
     def _report_result(self):
         if self._full_observe:
-            return self._report_state()
+            return self._report_state(),  self._report_rewards()
         else:
-            return self._report_observation()
+            return self._report_observation(),  self._report_rewards()
+
+    def _report_rewards(self):
+        return self._engine.get_last_reward()
 
     def step(self, action=None):
+
         if action is None:
             if self._model.is_nondeterministic_model and self.nr_available_actions() > 1:
                 raise RuntimeError("Must specify an action in nondeterministic models.")

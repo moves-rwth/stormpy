@@ -16,13 +16,12 @@ def example_simulator_01():
     final_outcomes = dict()
     for n in range(1000):
         while not simulator.is_done():
-            observation = simulator.step()
+            observation, reward = simulator.step()
         if observation not in final_outcomes:
             final_outcomes[observation] = 1
         else:
             final_outcomes[observation] += 1
         simulator.restart()
-    print(final_outcomes)
 
     options = stormpy.BuilderOptions([])
     options.set_build_state_valuations()
@@ -32,7 +31,7 @@ def example_simulator_01():
     final_outcomes = dict()
     for n in range(1000):
         while not simulator.is_done():
-            observation = simulator.step()
+            observation, reward = simulator.step()
         if observation not in final_outcomes:
             final_outcomes[observation] = 1
         else:
