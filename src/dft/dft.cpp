@@ -7,6 +7,7 @@
 
 
 template<typename ValueType> using DFT = storm::storage::DFT<ValueType>;
+template<typename ValueType> using DFTElement = storm::storage::DFTElement<ValueType>;
 
 
 void define_dft(py::module& m) {
@@ -16,6 +17,18 @@ void define_dft(py::module& m) {
             storm::settings::addModule<storm::settings::modules::DftIOSettings>();
         }, "Initialize Storm-dft");
 
+    // DFT element
+    py::class_<DFTElement<double>, std::shared_ptr<DFTElement<double>>>(m, "DFTElement", "DFT element")
+        .def_property_readonly("id", &DFTElement<double>::id, "Id")
+        .def_property_readonly("name", &DFTElement<double>::name, "Name")
+        .def("__str__", &DFTElement<double>::toString)
+    ;
+
+    py::class_<DFTElement<storm::RationalFunction>, std::shared_ptr<DFTElement<storm::RationalFunction>>>(m, "ParametricDFTElement", "Parametric DFT element")
+        .def_property_readonly("id", &DFTElement<storm::RationalFunction>::id, "Id")
+        .def_property_readonly("name", &DFTElement<storm::RationalFunction>::name, "Name")
+        .def("__str__", &DFTElement<storm::RationalFunction>::toString)
+    ;
 
     // DFT class
     py::class_<DFT<double>, std::shared_ptr<DFT<double>>>(m, "DFT", "Dynamic Fault Tree")
@@ -24,6 +37,11 @@ void define_dft(py::module& m) {
         .def("nr_dynamic", &DFT<double>::nrDynamicElements, "Number of dynamic elements")
         .def("can_have_nondeterminism", &DFT<double>::canHaveNondeterminism, "Whether the model can contain non-deterministic choices")
         .def("__str__", &DFT<double>::getInfoString)
+        .def_property_readonly("top_level_element", [](DFT<double>& dft) {
+                return dft.getElement(dft.getTopLevelIndex());
+            }, "Get top level element")
+        .def("get_element", &DFT<double>::getElement, "Get DFT element at index", py::arg("index"))
+        .def("modularisation", &DFT<double>::topModularisation, "Split DFT into independent modules")
     ;
 
     py::class_<DFT<storm::RationalFunction>, std::shared_ptr<DFT<storm::RationalFunction>>>(m, "ParametricDFT", "Parametric DFT")
@@ -32,6 +50,11 @@ void define_dft(py::module& m) {
         .def("nr_dynamic", &DFT<storm::RationalFunction>::nrDynamicElements, "Number of dynamic elements")
         .def("can_have_nondeterminism", &DFT<storm::RationalFunction>::canHaveNondeterminism, "Whether the model can contain non-deterministic choices")
         .def("__str__", &DFT<storm::RationalFunction>::getInfoString)
+        .def_property_readonly("top_level_element", [](DFT<storm::RationalFunction>& dft) {
+                return dft.getElement(dft.getTopLevelIndex());
+            }, "Get top level element")
+        .def("get_element", &DFT<storm::RationalFunction>::getElement, "Get DFT element at index", py::arg("index"))
+        .def("modularisation", &DFT<storm::RationalFunction>::topModularisation, "Split DFT into independent modules")
     ;
 
 }
