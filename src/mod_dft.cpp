@@ -13,6 +13,7 @@ PYBIND11_MODULE(dft, m) {
 #endif
 
     define_dft(m);
+    define_symmetries(m);
     define_input(m);
     define_output(m);
     define_analysis(m);

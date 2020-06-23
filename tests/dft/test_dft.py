@@ -30,3 +30,29 @@ class TestDftElement:
         assert dft.nr_dynamic() == 0
         assert tle.id == 2
         assert tle.name == "A"
+
+@dft
+class TestDftSymmetries:
+    def test_symmetries_small(self):
+        dft = stormpy.dft.load_dft_json_file(get_example_path("dft", "and.json"))
+        symmetries = dft.symmetries()
+        assert len(symmetries.groups) == 1
+        for index, group in symmetries.groups.items():
+            assert len(group) == 1
+            for syms in group:
+                assert len(syms) == 2
+                for elem in syms:
+                    assert elem == 0 or elem == 1
+
+    def test_symmetries(self):
+        dft = stormpy.dft.load_dft_galileo_file(get_example_path("dft", "rc.dft"))
+        symmetries = dft.symmetries()
+        assert len(symmetries.groups) == 1
+        for index, group in symmetries.groups.items():
+            assert len(group) == 3
+            i = 4
+            for syms in group:
+                assert len(syms) == 2
+                for elem in syms:
+                    assert elem == i or elem == i+3
+                i += 1

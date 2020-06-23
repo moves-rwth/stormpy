@@ -4,10 +4,12 @@
 #include "storm/settings/SettingsManager.h"
 #include "storm-dft/settings/modules/FaultTreeSettings.h"
 #include "storm-dft/settings/modules/DftIOSettings.h"
+#include "storm-dft/storage/dft/DFTIsomorphism.h"
 
 
 template<typename ValueType> using DFT = storm::storage::DFT<ValueType>;
 template<typename ValueType> using DFTElement = storm::storage::DFTElement<ValueType>;
+using DFTSymmetries = storm::storage::DFTIndependentSymmetries;
 
 
 void define_dft(py::module& m) {
@@ -42,6 +44,9 @@ void define_dft(py::module& m) {
             }, "Get top level element")
         .def("get_element", &DFT<double>::getElement, "Get DFT element at index", py::arg("index"))
         .def("modularisation", &DFT<double>::topModularisation, "Split DFT into independent modules")
+        .def("symmetries", [](DFT<double>& dft) {
+                return dft.findSymmetries(dft.colourDFT());
+            }, "Compute symmetries in DFT")
     ;
 
     py::class_<DFT<storm::RationalFunction>, std::shared_ptr<DFT<storm::RationalFunction>>>(m, "ParametricDFT", "Parametric DFT")
@@ -55,6 +60,18 @@ void define_dft(py::module& m) {
             }, "Get top level element")
         .def("get_element", &DFT<storm::RationalFunction>::getElement, "Get DFT element at index", py::arg("index"))
         .def("modularisation", &DFT<storm::RationalFunction>::topModularisation, "Split DFT into independent modules")
+        .def("symmetries", [](DFT<storm::RationalFunction>& dft) {
+                return dft.findSymmetries(dft.colourDFT());
+            }, "Compute symmetries in DFT")
     ;
 
+}
+
+
+void define_symmetries(py::module& m) {
+
+    py::class_<DFTSymmetries, std::shared_ptr<DFTSymmetries>>(m, "DFTSymmetries", "Symmetries in DFT")
+        .def_readonly("groups", &DFTSymmetries::groups, "Symmetry groups")
+        .def("__str__", &streamToString<DFTSymmetries>)
+    ;
 }
