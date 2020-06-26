@@ -16,8 +16,6 @@ class TestSparseModelComponents:
         assert components.player1_matrix is None
         assert not components.rate_transitions
 
-    # todo: ctmc
-    # todo: ma
     # todo mdp
     # todo pomdp?
 
@@ -253,12 +251,12 @@ class TestSparseModelComponents:
         assert ctmc.nr_choices == nr_choices
         assert ctmc.nr_states == nr_states
         assert ctmc.nr_transitions == 22
-        assert ctmc.transition_matrix.nr_columns == nr_choices
-        assert ctmc.transition_matrix.nr_rows == nr_states
+        assert ctmc.transition_matrix.nr_columns == nr_states
+        assert ctmc.transition_matrix.nr_rows == nr_choices
         for e in ctmc.transition_matrix:
             assert e.value() == 0.5 or e.value() == 0 or e.value() == 200 or e.value() == 1.0
         for state in ctmc.states:
-            assert len(state.actions) <= 3
+            assert len(state.actions) <= 1
 
         # Test state_labeling
         assert ctmc.labeling.get_labels() == {'target', 'init', 'deadlock'}
@@ -267,13 +265,15 @@ class TestSparseModelComponents:
         assert len(ctmc.reward_models) == 2
         assert not ctmc.reward_models["served"].has_state_rewards
         assert ctmc.reward_models["served"].has_state_action_rewards
-        assert ctmc.reward_models["served"].state_action_rewards == [0.0, 0.0, 0.0, 0.0, 0.0, 0.6666666666666666, 0.0, 0.0, 1.0, 0.0,
+        assert ctmc.reward_models["served"].state_action_rewards == [0.0, 0.0, 0.0, 0.0, 0.0, 0.6666666666666666, 0.0,
+                                                                     0.0, 1.0, 0.0,
                                                                      0.0, 0.0]
         assert not ctmc.reward_models["served"].has_transition_rewards
 
         assert ctmc.reward_models["waiting"].has_state_rewards
         assert not ctmc.reward_models["waiting"].has_state_action_rewards
-        assert ctmc.reward_models["waiting"].state_rewards == [0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0]
+        assert ctmc.reward_models["waiting"].state_rewards == [0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0,
+                                                               1.0]
         assert not ctmc.reward_models["waiting"].has_transition_rewards
 
         # Test choice_labeling
@@ -292,10 +292,10 @@ class TestSparseModelComponents:
             value_a[s] = ctmc.state_valuations.get_integer_value(s, var_a)
             value_s1[s] = ctmc.state_valuations.get_integer_value(s, var_s1)
             value_s2[s] = ctmc.state_valuations.get_integer_value(s, var_s2)
-        assert value_s == [1,1,1,2,1,1,2,2,1,2,2,2]
-        assert value_a == [0,0,0,0,0,1,0,0,1,0,1,1]
-        assert value_s1 == [0,1,0,0,1,1,0,1,1,1,0,1]
-        assert value_s2 == [0,0,1,0,1,0,1,0,1,1,1,1]
+        assert value_s == [1, 1, 1, 2, 1, 1, 2, 2, 1, 2, 2, 2]
+        assert value_a == [0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 1]
+        assert value_s1 == [0, 1, 0, 0, 1, 1, 0, 1, 1, 1, 0, 1]
+        assert value_s2 == [0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1]
 
         # Test choice_origins
         assert not ctmc.has_choice_origins()
@@ -303,3 +303,154 @@ class TestSparseModelComponents:
         # Test exit_rates
         assert ctmc.exit_rates == [201.0, 200.5, 200.5, 201.0, 200.0, 1.5, 200.5, 200.5, 1.0, 200.0, 1.5, 1.0]
 
+    def test_build_ma_from_model_components(self):
+        nr_states = 5
+        nr_choices = 10
+
+        # Build transition_matrix
+        builder = stormpy.SparseMatrixBuilder(rows=0, columns=0, entries=0, force_dimensions=False,
+                                              has_custom_row_grouping=True, row_groups=0)
+
+        # Row group, state 0
+        builder.new_row_group(0)
+        # Add Transition for (state) 0 to target states
+        builder.add_next_value(0, 2, 1)
+        builder.add_next_value(1, 2, 1)
+        builder.add_next_value(2, 0, 0.8)
+        builder.add_next_value(2, 1, 0.2)
+
+        # Row group, state 1
+        builder.new_row_group(3)
+        # New Transition (state) 1 to target state
+        builder.add_next_value(3, 3, 1)
+
+        # Row group, state 2
+        builder.new_row_group(4)
+        # New Transition (state) 1 to target state
+        builder.add_next_value(4, 0, 0.9)
+        builder.add_next_value(4, 4, 0.1)
+
+        # Row group, state 3
+        builder.new_row_group(5)
+        # New Transition (state) 1 to target state
+        builder.add_next_value(5, 4, 1)
+        builder.add_next_value(6, 3, 1)
+
+        # Row group, state 4
+        builder.new_row_group(7)
+        # New Transition (state) 1 to target state
+        builder.add_next_value(7, 3, 0.5)
+        builder.add_next_value(7, 4, 0.5)
+        builder.add_next_value(8, 3, 1)
+        builder.add_next_value(9, 4, 1)
+
+        transition_matrix = builder.build(nr_choices, nr_states)
+
+        # state_labeling
+        state_labeling = stormpy.storage.StateLabeling(nr_states)
+        # Add labels
+        state_labels = {'init', 'deadlock'}
+        for label in state_labels:
+            state_labeling.add_label(label)
+
+        # Add label to states
+        state_labeling.add_label_to_state('init', 0)
+
+        # state_valuations
+        manager = stormpy.ExpressionManager()
+        var_s = manager.create_integer_variable(name='s')
+        v_builder = stormpy.StateValuationsBuilder()
+        v_builder.add_variable(var_s)
+
+        v_builder.add_state(state=0, boolean_values=[], integer_values=[0], rational_values=[])
+        v_builder.add_state(state=1, boolean_values=[], integer_values=[2], rational_values=[])
+        v_builder.add_state(state=2, boolean_values=[], integer_values=[1], rational_values=[])
+        v_builder.add_state(state=3, boolean_values=[], integer_values=[4], rational_values=[])
+        v_builder.add_state(state=4, boolean_values=[], integer_values=[3], rational_values=[])
+
+        state_valuations = v_builder.build(nr_states)
+
+        # choice origins:
+        prism_program = stormpy.parse_prism_program(get_example_path("ma", "hybrid_states.ma"))
+        index_to_identifier_mapping = [1, 2, 3, 4, 5, 6, 7, 8, 9,
+                                       10]
+        id_to_command_set_mapping = [stormpy.FlatSet() for _ in range(11)]
+
+        id_to_command_set_mapping[1].insert(2)
+        id_to_command_set_mapping[2].insert(1)
+        id_to_command_set_mapping[3].insert(0)
+        id_to_command_set_mapping[4].insert(4)
+        id_to_command_set_mapping[5].insert(3)
+        id_to_command_set_mapping[6].insert(9)
+        id_to_command_set_mapping[7].insert(8)
+        id_to_command_set_mapping[8].insert(7)
+        id_to_command_set_mapping[9].insert(6)
+        id_to_command_set_mapping[10].insert(5)
+
+        choice_origins = stormpy.PrismChoiceOrigins(prism_program, index_to_identifier_mapping,
+                                                    id_to_command_set_mapping)
+
+        exit_rates = [3.0, 12.0, 10.0, 3.0, 4.0]
+
+        markovian_states = stormpy.BitVector(5, [0, 1, 2, 3, 4])
+
+        # Build components, set rate_transitions to False
+        components = stormpy.SparseModelComponents(transition_matrix=transition_matrix, state_labeling=state_labeling,
+                                                   rate_transitions=False, markovian_states=markovian_states)
+        components.state_valuations = state_valuations
+        components.choice_origins = choice_origins
+        components.exit_rates = exit_rates
+
+        ma = stormpy.storage.SparseMA(components)
+        assert type(ma) is stormpy.SparseMA
+        assert not ma.supports_parameters
+
+        # Test transition matrix
+        assert ma.nr_choices == nr_choices
+        assert ma.nr_states == nr_states
+        assert ma.nr_transitions == 13
+        assert ma.transition_matrix.nr_columns == nr_states
+        assert ma.transition_matrix.nr_rows == nr_choices
+        # Check row groups
+        assert ma.transition_matrix.get_row_group_start(0) == 0
+        assert ma.transition_matrix.get_row_group_end(0) == 3
+        assert ma.transition_matrix.get_row_group_start(1) == 3
+        assert ma.transition_matrix.get_row_group_end(1) == 4
+        assert ma.transition_matrix.get_row_group_start(2) == 4
+        assert ma.transition_matrix.get_row_group_end(2) == 5
+        assert ma.transition_matrix.get_row_group_start(3) == 5
+        assert ma.transition_matrix.get_row_group_end(3) == 7
+        assert ma.transition_matrix.get_row_group_start(4) == 7
+        assert ma.transition_matrix.get_row_group_end(4) == 10
+
+        for e in ma.transition_matrix:
+            assert e.value() == 1.0 or e.value() == 0 or e.value() == 0.8 or e.value() == 0.2 or e.value() == 0.1 or e.value() == 0.5 or e.value() == 0.9
+        for state in ma.states:
+            assert len(state.actions) <= 3
+
+        # Test state_labeling
+        assert ma.labeling.get_labels() == {'deadlock', 'init'}
+
+        # Test reward_models
+        assert len(ma.reward_models) == 0
+
+        # Test choice_labeling
+        assert not ma.has_choice_labeling()
+
+        # Test state_valuations
+        assert ma.has_state_valuations()
+
+        value_s = [None] * nr_states
+        for s in range(0, ma.nr_states):
+            value_s[s] = ma.state_valuations.get_integer_value(s, var_s)
+        assert value_s == [0, 2, 1, 4, 3]
+
+        # Test choice_origins
+        assert ma.has_choice_origins()
+        assert ma.choice_origins.get_number_of_identifiers() == 11
+
+        # Test exit_rates
+        assert ma.exit_rates == [3.0, 12.0, 10.0, 3.0, 4.0]
+
+        # Test markovian states
+        assert ma.markovian_states == stormpy.BitVector(5, [0, 1, 2, 3, 4])
