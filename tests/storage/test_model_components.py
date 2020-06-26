@@ -16,8 +16,14 @@ class TestSparseModelComponents:
         assert components.player1_matrix is None
         assert not components.rate_transitions
 
+    # todo: ctmc
+    # todo: ma
+    # todo mdp
+    # todo pomdp?
+
     def test_build_dtmc_from_model_components(self):
         nr_states = 13
+        nr_choices = 13
 
         # TransitionMatrix
         builder = stormpy.SparseMatrixBuilder(rows=0, columns=0, entries=0, force_dimensions=False,
@@ -45,8 +51,8 @@ class TestSparseModelComponents:
 
         # StateLabeling
         state_labeling = stormpy.storage.StateLabeling(nr_states)
-        labels = {'init', 'one', 'two', 'three', 'four', 'five', 'six', 'done', 'deadlock'}
-        for label in labels:
+        state_labels = {'init', 'one', 'two', 'three', 'four', 'five', 'six', 'done', 'deadlock'}
+        for label in state_labels:
             state_labeling.add_label(label)
         # Add label to one state
         state_labeling.add_label_to_state('init', 0)
@@ -65,8 +71,8 @@ class TestSparseModelComponents:
         action_reward = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
         reward_models['coin_flips'] = stormpy.SparseRewardModel(optional_state_action_reward_vector=action_reward)
 
-        # todo state valuations
-        manager = stormpy.ExpressionManager() # todo correct?
+        # StateValuations
+        manager = stormpy.ExpressionManager()
         var_s = manager.create_integer_variable(name='s')
         var_d = manager.create_integer_variable(name='d')
         v_builder = stormpy.StateValuationsBuilder()
@@ -74,11 +80,10 @@ class TestSparseModelComponents:
         v_builder.add_variable(var_s)
         v_builder.add_variable(var_d)
 
-
         for s in range(7):
-            v_builder.add_state(state=s,integer_values=[s,0])
-        for s in range(7,13):
-            v_builder.add_state(state=s,integer_values=[7,s-6])
+            v_builder.add_state(state=s, integer_values=[s, 0])
+        for s in range(7, 13):
+            v_builder.add_state(state=s, integer_values=[7, s - 6])
 
         state_valuations = v_builder.build(13)
 
@@ -88,8 +93,7 @@ class TestSparseModelComponents:
         id_to_command_set_mapping = [stormpy.FlatSet() for _ in range(9)]
         for i in range(1, 8):  # 0: no origin
             id_to_command_set_mapping[i].insert(i - 1)
-        for i in range(8, 14):
-            id_to_command_set_mapping[8].insert(7)
+        id_to_command_set_mapping[8].insert(7)
         #
         choice_origins = stormpy.PrismChoiceOrigins(prism_program, index_to_identifier_mapping,
                                                     id_to_command_set_mapping)
@@ -106,8 +110,8 @@ class TestSparseModelComponents:
         assert not dtmc.supports_parameters
 
         # test transition matrix
-        assert dtmc.nr_choices == 13
-        assert dtmc.nr_states == 13
+        assert dtmc.nr_choices == nr_choices
+        assert dtmc.nr_states == nr_states
         assert dtmc.nr_transitions == 20
         assert dtmc.transition_matrix.nr_entries == dtmc.nr_transitions
         for e in dtmc.transition_matrix:
@@ -126,10 +130,21 @@ class TestSparseModelComponents:
             assert reward == 1.0 or reward == 0.0
         assert not dtmc.reward_models["coin_flips"].has_transition_rewards
 
-        # choice_labeling
+        # test choice_labeling
         assert not dtmc.has_choice_labeling()
-        # todo state_valuations
-        assert dtmc.has_state_valuations() # todo  more tests
-        # todo choice_origins
-        assert dtmc.has_choice_origins() #todo more tests
+
+        # test state_valuations
+        assert dtmc.has_state_valuations()
+        assert dtmc.state_valuations
+        value_s = [None] * nr_states
+        value_d = [None] * nr_states
+        for s in range(0, dtmc.nr_states):
+            value_s[s] = dtmc.state_valuations.get_integer_value(s, var_s)
+            value_d[s] = dtmc.state_valuations.get_integer_value(s, var_d)
+        assert value_s == [0, 1, 2, 3, 4, 5, 6, 7, 7, 7, 7, 7, 7]
+        assert value_d == [0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6]
+
+        # todo choice_origins more tests
+        assert dtmc.has_choice_origins()
         assert dtmc.choice_origins is components.choice_origins
+        assert dtmc.choice_origins.get_number_of_identifiers() == 9

@@ -221,14 +221,14 @@ void define_sparse_model(py::module& m) {
     py::class_<SparseCtmc<double>, std::shared_ptr<SparseCtmc<double>>>(m, "SparseCtmc", "CTMC in sparse representation", model)
         .def(py::init<SparseCtmc<double>>(), py::arg("other_model"))
         .def(py::init<ModelComponents<double> const&>(), py::arg("components"))
-        .def_property_readonly("exit_rates", [](SparseCtmc<double> const& ctmc) { return ctmc.getExitRateVector(); }) //todo new: tests
+        .def_property_readonly("exit_rates", [](SparseCtmc<double> const& ctmc) { return ctmc.getExitRateVector(); })
         .def("__str__", &getModelInfoPrinter)
     ;
     py::class_<SparseMarkovAutomaton<double>, std::shared_ptr<SparseMarkovAutomaton<double>>>(m, "SparseMA", "MA in sparse representation", model)
         .def(py::init<SparseMarkovAutomaton<double>>(), py::arg("other_model"))
         .def(py::init<ModelComponents<double> const&>(), py::arg("components"))
         .def_property_readonly("exit_rates", [](SparseMarkovAutomaton<double> const& ma) { return ma.getExitRates(); })
-        .def_property_readonly("markovian_states", [](SparseMarkovAutomaton<double> const& ma) { return ma.getMarkovianStates(); }) //todo new: tests
+        .def_property_readonly("markovian_states", [](SparseMarkovAutomaton<double> const& ma) { return ma.getMarkovianStates(); })
         .def_property_readonly("nondeterministic_choice_indices", [](SparseMarkovAutomaton<double> const& ma) { return ma.getNondeterministicChoiceIndices(); })
         .def("apply_scheduler", [](SparseMarkovAutomaton<double> const& ma, storm::storage::Scheduler<double> const& scheduler, bool dropUnreachableStates) { return ma.applyScheduler(scheduler, dropUnreachableStates); } , "apply scheduler", "scheduler"_a, "drop_unreachable_states"_a = true)
         .def("__str__", &getModelInfoPrinter)
@@ -239,7 +239,7 @@ void define_sparse_model(py::module& m) {
     py::class_<SparseRewardModel<double>>(m, "SparseRewardModel", "Reward structure for sparse models")
         .def(py::init<boost::optional<std::vector<double>> const&, boost::optional<std::vector<double>> const&,
                 boost::optional<storm::storage::SparseMatrix<double>> const&>(), py::arg("optional_state_reward_vector") = boost::none,
-                py::arg("optional_state_action_reward_vector") = boost::none,  py::arg("optional_transition_reward_matrix") = boost::none) // todo tests
+                py::arg("optional_state_action_reward_vector") = boost::none,  py::arg("optional_transition_reward_matrix") = boost::none)
         .def_property_readonly("has_state_rewards", &SparseRewardModel<double>::hasStateRewards)
         .def_property_readonly("has_state_action_rewards", &SparseRewardModel<double>::hasStateActionRewards)
         .def_property_readonly("has_transition_rewards", &SparseRewardModel<double>::hasTransitionRewards)
