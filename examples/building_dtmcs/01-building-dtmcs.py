@@ -1,5 +1,4 @@
 import stormpy
-import numpy as np
 
 
 def example_building_dtmcs_01():
