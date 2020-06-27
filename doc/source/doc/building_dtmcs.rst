@@ -1,6 +1,6 @@
-**********************************
+************************************
 Discrete-time Markov chains (DTMCs)
-**********************************
+************************************
 
 
 Background
@@ -11,7 +11,7 @@ Storm can be used to translate a model description e.g. in form of a prism file 
 Here, we use Stormpy to create the single components, to build a DTMC without parsing a model description.
 We consider the previous example of the die.
 
-.. seealso:: `01-building-dtmcs.py <todo/02-gspns.py/examples/building_dtmcs/01-building-dtmcs.py>`
+.. seealso:: `01-building-dtmcs.py <todo /examples/building_dtmcs/01-building-dtmcs.py>`
 
 In the following we create transition matrix, the state labeling and the reward models of a DTMC.
 First, we import stormpy::
@@ -52,7 +52,7 @@ All transitions are equipped with a probability defined by the value::
 Lastly, we add a self-loop with probability one to the final states::
 
     >>> for s in range(7,13):
-    >>>     builder.add_next_value(s, s, 1)
+    ...    builder.add_next_value(s, s, 1)
 
 
 Finally, we can build the matrix with updated row and columns count that both coincide with the number of states::
@@ -73,7 +73,7 @@ In order to specify the state labeling we create an empty labeling for the given
 
     >>> labels = {'init', 'one', 'two', 'three', 'four', 'five', 'six', 'done', 'deadlock'}
     >>> for label in labels:
-    >>>     state_labeling.add_label(label)
+    ...     state_labeling.add_label(label)
 
 Next, we set teh associations between the labels and the respective states.::
 

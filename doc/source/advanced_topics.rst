@@ -11,6 +11,9 @@ This guide is a collection of examples meant to bridge the gap between the getti
     doc/analysis
     doc/building_models
     doc/building_dtmcs
+    doc/building_ctmcs
+    doc/building_mas
+    doc/building_mdps
     doc/engines
     doc/exploration
     doc/reward_models
