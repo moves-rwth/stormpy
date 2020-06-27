@@ -10,6 +10,7 @@ This guide is a collection of examples meant to bridge the gap between the getti
 
     doc/analysis
     doc/building_models
+    doc/building_dtmcs
     doc/engines
     doc/exploration
     doc/reward_models
