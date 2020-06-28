@@ -30,23 +30,22 @@ In this example, we build the transition matrix using a numpy array::
 The following function call returns a sparse matrix with default row groups::
 
     >>> transition_matrix = stormpy.build_sparse_matrix(transitions)
-    >>> print(transition_matrix)<
-
+    >>> print(transition_matrix)
             0	1	2	3
         ---- group 0/3 ----
-    0	(	0	1.5	0	0		)	0
+    0	(	0	1.5	0	0	)	0
         ---- group 1/3 ----
-    1	(	3	0	1.5	0		)	1
+    1	(	3	0	1.5	0	)	1
         ---- group 2/3 ----
-    2	(	0	3	0	1.5		)	2
+    2	(	0	3	0	1.5	)	2
         ---- group 3/3 ----
-    3	(	0	0	3	0		)	3
+    3	(	0	0	3	0	)	3
             0	1	2	3
 
 
 Labeling
 ================
-The state labeling is created analogously to the previous example::
+The state labeling is created analogously to the previous example in :doc:`building_dtmcs`::
 
     >>> state_labeling = stormpy.storage.StateLabeling(4)
     >>> state_labels = {'empty', 'init', 'deadlock', 'full'}
@@ -58,7 +57,7 @@ The state labeling is created analogously to the previous example::
 
 Exit Rates
 ====================
-Lastly, we equip every state with an exit rate::
+Lastly, we initialize a list to equip every state with an exit rate::
 
     >>> exit_rates = [1.5, 4.5, 4.5, 3.0]
 

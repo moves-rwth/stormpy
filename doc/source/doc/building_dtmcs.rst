@@ -9,29 +9,30 @@ As described in :doc:`../getting_started`,
 Storm can be used to translate a model description e.g. in form of a prism file into a Markov chain.
 
 Here, we use Stormpy to create the single components, to build a DTMC without parsing a model description.
-We consider the previous example of the die.
+We consider the previous example of the dice.
 
 .. seealso:: `01-building-dtmcs.py <todo /examples/building_dtmcs/01-building-dtmcs.py>`
 
-In the following we create transition matrix, the state labeling and the reward models of a DTMC.
+In the following we create the transition matrix, the state labeling and the reward models of a DTMC.
 First, we import stormpy::
 
->>>	import stormpy
+    >>>	import stormpy
 
 Transition Matrix
 =====================
 We begin by creating the matrix representing the transitions in the model in terms of probabilities.
 For constructing the transition matrix, we use the SparseMatrixBuilder::
 
->>> builder = stormpy.SparseMatrixBuilder(rows = 0, columns = 0, entries = 0, force_dimensions = False, has_custom_row_grouping = False)
+    >>> builder = stormpy.SparseMatrixBuilder(rows = 0, columns = 0, entries = 0, force_dimensions = False, has_custom_row_grouping = False)
 
 Here, we start with an empty matrix to later insert more entries.
 If the number of rows, columns and entries is known, the matrix can be constructed using these values.
 
 For DTMCs each state has at most one outgoing probability distribution.
-Thus, we create matrix with trivial row grouping where each group contains one row representing the state action.
+Thus, we create a matrix with trivial row grouping where each group contains one row representing the state action.
+In :doc:`building_mdps` we will revisit the example of the die, but extend the model with nondeterministic choice.
 
-We specify the transitions of the model, by adding values to the matrix where the column represents the target state.
+We specify the transitions of the model by adding values to the matrix where the column represents the target state.
 All transitions are equipped with a probability defined by the value::
 
     >>> builder.add_next_value(row = 0, column = 1, value = 0.5)
@@ -55,12 +56,12 @@ Lastly, we add a self-loop with probability one to the final states::
     ...    builder.add_next_value(s, s, 1)
 
 
-Finally, we can build the matrix with updated row and columns count that both coincide with the number of states::
+Finally, we can build the matrix::
 
-    >>> transition_matrix = builder.build(13, 13)
+    >>> transition_matrix = builder.build()
 
 It should be noted that entries can only be inserted in ascending order, i.e. row by row and column by column.
-Stormpy provides the possibility to build a sparse matrix using the numpy library <https://numpy.org/>
+Stormpy provides the possibility to build a sparse matrix using the numpy library (https://numpy.org/ )
 Instead of using the SparseMatrixBuilder, a sparse matrix can be build from a numpy array via the method stormpy.build_sparse_matrix.
 
 Labeling
@@ -77,9 +78,11 @@ In order to specify the state labeling we create an empty labeling for the given
 
 
 Labels can be asociated with states. As an example, we label the state 0 with 'init'::
+
     >>> state_labeling.add_label_to_state('init', 0)
     >>> print(state_labeling.get_states('init'))
     bit vector(1/13) [0]
+
 Next, we set the associations between the remaining labels and states.::
 
     >>> state_labeling.add_label_to_state('one', 7)

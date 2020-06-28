@@ -27,7 +27,7 @@ def example_building_dtmcs_01():
         builder.add_next_value(s, s, 1)
 
     # Build matrix
-    transition_matrix = builder.build(13, 13)
+    transition_matrix = builder.build()
     print(transition_matrix)
 
     # State labeling
@@ -38,10 +38,11 @@ def example_building_dtmcs_01():
     for label in labels:
         state_labeling.add_label(label)
 
-    # Set label to state
+    # Set label of state 0
     state_labeling.add_label_to_state('init', 0)
     print(state_labeling.get_states('init'))
 
+    # Set remaining labels
     state_labeling.add_label_to_state('one', 7)
     state_labeling.add_label_to_state('two', 8)
     state_labeling.add_label_to_state('three', 9)
