@@ -75,9 +75,13 @@ In order to specify the state labeling we create an empty labeling for the given
     >>> for label in labels:
     ...     state_labeling.add_label(label)
 
-Next, we set teh associations between the labels and the respective states.::
 
+Labels can be asociated with states. As an example, we label the state 0 with 'init'::
     >>> state_labeling.add_label_to_state('init', 0)
+    >>> print(state_labeling.get_states('init'))
+    bit vector(1/13) [0]
+Next, we set the associations between the remaining labels and states.::
+
     >>> state_labeling.add_label_to_state('one', 7)
     >>> state_labeling.add_label_to_state('two', 8)
     >>> state_labeling.add_label_to_state('three', 9)
@@ -88,8 +92,19 @@ Next, we set teh associations between the labels and the respective states.::
 To set the same label for multiple states, we can use a BitVector representation for the set of states::
 
     >>> state_labeling.set_states('done', stormpy.BitVector(13, [7, 8, 9, 10, 11, 12]))
+    >>> print(state_labeling)
+    9 labels
+       * one -> 1 item(s)
+       * four -> 1 item(s)
+       * done -> 6 item(s)
+       * three -> 1 item(s)
+       * init -> 1 item(s)
+       * two -> 1 item(s)
+       * six -> 1 item(s)
+       * deadlock -> 0 item(s)
+       * five -> 1 item(s)
 
-In addition, it is possible to define a choice labeling, which is described in :doc:`building_ctmcs`.
+Defining a choice labeling is possible in a similar way.
 
 Reward Models
 ====================
