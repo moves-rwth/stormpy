@@ -7,7 +7,9 @@ Background
 =====================
 
 We already saw the process of building CTMCs with MDPs via Stormpy in :doc:`building_ctmcs` and :doc:`building_mdps`.
-In this section, we build a small Markarov automata with five states from which the first four are markovian.
+Markov automata use states that are probabilistic i.e. like the states of an MDP or markovian that are like the states of a CTMC.
+
+In this section, we build a small MA with five states from which the first four are markovian.
 Since we covered labeling and exit rates already in the previous examples we omit the description of these components.
 The full example can be found here:
 
@@ -20,7 +22,7 @@ First, we import Stormpy::
 Transition Matrix
 ==================
 In :doc:`building_mdps`, we used the SparseMatrixBuilder to create a matrix with a custom row grouping.
-In this example, we use the numpy library:
+In this example, we use the numpy library.
 
 In the beginning, we create a numpy array that will be used to build the transition matrix of our model.::
 
@@ -55,8 +57,8 @@ When building the matrix we define a custom row grouping by passing a list conta
 
 Markovian States
 ==================
-Feature of MA: Markovian states.
-Those are represented by a BitVector that containing the respective states::
+In order to define which states have only one probability distribution over the successor states,
+we build a BitVector that contains the respective markovian states::
 
     >>> markovian_states =  stormpy.BitVector(5, [1, 2, 3, 4])
 

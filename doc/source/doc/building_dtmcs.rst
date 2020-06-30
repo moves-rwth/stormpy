@@ -67,7 +67,7 @@ Instead of using the SparseMatrixBuilder, a sparse matrix can be build from a nu
 Labeling
 ====================
 
-States can be labelled with sets of propositions, for example state 0 can be labelled with 'init'.
+States can be labeled with sets of propositions, for example state 0 can be labeled with 'init'.
 In order to specify the state labeling we create an empty labeling for the given number of states and add the labels to the labeling::
 
     >>> state_labeling = stormpy.storage.StateLabeling(13)

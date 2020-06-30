@@ -16,7 +16,7 @@ First, we import Stormpy::
 
 Transition Matrix
 =====================
-Since we want build a nondeterminstic model, we create a transition matrix with a custom row group for each state::
+Since we want to build a nondeterminstic model, we create a transition matrix with a custom row group for each state::
 
     >>> builder = stormpy.SparseMatrixBuilder(rows=0, columns=0, entries=0, force_dimensions=False, has_custom_row_grouping=True, row_groups=0)
 
@@ -64,8 +64,7 @@ Labeling
 We have seen the construction of a state labeling in previous examples. Therefore we omit the description here.
 
 Instead we focus on the choices.
-Since in state 0 a nondeterministic choice over two actions is available
-The number of choices is 14.
+Since in state 0 a nondeterministic choice over two actions is available, the number of choices is 14.
 To distinguish those we can define a choice labeling::
 
     >>> choice_labeling = stormpy.storage.ChoiceLabeling(14)
@@ -87,7 +86,8 @@ Recall that those actions where defined in row one and two of the transition mat
 
 Reward models
 ==================
-Reward models, length of vector coincides with number of choices::
+
+In this reward models the length of vector coincides with number of choices::
 
     >>> reward_models = {}
     >>> action_reward = [0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
