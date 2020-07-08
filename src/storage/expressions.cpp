@@ -88,6 +88,7 @@ void define_expressions(py::module& m) {
         .def("has_rational_type", &storm::expressions::Expression::hasRationalType, "Check if the expression is a rational")
         .def_property_readonly("type", &storm::expressions::Expression::getType, "Get the Type")
         .def_property_readonly("manager", &storm::expressions::Expression::getManager, "Get the manager")
+        .def("simplify", &storm::expressions::Expression::simplify, "Simplify expression")
         .def("substitute", [](Expression const& expr, std::map<Variable, Expression> const& map) { return expr.substitute(map);}, "substitution_map"_a)
         .def("evaluate_as_int", [](Expression const& expr)
                                 {return expr.evaluateAsInt();}, "Get the integer value this expression evaluates to")
