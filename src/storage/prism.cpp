@@ -38,6 +38,7 @@ void define_prism(py::module& m) {
             .def("simplify", &Program::simplify, "Simplify")
             .def("used_constants",&Program::usedConstants, "Compute Used Constants")
             .def("get_constant", &Program::getConstant, py::arg("name"))
+            .def_property_readonly("reward_models", &Program::getRewardModels, "The defined reward models")
             .def("get_module", [](Program const& prog, std::string const& name) {return prog.getModule(name);}, py::arg("module_name"))
             // TODO the following is a duplicate and should be deprecated.
             .def_property_readonly("hasUndefinedConstants", &Program::hasUndefinedConstants, "Does the program have undefined constants?")
@@ -124,6 +125,9 @@ void define_prism(py::module& m) {
 
     py::class_<BooleanVariable, std::shared_ptr<BooleanVariable>> boolean_variable(m, "PrismBooleanVariable", variable, "A program boolean variable in a Prism program");
     boolean_variable.def("__str__", &streamToString<BooleanVariable>);
+
+    py::class_<RewardModel, std::shared_ptr<RewardModel>> rewardModel(m, "PrismRewardModel", "Reward declaration in prism");
+    rewardModel.def_property_readonly("name", &RewardModel::getName, "get name of the reward model");
 
     //define_stateGeneration<uint32_t, storm::RationalNumber>(m);
 }
