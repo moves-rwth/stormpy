@@ -7,6 +7,7 @@
 #include "storm/storage/expressions/Valuation.h"
 #include "storm/storage/expressions/OperatorType.h"
 #include "storm-parsers/parser/ExpressionParser.h"
+#include "storm/storage/expressions/ToDiceStringVisitor.h"
 
 //Define python bindings
 void define_expressions(py::module& m) {
@@ -130,11 +131,14 @@ void define_expressions(py::module& m) {
             .def("parse", &storm::parser::ExpressionParser::parseFromString, py::arg("string"), py::arg("ignore_error") = false, "parse")
             ;
 
-
     py::class_<storm::expressions::Type>(m, "ExpressionType", "The type of an expression")
             .def_property_readonly("is_boolean", &storm::expressions::Type::isBooleanType)
             .def_property_readonly("is_integer", &storm::expressions::Type::isIntegerType)
             .def_property_readonly("is_rational", &storm::expressions::Type::isRationalType)
             .def("__str__", &storm::expressions::Type::getStringRepresentation);
+
+    py::class_<storm::expressions::ToDiceStringVisitor>(m, "DiceStringVisitor", "Translate expressions to dice")
+            .def(py::init<uint64_t>(), py::arg("nr_bits"))
+            .def("to_string", [](storm::expressions::ToDiceStringVisitor& visitor, storm::expressions::Expression const& expr) { return visitor.toString(expr);});
 
 }
