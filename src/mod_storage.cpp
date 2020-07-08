@@ -1,6 +1,7 @@
 #include "common.h"
 
 #include "storage/bitvector.h"
+#include "storage/dd.h"
 #include "storage/model.h"
 #include "storage/matrix.h"
 #include "storage/distribution.h"
@@ -24,6 +25,7 @@ PYBIND11_MODULE(storage, m) {
 #endif
 
     define_bitvector(m);
+    define_dd<storm::dd::DdType::Sylvan>(m, "Sylvan");
     define_model(m);
     define_statevaluation(m);
     define_sparse_model(m);
