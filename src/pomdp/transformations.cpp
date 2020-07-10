@@ -13,3 +13,4 @@ void define_transformations(py::module& m, std::string const& vtSuffix) {
 }
 
 template void define_transformations<double>(py::module& m, std::string const& vtSuffix);
+template void define_transformations<storm::RationalFunction>(py::module& m, std::string const& vtSuffix);

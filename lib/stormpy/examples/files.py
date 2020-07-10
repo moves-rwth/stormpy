@@ -37,6 +37,8 @@ prism_mdp_maze = _path("mdp", "maze_2.nm")
 """Prism example for the maze MDP"""
 prism_pomdp_maze = _path("pomdp", "maze_2.prism")
 """Prism example for the maze POMDP"""
+prism_par_pomdp_maze = _path("pomdp", "maze_2_par.prism")
+"""Prism example for the parametric POMDP"""
 dft_galileo_hecs = _path("dft", "hecs.dft")
 """DFT example for HECS (Galileo format)"""
 dft_json_and = _path("dft", "and.json")

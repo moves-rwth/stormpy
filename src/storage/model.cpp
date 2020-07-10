@@ -124,6 +124,9 @@ void define_model(py::module& m) {
         .def("_as_sparse_pomdp", [](ModelBase &modelbase) {
                 return modelbase.as<SparsePomdp<double>>();
             }, "Get model as sparse POMDP")
+        .def("_as_sparse_ppomdp", [](ModelBase &modelbase) {
+            return modelbase.as<SparsePomdp<RationalFunction>>();
+        }, "Get model as sparse pPOMDP")
         .def("_as_sparse_ctmc", [](ModelBase &modelbase) {
                 return modelbase.as<SparseCtmc<double>>();
             }, "Get model as sparse CTMC")
@@ -261,11 +264,20 @@ void define_sparse_model(py::module& m) {
     py::class_<SparseDtmc<RationalFunction>, std::shared_ptr<SparseDtmc<RationalFunction>>>(m, "SparseParametricDtmc", "pDTMC in sparse representation", modelRatFunc)
         .def("__str__", &getModelInfoPrinter)
     ;
-    py::class_<SparseMdp<RationalFunction>, std::shared_ptr<SparseMdp<RationalFunction>>>(m, "SparseParametricMdp", "pMDP in sparse representation", modelRatFunc)
-        .def_property_readonly("nondeterministic_choice_indices", [](SparseMdp<RationalFunction> const& mdp) { return mdp.getNondeterministicChoiceIndices(); })
+    py::class_<SparseMdp<RationalFunction>, std::shared_ptr<SparseMdp<RationalFunction>>> pmdp(m, "SparseParametricMdp", "pMDP in sparse representation", modelRatFunc);
+    pmdp.def_property_readonly("nondeterministic_choice_indices", [](SparseMdp<RationalFunction> const& mdp) { return mdp.getNondeterministicChoiceIndices(); })
         .def("apply_scheduler", [](SparseMdp<RationalFunction> const& mdp, storm::storage::Scheduler<RationalFunction> const& scheduler, bool dropUnreachableStates) { return mdp.applyScheduler(scheduler, dropUnreachableStates); } , "apply scheduler", "scheduler"_a, "drop_unreachable_states"_a = true)
         .def("__str__", &getModelInfoPrinter)
     ;
+
+    py::class_<SparsePomdp<RationalFunction>, std::shared_ptr<SparsePomdp<RationalFunction>>>(m, "SparseParametricPomdp", "POMDP in sparse representation", pmdp)
+            .def(py::init<SparsePomdp<RationalFunction>>(), py::arg("other_model"))
+            .def("__str__", &getModelInfoPrinter)
+            .def("get_observation", &SparsePomdp<RationalFunction>::getObservation, py::arg("state"))
+            .def_property_readonly("observations", &SparsePomdp<RationalFunction>::getObservations)
+            .def_property_readonly("nr_observations", &SparsePomdp<RationalFunction>::getNrObservations)
+            ;
+
     py::class_<SparseCtmc<RationalFunction>, std::shared_ptr<SparseCtmc<RationalFunction>>>(m, "SparseParametricCtmc", "pCTMC in sparse representation", modelRatFunc)
         .def("__str__", &getModelInfoPrinter)
     ;
