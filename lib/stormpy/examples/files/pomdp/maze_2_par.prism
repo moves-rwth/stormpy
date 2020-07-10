@@ -31,7 +31,7 @@ endobservables
 // o=6 - east, west and south walls (s11 and s12)
 // o=7 - the target (s13)
 
-const double p;
+const double i;
 
 module maze
 
@@ -103,7 +103,7 @@ module maze
 	[east] s=9 -> (s'=9);
 	[west] s=9 -> (s'=9);
 	[north] s=9 -> (s'=6);
-	[south] s=9 -> p: (s'=13) & (o'=7) + (1-p):(s'=9);
+	[south] s=9 -> i: (s'=13) & (o'=7) + (1-i):(s'=9);
 
 	[east] s=10 -> (s'=10);
 	[west] s=10 -> (s'=10);
