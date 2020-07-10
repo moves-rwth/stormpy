@@ -14,8 +14,6 @@ void define_expressions(py::module& m) {
     using Variable = storm::expressions::Variable;
     using Valuation = storm::expressions::Valuation;
 
-
-
     // ExpressionManager
     py::class_<storm::expressions::ExpressionManager, std::shared_ptr<storm::expressions::ExpressionManager>>(m, "ExpressionManager", "Manages variables for expressions")
         .def(py::init(), "Constructor")
