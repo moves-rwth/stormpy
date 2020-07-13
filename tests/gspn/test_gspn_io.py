@@ -50,9 +50,8 @@ class TestGSPNJani:
         properties = jani_builder.create_deadlock_properties(jani_program)
 
         # Instantiate constants
-        description = stormpy.SymbolicModelDescription(jani_program)
-        constant_definitions = description.parse_constant_definitions("TIME_BOUND=1")
-        jani_program = description.instantiate_constants(constant_definitions).as_jani_model()
+        jani_program, properties = stormpy.preprocess_symbolic_input(jani_program, properties, "TIME_BOUND=1")
+        jani_program = jani_program.as_jani_model()
 
         # Build model
         # Leads to incorrect result
@@ -64,8 +63,7 @@ class TestGSPNJani:
         assert initial_state == 0
         result = stormpy.model_checking(model, properties[0])
         assert math.isclose(result.at(initial_state), 1.0)
-        # Not parsable
-        #result = stormpy.model_checking(model, properties[1])
-        #assert math.isclose(result.at(initial_state), 0.09123940783)
+        result = stormpy.model_checking(model, properties[1])
+        assert math.isclose(result.at(initial_state), 0.09123940783)
         result = stormpy.model_checking(model, properties[2])
         assert math.isclose(result.at(initial_state), 5.445544554455446)
