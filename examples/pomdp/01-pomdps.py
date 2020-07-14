@@ -68,7 +68,10 @@ def example_parametric_models_01():
     # apply the memory onto the POMDP to get the cartesian product
     pomdp = stormpy.pomdp.unfold_memory(pomdp, memory)
     # apply the unknown FSC to obtain a pmc from the POMDP
-    pmc = stormpy.pomdp.apply_unknown_fsc(pomdp, stormpy.pomdp.PomdpFscApplicationMode.simple_linear)
+    if False:
+        # Currently, this command is known to cause problems in combination with running some other tests. 
+        # While we are investigating, we do not run the code
+    	pmc = stormpy.pomdp.apply_unknown_fsc(pomdp, stormpy.pomdp.PomdpFscApplicationMode.simple_linear)
 
     export_pmc = False # Set to True to export the pMC as drn.
     if export_pmc:
