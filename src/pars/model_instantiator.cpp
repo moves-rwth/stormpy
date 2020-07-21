@@ -49,6 +49,26 @@ void define_model_instantiator(py::module& m) {
         .def(py::init<MarkovAutomaton<storm::RationalFunction>>(), "parametric model"_a)
         .def("instantiate", &storm::utility::ModelInstantiator<MarkovAutomaton<storm::RationalFunction>, MarkovAutomaton<double>>::instantiate, "Instantiate model with given parameter values")
     ;
+
+    py::class_<storm::utility::ModelInstantiator<Dtmc<storm::RationalFunction>, Dtmc<storm::RationalFunction>>>(m, "PartialPDtmcInstantiator", "Instantiate PDTMCs to DTMCs")
+            .def(py::init<Dtmc<storm::RationalFunction>>(), "parametric model"_a)
+            .def("instantiate", &storm::utility::ModelInstantiator<Dtmc<storm::RationalFunction>, Dtmc<storm::RationalFunction>>::instantiate, "Instantiate model with given parameter values")
+            ;
+
+    py::class_<storm::utility::ModelInstantiator<Mdp<storm::RationalFunction>,Mdp<storm::RationalFunction>>>(m, "PartialPMdpInstantiator", "Instantiate PMDPs to MDPs")
+            .def(py::init<Mdp<storm::RationalFunction>>(), "parametric model"_a)
+            .def("instantiate", &storm::utility::ModelInstantiator<Mdp<storm::RationalFunction>, Mdp<storm::RationalFunction>>::instantiate, "Instantiate model with given parameter values")
+            ;
+
+    py::class_<storm::utility::ModelInstantiator<Ctmc<storm::RationalFunction>,Ctmc<storm::RationalFunction>>>(m, "PartialPCtmcInstantiator", "Instantiate PCTMCs to CTMCs")
+            .def(py::init<Ctmc<storm::RationalFunction>>(), "parametric model"_a)
+            .def("instantiate", &storm::utility::ModelInstantiator<Ctmc<storm::RationalFunction>, Ctmc<storm::RationalFunction>>::instantiate, "Instantiate model with given parameter values")
+            ;
+
+    py::class_<storm::utility::ModelInstantiator<MarkovAutomaton<storm::RationalFunction>,MarkovAutomaton<storm::RationalFunction>>>(m, "PartialPMaInstantiator", "Instantiate PMAs to MAs")
+            .def(py::init<MarkovAutomaton<storm::RationalFunction>>(), "parametric model"_a)
+            .def("instantiate", &storm::utility::ModelInstantiator<MarkovAutomaton<storm::RationalFunction>, MarkovAutomaton<storm::RationalFunction>>::instantiate, "Instantiate model with given parameter values")
+            ;
 }
 
 void define_model_instantiation_checker(py::module& m) {

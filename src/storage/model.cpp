@@ -17,6 +17,8 @@
 #include "storm/models/symbolic/StandardRewardModel.h"
 #include "storm/utility/dd.h"
 
+#include "storm/storage/dd/DdManager.h"
+
 #include "storm/storage/Scheduler.h"
 
 #include <functional>
@@ -124,6 +126,9 @@ void define_model(py::module& m) {
         .def("_as_sparse_pomdp", [](ModelBase &modelbase) {
                 return modelbase.as<SparsePomdp<double>>();
             }, "Get model as sparse POMDP")
+        .def("_as_sparse_ppomdp", [](ModelBase &modelbase) {
+            return modelbase.as<SparsePomdp<RationalFunction>>();
+        }, "Get model as sparse pPOMDP")
         .def("_as_sparse_ctmc", [](ModelBase &modelbase) {
                 return modelbase.as<SparseCtmc<double>>();
             }, "Get model as sparse CTMC")
@@ -261,11 +266,20 @@ void define_sparse_model(py::module& m) {
     py::class_<SparseDtmc<RationalFunction>, std::shared_ptr<SparseDtmc<RationalFunction>>>(m, "SparseParametricDtmc", "pDTMC in sparse representation", modelRatFunc)
         .def("__str__", &getModelInfoPrinter)
     ;
-    py::class_<SparseMdp<RationalFunction>, std::shared_ptr<SparseMdp<RationalFunction>>>(m, "SparseParametricMdp", "pMDP in sparse representation", modelRatFunc)
-        .def_property_readonly("nondeterministic_choice_indices", [](SparseMdp<RationalFunction> const& mdp) { return mdp.getNondeterministicChoiceIndices(); })
+    py::class_<SparseMdp<RationalFunction>, std::shared_ptr<SparseMdp<RationalFunction>>> pmdp(m, "SparseParametricMdp", "pMDP in sparse representation", modelRatFunc);
+    pmdp.def_property_readonly("nondeterministic_choice_indices", [](SparseMdp<RationalFunction> const& mdp) { return mdp.getNondeterministicChoiceIndices(); })
         .def("apply_scheduler", [](SparseMdp<RationalFunction> const& mdp, storm::storage::Scheduler<RationalFunction> const& scheduler, bool dropUnreachableStates) { return mdp.applyScheduler(scheduler, dropUnreachableStates); } , "apply scheduler", "scheduler"_a, "drop_unreachable_states"_a = true)
         .def("__str__", &getModelInfoPrinter)
     ;
+
+    py::class_<SparsePomdp<RationalFunction>, std::shared_ptr<SparsePomdp<RationalFunction>>>(m, "SparseParametricPomdp", "POMDP in sparse representation", pmdp)
+            .def(py::init<SparsePomdp<RationalFunction>>(), py::arg("other_model"))
+            .def("__str__", &getModelInfoPrinter)
+            .def("get_observation", &SparsePomdp<RationalFunction>::getObservation, py::arg("state"))
+            .def_property_readonly("observations", &SparsePomdp<RationalFunction>::getObservations)
+            .def_property_readonly("nr_observations", &SparsePomdp<RationalFunction>::getNrObservations)
+            ;
+
     py::class_<SparseCtmc<RationalFunction>, std::shared_ptr<SparseCtmc<RationalFunction>>>(m, "SparseParametricCtmc", "pCTMC in sparse representation", modelRatFunc)
         .def("__str__", &getModelInfoPrinter)
     ;
@@ -303,11 +317,13 @@ void define_symbolic_model(py::module& m, std::string vt_suffix) {
     // Models with double numbers
     py::class_<SymbolicModel<DdType, double>, std::shared_ptr<SymbolicModel<DdType, double>>, ModelBase> model(m, ("_"+prefixClassName+"Model").c_str(), "A probabilistic model where transitions are represented by doubles and saved in a symbolic representation");
     model.def_property_readonly("reward_models", [](SymbolicModel<DdType, double>& model) {return model.getRewardModels(); }, "Reward models")
-        .def_property_readonly("reachable_states", &SymbolicModel<DdType, double>::getReachableStates, "reachable states as DD")
+        .def_property_readonly("dd_manager", &SymbolicModel<DdType, double>::getManager, "dd manager")
+    .def_property_readonly("reachable_states", &SymbolicModel<DdType, double>::getReachableStates, "reachable states as DD")
         .def_property_readonly("initial_states", &SymbolicModel<DdType, double>::getInitialStates, "initial states as DD")
         .def("get_states", [](SymbolicModel<DdType, double> const& model, storm::expressions::Expression const& expr) {return model.getStates(expr);}, py::arg("expression"), "Get states that are described by the expression")
         .def("compute_depth", [](SymbolicModel<DdType, double> const& model) {return storm::utility::dd::computeReachableStates(model.getInitialStates(), model.getQualitativeTransitionMatrix(false), model.getRowVariables(), model.getColumnVariables()).second;}, "Computes the depth of the model, i.e., the distance to the node with the largest minimal distance from the initial states")
         .def("reduce_to_state_based_rewards", &SymbolicModel<DdType, double>::reduceToStateBasedRewards)
+
         .def("__str__", &getModelInfoPrinter)
     ;
     py::class_<SymbolicDtmc<DdType, double>, std::shared_ptr<SymbolicDtmc<DdType, double>>>(m, (prefixClassName+"Dtmc").c_str(), "DTMC in symbolic representation", model)

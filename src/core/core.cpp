@@ -133,15 +133,19 @@ void define_optimality_type(py::module& m) {
 
 // Thin wrapper for exporting model
 template<typename ValueType>
-void exportDRN(std::shared_ptr<storm::models::sparse::Model<ValueType>> model, std::string const& file) {
+void exportDRN(std::shared_ptr<storm::models::sparse::Model<ValueType>> model, std::string const& file, storm::exporter::DirectEncodingOptions options) {
     std::ofstream stream;
     storm::utility::openFile(file, stream);
-    storm::exporter::explicitExportSparseModel(stream, model, {});
+    storm::exporter::explicitExportSparseModel(stream, model, {}, options);
     storm::utility::closeFile(stream);
 }
 
 void define_export(py::module& m) {
+
+    py::class_<storm::exporter::DirectEncodingOptions> opts(m, "DirectEncodingOptions");
+    opts.def(py::init<>());
+    opts.def_readwrite("allow_placeholders", &storm::exporter::DirectEncodingOptions::allowPlaceholders);
     // Export
-    m.def("export_to_drn", &exportDRN<double>, "Export model in DRN format", py::arg("model"), py::arg("file"));
-    m.def("export_parametric_to_drn", &exportDRN<storm::RationalFunction>, "Export parametric model in DRN format", py::arg("model"), py::arg("file"));
+    m.def("export_to_drn", &exportDRN<double>, "Export model in DRN format", py::arg("model"), py::arg("file"), py::arg("options")=storm::exporter::DirectEncodingOptions());
+    m.def("export_parametric_to_drn", &exportDRN<storm::RationalFunction>, "Export parametric model in DRN format", py::arg("model"), py::arg("file"), py::arg("options")=storm::exporter::DirectEncodingOptions());
 }

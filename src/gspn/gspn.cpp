@@ -3,8 +3,6 @@
 #include "storm-gspn/storage/gspn/GSPN.h"
 #include "storm-gspn/storage/gspn/GspnBuilder.h"
 #include "storm/settings/SettingsManager.h"
-
-#include "storm-gspn/parser/GspnParser.h"
 #include "storm/utility/file.h"
 
 using GSPN = storm::gspn::GSPN;
@@ -15,7 +13,6 @@ using TimedTransition = storm::gspn::TimedTransition<GSPN::RateType>;
 using ImmediateTransition = storm::gspn::ImmediateTransition<GSPN::WeightType>;
 using Transition = storm::gspn::Transition;
 using TransitionPartition = storm::gspn::TransitionPartition;
-using GSPNParser = storm::parser::GspnParser;
 
 
 void gspnToFile(GSPN const& gspn, std::string const& filepath, bool toPnpro) {
@@ -98,12 +95,6 @@ void define_gspn(py::module& m) {
         )doc")
 
         .def("build_gspn", &GSPNBuilder::buildGspn, "Construct GSPN", "expression_manager"_a = nullptr, "constants_substitution"_a = std::map<storm::expressions::Variable, storm::expressions::Expression>())
-    ;
-
-    // GspnParser class
-    py::class_<GSPNParser, std::shared_ptr<GSPNParser>>(m, "GSPNParser")
-         .def(py::init<>())
-         .def("parse", [](GSPNParser& p, std::string const& filename, std::string const& constantDefinitions) -> GSPN& {return *(p.parse(filename,constantDefinitions)); }, "filename"_a,  "constant_definitions"_a = "")
     ;
 
     // GSPN class

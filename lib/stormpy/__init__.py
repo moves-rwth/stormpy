@@ -36,6 +36,8 @@ def _convert_sparse_model(model, parametric=False):
             return model._as_sparse_pdtmc()
         elif model.model_type == ModelType.MDP:
             return model._as_sparse_pmdp()
+        elif model.model_type == ModelType.POMDP:
+            return model._as_sparse_ppomdp()
         elif model.model_type == ModelType.CTMC:
             return model._as_sparse_pctmc()
         elif model.model_type == ModelType.MA:
@@ -483,7 +485,7 @@ def parse_properties(properties, context=None, filters=None):
         if context.is_prism_program():
             return core.parse_properties_for_prism_program(properties, context.as_prism_program(), filters)
         else:
-            core.parse_properties_for_prism_program(properties, context.as_jani_model(), filters)
+            core.parse_properties_for_jani_program(properties, context.as_jani_model(), filters)
     elif type(context) == storage.PrismProgram:
         return core.parse_properties_for_prism_program(properties, context, filters)
     elif type(context) == storage.JaniModel:

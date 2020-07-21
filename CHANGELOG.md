@@ -6,6 +6,10 @@ Version 1.6.x
 
 ### Version 1.6.1 (under development)
 
+- Support for pPOMDPs
+- (p)POMDPs: Support for unfolding memory, making POMDPs simple, and exporting POMDP to a pMC
+- Export to DRN options to support exporting without placeholders
+
 ### Version 1.6.0 (2020/06)
 Requires storm version >= 1.6.0 and pycarl version >= 2.0.4
 
@@ -15,6 +19,8 @@ Requires storm version >= 1.6.0 and pycarl version >= 2.0.4
 - Extended expression operators with {conjunction, disjunction}
 - Added information collector to extract information from jani models
 - Bindings for elimination of chains of non-Markovian states
+- Early support for POMDPs
+- Early support for simulations on explicit-state models 
 
 
 Version 1.5.x

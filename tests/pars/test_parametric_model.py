@@ -22,7 +22,7 @@ class TestSparseParametricModel:
     def test_build_parametric_dtmc_preprocess(self):
         program = stormpy.parse_prism_program(get_example_path("pdtmc", "herman5.pm"))
         formulas = stormpy.parse_properties_for_prism_program("R=? [ F \"stable\" ]", program)
-        trans_program, trans_formulas = stormpy.preprocess_prism_program(program, formulas, "")
+        trans_program, trans_formulas = stormpy.preprocess_symbolic_input(program, formulas, "")
         trans_prism = trans_program.as_prism_program()
         model = stormpy.build_parametric_model(trans_prism, trans_formulas)
         assert model.nr_states == 33
@@ -70,7 +70,7 @@ class TestSymbolicParametricModel:
     def test_build_parametric_dtmc_preprocess(self):
         program = stormpy.parse_prism_program(get_example_path("pdtmc", "herman5.pm"))
         formulas = stormpy.parse_properties_for_prism_program("R=? [ F \"stable\" ]", program)
-        trans_program, trans_formulas = stormpy.preprocess_prism_program(program, formulas, "")
+        trans_program, trans_formulas = stormpy.preprocess_symbolic_input(program, formulas, "")
         trans_prism = trans_program.as_prism_program()
         model = stormpy.build_symbolic_parametric_model(trans_prism, trans_formulas)
         assert model.nr_states == 33
