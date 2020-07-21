@@ -26,6 +26,7 @@ PYBIND11_MODULE(storage, m) {
 
     define_bitvector(m);
     define_dd<storm::dd::DdType::Sylvan>(m, "Sylvan");
+    define_dd_nt(m);
     define_model(m);
     define_statevaluation(m);
     define_sparse_model(m);
