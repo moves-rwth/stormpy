@@ -3,6 +3,8 @@
 #include "storm-dft/parser/DFTJsonParser.h"
 #include "storm-dft/builder/ExplicitDFTModelBuilder.h"
 #include "storm-dft/storage/dft/DFTIsomorphism.h"
+#include "storm-dft/api/storm-dft.h"
+
 
 
 // Thin wrapper for DFT analysis
@@ -24,4 +26,5 @@ void define_analysis(py::module& m) {
 
     m.def("analyze_dft", &analyzeDFT<double>, "Analyze the DFT", py::arg("dft"), py::arg("properties"), py::arg("symred")=true, py::arg("allow_modularisation")=false, py::arg("relevant_events")=std::set<size_t>(), py::arg("dc_for_relevant")=false);
 
+    m.def("compute_relevant_events", &storm::api::computeRelevantEvents<double>, "Compute relevant event ids from properties and additional relevant names", py::arg("dft"), py::arg("properties"), py::arg("additional_relevant_names") = std::vector<std::string>());
 }
