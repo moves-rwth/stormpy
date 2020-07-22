@@ -22,6 +22,6 @@ std::vector<ValueType> analyzeDFT(storm::storage::DFT<ValueType> const& dft, std
 // Define python bindings
 void define_analysis(py::module& m) {
 
-    m.def("analyze_dft", &analyzeDFT<double>, "Analyze the DFT", py::arg("dft"), py::arg("properties"), py::arg("symred")=true, py::arg("allow_modularisation")=false, py::arg("relevant_events")=std::set<size_t>(), py::arg("dc_for_relevant")=true);
+    m.def("analyze_dft", &analyzeDFT<double>, "Analyze the DFT", py::arg("dft"), py::arg("properties"), py::arg("symred")=true, py::arg("allow_modularisation")=false, py::arg("relevant_events")=std::set<size_t>(), py::arg("dc_for_relevant")=false);
 
 }
