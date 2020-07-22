@@ -43,6 +43,9 @@ void define_dft(py::module& m) {
                 return dft.getElement(dft.getTopLevelIndex());
             }, "Get top level element")
         .def("get_element", &DFT<double>::getElement, "Get DFT element at index", py::arg("index"))
+        .def("get_element_by_name", [](DFT<double>& dft, std::string const& name) {
+                return dft.getElement(dft.getIndex(name));
+            }, "Get DFT element by name", py::arg("name"))
         .def("modularisation", &DFT<double>::topModularisation, "Split DFT into independent modules")
         .def("symmetries", [](DFT<double>& dft) {
                 return dft.findSymmetries(dft.colourDFT());
@@ -59,6 +62,9 @@ void define_dft(py::module& m) {
                 return dft.getElement(dft.getTopLevelIndex());
             }, "Get top level element")
         .def("get_element", &DFT<storm::RationalFunction>::getElement, "Get DFT element at index", py::arg("index"))
+        .def("get_element_by_name", [](DFT<storm::RationalFunction>& dft, std::string const& name) {
+                return dft.getElement(dft.getIndex(name));
+            }, "Get DFT element by name", py::arg("name"))
         .def("modularisation", &DFT<storm::RationalFunction>::topModularisation, "Split DFT into independent modules")
         .def("symmetries", [](DFT<storm::RationalFunction>& dft) {
                 return dft.findSymmetries(dft.colourDFT());
