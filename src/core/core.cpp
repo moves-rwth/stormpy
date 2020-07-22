@@ -1,6 +1,6 @@
 #include "core.h"
 #include "storm/utility/initialize.h"
-#include "storm/utility/DirectEncodingExporter.h"
+#include "storm/io/DirectEncodingExporter.h"
 #include "storm/storage/ModelFormulasPair.h"
 #include "storm/storage/dd/DdType.h"
 #include "storm/storage/jani/Property.h"

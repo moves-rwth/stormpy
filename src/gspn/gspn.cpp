@@ -3,7 +3,7 @@
 #include "storm-gspn/storage/gspn/GSPN.h"
 #include "storm-gspn/storage/gspn/GspnBuilder.h"
 #include "storm/settings/SettingsManager.h"
-#include "storm/utility/file.h"
+#include "storm/io/file.h"
 
 using GSPN = storm::gspn::GSPN;
 using GSPNBuilder = storm::gspn::GspnBuilder;
