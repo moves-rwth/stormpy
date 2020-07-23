@@ -20,7 +20,7 @@ template<typename ValueType> using SparseModelComponents = storm::storage::spars
 
 void define_sparse_model_components(py::module& m) {
 
-    py::class_<SparseModelComponents<double>, std::shared_ptr<SparseModelComponents<double>>>(m, "SparseModelComponents", "ModelComponents description..") //todo
+    py::class_<SparseModelComponents<double>, std::shared_ptr<SparseModelComponents<double>>>(m, "SparseModelComponents", "Components required for building a sparse model")
 
         .def(py::init<SparseMatrix<double> const&, StateLabeling const&, std::unordered_map<std::string, SparseRewardModel<double>> const&,
             bool, boost::optional<BitVector> const&, boost::optional<SparseMatrix<storm::storage::sparse::state_type>> const&>(),
@@ -32,8 +32,8 @@ void define_sparse_model_components(py::module& m) {
         .def_readwrite("transition_matrix", &SparseModelComponents<double>::transitionMatrix, "The transition matrix")
         .def_readwrite("state_labeling", &SparseModelComponents<double>::stateLabeling, "The state labeling")
         .def_readwrite("reward_models", &SparseModelComponents<double>::rewardModels, "Reward models associated with the model")
-        .def_readwrite("choice_labeling", &SparseModelComponents<double>::choiceLabeling, "A vector that stores a labeling for each choice")
-        .def_readwrite("state_valuations", &SparseModelComponents<double>::stateValuations, "A vector that stores for each state to which variable valuation it belongs")
+        .def_readwrite("choice_labeling", &SparseModelComponents<double>::choiceLabeling, "A list that stores a labeling for each choice")
+        .def_readwrite("state_valuations", &SparseModelComponents<double>::stateValuations, "A list that stores for each state to which variable valuation it belongs")
         .def_readwrite("choice_origins", &SparseModelComponents<double>::choiceOrigins, "Stores for each choice from which parts of the input model description it originates")
 
         // POMDP specific components
@@ -42,7 +42,7 @@ void define_sparse_model_components(py::module& m) {
         // Continuous time specific components (CTMCs, Markov Automata):
         .def_readwrite("rate_transitions", &SparseModelComponents<double>::rateTransitions, "True iff the transition values (for Markovian choices) are interpreted as rates")
         .def_readwrite("exit_rates", &SparseModelComponents<double>::exitRates, "The exit rate for each state. Must be given for CTMCs and MAs, if rate_transitions is false. Otherwise, it is optional.")
-        .def_readwrite("markovian_states", &SparseModelComponents<double>::markovianStates, "A vector that stores which states are markovian (only for Markov Automata)")
+        .def_readwrite("markovian_states", &SparseModelComponents<double>::markovianStates, "A list that stores which states are Markovian (only for Markov Automata)")
 
         // Stochastic two player game specific components:
         .def_readwrite("player1_matrix", &SparseModelComponents<double>::observabilityClasses, "Matrix of player 1 choices (needed for stochastic two player games")
