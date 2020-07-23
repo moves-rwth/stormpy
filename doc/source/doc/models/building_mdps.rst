@@ -82,7 +82,7 @@ Recall that those actions where defined in row one and two of the transition mat
 
     >>> choice_labeling.add_label_to_choice('a', 0)
     >>> choice_labeling.add_label_to_choice('b', 1)
-    >>> print(choice_labeling)
+    >>> print(choice_labeling) # doctest: +SKIP
     Choice 2 labels
        * a -> 1 item(s)
        * b -> 1 item(s)
@@ -99,6 +99,23 @@ In this reward model the length of the action rewards coincides with the number 
 
 Building the Model
 ====================
+
+.. testsetup::
+
+    # Not displayed in documentation but needed for doctests
+    >>> state_labeling = stormpy.storage.StateLabeling(13)
+    >>> labels = {'init', 'one', 'two', 'three', 'four', 'five', 'six', 'done', 'deadlock'}
+    >>> for label in labels:
+    ...     state_labeling.add_label(label)
+    >>> state_labeling.add_label_to_state('init', 0)
+    >>> state_labeling.add_label_to_state('one', 7)
+    >>> state_labeling.add_label_to_state('two', 8)
+    >>> state_labeling.add_label_to_state('three', 9)
+    >>> state_labeling.add_label_to_state('four', 10)
+    >>> state_labeling.add_label_to_state('five', 11)
+    >>> state_labeling.add_label_to_state('six', 12)
+    >>> state_labeling.set_states('done', stormpy.BitVector(13, [7, 8, 9, 10, 11, 12]))
+
 We collect the components::
 
     >>> components = stormpy.SparseModelComponents(transition_matrix=transition_matrix, state_labeling=state_labeling, reward_models=reward_models, rate_transitions=False)
@@ -107,7 +124,7 @@ We collect the components::
 We build the model::
 
     >>> mdp = stormpy.storage.SparseMdp(components)
-    >>> print(mdp)
+    >>> print(mdp) # doctest: +SKIP
     Model type: 	MDP (sparse)
     States: 	13
     Transitions: 	22

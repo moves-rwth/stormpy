@@ -30,7 +30,7 @@ In this example, we build the transition matrix using a numpy array::
 The following function call returns a sparse matrix with default row groups::
 
     >>> transition_matrix = stormpy.build_sparse_matrix(transitions)
-    >>> print(transition_matrix)
+    >>> print(transition_matrix) # doctest: +SKIP
             0	1	2	3
         ---- group 0/3 ----
     0	(	0	1.5	0	0	)	0
@@ -67,13 +67,13 @@ Building the Model
 Now, we can collect all components, including the choice labeling and the exit rates.
 To let the transition values be interpreted as rates we set `rate_transitions` to `True`::
 
-    components = stormpy.SparseModelComponents(transition_matrix=transition_matrix, state_labeling=state_labeling, rate_transitions=True)
-    components.exit_rates = exit_rates
+    >>> components = stormpy.SparseModelComponents(transition_matrix=transition_matrix, state_labeling=state_labeling, rate_transitions=True)
+    >>> components.exit_rates = exit_rates
 
 And finally, we can build the model::
 
     >>> ctmc = stormpy.storage.SparseCtmc(components)
-    >>> print(ctmc)
+    >>> print(ctmc) # doctest: +SKIP
     --------------------------------------------------------------
     Model type: 	CTMC (sparse)
     States: 	4

@@ -82,7 +82,7 @@ Labels can be asociated with states. As an example, we label the state 0 with "i
 
     >>> state_labeling.add_label_to_state('init', 0)
     >>> print(state_labeling.get_states('init'))
-    bit vector(1/13) [0]
+    bit vector(1/13) [0 ]
 
 Next, we set the associations between the remaining labels and states.::
 
@@ -96,7 +96,7 @@ Next, we set the associations between the remaining labels and states.::
 To set the same label for multiple states, we can use a BitVector representation for the set of states::
 
     >>> state_labeling.set_states('done', stormpy.BitVector(13, [7, 8, 9, 10, 11, 12]))
-    >>> print(state_labeling)
+    >>> print(state_labeling) # doctest: +SKIP
     9 labels
        * one -> 1 item(s)
        * four -> 1 item(s)
@@ -131,7 +131,7 @@ Next, we collect all components::
 And finally, we can build the DTMC::
 
     >>> dtmc = stormpy.storage.SparseDtmc(components)
-    >>> print(dtmc)
+    >>> print(dtmc) # doctest: +SKIP
     --------------------------------------------------------------
     Model type: 	DTMC (sparse)
     States: 	13

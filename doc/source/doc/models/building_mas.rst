@@ -39,7 +39,7 @@ In the beginning, we create a numpy array that will be used to build the transit
 When building the matrix we define a custom row grouping by passing a list containing the starting row of each row group in ascending order::
 
     >>> transition_matrix = stormpy.build_sparse_matrix(transitions, [0, 2, 3, 4, 5])
-    >>> print(transition_matrix)
+    >>> print(transition_matrix) # doctest: +SKIP
 
             0	1	2	3	4
         ---- group 0/4 ----
@@ -65,17 +65,33 @@ we build a BitVector that contains the respective Markovian states::
 
 Building the Model
 ====================
+
+.. testsetup::
+    # Not displayed in documentation but needed for doctests
+
+    >>> state_labeling = stormpy.storage.StateLabeling(5)
+    >>> state_labels = {'init', 'deadlock'}
+    >>> for label in state_labels:
+    ...     state_labeling.add_label(label)
+    >>> state_labeling.add_label_to_state('init', 0)
+    >>> choice_labeling = stormpy.storage.ChoiceLabeling(6)
+    >>> choice_labels = {'alpha', 'beta'}
+    >>> for label in choice_labels:
+    ...    choice_labeling.add_label(label)
+    >>> choice_labeling.add_label_to_choice('alpha', 0)
+    >>> choice_labeling.add_label_to_choice('beta', 1)
+    >>> exit_rates = [0.0, 10.0, 12.0, 1.0, 1.0]
+
 Now, we can collect all components::
 
-    >>> components = stormpy.SparseModelComponents(transition_matrix=transition_matrix, state_labeling=state_labeling,
-                                               markovian_states=markovian_states)
+    >>> components = stormpy.SparseModelComponents(transition_matrix=transition_matrix, state_labeling=state_labeling, markovian_states=markovian_states)
     >>> components.choice_labeling = choice_labeling
     >>> components.exit_rates = exit_rates
 
 Finally, we can build the model::
 
     >>> ma = stormpy.storage.SparseMA(components)
-    >>> print(ma)
+    >>> print(ma) # doctest: +SKIP
     --------------------------------------------------------------
     Model type: 	Markov Automaton (sparse)
     States: 	5
