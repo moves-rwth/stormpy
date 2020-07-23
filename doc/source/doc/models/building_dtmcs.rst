@@ -5,13 +5,13 @@ Discrete-time Markov chains (DTMCs)
 
 Background
 =====================
-As described in :doc:`../getting_started`,
+As described in :doc:`../../getting_started`,
 Storm can be used to translate a model description e.g. in form of a prism file into a Markov chain.
 
-Here, we use Stormpy to create the single components, to build a DTMC without parsing a model description.
-We consider the previous example of the dice.
+Here, we use Stormpy to create the components for a model and build a DTMC directly from these components without parsing a model description.
+We consider the previous example of the Knuth-Yao die.
 
-.. seealso:: `01-building-dtmcs.py <todo /examples/building_dtmcs/01-building-dtmcs.py>`
+.. seealso:: `01-building-dtmcs.py <https://github.com/moves-rwth/stormpy/blob/master/examples/building_dtmcs/01-building-dtmcs.py>`_
 
 In the following we create the transition matrix, the state labeling and the reward models of a DTMC.
 First, we import stormpy::
@@ -62,12 +62,13 @@ Finally, we can build the matrix::
 
 It should be noted that entries can only be inserted in ascending order, i.e. row by row and column by column.
 Stormpy provides the possibility to build a sparse matrix using the numpy library (https://numpy.org/ )
-Instead of using the SparseMatrixBuilder, a sparse matrix can be build from a numpy array via the method stormpy.build_sparse_matrix.
+Instead of using the SparseMatrixBuilder, a sparse matrix can be build from a numpy array via the method `stormpy.build_sparse_matrix`.
+An example is given in :ref:`building CTMCs <doc/models/building_ctmcs:Transition Matrix>`.
 
 Labeling
 ====================
 
-States can be labeled with sets of propositions, for example state 0 can be labeled with 'init'.
+States can be labeled with sets of propositions, for example state 0 can be labeled with "init".
 In order to specify the state labeling we create an empty labeling for the given number of states and add the labels to the labeling::
 
     >>> state_labeling = stormpy.storage.StateLabeling(13)
@@ -77,7 +78,7 @@ In order to specify the state labeling we create an empty labeling for the given
     ...     state_labeling.add_label(label)
 
 
-Labels can be asociated with states. As an example, we label the state 0 with 'init'::
+Labels can be asociated with states. As an example, we label the state 0 with "init"::
 
     >>> state_labeling.add_label_to_state('init', 0)
     >>> print(state_labeling.get_states('init'))
@@ -112,9 +113,9 @@ Defining a choice labeling is possible in a similar way.
 Reward Models
 ====================
 Stormpy supports multiple reward models such as state rewards, state-action rewards and as transition rewards.
-In this example, the actions of states which satisfy s<7 acquire a reward of 1.0.
+In this example, the actions of states which satisfy `s<7` acquire a reward of 1.0.
 
-The state-action rewards are represented by a vector, which is associated to a reward model named 'coin_flips'::
+The state-action rewards are represented by a vector, which is associated to a reward model named "coin_flips"::
 
     >>> reward_models = {}
     >>> action_reward = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]

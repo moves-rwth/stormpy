@@ -9,7 +9,7 @@ Background
 In this section, we explain how Stormpy can be used to build a simple CTMC.
 Building CTMCs works similar to building DTMCs as in :doc:`building_dtmcs`, but additionally every state is equipped with an exit rate.
 
-.. seealso:: `01-building-ctmcs.py <todo /examples/building_ctmcs/01-building-ctmcs.py>`
+.. seealso:: `01-building-ctmcs.py <https://github.com/moves-rwth/stormpy/blob/master/examples/building_ctmcs/01-building-ctmcs.py>`_
 
 First, we import Stormpy::
 
@@ -45,7 +45,7 @@ The following function call returns a sparse matrix with default row groups::
 
 Labeling
 ================
-The state labeling is created analogously to the previous example in :doc:`building_dtmcs`::
+The state labeling is created analogously to the previous example in :ref:`building DTMCs<doc/models/building_dtmcs:Labeling>`.
 
     >>> state_labeling = stormpy.storage.StateLabeling(4)
     >>> state_labels = {'empty', 'init', 'deadlock', 'full'}
@@ -65,7 +65,7 @@ Building the Model
 ====================
 
 Now, we can collect all components, including the choice labeling and the exit rates.
-To let the transition values be interpreted as rates we set rate_transitions to True::
+To let the transition values be interpreted as rates we set `rate_transitions` to `True`::
 
     components = stormpy.SparseModelComponents(transition_matrix=transition_matrix, state_labeling=state_labeling, rate_transitions=True)
     components.exit_rates = exit_rates

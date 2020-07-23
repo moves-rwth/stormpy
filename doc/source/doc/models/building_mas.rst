@@ -6,14 +6,15 @@ Markov automata (MAs)
 Background
 =====================
 
-We already saw the process of building CTMCs with MDPs via Stormpy in :doc:`building_ctmcs` and :doc:`building_mdps`.
-Markov automata use states that are probabilistic i.e. like the states of an MDP or markovian that are like the states of a CTMC.
+We already saw the process of building :doc:`CTMCs <building_ctmcs>` and :doc:`MDPs <building_mdps>` via Stormpy.
 
-In this section, we build a small MA with five states from which the first four are markovian.
+Markov automata use states that are probabilistic, i.e. like the states of an MDP, or Markovian, i.e. like the states of a CTMC.
+
+In this section, we build a small MA with five states from which the first four are Markovian.
 Since we covered labeling and exit rates already in the previous examples we omit the description of these components.
 The full example can be found here:
 
-.. seealso:: `01-building-mas.py <todo /examples/building_mas/01-building-mas.py>`
+.. seealso:: `01-building-mas.py <https://github.com/moves-rwth/stormpy/blob/master/examples/building_mas/01-building-mas.py>`_
 
 First, we import Stormpy::
 
@@ -21,7 +22,7 @@ First, we import Stormpy::
 
 Transition Matrix
 ==================
-In :doc:`building_mdps`, we used the SparseMatrixBuilder to create a matrix with a custom row grouping.
+For :ref:`building MDPS <doc/models/building_mdps:Transition Matrix>`, we used the `SparseMatrixBuilder` to create a matrix with a custom row grouping.
 In this example, we use the numpy library.
 
 In the beginning, we create a numpy array that will be used to build the transition matrix of our model.::
@@ -58,7 +59,7 @@ When building the matrix we define a custom row grouping by passing a list conta
 Markovian States
 ==================
 In order to define which states have only one probability distribution over the successor states,
-we build a BitVector that contains the respective markovian states::
+we build a BitVector that contains the respective Markovian states::
 
     >>> markovian_states =  stormpy.BitVector(5, [1, 2, 3, 4])
 

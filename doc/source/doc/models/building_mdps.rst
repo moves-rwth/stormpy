@@ -1,14 +1,14 @@
 ***********************************************
-Discrete-time Markov decision processes (MDPs)
+Markov decision processes (MDPs)
 ***********************************************
 
 Background
 =====================
 
-In :doc:`building_dtmcs` we modelled Knuth's model of a fair die by the means of a DTMC.
-In the following we extend this model with nondeterministic choice by building a Markov Decision process.
+In :doc:`building_dtmcs` we modelled Knuth-Yao's model of a fair die by the means of a DTMC.
+In the following we extend this model with nondeterministic choice by building a Markov decision process.
 
-.. seealso:: `01-building-mdps.py <todo /examples/mdps/01-building-mdps.py>`
+.. seealso:: `01-building-mdps.py <https://github.com/moves-rwth/stormpy/blob/master/examples/building_mdps/01-building-mdps.py>`_
 
 First, we import Stormpy::
 
@@ -30,7 +30,11 @@ Note that the row group needs to be added before any entries are added to the gr
     >>> builder.add_next_value(1, 1, 0.2)
     >>> builder.add_next_value(1, 2, 0.8)
 
-For the remaining states, we need to specify the starting rows of row groups::
+In this example, we have two nondeterministic choices in state 0.
+With choice `0` we have probability 0.5 to got to state 1 and probability 0.5 to got to state 2.
+With choice `1` we got to state 1 with probability 0.2 and go to state 2 with probability 0.8.
+
+For the remaining states, we need to specify the starting rows of each row group::
 
     >>> builder.new_row_group(2)
     >>> builder.add_next_value(2, 3, 0.5)
@@ -55,7 +59,7 @@ For the remaining states, we need to specify the starting rows of row groups::
     ...    builder.new_row_group(s)
     ...    builder.add_next_value(s, s - 1, 1)
 
-Build::
+Finally, we build the transition matrix::
 
     >>> transition_matrix = builder.build()
 
@@ -63,7 +67,7 @@ Labeling
 ================
 We have seen the construction of a state labeling in previous examples. Therefore we omit the description here.
 
-Instead we focus on the choices.
+Instead, we focus on the choices.
 Since in state 0 a nondeterministic choice over two actions is available, the number of choices is 14.
 To distinguish those we can define a choice labeling::
 
@@ -87,7 +91,7 @@ Recall that those actions where defined in row one and two of the transition mat
 Reward models
 ==================
 
-In this reward models the length of vector coincides with number of choices::
+In this reward model the length of the action rewards coincides with the number of choices::
 
     >>> reward_models = {}
     >>> action_reward = [0.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
@@ -95,12 +99,12 @@ In this reward models the length of vector coincides with number of choices::
 
 Building the Model
 ====================
-Collect components::
+We collect the components::
 
     >>> components = stormpy.SparseModelComponents(transition_matrix=transition_matrix, state_labeling=state_labeling, reward_models=reward_models, rate_transitions=False)
     >>> components.choice_labeling = choice_labeling
 
-Build the model::
+We build the model::
 
     >>> mdp = stormpy.storage.SparseMdp(components)
     >>> print(mdp)
@@ -126,5 +130,5 @@ Build the model::
 Partially observable Markov decision process (POMDPs)
 ========================================================
 
-To build a partially observable Markov decision process,
-components.observations can be set to a list of numbers that defines the status of the observables in each state.
+To build a partially observable Markov decision process (POMDP),
+`components.observations` can be set to a list of numbers that defines the status of the observables in each state.
