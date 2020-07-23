@@ -37,7 +37,7 @@ The iteration over the model is as before, but now, for every action, we can hav
     ...            print("From state {} by action {}, with probability {}, go to state {}".format(state, action, transition.value(), transition.column))
     -etc-
 
-The output (omitted for brievety) contains sentences like::
+The output (omitted for brevity) contains sentences like::
 
     From state 1 by action 0, with probability 1.0, go to state 2
     From state 1 by action 1, with probability 1.0, go to state 1
