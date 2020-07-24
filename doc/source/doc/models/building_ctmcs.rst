@@ -28,7 +28,9 @@ First, we import Stormpy::
 
 Transition Matrix
 =====================
-In this example, we build the transition matrix using a numpy array::
+In this example, we build the transition matrix using a numpy array
+
+
 
     >>> import numpy as np
 
@@ -56,7 +58,7 @@ The following function call returns a sparse matrix with default row groups::
 
 Labeling
 ================
-The state labeling is created analogously to the previous example in :ref:`building DTMCs<doc/models/building_dtmcs:Labeling>`.
+The state labeling is created analogously to the previous example in :ref:`building DTMCs<doc/models/building_dtmcs:Labeling>`::
 
     >>> state_labeling = stormpy.storage.StateLabeling(4)
     >>> state_labels = {'empty', 'init', 'deadlock', 'full'}
