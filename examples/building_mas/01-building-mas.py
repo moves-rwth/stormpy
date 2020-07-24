@@ -1,8 +1,18 @@
 import stormpy
-import numpy as np
+
+# Check if numpy is available
+try:
+    import numpy as np
+    numpy_found = True
+except ModuleNotFoundError:
+    numpy_found = False
 
 
 def example_building_mas_01():
+    if not numpy_found:
+        print("Numpy not available")
+        return
+
     # Building the transition matrix using numpy
     transitions = np.array([
         [0, 1, 0, 0, 0],

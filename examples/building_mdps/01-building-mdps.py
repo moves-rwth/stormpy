@@ -1,5 +1,4 @@
 import stormpy
-import numpy as np
 
 
 # Knuth's model of a fair die using only fair coins

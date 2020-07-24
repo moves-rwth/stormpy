@@ -3,6 +3,17 @@ Markov automata (MAs)
 **************************************
 
 
+.. check if the following doctest should be run (and hide it in Sphinx)
+    >>> # Skip tests if numpy is not available
+    >>> import pytest
+    >>> try:
+    ...     import numpy as np
+    ... except ModuleNotFoundError:
+    ...     np = None
+    >>> if np is None:
+    ...     pytest.skip("skipping the doctest below since it's not going to work.")
+
+
 Background
 =====================
 
