@@ -37,3 +37,15 @@ class TestAnalysis:
         assert 1 in relevant_ids
         results = stormpy.dft.analyze_dft(dft, formulas, relevant_events = relevant_ids)
         assert math.isclose(results[0], 0.1548181217)
+
+    def test_transformation(self):
+        dft = stormpy.dft.load_dft_galileo_file(get_example_path("dft", "rc2.dft"))
+        valid, output = stormpy.dft.is_well_formed(dft)
+        assert not valid
+        assert "not binary" in output
+        dft = stormpy.dft.transform_dft(dft, unique_constant_be=True, binary_fdeps=True)
+        valid, output = stormpy.dft.is_well_formed(dft)
+        assert valid
+        formulas = stormpy.parse_properties("Tmin=? [ F \"failed\" ]")
+        results = stormpy.dft.analyze_dft(dft, [formulas[0].raw_formula])
+        assert math.isclose(results[0], 6.380930905)

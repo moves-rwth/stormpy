@@ -26,5 +26,9 @@ void define_analysis(py::module& m) {
 
     m.def("analyze_dft", &analyzeDFT<double>, "Analyze the DFT", py::arg("dft"), py::arg("properties"), py::arg("symred")=true, py::arg("allow_modularisation")=false, py::arg("relevant_events")=std::set<size_t>(), py::arg("dc_for_relevant")=false);
 
+    m.def("transform_dft", &storm::api::applyTransformations<double>, "Apply transformations on DFT", py::arg("dft"), py::arg("unique_constant_be"), py::arg("binary_fdeps"));
+
+    m.def("is_well_formed", &storm::api::isWellFormed<double>, "Check whether DFT is well-formed.", py::arg("dft"), py::arg("check_valid_for_analysis") = true);
+
     m.def("compute_relevant_events", &storm::api::computeRelevantEvents<double>, "Compute relevant event ids from properties and additional relevant names", py::arg("dft"), py::arg("properties"), py::arg("additional_relevant_names") = std::vector<std::string>());
 }
