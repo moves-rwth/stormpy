@@ -49,3 +49,12 @@ class TestAnalysis:
         formulas = stormpy.parse_properties("Tmin=? [ F \"failed\" ]")
         results = stormpy.dft.analyze_dft(dft, [formulas[0].raw_formula])
         assert math.isclose(results[0], 6.380930905)
+
+    def test_fdep_conflicts(self):
+        dft = stormpy.dft.load_dft_galileo_file(get_example_path("dft", "rc2.dft"))
+        dft = stormpy.dft.transform_dft(dft, unique_constant_be=True, binary_fdeps=True)
+        has_conflicts = stormpy.dft.compute_dependency_conflicts(dft, use_smt=False, solver_timeout=0)
+        assert not has_conflicts
+        formulas = stormpy.parse_properties("T=? [ F \"failed\" ]")
+        results = stormpy.dft.analyze_dft(dft, [formulas[0].raw_formula])
+        assert math.isclose(results[0], 6.380930905)
