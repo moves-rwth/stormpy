@@ -42,7 +42,8 @@ extensions = [
     #'sphinx.ext.intersphinx',
     'sphinx.ext.coverage',
     'sphinx.ext.githubpages',
-    'sphinx.ext.autosectionlabel'
+    'sphinx.ext.autosectionlabel',
+    'nbsphinx'
 ]
 autosectionlabel_prefix_document = True
 #autosectionlabel_maxdepth = 10
