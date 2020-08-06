@@ -1,0 +1,16 @@
+toplevel "System";
+"System" or "controller" "sensor_1" "barrier_1";
+"sensor_1" 2of4 "sA_1" "sB_1" "sC_1" "sD_1";
+"network_1_f" fdep "network_1" "sA_1" "sB_1" "sC_1" "sD_1";
+"barrier_1" or "switch_1" "motors_1";
+"motors_1" wsp "mP_1" "mS_1";
+"switch_1" pand "sw_1" "mP_1";
+"network_1" lambda=0.03 dorm=0;
+"sA_1" lambda=0.05 dorm=0;
+"sB_1" lambda=0.05 dorm=0;
+"sC_1" lambda=0.05 dorm=0;
+"sD_1" lambda=0.05 dorm=0;
+"sw_1" lambda=0.015 dorm=0;
+"mP_1" lambda=0.08 dorm=0;
+"mS_1" lambda=0.08 dorm=0.5;
+"controller" lambda=0.03 dorm=0;

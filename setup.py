@@ -276,5 +276,8 @@ setup(
     install_requires=['pycarl>=2.0.4'],
     setup_requires=['pytest-runner'],
     tests_require=['pytest'],
+    extras_require={
+        "numpy":  ["numpy"],
+    },
     python_requires='>=3',
 )

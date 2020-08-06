@@ -4,6 +4,7 @@
 #include "storage/dd.h"
 #include "storage/model.h"
 #include "storage/matrix.h"
+#include "storage/model_components.h"
 #include "storage/distribution.h"
 #include "storage/scheduler.h"
 #include "storage/prism.h"
@@ -26,6 +27,7 @@ PYBIND11_MODULE(storage, m) {
 
     define_bitvector(m);
     define_dd<storm::dd::DdType::Sylvan>(m, "Sylvan");
+    define_dd_nt(m);
     define_model(m);
     define_statevaluation(m);
     define_sparse_model(m);
@@ -40,4 +42,5 @@ PYBIND11_MODULE(storage, m) {
     define_expressions(m);
     define_scheduler<double>(m, "Double");
     define_distribution<double>(m, "Double");
+    define_sparse_model_components(m);
 }

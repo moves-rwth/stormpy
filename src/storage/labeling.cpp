@@ -21,17 +21,26 @@ void define_labeling(py::module& m) {
 
     // StateLabeling
     py::class_<storm::models::sparse::StateLabeling, std::shared_ptr<storm::models::sparse::StateLabeling>>(m, "StateLabeling", "Labeling for states", labeling)
+        .def(py::init<uint_fast64_t>(), "state_count"_a)
         .def("get_labels_of_state", &storm::models::sparse::StateLabeling::getLabelsOfState, "Get labels of given state", py::arg("state"))
         .def("add_label_to_state", &storm::models::sparse::StateLabeling::addLabelToState, "Add label to state", py::arg("label"), py::arg("state"))
         .def("has_state_label", &storm::models::sparse::StateLabeling::getStateHasLabel, "Check if the given state has the given label", py::arg("label"), py::arg("state"))
         .def("get_states", &storm::models::sparse::StateLabeling::getStates, "Get all states which have the given label", py::arg("label"))
         .def("set_states", [](storm::models::sparse::StateLabeling& labeling, std::string const& label, storm::storage::BitVector const& states) {
                 labeling.setStates(label, states);
-            }, "Set all states which have the given label", py::arg("label"), py::arg("states"))
+            }, "Add a label to the given states", py::arg("label"), py::arg("states"))
         .def("__str__", &streamToString<storm::models::sparse::StateLabeling>)
     ;
 
 
-    py::class_<storm::models::sparse::ChoiceLabeling>(m, "ChoiceLabeling", "Labeling for choices", labeling).
-            def("get_labels_of_choice", &storm::models::sparse::ChoiceLabeling::getLabelsOfChoice, py::arg("choice"), "get labels of a choice");
+    py::class_<storm::models::sparse::ChoiceLabeling>(m, "ChoiceLabeling", "Labeling for choices", labeling)
+            .def(py::init<uint_fast64_t>(), "choice_count"_a)
+            .def("get_labels_of_choice", &storm::models::sparse::ChoiceLabeling::getLabelsOfChoice, py::arg("choice"),  "Get labels of the given choice")
+            .def("add_label_to_choice", &storm::models::sparse::ChoiceLabeling::addLabelToChoice, "Adds a label to a given choice", py::arg("label"), py::arg("state"))
+            .def("get_choices", &storm::models::sparse::ChoiceLabeling::getChoices, py::arg("label"),  "Get all choices which have the given label")
+            .def("set_choices", [](storm::models::sparse::ChoiceLabeling& labeling, std::string const& label, storm::storage::BitVector const& choices) {
+                labeling.setChoices(label, choices);
+            },  "Add a label to a the given choices", py::arg("label"), py::arg("choices"))
+            .def("__str__", &streamToString<storm::models::sparse::ChoiceLabeling>)
+    ;
 }

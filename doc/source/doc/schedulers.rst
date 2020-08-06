@@ -25,11 +25,11 @@ As in :doc:`../getting_started`, we import some required modules and build a mod
     >>> formulas = stormpy.parse_properties(formula_str, program)
     >>> model = stormpy.build_model(program, formulas)
 
-Next we check the model and make sure to extract the scheduler:
+Next we check the model and make sure to extract the scheduler::
 
     >>> result = stormpy.model_checking(model, formulas[0], extract_scheduler=True)
 
-The result then contains the scheduler we want:
+The result then contains the scheduler we want::
 
     >>> assert result.has_scheduler
     >>> scheduler = result.scheduler
@@ -45,7 +45,7 @@ The result then contains the scheduler we want:
                3    0
     -etc-
 
-To get the information which action the scheduler chooses in which state, we can simply iterate over the states:
+To get the information which action the scheduler chooses in which state, we can simply iterate over the states::
 
     >>> for state in model.states:
     ...     choice = scheduler.get_choice(state)
@@ -68,7 +68,7 @@ Examining Schedulers for Markov automata
 Currently there is no support yet for scheduler extraction on MAs.
 However, if the timing information is not relevant for the property, we can circumvent this lack by first transforming the MA to an MDP.
 
-We build the model as before:
+We build the model as before::
 
     >>> path = stormpy.examples.files.prism_ma_simple
     >>> formula_str = "Tmin=? [ F s=4 ]"
@@ -78,12 +78,12 @@ We build the model as before:
     >>> ma = stormpy.build_model(program, formulas)
 
 Next we transform the continuous-time model into a discrete-time model.
-Note that all timing information is lost at this point.
+Note that all timing information is lost at this point::
 
     >>> mdp, mdp_formulas = stormpy.transform_to_discrete_time_model(ma, formulas)
     >>> assert mdp.model_type == stormpy.ModelType.MDP
 
-After the transformation we have obtained an MDP where we can extract the scheduler as shown before:
+After the transformation we have obtained an MDP where we can extract the scheduler as shown before::
 
     >>> result = stormpy.model_checking(mdp, mdp_formulas[0], extract_scheduler=True)
     >>> scheduler = result.scheduler

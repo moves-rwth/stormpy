@@ -1,4 +1,5 @@
 import os
+import pytest
 
 import stormpy
 import stormpy.logic
@@ -30,6 +31,16 @@ class TestDftElement:
         assert dft.nr_dynamic() == 0
         assert tle.id == 2
         assert tle.name == "A"
+        b = dft.get_element(0)
+        assert b.id == 0
+        assert b.name == "B"
+        c = dft.get_element_by_name("C")
+        assert c.id == 1
+        assert c.name == "C"
+        # Invalid name should raise exception
+        with pytest.raises(RuntimeError) as exception:
+            d = dft.get_element_by_name("D")
+        assert "InvalidArgumentException" in str(exception.value)
 
 @dft
 class TestDftSymmetries:

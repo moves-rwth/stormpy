@@ -50,7 +50,7 @@ It is also possible to check the parametric model directly, similar as before in
     >>> initial_state = model.initial_states[0]
     >>> func = result.at(initial_state)
 
-We collect the constraints ensuring that underlying model is well-formed and the graph structure does not change.
+We collect the constraints ensuring that underlying model is well-formed and the graph structure does not change::
 
     >>> collector = stormpy.ConstraintCollector(model)
     >>> for formula in collector.wellformed_constraints:

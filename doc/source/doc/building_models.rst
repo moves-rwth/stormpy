@@ -33,7 +33,7 @@ And the same for parametric models::
     ModelType.DTMC
 
 Another option are JANI descriptions. These are another high-level description format.
-Building models from JANI is done in two steps. First the Jani-description is parsed, and then the model is built from this description.
+Building models from JANI is done in two steps. First the Jani-description is parsed, and then the model is built from this description::
 
     >>> path = stormpy.examples.files.jani_dtmc_die
     >>> jani_program, properties = stormpy.parse_jani_model(path)
