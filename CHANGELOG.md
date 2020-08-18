@@ -6,6 +6,7 @@ Version 1.6.x
 
 ### Version 1.6.1 (under development)
 
+- Explicit State Lookup: Finding a state based on the variable values
 - Support for pPOMDPs
 - (p)POMDPs: Support for unfolding memory, making POMDPs simple, and exporting POMDP to a pMC
 - Export to DRN options to support exporting without placeholders
