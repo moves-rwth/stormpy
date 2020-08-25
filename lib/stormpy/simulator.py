@@ -152,6 +152,11 @@ class SparseSimulator(Simulator):
     def _report_rewards(self):
         return self._engine.get_last_reward()
 
+    def random_step(self):
+        check = self._engine.random_step()
+        assert check
+        return self._report_result()
+
     def step(self, action=None):
 
         if action is None:
