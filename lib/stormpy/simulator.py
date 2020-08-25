@@ -120,6 +120,8 @@ class SparseSimulator(Simulator):
             return av_actions
 
     def nr_available_actions(self):
+        if not self._model.is_nondeterministic_model:
+            return 1
         return self._model.get_nr_available_actions(self._engine.get_current_state())
 
     def _report_state(self):
