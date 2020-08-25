@@ -38,6 +38,6 @@ RUN pip install --no-cache-dir notebook==5.7.9
 # Copy files for notebooks
 ##########
 
-RUN mkdir notebooks
-#COPY doc/source/*.ipynb notebooks/
-COPY doc/source/doc/*.ipynb notebooks/
+RUN mkdir doc
+#COPY doc/source/*.ipynb doc
+COPY doc/source/doc/*.ipynb doc
