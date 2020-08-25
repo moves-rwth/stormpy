@@ -249,6 +249,6 @@ nbsphinx_prolog = """
 
     <div class="admonition note">
       Interactive online version:
-      <span style="white-space: nowrap;"><a href="https://mybinder.org/v2/gh/m-hannah/stormpy/master?filepath=notebooks/{{ docname }}"><img alt="Binder badge" src="https://mybinder.org/badge_logo.svg" style="vertical-align:text-bottom"></a>.</span>
+      <span style="white-space: nowrap;"><a href="https://mybinder.org/v2/gh/m-hannah/stormpy/master?filepath={{ docname }}"><img alt="Binder badge" src="https://mybinder.org/badge_logo.svg" style="vertical-align:text-bottom"></a>.</span>
     </div>
 """
