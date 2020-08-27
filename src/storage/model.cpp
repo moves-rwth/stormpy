@@ -217,6 +217,8 @@ void define_sparse_model(py::module& m) {
         .def("get_observation", &SparsePomdp<double>::getObservation, py::arg("state"))
         .def_property_readonly("observations", &SparsePomdp<double>::getObservations)
         .def_property_readonly("nr_observations", &SparsePomdp<double>::getNrObservations)
+        .def("has_observation_valuations", &SparsePomdp<double>::hasObservationValuations)
+        .def_property_readonly("observation_valuations", &SparsePomdp<double>::getObservationValuations)
     ;
     py::class_<SparseCtmc<double>, std::shared_ptr<SparseCtmc<double>>>(m, "SparseCtmc", "CTMC in sparse representation", model)
         .def(py::init<SparseCtmc<double>>(), py::arg("other_model"))
