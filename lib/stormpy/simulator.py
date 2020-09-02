@@ -99,6 +99,9 @@ class SparseSimulator(Simulator):
         self._state_valuations = None
         self.set_full_observability(self._model.model_type != stormpy.storage.ModelType.POMDP)
 
+    def set_seed(self, value):
+        self._engine.set_seed(value)
+
     def available_actions(self):
         if self._action_mode == SimulatorActionMode.INDEX_LEVEL:
             return range(self.nr_available_actions())
