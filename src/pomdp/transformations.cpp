@@ -11,15 +11,15 @@ std::shared_ptr<storm::models::sparse::Pomdp<ValueType>> make_canonic(storm::mod
 }
 
 template<typename ValueType>
-std::shared_ptr<storm::models::sparse::Pomdp<ValueType>> unfold_memory(storm::models::sparse::Pomdp<ValueType> const& pomdp, storm::storage::PomdpMemory const& memory) {
-    storm::transformer::PomdpMemoryUnfolder<ValueType> unfolder(pomdp, memory);
+std::shared_ptr<storm::models::sparse::Pomdp<ValueType>> unfold_memory(storm::models::sparse::Pomdp<ValueType> const& pomdp, storm::storage::PomdpMemory const& memory, bool addMemoryLabels, bool keepStateValuations) {
+    storm::transformer::PomdpMemoryUnfolder<ValueType> unfolder(pomdp, memory, addMemoryLabels, keepStateValuations);
     return unfolder.transform();
 }
 
 template<typename ValueType>
-std::shared_ptr<storm::models::sparse::Pomdp<ValueType>> make_simple(storm::models::sparse::Pomdp<ValueType> const& pomdp) {
+std::shared_ptr<storm::models::sparse::Pomdp<ValueType>> make_simple(storm::models::sparse::Pomdp<ValueType> const& pomdp, bool keepStateValuations) {
     storm::transformer::BinaryPomdpTransformer<ValueType> transformer;
-    return transformer.transform(pomdp,true);
+    return transformer.transform(pomdp,true, keepStateValuations);
 }
 
 template<typename ValueType>
@@ -42,8 +42,8 @@ void define_transformations_nt(py::module &m) {
 template<typename ValueType>
 void define_transformations(py::module& m, std::string const& vtSuffix) {
     m.def(("_make_canonic_" + vtSuffix).c_str(), &make_canonic<ValueType>, "Return a canonicly-ordered POMDP", py::arg("pomdp"));
-    m.def(("_unfold_memory_" + vtSuffix).c_str(), &unfold_memory<ValueType>, "Unfold memory into a POMDP", py::arg("pomdp"), py::arg("memorystructure"));
-    m.def(("_make_simple_"+ vtSuffix).c_str(), &make_simple<ValueType>, "Make POMDP simple", py::arg("pomdp"));
+    m.def(("_unfold_memory_" + vtSuffix).c_str(), &unfold_memory<ValueType>, "Unfold memory into a POMDP", py::arg("pomdp"), py::arg("memorystructure"), py::arg("memorylabels") = false, py::arg("keep_state_valuations")=false);
+    m.def(("_make_simple_"+ vtSuffix).c_str(), &make_simple<ValueType>, "Make POMDP simple", py::arg("pomdp"), py::arg("keep_state_valuations")=false);
     m.def(("_apply_unknown_fsc_" + vtSuffix).c_str(), &apply_unknown_fsc<ValueType>, "Apply unknown FSC",py::arg("pomdp"), py::arg("application_mode")=storm::transformer::PomdpFscApplicationMode::SIMPLE_LINEAR);
 }
 

@@ -99,6 +99,9 @@ class SparseSimulator(Simulator):
         self._state_valuations = None
         self.set_full_observability(self._model.model_type != stormpy.storage.ModelType.POMDP)
 
+    def set_seed(self, value):
+        self._engine.set_seed(value)
+
     def available_actions(self):
         if self._action_mode == SimulatorActionMode.INDEX_LEVEL:
             return range(self.nr_available_actions())
@@ -120,6 +123,8 @@ class SparseSimulator(Simulator):
             return av_actions
 
     def nr_available_actions(self):
+        if not self._model.is_nondeterministic_model:
+            return 1
         return self._model.get_nr_available_actions(self._engine.get_current_state())
 
     def _report_state(self):
@@ -149,6 +154,11 @@ class SparseSimulator(Simulator):
 
     def _report_rewards(self):
         return self._engine.get_last_reward()
+
+    def random_step(self):
+        check = self._engine.random_step()
+        assert check
+        return self._report_result()
 
     def step(self, action=None):
 

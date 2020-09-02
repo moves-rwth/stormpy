@@ -6,6 +6,7 @@ void define_sparse_model_simulator(py::module& m) {
     dtsmsd.def(py::init<storm::models::sparse::Model<double> const&>());
     dtsmsd.def("set_seed", &storm::simulator::DiscreteTimeSparseModelSimulator<double>::setSeed, py::arg("seed"));
     dtsmsd.def("step", &storm::simulator::DiscreteTimeSparseModelSimulator<double>::step, py::arg("action"));
+    dtsmsd.def("random_step", &storm::simulator::DiscreteTimeSparseModelSimulator<double>::randomStep);
     dtsmsd.def("get_last_reward", &storm::simulator::DiscreteTimeSparseModelSimulator<double>::getLastRewards);
     dtsmsd.def("get_current_state", &storm::simulator::DiscreteTimeSparseModelSimulator<double>::getCurrentState);
     dtsmsd.def("reset_to_initial_state", &storm::simulator::DiscreteTimeSparseModelSimulator<double>::resetToInitial);

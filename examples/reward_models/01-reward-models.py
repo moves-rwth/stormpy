@@ -10,11 +10,11 @@ def example_reward_models_01():
     prop = "R=? [F \"done\"]"
     properties = stormpy.parse_properties_for_prism_program(prop, program, None)
     model = stormpy.build_model(program, properties)
+    assert len(model.reward_models) == 1
     initial_state = model.initial_states[0]
     result = stormpy.model_checking(model, properties[0])
-    print("Result: {}".format(result.at(initial_state)))
+    print("Result: {}".format(round(result.at(initial_state), 6)))
 
-    assert len(model.reward_models) == 1
     reward_model_name = list(model.reward_models.keys())[0]
     print(reward_model_name)
     assert reward_model_name == "coin_flips"

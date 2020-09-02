@@ -44,6 +44,10 @@ void define_prism(py::module& m) {
             .def_property_readonly("hasUndefinedConstants", &Program::hasUndefinedConstants, "Does the program have undefined constants?")
             .def_property_readonly("isDeterministicModel", &Program::isDeterministicModel, "Does the program describe a deterministic model?")
             .def_property_readonly("expression_manager", &Program::getManager, "Get the expression manager for expressions in this program")
+            .def("get_synchronizing_action_indices", &Program::getSynchronizingActionIndices, "Get the synchronizing action indices")
+            .def("get_action_name", &Program::getActionName, py::arg("action_index"), "Get the action name for a given action index")
+            .def("get_module_indices_by_action_index", &Program::getModuleIndicesByActionIndex, py::arg("action_index"), "get all modules that have a particular action index")
+            .def_property_readonly("number_of_unlabeled_commands", &Program::getNumberOfUnlabeledCommands, "Gets the number of commands that are not labelled")
             .def("flatten", &Program::flattenModules, "Put program into a single module", py::arg("smt_factory")=std::shared_ptr<storm::utility::solver::SmtSolverFactory>(new storm::utility::solver::SmtSolverFactory()))
             .def("to_jani", [](storm::prism::Program const& program, std::vector<storm::jani::Property> const& properties, bool allVariablesGlobal, std::string suffix) {
                     return program.toJani(properties, allVariablesGlobal, suffix);
@@ -63,6 +67,7 @@ void define_prism(py::module& m) {
             .def_property_readonly("boolean_variables", &Module::getBooleanVariables, "All boolean Variables of this module")
             .def("get_integer_variable", &Module::getIntegerVariable, py::arg("variable_name"))
             .def("get_boolean_variable", &Module::getBooleanVariable, py::arg("variable_name"))
+            .def("get_command_indices_by_action_index", &Module::getCommandIndicesByActionIndex, py::arg("action_index"))
             .def("__str__", &streamToString<Module>)
             ;
 

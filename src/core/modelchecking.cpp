@@ -14,6 +14,11 @@ std::shared_ptr<storm::modelchecker::CheckResult> modelCheckingSparseEngine(std:
     return storm::api::verifyWithSparseEngine<ValueType>(env, model, task);
 }
 
+template<typename ValueType>
+std::shared_ptr<storm::modelchecker::CheckResult> modelCheckingFullyObservableSparseEngine(std::shared_ptr<storm::models::sparse::Pomdp<ValueType>> model, CheckTask<ValueType> const& task, storm::Environment const& env) {
+    return storm::api::verifyWithSparseEngine<ValueType>(env, model->template as<storm::models::sparse::Mdp<ValueType>>(), task);
+}
+
 // Thin wrapper for model checking using dd engine
 template<storm::dd::DdType DdType, typename ValueType>
 std::shared_ptr<storm::modelchecker::CheckResult> modelCheckingDdEngine(std::shared_ptr<storm::models::symbolic::Model<DdType, ValueType>> model, CheckTask<ValueType> const& task, storm::Environment const& env) {
@@ -68,6 +73,7 @@ void define_modelchecking(py::module& m) {
     ;
 
     // Model checking
+    m.def("model_checking_fully_observable", &modelCheckingFullyObservableSparseEngine<double>, py::arg("model"), py::arg("task"), py::arg("environment")  = storm::Environment());
     m.def("_model_checking_sparse_engine", &modelCheckingSparseEngine<double>, "Perform model checking using the sparse engine", py::arg("model"), py::arg("task"), py::arg("environment") = storm::Environment());
     m.def("_parametric_model_checking_sparse_engine", &modelCheckingSparseEngine<storm::RationalFunction>, "Perform parametric model checking using the sparse engine", py::arg("model"), py::arg("task"), py::arg("environment") = storm::Environment());
     m.def("_model_checking_dd_engine", &modelCheckingDdEngine<storm::dd::DdType::Sylvan, double>, "Perform model checking using the dd engine", py::arg("model"), py::arg("task"), py::arg("environment") = storm::Environment());
