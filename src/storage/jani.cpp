@@ -66,7 +66,7 @@ void define_jani(py::module& m) {
         .def_property_readonly("initial_location_indices", &Automaton::getInitialLocationIndices)
         .def_property("initial_states_restriction", [](Automaton& aut) { aut.getInitialStatesExpression(); }, &Automaton::setInitialStatesRestriction, "initial state restriction")
         .def("add_edge", &Automaton::addEdge, "edge"_a)
-
+        .def("get_location_index", &Automaton::getLocationIndex, "name"_a)
     ;
 
     py::class_<Edge, std::shared_ptr<Edge>> edge(m, "JaniEdge", "A Jani Edge");
@@ -108,6 +108,7 @@ void define_jani(py::module& m) {
     orderedAssignments.def("__iter__", [](OrderedAssignments &v) {
                 return py::make_iterator(v.begin(), v.end());
             }, py::keep_alive<0, 1>()) /* Keep vector alive while iterator is used */
+        .def(py::init<std::vector<Assignment> const&>(), "assignments")
         .def("__str__", &streamToString<OrderedAssignments>)
         .def("clone", &OrderedAssignments::clone, "clone assignments (performs a deep copy)")
         .def("substitute", &OrderedAssignments::substitute, "substitute in rhs according to given substitution map", "substitution_map"_a)
@@ -118,10 +119,12 @@ void define_jani(py::module& m) {
     assignment.def(py::init<Variable const&,storm::expressions::Expression const&,int64_t>(), "lhs"_a, "rhs"_a, "lvl"_a = 0)
         .def("__str__", &streamToString<Assignment>)
         .def_property("expression", &Assignment::getAssignedExpression, &Assignment::setAssignedExpression)
+        .def_property_readonly("variable", &Assignment::getVariable, "variable that is assigned to, if any")
     ;
 
     py::class_<Location, std::shared_ptr<Location>> location(m, "JaniLocation", "A Location in JANI");
-    location.def_property_readonly("name", &Location::getName, "name of the location")
+    location.def(py::init<std::string const&, OrderedAssignments const&>(), "name"_a, "assignments"_a)
+            .def_property_readonly("name", &Location::getName, "name of the location")
             .def_property_readonly("assignments", [](Location& loc) {loc.getAssignments();}, "location assignments")
             ;
 
@@ -135,18 +138,22 @@ void define_jani(py::module& m) {
         .def("empty", &VariableSet::empty, "is there a variable in the set?")
         .def("get_variable_by_name", [](VariableSet& v, std::string const& name) -> auto& { return v.getVariable(name);})
         .def("get_variable_by_expr_variable", [](VariableSet& v, storm::expressions::Variable const& var) -> auto& { return v.getVariable(var);})
+        .def("erase_variable", &VariableSet::eraseVariable, "variable")
     ;
 
     py::class_<Variable, std::shared_ptr<Variable>> variable(m, "JaniVariable", "A Variable in JANI");
     variable.def_property_readonly("name", &Variable::getName, "name of constant")
             .def_property_readonly("expression_variable", &Variable::getExpressionVariable, "expression variable for this variable")
-            ;
+            .def_property_readonly("init_expression", &Variable::getInitExpression);
 
     py::class_<BoundedIntegerVariable, std::shared_ptr<BoundedIntegerVariable>> bivariable(m, "JaniBoundedIntegerVariable", "A Bounded Integer", variable);
     bivariable.def(py::init<std::string, storm::expressions::Variable, storm::expressions::Expression, storm::expressions::Expression, storm::expressions::Expression>(),
                 "name"_a, "expression_variable"_a, "init_value"_a, "lower_bound"_a, "upper_bound"_a)
             .def(py::init<std::string, storm::expressions::Variable, storm::expressions::Expression, storm::expressions::Expression>(),
-                 "name"_a, "expression_variable"_a, "lower_bound"_a, "upper_bound"_a);;
+                 "name"_a, "expression_variable"_a, "lower_bound"_a, "upper_bound"_a)
+            .def_property_readonly("lower_bound", &BoundedIntegerVariable::getLowerBound)
+            .def_property_readonly("upper_bound", &BoundedIntegerVariable::getUpperBound)
+    ;
 
     py::class_<Constant, std::shared_ptr<Constant>> constant(m, "JaniConstant", "A Constant in JANI");
     constant.def_property_readonly("defined", &Constant::isDefined, "is constant defined by some expression")
