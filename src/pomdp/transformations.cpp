@@ -3,6 +3,7 @@
 #include <storm-pomdp/transformer/PomdpMemoryUnfolder.h>
 #include <storm-pomdp/transformer/BinaryPomdpTransformer.h>
 #include <storm-pomdp/transformer/ApplyFiniteSchedulerToPomdp.h>
+#include <storm-pomdp/transformer/ObservationTraceUnfolder.h>
 
 template<typename ValueType>
 std::shared_ptr<storm::models::sparse::Pomdp<ValueType>> make_canonic(storm::models::sparse::Pomdp<ValueType> const& pomdp) {
@@ -27,6 +28,13 @@ std::shared_ptr<storm::models::sparse::Model<storm::RationalFunction>> apply_unk
     storm::transformer::ApplyFiniteSchedulerToPomdp<ValueType> transformer(pomdp);
     return transformer.transform(applicationMode);
 }
+
+template<typename ValueType>
+std::shared_ptr<storm::models::sparse::Mdp<ValueType>> unfold_trace(storm::models::sparse::Pomdp<ValueType> const& pomdp, std::vector<uint32_t> const& observationTrace, std::vector<ValueType> const& riskDef ) {
+    storm::pomdp::ObservationTraceUnfolder<ValueType> transformer(pomdp);
+    return transformer.transform(observationTrace, riskDef);
+}
+
 // STANDARD, SIMPLE_LINEAR, SIMPLE_LINEAR_INVERSE, SIMPLE_LOG, FULL
 void define_transformations_nt(py::module &m) {
     py::enum_<storm::transformer::PomdpFscApplicationMode>(m, "PomdpFscApplicationMode")
@@ -45,6 +53,7 @@ void define_transformations(py::module& m, std::string const& vtSuffix) {
     m.def(("_unfold_memory_" + vtSuffix).c_str(), &unfold_memory<ValueType>, "Unfold memory into a POMDP", py::arg("pomdp"), py::arg("memorystructure"));
     m.def(("_make_simple_"+ vtSuffix).c_str(), &make_simple<ValueType>, "Make POMDP simple", py::arg("pomdp"));
     m.def(("_apply_unknown_fsc_" + vtSuffix).c_str(), &apply_unknown_fsc<ValueType>, "Apply unknown FSC",py::arg("pomdp"), py::arg("application_mode")=storm::transformer::PomdpFscApplicationMode::SIMPLE_LINEAR);
+    m.def(("_unfold_trace_" + vtSuffix).c_str(), &unfold_trace<ValueType>, "Unfold observed trace", py::arg("pomdp"), py::arg("observation_trace"), py::arg("risk_definition"));
 }
 
 template void define_transformations<double>(py::module& m, std::string const& vtSuffix);
