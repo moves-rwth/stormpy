@@ -52,6 +52,7 @@ void define_environment(py::module& m) {
     py::class_<storm::NativeSolverEnvironment>(m, "NativeSolverEnvironment", "Environment for Native solvers")
         .def_property("method", &storm::NativeSolverEnvironment::getMethod, [](storm::NativeSolverEnvironment& nsenv, storm::solver::NativeLinearEquationSolverMethod const& m) {nsenv.setMethod(m);})
         .def_property("maximum_iterations", &storm::NativeSolverEnvironment::getMaximalNumberOfIterations, [](storm::NativeSolverEnvironment& nsenv, uint64_t iters) {nsenv.setMaximalNumberOfIterations(iters);} )
+        .def_property("precision", &storm::NativeSolverEnvironment::getPrecision, &storm::NativeSolverEnvironment::setPrecision)
     ;
 
     py::class_<storm::MinMaxSolverEnvironment>(m, "MinMaxSolverEnvironment", "Environment for Min-Max-Solvers")

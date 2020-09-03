@@ -13,7 +13,7 @@ def make_canonic(model):
     else:
         return pomdp._make_canonic_Double(model)
 
-def make_simple(model):
+def make_simple(model, keep_state_valuations=False):
     """
     Make the POMDP simple (aka alternating), i.e., each state has at most two actions, and if there is nondeterminism, then there is no probabilistic branching,
 
@@ -21,11 +21,11 @@ def make_simple(model):
     :return:
     """
     if model.supports_parameters:
-        return pomdp._make_simple_Rf(model)
+        return pomdp._make_simple_Rf(model, keep_state_valuations)
     else:
-        return pomdp._make_simple_Double(model)
+        return pomdp._make_simple_Double(model, keep_state_valuations)
 
-def unfold_memory(model, memory):
+def unfold_memory(model, memory, add_memory_labels=False, keep_state_valuations=False):
     """
     Unfold the memory for an FSC into the POMDP
 
@@ -34,9 +34,9 @@ def unfold_memory(model, memory):
     :return: A pomdp that contains states from the product of the original POMDP and the FSC Memory
     """
     if model.supports_parameters:
-        return pomdp._unfold_memory_Rf(model, memory)
+        return pomdp._unfold_memory_Rf(model, memory, add_memory_labels, keep_state_valuations)
     else:
-        return pomdp._unfold_memory_Double(model, memory)
+        return pomdp._unfold_memory_Double(model, memory, add_memory_labels, keep_state_valuations)
 
 def apply_unknown_fsc(model, mode):
     if model.supports_parameters:
