@@ -4,7 +4,8 @@ Changelog
 Version 1.6.x
 -------------
 
-### Version 1.6.1 (under development)
+### Version 1.6.2 (under development)
+Requires storm version >= 1.6.2 and pycarl version >= 2.0.4
 
 - Adaptions to changes in Storm
 - Explicit State Lookup: Finding a state based on the variable values
@@ -13,6 +14,9 @@ Version 1.6.x
 - Export to DRN options to support exporting without placeholders
 - Renamed `preprocess_prism_program` to `preprocess_symbolic_input`
 - Bindings for Storm-dft; most notably transformations, symmetries and relevant events
+
+### Version 1.6.1
+Skipped for compatibility with Storm.
 
 ### Version 1.6.0 (2020/06)
 Requires storm version >= 1.6.0 and pycarl version >= 2.0.4

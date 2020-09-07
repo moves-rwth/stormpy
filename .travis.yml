@@ -48,13 +48,13 @@ jobs:
     # Docker Storm stable
     - os: linux
       compiler: gcc
-      env: TASK=Test CONFIG=Release DOCKER=storm:1.6.0 PYTHON=python3
+      env: TASK=Test CONFIG=Release DOCKER=storm:1.6.2 PYTHON=python3
       script:
         travis/build.sh
     # Docker Storm stable in debug mode
     - os: linux
       compiler: gcc
-      env: TASK=Test CONFIG=Debug DOCKER=storm:1.6.0-debug PYTHON=python3
+      env: TASK=Test CONFIG=Debug DOCKER=storm:1.6.2-debug PYTHON=python3
       script:
         travis/build.sh
     # Documentation
@@ -76,6 +76,6 @@ jobs:
   # Allow failures of stable versions as new features might have been added
   allow_failures:
     - os: linux
-      env: TASK=Test CONFIG=Release DOCKER=storm:1.6.0 PYTHON=python3
+      env: TASK=Test CONFIG=Release DOCKER=storm:1.6.2 PYTHON=python3
     - os: linux
-      env: TASK=Test CONFIG=Debug DOCKER=storm:1.6.0-debug PYTHON=python3
+      env: TASK=Test CONFIG=Debug DOCKER=storm:1.6.2-debug PYTHON=python3
