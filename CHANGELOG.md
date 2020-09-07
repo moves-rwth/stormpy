@@ -8,6 +8,7 @@ Version 1.6.x
 Requires storm version >= 1.6.2 and pycarl version >= 2.0.4
 
 - Adaptions to changes in Storm
+- Create models (DTMC, MDP, CTMC, MA) directly from model components. Support creation of transition matrix, labeling, reward models, etc.
 - Explicit State Lookup: Finding a state based on the variable values
 - Support for pPOMDPs
 - (p)POMDPs: Support for unfolding memory, making POMDPs simple, and exporting POMDP to a pMC
