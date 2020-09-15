@@ -26,6 +26,7 @@ void define_expressions(py::module& m) {
         .def("create_integer_variable", &storm::expressions::ExpressionManager::declareIntegerVariable, "create Integer variable", py::arg("name"), py::arg("auxiliary") = false)
         .def("create_rational_variable", &storm::expressions::ExpressionManager::declareRationalVariable, "create Rational variable", py::arg("name"), py::arg("auxiliary") = false)
         .def("get_variable", &storm::expressions::ExpressionManager::getVariable, "get variably by name", py::arg("name"))
+        .def("get_variables", &storm::expressions::ExpressionManager::getVariables, "Retrieves the set of all variables known to this manager.")
             ;
 
     // Variable

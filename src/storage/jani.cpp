@@ -33,6 +33,7 @@ void define_jani(py::module& m) {
         .def_property_readonly("undefined_constants_are_graph_preserving", &Model::undefinedConstantsAreGraphPreserving, "Flag if the undefined constants do not change the graph structure")
         .def("__str__", &janiToString)
         .def_property("initial_states_restriction", &Model::getInitialStatesRestriction, &Model::setInitialStatesRestriction, "initial states restriction")
+        .def("add_constant", &Model::addConstant, "adds constant to model", py::arg("constant"))
         .def("define_constants", &Model::defineUndefinedConstants, "define constants with a mapping from the corresponding expression variables to expressions", py::arg("map"))
         .def("substitute_constants", &Model::substituteConstants, "substitute constants")
         .def("remove_constant", &Model::removeConstant, "remove a constant. Make sure the constant does not appear in the model.", "constant_name"_a)
@@ -156,7 +157,8 @@ void define_jani(py::module& m) {
     ;
 
     py::class_<Constant, std::shared_ptr<Constant>> constant(m, "JaniConstant", "A Constant in JANI");
-    constant.def_property_readonly("defined", &Constant::isDefined, "is constant defined by some expression")
+    constant.def(py::init<std::string, storm::expressions::Variable>())
+        .def_property_readonly("defined", &Constant::isDefined, "is constant defined by some expression")
         .def_property_readonly("name", &Constant::getName, "name of constant")
         .def_property_readonly("type", &Constant::getType, "type of constant")
         .def_property_readonly("expression_variable", &Constant::getExpressionVariable, "expression variable for this constant")
