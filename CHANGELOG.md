@@ -4,12 +4,20 @@ Changelog
 Version 1.6.x
 -------------
 
-### Version 1.6.1 (under development)
+### Version 1.6.2 (2020/09)
+Requires storm version >= 1.6.2 and pycarl version >= 2.0.4
 
+- Adaptions to changes in Storm
+- Create models (DTMC, MDP, CTMC, MA) directly from model components. Support creation of transition matrix, labeling, reward models, etc.
 - Explicit State Lookup: Finding a state based on the variable values
 - Support for pPOMDPs
 - (p)POMDPs: Support for unfolding memory, making POMDPs simple, and exporting POMDP to a pMC
 - Export to DRN options to support exporting without placeholders
+- Renamed `preprocess_prism_program` to `preprocess_symbolic_input`
+- Bindings for Storm-dft; most notably transformations, symmetries and relevant events
+
+### Version 1.6.1
+Skipped for compatibility with Storm.
 
 ### Version 1.6.0 (2020/06)
 Requires storm version >= 1.6.0 and pycarl version >= 2.0.4

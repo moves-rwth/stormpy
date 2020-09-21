@@ -21,22 +21,26 @@ void define_formulae(py::module& m) {
         .def("substitute_labels_by_labels", [](storm::logic::Formula const& f, std::map<std::string, std::string> const& labelSubs) {storm::logic::LabelSubstitutionVisitor lsv(labelSubs); return lsv.substitute(f);}, "substitute label occurences", py::arg("replacements"))
         .def_property_readonly("is_probability_operator", &storm::logic::Formula::isProbabilityOperatorFormula, "is it a probability operator")
         .def_property_readonly("is_reward_operator", &storm::logic::Formula::isRewardOperatorFormula, "is it a reward operator")
-
+        .def_property_readonly("is_eventually_formula", &storm::logic::Formula::isEventuallyFormula)
+        .def_property_readonly("is_bounded_until_formula", &storm::logic::Formula::isBoundedUntilFormula)
+        .def_property_readonly("is_until_formula", &storm::logic::Formula::isUntilFormula)
             ;
 
     // Path Formulae
     py::class_<storm::logic::PathFormula, std::shared_ptr<storm::logic::PathFormula>> pathFormula(m, "PathFormula", "Formula about the probability of a set of paths in an automaton", formula);
     py::class_<storm::logic::UnaryPathFormula, std::shared_ptr<storm::logic::UnaryPathFormula>> unaryPathFormula(m, "UnaryPathFormula", "Path formula with one operand", pathFormula);
     unaryPathFormula.def_property_readonly("subformula", &storm::logic::UnaryPathFormula::getSubformula, "the subformula");
-    unaryPathFormula.def_property_readonly("is_eventually_formula", &storm::logic::UnaryPathFormula::isEventuallyFormula);
-    unaryPathFormula.def_property_readonly("is_bounded_until_formula", &storm::logic::UnaryPathFormula::isBoundedUntilFormula);
-    unaryPathFormula.def_property_readonly("is_until_formula", &storm::logic::UnaryPathFormula::isUntilFormula);
     py::class_<storm::logic::EventuallyFormula, std::shared_ptr<storm::logic::EventuallyFormula>>(m, "EventuallyFormula", "Formula for eventually", unaryPathFormula);
     py::class_<storm::logic::GloballyFormula, std::shared_ptr<storm::logic::GloballyFormula>>(m, "GloballyFormula", "Formula for globally", unaryPathFormula);
     py::class_<storm::logic::BinaryPathFormula, std::shared_ptr<storm::logic::BinaryPathFormula>> binaryPathFormula(m, "BinaryPathFormula", "Path formula with two operands", pathFormula);
     binaryPathFormula.def_property_readonly("left_subformula", &storm::logic::BinaryPathFormula::getLeftSubformula);
     binaryPathFormula.def_property_readonly("right_subformula", &storm::logic::BinaryPathFormula::getRightSubformula);
-    py::class_<storm::logic::BoundedUntilFormula, std::shared_ptr<storm::logic::BoundedUntilFormula>>(m, "BoundedUntilFormula", "Until Formula with either a step or a time bound.", binaryPathFormula);
+    py::class_<storm::logic::BoundedUntilFormula, std::shared_ptr<storm::logic::BoundedUntilFormula>>(m, "BoundedUntilFormula", "Until Formula with either a step or a time bound.", binaryPathFormula)
+    .def_property_readonly("is_multidimensional", &storm::logic::BoundedUntilFormula::isMultiDimensional, "Is the bound multi-dimensional")
+    .def_property_readonly("has_lower_bound", [](storm::logic::BoundedUntilFormula const& form) { return form.hasLowerBound(); })
+    .def_property_readonly("upper_bound_expression", [](storm::logic::BoundedUntilFormula const& form) { return form.getUpperBound(); } )
+    .def_property_readonly("left_subformula", [](storm::logic::BoundedUntilFormula const& form) -> storm::logic::Formula const& { return form.getLeftSubformula(); }, py::return_value_policy::reference_internal)
+    .def_property_readonly("right_subformula", [](storm::logic::BoundedUntilFormula const& form)-> storm::logic::Formula const& { return form.getRightSubformula(); }, py::return_value_policy::reference_internal);
     py::class_<storm::logic::ConditionalFormula, std::shared_ptr<storm::logic::ConditionalFormula>>(m, "ConditionalFormula", "Formula with the right hand side being a condition.", formula);
     py::class_<storm::logic::UntilFormula, std::shared_ptr<storm::logic::UntilFormula>>(m, "UntilFormula", "Path Formula for unbounded until", binaryPathFormula);
 
