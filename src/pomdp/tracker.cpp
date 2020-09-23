@@ -35,6 +35,8 @@ void define_tracker(py::module& m) {
     ndetbelieftracker.def("obtain_current_risk",&NDPomdpTrackerSparse<double>::getCurrentRisk, py::arg("max")=true);
     ndetbelieftracker.def("track", &NDPomdpTrackerSparse<double>::track, py::arg("observation"));
     ndetbelieftracker.def("obtain_beliefs", &NDPomdpTrackerSparse<double>::getCurrentBeliefs);
+    ndetbelieftracker.def("size", &NDPomdpTrackerSparse<double>::getNumberOfBeliefs);
+    ndetbelieftracker.def("dimension", &NDPomdpTrackerSparse<double>::getCurrentDimension);
     ndetbelieftracker.def("obtain_last_observation", &NDPomdpTrackerSparse<double>::getCurrentObservation);
     ndetbelieftracker.def("reduce",&NDPomdpTrackerSparse<double>::reduce);
 

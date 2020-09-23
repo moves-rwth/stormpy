@@ -46,6 +46,13 @@ void define_transformations_nt(py::module &m) {
             .value("full", storm::transformer::PomdpFscApplicationMode::FULL)
             ;
 
+
+    py::class_<storm::pomdp::ObservationTraceUnfolder<double>> unfolder(m, "ObservationTraceUnfolderDouble", "Unfolds observation traces in models");
+    unfolder.def(py::init<storm::models::sparse::Pomdp<double> const&,  std::vector<double> const&, std::shared_ptr<storm::expressions::ExpressionManager>&>(), py::arg("model"), py::arg("risk"), py::arg("expression_manager"));
+    unfolder.def("transform", &storm::pomdp::ObservationTraceUnfolder<double>::transform, py::arg("trace"));
+    unfolder.def("extend", &storm::pomdp::ObservationTraceUnfolder<double>::extend, py::arg("new_observation"));
+    unfolder.def("reset", &storm::pomdp::ObservationTraceUnfolder<double>::reset, py::arg("new_observation"));
+
 }
 
 template<typename ValueType>
@@ -54,7 +61,9 @@ void define_transformations(py::module& m, std::string const& vtSuffix) {
     m.def(("_unfold_memory_" + vtSuffix).c_str(), &unfold_memory<ValueType>, "Unfold memory into a POMDP", py::arg("pomdp"), py::arg("memorystructure"), py::arg("memorylabels") = false, py::arg("keep_state_valuations")=false);
     m.def(("_make_simple_"+ vtSuffix).c_str(), &make_simple<ValueType>, "Make POMDP simple", py::arg("pomdp"), py::arg("keep_state_valuations")=false);
     m.def(("_apply_unknown_fsc_" + vtSuffix).c_str(), &apply_unknown_fsc<ValueType>, "Apply unknown FSC",py::arg("pomdp"), py::arg("application_mode")=storm::transformer::PomdpFscApplicationMode::SIMPLE_LINEAR);
-    m.def(("_unfold_trace_" + vtSuffix).c_str(), &unfold_trace<ValueType>, "Unfold observed trace", py::arg("pomdp"), py::arg("expression_manager"),py::arg("observation_trace"), py::arg("risk_definition"));
+    //m.def(("_unfold_trace_" + vtSuffix).c_str(), &unfold_trace<ValueType>, "Unfold observed trace", py::arg("pomdp"), py::arg("expression_manager"),py::arg("observation_trace"), py::arg("risk_definition"));
+
+
 }
 
 template void define_transformations<double>(py::module& m, std::string const& vtSuffix);
