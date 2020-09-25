@@ -43,3 +43,29 @@ def apply_unknown_fsc(model, mode):
         return pomdp._apply_unknown_fsc_Rf(model, mode)
     else:
         return pomdp._apply_unknown_fsc_Double(model, mode)
+
+
+def create_nondeterminstic_belief_tracker(model):
+    """
+
+    :param model: A POMDP
+    :return:
+    """
+    if model.is_exact:
+        return pomdp.NondeterministicBeliefTrackerExactSparse(model)
+    else:
+        return pomdp.NondeterministicBeliefTrackerDoubleSparse(model)
+
+
+def create_observation_trace_unfolder(model, risk_assessment, expr_manager):
+    """
+
+    :param model:
+    :param risk_assessment:
+    :param expr_manager:
+    :return:
+    """
+    if model.is_exact:
+        return pomdp.ObservationTraceUnfolderExact(model, risk_assessment, expr_manager)
+    else:
+        return pomdp.ObservationTraceUnfolderDouble(model, risk_assessment, expr_manager)

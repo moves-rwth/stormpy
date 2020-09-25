@@ -256,7 +256,7 @@ def perform_symbolic_bisimulation(model, properties):
         return core._perform_symbolic_bisimulation(model, formulae, bisimulation_type)
 
 
-def model_checking(model, property, only_initial_states=False, extract_scheduler=False, environment=Environment()):
+def model_checking(model, property, only_initial_states=False, extract_scheduler=False, force_fully_observable=False, environment=Environment()):
     """
     Perform model checking on model for property.
     :param model: Model.
@@ -268,7 +268,7 @@ def model_checking(model, property, only_initial_states=False, extract_scheduler
     """
     if model.is_sparse_model:
         return check_model_sparse(model, property, only_initial_states=only_initial_states,
-                                  extract_scheduler=extract_scheduler, environment=environment)
+                                  extract_scheduler=extract_scheduler, force_fully_observable=force_fully_observable, environment=environment)
     else:
         assert (model.is_symbolic_model)
         if extract_scheduler:
@@ -277,13 +277,14 @@ def model_checking(model, property, only_initial_states=False, extract_scheduler
                               environment=environment)
 
 
-def check_model_sparse(model, property, only_initial_states=False, extract_scheduler=False, environment=Environment()):
+def check_model_sparse(model, property, only_initial_states=False, extract_scheduler=False, force_fully_observable=False, environment=Environment()):
     """
     Perform model checking on model for property.
     :param model: Model.
     :param property: Property to check for.
     :param only_initial_states: If True, only results for initial states are computed, otherwise for all states.
     :param extract_scheduler: If True, try to extract a scheduler
+    :param force_fully_observable: If True, treat a POMDP as an MDP
     :return: Model checking result.
     :rtype: CheckResult
     """
@@ -291,6 +292,22 @@ def check_model_sparse(model, property, only_initial_states=False, extract_sched
         formula = property.raw_formula
     else:
         formula = property
+
+    if force_fully_observable:
+        if model.is_partially_observable:
+            # Note that casting a model to a fully observable model wont work with python/pybind, so we actually have other access points
+            if model.supports_parameters:
+                raise NotImplementedError("")
+            elif model.is_exact:
+                task = core.ExactCheckTask(formula, only_initial_states)
+                task.set_produce_schedulers(extract_scheduler)
+                return core._exact_model_checking_fully_observable(model, task, environment=environment)
+            else:
+                task = core.CheckTask(formula, only_initial_states)
+                task.set_produce_schedulers(extract_scheduler)
+                return core._model_checking_fully_observable(model, task, environment=environment)
+        else:
+            raise RuntimeError("Forcing models that are fully observable is not possible")
 
     if model.supports_parameters:
         task = core.ParametricCheckTask(formula, only_initial_states)

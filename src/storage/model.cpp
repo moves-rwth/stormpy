@@ -108,6 +108,7 @@ void define_model(py::module& m) {
         .def_property_readonly("supports_parameters", &ModelBase::supportsParameters, "Flag whether model supports parameters")
         .def_property_readonly("has_parameters", &ModelBase::hasParameters, "Flag whether model has parameters")
         .def_property_readonly("is_exact", &ModelBase::isExact, "Flag whether model is exact")
+        .def_property_readonly("is_partially_observable", &ModelBase::isPartiallyObservable, "Flag whether the model has observation labels")
         .def_property_readonly("is_sparse_model", &ModelBase::isSparseModel, "Flag whether the model is stored as a sparse model")
         .def_property_readonly("is_symbolic_model", &ModelBase::isSymbolicModel, "Flag whether the model is stored using decision diagrams")
         .def_property_readonly("is_discrete_time_model", &ModelBase::isDiscreteTimeModel, "Flag whether the model is a discrete time model")
