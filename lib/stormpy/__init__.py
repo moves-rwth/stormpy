@@ -297,9 +297,15 @@ def check_model_sparse(model, property, only_initial_states=False, extract_sched
         task.set_produce_schedulers(extract_scheduler)
         return core._parametric_model_checking_sparse_engine(model, task, environment=environment)
     else:
-        task = core.CheckTask(formula, only_initial_states)
-        task.set_produce_schedulers(extract_scheduler)
-        return core._model_checking_sparse_engine(model, task, environment=environment)
+
+        if model.is_exact:
+            task = core.ExactCheckTask(formula, only_initial_states)
+            task.set_produce_schedulers(extract_scheduler)
+            return core._exact_model_checking_sparse_engine(model, task, environment=environment)
+        else:
+            task = core.CheckTask(formula, only_initial_states)
+            task.set_produce_schedulers(extract_scheduler)
+            return core._model_checking_sparse_engine(model, task, environment=environment)
 
 
 def check_model_dd(model, property, only_initial_states=False, environment=Environment()):

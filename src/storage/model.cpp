@@ -115,12 +115,18 @@ void define_model(py::module& m) {
         .def("_as_sparse_dtmc", [](ModelBase &modelbase) {
                 return modelbase.as<SparseDtmc<double>>();
             }, "Get model as sparse DTMC")
+        .def("_as_sparse_exact_dtmc", [](ModelBase &modelbase) {
+                return modelbase.as<SparseDtmc<storm::RationalNumber>>();
+            }, "Get model as sparse DTMC")
         .def("_as_sparse_pdtmc", [](ModelBase &modelbase) {
                 return modelbase.as<SparseDtmc<RationalFunction>>();
             }, "Get model as sparse pDTMC")
         .def("_as_sparse_mdp", [](ModelBase &modelbase) {
                 return modelbase.as<SparseMdp<double>>();
             }, "Get model as sparse MDP")
+        .def("_as_sparse_exact_mdp", [](ModelBase &modelbase) {
+                return modelbase.as<SparseMdp<storm::RationalNumber>>();
+            }, "Get model as sparse exact MDP")
         .def("_as_sparse_pmdp", [](ModelBase &modelbase) {
                 return modelbase.as<SparseMdp<RationalFunction>>();
             }, "Get model as sparse pMDP")
@@ -171,90 +177,94 @@ void define_model(py::module& m) {
 
 
 // Bindings for sparse models
-void define_sparse_model(py::module& m) {
+template<typename ValueType>
+void define_sparse_model(py::module& m, std::string const& vtSuffix) {
 
     // Models with double numbers
-    py::class_<SparseModel<double>, std::shared_ptr<SparseModel<double>>, ModelBase> model(m, "_SparseModel", "A probabilistic model where transitions are represented by doubles and saved in a sparse matrix");
-    model.def_property_readonly("labeling", &getLabeling<double>, "Labels")
-        .def("has_choice_labeling", [](SparseModel<double> const& model) {return model.hasChoiceLabeling();}, "Does the model have an associated choice labelling?")
-        .def_property_readonly("choice_labeling", [](SparseModel<double> const& model) {return model.getChoiceLabeling();}, "get choice labelling")
-        .def("has_choice_origins", [](SparseModel<double> const& model) {return model.hasChoiceOrigins();}, "has choice origins?")
-        .def_property_readonly("choice_origins", [](SparseModel<double> const& model) {return model.getChoiceOrigins();})
-        .def("labels_state", &SparseModel<double>::getLabelsOfState, py::arg("state"), "Get labels of state")
-        .def_property_readonly("initial_states", &getSparseInitialStates<double>, "Initial states")
-        .def_property_readonly("states", [](SparseModel<double>& model) {
-                return SparseModelStates<double>(model);
+    py::class_<SparseModel<ValueType>, std::shared_ptr<SparseModel<ValueType>>, ModelBase> model(m, ("_Sparse" + vtSuffix + "Model").c_str(),
+                                                                                           "A probabilistic model where transitions are represented by doubles and saved in a sparse matrix");
+    model.def_property_readonly("labeling", &getLabeling<ValueType>, "Labels")
+        .def("has_choice_labeling", [](SparseModel<ValueType> const& model) {return model.hasChoiceLabeling();}, "Does the model have an associated choice labelling?")
+        .def_property_readonly("choice_labeling", [](SparseModel<ValueType> const& model) {return model.getChoiceLabeling();}, "get choice labelling")
+        .def("has_choice_origins", [](SparseModel<ValueType> const& model) {return model.hasChoiceOrigins();}, "has choice origins?")
+        .def_property_readonly("choice_origins", [](SparseModel<ValueType> const& model) {return model.getChoiceOrigins();})
+        .def("labels_state", &SparseModel<ValueType>::getLabelsOfState, py::arg("state"), "Get labels of state")
+        .def_property_readonly("initial_states", &getSparseInitialStates<ValueType>, "Initial states")
+        .def_property_readonly("states", [](SparseModel<ValueType>& model) {
+                return SparseModelStates<ValueType>(model);
             }, "Get states")
-        .def_property_readonly("reward_models", [](SparseModel<double>& model) {return model.getRewardModels(); }, "Reward models")
-        .def_property_readonly("transition_matrix", &getTransitionMatrix<double>, py::return_value_policy::reference, py::keep_alive<1, 0>(), "Transition matrix")
-        .def_property_readonly("backward_transition_matrix", &SparseModel<double>::getBackwardTransitions, py::return_value_policy::reference, py::keep_alive<1, 0>(), "Backward transition matrix")
-        .def("get_reward_model", [](SparseModel<double>& model, std::string const& name) {return model.getRewardModel(name);}, py::return_value_policy::reference, py::keep_alive<1, 0>(), "Reward model")
-        .def("has_state_valuations", [](SparseModel<double> const& model) {return model.hasStateValuations();}, "has state valuation?")
-        .def_property_readonly("state_valuations",  [](SparseModel<double> const& model) {return model.getStateValuations();}, "state valuations")
-        .def("reduce_to_state_based_rewards", &SparseModel<double>::reduceToStateBasedRewards)
-        .def("is_sink_state", &SparseModel<double>::isSinkState, py::arg("state"))
+        .def_property_readonly("reward_models", [](SparseModel<ValueType>& model) {return model.getRewardModels(); }, "Reward models")
+        .def_property_readonly("transition_matrix", &getTransitionMatrix<ValueType>, py::return_value_policy::reference, py::keep_alive<1, 0>(), "Transition matrix")
+        .def_property_readonly("backward_transition_matrix", &SparseModel<ValueType>::getBackwardTransitions, py::return_value_policy::reference, py::keep_alive<1, 0>(), "Backward transition matrix")
+        .def("get_reward_model", [](SparseModel<ValueType>& model, std::string const& name) {return model.getRewardModel(name);}, py::return_value_policy::reference, py::keep_alive<1, 0>(), "Reward model")
+        .def("has_state_valuations", [](SparseModel<ValueType> const& model) {return model.hasStateValuations();}, "has state valuation?")
+        .def_property_readonly("state_valuations",  [](SparseModel<ValueType> const& model) {return model.getStateValuations();}, "state valuations")
+        .def("reduce_to_state_based_rewards", &SparseModel<ValueType>::reduceToStateBasedRewards)
+        .def("is_sink_state", &SparseModel<ValueType>::isSinkState, py::arg("state"))
         .def("__str__", &getModelInfoPrinter)
-        .def("to_dot", [](SparseModel<double>& model) { std::stringstream ss; model.writeDotToStream(ss); return ss.str(); }, "Write dot to a string")
+        .def("to_dot", [](SparseModel<ValueType>& model) { std::stringstream ss; model.writeDotToStream(ss); return ss.str(); }, "Write dot to a string")
     ;
-    py::class_<SparseDtmc<double>, std::shared_ptr<SparseDtmc<double>>>(m, "SparseDtmc", "DTMC in sparse representation", model)
-        .def(py::init<SparseDtmc<double>>(), py::arg("other_model"))
-        .def(py::init<ModelComponents<double> const&>(), py::arg("components"))
-        .def("__str__", &getModelInfoPrinter)
-    ;
-    py::class_<SparseMdp<double>, std::shared_ptr<SparseMdp<double>>> mdp(m, "SparseMdp", "MDP in sparse representation", model);
-    mdp.def(py::init<SparseMdp<double>>(), py::arg("other_model"))
-        .def(py::init<ModelComponents<double> const&, storm::models::ModelType>(), py::arg("components"), py::arg("type")=storm::models::ModelType::Mdp)
-        .def_property_readonly("nondeterministic_choice_indices", [](SparseMdp<double> const& mdp) { return mdp.getNondeterministicChoiceIndices(); })
-        .def("get_nr_available_actions", [](SparseMdp<double> const& mdp, uint64_t stateIndex) { return mdp.getNondeterministicChoiceIndices()[stateIndex+1] - mdp.getNondeterministicChoiceIndices()[stateIndex] ; }, py::arg("state"))
-        .def("get_choice_index", [](SparseMdp<double> const& mdp, uint64_t state, uint64_t actOff) { return mdp.getNondeterministicChoiceIndices()[state]+actOff; }, py::arg("state"), py::arg("action_offset"), "gets the choice index for the offset action from the given state.")
-        .def("apply_scheduler", [](SparseMdp<double> const& mdp, storm::storage::Scheduler<double> const& scheduler, bool dropUnreachableStates) { return mdp.applyScheduler(scheduler, dropUnreachableStates); } , "apply scheduler", "scheduler"_a, "drop_unreachable_states"_a = true)
+    py::class_<SparseDtmc<ValueType>, std::shared_ptr<SparseDtmc<ValueType>>>(m, ("Sparse" + vtSuffix + "Dtmc").c_str(), "DTMC in sparse representation", model)
+        .def(py::init<SparseDtmc<ValueType>>(), py::arg("other_model"))
+        .def(py::init<ModelComponents<ValueType> const&>(), py::arg("components"))
         .def("__str__", &getModelInfoPrinter)
     ;
-    py::class_<SparsePomdp<double>, std::shared_ptr<SparsePomdp<double>>>(m, "SparsePomdp", "POMDP in sparse representation", mdp)
-        .def(py::init<SparsePomdp<double>>(), py::arg("other_model"))
-        .def(py::init<ModelComponents<double> const&, bool>(), py::arg("components"), py::arg("canonic_flag")=false)
-        .def("__str__", &getModelInfoPrinter)
-        .def("get_observation", &SparsePomdp<double>::getObservation, py::arg("state"))
-        .def_property_readonly("observations", &SparsePomdp<double>::getObservations)
-        .def_property_readonly("nr_observations", &SparsePomdp<double>::getNrObservations)
-        .def("has_observation_valuations", &SparsePomdp<double>::hasObservationValuations)
-        .def_property_readonly("observation_valuations", &SparsePomdp<double>::getObservationValuations)
-    ;
-    py::class_<SparseCtmc<double>, std::shared_ptr<SparseCtmc<double>>>(m, "SparseCtmc", "CTMC in sparse representation", model)
-        .def(py::init<SparseCtmc<double>>(), py::arg("other_model"))
-        .def(py::init<ModelComponents<double> const&>(), py::arg("components"))
-        .def_property_readonly("exit_rates", [](SparseCtmc<double> const& ctmc) { return ctmc.getExitRateVector(); })
+    py::class_<SparseMdp<ValueType>, std::shared_ptr<SparseMdp<ValueType>>> mdp(m, ("Sparse" + vtSuffix + "Mdp").c_str(), "MDP in sparse representation", model);
+    mdp.def(py::init<SparseMdp<ValueType>>(), py::arg("other_model"))
+        .def(py::init<ModelComponents<ValueType> const&, storm::models::ModelType>(), py::arg("components"), py::arg("type")=storm::models::ModelType::Mdp)
+        .def_property_readonly("nondeterministic_choice_indices", [](SparseMdp<ValueType> const& mdp) { return mdp.getNondeterministicChoiceIndices(); })
+        .def("get_nr_available_actions", [](SparseMdp<ValueType> const& mdp, uint64_t stateIndex) { return mdp.getNondeterministicChoiceIndices()[stateIndex+1] - mdp.getNondeterministicChoiceIndices()[stateIndex] ; }, py::arg("state"))
+        .def("get_choice_index", [](SparseMdp<ValueType> const& mdp, uint64_t state, uint64_t actOff) { return mdp.getNondeterministicChoiceIndices()[state]+actOff; }, py::arg("state"), py::arg("action_offset"), "gets the choice index for the offset action from the given state.")
+        .def("apply_scheduler", [](SparseMdp<ValueType> const& mdp, storm::storage::Scheduler<ValueType> const& scheduler, bool dropUnreachableStates) { return mdp.applyScheduler(scheduler, dropUnreachableStates); } , "apply scheduler", "scheduler"_a, "drop_unreachable_states"_a = true)
         .def("__str__", &getModelInfoPrinter)
     ;
-    py::class_<SparseMarkovAutomaton<double>, std::shared_ptr<SparseMarkovAutomaton<double>>>(m, "SparseMA", "MA in sparse representation", model)
-        .def(py::init<SparseMarkovAutomaton<double>>(), py::arg("other_model"))
-        .def(py::init<ModelComponents<double> const&>(), py::arg("components"))
-        .def_property_readonly("exit_rates", [](SparseMarkovAutomaton<double> const& ma) { return ma.getExitRates(); })
-        .def_property_readonly("markovian_states", [](SparseMarkovAutomaton<double> const& ma) { return ma.getMarkovianStates(); })
-        .def_property_readonly("nondeterministic_choice_indices", [](SparseMarkovAutomaton<double> const& ma) { return ma.getNondeterministicChoiceIndices(); })
-        .def("apply_scheduler", [](SparseMarkovAutomaton<double> const& ma, storm::storage::Scheduler<double> const& scheduler, bool dropUnreachableStates) { return ma.applyScheduler(scheduler, dropUnreachableStates); } , "apply scheduler", "scheduler"_a, "drop_unreachable_states"_a = true)
+    py::class_<SparsePomdp<ValueType>, std::shared_ptr<SparsePomdp<ValueType>>>(m, ("Sparse" + vtSuffix + "Pomdp").c_str(), "POMDP in sparse representation", mdp)
+        .def(py::init<SparsePomdp<ValueType>>(), py::arg("other_model"))
+        .def(py::init<ModelComponents<ValueType> const&, bool>(), py::arg("components"), py::arg("canonic_flag")=false)
         .def("__str__", &getModelInfoPrinter)
-        .def_property_readonly("convertible_to_ctmc", &SparseMarkovAutomaton<double>::isConvertibleToCtmc, "Check whether the MA can be converted into a CTMC.")
-        .def("convert_to_ctmc", &SparseMarkovAutomaton<double>::convertToCtmc, "Convert the MA into a CTMC.")
+        .def("get_observation", &SparsePomdp<ValueType>::getObservation, py::arg("state"))
+        .def_property_readonly("observations", &SparsePomdp<ValueType>::getObservations)
+        .def_property_readonly("nr_observations", &SparsePomdp<ValueType>::getNrObservations)
+        .def("has_observation_valuations", &SparsePomdp<ValueType>::hasObservationValuations)
+        .def_property_readonly("observation_valuations", &SparsePomdp<ValueType>::getObservationValuations)
+    ;
+    py::class_<SparseCtmc<ValueType>, std::shared_ptr<SparseCtmc<ValueType>>>(m, ("Sparse" + vtSuffix + "Ctmc").c_str(), "CTMC in sparse representation", model)
+        .def(py::init<SparseCtmc<ValueType>>(), py::arg("other_model"))
+        .def(py::init<ModelComponents<ValueType> const&>(), py::arg("components"))
+        .def_property_readonly("exit_rates", [](SparseCtmc<ValueType> const& ctmc) { return ctmc.getExitRateVector(); })
+        .def("__str__", &getModelInfoPrinter)
+    ;
+    py::class_<SparseMarkovAutomaton<ValueType>, std::shared_ptr<SparseMarkovAutomaton<ValueType>>>(m, ("Sparse" + vtSuffix + "MA").c_str(), "MA in sparse representation", model)
+        .def(py::init<SparseMarkovAutomaton<ValueType>>(), py::arg("other_model"))
+        .def(py::init<ModelComponents<ValueType> const&>(), py::arg("components"))
+        .def_property_readonly("exit_rates", [](SparseMarkovAutomaton<ValueType> const& ma) { return ma.getExitRates(); })
+        .def_property_readonly("markovian_states", [](SparseMarkovAutomaton<ValueType> const& ma) { return ma.getMarkovianStates(); })
+        .def_property_readonly("nondeterministic_choice_indices", [](SparseMarkovAutomaton<ValueType> const& ma) { return ma.getNondeterministicChoiceIndices(); })
+        .def("apply_scheduler", [](SparseMarkovAutomaton<ValueType> const& ma, storm::storage::Scheduler<ValueType> const& scheduler, bool dropUnreachableStates) { return ma.applyScheduler(scheduler, dropUnreachableStates); } , "apply scheduler", "scheduler"_a, "drop_unreachable_states"_a = true)
+        .def("__str__", &getModelInfoPrinter)
+        .def_property_readonly("convertible_to_ctmc", &SparseMarkovAutomaton<ValueType>::isConvertibleToCtmc, "Check whether the MA can be converted into a CTMC.")
+        .def("convert_to_ctmc", &SparseMarkovAutomaton<ValueType>::convertToCtmc, "Convert the MA into a CTMC.")
     ;
 
-    py::class_<SparseRewardModel<double>>(m, "SparseRewardModel", "Reward structure for sparse models")
-        .def(py::init<boost::optional<std::vector<double>> const&, boost::optional<std::vector<double>> const&,
-                boost::optional<storm::storage::SparseMatrix<double>> const&>(), py::arg("optional_state_reward_vector") = boost::none,
+    py::class_<SparseRewardModel<ValueType>>(m, ("Sparse" + vtSuffix + "RewardModel").c_str(), "Reward structure for sparse models")
+        .def(py::init<boost::optional<std::vector<ValueType>> const&, boost::optional<std::vector<ValueType>> const&,
+                boost::optional<storm::storage::SparseMatrix<ValueType>> const&>(), py::arg("optional_state_reward_vector") = boost::none,
                 py::arg("optional_state_action_reward_vector") = boost::none,  py::arg("optional_transition_reward_matrix") = boost::none)
-        .def_property_readonly("has_state_rewards", &SparseRewardModel<double>::hasStateRewards)
-        .def_property_readonly("has_state_action_rewards", &SparseRewardModel<double>::hasStateActionRewards)
-        .def_property_readonly("has_transition_rewards", &SparseRewardModel<double>::hasTransitionRewards)
-        .def_property_readonly("transition_rewards", [](SparseRewardModel<double>& rewardModel) {return rewardModel.getTransitionRewardMatrix();})
-        .def_property_readonly("state_rewards", [](SparseRewardModel<double>& rewardModel) {return rewardModel.getStateRewardVector();})
-        .def("get_state_reward", [](SparseRewardModel<double>& rewardModel, uint64_t state) {return rewardModel.getStateReward(state);})
-        .def("get_zero_reward_states", &SparseRewardModel<double>::getStatesWithZeroReward<double>, "get states where all rewards are zero", py::arg("transition_matrix"))
-        .def("get_state_action_reward", [](SparseRewardModel<double>& rewardModel, uint64_t action_index) {return rewardModel.getStateActionReward(action_index);})
-        .def_property_readonly("state_action_rewards", [](SparseRewardModel<double>& rewardModel) {return rewardModel.getStateActionRewardVector();})
-        .def("reduce_to_state_based_rewards", [](SparseRewardModel<double>& rewardModel, storm::storage::SparseMatrix<double> const& transitions, bool onlyStateRewards){return rewardModel.reduceToStateBasedRewards(transitions, onlyStateRewards);},  py::arg("transition_matrix"), py::arg("only_state_rewards"), "Reduce to state-based rewards")
+        .def_property_readonly("has_state_rewards", &SparseRewardModel<ValueType>::hasStateRewards)
+        .def_property_readonly("has_state_action_rewards", &SparseRewardModel<ValueType>::hasStateActionRewards)
+        .def_property_readonly("has_transition_rewards", &SparseRewardModel<ValueType>::hasTransitionRewards)
+        .def_property_readonly("transition_rewards", [](SparseRewardModel<ValueType>& rewardModel) {return rewardModel.getTransitionRewardMatrix();})
+        .def_property_readonly("state_rewards", [](SparseRewardModel<ValueType>& rewardModel) {return rewardModel.getStateRewardVector();})
+        .def("get_state_reward", [](SparseRewardModel<ValueType>& rewardModel, uint64_t state) {return rewardModel.getStateReward(state);})
+        .def("get_zero_reward_states", &SparseRewardModel<ValueType>::template getStatesWithZeroReward<ValueType>, "get states where all rewards are zero", py::arg("transition_matrix"))
+        .def("get_state_action_reward", [](SparseRewardModel<ValueType>& rewardModel, uint64_t action_index) {return rewardModel.getStateActionReward(action_index);})
+        .def_property_readonly("state_action_rewards", [](SparseRewardModel<ValueType>& rewardModel) {return rewardModel.getStateActionRewardVector();})
+        .def("reduce_to_state_based_rewards", [](SparseRewardModel<ValueType>& rewardModel, storm::storage::SparseMatrix<ValueType> const& transitions, bool onlyStateRewards){return rewardModel.reduceToStateBasedRewards(transitions, onlyStateRewards);},  py::arg("transition_matrix"), py::arg("only_state_rewards"), "Reduce to state-based rewards")
     ;
 
+}
 
+void define_sparse_parametric_model(py::module& m) {
     // Parametric models
     py::class_<SparseModel<RationalFunction>, std::shared_ptr<SparseModel<RationalFunction>>, ModelBase> modelRatFunc(m, "_SparseParametricModel", "A probabilistic model where transitions are represented by rational functions and saved in a sparse matrix");
     modelRatFunc.def("collect_probability_parameters", &probabilityVariables, "Collect parameters")
@@ -393,3 +403,5 @@ void define_symbolic_model(py::module& m, std::string vt_suffix) {
 }
 
 template void define_symbolic_model<storm::dd::DdType::Sylvan>(py::module& m, std::string vt_suffix);
+template void define_sparse_model<double>(py::module& m, std::string const& vt_suffix);
+template void define_sparse_model<storm::RationalNumber>(py::module& m, std::string const& vt_suffix);

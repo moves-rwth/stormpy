@@ -4,6 +4,10 @@ Changelog
 Version 1.6.x
 -------------
 
+### Version 1.6.3 (to be released)
+- Support for exact arithmetic in models
+
+
 ### Version 1.6.2 (2020/09)
 Requires storm version >= 1.6.2 and pycarl version >= 2.0.4
 

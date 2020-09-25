@@ -1,3 +1,4 @@
+#include <storm/adapters/RationalNumberAdapter.h>
 #include "distribution.h"
 #include "src/helpers.h"
 
@@ -15,3 +16,4 @@ void define_distribution(py::module& m, std::string vt_suffix) {
 
 
 template void define_distribution<double>(py::module&, std::string vt_suffix);
+template void define_distribution<storm::RationalNumber>(py::module&, std::string vt_suffix);

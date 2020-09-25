@@ -140,6 +140,7 @@ void define_jani(py::module& m) {
     py::class_<Variable, std::shared_ptr<Variable>> variable(m, "JaniVariable", "A Variable in JANI");
     variable.def_property_readonly("name", &Variable::getName, "name of constant")
             .def_property_readonly("expression_variable", &Variable::getExpressionVariable, "expression variable for this variable")
+            //.def_property_readonly("initial_value_expression", &Variable::getInitialValue)
             ;
 
     py::class_<BoundedIntegerVariable, std::shared_ptr<BoundedIntegerVariable>> bivariable(m, "JaniBoundedIntegerVariable", "A Bounded Integer", variable);

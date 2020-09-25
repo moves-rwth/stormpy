@@ -2,4 +2,5 @@
 
 #include "common.h"
 
-void define_sparse_model_simulator(py::module& m);
+template<typename ValueType>
+void define_sparse_model_simulator(py::module& m, std::string const& vtSuffix);

@@ -14,11 +14,14 @@ PYBIND11_MODULE(pomdp, m) {
     py::options options;
     options.disable_function_signatures();
 #endif
-    define_tracker(m);
+    define_tracker<double>(m, "Double");
+    define_tracker<storm::RationalNumber>(m, "Exact");
     define_qualitative_policy_search<double>(m, "Double");
     define_qualitative_policy_search_nt(m);
     define_memory(m);
     define_transformations_nt(m);
     define_transformations<double>(m, "Double");
+    define_transformations<storm::RationalNumber>(m, "Exact");
+
     define_transformations<storm::RationalFunction>(m, "Rf");
 }
