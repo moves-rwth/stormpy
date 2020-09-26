@@ -41,6 +41,7 @@ PYBIND11_MODULE(storage, m) {
     define_symbolic_model<storm::dd::DdType::Sylvan>(m, "Sylvan");
     define_state<double>(m, "");
     define_state<storm::RationalNumber>(m, "Exact");
+    define_state<storm::RationalFunction>(m, "Parametric");
     define_prism(m);
     define_jani(m);
     define_jani_transformers(m);
