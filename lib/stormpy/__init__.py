@@ -515,3 +515,17 @@ def parse_properties(properties, context=None, filters=None):
         core.parse_properties_for_jani_model(properties, context, filters)
     else:
         raise StormError("Unclear context. Please pass a symbolic model description")
+
+def export_to_drn(model, file, options=DirectEncodingOptions()):
+    """
+    Export a model to DRN format
+    :param model: The model
+    :param file: A path
+    :param options: DirectEncodingOptions
+    :return:
+    """
+    if model.supports_parameters:
+        return core._export_parametric_to_drn(model, file, options)
+    if model.is_exact:
+        return core._export_exact_to_drn(model, file, options)
+    return core._export_to_drn(model, file, options)

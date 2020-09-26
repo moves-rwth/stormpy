@@ -29,8 +29,14 @@ void define_tracker(py::module& m, std::string const& vtSuffix) {
 //    dbel.def_property_readonly("risk", &storm::generator::ObservationDenseBeliefState<double>::getRisk);
 //    dbel.def("__str__", &storm::generator::ObservationDenseBeliefState<double>::toString);
 
+    py::class_<typename NDPomdpTrackerSparse<ValueType>::Options> opts(m, ("NondeterministicBeliefTracker" + vtSuffix + "SparseOptions").c_str(), "Options for the corresponding tracker");
+    opts.def(py::init<>());
+    opts.def_readwrite("track_timeout", &NDPomdpTrackerSparse<ValueType>::Options::trackTimeOut);
+    opts.def_readwrite("reduction_timeout", &NDPomdpTrackerSparse<ValueType>::Options::timeOut);
+    opts.def_readwrite("reduction_wiggle", &NDPomdpTrackerSparse<ValueType>::Options::wiggle);
+
     py::class_<NDPomdpTrackerSparse<ValueType>> ndetbelieftracker(m, ("NondeterministicBeliefTracker" + vtSuffix + "Sparse").c_str(), "Tracker for belief states and uncontrollable actions");
-    ndetbelieftracker.def(py::init<SparsePomdp<ValueType> const&>(), py::arg("pomdp"));
+    ndetbelieftracker.def(py::init<SparsePomdp<ValueType> const&, typename NDPomdpTrackerSparse<ValueType>::Options>(), py::arg("pomdp"), py::arg("options"));
     ndetbelieftracker.def("reset", &NDPomdpTrackerSparse<ValueType>::reset);
     ndetbelieftracker.def("set_risk", &NDPomdpTrackerSparse<ValueType>::setRisk, py::arg("risk"));
     ndetbelieftracker.def("obtain_current_risk",&NDPomdpTrackerSparse<ValueType>::getCurrentRisk, py::arg("max")=true);
@@ -40,6 +46,7 @@ void define_tracker(py::module& m, std::string const& vtSuffix) {
     ndetbelieftracker.def("dimension", &NDPomdpTrackerSparse<ValueType>::getCurrentDimension);
     ndetbelieftracker.def("obtain_last_observation", &NDPomdpTrackerSparse<ValueType>::getCurrentObservation);
     ndetbelieftracker.def("reduce",&NDPomdpTrackerSparse<ValueType>::reduce);
+    ndetbelieftracker.def("reduction_timed_out", &NDPomdpTrackerSparse<ValueType>::hasTimedOut);
 
 //    py::class_<NDPomdpTrackerDense<double>> ndetbelieftrackerd(m, "NondeterministicBeliefTrackerDoubleDense", "Tracker for belief states and uncontrollable actions");
 //    ndetbelieftrackerd.def(py::init<SparsePomdp<double> const&>(), py::arg("pomdp"));

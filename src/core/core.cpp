@@ -169,7 +169,7 @@ void define_export(py::module& m) {
     opts.def_readwrite("allow_placeholders", &storm::exporter::DirectEncodingOptions::allowPlaceholders);
     // Export
     // TODO make one export_to_drn that infers which of the folliwng to use.
-    m.def("export_to_drn", &exportDRN<double>, "Export model in DRN format", py::arg("model"), py::arg("file"), py::arg("options")=storm::exporter::DirectEncodingOptions());
-    m.def("export_exact_to_drn", &exportDRN<double>, "Export model in DRN format", py::arg("model"), py::arg("file"), py::arg("options")=storm::exporter::DirectEncodingOptions());
-    m.def("export_parametric_to_drn", &exportDRN<storm::RationalFunction>, "Export parametric model in DRN format", py::arg("model"), py::arg("file"), py::arg("options")=storm::exporter::DirectEncodingOptions());
+    m.def("_export_to_drn", &exportDRN<double>, "Export model in DRN format", py::arg("model"), py::arg("file"), py::arg("options")=storm::exporter::DirectEncodingOptions());
+    m.def("_export_exact_to_drn", &exportDRN<storm::RationalNumber>, "Export model in DRN format", py::arg("model"), py::arg("file"), py::arg("options")=storm::exporter::DirectEncodingOptions());
+    m.def("_export_parametric_to_drn", &exportDRN<storm::RationalFunction>, "Export parametric model in DRN format", py::arg("model"), py::arg("file"), py::arg("options")=storm::exporter::DirectEncodingOptions());
 }

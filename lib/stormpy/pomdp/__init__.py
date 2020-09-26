@@ -45,16 +45,23 @@ def apply_unknown_fsc(model, mode):
         return pomdp._apply_unknown_fsc_Double(model, mode)
 
 
-def create_nondeterminstic_belief_tracker(model):
+def create_nondeterminstic_belief_tracker(model, reduction_timeout, track_timeout):
     """
 
     :param model: A POMDP
+    :param reduction_timeout: timeout in milliseconds for the reduction algorithm, 0 for no timeout.
     :return:
     """
     if model.is_exact:
-        return pomdp.NondeterministicBeliefTrackerExactSparse(model)
+        opts = NondeterministicBeliefTrackerExactSparseOptions()
+        opts.reduction_timeout = reduction_timeout
+        opts.track_timeout = track_timeout
+        return pomdp.NondeterministicBeliefTrackerExactSparse(model, opts)
     else:
-        return pomdp.NondeterministicBeliefTrackerDoubleSparse(model)
+        opts = NondeterministicBeliefTrackerDoubleSparseOptions()
+        opts.reduction_timeout = reduction_timeout
+        opts.track_timeout = track_timeout
+        return pomdp.NondeterministicBeliefTrackerDoubleSparse(model, opts)
 
 
 def create_observation_trace_unfolder(model, risk_assessment, expr_manager):

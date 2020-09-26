@@ -6,6 +6,7 @@ Version 1.6.x
 
 ### Version 1.6.3 (to be released)
 - Support for exact arithmetic in models
+- `export_parametric_to_drn` no longer exists, use `export_to_drn` instead
 
 
 ### Version 1.6.2 (2020/09)
