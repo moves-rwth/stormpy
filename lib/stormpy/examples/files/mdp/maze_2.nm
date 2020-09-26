@@ -91,10 +91,11 @@ module maze
 	[north] s=9 -> (s'=6);
 	[south] s=9 -> (s'=13);
 
-	[east] s=10 -> (s'=9);
-	[west] s=10 -> (s'=9);
+	[east] s=10 -> (s'=10);
+	[west] s=10 -> (s'=10);
 	[north] s=10 -> (s'=7);
 	[south] s=10 -> (s'=12);
+
 	[east] s=11 -> (s'=11);
 	[west] s=11 -> (s'=11);
 	[north] s=11 -> (s'=8);
