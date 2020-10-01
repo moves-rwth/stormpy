@@ -1,5 +1,6 @@
 #include "core.h"
 #include "storm/utility/initialize.h"
+#include "storm/utility/SignalHandler.h"
 #include "storm/io/DirectEncodingExporter.h"
 #include "storm/storage/ModelFormulasPair.h"
 #include "storm/storage/dd/DdType.h"
@@ -26,6 +27,11 @@ void define_core(py::module& m) {
     m.def("_set_loglevel_trace", []() {
         storm::utility::setLogLevel(l3pp::LogLevel::TRACE);
     });
+
+    m.def("set_timeout", &storm::utility::resources::setTimeoutAlarm, py::arg("timeout"), "Set timeout in seconds");
+    m.def("reset_timeout", &storm::utility::resources::resetTimeoutAlarm, "Reset timeout");
+    m.def("install_signal_handlers", &storm::utility::resources::installSignalHandler);
+
 }
 
 void define_parse(py::module& m) {
