@@ -4,6 +4,9 @@ Changelog
 Version 1.6.x
 -------------
 
+### Version 1.6.3 (under development)
+- Documentation is largely based on Jupyter notebooks now and supports launch with Binder
+
 ### Version 1.6.2 (2020/09)
 Requires storm version >= 1.6.2 and pycarl version >= 2.0.4
 
