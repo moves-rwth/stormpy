@@ -275,9 +275,10 @@ setup(
     zip_safe=False,
     install_requires=['pycarl>=2.0.4'],
     setup_requires=['pytest-runner'],
-    tests_require=['pytest'],
+    tests_require=['pytest', 'nbval'],
     extras_require={
         "numpy":  ["numpy"],
+        "doc": ["sphinx", "sphinx_bootstrap_theme", "nbsphinx", "ipython", "ipykernel"], # also requires pandoc to be installed
     },
     python_requires='>=3',
 )

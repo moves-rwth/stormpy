@@ -70,8 +70,10 @@ run() {
 
   if [[ "$TASK" == *Documentation* ]]
   then
+    # Install dependencies for documentation
+    apt-get install -qq -y pandoc
+    python setup.py easy_install "stormpy[doc]"
     # Generate documentation
-    pip install sphinx sphinx_bootstrap_theme
     cd doc
     make html
     touch build/html/.nojekyll
