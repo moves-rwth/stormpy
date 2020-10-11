@@ -251,4 +251,10 @@ nbsphinx_prolog = """
       Interactive version:
       <span style="white-space: nowrap;"><a href="https://mybinder.org/v2/gh/movesrwth/stormpy/master?filepath=notebooks/{{ docname }}"><img alt="Binder badge" src="https://mybinder.org/badge_logo.svg" style="vertical-align:text-bottom"></a>.</span>
     </div>
+    <style>
+        .nbinput .prompt,
+        .nboutput .prompt {
+            display: none;
+        }
+    </style>
 """
