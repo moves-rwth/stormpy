@@ -74,7 +74,7 @@ run() {
   then
     # Install dependencies for documentation
     apt-get install -qq -y pandoc
-    python setup.py easy_install "stormpy[doc]"
+    pip install -e ".[doc]"
     # Generate documentation
     cd doc
     make html
