@@ -74,7 +74,7 @@ run() {
   then
     # Install dependencies for documentation
     apt-get install -qq -y pandoc
-    pip install -e ".[doc]"
+    pip install -e ".[doc,numpy]"
     # Generate documentation
     cd doc
     make html
