@@ -64,6 +64,8 @@ run() {
   # Perform tasks
   if [[ "$TASK" == *Test* ]]
   then
+    # Install dependencies for tests
+    pip install numpy # Used in sphinx tests
     # Run tests
     python setup.py test
   fi

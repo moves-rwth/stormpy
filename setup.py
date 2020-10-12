@@ -278,7 +278,7 @@ setup(
     tests_require=['pytest', 'nbval'],
     extras_require={
         "numpy":  ["numpy"],
-        "doc": ["sphinx", "sphinx_bootstrap_theme", "nbsphinx", "ipython", "ipykernel"], # also requires pandoc to be installed
+        "doc": ["Sphinx", "sphinx-bootstrap-theme", "nbsphinx", "ipython", "ipykernel"], # also requires pandoc to be installed
     },
     python_requires='>=3',
 )
