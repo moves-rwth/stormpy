@@ -32,6 +32,7 @@ void define_expressions(py::module& m) {
     // Variable
     py::class_<storm::expressions::Variable, std::shared_ptr<storm::expressions::Variable>>(m, "Variable", "Represents a variable")
         .def_property_readonly("name", &storm::expressions::Variable::getName, "Variable name")
+        .def_property_readonly("manager", &storm::expressions::Variable::getManager, "Variable manager")
         .def("has_boolean_type", &storm::expressions::Variable::hasBooleanType, "Check if the variable is of boolean type")
         .def("has_integer_type", &storm::expressions::Variable::hasIntegerType, "Check if the variable is of integer type")
         .def("has_rational_type", &storm::expressions::Variable::hasRationalType, "Check if the variable is of rational type")
