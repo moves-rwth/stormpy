@@ -26,7 +26,9 @@ void define_stateGeneration(py::module& m);
 void define_prism(py::module& m) {
     py::class_<storm::prism::Program, std::shared_ptr<storm::prism::Program>> program(m, "PrismProgram", "A Prism Program");
     program.def_property_readonly("constants", &Program::getConstants, "Get Program Constants")
-    .def_property_readonly("nr_modules", &storm::prism::Program::getNumberOfModules, "Number of modules")
+            .def_property_readonly("global_boolean_variables", &Program::getGlobalBooleanVariables, "Retrieves the global boolean variables of the program")
+            .def_property_readonly("global_integer_variables", &Program::getGlobalIntegerVariables, "Retrieves the global integer variables of the program")
+            .def_property_readonly("nr_modules", &storm::prism::Program::getNumberOfModules, "Number of modules")
             .def_property_readonly("modules", &storm::prism::Program::getModules, "Modules in the program")
             .def_property_readonly("model_type", &storm::prism::Program::getModelType, "Model type")
             .def_property_readonly("has_undefined_constants", &storm::prism::Program::hasUndefinedConstants, "Flag if program has undefined constants")
@@ -76,6 +78,8 @@ void define_prism(py::module& m) {
             .def_property_readonly("labeled", &Command::isLabeled, "Is the command labeled")
             .def_property_readonly("action_index", &Command::getActionIndex, "What is the action index of the command")
             .def_property_readonly("guard_expression", &Command::getGuardExpression, "Get guard expression")
+            .def_property_readonly("is_labeled", &Command::isLabeled, "Retrieves whether the command possesses a synchronization label")
+            .def_property_readonly("action_name", &Command::getActionName, "Retrieves the action name of this command")
             .def_property_readonly("updates", [](Command const& command) {
                     return command.getUpdates();
                 }, "Updates in the command")
@@ -83,15 +87,22 @@ void define_prism(py::module& m) {
             ;
 
     py::class_<Update> update(m, "PrismUpdate", "An update in a Prism command");
-    update.def_property_readonly("assignments", [](Update const& update) {
+    update.def(py::init<uint_fast64_t, storm::expressions::Expression const&, std::vector<storm::prism::Assignment> const&>())
+           .def_property_readonly("assignments", [](Update const& update) {
                     return update.getAssignments();
                 }, "Assignments in the update")
            .def_property_readonly("probability_expression", &Update::getLikelihoodExpression, "The probability expression for this update")
+           .def_property_readonly("global_index", &Update::getGlobalIndex, "Retrieves the global index of the update, that is, a unique index over all modules")
+           .def("substitute", &Update::substitute, "Substitutes all identifiers in the update according to the given map")
+           .def("simplify", &Update::simplify, "Simplifies the update in various ways (also removes identity assignments)")
+           .def("get_assignment", &Update::getAssignment, py::arg("variable_name"), "Retrieves a reference to the assignment for the variable with the given name")
+           .def("get_as_variable_to_expression_map", &Update::getAsVariableToExpressionMap, "Creates a mapping representation of this update")
            .def("__str__", &streamToString<Update>)
            ;
 
     py::class_<Assignment> assignment(m, "PrismAssignment", "An assignment in prism");
-    assignment.def_property_readonly("variable", &Assignment::getVariable, "Variable that is updated")
+    assignment.def(py::init<storm::expressions::Variable const&, storm::expressions::Expression const&>())
+            .def_property_readonly("variable", &Assignment::getVariable, "Variable that is updated")
             .def_property_readonly("expression", &Assignment::getExpression, "Expression for the update")
             .def("__str__", &streamToString<Assignment>)
             ;

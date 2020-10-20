@@ -42,7 +42,8 @@ extensions = [
     #'sphinx.ext.intersphinx',
     'sphinx.ext.coverage',
     'sphinx.ext.githubpages',
-    'sphinx.ext.autosectionlabel'
+    'sphinx.ext.autosectionlabel',
+    'nbsphinx'
 ]
 autosectionlabel_prefix_document = True
 #autosectionlabel_maxdepth = 10
@@ -61,7 +62,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'stormpy'
-copyright = '2016-2019 Moves RWTH Aachen'
+copyright = '2016-2020 Moves RWTH Aachen'
 author = 'Sebastian Junges, Matthias Volk'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -240,3 +241,20 @@ texinfo_documents = [
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {'https://docs.python.org/': None}
+
+nbsphinx_prolog = """
+{% set docname = env.doc2path(env.docname, base=False) %}
+
+.. raw:: html
+
+    <div class="admonition note">
+      Interactive version:
+      <span style="white-space: nowrap;"><a href="https://mybinder.org/v2/gh/moves-rwth/stormpy/master?filepath=notebooks/{{ docname }}"><img alt="Binder badge" src="https://mybinder.org/badge_logo.svg" style="vertical-align:text-bottom"></a>.</span>
+    </div>
+    <style>
+        .nbinput .prompt,
+        .nboutput .prompt {
+            display: none;
+        }
+    </style>
+"""

@@ -54,7 +54,8 @@ void define_formulae(py::module& m) {
 
     // State Formulae
     py::class_<storm::logic::StateFormula, std::shared_ptr<storm::logic::StateFormula>> stateFormula(m, "StateFormula", "Formula about a state of an automaton", formula);
-    py::class_<storm::logic::AtomicExpressionFormula, std::shared_ptr<storm::logic::AtomicExpressionFormula>>(m, "AtomicExpressionFormula", "Formula with an atomic expression", stateFormula);
+    py::class_<storm::logic::AtomicExpressionFormula, std::shared_ptr<storm::logic::AtomicExpressionFormula>>(m, "AtomicExpressionFormula", "Formula with an atomic expression", stateFormula)
+        .def("get_expression", &storm::logic::AtomicExpressionFormula::getExpression);
     py::class_<storm::logic::AtomicLabelFormula, std::shared_ptr<storm::logic::AtomicLabelFormula>>(m, "AtomicLabelFormula", "Formula with an atomic label", stateFormula);
     py::class_<storm::logic::BooleanLiteralFormula, std::shared_ptr<storm::logic::BooleanLiteralFormula>>(m, "BooleanLiteralFormula", "Formula with a boolean literal", stateFormula)
             .def(py::init<bool>(),"truth value"_a);
