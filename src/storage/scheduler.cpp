@@ -37,3 +37,4 @@ void define_scheduler(py::module& m, std::string vt_suffix) {
 
 
 template void define_scheduler<double>(py::module& m, std::string vt_suffix);
+template void define_scheduler<storm::RationalNumber>(py::module& m, std::string vt_suffix);

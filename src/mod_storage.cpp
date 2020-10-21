@@ -28,12 +28,20 @@ PYBIND11_MODULE(storage, m) {
     define_bitvector(m);
     define_dd<storm::dd::DdType::Sylvan>(m, "Sylvan");
     define_dd_nt(m);
+
     define_model(m);
+    define_sparse_model<double>(m, "");
+    define_sparse_model<storm::RationalNumber>(m, "Exact");
+    define_sparse_parametric_model(m);
     define_statevaluation(m);
-    define_sparse_model(m);
-    define_sparse_matrix(m);
+    define_sparse_matrix<double>(m, "");
+    define_sparse_matrix<storm::RationalNumber>(m, "Exact");
+    define_sparse_matrix<storm::RationalFunction>(m, "Parametric");
+    define_sparse_matrix_nt(m);
     define_symbolic_model<storm::dd::DdType::Sylvan>(m, "Sylvan");
-    define_state(m);
+    define_state<double>(m, "");
+    define_state<storm::RationalNumber>(m, "Exact");
+    define_state<storm::RationalFunction>(m, "Parametric");
     define_prism(m);
     define_jani(m);
     define_jani_transformers(m);
@@ -41,6 +49,9 @@ PYBIND11_MODULE(storage, m) {
     define_origins(m);
     define_expressions(m);
     define_scheduler<double>(m, "Double");
+    define_scheduler<storm::RationalNumber>(m, "Exact");
     define_distribution<double>(m, "Double");
-    define_sparse_model_components(m);
+    define_sparse_model_components<double>(m, "");
+    define_sparse_model_components<storm::RationalNumber>(m, "Exact");
+
 }

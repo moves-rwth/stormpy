@@ -93,7 +93,10 @@ class SparseSimulator(Simulator):
     def __init__(self, model, seed=None):
         super().__init__(seed)
         self._model = model
-        self._engine = stormpy.core._DiscreteTimeSparseModelSimulatorDouble(model)
+        if self._model.is_exact:
+            self._engine = stormpy.core._DiscreteTimeSparseModelSimulatorExact(model)
+        else:
+            self._engine = stormpy.core._DiscreteTimeSparseModelSimulatorDouble(model)
         if seed is not None:
             self._engine.set_seed(seed)
         self._state_valuations = None

@@ -27,11 +27,13 @@ void define_expressions(py::module& m) {
         .def("create_integer_variable", &storm::expressions::ExpressionManager::declareIntegerVariable, "create Integer variable", py::arg("name"), py::arg("auxiliary") = false)
         .def("create_rational_variable", &storm::expressions::ExpressionManager::declareRationalVariable, "create Rational variable", py::arg("name"), py::arg("auxiliary") = false)
         .def("get_variable", &storm::expressions::ExpressionManager::getVariable, "get variably by name", py::arg("name"))
+        .def("get_variables", &storm::expressions::ExpressionManager::getVariables, "Retrieves the set of all variables known to this manager.")
             ;
 
     // Variable
     py::class_<storm::expressions::Variable, std::shared_ptr<storm::expressions::Variable>>(m, "Variable", "Represents a variable")
         .def_property_readonly("name", &storm::expressions::Variable::getName, "Variable name")
+        .def_property_readonly("manager", &storm::expressions::Variable::getManager, "Variable manager")
         .def("has_boolean_type", &storm::expressions::Variable::hasBooleanType, "Check if the variable is of boolean type")
         .def("has_integer_type", &storm::expressions::Variable::hasIntegerType, "Check if the variable is of integer type")
         .def("has_rational_type", &storm::expressions::Variable::hasRationalType, "Check if the variable is of rational type")

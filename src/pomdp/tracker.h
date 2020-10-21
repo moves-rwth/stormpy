@@ -1,4 +1,5 @@
 #pragma once
 #include "common.h"
 
-void define_tracker(py::module& m);
+template<typename ValueType>
+void define_tracker(py::module& m, std::string const& vtSuffix);

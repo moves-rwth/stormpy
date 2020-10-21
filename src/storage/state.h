@@ -125,6 +125,7 @@ class SparseModelActions {
         storm::models::sparse::Model<ValueType>& model;
 };
 
-void define_state(py::module& m);
+template<typename ValueType>
+void define_state(py::module& m, std::string const& vtSuffix);
 
 #endif /* PYTHON_STORAGE_STATE_H_ */

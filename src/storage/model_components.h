@@ -3,6 +3,7 @@
 
 #include "common.h"
 
-void define_sparse_model_components(py::module& m);
+template<typename ValueType>
+void define_sparse_model_components(py::module& m, std::string const& vtSuffix);
 
 #endif /* PYTHON_STORAGE_SPARSEMODELCOMPONENTS_H */

@@ -64,14 +64,18 @@ run() {
   # Perform tasks
   if [[ "$TASK" == *Test* ]]
   then
+    # Install dependencies for tests
+    pip install numpy # Used in sphinx tests
     # Run tests
     python setup.py test
   fi
 
   if [[ "$TASK" == *Documentation* ]]
   then
+    # Install dependencies for documentation
+    apt-get install -qq -y pandoc
+    pip install -e ".[doc,numpy]"
     # Generate documentation
-    pip install sphinx sphinx_bootstrap_theme
     cd doc
     make html
     touch build/html/.nojekyll

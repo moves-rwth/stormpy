@@ -3,6 +3,8 @@ import stormpy.core
 
 import stormpy.examples
 import stormpy.examples.files
+import stormpy.pomdp
+
 
 
 def example_building_models_01():
@@ -23,6 +25,13 @@ def example_building_models_01():
     print(model.model_type)
     print("Number of states: {}".format(model.nr_states))
 
+    # POMDPs should be constructed with choice labels
+    path = stormpy.examples.files.drn_pomdp_maze
+    opts = stormpy.DirectEncodingParserOptions()
+    opts.build_choice_labels = True
+    pomdp = stormpy.build_model_from_drn(stormpy.examples.files.drn_pomdp_maze, opts)
+    # POMDPs need to be in a canonic representation
+    pomdp = stormpy.pomdp.make_canonic(pomdp)
 
 if __name__ == '__main__':
     example_building_models_01()
