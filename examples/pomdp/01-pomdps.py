@@ -76,7 +76,7 @@ def example_parametric_models_01():
     # apply the unknown FSC to obtain a pmc from the POMDP
     pmc = stormpy.pomdp.apply_unknown_fsc(pomdp, stormpy.pomdp.PomdpFscApplicationMode.simple_linear)
 
-    export_pmc = True # Set to True to export the pMC as drn.
+    export_pmc = False # Set to True to export the pMC as drn.
     if export_pmc:
         export_options = stormpy.core.DirectEncodingOptions()
         export_options.allow_placeholders = False
