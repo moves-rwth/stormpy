@@ -29,6 +29,17 @@ class TestParse:
         assert not description.is_prism_program
         assert description.is_jani_model
 
+    def test_parse_jani_model_string(self):
+        with open(get_example_path("dtmc", "die.jani"), 'r') as file:
+            json_string = file.read()
+        jani_model, properties = stormpy.parse_jani_model_from_string(json_string)
+        assert jani_model.name == "die.jani"
+        assert jani_model.model_type == stormpy.JaniModelType.DTMC
+        assert not jani_model.has_undefined_constants
+        description = stormpy.SymbolicModelDescription(jani_model)
+        assert not description.is_prism_program
+        assert description.is_jani_model
+
     def test_parse_formula(self):
         formula = "P=? [F \"one\"]"
         properties = stormpy.parse_properties(formula)

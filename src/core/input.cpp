@@ -23,6 +23,9 @@ void define_input(py::module& m) {
     m.def("parse_jani_model", [](std::string const& path){
             return storm::api::parseJaniModel(path);
         }, "Parse Jani model", py::arg("path"));
+    m.def("parse_jani_model_from_string", [](std::string const& jsonstring){
+            return storm::api::parseJaniModelFromString(jsonstring);
+        }, "Parse Jani model from string", py::arg("json_string"));
 
     m.def("preprocess_symbolic_input", [](storm::storage::SymbolicModelDescription const& input, std::vector<storm::jani::Property> properties, std::string constantDefinitionString){
             // Substitute constant definitions in symbolic input.
