@@ -54,7 +54,7 @@ In short you can create a virtual environment ``env`` with::
 	$ source env/bin/activate
 
 The last step activates the virtual environment.
-Whenever using the environment the console prompt is prefixed with ``(env)``.
+Whenever using the environment, the console prompt is prefixed with ``(env)``.
 
 
 Building stormpy
