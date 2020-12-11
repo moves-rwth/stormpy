@@ -6,7 +6,7 @@
 
 template<typename ValueType>
 void define_distribution(py::module& m, std::string vt_suffix) {
-    using Distrib = storm::storage::Distribution<ValueType, uint32_t>;
+    using Distrib = storm::storage::Distribution<ValueType, uint_fast64_t>;
 
     std::string distributionClassName = std::string("Distribution") + vt_suffix;
     py::class_<Distrib> distribution(m, distributionClassName.c_str(), "Finite Support Distribution");
