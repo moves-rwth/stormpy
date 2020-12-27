@@ -118,6 +118,7 @@ void define_prism(py::module& m) {
             .value("MDP", storm::prism::Program::ModelType::MDP)
             .value("CTMDP", storm::prism::Program::ModelType::CTMDP)
             .value("MA", storm::prism::Program::ModelType::MA)
+            .value("POMDP", storm::prism::Program::ModelType::POMDP)
             .value("UNDEFINED", storm::prism::Program::ModelType::UNDEFINED)
             ;
 
