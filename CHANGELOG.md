@@ -4,6 +4,10 @@ Changelog
 Version 1.6.x
 -------------
 
+### Version 1.6.4 (2021/xx)
+
+- renamed PrismProgram::isDeterministicModel -> is_deterministic_model for consistency
+
 ### Version 1.6.3 (2020/12)
 Requires storm version >= 1.6.3 and pycarl version >= 2.0.4
 

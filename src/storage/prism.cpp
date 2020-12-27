@@ -44,7 +44,7 @@ void define_prism(py::module& m) {
             .def("get_module", [](Program const& prog, std::string const& name) {return prog.getModule(name);}, py::arg("module_name"))
             // TODO the following is a duplicate and should be deprecated.
             .def_property_readonly("hasUndefinedConstants", &Program::hasUndefinedConstants, "Does the program have undefined constants?")
-            .def_property_readonly("isDeterministicModel", &Program::isDeterministicModel, "Does the program describe a deterministic model?")
+            .def_property_readonly("is_deterministic_model", &Program::isDeterministicModel, "Does the program describe a deterministic model?")
             .def_property_readonly("expression_manager", &Program::getManager, "Get the expression manager for expressions in this program")
             .def("get_synchronizing_action_indices", &Program::getSynchronizingActionIndices, "Get the synchronizing action indices")
             .def("get_action_name", &Program::getActionName, py::arg("action_index"), "Get the action name for a given action index")
