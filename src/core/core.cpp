@@ -1,3 +1,5 @@
+#include <pybind11/functional.h>
+
 #include "core.h"
 #include "storm/utility/initialize.h"
 #include "storm/utility/SignalHandler.h"
@@ -7,6 +9,7 @@
 #include "storm/storage/jani/Property.h"
 #include "storm/solver/OptimizationDirection.h"
 #include "storm/models/symbolic/StandardRewardModel.h"
+#include "storm/generator/NextStateGenerator.h"
 #include "storm-parsers/api/storm-parsers.h"
 #include "storm-counterexamples/settings/modules/CounterexampleGeneratorSettings.h"
 
@@ -119,17 +122,17 @@ void define_build(py::module& m) {
     m.def("_build_sparse_parametric_model_from_drn", &storm::api::buildExplicitDRNModel<storm::RationalFunction>, "Build the parametric model from DRN", py::arg("file"), py::arg("options") = storm::parser::DirectEncodingParserOptions());
     m.def("build_sparse_model_from_explicit", &storm::api::buildExplicitModel<double>, "Build the model model from explicit input", py::arg("transition_file"), py::arg("labeling_file"), py::arg("state_reward_file") = "", py::arg("transition_reward_file") = "", py::arg("choice_labeling_file") = "");
 
-    m.def("make_sparse_model_builder", &storm::api::makeExplicitModelBuilder<double>, "Construct a builder instance", py::arg("model_description"), py::arg("options"));
-    m.def("make_sparse_model_builder_exact", &storm::api::makeExplicitModelBuilder<storm::RationalNumber>, "Construct a builder instance", py::arg("model_description"), py::arg("options"));
-    m.def("make_sparse_model_builder_parametric", &storm::api::makeExplicitModelBuilder<double>, "Construct a builder instance", py::arg("model_description"), py::arg("options"));
+    m.def("make_sparse_model_builder", &storm::api::makeExplicitModelBuilder<double>, "Construct a builder instance", py::arg("model_description"), py::arg("options"), py::arg("action_mask") = nullptr);
+    m.def("make_sparse_model_builder_exact", &storm::api::makeExplicitModelBuilder<storm::RationalNumber>, "Construct a builder instance", py::arg("model_description"), py::arg("options"), py::arg("action_mask") = nullptr);
+    m.def("make_sparse_model_builder_parametric", &storm::api::makeExplicitModelBuilder<storm::RationalFunction>, "Construct a builder instance", py::arg("model_description"), py::arg("options"), py::arg("action_mask") = nullptr);
 
     py::class_<storm::builder::ExplicitModelBuilder<double>>(m, "ExplicitModelBuilder", "Model builder for sparse models")
-        .def("build", &storm::builder::ExplicitModelBuilder<double>::build, "Build the model")
+        .def("build", &storm::builder::ExplicitModelBuilder<double>::build, "Build the model",  py::call_guard<py::gil_scoped_release>())
         .def("export_lookup", &storm::builder::ExplicitModelBuilder<double>::exportExplicitStateLookup, "Export a lookup model")
     ;
 
     py::class_<storm::builder::ExplicitModelBuilder<storm::RationalFunction>>(m, "ExplicitParametricModelBuilder", "Model builder for sparse models")
-        .def("build", &storm::builder::ExplicitModelBuilder<storm::RationalFunction>::build, "Build the model")
+        .def("build", &storm::builder::ExplicitModelBuilder<storm::RationalFunction>::build, "Build the model", py::call_guard<py::gil_scoped_release>())
         .def("export_lookup", &storm::builder::ExplicitModelBuilder<storm::RationalFunction>::exportExplicitStateLookup, "Export a lookup model")
     ;
 
@@ -150,6 +153,10 @@ void define_build(py::module& m) {
             .def("set_build_choice_labels", &storm::builder::BuilderOptions::setBuildChoiceLabels, "Build with choice labels", py::arg("new_value")=true)
             .def("set_build_all_labels" , &storm::builder::BuilderOptions::setBuildAllLabels, "Build with all state labels", py::arg("new_value")=true)
             .def("set_build_all_reward_models", &storm::builder::BuilderOptions::setBuildAllRewardModels, "Build with all reward models", py::arg("new_value")=true);
+
+    py::class_<storm::generator::ActionMask<double>, std::shared_ptr<storm::generator::ActionMask<double>>> actionmask(m, "ActionMaskDouble");
+    py::class_<storm::generator::StateValuationFunctionMask<double>, std::shared_ptr<storm::generator::StateValuationFunctionMask<double>>> actfuncmask(m, "StateValuationFunctionActionMaskDouble", actionmask);
+    actfuncmask.def(py::init<std::function<bool (storm::expressions::SimpleValuation const&, uint64_t)>>(), py::arg("f"));
 }
 
 void define_optimality_type(py::module& m) {
