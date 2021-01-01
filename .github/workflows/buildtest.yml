@@ -1,0 +1,159 @@
+name: Build Test
+
+on:
+  workflow_dispatch:
+
+env:
+  GIT_URL: "${{ github.server_url }}/${{ github.repository }}.git"
+  BRANCH: "master"
+  # github runners currently have two cores
+  NR_JOBS: "2"
+  CMAKE_DEBUG: "-DCMAKE_BUILD_TYPE=Debug"
+  CMAKE_RELEASE: "-DCMAKE_BUILD_TYPE=Release"
+
+  CARL_PARSER_GIT_URL: "https://github.com/ths-rwth/carl-parser"
+  CARL_PARSER_BRANCH: "master14"
+  PYCARL_GIT_URL: "https://github.com/moves-rwth/pycarl.git"
+  PYCARL_BRANCH: "master"
+
+
+jobs:
+  noDeploy:
+    runs-on: ubuntu-latest
+    env:
+      RELEASE_IMG: "storm:1.6.3"
+      DEBUG_IMG: "storm:1.6.3-debug"
+      PYTHON: "python3"
+    strategy:
+      matrix:
+        debugOrRelease: ["debug", "release"]
+
+    # Allow failures of stable versions as new features might have been added
+    continue-on-error: true
+    steps:
+      - name: Setup environment variables
+        # this is strangely the best way to implement environment variables based on the value of another
+        # GITHUB_ENV is a magic variable pointing to a file; if a line with format {NAME}={VALUE}
+        # then the env variable with name NAME will be created/updated with VALUE
+        run: |
+          ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "CMAKE_ARGS=${CMAKE_DEBUG}" || echo "CMAKE_ARGS=${CMAKE_RELEASE}") >> $GITHUB_ENV
+          ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "IMG=${DEBUG_IMG}" || echo "IMG=${RELEASE_IMG}") >> $GITHUB_ENV
+          ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "DEBUG_SWITCH=--debug" || true) >> $GITHUB_ENV
+      - name: Init Docker
+        run: sudo docker run -d -it --name storm --privileged movesrwth/$IMG
+        # We should not do partial updates :/
+        # but we need to install some dependencies
+        # Surely we can find a better way to do this at some point
+      - name: Update base system
+        run: |
+          sudo docker exec storm apt-get update
+          sudo docker exec storm apt-get upgrade -qqy
+      - name: install dependencies
+        run: sudo docker exec storm apt-get install -qq -y maven uuid-dev python python3 virtualenv
+      - name: Git clone
+        run: |
+          sudo docker exec storm git clone --depth 1 --branch $BRANCH $GIT_URL /opt/stormpy
+          sudo docker exec storm git clone --depth 1 --branch $CARL_PARSER_BRANCH $CARL_PARSER_GIT_URL /opt/carl-parser
+          sudo docker exec storm git clone --depth 1 --branch $PYCARL_BRANCH $PYCARL_GIT_URL /opt/pycarl
+      - name: Run cmake for carl-parser
+        run: sudo docker exec storm bash -c "mkdir /opt/carl-parser/build; cd /opt/carl-parser/build; cmake .. ${CMAKE_ARGS}"
+      - name: make carl-parser
+        run: sudo docker exec storm bash -c "cd /opt/carl-parser/build; make -j ${NR_JOBS}"
+
+      - name: Setup virtualenv
+        run: |
+          sudo docker exec storm bash -c "cd /opt; virtualenv --python=${PYTHON} venv; source venv/bin/activate; python --version"
+      - name: Build pycarl
+        run: |
+          sudo docker exec storm bash -c "cd /opt; source venv/bin/activate; cd /opt/pycarl; python setup.py build_ext $DEBUG_SWITCH -j ${NR_JOBS} develop"
+      - name: Build stormpy
+        run: |
+          sudo docker exec storm bash -c "cd /opt; source venv/bin/activate; cd /opt/stormpy; python setup.py build_ext --storm-dir /opt/storm/build/ $DEBUG_SWITCH -j ${NR_JOBS} develop"
+      - name: Run tests
+        run: |
+          # Install dependencies for tests
+          # numpy is used in sphinx tests
+          sudo docker exec storm bash -c "cd /opt; source venv/bin/activate; pip install numpy"
+          sudo docker exec storm bash -c "cd /opt; source venv/bin/activate; cd /opt/stormpy; python setup.py test"
+
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      RELEASE_IMG: "storm:ci-release"
+      DEBUG_IMG: "storm:ci-debug"
+      PYTHON: "python3"
+    strategy:
+      matrix:
+        debugOrRelease: ["debug", "release"]
+    steps:
+      - name: Setup environment variables
+        # this is strangely the best way to implement environment variables based on the value of another
+        # GITHUB_ENV is a magic variable pointing to a file; if a line with format {NAME}={VALUE}
+        # then the env variable with name NAME will be created/updated with VALUE
+        run: |
+          ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "CMAKE_ARGS=${CMAKE_DEBUG}" || echo "CMAKE_ARGS=${CMAKE_RELEASE}") >> $GITHUB_ENV
+          ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "IMG=${DEBUG_IMG}" || echo "IMG=${RELEASE_IMG}") >> $GITHUB_ENV
+          ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "DEBUG_SWITCH=--debug" || true) >> $GITHUB_ENV
+
+      - name: Login into docker
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | sudo docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+      - name: Init Docker
+        run: sudo docker run -d -it --name storm --privileged movesrwth/$IMG
+
+        # We should not do partial updates :/
+        # but we need to install some dependencies
+        # Surely we can find a better way to do this at some point
+      - name: Update base system
+        run: |
+          sudo docker exec storm apt-get update
+          sudo docker exec storm apt-get upgrade -qqy
+      - name: install dependencies
+        run: sudo docker exec storm apt-get install -qq -y maven uuid-dev python python3 virtualenv
+      - name: Git clone
+        run: |
+          sudo docker exec storm git clone --depth 1 --branch $BRANCH $GIT_URL /opt/stormpy
+          sudo docker exec storm git clone --depth 1 --branch $CARL_PARSER_BRANCH $CARL_PARSER_GIT_URL /opt/carl-parser
+          sudo docker exec storm git clone --depth 1 --branch $PYCARL_BRANCH $PYCARL_GIT_URL /opt/pycarl
+      - name: Run cmake for carl-parser
+        run: sudo docker exec storm bash -c "mkdir /opt/carl-parser/build; cd /opt/carl-parser/build; cmake .. ${CMAKE_ARGS}"
+      - name: make carl-parser
+        run: sudo docker exec storm bash -c "cd /opt/carl-parser/build; make -j ${NR_JOBS}"
+
+      - name: Setup virtualenv
+        run: |
+          sudo docker exec storm bash -c "cd /opt; virtualenv --python=${PYTHON} venv; source venv/bin/activate; python --version"
+      - name: Build pycarl
+        run: |
+          sudo docker exec storm bash -c "cd /opt; source venv/bin/activate; cd /opt/pycarl; python setup.py build_ext $DEBUG_SWITCH -j ${NR_JOBS} develop"
+      - name: Build stormpy
+        run: |
+          sudo docker exec storm bash -c "cd /opt; source venv/bin/activate; cd /opt/stormpy; python setup.py build_ext --storm-dir /opt/storm/build/ $DEBUG_SWITCH -j ${NR_JOBS} develop"
+      - name: Run tests
+        run: |
+          # Install dependencies for tests
+          # numpy is used in sphinx tests
+          sudo docker exec storm bash -c "cd /opt; source venv/bin/activate; pip install numpy"
+          sudo docker exec storm bash -c "cd /opt; source venv/bin/activate; cd /opt/stormpy; python setup.py test"
+
+      - name: Deploy stormpy
+        run: |
+          sudo docker commit storm movesrwth/stormpy:ci-${{ matrix.debugOrRelease }}
+          sudo docker push movesrwth/stormpy:ci-${{ matrix.debugOrRelease }}
+
+      - name: Install documentation dependencies
+        if: matrix.debugOrRelease == 'release'
+        run: |
+          sudo docker exec storm apt-get install -qq -y pandoc
+          sudo docker exec storm bash -c "cd /opt; source venv/bin/activate; cd stormpy; pip install -e '.[doc,numpy]'"
+      - name: Build documentation
+        if: matrix.debugOrRelease == 'release'
+        run: |
+          sudo docker exec storm bash -c "cd /opt; source venv/bin/activate; cd stormpy/doc; make html"
+          sudo docker exec storm rm -r /opt/stormpy/doc/build/html/_sources
+          sudo docker cp storm:/opt/stormpy/doc/build/html .
+      - name: Deploy documentation
+        if: matrix.debugOrRelease == 'release'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          personal_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./html
