@@ -54,7 +54,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'pycarl'
-copyright = '2016-2019 Moves RWTH Aachen'
+copyright = '2016-2021 Moves RWTH Aachen'
 author = 'Harold Bruintjes, Sebastian Junges, Matthias Volk'
 
 # The version info for the project you're documenting, acts as replacement for
