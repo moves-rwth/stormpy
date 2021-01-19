@@ -13,6 +13,7 @@ def example_building_models_04():
     prism_program = stormpy.preprocess_symbolic_input(prism_program, [], "delay=10,fast=0.8")[0].as_prism_program()
     options = stormpy.BuilderOptions()
     options.set_build_state_valuations()
+    options.set_build_all_reward_models(True)
     options.set_build_choice_labels(True)
 
     def permissive_policy(state_valuation, action_index):
