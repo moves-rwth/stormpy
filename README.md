@@ -1,7 +1,7 @@
 Stormpy - Python bindings for Storm
 ===================================
 
-[![Build Status](https://travis-ci.org/moves-rwth/stormpy.svg?branch=master)](https://travis-ci.org/moves-rwth/stormpy)
+[![Build Status](https://github.com/moves-rwth/stormpy/workflows/Build%20Test/badge.svg)](https://github.com/moves-rwth/stormpy/actions)
 [![GitHub release](https://img.shields.io/github/release/moves-rwth/stormpy.svg)](https://github.com/moves-rwth/stormpy/releases/)
 
 Python bindings for [Storm](https://github.com/moves-rwth/storm/), created using [PyBind11](http://pybind11.readthedocs.io/en/stable/intro.html).
