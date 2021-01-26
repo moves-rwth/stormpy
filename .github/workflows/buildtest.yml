@@ -22,6 +22,7 @@ env:
 
 jobs:
   noDeploy:
+    name: Build and test on stable Storm
     runs-on: ubuntu-latest
     env:
       RELEASE_IMG: "storm:1.6.3"
@@ -80,6 +81,7 @@ jobs:
           sudo docker exec storm bash -c "cd /opt; source venv/bin/activate; cd /opt/stormpy; python setup.py test"
 
   deploy:
+    name: Build, test and deploy on latest Storm
     runs-on: ubuntu-latest
     env:
       RELEASE_IMG: "storm:ci-release"
@@ -99,7 +101,7 @@ jobs:
           ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "DEBUG_SWITCH=--debug" || true) >> $GITHUB_ENV
 
       - name: Login into docker
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | sudo docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+        run: echo "${{ secrets.STORM_CI_DOCKER_PASSWORD }}" | sudo docker login -u "${{ secrets.STORM_CI_DOCKER_USERNAME }}" --password-stdin
       - name: Init Docker
         run: sudo docker run -d -it --name storm --privileged movesrwth/$IMG
 
@@ -170,15 +172,15 @@ jobs:
       - uses: technote-space/workflow-conclusion-action@v2
       - uses: dawidd6/action-send-mail@v2
         with:
-          server_address: mail.rwth-aachen.de
+          server_address: ${{ secrets.STORM_CI_MAIL_SERVER }}
           server_port: 587
-          username: ${{secrets.STORM_CI_MAIL_USERNAME}}
-          password: ${{secrets.STORM_CI_MAIL_PASSWORD}}
+          username: ${{ secrets.STORM_CI_MAIL_USERNAME }}
+          password: ${{ secrets.STORM_CI_MAIL_PASSWORD }}
           subject: "[You broke it] CI run failed for ${{ github.repository }}"
           body:
             "CI job of ${{ github.repository }} has failed for commit ${{ github.sha }}.\n\
             The error type is: ${{ env.WORKFLOW_CONCLUSION }}.\n\n\
             For more information, see https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          to: dev@stormchecker.org
+          to: ${{ secrets.STORM_CI_MAIL_RECIPIENTS }}
           from: Github Actions <you-broke-it@stormchecker.org>
         if: env.WORKFLOW_CONCLUSION != 'success' # notify only if failure
