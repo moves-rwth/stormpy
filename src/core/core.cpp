@@ -137,9 +137,10 @@ void define_build(py::module& m) {
     ;
 
     py::class_<storm::builder::ExplicitStateLookup<uint32_t>>(m, "ExplicitStateLookup", "Lookup model for states")
-        .def("lookup", &storm::builder::ExplicitStateLookup<uint32_t>::lookup, py::arg("state_description"))
-    ;
+        .def("lookup", [](storm::builder::ExplicitStateLookup<uint32_t>const& lookup, std::map<storm::expressions::Variable, storm::expressions::Expression> const& stateDescription) -> py::object
+        { auto res = lookup.lookup(stateDescription); if (res==lookup.size()) {return py::none();} else {return py::cast(res);}} , py::arg("state_description"))
 
+    ;
 
     py::class_<storm::builder::BuilderOptions>(m, "BuilderOptions", "Options for building process")
             .def(py::init<std::vector<std::shared_ptr<storm::logic::Formula const>> const&>(), "Initialise with formulae to preserve", py::arg("formulae"))
