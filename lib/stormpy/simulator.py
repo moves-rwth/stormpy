@@ -47,7 +47,7 @@ class Simulator:
         """
         raise NotImplementedError("Abstract superclass")
 
-    def restart(self):
+    def restart(self, state = None):
         """
         Reset the simulator to the initial state
         """
@@ -198,7 +198,9 @@ class SparseSimulator(Simulator):
             raise ValueError(f"Unrecognized type of action {action}")
         return self._report_result()
 
-    def restart(self):
+    def restart(self, state = None):
+        if state is not None:
+            raise RuntimeError("Not implemented")
         self._engine.reset_to_initial_state()
         return self._report_result()
 
@@ -258,6 +260,9 @@ class PrismSimulator(Simulator):
     def _report_rewards(self):
         return self._engine.get_last_reward()
 
+    def _get_current_state(self):
+        return self._engine.get_current_state()
+
     def random_step(self):
         raise NotImplementedError("Random steps are not implemented in this simulator")
         # check = self._engine.random_step()
@@ -279,8 +284,6 @@ class PrismSimulator(Simulator):
         elif self._action_mode == SimulatorActionMode.GLOBAL_NAMES:
             action_index = None
             av_actions = self.available_actions()
-            print(action)
-            print(av_actions)
             for offset, label in enumerate(av_actions):
                 if action == label:
                     action_index = offset
@@ -293,8 +296,17 @@ class PrismSimulator(Simulator):
             raise ValueError(f"Unrecognized type of action {action}")
         return self._report_result()
 
-    def restart(self):
-        self._engine.reset_to_initial_state()
+    def restart(self, state = None):
+        if state is None:
+            self._engine.reset_to_initial_state()
+        else:
+            print(type(state))
+            if isinstance(state,stormpy.BitVector):
+                self._engine._reset_to_state_from_compressed_state(state)
+            elif isinstance(state,stormpy.SimpleValuation):
+                self._engine._reset_to_state_from_valuation(state)
+            else:
+                raise ValueError(f"States of type {type(state)} are not supported yet.")
         return self._report_result()
 
     def is_done(self):
