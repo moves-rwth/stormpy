@@ -82,9 +82,9 @@ void define_pla(py::module& m) {
                 }
                 new (&instance) Region(lowerValuation, upperValuation);
             }, "Create region from valuation of var -> (lower_bound, upper_bound)", py::arg("valuation"))
-        .def_static("create_from_string", [](std::string const& regionString, std::set<Region::VariableType> const& variables) -> Region {
-                return storm::api::parseRegion<storm::RationalFunction>(regionString, variables);
-            }, "Create region from string", py::arg("region_string"), py::arg("variables"))
+        .def_static("create_from_string", [](std::string const& regionString, std::set<Region::VariableType> const& variables, boost::optional<int> splittingThreshold = boost::none) -> Region {
+                return storm::api::parseRegion<storm::RationalFunction>(regionString, variables, splittingThreshold);
+            }, "Create region from string", py::arg("region_string"), py::arg("variables"), py::arg("splitting_threshold") = boost::none)
         .def_property_readonly("area", &Region::area, "Get area")
         .def("__str__", &streamToString<Region>)
     ;

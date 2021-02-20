@@ -241,19 +241,20 @@ def perform_sparse_bisimulation(model, properties, bisimulation_type):
         return core._perform_bisimulation(model, formulae, bisimulation_type)
 
 
-def perform_symbolic_bisimulation(model, properties):
+def perform_symbolic_bisimulation(model, properties, quotient_format=stormpy.QuotientFormat.DD):
     """
     Perform bisimulation on model in symbolic representation.
     :param model: Model.
     :param properties: Properties to preserve during bisimulation.
+    :param quotient_format: Return format of quotient.
     :return: Model after bisimulation.
     """
     formulae = [(prop.raw_formula if isinstance(prop, Property) else prop) for prop in properties]
     bisimulation_type = BisimulationType.STRONG
     if model.supports_parameters:
-        return core._perform_symbolic_parametric_bisimulation(model, formulae, bisimulation_type)
+        return core._perform_symbolic_parametric_bisimulation(model, formulae, bisimulation_type, quotient_format)
     else:
-        return core._perform_symbolic_bisimulation(model, formulae, bisimulation_type)
+        return core._perform_symbolic_bisimulation(model, formulae, bisimulation_type, quotient_format)
 
 
 def model_checking(model, property, only_initial_states=False, extract_scheduler=False, force_fully_observable=False, environment=Environment()):

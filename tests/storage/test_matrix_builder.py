@@ -34,6 +34,37 @@ class TestMatrixBuilder:
         for e in matrix_5x5:
             assert (e.value() == 0.1 and e.column == 1) or e.value() == 0 or (e.value() > 20 and e.column > 1)
 
+    def test_exact_matrix_builder(self):
+        builder = stormpy.ExactSparseMatrixBuilder(force_dimensions=True)
+        matrix = builder.build()
+        assert matrix.nr_columns == 0
+        assert matrix.nr_rows == 0
+        assert matrix.nr_entries == 0
+
+        builder_5x5 = stormpy.ExactSparseMatrixBuilder(5, 5, force_dimensions=False)
+
+        builder_5x5.add_next_value(0, 0, stormpy.Rational(1))
+        builder_5x5.add_next_value(0, 1, stormpy.Rational(1))
+        builder_5x5.add_next_value(2, 1, stormpy.Rational(1))
+        builder_5x5.add_next_value(2, 2, stormpy.Rational(2))
+
+        assert builder_5x5.get_last_column() == 2
+        assert builder_5x5.get_last_row() == 2
+
+        builder_5x5.add_next_value(3, 3, stormpy.Rational(1) / stormpy.Rational(6))
+        builder_5x5.add_next_value(3, 4, stormpy.Rational(1) / stormpy.Rational(6))
+        builder_5x5.add_next_value(4, 3, stormpy.Rational("1/6"))
+
+        matrix_5x5 = builder_5x5.build()
+        print(matrix_5x5)
+
+        assert matrix_5x5.nr_columns == 5
+        assert matrix_5x5.nr_rows == 5
+        assert matrix_5x5.nr_entries == 7
+
+        for e in matrix_5x5:
+            assert (e.value() == stormpy.Rational(1) and e.column < 2) or (e.value() == stormpy.Rational(2) and e.column == 2) or (e.column > 2 and e.value() == stormpy.Rational("1/6"))
+
     def test_parametric_matrix_builder(self):
         builder = stormpy.ParametricSparseMatrixBuilder(force_dimensions=True)
         matrix = builder.build()
