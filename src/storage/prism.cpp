@@ -39,6 +39,7 @@ void define_prism(py::module& m) {
             .def("restrict_commands", &Program::restrictCommands, "Restrict commands")
             .def("simplify", &Program::simplify, "Simplify")
             .def("used_constants",&Program::usedConstants, "Compute Used Constants")
+            .def("label_unlabelled_commands", &Program::labelUnlabelledCommands, "Label unlabelled commands", py::arg("name_suggestions"))
             .def("get_constant", &Program::getConstant, py::arg("name"))
             .def_property_readonly("reward_models", &Program::getRewardModels, "The defined reward models")
             .def("get_module", [](Program const& prog, std::string const& name) {return prog.getModule(name);}, py::arg("module_name"))
