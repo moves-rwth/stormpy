@@ -318,19 +318,22 @@ class PrismSimulator(Simulator):
             raise RuntimeError("State level observations are not supported with a program level simulator")
 
 
-def create_simulator(model, seed = None):
+def create_simulator(model, seed = None, options=None, ):
     """
     Factory method for creating a simulator.
 
     :param model: Some form of model
     :param seed: A seed for reproducibility. If None (default), the seed is internally generated.
+    :param options: BuilderOptions that can be passed to the simulator (currently only for symbolic simulators)
     :return: A simulator that can simulate on top of this model
     """
     if isinstance(model, stormpy.storage._ModelBase):
         if model.is_sparse_model:
             return SparseSimulator(model, seed)
     elif isinstance(model, stormpy.storage.PrismProgram):
-        result = PrismSimulator(model,seed)
+        if options is None:
+            options = stormpy.BuilderOptions()
+        result = PrismSimulator(model, seed, options)
         result.set_observation_mode(SimulatorObservationMode.PROGRAM_LEVEL)
         return result
     else:
