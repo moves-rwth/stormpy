@@ -9,8 +9,8 @@
 
 // Thin wrapper for DFT analysis
 template<typename ValueType>
-std::vector<ValueType> analyzeDFT(storm::storage::DFT<ValueType> const& dft, std::vector<std::shared_ptr<storm::logic::Formula const>> const& properties, bool symred, bool allowModularisation, storm::utility::RelevantEvents const& relevantEvents) {
-    typename storm::modelchecker::DFTModelChecker<ValueType>::dft_results dftResults = storm::api::analyzeDFT(dft, properties, symred, allowModularisation, relevantEvents, 0.0, storm::builder::ApproximationHeuristic::DEPTH, false);
+std::vector<ValueType> analyzeDFT(storm::storage::DFT<ValueType> const& dft, std::vector<std::shared_ptr<storm::logic::Formula const>> const& properties, bool symred, bool allowModularisation, storm::utility::RelevantEvents const& relevantEvents, bool allowDCForRelevant) {
+    typename storm::modelchecker::DFTModelChecker<ValueType>::dft_results dftResults = storm::api::analyzeDFT(dft, properties, symred, allowModularisation, relevantEvents, allowDCForRelevant, 0.0, storm::builder::ApproximationHeuristic::DEPTH, false);
 
     std::vector<ValueType> results;
     for (auto result : dftResults) {
@@ -27,7 +27,7 @@ void define_analysis(py::module& m) {
         .def("is_relevant", &storm::utility::RelevantEvents::isRelevant, "Check whether the given name is a relevant event", py::arg("name"))
     ;
 
-    m.def("analyze_dft", &analyzeDFT<double>, "Analyze the DFT", py::arg("dft"), py::arg("properties"), py::arg("symred")=true, py::arg("allow_modularisation")=false, py::arg("relevant_events")=storm::utility::RelevantEvents());
+    m.def("analyze_dft", &analyzeDFT<double>, "Analyze the DFT", py::arg("dft"), py::arg("properties"), py::arg("symred")=true, py::arg("allow_modularisation")=false, py::arg("relevant_events")=storm::utility::RelevantEvents(), py::arg("allow_dc_for_relevant")=false);
 
     m.def("transform_dft", &storm::api::applyTransformations<double>, "Apply transformations on DFT", py::arg("dft"), py::arg("unique_constant_be"), py::arg("binary_fdeps"));
 
@@ -35,5 +35,5 @@ void define_analysis(py::module& m) {
 
     m.def("is_well_formed", &storm::api::isWellFormed<double>, "Check whether DFT is well-formed.", py::arg("dft"), py::arg("check_valid_for_analysis") = true);
 
-    m.def("compute_relevant_events", &storm::api::computeRelevantEvents<double>, "Compute relevant event ids from properties and additional relevant names", py::arg("dft"), py::arg("properties"), py::arg("additional_relevant_names") = std::vector<std::string>(), py::arg("allow_dc_relevant") = false);
+    m.def("compute_relevant_events", &storm::api::computeRelevantEvents<double>, "Compute relevant event ids from properties and additional relevant names", py::arg("dft"), py::arg("properties"), py::arg("additional_relevant_names") = std::vector<std::string>());
 }

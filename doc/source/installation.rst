@@ -7,13 +7,32 @@ Requirements
 
 Before installing stormpy, make sure
 
-- Python 3 is available on your system. Stormpy does not work with python 2.
+- Python 3 is available on your system.
 - `pycarl <https://moves-rwth.github.io/pycarl>`_ is available.
 - `Storm <http://www.stormchecker.org/>`_ is available on your system.
 
 To avoid issues, we suggest that both pycarl and Storm use the same version of `carl <https://smtrat.github.io/carl>`_.
 The simplest way of ensuring this is to first install carl as explained in the `Storm installation guide <http://www.stormchecker.org/documentation/installation/manual-configuration.html#carl>`_.
 You can then install Storm and pycarl independently.
+
+.. _compatibility_stormpy_storm:
+
+Compatibility of stormpy and Storm
+----------------------------------
+Note that stormpy and Storm are continuously extended and modified.
+It is therefore important to use compatible versions of stormpy and Storm.
+You have two choices for stormpy depending on the version of Storm you are using:
+
+1. **Release version**:
+   You use the latest `release of Storm <https://github.com/moves-rwth/storm/releases>`_ or the ``stable`` branch or you installed Storm via `Homebrew <https://www.stormchecker.org/documentation/obtain-storm/homebrew.html>`_.
+   In these cases, you need to use the latest `release of stormpy <https://github.com/moves-rwth/stormpy/releases>`_.
+   For example, Storm 1.6.0 is compatible with stormpy 1.6.0.
+
+2. **Master branch**:
+   You use the ``master`` branch of Storm.
+   In this case, you need to use the ``master`` branch of stormpy as well.
+   Note that due to ongoing development in Storm, after some commits, the stormpy ``master`` might not work with the Storm ``master`` anymore.
+   We will fix such issues as fast as possible.
 
 
 Installation Steps
@@ -35,18 +54,24 @@ In short you can create a virtual environment ``env`` with::
 	$ source env/bin/activate
 
 The last step activates the virtual environment.
-Whenever using the environment the console prompt is prefixed with ``(env)``.
+Whenever using the environment, the console prompt is prefixed with ``(env)``.
 
 
 Building stormpy
 ----------------
 
-Clone stormpy into any suitable location::
+**Clone** the :ref:`compatible stormpy version<compatibility_stormpy_storm>` into any suitable location.
+For the ``master`` of stormpy use::
 
 	$ git clone https://github.com/moves-rwth/stormpy.git
 	$ cd stormpy
-	
-Build stormpy in develop mode using your favourite python distribution way of installing: e.g.::
+
+or for the latest release use (remember to use the correct version)::
+
+    $ git clone https://github.com/moves-rwth/stormpy.git --branch 1.6.0
+    $ cd stormpy
+
+**Build** stormpy in develop mode using your favourite python distribution way of installing: e.g.::
 
 	$ python3 setup.py develop
 	

@@ -14,7 +14,7 @@ if sys.version_info[0] == 2:
     sys.exit('Sorry, Python 2.x is not supported')
 
 # Minimal storm version required
-storm_min_version = "1.6.2"
+storm_min_version = "1.6.4"
 
 # Get the long description from the README file
 with open(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'README.md'), encoding='utf-8') as f:
@@ -275,7 +275,7 @@ setup(
     zip_safe=False,
     install_requires=['pycarl>=2.0.4'],
     setup_requires=['pytest-runner'],
-    tests_require=['pytest', 'nbval'],
+    tests_require=['pytest', 'nbval', 'numpy'],
     extras_require={
         "numpy":  ["numpy"],
         "doc": ["Sphinx", "sphinx-bootstrap-theme", "nbsphinx", "ipython", "ipykernel"], # also requires pandoc to be installed

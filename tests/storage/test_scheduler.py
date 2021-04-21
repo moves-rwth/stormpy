@@ -29,6 +29,8 @@ class TestScheduler:
             action = choice.get_deterministic_choice()
             assert 0 <= action
             assert action < len(state.actions)
+            distribution = choice.get_choice()
+            assert str(distribution).startswith("{[1:")
 
     def test_scheduler_ma_via_mdp(self):
         program = stormpy.parse_prism_program(get_example_path("ma", "simple.ma"), False, True)

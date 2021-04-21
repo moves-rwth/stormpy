@@ -1,0 +1,12 @@
+#include "json.h"
+#include "src/helpers.h"
+#include <storm/adapters/JsonAdapter.h>
+
+template<typename RationalValueType>
+void define_json(py::module& m,  std::string const& vtSuffix) {
+    py::class_<storm::json<RationalValueType>> jsoncont(m, ("JsonContainer" + vtSuffix).c_str(), "Storm-internal container for JSON structures");
+    jsoncont.def("__str__", [](storm::json<RationalValueType> const& container) {return container.dump(4);});
+}
+
+template void define_json<double> (py::module& m,  std::string const& vtSuffix);
+template void define_json<storm::RationalNumber> (py::module& m,  std::string const& vtSuffix);

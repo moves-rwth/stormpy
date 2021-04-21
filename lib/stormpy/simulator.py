@@ -21,6 +21,14 @@ class Simulator:
         self._action_mode = SimulatorActionMode.INDEX_LEVEL
         self._full_observe = False
 
+    def nr_available_actions(self):
+        """
+        Returns the number of available actions
+
+        :return:
+        """
+        raise NotImplementedError("Abstract Superclass")
+
     def available_actions(self):
         """
         Returns an iterable over the available actions.
@@ -39,7 +47,7 @@ class Simulator:
         """
         raise NotImplementedError("Abstract superclass")
 
-    def restart(self):
+    def restart(self, state = None):
         """
         Reset the simulator to the initial state
         """
@@ -190,7 +198,9 @@ class SparseSimulator(Simulator):
             raise ValueError(f"Unrecognized type of action {action}")
         return self._report_result()
 
-    def restart(self):
+    def restart(self, state = None):
+        if state is not None:
+            raise RuntimeError("Not implemented")
         self._engine.reset_to_initial_state()
         return self._report_result()
 
@@ -205,17 +215,126 @@ class SparseSimulator(Simulator):
         self._state_valuations = self._model.state_valuations
 
 
+class PrismSimulator(Simulator):
+    """
+    Simulator on top of prism programs.
+    Uses the simulator based on the nextstate generator.
+    """
 
-def create_simulator(model, seed = None):
+    def __init__(self, program, seed=None, options=stormpy.BuilderOptions()):
+        super().__init__(seed)
+        self._program = program
+        #TODO support exact arithmetic here
+        self._engine = stormpy.core._DiscreteTimePrismProgramSimulatorDouble(program, options)
+        if seed is not None:
+            self._engine.set_seed(seed)
+        self.set_full_observability(self._program.model_type != stormpy.storage.PrismModelType.POMDP)
+
+    def set_seed(self, value):
+        self._engine.set_seed(value)
+
+    def available_actions(self):
+        if self._action_mode == SimulatorActionMode.INDEX_LEVEL:
+            return range(self.nr_available_actions())
+        else:
+            assert self._action_mode == SimulatorActionMode.GLOBAL_NAMES, "Unknown type of simulator action mode"
+            return [self._program.get_action_name(i) for i in self._engine.get_action_indices()]
+
+    def nr_available_actions(self):
+        return self._engine.get_number_of_current_choices()
+
+    def _report_state(self):
+        assert self._observation_mode == SimulatorObservationMode.PROGRAM_LEVEL
+        return self._engine.get_current_state_as_json()
+
+    def _report_observation(self):
+        assert self._observation_mode == SimulatorObservationMode.PROGRAM_LEVEL
+        return self._engine.get_current_observation_as_json()
+
+    def _report_result(self):
+        if self._full_observe:
+            return self._report_state(),  self._report_rewards()
+        else:
+            return self._report_observation(),  self._report_rewards()
+
+    def _report_rewards(self):
+        return self._engine.get_last_reward()
+
+    def _get_current_state(self):
+        return self._engine.get_current_state()
+
+    def random_step(self):
+        raise NotImplementedError("Random steps are not implemented in this simulator")
+        # check = self._engine.random_step()
+        # assert check
+        return self._report_result()
+
+    def step(self, action=None):
+
+        if action is None:
+            if not self._program.is_deterministic_model and self.nr_available_actions() > 1:
+                raise RuntimeError("Must specify an action in nondeterministic models.")
+            check = self._engine.step(0)
+            assert check
+        elif type(action) == int and self._action_mode == SimulatorActionMode.INDEX_LEVEL:
+            if action >= self.nr_available_actions():
+                raise RuntimeError(f"Only {self.nr_available_actions()} actions available")
+            check = self._engine.step(action)
+            assert check
+        elif self._action_mode == SimulatorActionMode.GLOBAL_NAMES:
+            action_index = None
+            av_actions = self.available_actions()
+            for offset, label in enumerate(av_actions):
+                if action == label:
+                    action_index = offset
+                    break
+            if action_index is None:
+                raise ValueError(f"Could not find action: {action}")
+            check = self._engine.step(action_index)
+            assert check
+        else:
+            raise ValueError(f"Unrecognized type of action {action}")
+        return self._report_result()
+
+    def restart(self, state = None):
+        if state is None:
+            self._engine.reset_to_initial_state()
+        else:
+            print(type(state))
+            if isinstance(state,stormpy.BitVector):
+                self._engine._reset_to_state_from_compressed_state(state)
+            elif isinstance(state,stormpy.SimpleValuation):
+                self._engine._reset_to_state_from_valuation(state)
+            else:
+                raise ValueError(f"States of type {type(state)} are not supported yet.")
+        return self._report_result()
+
+    def is_done(self):
+        return self._engine.get_current_state_is_sink()
+
+    def set_observation_mode(self, mode):
+        super().set_observation_mode(mode)
+        if self._observation_mode == SimulatorObservationMode.STATE_LEVEL:
+            raise RuntimeError("State level observations are not supported with a program level simulator")
+
+
+def create_simulator(model, seed = None, options=None, ):
     """
     Factory method for creating a simulator.
 
     :param model: Some form of model
     :param seed: A seed for reproducibility. If None (default), the seed is internally generated.
+    :param options: BuilderOptions that can be passed to the simulator (currently only for symbolic simulators)
     :return: A simulator that can simulate on top of this model
     """
     if isinstance(model, stormpy.storage._ModelBase):
         if model.is_sparse_model:
             return SparseSimulator(model, seed)
+    elif isinstance(model, stormpy.storage.PrismProgram):
+        if options is None:
+            options = stormpy.BuilderOptions()
+        result = PrismSimulator(model, seed, options)
+        result.set_observation_mode(SimulatorObservationMode.PROGRAM_LEVEL)
+        return result
     else:
         raise NotImplementedError("Currently, we only support simulators for sparse models.")
