@@ -30,6 +30,8 @@ jani_dtmc_die = _path("dtmc", "die.jani")
 prism_pdtmc_brp = _path("pdtmc", "brp16_2.pm")
 """Bounded retransmission protocol with parameters"""
 prism_mdp_coin_2_2 = _path("mdp", "coin2-2.nm")
+""""""
+prism_mdp_firewire = _path("mdp", "firewire.nm")
 """Prism example for coin MDP"""
 prism_pmdp_coin_two_dice = _path("pmdp", "two_dice.nm")
 """Prism example for parametric two dice"""

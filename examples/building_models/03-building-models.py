@@ -18,7 +18,7 @@ def example_building_models_03():
     model = stormpy.build_sparse_parametric_model_with_options(prism_program, options)
 
     valuations = model.state_valuations
-    values2 = json.loads(valuations.get_json(2))
+    values2 = json.loads(str(valuations.get_json(2)))
     print(values2)
 
     integer_variables = []
