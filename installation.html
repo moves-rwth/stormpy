@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Installation &#8212; stormpy 1.6.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Getting Started" href="getting_started.html" />
+    <link rel="prev" title="Stormpy Documentation" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          Stormpy</a>
+        <span class="navbar-text navbar-version pull-left"><b>1.6.3</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="http://stormchecker.org">Storm</a></li>
+                <li><a href="https://github.com/moves-rwth/stormpy">Github</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Stormpy <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installation-steps">Installation Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="getting_started.html#A-Quick-Tour-through-Stormpy">A Quick Tour through Stormpy</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="advanced_topics.html">Advanced Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="doc/analysis.html">Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc/building_models.html">Building Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc/models/building_dtmcs.html">Discrete-time Markov chains (DTMCs)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc/models/building_mdps.html">Markov decision processes (MDPs)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc/models/building_ctmcs.html">Continuous-time Markov chains (CTMCs)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc/models/building_mas.html">Markov automata (MAs)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc/engines.html">Engines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc/exploration.html">Exploring Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc/reward_models.html">Reward Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc/schedulers.html">Working with Schedulers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc/shortest_paths.html">Working with Shortest Paths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc/parametric_models.html">Parametric Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc/dfts.html">Dynamic Fault Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc/gspns.html">Generalized Stochastic Petri Nets</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contributors.html">Contributors</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Modules:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/core.html">Stormpy.core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/info.html">Stormpy.info</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/exceptions.html">Stormpy.exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/logic.html">Stormpy.logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/storage.html">Stormpy.storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/utility.html">Stormpy.utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/dft.html">Stormpy.dft</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/gspn.html">Stormpy.gspn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/pars.html">Stormpy.pars</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Installation</a><ul>
+<li><a class="reference internal" href="#requirements">Requirements</a><ul>
+<li><a class="reference internal" href="#compatibility-of-stormpy-and-storm">Compatibility of stormpy and Storm</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#installation-steps">Installation Steps</a><ul>
+<li><a class="reference internal" href="#virtual-environments">Virtual Environments</a></li>
+<li><a class="reference internal" href="#building-stormpy">Building stormpy</a><ul>
+<li><a class="reference internal" href="#optional-build-arguments">Optional build arguments</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#testing-stormpy-installation">Testing stormpy installation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="index.html" title="Previous Chapter: Stormpy Documentation"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Stormpy Documentation</span>
+    </a>
+  </li>
+  <li>
+    <a href="getting_started.html" title="Next Chapter: Getting Started"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Getting Started &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<p>Before installing stormpy, make sure</p>
+<ul class="simple">
+<li><p>Python 3 is available on your system.</p></li>
+<li><p><a class="reference external" href="https://moves-rwth.github.io/pycarl">pycarl</a> is available.</p></li>
+<li><p><a class="reference external" href="http://www.stormchecker.org/">Storm</a> is available on your system.</p></li>
+</ul>
+<p>To avoid issues, we suggest that both pycarl and Storm use the same version of <a class="reference external" href="https://smtrat.github.io/carl">carl</a>.
+The simplest way of ensuring this is to first install carl as explained in the <a class="reference external" href="http://www.stormchecker.org/documentation/installation/manual-configuration.html#carl">Storm installation guide</a>.
+You can then install Storm and pycarl independently.</p>
+<section id="compatibility-of-stormpy-and-storm">
+<span id="compatibility-stormpy-storm"></span><h3>Compatibility of stormpy and Storm<a class="headerlink" href="#compatibility-of-stormpy-and-storm" title="Permalink to this headline">¶</a></h3>
+<p>Note that stormpy and Storm are continuously extended and modified.
+It is therefore important to use compatible versions of stormpy and Storm.
+You have two choices for stormpy depending on the version of Storm you are using:</p>
+<ol class="arabic simple">
+<li><p><strong>Release version</strong>:
+You use the latest <a class="reference external" href="https://github.com/moves-rwth/storm/releases">release of Storm</a> or the <code class="docutils literal notranslate"><span class="pre">stable</span></code> branch or you installed Storm via <a class="reference external" href="https://www.stormchecker.org/documentation/obtain-storm/homebrew.html">Homebrew</a>.
+In these cases, you need to use the latest <a class="reference external" href="https://github.com/moves-rwth/stormpy/releases">release of stormpy</a>.
+For example, Storm 1.6.0 is compatible with stormpy 1.6.0.</p></li>
+<li><p><strong>Master branch</strong>:
+You use the <code class="docutils literal notranslate"><span class="pre">master</span></code> branch of Storm.
+In this case, you need to use the <code class="docutils literal notranslate"><span class="pre">master</span></code> branch of stormpy as well.
+Note that due to ongoing development in Storm, after some commits, the stormpy <code class="docutils literal notranslate"><span class="pre">master</span></code> might not work with the Storm <code class="docutils literal notranslate"><span class="pre">master</span></code> anymore.
+We will fix such issues as fast as possible.</p></li>
+</ol>
+</section>
+</section>
+<section id="installation-steps">
+<h2>Installation Steps<a class="headerlink" href="#installation-steps" title="Permalink to this headline">¶</a></h2>
+<section id="virtual-environments">
+<h3>Virtual Environments<a class="headerlink" href="#virtual-environments" title="Permalink to this headline">¶</a></h3>
+<p>Virtual environments create isolated environments for your projects.
+This helps to keep your system clean, work with different versions of packages and different version of python.
+While it is not required, we recommend the use of such virtual environments. To get you started, we recommend
+<a class="reference external" href="http://docs.python-guide.org/en/latest/dev/virtualenvs/">this guide</a> or
+<a class="reference external" href="https://realpython.com/blog/python/python-virtual-environments-a-primer">this primer</a>.</p>
+<p>In short you can create a virtual environment <code class="docutils literal notranslate"><span class="pre">env</span></code> with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install virtualenv
+$ virtualenv -p python3 env
+$ source env/bin/activate
+</pre></div>
+</div>
+<p>The last step activates the virtual environment.
+Whenever using the environment, the console prompt is prefixed with <code class="docutils literal notranslate"><span class="pre">(env)</span></code>.</p>
+</section>
+<section id="building-stormpy">
+<h3>Building stormpy<a class="headerlink" href="#building-stormpy" title="Permalink to this headline">¶</a></h3>
+<p><strong>Clone</strong> the <a class="reference internal" href="#compatibility-stormpy-storm"><span class="std std-ref">compatible stormpy version</span></a> into any suitable location.
+For the <code class="docutils literal notranslate"><span class="pre">master</span></code> of stormpy use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/moves-rwth/stormpy.git
+$ cd stormpy
+</pre></div>
+</div>
+<p>or for the latest release use (remember to use the correct version):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/moves-rwth/stormpy.git --branch 1.6.0
+$ cd stormpy
+</pre></div>
+</div>
+<p><strong>Build</strong> stormpy in develop mode using your favourite python distribution way of installing: e.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python3 setup.py develop
+</pre></div>
+</div>
+<p>or:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install -ve .
+</pre></div>
+</div>
+<section id="optional-build-arguments">
+<h4>Optional build arguments<a class="headerlink" href="#optional-build-arguments" title="Permalink to this headline">¶</a></h4>
+<p>The build step <code class="docutils literal notranslate"><span class="pre">build_ext</span></code> also takes optional arguments for a more advanced configuration of stormpy.</p>
+<ul>
+<li><p><em>Specifying which Storm library to use</em></p>
+<p>If you have multiple versions of Storm or cmake is not able to find your Storm version,
+you can specify the <code class="docutils literal notranslate"><span class="pre">--storm-dir</span> <span class="pre">YOUR-PATH-TO-STORM</span></code> flag:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python3 setup.py build_ext --storm-dir YOUR-PATH-TO-STORM develop
+</pre></div>
+</div>
+</li>
+<li><p><em>Disabling functionality</em></p>
+<p>If you want to disable certain functionality in stormpy from being built you can use the following flags:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--disable-dft</span></code> to disable support for dynamic fault trees (DFTs)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--disable-pars</span></code> to disable support for parametric models</p></li>
+</ul>
+</li>
+<li><p><em>Building stormpy in debug mode</em></p>
+<p>If you want to build stormpy in debug mode you can add the <code class="docutils literal notranslate"><span class="pre">--debug</span></code> flag:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python3 setup.py build_ext --debug develop
+</pre></div>
+</div>
+</li>
+<li><p><em>Setting number of build threads</em></p>
+<p>The build of stormpy uses all available cores per default.
+If you want to configure the number of threads manually you can specify the <code class="docutils literal notranslate"><span class="pre">--jobs</span></code> (or <code class="docutils literal notranslate"><span class="pre">-j</span></code>) flag:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python3 setup.py build_ext --jobs 2 develop
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+<section id="testing-stormpy-installation">
+<h3>Testing stormpy installation<a class="headerlink" href="#testing-stormpy-installation" title="Permalink to this headline">¶</a></h3>
+<p>After building, you can run the test files by either:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python setup.py test
+</pre></div>
+</div>
+<p>or by invoking pytest directly with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install pytest
+$ py.test tests/
+</pre></div>
+</div>
+<p>If the tests pass, you can now use stormpy.
+To get started, continue with our <a class="reference internal" href="getting_started.html"><span class="doc">Getting Started</span></a>, consult the test files in <code class="docutils literal notranslate"><span class="pre">tests/</span></code> or the <a class="reference internal" href="api.html"><span class="doc">Stormpy API Reference</span></a> (work in progress).</p>
+</section>
+</section>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="_sources/installation.rst.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2016-2021 Moves RWTH Aachen.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

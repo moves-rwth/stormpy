@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Stormpy.utility &#8212; stormpy 1.6.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Stormpy.dft" href="dft.html" />
+    <link rel="prev" title="Stormpy.storage" href="storage.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          Stormpy</a>
+        <span class="navbar-text navbar-version pull-left"><b>1.6.3</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="http://stormchecker.org">Storm</a></li>
+                <li><a href="https://github.com/moves-rwth/stormpy">Github</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Stormpy <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#installation-steps">Installation Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#A-Quick-Tour-through-Stormpy">A Quick Tour through Stormpy</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../advanced_topics.html">Advanced Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../doc/analysis.html">Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../doc/building_models.html">Building Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../doc/models/building_dtmcs.html">Discrete-time Markov chains (DTMCs)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../doc/models/building_mdps.html">Markov decision processes (MDPs)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../doc/models/building_ctmcs.html">Continuous-time Markov chains (CTMCs)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../doc/models/building_mas.html">Markov automata (MAs)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../doc/engines.html">Engines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../doc/exploration.html">Exploring Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../doc/reward_models.html">Reward Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../doc/schedulers.html">Working with Schedulers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../doc/shortest_paths.html">Working with Shortest Paths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../doc/parametric_models.html">Parametric Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../doc/dfts.html">Dynamic Fault Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../doc/gspns.html">Generalized Stochastic Petri Nets</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../contributors.html">Contributors</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Modules:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="core.html">Stormpy.core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="info.html">Stormpy.info</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Stormpy.exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logic.html">Stormpy.logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storage.html">Stormpy.storage</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Stormpy.utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dft.html">Stormpy.dft</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gspn.html">Stormpy.gspn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pars.html">Stormpy.pars</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Stormpy.utility</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="storage.html" title="Previous Chapter: Stormpy.storage"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Stormpy.storage</span>
+    </a>
+  </li>
+  <li>
+    <a href="dft.html" title="Next Chapter: Stormpy.dft"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Stormpy.dft &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <section id="module-stormpy.utility">
+<span id="stormpy-utility"></span><h1>Stormpy.utility<a class="headerlink" href="#module-stormpy.utility" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="stormpy.utility.MatrixFormat">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">MatrixFormat</span></span><a class="headerlink" href="#stormpy.utility.MatrixFormat" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="stormpy.utility.MatrixFormat.I_Minus_P">
+<span class="sig-name descname"><span class="pre">I_Minus_P</span></span><em class="property"> <span class="pre">=</span> <span class="pre">MatrixFormat.I_Minus_P</span></em><a class="headerlink" href="#stormpy.utility.MatrixFormat.I_Minus_P" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="stormpy.utility.MatrixFormat.Straight">
+<span class="sig-name descname"><span class="pre">Straight</span></span><em class="property"> <span class="pre">=</span> <span class="pre">MatrixFormat.Straight</span></em><a class="headerlink" href="#stormpy.utility.MatrixFormat.Straight" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="stormpy.utility.ModelReference">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">ModelReference</span></span><a class="headerlink" href="#stormpy.utility.ModelReference" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lightweight Wrapper around results</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.utility.ModelReference.get_boolean_value">
+<span class="sig-name descname"><span class="pre">get_boolean_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">stormpy.utility.utility.ModelReference</span></em>, <em class="sig-param"><span class="pre">variable:</span> <span class="pre">storm::expressions::Variable</span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">bool</span><a class="headerlink" href="#stormpy.utility.ModelReference.get_boolean_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>get a value for a boolean variable</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.utility.ModelReference.get_integer_value">
+<span class="sig-name descname"><span class="pre">get_integer_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">stormpy.utility.utility.ModelReference</span></em>, <em class="sig-param"><span class="pre">variable:</span> <span class="pre">storm::expressions::Variable</span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">int</span><a class="headerlink" href="#stormpy.utility.ModelReference.get_integer_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>get a value for an integer variable</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.utility.ModelReference.get_rational_value">
+<span class="sig-name descname"><span class="pre">get_rational_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">stormpy.utility.utility.ModelReference</span></em>, <em class="sig-param"><span class="pre">variable:</span> <span class="pre">storm::expressions::Variable</span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">float</span><a class="headerlink" href="#stormpy.utility.ModelReference.get_rational_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>get a value (as double) for an rational variable</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="stormpy.utility.Path">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Path</span></span><a class="headerlink" href="#stormpy.utility.Path" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py property">
+<dt class="sig sig-object py" id="stormpy.utility.Path.distance">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">distance</span></span><a class="headerlink" href="#stormpy.utility.Path.distance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.utility.Path.predecessorK">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">predecessorK</span></span><a class="headerlink" href="#stormpy.utility.Path.predecessorK" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.utility.Path.predecessorNode">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">predecessorNode</span></span><a class="headerlink" href="#stormpy.utility.Path.predecessorNode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="stormpy.utility.ShortestPathsGenerator">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">ShortestPathsGenerator</span></span><a class="headerlink" href="#stormpy.utility.ShortestPathsGenerator" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="stormpy.utility.ShortestPathsGenerator.get_distance">
+<span class="sig-name descname"><span class="pre">get_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#stormpy.utility.ShortestPathsGenerator" title="stormpy.utility.utility.ShortestPathsGenerator"><span class="pre">stormpy.utility.utility.ShortestPathsGenerator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">float</span><a class="headerlink" href="#stormpy.utility.ShortestPathsGenerator.get_distance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.utility.ShortestPathsGenerator.get_path_as_list">
+<span class="sig-name descname"><span class="pre">get_path_as_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#stormpy.utility.ShortestPathsGenerator" title="stormpy.utility.utility.ShortestPathsGenerator"><span class="pre">stormpy.utility.utility.ShortestPathsGenerator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#stormpy.utility.ShortestPathsGenerator.get_path_as_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.utility.ShortestPathsGenerator.get_states">
+<span class="sig-name descname"><span class="pre">get_states</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#stormpy.utility.ShortestPathsGenerator" title="stormpy.utility.utility.ShortestPathsGenerator"><span class="pre">stormpy.utility.utility.ShortestPathsGenerator</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">storm::storage::BitVector</span><a class="headerlink" href="#stormpy.utility.ShortestPathsGenerator.get_states" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="stormpy.utility.SmtCheckResult">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">SmtCheckResult</span></span><a class="headerlink" href="#stormpy.utility.SmtCheckResult" title="Permalink to this definition">¶</a></dt>
+<dd><p>Result type</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="stormpy.utility.SmtCheckResult.Sat">
+<span class="sig-name descname"><span class="pre">Sat</span></span><em class="property"> <span class="pre">=</span> <span class="pre">SmtCheckResult.Sat</span></em><a class="headerlink" href="#stormpy.utility.SmtCheckResult.Sat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="stormpy.utility.SmtCheckResult.Unknown">
+<span class="sig-name descname"><span class="pre">Unknown</span></span><em class="property"> <span class="pre">=</span> <span class="pre">SmtCheckResult.Unknown</span></em><a class="headerlink" href="#stormpy.utility.SmtCheckResult.Unknown" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="stormpy.utility.SmtCheckResult.Unsat">
+<span class="sig-name descname"><span class="pre">Unsat</span></span><em class="property"> <span class="pre">=</span> <span class="pre">SmtCheckResult.Unsat</span></em><a class="headerlink" href="#stormpy.utility.SmtCheckResult.Unsat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="stormpy.utility.SmtSolver">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">SmtSolver</span></span><a class="headerlink" href="#stormpy.utility.SmtSolver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generic Storm SmtSolver Wrapper</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.utility.SmtSolver.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">stormpy.utility.utility.SmtSolver</span></em>, <em class="sig-param"><span class="pre">arg0:</span> <span class="pre">storm::expressions::Expression</span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#stormpy.utility.SmtSolver.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>addconstraint</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.utility.SmtSolver.check">
+<span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#stormpy.utility.SmtSolver" title="stormpy.utility.utility.SmtSolver"><span class="pre">stormpy.utility.utility.SmtSolver</span></a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#stormpy.utility.SmtCheckResult" title="stormpy.utility.utility.SmtCheckResult"><span class="pre">stormpy.utility.utility.SmtCheckResult</span></a><a class="headerlink" href="#stormpy.utility.SmtSolver.check" title="Permalink to this definition">¶</a></dt>
+<dd><p>check</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.utility.SmtSolver.model">
+<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#stormpy.utility.SmtSolver.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the model</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.utility.SmtSolver.pop">
+<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#stormpy.utility.SmtSolver" title="stormpy.utility.utility.SmtSolver"><span class="pre">stormpy.utility.utility.SmtSolver</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">levels</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#stormpy.utility.SmtSolver.pop" title="Permalink to this definition">¶</a></dt>
+<dd><p>pop</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.utility.SmtSolver.push">
+<span class="sig-name descname"><span class="pre">push</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#stormpy.utility.SmtSolver" title="stormpy.utility.utility.SmtSolver"><span class="pre">stormpy.utility.utility.SmtSolver</span></a></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#stormpy.utility.SmtSolver.push" title="Permalink to this definition">¶</a></dt>
+<dd><p>push</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.utility.SmtSolver.reset">
+<span class="sig-name descname"><span class="pre">reset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#stormpy.utility.SmtSolver" title="stormpy.utility.utility.SmtSolver"><span class="pre">stormpy.utility.utility.SmtSolver</span></a></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#stormpy.utility.SmtSolver.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>reset</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="stormpy.utility.SmtSolverFactory">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">SmtSolverFactory</span></span><a class="headerlink" href="#stormpy.utility.SmtSolverFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Factory for creating SMT Solvers</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="stormpy.utility.Z3SmtSolver">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Z3SmtSolver</span></span><a class="headerlink" href="#stormpy.utility.Z3SmtSolver" title="Permalink to this definition">¶</a></dt>
+<dd><p>z3 API for storm smtsolver wrapper</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="stormpy.utility.milliseconds">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">milliseconds</span></span><a class="headerlink" href="#stormpy.utility.milliseconds" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="stormpy.utility.milliseconds.count">
+<span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#stormpy.utility.milliseconds" title="stormpy.utility.utility.milliseconds"><span class="pre">stormpy.utility.utility.milliseconds</span></a></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">int</span><a class="headerlink" href="#stormpy.utility.milliseconds.count" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../_sources/api/utility.rst.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2016-2021 Moves RWTH Aachen.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

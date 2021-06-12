@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Working with Schedulers &#8212; stormpy 1.6.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "document", "processHtmlClass": "math|output_area"}}</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Working with Shortest Paths" href="shortest_paths.html" />
+    <link rel="prev" title="Reward Models" href="reward_models.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          Stormpy</a>
+        <span class="navbar-text navbar-version pull-left"><b>1.6.3</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="http://stormchecker.org">Storm</a></li>
+                <li><a href="https://github.com/moves-rwth/stormpy">Github</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Stormpy <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#installation-steps">Installation Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#A-Quick-Tour-through-Stormpy">A Quick Tour through Stormpy</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../advanced_topics.html">Advanced Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="analysis.html">Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building_models.html">Building Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models/building_dtmcs.html">Discrete-time Markov chains (DTMCs)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models/building_mdps.html">Markov decision processes (MDPs)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models/building_ctmcs.html">Continuous-time Markov chains (CTMCs)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models/building_mas.html">Markov automata (MAs)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="engines.html">Engines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exploration.html">Exploring Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reward_models.html">Reward Models</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Working with Schedulers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shortest_paths.html">Working with Shortest Paths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parametric_models.html">Parametric Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dfts.html">Dynamic Fault Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gspns.html">Generalized Stochastic Petri Nets</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../contributors.html">Contributors</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Modules:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/core.html">Stormpy.core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/info.html">Stormpy.info</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/exceptions.html">Stormpy.exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/logic.html">Stormpy.logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/storage.html">Stormpy.storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/utility.html">Stormpy.utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/dft.html">Stormpy.dft</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/gspn.html">Stormpy.gspn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/pars.html">Stormpy.pars</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Working with Schedulers</a><ul>
+<li><a class="reference internal" href="#Examining-Schedulers-for-MDPs">Examining Schedulers for MDPs</a></li>
+<li><a class="reference internal" href="#Examining-Schedulers-for-Markov-automata">Examining Schedulers for Markov automata</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="reward_models.html" title="Previous Chapter: Reward Models"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Reward Models</span>
+    </a>
+  </li>
+  <li>
+    <a href="shortest_paths.html" title="Next Chapter: Working with Shortest Paths"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Working with ... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="admonition note">
+  Interactive version:
+  <span style="white-space: nowrap;"><a href="https://mybinder.org/v2/gh/moves-rwth/stormpy/master?filepath=notebooks/doc/schedulers.ipynb"><img alt="Binder badge" src="https://mybinder.org/badge_logo.svg" style="vertical-align:text-bottom"></a>.</span>
+</div>
+<style>
+    .nbinput .prompt,
+    .nboutput .prompt {
+        display: none;
+    }
+</style><section id="Working-with-Schedulers">
+<h1>Working with Schedulers<a class="headerlink" href="#Working-with-Schedulers" title="Permalink to this headline">¶</a></h1>
+<p>In non-deterministic models the notion of a scheduler (or policy) is important. The scheduler determines which action to take at each state.</p>
+<p>For a given reachability property, Storm can return the scheduler realizing the resulting probability.</p>
+<section id="Examining-Schedulers-for-MDPs">
+<h2>Examining Schedulers for MDPs<a class="headerlink" href="#Examining-Schedulers-for-MDPs" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://github.com/moves-rwth/stormpy/blob/master/examples/schedulers/01-schedulers.py">01-schedulers.py</a></p>
+<p>As in <a class="reference internal" href="../getting_started.html"><span class="doc">Getting Started</span></a>, we import some required modules and build a model from the example files:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy.core</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy.examples</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy.examples.files</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">path</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">prism_mdp_coin_2_2</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">formula_str</span> <span class="o">=</span> <span class="s2">&quot;Pmin=? [F </span><span class="se">\&quot;</span><span class="s2">finished</span><span class="se">\&quot;</span><span class="s2"> &amp; </span><span class="se">\&quot;</span><span class="s2">all_coins_equal_1</span><span class="se">\&quot;</span><span class="s2">]&quot;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">program</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">parse_prism_program</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">formulas</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">parse_properties</span><span class="p">(</span><span class="n">formula_str</span><span class="p">,</span> <span class="n">program</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">model</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">build_model</span><span class="p">(</span><span class="n">program</span><span class="p">,</span> <span class="n">formulas</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Next we check the model and make sure to extract the scheduler:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">model_checking</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">formulas</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">extract_scheduler</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>The result then contains the scheduler we want:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">has_scheduler</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">scheduler</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">scheduler</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">assert</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">memoryless</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">assert</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">deterministic</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">scheduler</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+___________________________________________________________________
+Fully defined memoryless deterministic scheduler:
+model state:    choice(s)
+           0    0
+           1    0
+           2    1
+           3    0
+           4    0
+           5    0
+           6    0
+           7    0
+           8    0
+           9    1
+          10    0
+          11    0
+          12    0
+          13    0
+          14    0
+          15    0
+          16    0
+          17    0
+          18    0
+          19    0
+          20    0
+          21    1
+          22    1
+          23    0
+          24    1
+          25    0
+          26    0
+          27    0
+          28    0
+          29    0
+          30    1
+          31    0
+          32    0
+          33    0
+          34    0
+          35    0
+          36    0
+          37    1
+          38    1
+          39    0
+          40    0
+          41    0
+          42    0
+          43    0
+          44    0
+          45    1
+          46    0
+          47    0
+          48    0
+          49    0
+          50    0
+          51    0
+          52    0
+          53    1
+          54    0
+          55    1
+          56    1
+          57    0
+          58    0
+          59    0
+          60    0
+          61    1
+          62    0
+          63    1
+          64    0
+          65    0
+          66    0
+          67    0
+          68    0
+          69    1
+          70    1
+          71    0
+          72    0
+          73    0
+          74    0
+          75    0
+          76    0
+          77    1
+          78    0
+          79    0
+          80    0
+          81    0
+          82    0
+          83    1
+          84    0
+          85    0
+          86    0
+          87    0
+          88    0
+          89    0
+          90    1
+          91    1
+          92    0
+          93    0
+          94    0
+          95    1
+          96    0
+          97    1
+          98    0
+          99    0
+         100    0
+         101    1
+         102    1
+         103    0
+         104    0
+         105    0
+         106    0
+         107    0
+         108    0
+         109    1
+         110    0
+         111    0
+         112    0
+         113    0
+         114    0
+         115    0
+         116    1
+         117    1
+         118    0
+         119    0
+         120    0
+         121    0
+         122    0
+         123    0
+         124    0
+         125    0
+         126    1
+         127    0
+         128    0
+         129    0
+         130    0
+         131    1
+         132    0
+         133    0
+         134    0
+         135    0
+         136    0
+         137    0
+         138    0
+         139    0
+         140    0
+         141    0
+         142    0
+         143    0
+         144    0
+         145    0
+         146    0
+         147    0
+         148    0
+         149    0
+         150    0
+         151    0
+         152    0
+         153    0
+         154    0
+         155    0
+         156    0
+         157    0
+         158    0
+         159    0
+         160    0
+         161    0
+         162    0
+         163    0
+         164    0
+         165    0
+         166    0
+         167    0
+         168    0
+         169    0
+         170    0
+         171    0
+         172    0
+         173    0
+         174    0
+         175    0
+         176    0
+         177    0
+         178    0
+         179    0
+         180    0
+         181    0
+         182    0
+         183    0
+         184    0
+         185    0
+         186    0
+         187    0
+         188    0
+         189    0
+         190    0
+         191    0
+         192    0
+         193    0
+         194    0
+         195    0
+         196    0
+         197    0
+         198    0
+         199    0
+         200    0
+         201    0
+         202    0
+         203    0
+         204    0
+         205    0
+         206    0
+         207    0
+         208    0
+         209    0
+         210    0
+         211    0
+         212    0
+         213    0
+         214    0
+         215    0
+         216    0
+         217    0
+         218    0
+         219    0
+         220    0
+         221    0
+         222    0
+         223    0
+         224    0
+         225    0
+         226    0
+         227    0
+         228    0
+         229    0
+         230    0
+         231    0
+         232    0
+         233    0
+         234    0
+         235    0
+         236    0
+         237    0
+         238    0
+         239    0
+         240    0
+         241    0
+         242    0
+         243    0
+         244    0
+         245    0
+         246    0
+         247    0
+         248    0
+         249    0
+         250    0
+         251    0
+         252    0
+         253    0
+         254    0
+         255    0
+         256    0
+         257    0
+         258    0
+         259    0
+         260    0
+         261    0
+         262    0
+         263    0
+         264    0
+         265    0
+         266    0
+         267    0
+         268    0
+         269    0
+         270    0
+         271    0
+___________________________________________________________________
+
+</pre></div></div>
+</div>
+<p>To get the information which action the scheduler chooses in which state, we can simply iterate over the states:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">states</span><span class="p">:</span>
+<span class="o">...</span>     <span class="n">choice</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">get_choice</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+<span class="o">...</span>     <span class="n">action</span> <span class="o">=</span> <span class="n">choice</span><span class="o">.</span><span class="n">get_deterministic_choice</span><span class="p">()</span>
+<span class="o">...</span>     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;In state </span><span class="si">{}</span><span class="s2"> choose action </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+In state 0 choose action 0
+In state 1 choose action 0
+In state 2 choose action 1
+In state 3 choose action 0
+In state 4 choose action 0
+In state 5 choose action 0
+In state 6 choose action 0
+In state 7 choose action 0
+In state 8 choose action 0
+In state 9 choose action 1
+In state 10 choose action 0
+In state 11 choose action 0
+In state 12 choose action 0
+In state 13 choose action 0
+In state 14 choose action 0
+In state 15 choose action 0
+In state 16 choose action 0
+In state 17 choose action 0
+In state 18 choose action 0
+In state 19 choose action 0
+In state 20 choose action 0
+In state 21 choose action 1
+In state 22 choose action 1
+In state 23 choose action 0
+In state 24 choose action 1
+In state 25 choose action 0
+In state 26 choose action 0
+In state 27 choose action 0
+In state 28 choose action 0
+In state 29 choose action 0
+In state 30 choose action 1
+In state 31 choose action 0
+In state 32 choose action 0
+In state 33 choose action 0
+In state 34 choose action 0
+In state 35 choose action 0
+In state 36 choose action 0
+In state 37 choose action 1
+In state 38 choose action 1
+In state 39 choose action 0
+In state 40 choose action 0
+In state 41 choose action 0
+In state 42 choose action 0
+In state 43 choose action 0
+In state 44 choose action 0
+In state 45 choose action 1
+In state 46 choose action 0
+In state 47 choose action 0
+In state 48 choose action 0
+In state 49 choose action 0
+In state 50 choose action 0
+In state 51 choose action 0
+In state 52 choose action 0
+In state 53 choose action 1
+In state 54 choose action 0
+In state 55 choose action 1
+In state 56 choose action 1
+In state 57 choose action 0
+In state 58 choose action 0
+In state 59 choose action 0
+In state 60 choose action 0
+In state 61 choose action 1
+In state 62 choose action 0
+In state 63 choose action 1
+In state 64 choose action 0
+In state 65 choose action 0
+In state 66 choose action 0
+In state 67 choose action 0
+In state 68 choose action 0
+In state 69 choose action 1
+In state 70 choose action 1
+In state 71 choose action 0
+In state 72 choose action 0
+In state 73 choose action 0
+In state 74 choose action 0
+In state 75 choose action 0
+In state 76 choose action 0
+In state 77 choose action 1
+In state 78 choose action 0
+In state 79 choose action 0
+In state 80 choose action 0
+In state 81 choose action 0
+In state 82 choose action 0
+In state 83 choose action 1
+In state 84 choose action 0
+In state 85 choose action 0
+In state 86 choose action 0
+In state 87 choose action 0
+In state 88 choose action 0
+In state 89 choose action 0
+In state 90 choose action 1
+In state 91 choose action 1
+In state 92 choose action 0
+In state 93 choose action 0
+In state 94 choose action 0
+In state 95 choose action 1
+In state 96 choose action 0
+In state 97 choose action 1
+In state 98 choose action 0
+In state 99 choose action 0
+In state 100 choose action 0
+In state 101 choose action 1
+In state 102 choose action 1
+In state 103 choose action 0
+In state 104 choose action 0
+In state 105 choose action 0
+In state 106 choose action 0
+In state 107 choose action 0
+In state 108 choose action 0
+In state 109 choose action 1
+In state 110 choose action 0
+In state 111 choose action 0
+In state 112 choose action 0
+In state 113 choose action 0
+In state 114 choose action 0
+In state 115 choose action 0
+In state 116 choose action 1
+In state 117 choose action 1
+In state 118 choose action 0
+In state 119 choose action 0
+In state 120 choose action 0
+In state 121 choose action 0
+In state 122 choose action 0
+In state 123 choose action 0
+In state 124 choose action 0
+In state 125 choose action 0
+In state 126 choose action 1
+In state 127 choose action 0
+In state 128 choose action 0
+In state 129 choose action 0
+In state 130 choose action 0
+In state 131 choose action 1
+In state 132 choose action 0
+In state 133 choose action 0
+In state 134 choose action 0
+In state 135 choose action 0
+In state 136 choose action 0
+In state 137 choose action 0
+In state 138 choose action 0
+In state 139 choose action 0
+In state 140 choose action 0
+In state 141 choose action 0
+In state 142 choose action 0
+In state 143 choose action 0
+In state 144 choose action 0
+In state 145 choose action 0
+In state 146 choose action 0
+In state 147 choose action 0
+In state 148 choose action 0
+In state 149 choose action 0
+In state 150 choose action 0
+In state 151 choose action 0
+In state 152 choose action 0
+In state 153 choose action 0
+In state 154 choose action 0
+In state 155 choose action 0
+In state 156 choose action 0
+In state 157 choose action 0
+In state 158 choose action 0
+In state 159 choose action 0
+In state 160 choose action 0
+In state 161 choose action 0
+In state 162 choose action 0
+In state 163 choose action 0
+In state 164 choose action 0
+In state 165 choose action 0
+In state 166 choose action 0
+In state 167 choose action 0
+In state 168 choose action 0
+In state 169 choose action 0
+In state 170 choose action 0
+In state 171 choose action 0
+In state 172 choose action 0
+In state 173 choose action 0
+In state 174 choose action 0
+In state 175 choose action 0
+In state 176 choose action 0
+In state 177 choose action 0
+In state 178 choose action 0
+In state 179 choose action 0
+In state 180 choose action 0
+In state 181 choose action 0
+In state 182 choose action 0
+In state 183 choose action 0
+In state 184 choose action 0
+In state 185 choose action 0
+In state 186 choose action 0
+In state 187 choose action 0
+In state 188 choose action 0
+In state 189 choose action 0
+In state 190 choose action 0
+In state 191 choose action 0
+In state 192 choose action 0
+In state 193 choose action 0
+In state 194 choose action 0
+In state 195 choose action 0
+In state 196 choose action 0
+In state 197 choose action 0
+In state 198 choose action 0
+In state 199 choose action 0
+In state 200 choose action 0
+In state 201 choose action 0
+In state 202 choose action 0
+In state 203 choose action 0
+In state 204 choose action 0
+In state 205 choose action 0
+In state 206 choose action 0
+In state 207 choose action 0
+In state 208 choose action 0
+In state 209 choose action 0
+In state 210 choose action 0
+In state 211 choose action 0
+In state 212 choose action 0
+In state 213 choose action 0
+In state 214 choose action 0
+In state 215 choose action 0
+In state 216 choose action 0
+In state 217 choose action 0
+In state 218 choose action 0
+In state 219 choose action 0
+In state 220 choose action 0
+In state 221 choose action 0
+In state 222 choose action 0
+In state 223 choose action 0
+In state 224 choose action 0
+In state 225 choose action 0
+In state 226 choose action 0
+In state 227 choose action 0
+In state 228 choose action 0
+In state 229 choose action 0
+In state 230 choose action 0
+In state 231 choose action 0
+In state 232 choose action 0
+In state 233 choose action 0
+In state 234 choose action 0
+In state 235 choose action 0
+In state 236 choose action 0
+In state 237 choose action 0
+In state 238 choose action 0
+In state 239 choose action 0
+In state 240 choose action 0
+In state 241 choose action 0
+In state 242 choose action 0
+In state 243 choose action 0
+In state 244 choose action 0
+In state 245 choose action 0
+In state 246 choose action 0
+In state 247 choose action 0
+In state 248 choose action 0
+In state 249 choose action 0
+In state 250 choose action 0
+In state 251 choose action 0
+In state 252 choose action 0
+In state 253 choose action 0
+In state 254 choose action 0
+In state 255 choose action 0
+In state 256 choose action 0
+In state 257 choose action 0
+In state 258 choose action 0
+In state 259 choose action 0
+In state 260 choose action 0
+In state 261 choose action 0
+In state 262 choose action 0
+In state 263 choose action 0
+In state 264 choose action 0
+In state 265 choose action 0
+In state 266 choose action 0
+In state 267 choose action 0
+In state 268 choose action 0
+In state 269 choose action 0
+In state 270 choose action 0
+In state 271 choose action 0
+</pre></div></div>
+</div>
+</section>
+<section id="Examining-Schedulers-for-Markov-automata">
+<h2>Examining Schedulers for Markov automata<a class="headerlink" href="#Examining-Schedulers-for-Markov-automata" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://github.com/moves-rwth/stormpy/blob/master/examples/schedulers/02-schedulers.py">02-schedulers.py</a></p>
+<p>Currently there is no support yet for scheduler extraction on MAs. However, if the timing information is not relevant for the property, we can circumvent this lack by first transforming the MA to an MDP.</p>
+<p>We build the model as before:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">path</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">prism_ma_simple</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">formula_str</span> <span class="o">=</span> <span class="s2">&quot;Tmin=? [ F s=4 ]&quot;</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">program</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">parse_prism_program</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">formulas</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">parse_properties_for_prism_program</span><span class="p">(</span><span class="n">formula_str</span><span class="p">,</span> <span class="n">program</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ma</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">build_model</span><span class="p">(</span><span class="n">program</span><span class="p">,</span> <span class="n">formulas</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Next we transform the continuous-time model into a discrete-time model. Note that all timing information is lost at this point:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">mdp</span><span class="p">,</span> <span class="n">mdp_formulas</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">transform_to_discrete_time_model</span><span class="p">(</span><span class="n">ma</span><span class="p">,</span> <span class="n">formulas</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">assert</span> <span class="n">mdp</span><span class="o">.</span><span class="n">model_type</span> <span class="o">==</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">ModelType</span><span class="o">.</span><span class="n">MDP</span>
+</pre></div>
+</div>
+</div>
+<p>After the transformation we have obtained an MDP where we can extract the scheduler as shown before:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">model_checking</span><span class="p">(</span><span class="n">mdp</span><span class="p">,</span> <span class="n">mdp_formulas</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">extract_scheduler</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">scheduler</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">scheduler</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">scheduler</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+___________________________________________________________________
+Fully defined memoryless deterministic scheduler:
+model state:    choice(s)
+           0    1
+           1    0
+           2    0
+           3    0
+           4    0
+___________________________________________________________________
+
+</pre></div></div>
+</div>
+</section>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../_sources/doc/schedulers.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2016-2021 Moves RWTH Aachen.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

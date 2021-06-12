@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Dynamic Fault Trees &#8212; stormpy 1.6.3 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "document", "processHtmlClass": "math|output_area"}}</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Generalized Stochastic Petri Nets" href="gspns.html" />
+    <link rel="prev" title="Parametric Models" href="parametric_models.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../index.html">
+          Stormpy</a>
+        <span class="navbar-text navbar-version pull-left"><b>1.6.3</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="http://stormchecker.org">Storm</a></li>
+                <li><a href="https://github.com/moves-rwth/stormpy">Github</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../index.html">Stormpy <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#installation-steps">Installation Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../getting_started.html#A-Quick-Tour-through-Stormpy">A Quick Tour through Stormpy</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../advanced_topics.html">Advanced Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="analysis.html">Analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="building_models.html">Building Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models/building_dtmcs.html">Discrete-time Markov chains (DTMCs)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models/building_mdps.html">Markov decision processes (MDPs)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models/building_ctmcs.html">Continuous-time Markov chains (CTMCs)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models/building_mas.html">Markov automata (MAs)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="engines.html">Engines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exploration.html">Exploring Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reward_models.html">Reward Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schedulers.html">Working with Schedulers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="shortest_paths.html">Working with Shortest Paths</a></li>
+<li class="toctree-l2"><a class="reference internal" href="parametric_models.html">Parametric Models</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Dynamic Fault Trees</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gspns.html">Generalized Stochastic Petri Nets</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../contributors.html">Contributors</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Modules:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/core.html">Stormpy.core</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/info.html">Stormpy.info</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/exceptions.html">Stormpy.exceptions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/logic.html">Stormpy.logic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/storage.html">Stormpy.storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/utility.html">Stormpy.utility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/dft.html">Stormpy.dft</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/gspn.html">Stormpy.gspn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/pars.html">Stormpy.pars</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Dynamic Fault Trees</a><ul>
+<li><a class="reference internal" href="#Building-DFTs">Building DFTs</a></li>
+<li><a class="reference internal" href="#Analyzing-DFTs">Analyzing DFTs</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="parametric_models.html" title="Previous Chapter: Parametric Models"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Parametric Models</span>
+    </a>
+  </li>
+  <li>
+    <a href="gspns.html" title="Next Chapter: Generalized Stochastic Petri Nets"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Generalized S... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="admonition note">
+  Interactive version:
+  <span style="white-space: nowrap;"><a href="https://mybinder.org/v2/gh/moves-rwth/stormpy/master?filepath=notebooks/doc/dfts.ipynb"><img alt="Binder badge" src="https://mybinder.org/badge_logo.svg" style="vertical-align:text-bottom"></a>.</span>
+</div>
+<style>
+    .nbinput .prompt,
+    .nboutput .prompt {
+        display: none;
+    }
+</style><section id="Dynamic-Fault-Trees">
+<h1>Dynamic Fault Trees<a class="headerlink" href="#Dynamic-Fault-Trees" title="Permalink to this headline">¶</a></h1>
+<section id="Building-DFTs">
+<h2>Building DFTs<a class="headerlink" href="#Building-DFTs" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://github.com/moves-rwth/stormpy/blob/master/examples/dfts/01-dfts.py">01-dfts.py</a></p>
+<p>Dynamic fault trees can be loaded from either the Galileo format or from a custom JSON form. A file containing the DFT in the Galileo format can be loaded via <code class="docutils literal notranslate"><span class="pre">load_dft_galileo_file(path)</span></code>. The custom JSON format can be loaded from a file via <code class="docutils literal notranslate"><span class="pre">load_dft_json_file(path)</span></code> or directly from a string via <code class="docutils literal notranslate"><span class="pre">load_dft_json_string(path)</span></code>. We start by loading a simple DFT containing an AND gate from JSON:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy.dft</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy.examples</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy.examples.files</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">path_json</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">dft_json_and</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">dft_small</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">dft</span><span class="o">.</span><span class="n">load_dft_json_file</span><span class="p">(</span><span class="n">path_json</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">dft_small</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Top level index: 2, Nr BEs2
+</pre></div></div>
+</div>
+<p>Next we load a more complex DFT from the Galileo format:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">path_galileo</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">dft_galileo_hecs</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">dft</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">dft</span><span class="o">.</span><span class="n">load_dft_galileo_file</span><span class="p">(</span><span class="n">path_galileo</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>After loading the DFT, we can display some common statistics about the model:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DFT with </span><span class="si">{}</span><span class="s2"> elements.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dft</span><span class="o">.</span><span class="n">nr_elements</span><span class="p">()))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;DFT has </span><span class="si">{}</span><span class="s2"> BEs and </span><span class="si">{}</span><span class="s2"> dynamic elements.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dft</span><span class="o">.</span><span class="n">nr_be</span><span class="p">(),</span> <span class="n">dft</span><span class="o">.</span><span class="n">nr_dynamic</span><span class="p">()))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+DFT with 23 elements.
+DFT has 13 BEs and 2 dynamic elements.
+</pre></div></div>
+</div>
+</section>
+<section id="Analyzing-DFTs">
+<h2>Analyzing DFTs<a class="headerlink" href="#Analyzing-DFTs" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="https://github.com/moves-rwth/stormpy/blob/master/examples/dfts/01-dfts.py">01-dfts.py</a></p>
+<p>The next step is to analyze the DFT via <code class="docutils literal notranslate"><span class="pre">analyze_dft(dft,</span> <span class="pre">formula)</span></code>. Here we can use all standard properties as described in <a class="reference internal" href="../getting_started.html#Building-properties"><span class="std std-ref">Building properties</span></a>. In our example we compute the Mean-time-to-failure (MTTF):</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">formula_str</span> <span class="o">=</span> <span class="s2">&quot;T=? [ F </span><span class="se">\&quot;</span><span class="s2">failed</span><span class="se">\&quot;</span><span class="s2"> ]&quot;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">formulas</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">parse_properties</span><span class="p">(</span><span class="n">formula_str</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">results</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">dft</span><span class="o">.</span><span class="n">analyze_dft</span><span class="p">(</span><span class="n">dft</span><span class="p">,</span> <span class="p">[</span><span class="n">formulas</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">raw_formula</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MTTF: </span><span class="si">{:.2f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+MTTF: 363.89
+</pre></div></div>
+</div>
+</section>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+        <br/>
+        
+<div id="sourcelink">
+  <a href="../_sources/doc/dfts.ipynb.txt"
+     rel="nofollow">Source</a>
+</div>
+      
+    </p>
+    <p>
+        &copy; Copyright 2016-2021 Moves RWTH Aachen.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.0.2.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
