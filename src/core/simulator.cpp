@@ -33,7 +33,7 @@ void define_prism_program_simulator(py::module& m, std::string const& vtSuffix) 
     dtpps.def("reset_to_initial_state", &storm::simulator::DiscreteTimePrismProgramSimulator<ValueType>::resetToInitial, "Reset to the initial state");
     dtpps.def("_reset_to_state_from_valuation", [](PLSim<ValueType>& sim, storm::expressions::SimpleValuation const& state) {sim.resetToState(state);});
     dtpps.def("_reset_to_state_from_compressed_state", [](PLSim<ValueType>& sim, storm::generator::CompressedState const& state) {sim.resetToState(state);});
-
+    dtpps.def("get_reward_names", &storm::simulator::DiscreteTimePrismProgramSimulator<ValueType>::getRewardNames, "Get names of the rewards provided by the simulator");
 }
 
 template void define_sparse_model_simulator<double>(py::module& m, std::string const& vtSuffix);

@@ -214,6 +214,9 @@ class SparseSimulator(Simulator):
                 raise RuntimeError("Program level observations require model with state valuations")
         self._state_valuations = self._model.state_valuations
 
+    def get_reward_names(self):
+        return list(self._model.reward_models.keys())
+
 
 class PrismSimulator(Simulator):
     """
@@ -300,7 +303,6 @@ class PrismSimulator(Simulator):
         if state is None:
             self._engine.reset_to_initial_state()
         else:
-            print(type(state))
             if isinstance(state,stormpy.BitVector):
                 self._engine._reset_to_state_from_compressed_state(state)
             elif isinstance(state,stormpy.SimpleValuation):
@@ -317,6 +319,8 @@ class PrismSimulator(Simulator):
         if self._observation_mode == SimulatorObservationMode.STATE_LEVEL:
             raise RuntimeError("State level observations are not supported with a program level simulator")
 
+    def get_reward_names(self):
+        return self._engine.get_reward_names()
 
 def create_simulator(model, seed = None, options=None, ):
     """
