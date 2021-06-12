@@ -26,8 +26,8 @@ void define_prism_program_simulator(py::module& m, std::string const& vtSuffix) 
     dtpps.def("get_action_indices", [](storm::simulator::DiscreteTimePrismProgramSimulator<ValueType> const& sim) { std::vector<uint64_t> actionIndices; for(auto const& c : sim.getChoices()) {actionIndices.push_back(c.getActionIndex());} return actionIndices;}, "A list of choices that encode the possibilities in the current state.");
     dtpps.def("get_number_of_current_choices", [](storm::simulator::DiscreteTimePrismProgramSimulator<ValueType> const& sim) {return sim.getChoices().size();});
     dtpps.def("get_current_state", &PLSim<ValueType>::getCurrentState, "Get current state");
-    dtpps.def("get_current_state_as_json", [](storm::simulator::DiscreteTimePrismProgramSimulator<ValueType> const& sim) { return sim.getStateAsJson().dump(4); });
-    dtpps.def("get_current_observation_as_json", [](storm::simulator::DiscreteTimePrismProgramSimulator<ValueType> const& sim) { return sim.getObservationAsJson().dump(4); });
+    dtpps.def("get_current_state_as_json", [](storm::simulator::DiscreteTimePrismProgramSimulator<ValueType> const& sim) { return sim.getStateAsJson(); });
+    dtpps.def("get_current_observation_as_json", [](storm::simulator::DiscreteTimePrismProgramSimulator<ValueType> const& sim) { return sim.getObservationAsJson(); });
     dtpps.def("get_current_state_is_sink", &storm::simulator::DiscreteTimePrismProgramSimulator<ValueType>::isSinkState);
     dtpps.def("get_last_reward", &storm::simulator::DiscreteTimePrismProgramSimulator<ValueType>::getLastRewards);
     dtpps.def("reset_to_initial_state", &storm::simulator::DiscreteTimePrismProgramSimulator<ValueType>::resetToInitial, "Reset to the initial state");

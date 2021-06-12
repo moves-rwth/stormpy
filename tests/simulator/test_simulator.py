@@ -11,7 +11,7 @@ class TestPrismSimulator:
 
         simulator = stormpy.simulator.create_simulator(prism_program, seed=42)
         simulator.set_action_mode(stormpy.simulator.SimulatorActionMode.GLOBAL_NAMES)
-        state = simulator.restart()
-        print(state)
+        state, rew = simulator.restart()
+        assert state["s"] ==  -1
+        assert int(state["s"]) == -1
 
-        

@@ -7,8 +7,8 @@
 #include "storm/storage/expressions/ExpressionManager.h"
 
 // Thin wrappers
-std::string toJson(storm::storage::sparse::StateValuations const& valuations, storm::storage::sparse::state_type const& stateIndex, boost::optional<std::set<storm::expressions::Variable>> const& selectedVariables) {
-    return valuations.toJson(stateIndex, selectedVariables).dump();
+storm::json<storm::RationalNumber> toJson(storm::storage::sparse::StateValuations const& valuations, storm::storage::sparse::state_type const& stateIndex, boost::optional<std::set<storm::expressions::Variable>> const& selectedVariables) {
+    return valuations.toJson(stateIndex, selectedVariables);
 }
 
 void add_state(storm::storage::sparse::StateValuationsBuilder& builder, storm::storage::sparse::state_type const& state, std::vector<bool>&& booleanValues, std::vector<int64_t>&& integerValues, std::vector<storm::RationalNumber>&& rationalValues) {
