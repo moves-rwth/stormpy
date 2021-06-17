@@ -74,11 +74,11 @@ or for the latest release use (remember to use the correct version)::
 **Build** stormpy in develop mode using your favourite python distribution way of installing: e.g.::
 
 	$ python3 setup.py develop
-	
+
 or::
 
 	$ pip install -ve .
-	
+
 
 Optional build arguments
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -127,3 +127,17 @@ or by invoking pytest directly with::
 
 If the tests pass, you can now use stormpy.
 To get started, continue with our :doc:`getting_started`, consult the test files in ``tests/`` or the :doc:`api` (work in progress).
+
+Building stormpy documentation
+------------------------------
+
+To build this documentation, you need additional dependencies::
+
+	$ pip install sphinx sphinx_bootstrap_theme nbsphinx ipykernel numpy
+
+as well as `pandoc <https://pandoc.org/>`_.
+
+Then build the documentation::
+
+	$ cd doc
+	$ make html
