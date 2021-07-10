@@ -34,6 +34,7 @@ PYBIND11_MODULE(storage, m) {
     define_sparse_model<storm::RationalNumber>(m, "Exact");
     define_sparse_parametric_model(m);
     define_statevaluation(m);
+    define_simplevaluation(m);
     define_sparse_matrix<double>(m, "");
     define_sparse_matrix<storm::RationalNumber>(m, "Exact");
     define_sparse_matrix<storm::RationalFunction>(m, "Parametric");

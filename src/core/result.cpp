@@ -80,6 +80,7 @@ void define_result(py::module& m) {
     ;
 
     py::class_<storm::modelchecker::ExplicitQuantitativeCheckResult<double>, std::shared_ptr<storm::modelchecker::ExplicitQuantitativeCheckResult<double>>>(m, "ExplicitQuantitativeCheckResult", "Explicit quantitative model checking result", quantitativeCheckResult)
+        .def(py::init<std::vector<double>>(), py::arg("values"))
         .def("at", [](storm::modelchecker::ExplicitQuantitativeCheckResult<double> const& result, storm::storage::sparse::state_type state) {
             return result[state];
         }, py::arg("state"), "Get result for given state")
@@ -95,6 +96,7 @@ void define_result(py::module& m) {
 
     py::class_<storm::modelchecker::QuantitativeCheckResult<storm::RationalNumber>, std::shared_ptr<storm::modelchecker::QuantitativeCheckResult<storm::RationalNumber>>> exactQuantitativeCheckResult(m, "_ExactQuantitativeCheckResult", "Abstract class for exact quantitative model checking results", checkResult);
     py::class_<storm::modelchecker::ExplicitQuantitativeCheckResult<storm::RationalNumber>, std::shared_ptr<storm::modelchecker::ExplicitQuantitativeCheckResult<storm::RationalNumber>>>(m, "ExplicitExactQuantitativeCheckResult", "Explicit exact quantitative model checking result", exactQuantitativeCheckResult)
+        .def(py::init<std::vector<storm::RationalNumber>>(), py::arg("values"))
         .def("at", [](storm::modelchecker::ExplicitQuantitativeCheckResult<storm::RationalNumber> const& result, storm::storage::sparse::state_type state) {
             return result[state];
         }, py::arg("state"), "Get result for given state")

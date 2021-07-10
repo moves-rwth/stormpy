@@ -6,6 +6,7 @@
 #include <storm/storage/expressions/ExpressionManager.h>
 #include <storm/storage/jani/Model.h>
 #include <storm/storage/jani/Property.h>
+#include <storm/storage/prism/OverlappingGuardAnalyser.h>
 #include <storm/generator/NextStateGenerator.h>
 #include <storm/generator/Choice.h>
 #include <storm/generator/StateBehavior.h>
@@ -16,6 +17,7 @@
 #include "storm/exceptions/InvalidStateException.h"
 #include "storm/exceptions/InvalidAccessException.h"
 #include <storm/utility/solver.h>
+#include <storm/solver/SmtSolver.h>
 
 
 using namespace storm::prism;
@@ -38,7 +40,9 @@ void define_prism(py::module& m) {
             .def("define_constants", &Program::defineUndefinedConstants, "Define constants")
             .def("restrict_commands", &Program::restrictCommands, "Restrict commands")
             .def("simplify", &Program::simplify, "Simplify")
+            .def("substitute_nonstandard_predicates", &Program::substituteNonStandardPredicates, "Remove nonstandard predicates from the prism program")
             .def("used_constants",&Program::usedConstants, "Compute Used Constants")
+            .def("label_unlabelled_commands", &Program::labelUnlabelledCommands, "Label unlabelled commands", py::arg("name_suggestions"))
             .def("get_constant", &Program::getConstant, py::arg("name"))
             .def_property_readonly("reward_models", &Program::getRewardModels, "The defined reward models")
             .def("get_module", [](Program const& prog, std::string const& name) {return prog.getModule(name);}, py::arg("module_name"))
@@ -149,6 +153,10 @@ void define_prism(py::module& m) {
     rewardModel.def_property_readonly("name", &RewardModel::getName, "get name of the reward model");
 
     //define_stateGeneration<uint32_t, storm::RationalNumber>(m);
+
+    py::class_<OverlappingGuardAnalyser> oga(m, "OverlappingGuardAnalyser", "An SMT driven analysis for overlapping guards");
+    oga.def(py::init<Program const&, std::shared_ptr<storm::utility::solver::SmtSolverFactory>&>(), py::arg("program"), py::arg("smt solver factory"));
+    oga.def("has_module_with_inner_action_overlapping_guard", &OverlappingGuardAnalyser::hasModuleWithInnerActionOverlap);
 }
 
 class ValuationMapping {
