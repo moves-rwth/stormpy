@@ -57,6 +57,16 @@ std::pair<storm::storage::BitVector, storm::storage::BitVector> computeProb01max
     return storm::utility::graph::performProb01Max(model, phiStates, psiStates);
 }
 
+template<typename ValueType>
+storm::storage::BitVector getReachableStates(storm::models::sparse::Mdp<ValueType> const& model, storm::storage::BitVector const& initialStates, storm::storage::BitVector const& constraintStates, storm::storage::BitVector const& targetStates, boost::optional<uint64_t> maximalStep, boost::optional<storm::storage::BitVector> const& choiceFilter) {
+    uint64_t steps = 0;
+    if (maximalStep != boost::none) {
+        steps = maximalStep.get();
+    }
+    return storm::utility::graph::getReachableStates(model.getTransitionMatrix(), initialStates, constraintStates, targetStates, maximalStep != boost::none, steps, choiceFilter);
+
+}
+
 // Define python bindings
 void define_modelchecking(py::module& m) {
 
@@ -77,6 +87,10 @@ void define_modelchecking(py::module& m) {
         .def(py::init<storm::logic::Formula const&, bool>(), py::arg("formula"), py::arg("only_initial_states") = false)
         .def("set_produce_schedulers", &CheckTask<storm::RationalFunction>::setProduceSchedulers, "Set whether schedulers should be produced (if possible)", py::arg("produce_schedulers") = true)
     ;
+
+    m.def("_get_reachable_states_double", &getReachableStates<double>, py::arg("model"), py::arg("initial_states"), py::arg("constraint_states"), py::arg("target_states"), py::arg("maximal_steps") = boost::none, py::arg("choice_filter") = boost::none);
+    m.def("_get_reachable_states_exact", &getReachableStates<storm::RationalNumber>, py::arg("model"), py::arg("initial_states"), py::arg("constraint_states"), py::arg("target_states"), py::arg("maximal_steps") = boost::none, py::arg("choice_filter") = boost::none);
+    m.def("_get_reachable_states_rf", &getReachableStates<storm::RationalFunction>, py::arg("model"), py::arg("initial_states"), py::arg("constraint_states"), py::arg("target_states"), py::arg("maximal_steps") = boost::none, py::arg("choice_filter") = boost::none);
 
     // Model checking
     m.def("_model_checking_fully_observable", &modelCheckingFullyObservableSparseEngine<double>, py::arg("model"), py::arg("task"), py::arg("environment")  = storm::Environment());

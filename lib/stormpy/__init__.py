@@ -480,6 +480,14 @@ def topological_sort(model, forward=True, initial=[]):
         raise StormError("Unknown kind of model.")
 
 
+def get_reachable_states(model, initial_states, constraint_states, target_states, maximal_steps = None, choice_filter = None ):
+    if model.supports_parameters:
+        return core._get_reachable_states_rf(model, initial_states, constraint_states, target_states, maximal_steps, choice_filter)
+    if model.is_exact:
+        return core._get_reachable_states_exact(model, initial_states, constraint_states, target_states, maximal_steps, choice_filter)
+    return core._get_reachable_states_double(model, initial_states, constraint_states, target_states, maximal_steps, choice_filter)
+
+
 def construct_submodel(model, states, actions, keep_unreachable_states=True, options=SubsystemBuilderOptions()):
     """
 
