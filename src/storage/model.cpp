@@ -191,6 +191,7 @@ void define_sparse_model(py::module& m, std::string const& vtSuffix) {
         .def_property_readonly("choice_origins", [](SparseModel<ValueType> const& model) {return model.getChoiceOrigins();})
         .def("labels_state", &SparseModel<ValueType>::getLabelsOfState, py::arg("state"), "Get labels of state")
         .def_property_readonly("initial_states", &getSparseInitialStates<ValueType>, "Initial states")
+        .def_property_readonly("initial_states_as_bitvector", [](SparseModel<ValueType> const& model) {return model.getInitialStates();})
         .def_property_readonly("states", [](SparseModel<ValueType>& model) {
                 return SparseModelStates<ValueType>(model);
             }, "Get states")
@@ -274,6 +275,7 @@ void define_sparse_parametric_model(py::module& m) {
         .def_property_readonly("labeling", &getLabeling<RationalFunction>, "Labels")
         .def("labels_state", &SparseModel<RationalFunction>::getLabelsOfState, py::arg("state"), "Get labels of state")
         .def_property_readonly("initial_states", &getSparseInitialStates<RationalFunction>, "Initial states")
+        .def_property_readonly("initial_states_as_bitvector", [](SparseModel<RationalFunction> const& model) {return model.getInitialStates();})
         .def_property_readonly("states", [](SparseModel<RationalFunction>& model) {
                 return SparseModelStates<RationalFunction>(model);
             }, "Get states")
