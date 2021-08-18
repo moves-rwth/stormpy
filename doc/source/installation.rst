@@ -24,7 +24,7 @@ It is therefore important to use compatible versions of stormpy and Storm.
 You have two choices for stormpy depending on the version of Storm you are using:
 
 1. **Release version**:
-   You use the latest `release of Storm <https://github.com/moves-rwth/storm/releases>`_ or the ``stable`` branch or you installed Storm via `Homebrew <https://www.stormchecker.org/documentation/obtain-storm/homebrew.html>`_.
+   You use the latest `release of Storm <https://github.com/moves-rwth/storm/releases>`_ or the ``stable`` branch.
    In these cases, you need to use the latest `release of stormpy <https://github.com/moves-rwth/stormpy/releases>`_.
    For example, Storm 1.6.0 is compatible with stormpy 1.6.0.
 
@@ -33,7 +33,8 @@ You have two choices for stormpy depending on the version of Storm you are using
    In this case, you need to use the ``master`` branch of stormpy as well.
    Note that due to ongoing development in Storm, after some commits, the stormpy ``master`` might not work with the Storm ``master`` anymore.
    We will fix such issues as fast as possible.
-
+   
+Unfortunately, Stormpy currently does not work in conjunction with a homebrew installation of Storm.
 
 Installation Steps
 ====================
