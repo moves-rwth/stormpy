@@ -17,7 +17,6 @@
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Getting Started" href="getting_started.html" />
     <link rel="prev" title="Stormpy Documentation" href="index.html" />
-    
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -26,63 +25,6 @@
 <script type="text/javascript" src="_static/js/jquery-fix.js "></script>
 <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
 <script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
-
-    <style>
-        .navbar p {
-            padding: 0px 5px;
-        }
-
-        /* fix navbar overlaying contents when clicking on anchors */
-        :target::before {
-            content: "";
-            display: block;
-            height: 60px; /* fixed header height*/
-            margin: -60px 0 0; /* negative fixed header height */
-            background: none;
-        }
-
-        /* hack to limit the yellow highlight to the the children of the target,
-           because of the above hack the target's highlight would be way too large */
-        dt:target {
-            background-color: transparent;
-        }
-        dt:target > * {
-            background-color: #fbe54e;
-        }
-
-        /* spacing adjustments */
-        .section {
-            margin-bottom: 10rem;
-            margin-top: 6rem;
-        }
-        div.body > .section:first-of-type {
-            margin-top: 0rem;
-        }
-        .class, .function, .data {
-            margin-top: 5rem;
-            margin-bottom: 7rem;
-            border-left: 1px solid #eee;
-            padding-left: 1rem;
-        }
-        dl.attribute > dd, dl.class > dd, dl.function > dd, dl.method > dd {
-            margin-left: 30px;
-        }
-        p {
-            margin-top: 1.05em;
-            margin-bottom: 1.05em;
-            text-align: justify;
-        }
-        .field-list p, li p {
-            text-align: left;
-        }
-        /* adjust font sizes */
-        dl.field-list, dl.attribute {
-            font-size: 90%;
-        }
-        .math {
-            font-size: 90.09%;
-        }
-    </style>
 
   </head><body>
 
@@ -181,7 +123,6 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#testing-stormpy-installation">Testing stormpy installation</a></li>
-<li><a class="reference internal" href="#building-stormpy-documentation">Building stormpy documentation</a></li>
 </ul>
 </li>
 </ul>
@@ -225,30 +166,7 @@
 
 <div class="container">
   <div class="row">
-      <div class="col-md-3">
-        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li><a class="reference internal" href="#">Installation</a><ul>
-<li><a class="reference internal" href="#requirements">Requirements</a><ul>
-<li><a class="reference internal" href="#compatibility-of-stormpy-and-storm">Compatibility of stormpy and Storm</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#installation-steps">Installation Steps</a><ul>
-<li><a class="reference internal" href="#virtual-environments">Virtual Environments</a></li>
-<li><a class="reference internal" href="#building-stormpy">Building stormpy</a><ul>
-<li><a class="reference internal" href="#optional-build-arguments">Optional build arguments</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#testing-stormpy-installation">Testing stormpy installation</a></li>
-<li><a class="reference internal" href="#building-stormpy-documentation">Building stormpy documentation</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-        </div>
-      </div>
-    <div class="body col-md-9 content" role="main">
+    <div class="body col-md-12 content" role="main">
       
   <section id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
@@ -261,7 +179,7 @@
 <li><p><a class="reference external" href="http://www.stormchecker.org/">Storm</a> is available on your system.</p></li>
 </ul>
 <p>To avoid issues, we suggest that both pycarl and Storm use the same version of <a class="reference external" href="https://smtrat.github.io/carl">carl</a>.
-The simplest way of ensuring this is to first install carl as explained in the <a class="reference external" href="https://www.stormchecker.org/documentation/obtain-storm/dependencies.html#carl">Storm installation guide</a>.
+The simplest way of ensuring this is to first install carl as explained in the <a class="reference external" href="http://www.stormchecker.org/documentation/installation/manual-configuration.html#carl">Storm installation guide</a>.
 You can then install Storm and pycarl independently.</p>
 <section id="compatibility-of-stormpy-and-storm">
 <span id="compatibility-stormpy-storm"></span><h3>Compatibility of stormpy and Storm<a class="headerlink" href="#compatibility-of-stormpy-and-storm" title="Permalink to this headline">¶</a></h3>
@@ -270,7 +188,7 @@ It is therefore important to use compatible versions of stormpy and Storm.
 You have two choices for stormpy depending on the version of Storm you are using:</p>
 <ol class="arabic simple">
 <li><p><strong>Release version</strong>:
-You use the latest <a class="reference external" href="https://github.com/moves-rwth/storm/releases">release of Storm</a> or the <code class="docutils literal notranslate"><span class="pre">stable</span></code> branch or you installed Storm via <a class="reference external" href="https://www.stormchecker.org/documentation/obtain-storm/homebrew.html">Homebrew</a>.
+You use the latest <a class="reference external" href="https://github.com/moves-rwth/storm/releases">release of Storm</a> or the <code class="docutils literal notranslate"><span class="pre">stable</span></code> branch.
 In these cases, you need to use the latest <a class="reference external" href="https://github.com/moves-rwth/stormpy/releases">release of stormpy</a>.
 For example, Storm 1.6.0 is compatible with stormpy 1.6.0.</p></li>
 <li><p><strong>Master branch</strong>:
@@ -279,6 +197,7 @@ In this case, you need to use the <code class="docutils literal notranslate"><sp
 Note that due to ongoing development in Storm, after some commits, the stormpy <code class="docutils literal notranslate"><span class="pre">master</span></code> might not work with the Storm <code class="docutils literal notranslate"><span class="pre">master</span></code> anymore.
 We will fix such issues as fast as possible.</p></li>
 </ol>
+<p>Unfortunately, Stormpy currently does not work in conjunction with a homebrew installation of Storm.</p>
 </section>
 </section>
 <section id="installation-steps">
@@ -367,19 +286,6 @@ $ py.test tests/
 </div>
 <p>If the tests pass, you can now use stormpy.
 To get started, continue with our <a class="reference internal" href="getting_started.html"><span class="doc">Getting Started</span></a>, consult the test files in <code class="docutils literal notranslate"><span class="pre">tests/</span></code> or the <a class="reference internal" href="api.html"><span class="doc">Stormpy API Reference</span></a> (work in progress).</p>
-</section>
-<section id="building-stormpy-documentation">
-<h3>Building stormpy documentation<a class="headerlink" href="#building-stormpy-documentation" title="Permalink to this headline">¶</a></h3>
-<p>To build this documentation, you need additional dependencies:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install sphinx sphinx_bootstrap_theme nbsphinx ipykernel numpy
-</pre></div>
-</div>
-<p>as well as <a class="reference external" href="https://pandoc.org/">pandoc</a>.</p>
-<p>Then build the documentation:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd doc
-$ make html
-</pre></div>
-</div>
 </section>
 </section>
 </section>

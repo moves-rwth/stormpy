@@ -19,7 +19,6 @@
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Advanced Examples" href="advanced_topics.html" />
     <link rel="prev" title="Installation" href="installation.html" />
-    
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -28,63 +27,6 @@
 <script type="text/javascript" src="_static/js/jquery-fix.js "></script>
 <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
 <script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
-
-    <style>
-        .navbar p {
-            padding: 0px 5px;
-        }
-
-        /* fix navbar overlaying contents when clicking on anchors */
-        :target::before {
-            content: "";
-            display: block;
-            height: 60px; /* fixed header height*/
-            margin: -60px 0 0; /* negative fixed header height */
-            background: none;
-        }
-
-        /* hack to limit the yellow highlight to the the children of the target,
-           because of the above hack the target's highlight would be way too large */
-        dt:target {
-            background-color: transparent;
-        }
-        dt:target > * {
-            background-color: #fbe54e;
-        }
-
-        /* spacing adjustments */
-        .section {
-            margin-bottom: 10rem;
-            margin-top: 6rem;
-        }
-        div.body > .section:first-of-type {
-            margin-top: 0rem;
-        }
-        .class, .function, .data {
-            margin-top: 5rem;
-            margin-bottom: 7rem;
-            border-left: 1px solid #eee;
-            padding-left: 1rem;
-        }
-        dl.attribute > dd, dl.class > dd, dl.function > dd, dl.method > dd {
-            margin-left: 30px;
-        }
-        p {
-            margin-top: 1.05em;
-            margin-bottom: 1.05em;
-            text-align: justify;
-        }
-        .field-list p, li p {
-            text-align: left;
-        }
-        /* adjust font sizes */
-        dl.field-list, dl.attribute {
-            font-size: 90%;
-        }
-        .math {
-            font-size: 90.09%;
-        }
-    </style>
 
   </head><body>
 
@@ -223,26 +165,7 @@
 
 <div class="container">
   <div class="row">
-      <div class="col-md-3">
-        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li><a class="reference internal" href="#">Getting Started</a><ul>
-<li><a class="reference internal" href="#A-Quick-Tour-through-Stormpy">A Quick Tour through Stormpy</a><ul>
-<li><a class="reference internal" href="#Building-models">Building models</a></li>
-<li><a class="reference internal" href="#Building-properties">Building properties</a></li>
-<li><a class="reference internal" href="#Checking-properties">Checking properties</a><ul>
-<li><a class="reference internal" href="#Results-for-all-states">Results for all states</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#Investigating-the-model">Investigating the model</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-        </div>
-      </div>
-    <div class="body col-md-9 content" role="main">
+    <div class="body col-md-12 content" role="main">
       
   
 <style>
@@ -601,7 +524,7 @@ Number of transitions: 20
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Labels: {&#39;six&#39;, &#39;two&#39;, &#39;deadlock&#39;, &#39;done&#39;, &#39;three&#39;, &#39;init&#39;, &#39;five&#39;, &#39;four&#39;, &#39;one&#39;}
+Labels: {&#39;three&#39;, &#39;init&#39;, &#39;deadlock&#39;, &#39;two&#39;, &#39;six&#39;, &#39;one&#39;, &#39;done&#39;, &#39;five&#39;, &#39;four&#39;}
 </pre></div></div>
 </div>
 <p>We will investigate ways to examine the model in more detail later in <a class="reference external" href="#getting-started-investigating-the-model">Investigating the model</a>.</p>

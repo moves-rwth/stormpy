@@ -17,7 +17,6 @@
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Stormpy.utility" href="utility.html" />
     <link rel="prev" title="Stormpy.logic" href="logic.html" />
-    
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -26,63 +25,6 @@
 <script type="text/javascript" src="../_static/js/jquery-fix.js "></script>
 <script type="text/javascript" src="../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
 <script type="text/javascript" src="../_static/bootstrap-sphinx.js "></script>
-
-    <style>
-        .navbar p {
-            padding: 0px 5px;
-        }
-
-        /* fix navbar overlaying contents when clicking on anchors */
-        :target::before {
-            content: "";
-            display: block;
-            height: 60px; /* fixed header height*/
-            margin: -60px 0 0; /* negative fixed header height */
-            background: none;
-        }
-
-        /* hack to limit the yellow highlight to the the children of the target,
-           because of the above hack the target's highlight would be way too large */
-        dt:target {
-            background-color: transparent;
-        }
-        dt:target > * {
-            background-color: #fbe54e;
-        }
-
-        /* spacing adjustments */
-        .section {
-            margin-bottom: 10rem;
-            margin-top: 6rem;
-        }
-        div.body > .section:first-of-type {
-            margin-top: 0rem;
-        }
-        .class, .function, .data {
-            margin-top: 5rem;
-            margin-bottom: 7rem;
-            border-left: 1px solid #eee;
-            padding-left: 1rem;
-        }
-        dl.attribute > dd, dl.class > dd, dl.function > dd, dl.method > dd {
-            margin-left: 30px;
-        }
-        p {
-            margin-top: 1.05em;
-            margin-bottom: 1.05em;
-            text-align: justify;
-        }
-        .field-list p, li p {
-            text-align: left;
-        }
-        /* adjust font sizes */
-        dl.field-list, dl.attribute {
-            font-size: 90%;
-        }
-        .math {
-            font-size: 90.09%;
-        }
-    </style>
 
   </head><body>
 
@@ -209,14 +151,7 @@
 
 <div class="container">
   <div class="row">
-      <div class="col-md-3">
-        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li><a class="reference internal" href="#">Stormpy.storage</a></li>
-</ul>
-
-        </div>
-      </div>
-    <div class="body col-md-9 content" role="main">
+    <div class="body col-md-12 content" role="main">
       
   <section id="module-stormpy.storage">
 <span id="stormpy-storage"></span><h1>Stormpy.storage<a class="headerlink" href="#module-stormpy.storage" title="Permalink to this headline">¶</a></h1>
@@ -417,17 +352,6 @@
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">node_count</span></span><a class="headerlink" href="#stormpy.storage.Dd_Sylvan.node_count" title="Permalink to this definition">¶</a></dt>
 <dd><p>get node count</p>
 </dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="stormpy.storage.DiceStringVisitor">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">DiceStringVisitor</span></span><a class="headerlink" href="#stormpy.storage.DiceStringVisitor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Translate expressions to dice</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="stormpy.storage.DiceStringVisitor.to_string">
-<span class="sig-name descname"><span class="pre">to_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#stormpy.storage.DiceStringVisitor" title="stormpy.storage.storage.DiceStringVisitor"><span class="pre">stormpy.storage.storage.DiceStringVisitor</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#stormpy.storage.Expression" title="stormpy.storage.storage.Expression"><span class="pre">stormpy.storage.storage.Expression</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#stormpy.storage.DiceStringVisitor.to_string" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 
@@ -1308,7 +1232,7 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.storage.JaniModel.flatten_composition">
-<span class="sig-name descname"><span class="pre">flatten_composition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.JaniModel</span></em>, <em class="sig-param"><span class="pre">smt_solver_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory=&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f45ee24f370&gt;</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#stormpy.storage.JaniModel" title="stormpy.storage.storage.JaniModel"><span class="pre">stormpy.storage.storage.JaniModel</span></a></span></span><a class="headerlink" href="#stormpy.storage.JaniModel.flatten_composition" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">flatten_composition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.JaniModel</span></em>, <em class="sig-param"><span class="pre">smt_solver_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory=&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7fad9038ff30&gt;</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#stormpy.storage.JaniModel" title="stormpy.storage.storage.JaniModel"><span class="pre">stormpy.storage.storage.JaniModel</span></a></span></span><a class="headerlink" href="#stormpy.storage.JaniModel.flatten_composition" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1704,17 +1628,6 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <dl class="py attribute">
 <dt class="sig sig-object py" id="stormpy.storage.OperatorType.Xor">
 <span class="sig-name descname"><span class="pre">Xor</span></span><em class="property"> <span class="pre">=</span> <span class="pre">OperatorType.Xor</span></em><a class="headerlink" href="#stormpy.storage.OperatorType.Xor" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="stormpy.storage.OverlappingGuardAnalyser">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">OverlappingGuardAnalyser</span></span><a class="headerlink" href="#stormpy.storage.OverlappingGuardAnalyser" title="Permalink to this definition">¶</a></dt>
-<dd><p>An SMT driven analysis for overlapping guards</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="stormpy.storage.OverlappingGuardAnalyser.has_module_with_inner_action_overlapping_guard">
-<span class="sig-name descname"><span class="pre">has_module_with_inner_action_overlapping_guard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#stormpy.storage.OverlappingGuardAnalyser" title="stormpy.storage.storage.OverlappingGuardAnalyser"><span class="pre">stormpy.storage.storage.OverlappingGuardAnalyser</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#stormpy.storage.OverlappingGuardAnalyser.has_module_with_inner_action_overlapping_guard" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -2160,7 +2073,7 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.storage.PrismProgram.flatten">
-<span class="sig-name descname"><span class="pre">flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.PrismProgram</span></em>, <em class="sig-param"><span class="pre">smt_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory=&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f45ee2439f0&gt;</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#stormpy.storage.PrismProgram" title="stormpy.storage.storage.PrismProgram"><span class="pre">stormpy.storage.storage.PrismProgram</span></a></span></span><a class="headerlink" href="#stormpy.storage.PrismProgram.flatten" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.PrismProgram</span></em>, <em class="sig-param"><span class="pre">smt_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory=&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7fad9038a770&gt;</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#stormpy.storage.PrismProgram" title="stormpy.storage.storage.PrismProgram"><span class="pre">stormpy.storage.storage.PrismProgram</span></a></span></span><a class="headerlink" href="#stormpy.storage.PrismProgram.flatten" title="Permalink to this definition">¶</a></dt>
 <dd><p>Put program into a single module</p>
 </dd></dl>
 
@@ -2228,12 +2141,6 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <dd><p>Does the program describe a deterministic model?</p>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="stormpy.storage.PrismProgram.label_unlabelled_commands">
-<span class="sig-name descname"><span class="pre">label_unlabelled_commands</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#stormpy.storage.PrismProgram" title="stormpy.storage.storage.PrismProgram"><span class="pre">stormpy.storage.storage.PrismProgram</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_suggestions</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#stormpy.storage.PrismProgram" title="stormpy.storage.storage.PrismProgram"><span class="pre">stormpy.storage.storage.PrismProgram</span></a></span></span><a class="headerlink" href="#stormpy.storage.PrismProgram.label_unlabelled_commands" title="Permalink to this definition">¶</a></dt>
-<dd><p>Label unlabelled commands</p>
-</dd></dl>
-
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.storage.PrismProgram.labels">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">labels</span></span><a class="headerlink" href="#stormpy.storage.PrismProgram.labels" title="Permalink to this definition">¶</a></dt>
@@ -2292,12 +2199,6 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <dt class="sig sig-object py" id="stormpy.storage.PrismProgram.substitute_formulas">
 <span class="sig-name descname"><span class="pre">substitute_formulas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#stormpy.storage.PrismProgram" title="stormpy.storage.storage.PrismProgram"><span class="pre">stormpy.storage.storage.PrismProgram</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#stormpy.storage.PrismProgram" title="stormpy.storage.storage.PrismProgram"><span class="pre">stormpy.storage.storage.PrismProgram</span></a></span></span><a class="headerlink" href="#stormpy.storage.PrismProgram.substitute_formulas" title="Permalink to this definition">¶</a></dt>
 <dd><p>Substitute formulas within program</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="stormpy.storage.PrismProgram.substitute_nonstandard_predicates">
-<span class="sig-name descname"><span class="pre">substitute_nonstandard_predicates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#stormpy.storage.PrismProgram" title="stormpy.storage.storage.PrismProgram"><span class="pre">stormpy.storage.storage.PrismProgram</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#stormpy.storage.PrismProgram" title="stormpy.storage.storage.PrismProgram"><span class="pre">stormpy.storage.storage.PrismProgram</span></a></span></span><a class="headerlink" href="#stormpy.storage.PrismProgram.substitute_nonstandard_predicates" title="Permalink to this definition">¶</a></dt>
-<dd><p>Remove nonstandard predicates from the prism program</p>
 </dd></dl>
 
 <dl class="py method">
@@ -2546,29 +2447,6 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <dt class="sig sig-object py" id="stormpy.storage.SchedulerExact.partial">
 <em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">partial</span></span><a class="headerlink" href="#stormpy.storage.SchedulerExact.partial" title="Permalink to this definition">¶</a></dt>
 <dd><p>Is the scheduler partial?</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="stormpy.storage.SimpleValuation">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">SimpleValuation</span></span><a class="headerlink" href="#stormpy.storage.SimpleValuation" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="py method">
-<dt class="sig sig-object py" id="stormpy.storage.SimpleValuation.get_boolean_value">
-<span class="sig-name descname"><span class="pre">get_boolean_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.SimpleValuation</span></em>, <em class="sig-param"><span class="pre">variable:</span> <span class="pre">storm::expressions::Variable</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#stormpy.storage.SimpleValuation.get_boolean_value" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get Boolean Value for expression variable</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="stormpy.storage.SimpleValuation.get_integer_value">
-<span class="sig-name descname"><span class="pre">get_integer_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.SimpleValuation</span></em>, <em class="sig-param"><span class="pre">variable:</span> <span class="pre">storm::expressions::Variable</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#stormpy.storage.SimpleValuation.get_integer_value" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get Integer Value for expression variable</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="stormpy.storage.SimpleValuation.to_json">
-<span class="sig-name descname"><span class="pre">to_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#stormpy.storage.SimpleValuation" title="stormpy.storage.storage.SimpleValuation"><span class="pre">stormpy.storage.storage.SimpleValuation</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="utility.html#stormpy.utility.JsonContainerRational" title="stormpy.utility.utility.JsonContainerRational"><span class="pre">stormpy.utility.utility.JsonContainerRational</span></a></span></span><a class="headerlink" href="#stormpy.storage.SimpleValuation.to_json" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert to JSON</p>
 </dd></dl>
 
 </dd></dl>
@@ -3567,7 +3445,7 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.storage.StateValuation.get_json">
-<span class="sig-name descname"><span class="pre">get_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.StateValuation</span></em>, <em class="sig-param"><span class="pre">state:</span> <span class="pre">int</span></em>, <em class="sig-param"><span class="pre">selected_variables:</span> <span class="pre">Optional[Set[storm::expressions::Variable]]=None</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="utility.html#stormpy.utility.JsonContainerRational" title="stormpy.utility.utility.JsonContainerRational"><span class="pre">stormpy.utility.utility.JsonContainerRational</span></a></span></span><a class="headerlink" href="#stormpy.storage.StateValuation.get_json" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">get_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.StateValuation</span></em>, <em class="sig-param"><span class="pre">state:</span> <span class="pre">int</span></em>, <em class="sig-param"><span class="pre">selected_variables:</span> <span class="pre">Optional[Set[storm::expressions::Variable]]=None</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#stormpy.storage.StateValuation.get_json" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
