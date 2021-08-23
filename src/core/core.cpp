@@ -87,6 +87,11 @@ std::shared_ptr<storm::models::ModelBase> buildSparseModelWithOptions(storm::sto
     return storm::api::buildSparseModel<ValueType>(modelDescription, options, jit, doctor);
 }
 
+template<typename ValueType>
+storm::builder::ExplicitModelBuilder<double> makeExplicitModelBuilder(storm::storage::SymbolicModelDescription const& model, storm::builder::BuilderOptions const& options) {
+    return storm::api::makeExplicitModelBuilder<double>(model, options, nullptr); // Do not set ActionMask
+}
+
 // Thin wrapper for model building using symbolic representation
 template<storm::dd::DdType DdType, typename ValueType>
 std::shared_ptr<storm::models::symbolic::Model<DdType, ValueType>> buildSymbolicModel(storm::storage::SymbolicModelDescription const& modelDescription, std::vector<std::shared_ptr<storm::logic::Formula const>> const& formulas) {
@@ -119,9 +124,9 @@ void define_build(py::module& m) {
     m.def("_build_sparse_parametric_model_from_drn", &storm::api::buildExplicitDRNModel<storm::RationalFunction>, "Build the parametric model from DRN", py::arg("file"), py::arg("options") = storm::parser::DirectEncodingParserOptions());
     m.def("build_sparse_model_from_explicit", &storm::api::buildExplicitModel<double>, "Build the model model from explicit input", py::arg("transition_file"), py::arg("labeling_file"), py::arg("state_reward_file") = "", py::arg("transition_reward_file") = "", py::arg("choice_labeling_file") = "");
 
-    m.def("make_sparse_model_builder", &storm::api::makeExplicitModelBuilder<double>, "Construct a builder instance", py::arg("model_description"), py::arg("options"));
-    m.def("make_sparse_model_builder_exact", &storm::api::makeExplicitModelBuilder<storm::RationalNumber>, "Construct a builder instance", py::arg("model_description"), py::arg("options"));
-    m.def("make_sparse_model_builder_parametric", &storm::api::makeExplicitModelBuilder<double>, "Construct a builder instance", py::arg("model_description"), py::arg("options"));
+    m.def("make_sparse_model_builder", &makeExplicitModelBuilder<double>, "Construct a builder instance", py::arg("model_description"), py::arg("options"));
+    m.def("make_sparse_model_builder_exact", &makeExplicitModelBuilder<storm::RationalNumber>, "Construct a builder instance", py::arg("model_description"), py::arg("options"));
+    m.def("make_sparse_model_builder_parametric", &makeExplicitModelBuilder<double>, "Construct a builder instance", py::arg("model_description"), py::arg("options"));
 
     py::class_<storm::builder::ExplicitModelBuilder<double>>(m, "ExplicitModelBuilder", "Model builder for sparse models")
         .def("build", &storm::builder::ExplicitModelBuilder<double>::build, "Build the model")
