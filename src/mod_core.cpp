@@ -36,5 +36,6 @@ PYBIND11_MODULE(core, m) {
     define_transformation(m);
     define_sparse_model_simulator<double>(m, "Double");
     define_sparse_model_simulator<storm::RationalNumber>(m, "Exact");
+    define_prism_program_simulator<double>(m, "Double");
 
 }

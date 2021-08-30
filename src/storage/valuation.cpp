@@ -1,3 +1,4 @@
+#include <storm/storage/expressions/SimpleValuation.h>
 #include "valuation.h"
 #include "src/helpers.h"
 
@@ -6,8 +7,8 @@
 #include "storm/storage/expressions/ExpressionManager.h"
 
 // Thin wrappers
-std::string toJson(storm::storage::sparse::StateValuations const& valuations, storm::storage::sparse::state_type const& stateIndex, boost::optional<std::set<storm::expressions::Variable>> const& selectedVariables) {
-    return valuations.toJson(stateIndex, selectedVariables).dump();
+storm::json<storm::RationalNumber> toJson(storm::storage::sparse::StateValuations const& valuations, storm::storage::sparse::state_type const& stateIndex, boost::optional<std::set<storm::expressions::Variable>> const& selectedVariables) {
+    return valuations.toJson(stateIndex, selectedVariables);
 }
 
 void add_state(storm::storage::sparse::StateValuationsBuilder& builder, storm::storage::sparse::state_type const& state, std::vector<bool>&& booleanValues, std::vector<int64_t>&& integerValues, std::vector<storm::RationalNumber>&& rationalValues) {
@@ -35,5 +36,12 @@ void define_statevaluation(py::module& m) {
             .def("build", &storm::storage::sparse::StateValuationsBuilder::build, "Creates the finalized state valuations object")
             ;
 
+}
+
+void define_simplevaluation(py::module& m) {
+    py::class_<storm::expressions::SimpleValuation> sval(m, "SimpleValuation");
+    sval.def("to_json", &storm::expressions::SimpleValuation::toJson, "Convert to JSON");
+    sval.def("get_boolean_value", &storm::expressions::SimpleValuation::getBooleanValue, py::arg("variable"), "Get Boolean Value for expression variable");
+    sval.def("get_integer_value", &storm::expressions::SimpleValuation::getIntegerValue, py::arg("variable"), "Get Integer Value for expression variable");
 
 }

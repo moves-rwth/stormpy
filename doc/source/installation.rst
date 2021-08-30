@@ -12,7 +12,7 @@ Before installing stormpy, make sure
 - `Storm <http://www.stormchecker.org/>`_ is available on your system.
 
 To avoid issues, we suggest that both pycarl and Storm use the same version of `carl <https://smtrat.github.io/carl>`_.
-The simplest way of ensuring this is to first install carl as explained in the `Storm installation guide <http://www.stormchecker.org/documentation/installation/manual-configuration.html#carl>`_.
+The simplest way of ensuring this is to first install carl as explained in the `Storm installation guide <https://www.stormchecker.org/documentation/obtain-storm/dependencies.html#carl>`_.
 You can then install Storm and pycarl independently.
 
 .. _compatibility_stormpy_storm:
@@ -75,11 +75,11 @@ or for the latest release use (remember to use the correct version)::
 **Build** stormpy in develop mode using your favourite python distribution way of installing: e.g.::
 
 	$ python3 setup.py develop
-	
+
 or::
 
 	$ pip install -ve .
-	
+
 
 Optional build arguments
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -128,3 +128,17 @@ or by invoking pytest directly with::
 
 If the tests pass, you can now use stormpy.
 To get started, continue with our :doc:`getting_started`, consult the test files in ``tests/`` or the :doc:`api` (work in progress).
+
+Building stormpy documentation
+------------------------------
+
+To build this documentation, you need additional dependencies::
+
+	$ pip install sphinx sphinx_bootstrap_theme nbsphinx ipykernel numpy
+
+as well as `pandoc <https://pandoc.org/>`_.
+
+Then build the documentation::
+
+	$ cd doc
+	$ make html
