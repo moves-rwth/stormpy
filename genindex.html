@@ -14,6 +14,7 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" />
+    
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -22,6 +23,63 @@
 <script type="text/javascript" src="_static/js/jquery-fix.js "></script>
 <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
 <script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
+
+    <style>
+        .navbar p {
+            padding: 0px 5px;
+        }
+
+        /* fix navbar overlaying contents when clicking on anchors */
+        :target::before {
+            content: "";
+            display: block;
+            height: 60px; /* fixed header height*/
+            margin: -60px 0 0; /* negative fixed header height */
+            background: none;
+        }
+
+        /* hack to limit the yellow highlight to the the children of the target,
+           because of the above hack the target's highlight would be way too large */
+        dt:target {
+            background-color: transparent;
+        }
+        dt:target > * {
+            background-color: #fbe54e;
+        }
+
+        /* spacing adjustments */
+        .section {
+            margin-bottom: 10rem;
+            margin-top: 6rem;
+        }
+        div.body > .section:first-of-type {
+            margin-top: 0rem;
+        }
+        .class, .function, .data {
+            margin-top: 5rem;
+            margin-bottom: 7rem;
+            border-left: 1px solid #eee;
+            padding-left: 1rem;
+        }
+        dl.attribute > dd, dl.class > dd, dl.function > dd, dl.method > dd {
+            margin-left: 30px;
+        }
+        p {
+            margin-top: 1.05em;
+            margin-bottom: 1.05em;
+            text-align: justify;
+        }
+        .field-list p, li p {
+            text-align: left;
+        }
+        /* adjust font sizes */
+        dl.field-list, dl.attribute {
+            font-size: 90%;
+        }
+        .math {
+            font-size: 90.09%;
+        }
+    </style>
 
   </head><body>
 
@@ -137,7 +195,11 @@
 
 <div class="container">
   <div class="row">
-    <div class="body col-md-12 content" role="main">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary">
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
       
 
 <h1 id="index">Index</h1>
@@ -181,6 +243,8 @@
 </li>
       </ul></li>
       <li><a href="api/core.html#stormpy.PrismCommand.action_name">action_name (PrismCommand property)</a>, <a href="api/storage.html#stormpy.storage.PrismCommand.action_name">[1]</a>
+</li>
+      <li><a href="api/core.html#stormpy.ActionMaskDouble">ActionMaskDouble (class in stormpy)</a>
 </li>
       <li><a href="api/core.html#stormpy.SparseExactModelState.actions">actions (SparseExactModelState property)</a>, <a href="api/storage.html#stormpy.storage.SparseExactModelState.actions">[1]</a>
 
@@ -798,6 +862,12 @@
 </li>
       <li><a href="api/dft.html#stormpy.dft.DFTSymmetries">DFTSymmetries (class in stormpy.dft)</a>
 </li>
+      <li><a href="api/core.html#stormpy.DiceStringVisitor">DiceStringVisitor (class in stormpy)</a>
+
+      <ul>
+        <li><a href="api/storage.html#stormpy.storage.DiceStringVisitor">(class in stormpy.storage)</a>
+</li>
+      </ul></li>
       <li><a href="api/core.html#stormpy.DirectEncodingOptions">DirectEncodingOptions (class in stormpy)</a>
 </li>
       <li><a href="api/core.html#stormpy.DirectEncodingParserOptions">DirectEncodingParserOptions (class in stormpy)</a>
@@ -1093,6 +1163,8 @@
       <li><a href="api/utility.html#stormpy.utility.ModelReference.get_boolean_value">get_boolean_value() (ModelReference method)</a>
 
       <ul>
+        <li><a href="api/core.html#stormpy.SimpleValuation.get_boolean_value">(SimpleValuation method)</a>, <a href="api/storage.html#stormpy.storage.SimpleValuation.get_boolean_value">[1]</a>
+</li>
         <li><a href="api/core.html#stormpy.StateValuation.get_boolean_value">(StateValuation method)</a>, <a href="api/storage.html#stormpy.storage.StateValuation.get_boolean_value">[1]</a>
 </li>
       </ul></li>
@@ -1199,6 +1271,8 @@
       <li><a href="api/utility.html#stormpy.utility.ModelReference.get_integer_value">get_integer_value() (ModelReference method)</a>
 
       <ul>
+        <li><a href="api/core.html#stormpy.SimpleValuation.get_integer_value">(SimpleValuation method)</a>, <a href="api/storage.html#stormpy.storage.SimpleValuation.get_integer_value">[1]</a>
+</li>
         <li><a href="api/core.html#stormpy.StateValuation.get_integer_value">(StateValuation method)</a>, <a href="api/storage.html#stormpy.storage.StateValuation.get_integer_value">[1]</a>
 </li>
       </ul></li>
@@ -1256,10 +1330,10 @@
 </li>
       <li><a href="api/core.html#stormpy.ChoiceOrigins.get_number_of_identifiers">get_number_of_identifiers() (ChoiceOrigins method)</a>, <a href="api/storage.html#stormpy.storage.ChoiceOrigins.get_number_of_identifiers">[1]</a>
 </li>
-      <li><a href="api/gspn.html#stormpy.gspn.GSPN.get_number_of_immediate_transitions">get_number_of_immediate_transitions() (GSPN method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/gspn.html#stormpy.gspn.GSPN.get_number_of_immediate_transitions">get_number_of_immediate_transitions() (GSPN method)</a>
+</li>
       <li><a href="api/gspn.html#stormpy.gspn.Place.get_number_of_initial_tokens">get_number_of_initial_tokens() (Place method)</a>
 </li>
       <li><a href="api/gspn.html#stormpy.gspn.GSPN.get_number_of_places">get_number_of_places() (GSPN method)</a>
@@ -1485,6 +1559,8 @@
       <li><a href="api/gspn.html#stormpy.gspn.TimedTransition.has_k_server_semantics">has_k_server_semantics() (TimedTransition method)</a>
 </li>
       <li><a href="api/core.html#stormpy.BoundedUntilFormula.has_lower_bound">has_lower_bound (BoundedUntilFormula property)</a>, <a href="api/logic.html#stormpy.logic.BoundedUntilFormula.has_lower_bound">[1]</a>
+</li>
+      <li><a href="api/core.html#stormpy.OverlappingGuardAnalyser.has_module_with_inner_action_overlapping_guard">has_module_with_inner_action_overlapping_guard() (OverlappingGuardAnalyser method)</a>, <a href="api/storage.html#stormpy.storage.OverlappingGuardAnalyser.has_module_with_inner_action_overlapping_guard">[1]</a>
 </li>
       <li><a href="api/storage.html#stormpy.storage.Variable.has_numerical_type">has_numerical_type() (Variable method)</a>
 </li>
@@ -1858,6 +1934,10 @@
         <li><a href="api/storage.html#stormpy.storage.JaniVariableSet">(class in stormpy.storage)</a>
 </li>
       </ul></li>
+      <li><a href="api/utility.html#stormpy.utility.JsonContainerDouble">JsonContainerDouble (class in stormpy.utility)</a>
+</li>
+      <li><a href="api/utility.html#stormpy.utility.JsonContainerRational">JsonContainerRational (class in stormpy.utility)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -1876,6 +1956,8 @@
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/core.html#stormpy.PrismProgram.label_unlabelled_commands">label_unlabelled_commands() (PrismProgram method)</a>, <a href="api/storage.html#stormpy.storage.PrismProgram.label_unlabelled_commands">[1]</a>
+</li>
       <li><a href="api/core.html#stormpy.PrismCommand.labeled">labeled (PrismCommand property)</a>, <a href="api/storage.html#stormpy.storage.PrismCommand.labeled">[1]</a>
 </li>
       <li><a href="api/core.html#stormpy.PrismProgram.labels">labels (PrismProgram property)</a>, <a href="api/storage.html#stormpy.storage.PrismProgram.labels">[1]</a>
@@ -2349,6 +2431,12 @@
 </li>
       <li><a href="api/core.html#stormpy.Expression.Or">Or() (Expression method)</a>, <a href="api/storage.html#stormpy.storage.Expression.Or">[1]</a>
 </li>
+      <li><a href="api/core.html#stormpy.OverlappingGuardAnalyser">OverlappingGuardAnalyser (class in stormpy)</a>
+
+      <ul>
+        <li><a href="api/storage.html#stormpy.storage.OverlappingGuardAnalyser">(class in stormpy.storage)</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -2881,6 +2969,12 @@
 </li>
       <li><a href="api/core.html#stormpy.SMTCounterExampleGeneratorOptions.silent">silent (SMTCounterExampleGeneratorOptions property)</a>
 </li>
+      <li><a href="api/core.html#stormpy.SimpleValuation">SimpleValuation (class in stormpy)</a>
+
+      <ul>
+        <li><a href="api/storage.html#stormpy.storage.SimpleValuation">(class in stormpy.storage)</a>
+</li>
+      </ul></li>
       <li><a href="api/core.html#stormpy.Expression.simplify">simplify() (Expression method)</a>, <a href="api/storage.html#stormpy.storage.Expression.simplify">[1]</a>
 
       <ul>
@@ -3195,6 +3289,8 @@
         <li><a href="api/storage.html#stormpy.storage.StateValuation">(class in stormpy.storage)</a>
 </li>
       </ul></li>
+      <li><a href="api/core.html#stormpy.StateValuationFunctionActionMaskDouble">StateValuationFunctionActionMaskDouble (class in stormpy)</a>
+</li>
       <li><a href="api/core.html#stormpy.StateValuationsBuilder">StateValuationsBuilder (class in stormpy)</a>
 
       <ul>
@@ -3318,6 +3414,8 @@
 </li>
       <li><a href="api/core.html#stormpy.Formula.substitute_labels_by_labels">substitute_labels_by_labels() (Formula method)</a>, <a href="api/logic.html#stormpy.logic.Formula.substitute_labels_by_labels">[1]</a>
 </li>
+      <li><a href="api/core.html#stormpy.PrismProgram.substitute_nonstandard_predicates">substitute_nonstandard_predicates() (PrismProgram method)</a>, <a href="api/storage.html#stormpy.storage.PrismProgram.substitute_nonstandard_predicates">[1]</a>
+</li>
       <li><a href="api/core.html#stormpy.SubsystemBuilderOptions">SubsystemBuilderOptions (class in stormpy)</a>
 </li>
       <li><a href="api/core.html#stormpy.SubsystemBuilderReturnTypeDouble">SubsystemBuilderReturnTypeDouble (class in stormpy)</a>
@@ -3432,6 +3530,8 @@
 </li>
       <li><a href="api/core.html#stormpy.PrismProgram.to_jani">to_jani() (PrismProgram method)</a>, <a href="api/storage.html#stormpy.storage.PrismProgram.to_jani">[1]</a>
 </li>
+      <li><a href="api/core.html#stormpy.SimpleValuation.to_json">to_json() (SimpleValuation method)</a>, <a href="api/storage.html#stormpy.storage.SimpleValuation.to_json">[1]</a>
+</li>
       <li><a href="api/core.html#stormpy.FactorizedPolynomial.to_smt2">to_smt2() (FactorizedPolynomial method)</a>
 
       <ul>
@@ -3442,6 +3542,8 @@
         <li><a href="api/core.html#stormpy.RationalFunction.to_smt2">(RationalFunction method)</a>
 </li>
       </ul></li>
+      <li><a href="api/core.html#stormpy.DiceStringVisitor.to_string">to_string() (DiceStringVisitor method)</a>, <a href="api/storage.html#stormpy.storage.DiceStringVisitor.to_string">[1]</a>
+</li>
       <li><a href="api/dft.html#stormpy.dft.DFT.top_level_element">top_level_element (DFT property)</a>
 
       <ul>
@@ -3456,10 +3558,10 @@
       </ul></li>
       <li><a href="api/core.html#stormpy.MinMaxMethod.topological_cuda">topological_cuda (MinMaxMethod attribute)</a>
 </li>
-      <li><a href="api/core.html#stormpy.topological_sort">topological_sort() (in module stormpy)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/core.html#stormpy.topological_sort">topological_sort() (in module stormpy)</a>
+</li>
       <li><a href="api/core.html#stormpy.Polynomial.total_degree">total_degree (Polynomial property)</a>
 </li>
       <li><a href="api/core.html#stormpy.JaniLocationExpander.transform">transform() (JaniLocationExpander method)</a>, <a href="api/storage.html#stormpy.storage.JaniLocationExpander.transform">[1]</a>
@@ -3661,6 +3763,10 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/utility.html#stormpy.utility.Z3SmtSolver">Z3SmtSolver (class in stormpy.utility)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/utility.html#stormpy.utility.Z3SmtSolverFactory">Z3SmtSolverFactory (class in stormpy.utility)</a>
 </li>
   </ul></td>
 </tr></table>

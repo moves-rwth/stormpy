@@ -19,6 +19,7 @@
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Markov automata (MAs)" href="building_mas.html" />
     <link rel="prev" title="Markov decision processes (MDPs)" href="building_mdps.html" />
+    
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -27,6 +28,63 @@
 <script type="text/javascript" src="../../_static/js/jquery-fix.js "></script>
 <script type="text/javascript" src="../../_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
 <script type="text/javascript" src="../../_static/bootstrap-sphinx.js "></script>
+
+    <style>
+        .navbar p {
+            padding: 0px 5px;
+        }
+
+        /* fix navbar overlaying contents when clicking on anchors */
+        :target::before {
+            content: "";
+            display: block;
+            height: 60px; /* fixed header height*/
+            margin: -60px 0 0; /* negative fixed header height */
+            background: none;
+        }
+
+        /* hack to limit the yellow highlight to the the children of the target,
+           because of the above hack the target's highlight would be way too large */
+        dt:target {
+            background-color: transparent;
+        }
+        dt:target > * {
+            background-color: #fbe54e;
+        }
+
+        /* spacing adjustments */
+        .section {
+            margin-bottom: 10rem;
+            margin-top: 6rem;
+        }
+        div.body > .section:first-of-type {
+            margin-top: 0rem;
+        }
+        .class, .function, .data {
+            margin-top: 5rem;
+            margin-bottom: 7rem;
+            border-left: 1px solid #eee;
+            padding-left: 1rem;
+        }
+        dl.attribute > dd, dl.class > dd, dl.function > dd, dl.method > dd {
+            margin-left: 30px;
+        }
+        p {
+            margin-top: 1.05em;
+            margin-bottom: 1.05em;
+            text-align: justify;
+        }
+        .field-list p, li p {
+            text-align: left;
+        }
+        /* adjust font sizes */
+        dl.field-list, dl.attribute {
+            font-size: 90%;
+        }
+        .math {
+            font-size: 90.09%;
+        }
+    </style>
 
   </head><body>
 
@@ -160,7 +218,21 @@
 
 <div class="container">
   <div class="row">
-    <div class="body col-md-12 content" role="main">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Continuous-time Markov chains (CTMCs)</a><ul>
+<li><a class="reference internal" href="#Background">Background</a></li>
+<li><a class="reference internal" href="#Transition-Matrix">Transition Matrix</a></li>
+<li><a class="reference internal" href="#Labeling">Labeling</a></li>
+<li><a class="reference internal" href="#Exit-Rates">Exit Rates</a></li>
+<li><a class="reference internal" href="#Building-the-Model">Building the Model</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
       
   
 <style>
@@ -551,9 +623,9 @@ Transitions:    6
 Reward Models:  none
 State Labels:   4 labels
    * full -&gt; 1 item(s)
-   * init -&gt; 1 item(s)
-   * deadlock -&gt; 0 item(s)
    * empty -&gt; 1 item(s)
+   * deadlock -&gt; 0 item(s)
+   * init -&gt; 1 item(s)
 Choice Labels:  none
 --------------------------------------------------------------
 
