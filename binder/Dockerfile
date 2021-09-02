@@ -1,4 +1,4 @@
-FROM movesrwth/stormpy:1.6.2
+FROM movesrwth/stormpy:1.6.3
 MAINTAINER Matthias Volk <matthias.volk@cs.rwth-aachen.de>
 
 
@@ -32,8 +32,8 @@ ENV PATH="$HOME/.local/bin:$PATH"
 # Install dependencies
 ##########
 
-RUN pip install --no-cache-dir notebook==5.7.9
-RUN pip install --no-cache-dir numpy==1.19.0
+RUN pip install --no-cache-dir notebook==6.4.3
+RUN pip install --no-cache-dir numpy==1.21.2
 
 ##########
 # Copy files for notebooks

@@ -40,4 +40,6 @@ The following steps should be performed before releasing a new stormpy version.
 
 8. Create [Docker containers](https://hub.docker.com/r/movesrwth/stormpy) for new version.
 
-9. Update Docker version for Binder in [Dockerfile](https://github.com/moves-rwth/stormpy/blob/master/binder/Dockerfile).
+9. Update Docker version for Binder in [Dockerfile](https://github.com/moves-rwth/stormpy/blob/master/binder/Dockerfile):
+    * Set new stormpy release as base
+    * Update versions numbers of dependencies
