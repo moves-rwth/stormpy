@@ -119,7 +119,7 @@ Testing stormpy installation
 
 After building, you can run the test files by either::
 
-	$ python setup.py test
+	$ python3 setup.py test
 
 or by invoking pytest directly with::
 
