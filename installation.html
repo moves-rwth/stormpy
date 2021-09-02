@@ -103,7 +103,7 @@
         <div class="collapse navbar-collapse nav-collapse">
           <ul class="nav navbar-nav">
             
-                <li><a href="http://stormchecker.org">Storm</a></li>
+                <li><a href="https://www.stormchecker.org">Storm</a></li>
                 <li><a href="https://github.com/moves-rwth/stormpy">Github</a></li>
             
             
@@ -258,7 +258,7 @@
 <ul class="simple">
 <li><p>Python 3 is available on your system.</p></li>
 <li><p><a class="reference external" href="https://moves-rwth.github.io/pycarl">pycarl</a> is available.</p></li>
-<li><p><a class="reference external" href="http://www.stormchecker.org/">Storm</a> is available on your system.</p></li>
+<li><p><a class="reference external" href="https://www.stormchecker.org/">Storm</a> is available on your system.</p></li>
 </ul>
 <p>To avoid issues, we suggest that both pycarl and Storm use the same version of <a class="reference external" href="https://smtrat.github.io/carl">carl</a>.
 The simplest way of ensuring this is to first install carl as explained in the <a class="reference external" href="https://www.stormchecker.org/documentation/obtain-storm/dependencies.html#carl">Storm installation guide</a>.
@@ -279,7 +279,10 @@ In this case, you need to use the <code class="docutils literal notranslate"><sp
 Note that due to ongoing development in Storm, after some commits, the stormpy <code class="docutils literal notranslate"><span class="pre">master</span></code> might not work with the Storm <code class="docutils literal notranslate"><span class="pre">master</span></code> anymore.
 We will fix such issues as fast as possible.</p></li>
 </ol>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
 <p>Unfortunately, Stormpy currently does not work in conjunction with a homebrew installation of Storm.</p>
+</div>
 </section>
 </section>
 <section id="installation-steps">
@@ -289,7 +292,7 @@ We will fix such issues as fast as possible.</p></li>
 <p>Virtual environments create isolated environments for your projects.
 This helps to keep your system clean, work with different versions of packages and different version of python.
 While it is not required, we recommend the use of such virtual environments. To get you started, we recommend
-<a class="reference external" href="http://docs.python-guide.org/en/latest/dev/virtualenvs/">this guide</a> or
+<a class="reference external" href="https://docs.python-guide.org/en/latest/dev/virtualenvs/">this guide</a> or
 <a class="reference external" href="https://realpython.com/blog/python/python-virtual-environments-a-primer">this primer</a>.</p>
 <p>In short you can create a virtual environment <code class="docutils literal notranslate"><span class="pre">env</span></code> with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install virtualenv
@@ -371,11 +374,15 @@ To get started, continue with our <a class="reference internal" href="getting_st
 </section>
 <section id="building-stormpy-documentation">
 <h3>Building stormpy documentation<a class="headerlink" href="#building-stormpy-documentation" title="Permalink to this headline">¶</a></h3>
-<p>To build this documentation, you need additional dependencies:</p>
+<p>To build this documentation, you need additional python dependencies as well as <a class="reference external" href="https://pandoc.org/">pandoc</a>.
+You can install the required python dependencies automatically with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python setup.py develop easy_install stormpy[doc,numpy]
+</pre></div>
+</div>
+<p>or manually with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install sphinx sphinx_bootstrap_theme nbsphinx ipykernel numpy
 </pre></div>
 </div>
-<p>as well as <a class="reference external" href="https://pandoc.org/">pandoc</a>.</p>
 <p>Then build the documentation:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cd doc
 $ make html
