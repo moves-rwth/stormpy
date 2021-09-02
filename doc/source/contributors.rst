@@ -2,7 +2,7 @@
 Contributors
 **************
 
-Stormpy is an extension to `Storm <http://www.stormchecker.org/>`_.
+Stormpy is an extension to `Storm <https://www.stormchecker.org/>`_.
 As a consequence, developers of Storm contributed significantly to the functionality offered by these Python bindings.
 
 The bindings themselves have been developed by (lexicographically ordered):

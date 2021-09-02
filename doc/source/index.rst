@@ -7,7 +7,7 @@ Stormpy Documentation
 ===================================
 
 
-Stormpy is a set of python bindings for the probabilistic model checker `Storm <http://www.stormchecker.org/>`_.
+Stormpy is a set of python bindings for the probabilistic model checker `Storm <https://www.stormchecker.org/>`_.
 
 
 .. toctree::
