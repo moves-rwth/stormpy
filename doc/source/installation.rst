@@ -33,8 +33,9 @@ You have two choices for stormpy depending on the version of Storm you are using
    In this case, you need to use the ``master`` branch of stormpy as well.
    Note that due to ongoing development in Storm, after some commits, the stormpy ``master`` might not work with the Storm ``master`` anymore.
    We will fix such issues as fast as possible.
-   
-Unfortunately, Stormpy currently does not work in conjunction with a homebrew installation of Storm.
+
+.. warning::
+    Unfortunately, Stormpy currently does not work in conjunction with a homebrew installation of Storm.
 
 Installation Steps
 ====================
@@ -132,11 +133,14 @@ To get started, continue with our :doc:`getting_started`, consult the test files
 Building stormpy documentation
 ------------------------------
 
-To build this documentation, you need additional dependencies::
+To build this documentation, you need additional python dependencies as well as `pandoc <https://pandoc.org/>`_.
+You can install the required python dependencies automatically with::
+
+	$ python setup.py develop easy_install stormpy[doc,numpy]
+
+or manually with::
 
 	$ pip install sphinx sphinx_bootstrap_theme nbsphinx ipykernel numpy
-
-as well as `pandoc <https://pandoc.org/>`_.
 
 Then build the documentation::
 
