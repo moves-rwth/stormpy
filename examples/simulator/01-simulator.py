@@ -16,7 +16,8 @@ def example_simulator_01():
     final_outcomes = dict()
     for n in range(1000):
         while not simulator.is_done():
-            observation, reward = simulator.step()
+            observation, reward, labels = simulator.step()
+        print(labels)
         if observation not in final_outcomes:
             final_outcomes[observation] = 1
         else:
@@ -33,7 +34,7 @@ def example_simulator_01():
     print(simulator.get_reward_names())
     for n in range(1000):
         while not simulator.is_done():
-            observation, reward = simulator.step()
+            observation, reward, labels = simulator.step()
         if observation not in final_outcomes:
             final_outcomes[observation] = 1
         else:

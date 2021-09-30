@@ -159,12 +159,15 @@ class SparseSimulator(Simulator):
 
     def _report_result(self):
         if self._full_observe:
-            return self._report_state(),  self._report_rewards()
+            return self._report_state(),  self._report_rewards(), self._report_labels()
         else:
-            return self._report_observation(),  self._report_rewards()
+            return self._report_observation(),  self._report_rewards(), self._report_labels()
 
     def _report_rewards(self):
         return self._engine.get_last_reward()
+
+    def _report_labels(self):
+        return self._model.labeling.get_labels_of_state(self._engine.get_current_state())
 
     def random_step(self):
         check = self._engine.random_step()
@@ -256,15 +259,18 @@ class PrismSimulator(Simulator):
 
     def _report_result(self):
         if self._full_observe:
-            return self._report_state(),  self._report_rewards()
+            return self._report_state(),  self._report_rewards(), self._report_labels()
         else:
-            return self._report_observation(),  self._report_rewards()
+            return self._report_observation(),  self._report_rewards(), self._report_labels()
 
     def _report_rewards(self):
         return self._engine.get_last_reward()
 
     def _get_current_state(self):
         return self._engine.get_current_state()
+
+    def _report_labels(self):
+        return self._engine.get_current_labels()
 
     def random_step(self):
         raise NotImplementedError("Random steps are not implemented in this simulator")
@@ -273,7 +279,6 @@ class PrismSimulator(Simulator):
         return self._report_result()
 
     def step(self, action=None):
-
         if action is None:
             if not self._program.is_deterministic_model and self.nr_available_actions() > 1:
                 raise RuntimeError("Must specify an action in nondeterministic models.")

@@ -7,7 +7,7 @@ import stormpy.examples.files
 """
 Simulator for programs
 """
-def example_simulator_03():
+def example_simulator_04():
     path = stormpy.examples.files.prism_mdp_coin_2_2
     prism_program = stormpy.parse_prism_program(path)
     #prism_program = stormpy.preprocess_symbolic_input(prism_program, [], "delay=10,fast=0.8")[0].as_prism_program()
@@ -20,7 +20,8 @@ def example_simulator_03():
         while not simulator.is_done():
             actions = simulator.available_actions()
             print(actions)
-            observation, reward = simulator.step(actions[0])
+            observation, reward, labels = simulator.step(actions[0])
+            print(labels)
         if observation not in final_outcomes:
             final_outcomes[observation] = 1
         else:
@@ -41,7 +42,7 @@ def example_simulator_03():
         while not simulator.is_done():
             actions = simulator.available_actions()
             print(actions)
-            observation, reward = simulator.step(actions[0])
+            observation, reward, labels = simulator.step(actions[0])
         if observation not in final_outcomes:
             final_outcomes[observation] = 1
         else:
@@ -49,8 +50,5 @@ def example_simulator_03():
         simulator.restart()
 
 
-
-
-
 if __name__ == '__main__':
-    example_simulator_03()
+    example_simulator_04()

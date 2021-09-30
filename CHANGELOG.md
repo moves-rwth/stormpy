@@ -4,7 +4,7 @@ Changelog
 Version 1.6.x
 -------------
 ### Version 1.6.4 (2021/xx)
-
+- Simulator for sparse models updated, added simulator for prism programs.
 - Renamed PrismProgram::isDeterministicModel -> is_deterministic_model for consistency
 - Support for specifying the returned quotient format (symbolic or sparse) for symbolic bisimulation
 - Added support for continuous integration with Github Actions
