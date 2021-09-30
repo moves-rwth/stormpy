@@ -18,7 +18,7 @@ def example_simulator_03():
     for n in range(5):
         while not simulator.is_done():
             actions = simulator.available_actions()
-            observation, reward = simulator.step(actions[0])
+            observation, reward, labels = simulator.step(actions[0])
         if observation not in final_outcomes:
             final_outcomes[observation] = 1
         else:

@@ -19,14 +19,14 @@ def example_simulator_02():
     paths = []
     for m in range(5):
         path = []
-        state, reward = simulator.restart()
+        state, reward, labels = simulator.restart()
         path = [f"{state}"]
         for n in range(20):
             actions = simulator.available_actions()
             select_action = random.randint(0,len(actions)-1)
             #print(f"Randomly select action nr: {select_action} from actions {actions}")
             path.append(f"--act={actions[select_action]}-->")
-            state, reward = simulator.step(actions[select_action])
+            state, reward, labels = simulator.step(actions[select_action])
             #print(state)
             path.append(f"{state}")
             if simulator.is_done():
@@ -48,14 +48,14 @@ def example_simulator_02():
     paths = []
     for m in range(5):
         path = []
-        state, reward = simulator.restart()
+        state, reward, labels = simulator.restart()
         path = [f"{state}"]
         for n in range(20):
             actions = simulator.available_actions()
             select_action = random.randint(0,len(actions)-1)
             #print(f"Randomly select action nr: {select_action} from actions {actions}")
             path.append(f"--act={actions[select_action]}-->")
-            state, reward = simulator.step(actions[select_action])
+            state, reward, labels = simulator.step(actions[select_action])
             #print(state)
             path.append(f"{state}")
             if simulator.is_done():

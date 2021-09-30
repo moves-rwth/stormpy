@@ -29,6 +29,7 @@ void define_prism_program_simulator(py::module& m, std::string const& vtSuffix) 
     dtpps.def("get_current_state_as_json", [](storm::simulator::DiscreteTimePrismProgramSimulator<ValueType> const& sim) { return sim.getStateAsJson(); });
     dtpps.def("get_current_observation_as_json", [](storm::simulator::DiscreteTimePrismProgramSimulator<ValueType> const& sim) { return sim.getObservationAsJson(); });
     dtpps.def("get_current_state_is_sink", &storm::simulator::DiscreteTimePrismProgramSimulator<ValueType>::isSinkState);
+    dtpps.def("get_current_labels", &storm::simulator::DiscreteTimePrismProgramSimulator<ValueType>::getCurrentStateLabelling, "What are the state labels at the current state?");
     dtpps.def("get_last_reward", &storm::simulator::DiscreteTimePrismProgramSimulator<ValueType>::getLastRewards);
     dtpps.def("reset_to_initial_state", &storm::simulator::DiscreteTimePrismProgramSimulator<ValueType>::resetToInitial, "Reset to the initial state");
     dtpps.def("_reset_to_state_from_valuation", [](PLSim<ValueType>& sim, storm::expressions::SimpleValuation const& state) {sim.resetToState(state);});
