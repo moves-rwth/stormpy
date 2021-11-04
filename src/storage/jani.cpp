@@ -1,6 +1,6 @@
 #include "jani.h"
 #include <storm/storage/jani/Model.h>
-#include <storm/storage/jani/JSONExporter.h>
+#include <storm/storage/jani/visitor/JSONExporter.h>
 #include <storm/storage/expressions/ExpressionManager.h>
 #include <storm/logic/RewardAccumulationEliminationVisitor.h>
 #include <storm/storage/jani/traverser/InformationCollector.h>
