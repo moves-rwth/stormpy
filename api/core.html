@@ -1717,22 +1717,6 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="stormpy.JaniBoundedIntegerVariable">
-<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">JaniBoundedIntegerVariable</span></span><a class="headerlink" href="#stormpy.JaniBoundedIntegerVariable" title="Permalink to this definition">¶</a></dt>
-<dd><p>A Bounded Integer</p>
-<dl class="py property">
-<dt class="sig sig-object py" id="stormpy.JaniBoundedIntegerVariable.lower_bound">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">lower_bound</span></span><a class="headerlink" href="#stormpy.JaniBoundedIntegerVariable.lower_bound" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="stormpy.JaniBoundedIntegerVariable.upper_bound">
-<em class="property"><span class="pre">property</span> </em><span class="sig-name descname"><span class="pre">upper_bound</span></span><a class="headerlink" href="#stormpy.JaniBoundedIntegerVariable.upper_bound" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
 <dt class="sig sig-object py" id="stormpy.JaniChoiceOrigins">
 <em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">JaniChoiceOrigins</span></span><a class="headerlink" href="#stormpy.JaniChoiceOrigins" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class represents for each choice the origin in the jani spec.</p>
@@ -2002,7 +1986,7 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.JaniModel.flatten_composition">
-<span class="sig-name descname"><span class="pre">flatten_composition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.JaniModel</span></em>, <em class="sig-param"><span class="pre">smt_solver_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory=&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7fb573058db0&gt;</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.JaniModel" title="stormpy.storage.storage.JaniModel"><span class="pre">stormpy.storage.storage.JaniModel</span></a></span></span><a class="headerlink" href="#stormpy.JaniModel.flatten_composition" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">flatten_composition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.JaniModel</span></em>, <em class="sig-param"><span class="pre">smt_solver_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory=&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7fb441a9ab70&gt;</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.JaniModel" title="stormpy.storage.storage.JaniModel"><span class="pre">stormpy.storage.storage.JaniModel</span></a></span></span><a class="headerlink" href="#stormpy.JaniModel.flatten_composition" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -2287,11 +2271,6 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <dt class="sig sig-object py" id="stormpy.JaniVariableSet">
 <em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">JaniVariableSet</span></span><a class="headerlink" href="#stormpy.JaniVariableSet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Jani Set of Variables</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="stormpy.JaniVariableSet.add_bounded_integer_variable">
-<span class="sig-name descname"><span class="pre">add_bounded_integer_variable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.JaniVariableSet</span></em>, <em class="sig-param"><span class="pre">variable:</span> <span class="pre">storm::jani::BoundedIntegerVariable</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">storm::jani::BoundedIntegerVariable</span></span></span><a class="headerlink" href="#stormpy.JaniVariableSet.add_bounded_integer_variable" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.JaniVariableSet.add_variable">
 <span class="sig-name descname"><span class="pre">add_variable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.JaniVariableSet</span></em>, <em class="sig-param"><span class="pre">arg0:</span> <span class="pre">storm::jani::Variable</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#stormpy.JaniVariableSet.add_variable" title="Permalink to this definition">¶</a></dt>
@@ -3248,7 +3227,7 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.PrismProgram.flatten">
-<span class="sig-name descname"><span class="pre">flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.PrismProgram</span></em>, <em class="sig-param"><span class="pre">smt_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory=&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7fb573052570&gt;</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.PrismProgram" title="stormpy.storage.storage.PrismProgram"><span class="pre">stormpy.storage.storage.PrismProgram</span></a></span></span><a class="headerlink" href="#stormpy.PrismProgram.flatten" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.PrismProgram</span></em>, <em class="sig-param"><span class="pre">smt_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory=&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7fb441a9e070&gt;</span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.PrismProgram" title="stormpy.storage.storage.PrismProgram"><span class="pre">stormpy.storage.storage.PrismProgram</span></a></span></span><a class="headerlink" href="#stormpy.PrismProgram.flatten" title="Permalink to this definition">¶</a></dt>
 <dd><p>Put program into a single module</p>
 </dd></dl>
 
