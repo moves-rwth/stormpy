@@ -15,7 +15,6 @@
 #include "storm/models/sparse/Dtmc.h"
 #include "storm/models/sparse/StandardRewardModel.h"
 #include "storm/solver/MinMaxLinearEquationSolver.h"
-#include "storm/solver/Multiplier.h"
 #include "storm/utility/vector.h"
 #include "storm/utility/graph.h"
 #include "storm/utility/NumberTraits.h"
