@@ -15,7 +15,7 @@ on:
 
 env:
   GIT_URL: "${{ github.server_url }}/${{ github.repository }}.git"
-  BRANCH: "master"
+  BRANCH: "${{ github.ref_name }}"
   # github runners currently have two cores
   NR_JOBS: "2"
   CMAKE_DEBUG: "-DCMAKE_BUILD_TYPE=Debug"
