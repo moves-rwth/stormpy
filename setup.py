@@ -79,9 +79,9 @@ class CMakeBuild(build_ext):
         # Check version
         storm_version, storm_commit = setup_helper.parse_storm_version(cmake_conf.STORM_VERSION)
         if StrictVersion(storm_version) < StrictVersion(storm_min_version):
-            sys.exit(
-                'Stormpy - Error: Storm version {} from \'{}\' is not supported anymore!'.format(storm_version,
-                                                                                                 storm_dir))
+            print('Stormpy - Error: Storm version {} from \'{}\' is not supported anymore!'.format(storm_version, storm_dir))
+            print("                 For more information, see https://moves-rwth.github.io/stormpy/installation.html#compatibility-of-stormpy-and-storm")
+            sys.exit(42)  # Custom exit code which can be used for incompatible checks
 
         # Check additional support
         use_dft = cmake_conf.HAVE_STORM_DFT and not self.config.get_as_bool("disable_dft")
