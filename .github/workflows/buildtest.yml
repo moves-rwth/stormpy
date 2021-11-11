@@ -15,7 +15,7 @@ on:
 
 env:
   GIT_URL: "${{ github.server_url }}/${{ github.repository }}.git"
-  BRANCH: "${{ github.ref_name }}"
+  BRANCH: "${{ github.ref }}"
   # github runners currently have two cores
   NR_JOBS: "2"
   CMAKE_DEBUG: "-DCMAKE_BUILD_TYPE=Debug"
@@ -62,7 +62,9 @@ jobs:
         run: sudo docker exec storm apt-get install -qq -y maven uuid-dev python python3 virtualenv
       - name: Git clone
         run: |
-          sudo docker exec storm git clone --depth 1 --branch $BRANCH $GIT_URL /opt/stormpy
+          # git clone cannot clone individual commits based on a sha and some other refs
+          # this workaround fixes this and fetches only one commit
+          sudo docker exec storm bash -c "mkdir /opt/stormpy; cd /opt/stormpy; git init && git remote add origin ${GIT_URL} && git fetch --depth 1 origin ${BRANCH} && git checkout FETCH_HEAD"
           sudo docker exec storm git clone --depth 1 --branch $CARL_PARSER_BRANCH $CARL_PARSER_GIT_URL /opt/carl-parser
           sudo docker exec storm git clone --depth 1 --branch $PYCARL_BRANCH $PYCARL_GIT_URL /opt/pycarl
       - name: Run cmake for carl-parser
@@ -137,7 +139,9 @@ jobs:
         run: sudo docker exec storm apt-get install -qq -y maven uuid-dev python python3 virtualenv
       - name: Git clone
         run: |
-          sudo docker exec storm git clone --depth 1 --branch $BRANCH $GIT_URL /opt/stormpy
+          # git clone cannot clone individual commits based on a sha and some other refs
+          # this workaround fixes this and fetches only one commit
+          sudo docker exec storm bash -c "mkdir /opt/stormpy; cd /opt/stormpy; git init && git remote add origin ${GIT_URL} && git fetch --depth 1 origin ${BRANCH} && git checkout FETCH_HEAD"
           sudo docker exec storm git clone --depth 1 --branch $CARL_PARSER_BRANCH $CARL_PARSER_GIT_URL /opt/carl-parser
           sudo docker exec storm git clone --depth 1 --branch $PYCARL_BRANCH $PYCARL_GIT_URL /opt/pycarl
       - name: Run cmake for carl-parser
