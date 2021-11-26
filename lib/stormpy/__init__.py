@@ -503,6 +503,29 @@ def construct_submodel(model, states, actions, keep_unreachable_states=True, opt
         raise NotImplementedError()
 
 
+def eliminate_ECs(matrix, subsystem, possible_ecs, add_sink_row_states, add_self_loop_at_sink_states = False):
+    """
+    For each such EC (that is not contained in another EC), we add a new state and redirect all incoming and outgoing
+             transitions of the EC to (and from) this state.
+
+    :param matrix:
+    :param subsystem: BitVector with states many entries. Only states in the given subsystem are kept. Transitions leading to a state outside of the subsystem will be
+             removed (but the corresponding row is kept, possibly yielding empty rows).
+             The ECs are then identified on the subsystem.
+    :param possible_ecs: BitVector with rows many entries. Only ECs for which possible_ecs is true for all choices are considered.
+             Furthermore, the rows that contain a transition leading outside of the subsystem are not considered for an EC.
+    :param add_sink_row_states: BitVector with states many entries. If add_sink_row_states is true for at least one state of an eliminated EC, a row is added to the new state (representing the choice to stay at the EC forever).
+    :param add_self_loop_at_sink_states: if true, such rows get a selfloop (with value 1). Otherwise, the row remains empty.
+    :return: A container with various information.
+    """
+    assert matrix.nr_columns == subsystem.size(), "subsystem vector should have an entry for every state."
+    assert matrix.nr_rows == possible_ecs.size(), "possible_ecs vector should have an entry for every row."
+    assert matrix.nr_columns == add_sink_row_states.size(), "add_sink_row_states vector should have an entry for every state."
+
+    return core._eliminate_end_components_double(matrix, subsystem, possible_ecs, add_sink_row_states, add_self_loop_at_sink_states)
+
+
+
 def parse_properties(properties, context=None, filters=None):
     """
 

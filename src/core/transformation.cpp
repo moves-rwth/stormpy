@@ -2,6 +2,7 @@
 #include "storm/api/transformation.h"
 #include "storm/models/symbolic/StandardRewardModel.h"
 #include "storm/transformer/SubsystemBuilder.h"
+#include "storm/transformer/EndComponentEliminator.h"
 
 // Thin wrappers.
 template<typename VT>
@@ -13,6 +14,17 @@ template<typename ValueType>
 std::pair<std::shared_ptr<storm::models::sparse::Model<ValueType>>, std::vector<std::shared_ptr<storm::logic::Formula const>>> transformContinuousToDiscreteTimeSparseModel(std::shared_ptr<storm::models::sparse::Model<ValueType>> const& model, std::vector<std::shared_ptr<storm::logic::Formula const>> const& formulas) {
     return storm::api::transformContinuousToDiscreteTimeSparseModel(model, formulas);
 }
+
+template<typename ValueType>
+typename storm::transformer::EndComponentEliminator<ValueType>::EndComponentEliminatorReturnType eliminateECs(storm::storage::SparseMatrix<ValueType> const& matrix,
+                                                                                 storm::storage::BitVector const& subsystemStates,
+                                                                                 storm::storage::BitVector const& possibleECRows,
+                                                                                 storm::storage::BitVector const& addSinkRowStates,
+                                                                                 bool addSelfLoopAtSinkStates) {
+    return storm::transformer::EndComponentEliminator<ValueType>::transform(matrix, subsystemStates, possibleECRows, addSinkRowStates, addSelfLoopAtSinkStates);
+}
+
+
 
 void define_transformation(py::module& m) {
     // Transform model
@@ -49,5 +61,13 @@ void define_transformation(py::module& m) {
 
     m.def("_eliminate_non_markovian_chains", &storm::api::eliminateNonMarkovianChains<double>, "Eliminate chains of non-Markovian states in Markov automaton.", py::arg("ma"), py::arg("formulae"), py::arg("label_behavior"));
     m.def("_eliminate_non_markovian_chains_parametric", &storm::api::eliminateNonMarkovianChains<storm::RationalFunction>, "Eliminate chains of non-Markovian states in Markov automaton.", py::arg("ma"), py::arg("formulae"), py::arg("label_behavior"));
+
+    py::class_<storm::transformer::EndComponentEliminator<double>::EndComponentEliminatorReturnType>(m, "EndComponentEliminatorReturnTypeDouble", "Container for result of endcomponent elimination")
+            .def_readonly("matrix", &storm::transformer::EndComponentEliminator<double>::EndComponentEliminatorReturnType::matrix, "The resulting matrix")
+            .def_readonly("new_to_old_row_mapping", &storm::transformer::EndComponentEliminator<double>::EndComponentEliminatorReturnType::newToOldRowMapping, "Index mapping that gives for each row fo the new matrix the corresponding row in the original matrix")
+            .def_readonly("old_to_new_state_mapping", &storm::transformer::EndComponentEliminator<double>::EndComponentEliminatorReturnType::oldToNewStateMapping, "For each state of the original matrix (and subsystem) the corresponding state in the result. Removed states are mapped to the EC.")
+            .def_readonly("sink_rows", &storm::transformer::EndComponentEliminator<double>::EndComponentEliminatorReturnType::sinkRows, "Rows that indicate staying in the EC forever");
+
+    m.def("_eliminate_end_components_double", &eliminateECs<double>, "Eliminate ECs in the subystem", py::arg("matrix"), py::arg("subsystem"),  py::arg("possible_ec_rows"),py::arg("addSinkRowStates"), py::arg("addSelfLoopAtSinkStates"));
 
 }
