@@ -3,7 +3,7 @@ import stormpy.logic
 from helpers.helper import get_example_path
 
 
-class TestLabeling:
+class TestStateLabeling:
     def test_set_labeling(self):
         program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
         model = stormpy.build_model(program)
@@ -48,3 +48,18 @@ class TestLabeling:
         initial_states = model.initial_states
         assert len(initial_states) == 1
         assert 0 in initial_states
+
+class TestChoiceLabeling:
+    def test_label(self):
+        program = stormpy.parse_prism_program(get_example_path("dtmc", "brp-16-2.pm"))
+        properties = stormpy.parse_properties_for_prism_program("P=? [ F s=5 ]", program)
+        options = stormpy.BuilderOptions([p.raw_formula for p in properties])
+        options.set_build_choice_labels(True)
+        model = stormpy.build_sparse_model_with_options(program, options)
+        clabeling = model.choice_labeling
+        clabels = clabeling.get_labels()
+        assert len(clabels) == 7
+        assert "aB" in clabels
+        assert "aA" in clabels
+        assert "NewFile" in clabeling.get_labels_of_choice(0)
+        assert "aG" in clabeling.get_labels_of_choice(7)
