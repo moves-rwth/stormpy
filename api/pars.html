@@ -285,6 +285,38 @@
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="stormpy.pars.PCtmcExactInstantiationChecker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PCtmcExactInstantiationChecker</span></span><a class="headerlink" href="#stormpy.pars.PCtmcExactInstantiationChecker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instantiate pCTMCs to exact CTMCs and immediately check</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.pars.PCtmcExactInstantiationChecker.check">
+<span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pars.PCtmcExactInstantiationChecker" title="stormpy.pars.pars.PCtmcExactInstantiationChecker"><span class="pre">stormpy.pars.pars.PCtmcExactInstantiationChecker</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">env</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="core.html#stormpy.Environment" title="stormpy.core.Environment"><span class="pre">stormpy.core.Environment</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">instantiation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="core.html#stormpy.Variable" title="pycarl.core.Variable"><span class="pre">pycarl.core.Variable</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pycarl.cln.cln.Rational</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">stormpy.core._CheckResult</span></span></span><a class="headerlink" href="#stormpy.pars.PCtmcExactInstantiationChecker.check" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.pars.PCtmcExactInstantiationChecker.set_graph_preserving">
+<span class="sig-name descname"><span class="pre">set_graph_preserving</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">stormpy.pars.pars._PCtmcExactInstantiationCheckerBase</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#stormpy.pars.PCtmcExactInstantiationChecker.set_graph_preserving" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="stormpy.pars.PCtmcInstantiationChecker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PCtmcInstantiationChecker</span></span><a class="headerlink" href="#stormpy.pars.PCtmcInstantiationChecker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instantiate pCTMCs to CTMCs and immediately check</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.pars.PCtmcInstantiationChecker.check">
+<span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pars.PCtmcInstantiationChecker" title="stormpy.pars.pars.PCtmcInstantiationChecker"><span class="pre">stormpy.pars.pars.PCtmcInstantiationChecker</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">env</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="core.html#stormpy.Environment" title="stormpy.core.Environment"><span class="pre">stormpy.core.Environment</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">instantiation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="core.html#stormpy.Variable" title="pycarl.core.Variable"><span class="pre">pycarl.core.Variable</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">pycarl.cln.cln.Rational</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">stormpy.core._CheckResult</span></span></span><a class="headerlink" href="#stormpy.pars.PCtmcInstantiationChecker.check" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.pars.PCtmcInstantiationChecker.set_graph_preserving">
+<span class="sig-name descname"><span class="pre">set_graph_preserving</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">stormpy.pars.pars._PCtmcInstantiationCheckerBase</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#stormpy.pars.PCtmcInstantiationChecker.set_graph_preserving" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="stormpy.pars.PCtmcInstantiator">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PCtmcInstantiator</span></span><a class="headerlink" href="#stormpy.pars.PCtmcInstantiator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Instantiate PCTMCs to CTMCs</p>
