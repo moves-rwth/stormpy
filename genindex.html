@@ -314,14 +314,14 @@
       </ul></li>
       <li><a href="api/core.html#stormpy.DirectEncodingOptions.allow_placeholders">allow_placeholders (DirectEncodingOptions property)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/pars.html#stormpy.pars.RegionResult.ALLSAT">ALLSAT (RegionResult attribute)</a>
 
       <ul>
         <li><a href="api/pars.html#stormpy.pars.RegionResultHypothesis.ALLSAT">(RegionResultHypothesis attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/pars.html#stormpy.pars.RegionResult.ALLVIOLATED">ALLVIOLATED (RegionResult attribute)</a>
 
       <ul>
@@ -331,6 +331,8 @@
       <li><a href="api/core.html#stormpy.SMTCounterExampleGeneratorStats.analysis_time">analysis_time (SMTCounterExampleGeneratorStats property)</a>
 </li>
       <li><a href="api/dft.html#stormpy.dft.analyze_dft">analyze_dft() (in module stormpy.dft)</a>
+</li>
+      <li><a href="api/dft.html#stormpy.dft.analyze_parametric_dft">analyze_parametric_dft() (in module stormpy.dft)</a>
 </li>
       <li><a href="api/core.html#stormpy.OperatorType.And">And (OperatorType attribute)</a>, <a href="api/storage.html#stormpy.storage.OperatorType.And">[1]</a>
 </li>
@@ -648,11 +650,13 @@
         <li><a href="api/core.html#stormpy.SchedulerExact.compute_action_support">(SchedulerExact method)</a>, <a href="api/storage.html#stormpy.storage.SchedulerExact.compute_action_support">[1]</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core.html#stormpy.compute_all_until_probabilities">compute_all_until_probabilities() (in module stormpy)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/dft.html#stormpy.dft.compute_dependency_conflicts">compute_dependency_conflicts() (in module stormpy.dft)</a>
+</li>
+      <li><a href="api/dft.html#stormpy.dft.compute_dependency_conflicts_parametric">compute_dependency_conflicts_parametric() (in module stormpy.dft)</a>
 </li>
       <li><a href="api/core.html#stormpy.DdMetaVariable_Sylvan.compute_indices">compute_indices() (DdMetaVariable_Sylvan method)</a>, <a href="api/storage.html#stormpy.storage.DdMetaVariable_Sylvan.compute_indices">[1]</a>
 </li>
@@ -663,6 +667,8 @@
       <li><a href="api/core.html#stormpy.compute_prob01min_states">compute_prob01min_states() (in module stormpy)</a>
 </li>
       <li><a href="api/dft.html#stormpy.dft.compute_relevant_events">compute_relevant_events() (in module stormpy.dft)</a>
+</li>
+      <li><a href="api/dft.html#stormpy.dft.compute_relevant_events_parametric">compute_relevant_events_parametric() (in module stormpy.dft)</a>
 </li>
       <li><a href="api/core.html#stormpy.compute_transient_probabilities">compute_transient_probabilities() (in module stormpy)</a>
 </li>
@@ -994,10 +1000,10 @@
 </li>
       <li><a href="api/pars.html#stormpy.pars.RegionResult.EXISTSBOTH">EXISTSBOTH (RegionResult attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/pars.html#stormpy.pars.RegionResult.EXISTSSAT">EXISTSSAT (RegionResult attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/pars.html#stormpy.pars.RegionResult.EXISTSVIOLATED">EXISTSVIOLATED (RegionResult attribute)</a>
 </li>
       <li><a href="api/core.html#stormpy.SparseCtmc.exit_rates">exit_rates (SparseCtmc property)</a>, <a href="api/storage.html#stormpy.storage.SparseCtmc.exit_rates">[1]</a>
@@ -1042,6 +1048,10 @@
         <li><a href="api/core.html#stormpy.ExplicitParametricModelBuilder.export_lookup">(ExplicitParametricModelBuilder method)</a>
 </li>
       </ul></li>
+      <li><a href="api/dft.html#stormpy.dft.export_parametric_dft_json_file">export_parametric_dft_json_file() (in module stormpy.dft)</a>
+</li>
+      <li><a href="api/dft.html#stormpy.dft.export_parametric_dft_json_string">export_parametric_dft_json_string() (in module stormpy.dft)</a>
+</li>
       <li><a href="api/core.html#stormpy.export_to_drn">export_to_drn() (in module stormpy)</a>
 </li>
       <li><a href="api/core.html#stormpy.Expression">Expression (class in stormpy)</a>
@@ -1814,6 +1824,8 @@
 </li>
       <li><a href="api/dft.html#stormpy.dft.is_well_formed">is_well_formed() (in module stormpy.dft)</a>
 </li>
+      <li><a href="api/dft.html#stormpy.dft.is_well_formed_parametric">is_well_formed_parametric() (in module stormpy.dft)</a>
+</li>
       <li><a href="api/core.html#stormpy.OperatorType.Ite">Ite (OperatorType attribute)</a>, <a href="api/storage.html#stormpy.storage.OperatorType.Ite">[1]</a>
 </li>
       <li><a href="api/core.html#stormpy.ItemLabeling">ItemLabeling (class in stormpy)</a>
@@ -1988,17 +2000,23 @@
 </li>
       <li><a href="api/core.html#stormpy.OperatorType.LessOrEqual">LessOrEqual (OperatorType attribute)</a>, <a href="api/storage.html#stormpy.storage.OperatorType.LessOrEqual">[1]</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core.html#stormpy.MinMaxMethod.linear_programming">linear_programming (MinMaxMethod attribute)</a>
 </li>
       <li><a href="api/dft.html#stormpy.dft.load_dft_galileo_file">load_dft_galileo_file() (in module stormpy.dft)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/dft.html#stormpy.dft.load_dft_json_file">load_dft_json_file() (in module stormpy.dft)</a>
 </li>
       <li><a href="api/dft.html#stormpy.dft.load_dft_json_string">load_dft_json_string() (in module stormpy.dft)</a>
 </li>
       <li><a href="api/core.html#stormpy.BitVector.load_from_string">load_from_string() (BitVector method)</a>, <a href="api/storage.html#stormpy.storage.BitVector.load_from_string">[1]</a>
+</li>
+      <li><a href="api/dft.html#stormpy.dft.load_parametric_dft_galileo_file">load_parametric_dft_galileo_file() (in module stormpy.dft)</a>
+</li>
+      <li><a href="api/dft.html#stormpy.dft.load_parametric_dft_json_file">load_parametric_dft_json_file() (in module stormpy.dft)</a>
+</li>
+      <li><a href="api/dft.html#stormpy.dft.load_parametric_dft_json_string">load_parametric_dft_json_string() (in module stormpy.dft)</a>
 </li>
       <li><a href="api/core.html#stormpy.JaniAutomaton.location_variable">location_variable (JaniAutomaton property)</a>, <a href="api/storage.html#stormpy.storage.JaniAutomaton.location_variable">[1]</a>
 </li>
@@ -3577,6 +3595,8 @@
       <li><a href="api/core.html#stormpy.JaniLocationExpander.transform">transform() (JaniLocationExpander method)</a>, <a href="api/storage.html#stormpy.storage.JaniLocationExpander.transform">[1]</a>
 </li>
       <li><a href="api/dft.html#stormpy.dft.transform_dft">transform_dft() (in module stormpy.dft)</a>
+</li>
+      <li><a href="api/dft.html#stormpy.dft.transform_parametric_dft">transform_parametric_dft() (in module stormpy.dft)</a>
 </li>
       <li><a href="api/core.html#stormpy.transform_to_discrete_time_model">transform_to_discrete_time_model() (in module stormpy)</a>
 </li>
