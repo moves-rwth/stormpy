@@ -179,7 +179,7 @@ void define_jani_transformers(py::module& m) {
     py::class_<JaniLocationExpander>(m, "JaniLocationExpander", "A transformer for Jani expanding variables into locations")
             .def(py::init<Model const&>(), py::arg("model"))
             .def("transform", &JaniLocationExpander::transform, py::arg("automaton_name"), py::arg("variable_name"))
-            .def("get_result", &JaniLocationExpander::getResult);
+        ;
 
     py::class_<JaniScopeChanger>(m, "JaniScopeChanger", "A transformer for Jani changing variables from local to global and vice versa")
             .def(py::init<>())
