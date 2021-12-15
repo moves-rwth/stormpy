@@ -39,6 +39,7 @@ void define_transformation(py::module& m) {
             .def_readonly("new_to_old_state_mapping", &storm::transformer::SubsystemBuilderReturnType<double>::newToOldStateIndexMapping, "for each state in result, the state index in the original model")
             .def_readonly("new_to_old_action_mapping", &storm::transformer::SubsystemBuilderReturnType<double>::newToOldActionIndexMapping, "for each action in result, the action index in the original model")
             .def_readonly("kept_actions", &storm::transformer::SubsystemBuilderReturnType<double>::keptActions, "Actions of the subsystem available in the original system")
+            .def_readonly("deadlock_label", &storm::transformer::SubsystemBuilderReturnType<double>::deadlockLabel, "If set, deadlock states have been introduced and have been assigned this label")
     ;
 
     py::class_<storm::transformer::SubsystemBuilderOptions>(m, "SubsystemBuilderOptions", "Options for constructing the subsystem")
@@ -47,6 +48,7 @@ void define_transformation(py::module& m) {
             .def_readwrite("build_state_mapping", &storm::transformer::SubsystemBuilderOptions::buildStateMapping)
             .def_readwrite("build_action_mapping", &storm::transformer::SubsystemBuilderOptions::buildActionMapping)
             .def_readwrite("build_kept_actions", &storm::transformer::SubsystemBuilderOptions::buildKeptActions)
+            .def_readwrite("fix_deadlocks", &storm::transformer::SubsystemBuilderOptions::fixDeadlocks)
     ;
 
 

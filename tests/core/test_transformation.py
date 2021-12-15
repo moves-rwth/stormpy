@@ -144,3 +144,22 @@ class TestECElimination:
         assert ec_elimination_result.old_to_new_state_mapping[23] == 23
         assert ec_elimination_result.new_to_old_row_mapping[200] == 245
         assert ec_elimination_result.sink_rows.number_of_set_bits() == 36
+
+class TestSubsystemCreation:
+    def test_for_ctmc(self):
+        program = stormpy.parse_prism_program(get_example_path("ctmc", "polling2.sm"), True)
+        formulas = stormpy.parse_properties_for_prism_program("P=? [ F<=3 \"target\" ]", program)
+        model = stormpy.build_model(program, formulas)
+        assert model.nr_states == 12
+        selected_outgoing_transitions = stormpy.BitVector(model.nr_states, True)
+        selected_outgoing_transitions.set(3, False)
+        selected_outgoing_transitions.set(6, False)
+        options = stormpy.SubsystemBuilderOptions()
+        options.fix_deadlocks = True
+        submodel_result = stormpy.construct_submodel(model, stormpy.BitVector(model.nr_states, True), selected_outgoing_transitions, False, options)
+        submodel = submodel_result.model
+        abort_label = submodel_result.deadlock_label
+        assert submodel.nr_states == 8
+        assert abort_label == "deadl"
+        assert "deadl" in submodel.labeling.get_labels()
+
