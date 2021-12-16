@@ -495,12 +495,14 @@ def construct_submodel(model, states, actions, keep_unreachable_states=True, opt
     :param states: Which states should be preserved
     :param actions: Which actions should be preserved
     :param keep_unreachable_states: If False, run a reachability analysis.
+    :param options: An options object of type SubsystemBuilderOptions
     :return: A model with fewer states/actions
     """
-    if isinstance(model, storage._SparseModel):
-        return core._construct_subsystem_double(model, states, actions, keep_unreachable_states, options)
-    else:
-        raise NotImplementedError()
+    if model.supports_parameters:
+        return core._construct_subsystem_RatFunc(model, states, actions, keep_unreachable_states, options)
+    if model.is_exact:
+        return core._construct_subsystem_Exact(model, states, actions, keep_unreachable_states, options)
+    return core._construct_subsystem_Double(model, states, actions, keep_unreachable_states, options)
 
 
 def eliminate_ECs(matrix, subsystem, possible_ecs, add_sink_row_states, add_self_loop_at_sink_states = False):

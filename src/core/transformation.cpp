@@ -34,14 +34,6 @@ void define_transformation(py::module& m) {
     m.def("_transform_to_discrete_time_model", &transformContinuousToDiscreteTimeSparseModel<double>, "Transform continuous time model to discrete time model", py::arg("model"), py::arg("formulae") = std::vector<std::shared_ptr<storm::logic::Formula const>>());
     m.def("_transform_to_discrete_time_parametric_model", &transformContinuousToDiscreteTimeSparseModel<storm::RationalFunction>, "Transform parametric continuous time model to parametric discrete time model", py::arg("model"), py::arg("formulae") = std::vector<std::shared_ptr<storm::logic::Formula const>>());
 
-    py::class_<storm::transformer::SubsystemBuilderReturnType<double>>(m, "SubsystemBuilderReturnTypeDouble", "Result of the construction of a subsystem")
-            .def_readonly("model", &storm::transformer::SubsystemBuilderReturnType<double>::model, "the submodel")
-            .def_readonly("new_to_old_state_mapping", &storm::transformer::SubsystemBuilderReturnType<double>::newToOldStateIndexMapping, "for each state in result, the state index in the original model")
-            .def_readonly("new_to_old_action_mapping", &storm::transformer::SubsystemBuilderReturnType<double>::newToOldActionIndexMapping, "for each action in result, the action index in the original model")
-            .def_readonly("kept_actions", &storm::transformer::SubsystemBuilderReturnType<double>::keptActions, "Actions of the subsystem available in the original system")
-            .def_readonly("deadlock_label", &storm::transformer::SubsystemBuilderReturnType<double>::deadlockLabel, "If set, deadlock states have been introduced and have been assigned this label")
-    ;
-
     py::class_<storm::transformer::SubsystemBuilderOptions>(m, "SubsystemBuilderOptions", "Options for constructing the subsystem")
             .def(py::init<>())
             .def_readwrite("check_transitions_outside", &storm::transformer::SubsystemBuilderOptions::checkTransitionsOutside)
@@ -50,9 +42,6 @@ void define_transformation(py::module& m) {
             .def_readwrite("build_kept_actions", &storm::transformer::SubsystemBuilderOptions::buildKeptActions)
             .def_readwrite("fix_deadlocks", &storm::transformer::SubsystemBuilderOptions::fixDeadlocks)
     ;
-
-
-    m.def("_construct_subsystem_double", &constructSubsystem<double>, "build a subsystem of a sparse model");
 
     // Non-Markovian chain elimination
     py::enum_<storm::transformer::EliminationLabelBehavior>(m, "EliminationLabelBehavior", "Behavior of labels while eliminating non-Markovian chains")
@@ -73,3 +62,26 @@ void define_transformation(py::module& m) {
     m.def("_eliminate_end_components_double", &eliminateECs<double>, "Eliminate ECs in the subystem", py::arg("matrix"), py::arg("subsystem"),  py::arg("possible_ec_rows"),py::arg("addSinkRowStates"), py::arg("addSelfLoopAtSinkStates"));
 
 }
+
+template<typename ValueType>
+void define_transformation_typed(py::module& m, std::string const& vtSuffix) {
+    py::class_<storm::transformer::SubsystemBuilderReturnType<ValueType>>(m, ("SubsystemBuilderReturnType" +
+                                                                             vtSuffix).c_str(),
+                                                                          "Result of the construction of a subsystem")
+            .def_readonly("model", &storm::transformer::SubsystemBuilderReturnType<ValueType>::model, "the submodel")
+            .def_readonly("new_to_old_state_mapping",
+                          &storm::transformer::SubsystemBuilderReturnType<ValueType>::newToOldStateIndexMapping,
+                          "for each state in result, the state index in the original model")
+            .def_readonly("new_to_old_action_mapping",
+                          &storm::transformer::SubsystemBuilderReturnType<ValueType>::newToOldActionIndexMapping,
+                          "for each action in result, the action index in the original model")
+            .def_readonly("kept_actions", &storm::transformer::SubsystemBuilderReturnType<ValueType>::keptActions,
+                          "Actions of the subsystem available in the original system")
+            .def_readonly("deadlock_label", &storm::transformer::SubsystemBuilderReturnType<ValueType>::deadlockLabel,
+                          "If set, deadlock states have been introduced and have been assigned this label");
+    m.def(("_construct_subsystem_" + vtSuffix).c_str(), &constructSubsystem<ValueType>, "build a subsystem of a sparse model");
+}
+
+template void define_transformation_typed<double>(py::module& m, std::string const& vtSuffix);
+template void define_transformation_typed<storm::RationalNumber>(py::module& m, std::string const& vtSuffix);
+template void define_transformation_typed<storm::RationalFunction>(py::module& m, std::string const& vtSuffix);
