@@ -14,6 +14,12 @@ void define_formulae(py::module& m) {
         .value("GEQ", storm::logic::ComparisonType::GreaterEqual)
     ;
 
+
+    py::enum_<storm::logic::BinaryBooleanOperatorType>(m, "BinaryBooleanOperatorType")
+            .value("AND", storm::logic::BinaryBooleanOperatorType::And)
+            .value("OR", storm::logic::BinaryBooleanOperatorType::Or);
+
+
     py::class_<storm::logic::Formula, std::shared_ptr<storm::logic::Formula>> formula(m, "Formula", "Generic Storm Formula");
     formula.def("__str__", &storm::logic::Formula::toString)
         .def("clone", [](storm::logic::Formula const& f) { storm::logic::CloneVisitor cv; return cv.clone(f);})
@@ -56,7 +62,8 @@ void define_formulae(py::module& m) {
     py::class_<storm::logic::StateFormula, std::shared_ptr<storm::logic::StateFormula>> stateFormula(m, "StateFormula", "Formula about a state of an automaton", formula);
     py::class_<storm::logic::AtomicExpressionFormula, std::shared_ptr<storm::logic::AtomicExpressionFormula>>(m, "AtomicExpressionFormula", "Formula with an atomic expression", stateFormula)
         .def("get_expression", &storm::logic::AtomicExpressionFormula::getExpression);
-    py::class_<storm::logic::AtomicLabelFormula, std::shared_ptr<storm::logic::AtomicLabelFormula>>(m, "AtomicLabelFormula", "Formula with an atomic label", stateFormula);
+    py::class_<storm::logic::AtomicLabelFormula, std::shared_ptr<storm::logic::AtomicLabelFormula>>(m, "AtomicLabelFormula", "Formula with an atomic label", stateFormula)
+        .def_property_readonly("label", &storm::logic::AtomicLabelFormula::getLabel, "label in the formula");
     py::class_<storm::logic::BooleanLiteralFormula, std::shared_ptr<storm::logic::BooleanLiteralFormula>>(m, "BooleanLiteralFormula", "Formula with a boolean literal", stateFormula)
             .def(py::init<bool>(),"truth value"_a);
     py::class_<storm::logic::UnaryStateFormula, std::shared_ptr<storm::logic::UnaryStateFormula>> unaryStateFormula(m, "UnaryStateFormula", "State formula with one operand", stateFormula);
