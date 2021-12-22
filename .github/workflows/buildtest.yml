@@ -99,6 +99,7 @@ jobs:
           # Install dependencies for tests
           # numpy is used in sphinx tests
           sudo docker exec storm bash -c "cd /opt; source venv/bin/activate; pip install numpy"
+          sudo docker exec storm bash -c "cd /opt; source venv/bin/activate; pip install pytest"
           sudo docker exec storm bash -c "cd /opt; source venv/bin/activate; cd /opt/stormpy; python setup.py test"
 
   deploy:
@@ -163,6 +164,7 @@ jobs:
           # Install dependencies for tests
           # numpy is used in sphinx tests
           sudo docker exec storm bash -c "cd /opt; source venv/bin/activate; pip install numpy"
+          sudo docker exec storm bash -c "cd /opt; source venv/bin/activate; pip install pytest"
           sudo docker exec storm bash -c "cd /opt; source venv/bin/activate; cd /opt/stormpy; python setup.py test"
 
       - name: Deploy stormpy
