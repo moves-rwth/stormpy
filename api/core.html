@@ -240,6 +240,12 @@
 <dt class="sig sig-object py" id="stormpy.AtomicLabelFormula">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">AtomicLabelFormula</span></span><a class="headerlink" href="#stormpy.AtomicLabelFormula" title="Permalink to this definition">¶</a></dt>
 <dd><p>Formula with an atomic label</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.AtomicLabelFormula.label">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">label</span></span><a class="headerlink" href="#stormpy.AtomicLabelFormula.label" title="Permalink to this definition">¶</a></dt>
+<dd><p>label in the formula</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -249,6 +255,21 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.Bdd_Sylvan.to_expression">
 <span class="sig-name descname"><span class="pre">to_expression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.Bdd_Sylvan</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expression_manager:</span> <span class="pre">storm::expressions::ExpressionManager</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple[List[storm::expressions::Expression],</span> <span class="pre">Dict[int,</span> <span class="pre">storm::expressions::Variable]]</span></span></span><a class="headerlink" href="#stormpy.Bdd_Sylvan.to_expression" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="stormpy.BinaryBooleanOperatorType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BinaryBooleanOperatorType</span></span><a class="headerlink" href="#stormpy.BinaryBooleanOperatorType" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="stormpy.BinaryBooleanOperatorType.AND">
+<span class="sig-name descname"><span class="pre">AND</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">BinaryBooleanOperatorType.AND</span></em><a class="headerlink" href="#stormpy.BinaryBooleanOperatorType.AND" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="stormpy.BinaryBooleanOperatorType.OR">
+<span class="sig-name descname"><span class="pre">OR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">BinaryBooleanOperatorType.OR</span></em><a class="headerlink" href="#stormpy.BinaryBooleanOperatorType.OR" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -708,6 +729,36 @@
 <dt class="sig sig-object py" id="stormpy.EliminationLabelBehavior.MERGE_LABELS">
 <span class="sig-name descname"><span class="pre">MERGE_LABELS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">EliminationLabelBehavior.MERGE_LABELS</span></em><a class="headerlink" href="#stormpy.EliminationLabelBehavior.MERGE_LABELS" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="stormpy.EndComponentEliminatorReturnTypeDouble">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">EndComponentEliminatorReturnTypeDouble</span></span><a class="headerlink" href="#stormpy.EndComponentEliminatorReturnTypeDouble" title="Permalink to this definition">¶</a></dt>
+<dd><p>Container for result of endcomponent elimination</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.EndComponentEliminatorReturnTypeDouble.matrix">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">matrix</span></span><a class="headerlink" href="#stormpy.EndComponentEliminatorReturnTypeDouble.matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>The resulting matrix</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.EndComponentEliminatorReturnTypeDouble.new_to_old_row_mapping">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">new_to_old_row_mapping</span></span><a class="headerlink" href="#stormpy.EndComponentEliminatorReturnTypeDouble.new_to_old_row_mapping" title="Permalink to this definition">¶</a></dt>
+<dd><p>Index mapping that gives for each row fo the new matrix the corresponding row in the original matrix</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.EndComponentEliminatorReturnTypeDouble.old_to_new_state_mapping">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">old_to_new_state_mapping</span></span><a class="headerlink" href="#stormpy.EndComponentEliminatorReturnTypeDouble.old_to_new_state_mapping" title="Permalink to this definition">¶</a></dt>
+<dd><p>For each state of the original matrix (and subsystem) the corresponding state in the result. Removed states are mapped to the EC.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.EndComponentEliminatorReturnTypeDouble.sink_rows">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">sink_rows</span></span><a class="headerlink" href="#stormpy.EndComponentEliminatorReturnTypeDouble.sink_rows" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rows that indicate staying in the EC forever</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -1909,13 +1960,8 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">JaniLocationExpander</span></span><a class="headerlink" href="#stormpy.JaniLocationExpander" title="Permalink to this definition">¶</a></dt>
 <dd><p>A transformer for Jani expanding variables into locations</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="stormpy.JaniLocationExpander.get_result">
-<span class="sig-name descname"><span class="pre">get_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="storage.html#stormpy.storage.JaniLocationExpander" title="stormpy.storage.storage.JaniLocationExpander"><span class="pre">stormpy.storage.storage.JaniLocationExpander</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.JaniModel" title="stormpy.storage.storage.JaniModel"><span class="pre">stormpy.storage.storage.JaniModel</span></a></span></span><a class="headerlink" href="#stormpy.JaniLocationExpander.get_result" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="stormpy.JaniLocationExpander.transform">
-<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="storage.html#stormpy.storage.JaniLocationExpander" title="stormpy.storage.storage.JaniLocationExpander"><span class="pre">stormpy.storage.storage.JaniLocationExpander</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">automaton_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variable_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#stormpy.JaniLocationExpander.transform" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="storage.html#stormpy.storage.JaniLocationExpander" title="stormpy.storage.storage.JaniLocationExpander"><span class="pre">stormpy.storage.storage.JaniLocationExpander</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">automaton_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variable_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">storm::jani::JaniLocationExpander::ReturnType</span></span></span><a class="headerlink" href="#stormpy.JaniLocationExpander.transform" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1986,7 +2032,7 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.JaniModel.flatten_composition">
-<span class="sig-name descname"><span class="pre">flatten_composition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.JaniModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_solver_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory=&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f5a81228a70&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.JaniModel" title="stormpy.storage.storage.JaniModel"><span class="pre">stormpy.storage.storage.JaniModel</span></a></span></span><a class="headerlink" href="#stormpy.JaniModel.flatten_composition" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">flatten_composition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.JaniModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_solver_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory=&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7fe435062d70&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.JaniModel" title="stormpy.storage.storage.JaniModel"><span class="pre">stormpy.storage.storage.JaniModel</span></a></span></span><a class="headerlink" href="#stormpy.JaniModel.flatten_composition" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -3227,7 +3273,7 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.PrismProgram.flatten">
-<span class="sig-name descname"><span class="pre">flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.PrismProgram</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory=&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f5a7ba26970&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.PrismProgram" title="stormpy.storage.storage.PrismProgram"><span class="pre">stormpy.storage.storage.PrismProgram</span></a></span></span><a class="headerlink" href="#stormpy.PrismProgram.flatten" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.PrismProgram</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory=&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7fe43aef8430&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.PrismProgram" title="stormpy.storage.storage.PrismProgram"><span class="pre">stormpy.storage.storage.PrismProgram</span></a></span></span><a class="headerlink" href="#stormpy.PrismProgram.flatten" title="Permalink to this definition">¶</a></dt>
 <dd><p>Put program into a single module</p>
 </dd></dl>
 
@@ -5002,12 +5048,23 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check_transitions_outside</span></span><a class="headerlink" href="#stormpy.SubsystemBuilderOptions.check_transitions_outside" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.SubsystemBuilderOptions.fix_deadlocks">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fix_deadlocks</span></span><a class="headerlink" href="#stormpy.SubsystemBuilderOptions.fix_deadlocks" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="stormpy.SubsystemBuilderReturnTypeDouble">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SubsystemBuilderReturnTypeDouble</span></span><a class="headerlink" href="#stormpy.SubsystemBuilderReturnTypeDouble" title="Permalink to this definition">¶</a></dt>
 <dd><p>Result of the construction of a subsystem</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.SubsystemBuilderReturnTypeDouble.deadlock_label">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">deadlock_label</span></span><a class="headerlink" href="#stormpy.SubsystemBuilderReturnTypeDouble.deadlock_label" title="Permalink to this definition">¶</a></dt>
+<dd><p>If set, deadlock states have been introduced and have been assigned this label</p>
+</dd></dl>
+
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.SubsystemBuilderReturnTypeDouble.kept_actions">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">kept_actions</span></span><a class="headerlink" href="#stormpy.SubsystemBuilderReturnTypeDouble.kept_actions" title="Permalink to this definition">¶</a></dt>
@@ -5029,6 +5086,78 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.SubsystemBuilderReturnTypeDouble.new_to_old_state_mapping">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">new_to_old_state_mapping</span></span><a class="headerlink" href="#stormpy.SubsystemBuilderReturnTypeDouble.new_to_old_state_mapping" title="Permalink to this definition">¶</a></dt>
+<dd><p>for each state in result, the state index in the original model</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="stormpy.SubsystemBuilderReturnTypeExact">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SubsystemBuilderReturnTypeExact</span></span><a class="headerlink" href="#stormpy.SubsystemBuilderReturnTypeExact" title="Permalink to this definition">¶</a></dt>
+<dd><p>Result of the construction of a subsystem</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.SubsystemBuilderReturnTypeExact.deadlock_label">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">deadlock_label</span></span><a class="headerlink" href="#stormpy.SubsystemBuilderReturnTypeExact.deadlock_label" title="Permalink to this definition">¶</a></dt>
+<dd><p>If set, deadlock states have been introduced and have been assigned this label</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.SubsystemBuilderReturnTypeExact.kept_actions">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">kept_actions</span></span><a class="headerlink" href="#stormpy.SubsystemBuilderReturnTypeExact.kept_actions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Actions of the subsystem available in the original system</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.SubsystemBuilderReturnTypeExact.model">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#stormpy.SubsystemBuilderReturnTypeExact.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>the submodel</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.SubsystemBuilderReturnTypeExact.new_to_old_action_mapping">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">new_to_old_action_mapping</span></span><a class="headerlink" href="#stormpy.SubsystemBuilderReturnTypeExact.new_to_old_action_mapping" title="Permalink to this definition">¶</a></dt>
+<dd><p>for each action in result, the action index in the original model</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.SubsystemBuilderReturnTypeExact.new_to_old_state_mapping">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">new_to_old_state_mapping</span></span><a class="headerlink" href="#stormpy.SubsystemBuilderReturnTypeExact.new_to_old_state_mapping" title="Permalink to this definition">¶</a></dt>
+<dd><p>for each state in result, the state index in the original model</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="stormpy.SubsystemBuilderReturnTypeRatFunc">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SubsystemBuilderReturnTypeRatFunc</span></span><a class="headerlink" href="#stormpy.SubsystemBuilderReturnTypeRatFunc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Result of the construction of a subsystem</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.SubsystemBuilderReturnTypeRatFunc.deadlock_label">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">deadlock_label</span></span><a class="headerlink" href="#stormpy.SubsystemBuilderReturnTypeRatFunc.deadlock_label" title="Permalink to this definition">¶</a></dt>
+<dd><p>If set, deadlock states have been introduced and have been assigned this label</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.SubsystemBuilderReturnTypeRatFunc.kept_actions">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">kept_actions</span></span><a class="headerlink" href="#stormpy.SubsystemBuilderReturnTypeRatFunc.kept_actions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Actions of the subsystem available in the original system</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.SubsystemBuilderReturnTypeRatFunc.model">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">model</span></span><a class="headerlink" href="#stormpy.SubsystemBuilderReturnTypeRatFunc.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>the submodel</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.SubsystemBuilderReturnTypeRatFunc.new_to_old_action_mapping">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">new_to_old_action_mapping</span></span><a class="headerlink" href="#stormpy.SubsystemBuilderReturnTypeRatFunc.new_to_old_action_mapping" title="Permalink to this definition">¶</a></dt>
+<dd><p>for each action in result, the action index in the original model</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.SubsystemBuilderReturnTypeRatFunc.new_to_old_state_mapping">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">new_to_old_state_mapping</span></span><a class="headerlink" href="#stormpy.SubsystemBuilderReturnTypeRatFunc.new_to_old_state_mapping" title="Permalink to this definition">¶</a></dt>
 <dd><p>for each state in result, the state index in the original model</p>
 </dd></dl>
 
@@ -5564,6 +5693,7 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <li><p><strong>states</strong> – Which states should be preserved</p></li>
 <li><p><strong>actions</strong> – Which actions should be preserved</p></li>
 <li><p><strong>keep_unreachable_states</strong> – If False, run a reachability analysis.</p></li>
+<li><p><strong>options</strong> – An options object of type SubsystemBuilderOptions</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -5588,6 +5718,32 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <dt class="sig sig-object py" id="stormpy.create_filter_symbolic">
 <span class="sig-name descname"><span class="pre">create_filter_symbolic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model:</span> <span class="pre">storm::models::symbolic::Model&lt;(storm::dd::DdType)1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">double&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">states:</span> <span class="pre">storm::expressions::Expression</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">stormpy.core._QualitativeCheckResult</span></span></span><a class="headerlink" href="#stormpy.create_filter_symbolic" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates a filter for the given states and a symbolic model</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stormpy.eliminate_ECs">
+<span class="sig-name descname"><span class="pre">eliminate_ECs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subsystem</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">possible_ecs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_sink_row_states</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_self_loop_at_sink_states</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.eliminate_ECs" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>For each such EC (that is not contained in another EC), we add a new state and redirect all incoming and outgoing</dt><dd><p>transitions of the EC to (and from) this state.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>matrix</strong> – </p></li>
+<li><p><strong>subsystem</strong> – BitVector with states many entries. Only states in the given subsystem are kept. Transitions leading to a state outside of the subsystem will be
+removed (but the corresponding row is kept, possibly yielding empty rows).
+The ECs are then identified on the subsystem.</p></li>
+<li><p><strong>possible_ecs</strong> – BitVector with rows many entries. Only ECs for which possible_ecs is true for all choices are considered.
+Furthermore, the rows that contain a transition leading outside of the subsystem are not considered for an EC.</p></li>
+<li><p><strong>add_sink_row_states</strong> – BitVector with states many entries. If add_sink_row_states is true for at least one state of an eliminated EC, a row is added to the new state (representing the choice to stay at the EC forever).</p></li>
+<li><p><strong>add_self_loop_at_sink_states</strong> – if true, such rows get a selfloop (with value 1). Otherwise, the row remains empty.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A container with various information.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -5850,7 +6006,7 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
     </p>
     <p>
         &copy; Copyright 2016-2021 Moves RWTH Aachen.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.3.1.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.3.2.<br/>
     </p>
   </div>
 </footer>
