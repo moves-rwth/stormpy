@@ -7,6 +7,7 @@ find_package(carlparser QUIET)
 add_subdirectory(resources/pybind11)
 
 set(PYCARL_HAS_CLN ${CARL_USE_CLN_NUMBERS})
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated-declarations")
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/definitions.h.in ${CMAKE_CURRENT_BINARY_DIR}/src/definitions.h)
