@@ -1,9 +1,10 @@
-cmake_minimum_required(VERSION 3.0.0)
+cmake_minimum_required(VERSION 3.8.0)
 project(pystorm)
 
 find_package(storm REQUIRED)
 add_subdirectory(resources/pybind11)
 
+set(CMAKE_CXX_STANDARD C++17)
 option(STORMPY_DISABLE_SIGNATURE_DOC "Disable the signature in the documentation" OFF)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated-declarations")
 
