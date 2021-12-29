@@ -26,23 +26,23 @@ productively.
 Instead, see the "How can I reduce the build time?" question in the "Frequently asked questions"
 section of the documentation for good practice on splitting binding code over multiple files.
 */
-std::list<std::function<void(py::module &)>> &initializers() {
-    static std::list<std::function<void(py::module &)>> inits;
+std::list<std::function<void(py::module_ &)>> &initializers() {
+    static std::list<std::function<void(py::module_ &)>> inits;
     return inits;
 }
 
 test_initializer::test_initializer(Initializer init) {
-    initializers().push_back(init);
+    initializers().emplace_back(init);
 }
 
 test_initializer::test_initializer(const char *submodule_name, Initializer init) {
-    initializers().push_back([=](py::module &parent) {
+    initializers().emplace_back([=](py::module_ &parent) {
         auto m = parent.def_submodule(submodule_name);
         init(m);
     });
 }
 
-void bind_ConstructorStats(py::module &m) {
+void bind_ConstructorStats(py::module_ &m) {
     py::class_<ConstructorStats>(m, "ConstructorStats")
         .def("alive", &ConstructorStats::alive)
         .def("values", &ConstructorStats::values)
@@ -77,7 +77,8 @@ PYBIND11_MODULE(pybind11_tests, m) {
         .def(py::init<>())
         .def(py::init<int>())
         .def("get_value", &UserType::value, "Get value using a method")
-        .def_property_readonly("value", &UserType::value, "Get value using a property")
+        .def("set_value", &UserType::set, "Set value using a method")
+        .def_property("value", &UserType::value, &UserType::set, "Get/set value using a property")
         .def("__repr__", [](const UserType& u) { return "UserType({})"_s.format(u.value()); });
 
     py::class_<IncType, UserType>(m, "IncType")
@@ -87,6 +88,4 @@ PYBIND11_MODULE(pybind11_tests, m) {
 
     for (const auto &initializer : initializers())
         initializer(m);
-
-    if (!py::hasattr(m, "have_eigen")) m.attr("have_eigen") = false;
 }

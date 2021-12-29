@@ -9,14 +9,8 @@
 
 #include "pybind11_tests.h"
 
-struct DocstringTestFoo {
-    int value;
-    void setValue(int v) { value = v; }
-    int getValue() const { return value; }
-};
-
-test_initializer docstring_generation([](py::module &m) {
-
+TEST_SUBMODULE(docstring_options, m) {
+    // test_docstring_options
     {
         py::options options;
         options.disable_function_signatures();
@@ -54,9 +48,22 @@ test_initializer docstring_generation([](py::module &m) {
     {
         py::options options;
         options.disable_user_defined_docstrings();
+        options.disable_function_signatures();
 
+        m.def("test_function8", []() {});
+    }
+
+    {
+        py::options options;
+        options.disable_user_defined_docstrings();
+
+        struct DocstringTestFoo {
+            int value;
+            void setValue(int v) { value = v; }
+            int getValue() const { return value; }
+        };
         py::class_<DocstringTestFoo>(m, "DocstringTestFoo", "This is a class docstring")
             .def_property("value_prop", &DocstringTestFoo::getValue, &DocstringTestFoo::setValue, "This is a property docstring")
         ;
     }
-});
+}
