@@ -10,15 +10,16 @@
 void define_cln_integer(py::module& m) {
 #ifdef PYCARL_USE_CLN
     py::class_<cln::cl_I>(m, "Integer", "Class wrapping cln-integers")
-        .def("__init__", [](cln::cl_I &instance, int val) -> void { new (&instance) cln::cl_I(val); })
-        .def("__init__", [](cln::cl_I &instance, std::string val) -> void {
+        .def(py::init<int>())
+        .def(py::init([](std::string const& val) {
             cln::cl_I tmp;
             bool suc = carl::try_parse<cln::cl_I>(val, tmp);
             if(!suc) {
                 throw std::invalid_argument("Cannot translate " + val + " into an integer.");
             }
-             new (&instance) cln::cl_I(tmp); })
-        .def("__init__", [](cln::cl_I &instance, mpz_class const& val) -> void { auto tmp = carl::convert<mpz_class, cln::cl_I>(val); new (&instance) cln::cl_I(tmp);})
+            return tmp; }
+            ))
+        .def(py::init(&carl::convert<mpz_class, cln::cl_I>))
 
         .def(py::self + py::self)
         .def(py::self + int())

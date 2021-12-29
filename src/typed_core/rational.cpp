@@ -11,7 +11,7 @@
 void define_cln_rational(py::module& m) {
 #ifdef PYCARL_USE_CLN
     py::class_<cln::cl_RA>(m, "Rational", "Class wrapping cln-rational numbers")
-        .def("__init__", [](cln::cl_RA &instance, double val) -> void { auto tmp = carl::rationalize<cln::cl_RA>(val); new (&instance) cln::cl_RA(tmp); })
+        .def(py::init([](double val) { return carl::rationalize<cln::cl_RA>(val); }))
         .def("__init__", [](cln::cl_RA &instance, carl::sint val) -> void { auto tmp = carl::rationalize<cln::cl_RA>(val); new (&instance) cln::cl_RA(tmp); })
         .def("__init__", [](cln::cl_RA &instance, const cln::cl_I& numerator, const cln::cl_I& denominator) -> void { new (&instance) cln::cl_RA(cln::cl_RA(numerator)/cln::cl_RA(denominator)); })
         .def("__init__", [](cln::cl_RA &instance, const std::string& val) -> void {

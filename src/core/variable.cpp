@@ -28,18 +28,14 @@ void define_variabletype(py::module& m) {
 void define_variable(py::module& m) {
 
     py::class_<carl::Variable>(m, "Variable")
-        .def("__init__", [](carl::Variable &instance, carl::Variable const& other) {
-                new(&instance) carl::Variable(other);
-            })
-        .def("__init__", [](carl::Variable &instance, std::string name, carl::VariableType type) {
-                carl::Variable tmp = freshVariable(name, type);
-                new(&instance) carl::Variable(tmp);
-            }, py::arg("name"), py::arg("type") = carl::VariableType::VT_REAL)
-        .def("__init__", [](carl::Variable &instance, carl::VariableType type) {
-                carl::Variable tmp = freshVariable(type);
-                new (&instance) carl::Variable(tmp);
-            }, py::arg("type") = carl::VariableType::VT_REAL)
-
+        .def(py::init<carl::Variable>(), py::arg("other"))
+        .def(py::init([] (std::string name, carl::VariableType type) {
+                return freshVariable(name, type);
+            }), py::arg("name"), py::arg("type") = carl::VariableType::VT_REAL)
+        .def(py::init([] (carl::VariableType type) {
+                return freshVariable(type);
+                //return std::unique_ptr<carl::Variable>(new carl::Variable(tmp));
+            }), py::arg("type") = carl::VariableType::VT_REAL)
         .def("__mul__",  static_cast<Monomial::Arg (*)(carl::Variable, carl::Variable)>(&carl::operator*))
 
 

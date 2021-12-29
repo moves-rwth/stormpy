@@ -16,9 +16,9 @@ void define_formula(py::module& m) {
         .def(py::init<Constraint>())
         .def(py::init<carl::FormulaType, Formula>())
         .def(py::init<carl::FormulaType, carl::Formulas<Polynomial>>())
-        .def("__init__", [](bool b) {
+        .def(py::init([](bool b) {
                 return b ? Formula(carl::FormulaType::TRUE) : Formula(carl::FormulaType::FALSE);
-            })
+            }))
         .def("__str__", &streamToString<carl::Formula<Polynomial>>)
         .def("to_smt2", [](Formula const& f) {
                 return f.toString(false, 2);
