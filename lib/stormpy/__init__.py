@@ -481,12 +481,36 @@ def topological_sort(model, forward=True, initial=[]):
 
 
 def get_reachable_states(model, initial_states, constraint_states, target_states, maximal_steps = None, choice_filter = None ):
+    """
+    Get the states that are reachable in a sparse model
+
+    :param model: A model
+    :param initial_states:
+    :param constraint_states:
+    :param target_states:
+    :param maximal_steps:
+    :param choice_filter:
+    :return:
+    """
     if model.supports_parameters:
         return core._get_reachable_states_rf(model, initial_states, constraint_states, target_states, maximal_steps, choice_filter)
     if model.is_exact:
         return core._get_reachable_states_exact(model, initial_states, constraint_states, target_states, maximal_steps, choice_filter)
     return core._get_reachable_states_double(model, initial_states, constraint_states, target_states, maximal_steps, choice_filter)
 
+def compute_expected_number_of_visits(environment, model):
+    """
+    Compute the number of expected visits. Model must be deterministic.
+
+    :param environment: An model checking environment
+    :param model: A DTMC or CTMC
+    :return: A vector with the expected number of visits
+    """
+    if model.supports_parameters:
+        raise NotImplementedError("Expected number of visits is not implemented for parametric models")
+    if model.is_exact:
+        return core._compute_expected_number_of_visits_exact(environment, model)
+    return core._compute_expected_number_of_visits_double(environment, model)
 
 def construct_submodel(model, states, actions, keep_unreachable_states=True, options=SubsystemBuilderOptions()):
     """
