@@ -438,7 +438,7 @@ div.nboutput.container div.output_area > div[class^='highlight']{
 }
 
 /* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
-.prompt a.copybtn {
+.prompt .copybtn {
     display: none;
 }
 
@@ -502,8 +502,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy.examples</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy.examples</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy.examples.files</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">path</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">prism_dtmc_die</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">prism_program</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">parse_prism_program</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
@@ -516,8 +515,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">stormpy.utility</span> <span class="kn">import</span> <span class="n">ShortestPathsGenerator</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">stormpy.utility</span> <span class="kn">import</span> <span class="n">ShortestPathsGenerator</span>
 </pre></div>
 </div>
 </div>
@@ -526,8 +524,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">state_id</span> <span class="o">=</span> <span class="mi">8</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">state_id</span> <span class="o">=</span> <span class="mi">8</span>
 </pre></div>
 </div>
 </div>
@@ -537,8 +534,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">spg</span> <span class="o">=</span> <span class="n">ShortestPathsGenerator</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">state_id</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">spg</span> <span class="o">=</span> <span class="n">ShortestPathsGenerator</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">state_id</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -547,8 +543,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
 <span class="o">...</span>     <span class="n">path</span> <span class="o">=</span> <span class="n">spg</span><span class="o">.</span><span class="n">get_path_as_list</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
 <span class="o">...</span>     <span class="n">distance</span> <span class="o">=</span> <span class="n">spg</span><span class="o">.</span><span class="n">get_distance</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
 <span class="o">...</span>     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">-shortest path to state #</span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">, with distance </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">state_id</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">distance</span><span class="p">))</span>

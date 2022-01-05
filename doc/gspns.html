@@ -438,7 +438,7 @@ div.nboutput.container div.output_area > div[class^='highlight']{
 }
 
 /* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
-.prompt a.copybtn {
+.prompt .copybtn {
     display: none;
 }
 
@@ -495,8 +495,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy.gspn</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy.examples</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy.examples.files</span>
@@ -512,8 +511,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Name of GSPN: </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gspn</span><span class="o">.</span><span class="n">get_name</span><span class="p">()))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Name of GSPN: </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gspn</span><span class="o">.</span><span class="n">get_name</span><span class="p">()))</span>
 </pre></div>
 </div>
 </div>
@@ -529,8 +527,7 @@ Name of GSPN: simple_gspn.
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of places: </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gspn</span><span class="o">.</span><span class="n">get_number_of_places</span><span class="p">()))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of places: </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gspn</span><span class="o">.</span><span class="n">get_number_of_places</span><span class="p">()))</span>
 </pre></div>
 </div>
 </div>
@@ -546,8 +543,7 @@ Number of places: 4.
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of immediate transitions: </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gspn</span><span class="o">.</span><span class="n">get_number_of_immediate_transitions</span><span class="p">()))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of immediate transitions: </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gspn</span><span class="o">.</span><span class="n">get_number_of_immediate_transitions</span><span class="p">()))</span>
 </pre></div>
 </div>
 </div>
@@ -563,8 +559,7 @@ Number of immediate transitions: 3.
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of timed transitions: </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gspn</span><span class="o">.</span><span class="n">get_number_of_timed_transitions</span><span class="p">()))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of timed transitions: </span><span class="si">{}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gspn</span><span class="o">.</span><span class="n">get_number_of_timed_transitions</span><span class="p">()))</span>
 </pre></div>
 </div>
 </div>
@@ -585,8 +580,7 @@ Number of timed transitions: 2.
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">builder</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">gspn</span><span class="o">.</span><span class="n">GSPNBuilder</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">builder</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">gspn</span><span class="o">.</span><span class="n">GSPNBuilder</span><span class="p">()</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">builder</span><span class="o">.</span><span class="n">set_name</span><span class="p">(</span><span class="s2">&quot;my_gspn&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -596,8 +590,7 @@ Number of timed transitions: 2.
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">it_1</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">add_immediate_transition</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="s2">&quot;it_1&quot;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">it_1</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">add_immediate_transition</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="s2">&quot;it_1&quot;</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">it_layout</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">gspn</span><span class="o">.</span><span class="n">LayoutInfo</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">builder</span><span class="o">.</span><span class="n">set_transition_layout_info</span><span class="p">(</span><span class="n">it_1</span><span class="p">,</span> <span class="n">it_layout</span><span class="p">)</span>
 </pre></div>
@@ -608,8 +601,7 @@ Number of timed transitions: 2.
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">tt_1</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">add_timed_transition</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="s2">&quot;tt_1&quot;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">tt_1</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">add_timed_transition</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="s2">&quot;tt_1&quot;</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">tt_layout</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">gspn</span><span class="o">.</span><span class="n">LayoutInfo</span><span class="p">(</span><span class="mf">12.5</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">builder</span><span class="o">.</span><span class="n">set_transition_layout_info</span><span class="p">(</span><span class="n">tt_1</span><span class="p">,</span> <span class="n">tt_layout</span><span class="p">)</span>
 </pre></div>
@@ -620,8 +612,7 @@ Number of timed transitions: 2.
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">place_1</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">add_place</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;place_1&quot;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">place_1</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">add_place</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;place_1&quot;</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">p1_layout</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">gspn</span><span class="o">.</span><span class="n">LayoutInfo</span><span class="p">(</span><span class="mf">6.5</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">builder</span><span class="o">.</span><span class="n">set_place_layout_info</span><span class="p">(</span><span class="n">place_1</span><span class="p">,</span> <span class="n">p1_layout</span><span class="p">)</span>
 
@@ -636,8 +627,7 @@ Number of timed transitions: 2.
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">builder</span><span class="o">.</span><span class="n">add_output_arc</span><span class="p">(</span><span class="n">it_1</span><span class="p">,</span> <span class="n">place_1</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">builder</span><span class="o">.</span><span class="n">add_output_arc</span><span class="p">(</span><span class="n">it_1</span><span class="p">,</span> <span class="n">place_1</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">builder</span><span class="o">.</span><span class="n">add_inhibition_arc</span><span class="p">(</span><span class="n">place_1</span><span class="p">,</span> <span class="n">it_1</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">builder</span><span class="o">.</span><span class="n">add_input_arc</span><span class="p">(</span><span class="n">place_1</span><span class="p">,</span> <span class="n">tt_1</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">builder</span><span class="o">.</span><span class="n">add_output_arc</span><span class="p">(</span><span class="n">tt_1</span><span class="p">,</span> <span class="n">place_2</span><span class="p">)</span>
@@ -649,8 +639,7 @@ Number of timed transitions: 2.
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">gspn</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build_gspn</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">gspn</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build_gspn</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -659,8 +648,7 @@ Number of timed transitions: 2.
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">export_path</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">gspn_pnpro_simple</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">export_path</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">gspn_pnpro_simple</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">gspn</span><span class="o">.</span><span class="n">export_gspn_pnpro_file</span><span class="p">(</span><span class="n">export_path</span><span class="p">)</span>
 </pre></div>
 </div>

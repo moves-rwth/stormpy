@@ -446,7 +446,7 @@ div.nboutput.container div.output_area > div[class^='highlight']{
 }
 
 /* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
-.prompt a.copybtn {
+.prompt .copybtn {
     display: none;
 }
 
@@ -504,8 +504,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy</span>
 </pre></div>
 </div>
 </div>
@@ -517,8 +516,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">builder</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">SparseMatrixBuilder</span><span class="p">(</span><span class="n">rows</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">entries</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">force_dimensions</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">has_custom_row_grouping</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">row_groups</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">builder</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">SparseMatrixBuilder</span><span class="p">(</span><span class="n">rows</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">entries</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">force_dimensions</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">has_custom_row_grouping</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">row_groups</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -527,8 +525,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">builder</span><span class="o">.</span><span class="n">new_row_group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">builder</span><span class="o">.</span><span class="n">new_row_group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">builder</span><span class="o">.</span><span class="n">add_next_value</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">builder</span><span class="o">.</span><span class="n">add_next_value</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">builder</span><span class="o">.</span><span class="n">add_next_value</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span>
@@ -542,8 +539,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">builder</span><span class="o">.</span><span class="n">new_row_group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">builder</span><span class="o">.</span><span class="n">new_row_group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">builder</span><span class="o">.</span><span class="n">add_next_value</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">builder</span><span class="o">.</span><span class="n">add_next_value</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">builder</span><span class="o">.</span><span class="n">new_row_group</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
@@ -573,8 +569,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">transition_matrix</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">transition_matrix</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">build</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -586,8 +581,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">choice_labeling</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">ChoiceLabeling</span><span class="p">(</span><span class="mi">14</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">choice_labeling</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">ChoiceLabeling</span><span class="p">(</span><span class="mi">14</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">choice_labels</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">}</span>
 
 <span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">choice_labels</span><span class="p">:</span>
@@ -600,8 +594,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">choice_labeling</span><span class="o">.</span><span class="n">add_label_to_choice</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">choice_labeling</span><span class="o">.</span><span class="n">add_label_to_choice</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">choice_labeling</span><span class="o">.</span><span class="n">add_label_to_choice</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">choice_labeling</span><span class="p">)</span>
 </pre></div>
@@ -626,8 +619,7 @@ Choice 2 labels
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">reward_models</span> <span class="o">=</span> <span class="p">{}</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">reward_models</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">action_reward</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">reward_models</span><span class="p">[</span><span class="s1">&#39;coin_flips&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">SparseRewardModel</span><span class="p">(</span><span class="n">optional_state_action_reward_vector</span><span class="o">=</span><span class="n">action_reward</span><span class="p">)</span>
 </pre></div>
@@ -641,8 +633,7 @@ Choice 2 labels
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">components</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">SparseModelComponents</span><span class="p">(</span><span class="n">transition_matrix</span><span class="o">=</span><span class="n">transition_matrix</span><span class="p">,</span> <span class="n">state_labeling</span><span class="o">=</span><span class="n">state_labeling</span><span class="p">,</span> <span class="n">reward_models</span><span class="o">=</span><span class="n">reward_models</span><span class="p">,</span> <span class="n">rate_transitions</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">components</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">SparseModelComponents</span><span class="p">(</span><span class="n">transition_matrix</span><span class="o">=</span><span class="n">transition_matrix</span><span class="p">,</span> <span class="n">state_labeling</span><span class="o">=</span><span class="n">state_labeling</span><span class="p">,</span> <span class="n">reward_models</span><span class="o">=</span><span class="n">reward_models</span><span class="p">,</span> <span class="n">rate_transitions</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">components</span><span class="o">.</span><span class="n">choice_labeling</span> <span class="o">=</span> <span class="n">choice_labeling</span>
 </pre></div>
 </div>
@@ -652,8 +643,7 @@ Choice 2 labels
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">mdp</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">SparseMdp</span><span class="p">(</span><span class="n">components</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">mdp</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">SparseMdp</span><span class="p">(</span><span class="n">components</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">mdp</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -671,14 +661,14 @@ Choices:        14
 Reward Models:  coin_flips
 State Labels:   9 labels
    * two -&gt; 1 item(s)
-   * init -&gt; 1 item(s)
    * one -&gt; 1 item(s)
-   * three -&gt; 1 item(s)
-   * deadlock -&gt; 0 item(s)
-   * five -&gt; 1 item(s)
-   * six -&gt; 1 item(s)
-   * four -&gt; 1 item(s)
    * done -&gt; 6 item(s)
+   * four -&gt; 1 item(s)
+   * init -&gt; 1 item(s)
+   * six -&gt; 1 item(s)
+   * five -&gt; 1 item(s)
+   * deadlock -&gt; 0 item(s)
+   * three -&gt; 1 item(s)
 Choice Labels:  2 labels
    * b -&gt; 1 item(s)
    * a -&gt; 1 item(s)
