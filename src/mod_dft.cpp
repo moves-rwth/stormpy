@@ -19,4 +19,6 @@ PYBIND11_MODULE(dft, m) {
     define_input(m);
     define_output(m);
     define_analysis(m);
+    define_analysis_typed<double>(m, "_double");
+    define_analysis_typed<storm::RationalFunction>(m, "_ratfunc");
 }
