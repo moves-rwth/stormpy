@@ -15,6 +15,13 @@ def analyze_dft(ft, properties, symred=True, allow_modularisation=False, relevan
         assert isinstance(ft, DFT_ratfunc)
         return dft._analyze_dft_ratfunc(ft, properties, symred, allow_modularisation, relevant_events, allow_dc_for_relevant)
 
+def build_model(ft, symmetries, relevant_events=RelevantEvents(), allow_dc_for_relevant=False):
+    if isinstance(ft, DFT_double):
+        return dft._build_model_double(ft, symmetries, relevant_events, allow_dc_for_relevant)
+    else:
+        assert isinstance(ft, DFT_ratfunc)
+        return dft._build_model_ratfunc(ft, symmetries, relevant_events, allow_dc_for_relevant)
+
 def transform_dft(ft, unique_constant_be, binary_fdeps):
     if isinstance(ft, DFT_double):
         return dft._transform_dft_double(ft, unique_constant_be, binary_fdeps)

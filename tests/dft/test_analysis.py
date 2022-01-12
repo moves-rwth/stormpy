@@ -16,6 +16,16 @@ class TestAnalysis:
         results = stormpy.dft.analyze_dft(dft, [formulas[0].raw_formula])
         assert math.isclose(results[0], 3)
 
+    def test_build_model(self):
+        dft = stormpy.dft.load_dft_json_file(get_example_path("dft", "and.json"))
+        symmetries = stormpy.dft.DFTSymmetries()
+        model = stormpy.dft.build_model(dft, symmetries)
+        assert model.model_type == stormpy.ModelType.CTMC
+        assert type(model) is stormpy.SparseCtmc
+        assert model.nr_states == 4
+        assert model.nr_transitions == 5
+        assert not model.supports_parameters
+
     def test_relevant_events_property(self):
         dft = stormpy.dft.load_dft_json_file(get_example_path("dft", "and.json"))
         properties = stormpy.parse_properties("P=? [ F<=1 \"A_failed\" ]")

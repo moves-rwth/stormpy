@@ -17,6 +17,14 @@ std::vector<ValueType> analyzeDFT(storm::storage::DFT<ValueType> const& dft, std
     return results;
 }
 
+// Thin wrapper for building state space from DFT
+template<typename ValueType>
+std::shared_ptr<storm::models::sparse::Model<ValueType>> buildModel(storm::storage::DFT<ValueType> const& dft, storm::storage::DFTIndependentSymmetries const& symmetries, storm::utility::RelevantEvents const& relevantEvents, bool allowDCForRelevant) {
+    dft.setRelevantEvents(relevantEvents, allowDCForRelevant);
+    storm::builder::ExplicitDFTModelBuilder<ValueType> builder(dft, symmetries);
+    builder.buildModel(0, 0.0);
+    return builder.getModel();
+}
 
 // Define python bindings
 void define_analysis(py::module& m) {
@@ -31,6 +39,8 @@ template<typename ValueType>
 void define_analysis_typed(py::module& m, std::string const& vt_suffix) {
 
     m.def(("_analyze_dft"+vt_suffix).c_str(), &analyzeDFT<ValueType>, "Analyze the DFT", py::arg("dft"), py::arg("properties"), py::arg("symred")=true, py::arg("allow_modularisation")=false, py::arg("relevant_events")=storm::utility::RelevantEvents(), py::arg("allow_dc_for_relevant")=false);
+
+    m.def(("_build_model"+vt_suffix).c_str(), &buildModel<ValueType>, "Build state-space model (CTMC or MA) for DFT", py::arg("dft"), py::arg("symmetries"), py::arg("relevant_events")=storm::utility::RelevantEvents(), py::arg("allow_dc_for_relevant")=false);
 
     m.def(("_transform_dft"+vt_suffix).c_str(), &storm::api::applyTransformations<ValueType>, "Apply transformations on DFT", py::arg("dft"), py::arg("unique_constant_be"), py::arg("binary_fdeps"));
 
