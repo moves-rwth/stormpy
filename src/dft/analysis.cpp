@@ -4,6 +4,7 @@
 #include "storm-dft/builder/ExplicitDFTModelBuilder.h"
 #include "storm-dft/storage/dft/DFTIsomorphism.h"
 
+template<typename ValueType> using ExplicitDFTModelBuilder = storm::builder::ExplicitDFTModelBuilder<ValueType>;
 
 // Thin wrapper for DFT analysis
 template<typename ValueType>
@@ -28,6 +29,13 @@ std::shared_ptr<storm::models::sparse::Model<ValueType>> buildModel(storm::stora
 
 // Define python bindings
 void define_analysis(py::module& m) {
+
+    py::enum_<storm::builder::ApproximationHeuristic>(m, "ApproximationHeuristic", "Heuristic for selecting states to explore next")
+        .value("DEPTH", storm::builder::ApproximationHeuristic::DEPTH)
+        .value("PROBABILITY", storm::builder::ApproximationHeuristic::PROBABILITY)
+        .value("BOUNDDIFFERENCE", storm::builder::ApproximationHeuristic::BOUNDDIFFERENCE)
+    ;
+
     // RelevantEvents
     py::class_<storm::utility::RelevantEvents, std::shared_ptr<storm::utility::RelevantEvents>>(m, "RelevantEvents", "Relevant events which should be observed")
         .def(py::init<>(), "Create empty list of relevant events")
@@ -37,6 +45,13 @@ void define_analysis(py::module& m) {
 
 template<typename ValueType>
 void define_analysis_typed(py::module& m, std::string const& vt_suffix) {
+
+    py::class_<ExplicitDFTModelBuilder<ValueType>, std::shared_ptr<ExplicitDFTModelBuilder<ValueType>>>(m, ("ExplicitDFTModelBuilder"+vt_suffix).c_str(), "Builder to generate explicit model from DFT")
+        .def(py::init<storm::storage::DFT<ValueType> const&, storm::storage::DFTIndependentSymmetries const&>(), "Constructor", py::arg("dft"), py::arg("symmetries"))
+        .def("build", &ExplicitDFTModelBuilder<ValueType>::buildModel, "Build state space of model", py::arg("iteration"), py::arg("approximation_threshold")=0.0, py::arg("approximation_heuristic")=storm::builder::ApproximationHeuristic::DEPTH)
+        .def("get_model", &ExplicitDFTModelBuilder<ValueType>::getModel, "Get complete model")
+        .def("get_partial_model", &ExplicitDFTModelBuilder<ValueType>::getModelApproximation, "Get partial model", py::arg("lower_bound"), py::arg("expected_time"))
+    ;
 
     m.def(("_analyze_dft"+vt_suffix).c_str(), &analyzeDFT<ValueType>, "Analyze the DFT", py::arg("dft"), py::arg("properties"), py::arg("symred")=true, py::arg("allow_modularisation")=false, py::arg("relevant_events")=storm::utility::RelevantEvents(), py::arg("allow_dc_for_relevant")=false);
 

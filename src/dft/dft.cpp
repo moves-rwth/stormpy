@@ -47,6 +47,7 @@ void define_dft_typed(py::module& m, std::string const& vt_suffix) {
         .def("symmetries", [](DFT<ValueType>& dft) {
                 return dft.findSymmetries(dft.colourDFT());
             }, "Compute symmetries in DFT")
+        .def("set_relevant_events", &DFT<ValueType>::setRelevantEvents, "Set relevant events", py::arg("relevant_events"), py::arg("allow_dc_for_relevant")=false);
     ;
 }
 
