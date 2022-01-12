@@ -44,6 +44,10 @@ class TestDftElement:
 
 @dft
 class TestDftSymmetries:
+    def test_symmetries_none(self):
+        symmetries = stormpy.dft.DFTSymmetries()
+        assert len(symmetries.groups) == 0
+
     def test_symmetries_small(self):
         dft = stormpy.dft.load_dft_json_file(get_example_path("dft", "and.json"))
         symmetries = dft.symmetries()

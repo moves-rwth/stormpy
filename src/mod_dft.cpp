@@ -13,6 +13,8 @@ PYBIND11_MODULE(dft, m) {
 #endif
 
     define_dft(m);
+    define_dft_typed<double>(m, "_double");
+    define_dft_typed<storm::RationalFunction>(m, "_ratfunc");
     define_symmetries(m);
     define_input(m);
     define_output(m);
