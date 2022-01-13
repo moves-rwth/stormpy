@@ -40,21 +40,60 @@ class TestAnalysis:
 
     def test_explicit_model_builder_approximation(self):
         dft = stormpy.dft.load_dft_galileo_file(get_example_path("dft", "rc.dft"))
+        properties = stormpy.parse_properties("T=? [ F \"failed\" ]")
+        prop = properties[0]
         symmetries = stormpy.dft.DFTSymmetries()
         builder = stormpy.dft.ExplicitDFTModelBuilder_double(dft, symmetries)
+
+        # Iteration 0
         builder.build(0, 1.0)
-        model_low = builder.get_partial_model(True, False)
+        model_low = builder.get_partial_model(True, True)
         assert model_low.model_type == stormpy.ModelType.CTMC
         assert type(model_low) is stormpy.SparseCtmc
         assert model_low.nr_states == 25
         assert model_low.nr_transitions == 46
         assert not model_low.supports_parameters
-        model_up = builder.get_partial_model(True, False)
+        initial_state = model_low.initial_states[0]
+        assert initial_state == 1
+        result_low = stormpy.model_checking(model_low, prop)
+        assert math.isclose(result_low.at(initial_state), 0.5735024009)
+
+        model_up = builder.get_partial_model(False, True)
         assert model_up.model_type == stormpy.ModelType.CTMC
         assert type(model_up) is stormpy.SparseCtmc
         assert model_up.nr_states == 25
         assert model_up.nr_transitions == 46
         assert not model_up.supports_parameters
+        result_up = stormpy.model_checking(model_up, prop)
+        assert math.isclose(result_up.at(initial_state), 0.9225431553)
+
+        # Iteration 1
+        builder.build(1, 1.0)
+        model_low = builder.get_partial_model(True, True)
+        assert model_low.nr_states == 55
+        assert model_low.nr_transitions == 143
+        result_low = stormpy.model_checking(model_low, prop)
+        assert math.isclose(result_low.at(initial_state), 0.6468192701)
+
+        model_up = builder.get_partial_model(False, True)
+        assert model_up.nr_states == 55
+        assert model_up.nr_transitions == 143
+        result_up = stormpy.model_checking(model_up, prop)
+        assert math.isclose(result_up.at(initial_state), 0.8130197535)
+
+        # Iteration 2
+        builder.build(2, 1.0)
+        model_low = builder.get_partial_model(True, True)
+        assert model_low.nr_states == 91
+        assert model_low.nr_transitions == 295
+        result_low = stormpy.model_checking(model_low, prop)
+        assert math.isclose(result_low.at(initial_state), 0.6471750688)
+
+        model_up = builder.get_partial_model(False, True)
+        assert model_up.nr_states == 91
+        assert model_up.nr_transitions == 295
+        result_up = stormpy.model_checking(model_up, prop)
+        assert math.isclose(result_up.at(initial_state), 0.6484525286)
 
     def test_relevant_events_property(self):
         dft = stormpy.dft.load_dft_json_file(get_example_path("dft", "and.json"))
