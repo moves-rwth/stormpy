@@ -3,6 +3,7 @@
 #include "dft/analysis.h"
 #include "dft/dft.h"
 #include "dft/io.h"
+#include "dft/transformations.h"
 
 PYBIND11_MODULE(dft, m) {
     m.doc() = "Functionality for DFT analysis";
@@ -21,4 +22,5 @@ PYBIND11_MODULE(dft, m) {
     define_symmetries(m);
     define_input(m);
     define_output(m);
+    define_transformations(m);
 }
