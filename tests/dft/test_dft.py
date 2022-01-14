@@ -21,6 +21,8 @@ class TestDft:
             assert ft.top_level_element.name in ["n116", "n137", "n120", "n21"]
 
     def test_parametric_dft(self):
+        import pycarl
+        pycarl.clear_pools()
         dft = stormpy.dft.load_parametric_dft_galileo_file(get_example_path("dft", "symmetry_param.dft"))
         assert dft.nr_elements() == 7
         assert dft.nr_be() == 4
