@@ -11,6 +11,10 @@ template<typename ValueType> using DFT = storm::storage::DFT<ValueType>;
 template<typename ValueType> using DFTElement = storm::storage::DFTElement<ValueType>;
 using DFTSymmetries = storm::storage::DFTIndependentSymmetries;
 
+// requires pycarl.Variable
+std::set<storm::RationalFunctionVariable> getParameters(DFT<storm::RationalFunction> const& dft) {
+    return storm::storage::getParameters(dft);
+}
 
 void define_dft(py::module& m) {
 
@@ -18,6 +22,8 @@ void define_dft(py::module& m) {
             storm::settings::addModule<storm::settings::modules::FaultTreeSettings>();
             storm::settings::addModule<storm::settings::modules::DftIOSettings>();
         }, "Initialize Storm-dft");
+
+    m.def("get_parameters", &getParameters, "Collect parameters in parametric DFT", py::arg("dft"));
 }
 
 template<typename ValueType>

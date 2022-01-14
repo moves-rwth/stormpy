@@ -20,6 +20,17 @@ class TestDft:
         for ft in dfts:
             assert ft.top_level_element.name in ["n116", "n137", "n120", "n21"]
 
+    def test_parametric_dft(self):
+        dft = stormpy.dft.load_parametric_dft_galileo_file(get_example_path("dft", "symmetry_param.dft"))
+        assert dft.nr_elements() == 7
+        assert dft.nr_be() == 4
+        assert dft.nr_dynamic() == 0
+        assert type(dft) is stormpy.dft.DFT_ratfunc
+        parameters = stormpy.dft.get_parameters(dft)
+        param_names = [x.name for x in parameters]
+        assert "x" in param_names
+        assert "y" in param_names
+
 
 @dft
 class TestDftElement:
