@@ -95,6 +95,37 @@ class TestAnalysis:
         result_up = stormpy.model_checking(model_up, prop)
         assert math.isclose(result_up.at(initial_state), 0.6484525286)
 
+    def test_explicit_model_builder_approximation_complete(self):
+        dft = stormpy.dft.load_dft_galileo_file(get_example_path("dft", "rc.dft"))
+        properties = stormpy.parse_properties("T=? [ F \"failed\" ]")
+        prop = properties[0]
+        symmetries = stormpy.dft.DFTSymmetries()
+        builder = stormpy.dft.ExplicitDFTModelBuilder_double(dft, symmetries)
+
+        # Iteration 0
+        builder.build(0, 1.0)
+        model_low = builder.get_partial_model(True, True)
+        assert model_low.model_type == stormpy.ModelType.CTMC
+        assert type(model_low) is stormpy.SparseCtmc
+        assert model_low.nr_states == 25
+        assert model_low.nr_transitions == 46
+        assert not model_low.supports_parameters
+        initial_state = model_low.initial_states[0]
+        assert initial_state == 1
+        result_low = stormpy.model_checking(model_low, prop)
+        assert math.isclose(result_low.at(initial_state), 0.5735024009)
+
+        # Final iteration
+        builder.build(1)
+        model = builder.get_model()
+        assert model.model_type == stormpy.ModelType.CTMC
+        assert type(model) is stormpy.SparseCtmc
+        assert model.nr_states == 145
+        assert model.nr_transitions == 625
+        assert not model.supports_parameters
+        result = stormpy.model_checking(model, prop)
+        assert math.isclose(result.at(initial_state), 0.6471760795)
+
     def test_relevant_events_property(self):
         dft = stormpy.dft.load_dft_json_file(get_example_path("dft", "and.json"))
         properties = stormpy.parse_properties("P=? [ F<=1 \"A_failed\" ]")
