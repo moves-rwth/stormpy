@@ -5,10 +5,14 @@ Changelog
 Version 2.0.x
 -------------
 
-### Version 2.0.5 (under development)
+### Version 2.0.5 (2022/01)
+Requires carl with branch `master14`
+
 - Added support for continuous integration with Github Actions
 
 ### Version 2.0.4 (2019/11)
+Requires carl with branch `master14`
+
 - Extended conversion of number types to formulae
 - (minor) changed `constant_part` to function for `Polynomial`
 - (minor) added an additional operator on polynomials
