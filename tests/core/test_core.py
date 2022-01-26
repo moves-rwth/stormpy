@@ -29,11 +29,11 @@ class TestCore:
 
     def test_version(self):
         import pycarl
-        from distutils.version import StrictVersion
-        version = StrictVersion(pycarl.__version__)
-        assert version > StrictVersion("2.0.0")
-        carl_version = StrictVersion(pycarl.carl_version())
-        assert carl_version > StrictVersion("17.07.50") or str(carl_version).startswith("14.")
+        from packaging.version import Version
+        version = Version(pycarl.__version__)
+        assert version > Version("2.0.0")
+        carl_version = Version(pycarl.carl_version())
+        assert carl_version > Version("17.07.50") or str(carl_version).startswith("14.")
 
     def test_pickle(self):
         import pycarl
