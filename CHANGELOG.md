@@ -3,11 +3,15 @@ Changelog
 
 Version 1.6.x
 -------------
-### Version 1.6.4 (2021/xx)
+### Version 1.6.4 (2022/01)
+Requires storm version >= 1.6.4 and pycarl version >= 2.0.5
+
 - Simulator for sparse models updated, added simulator for prism programs.
 - Renamed PrismProgram::isDeterministicModel -> is_deterministic_model for consistency
 - Support for specifying the returned quotient format (symbolic or sparse) for symbolic bisimulation
 - Added support for continuous integration with Github Actions
+- Updated bindings for, e.g., Jani to reflect changes in Storm
+- Bindings for end component elimination
 
 ### Version 1.6.3 (2020/12)
 Requires storm version >= 1.6.3 and pycarl version >= 2.0.4
