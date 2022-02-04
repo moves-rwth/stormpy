@@ -38,6 +38,8 @@ void define_dft(py::module& m) {
         .def("symmetries", [](DFT<double>& dft) {
                 return dft.findSymmetries(dft.colourDFT());
             }, "Compute symmetries in DFT")
+        .def("state_generation_info", &DFT<double>::buildStateGenerationInfo, py::arg("symmetries"), "Build state generation information")
+        .def("set_relevant_events", &DFT<double>::setRelevantEvents, py::arg("relevant_events"), py::arg("allow_dc_for_revelant"))
     ;
 
     py::class_<DFT<storm::RationalFunction>, std::shared_ptr<DFT<storm::RationalFunction>>>(m, "ParametricDFT", "Parametric DFT")
@@ -57,6 +59,8 @@ void define_dft(py::module& m) {
         .def("symmetries", [](DFT<storm::RationalFunction>& dft) {
                 return dft.findSymmetries(dft.colourDFT());
             }, "Compute symmetries in DFT")
+        .def("state_generation_info", &DFT<storm::RationalFunction>::buildStateGenerationInfo, py::arg("symmetries"))
+        .def("set_relevant_events", &DFT<storm::RationalFunction>::setRelevantEvents, py::arg("relevant_events"), py::arg("allow_dc_for_revelant"))
     ;
 
 }

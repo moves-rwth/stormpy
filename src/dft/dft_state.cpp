@@ -39,11 +39,13 @@ void define_failable_elements(py::module& m) {
         FailableIterator(Failable const &failable, py::object ref) : failable(failable), ref(ref) { }
 
         FailableIter next() {
-            ++it;
-            if (it == failable.end())
+            if (it == failable.end()) {
                 throw py::stop_iteration();
-            else
-                return it;
+            } else {
+                FailableIter res(it);
+                ++it;
+                return res;
+            }
         }
 
         Failable const&failable;
