@@ -19,18 +19,6 @@ void define_dft(py::module& m) {
             storm::settings::addModule<storm::settings::modules::DftIOSettings>();
         }, "Initialize Storm-dft");
 
-    // DFT element
-    py::class_<DFTElement<double>, std::shared_ptr<DFTElement<double>>>(m, "DFTElement", "DFT element")
-        .def_property_readonly("id", &DFTElement<double>::id, "Id")
-        .def_property_readonly("name", &DFTElement<double>::name, "Name")
-        .def("__str__", &DFTElement<double>::toString)
-    ;
-
-    py::class_<DFTElement<storm::RationalFunction>, std::shared_ptr<DFTElement<storm::RationalFunction>>>(m, "ParametricDFTElement", "Parametric DFT element")
-        .def_property_readonly("id", &DFTElement<storm::RationalFunction>::id, "Id")
-        .def_property_readonly("name", &DFTElement<storm::RationalFunction>::name, "Name")
-        .def("__str__", &DFTElement<storm::RationalFunction>::toString)
-    ;
 
     // DFT class
     py::class_<DFT<double>, std::shared_ptr<DFT<double>>>(m, "DFT", "Dynamic Fault Tree")
