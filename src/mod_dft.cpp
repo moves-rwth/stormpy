@@ -5,6 +5,7 @@
 #include "dft/dft_state.h"
 #include "dft/io.h"
 #include "dft/analysis.h"
+#include "dft/simulator.h"
 
 PYBIND11_MODULE(dft, m) {
     m.doc() = "Functionality for DFT analysis";
@@ -24,4 +25,7 @@ PYBIND11_MODULE(dft, m) {
     define_input(m);
     define_output(m);
     define_analysis(m);
+    define_simulator(m);
+    define_simulator_typed<double>(m, "_double");
+    define_simulator_typed<storm::RationalFunction>(m, "_ratfunc");
 }
