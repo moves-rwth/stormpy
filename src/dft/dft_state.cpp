@@ -13,6 +13,7 @@ void define_dft_state(py::module& m, std::string const& vt_suffix) {
 
     // DFT state
     py::class_<DFTState<ValueType>, std::shared_ptr<DFTState<ValueType>>>(m, ("DFTState"+vt_suffix).c_str(), "DFT state")
+        .def("operational", &DFTState<ValueType>::isOperational, "Is element operational", py::arg("id"))
         .def("failed", [](DFTState<ValueType> const& state, size_t id) {
                 return state.hasFailed(id);
             }, "Is element failed", py::arg("id"))
@@ -22,6 +23,7 @@ void define_dft_state(py::module& m, std::string const& vt_suffix) {
         .def("dontcare", &DFTState<ValueType>::dontCare, "Is element Don't Care", py::arg("id"))
         .def("invalid", &DFTState<ValueType>::isInvalid, "Is state invalid")
         .def("failable", &DFTState<ValueType>::getFailableElements, "Get failable elements")
+        .def("spare_uses", &DFTState<ValueType>::uses, "Child currently used by a SPARE", py::arg("spare_id"))
         .def("__str__", [](DFTState<ValueType> const& state) {
                 return streamToString<storm::storage::BitVector>(state.status());
             })
