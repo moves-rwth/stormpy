@@ -16,8 +16,9 @@ PYBIND11_MODULE(dft, m) {
 #endif
 
     define_dft(m);
-    define_dft_elements<double>(m, "_double");
-    define_dft_elements<storm::RationalFunction>(m, "_ratfunc");
+    define_dft_elements(m);
+    define_dft_elements_typed<double>(m, "_double");
+    define_dft_elements_typed<storm::RationalFunction>(m, "_ratfunc");
     define_dft_state<double>(m, "_double");
     define_dft_state<storm::RationalFunction>(m, "_ratfunc");
     define_failable_elements(m);

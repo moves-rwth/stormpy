@@ -8,13 +8,31 @@ template<typename ValueType> using BE = storm::storage::DFTBE<ValueType>;
 template<typename ValueType> using Dependency = storm::storage::DFTDependency<ValueType>;
 
 
+void define_dft_elements(py::module& m) {
+
+    // DFT element type
+    py::enum_<storm::storage::DFTElementType>(m, "DFTElementType")
+        .value("BE", storm::storage::DFTElementType::BE)
+        .value("AND", storm::storage::DFTElementType::AND)
+        .value("OR", storm::storage::DFTElementType::OR)
+        .value("VOT", storm::storage::DFTElementType::VOT)
+        .value("PAND", storm::storage::DFTElementType::PAND)
+        .value("POR", storm::storage::DFTElementType::POR)
+        .value("SPARE", storm::storage::DFTElementType::SPARE)
+        .value("PDEP", storm::storage::DFTElementType::PDEP)
+        .value("SEQ", storm::storage::DFTElementType::SEQ)
+        .value("MUTEX", storm::storage::DFTElementType::MUTEX)
+    ;
+}
+
 template<typename ValueType>
-void define_dft_elements(py::module& m, std::string const& vt_suffix) {
+void define_dft_elements_typed(py::module& m, std::string const& vt_suffix) {
 
     // DFT elements
     py::class_<DFTElement<ValueType>, std::shared_ptr<DFTElement<ValueType>>> element(m, ("DFTElement"+vt_suffix).c_str(), "DFT element");
     element.def_property_readonly("id", &DFTElement<ValueType>::id, "Id")
         .def_property_readonly("name", &DFTElement<ValueType>::name, "Name")
+        .def_property_readonly("type", &DFTElement<ValueType>::type, "Type")
         .def("__str__", &DFTElement<ValueType>::toString)
     ;
 
@@ -29,5 +47,5 @@ void define_dft_elements(py::module& m, std::string const& vt_suffix) {
 }
 
 
-template void define_dft_elements<double>(py::module& m, std::string const& vt_suffix);
-template void define_dft_elements<storm::RationalFunction>(py::module& m, std::string const& vt_suffix);
+template void define_dft_elements_typed<double>(py::module& m, std::string const& vt_suffix);
+template void define_dft_elements_typed<storm::RationalFunction>(py::module& m, std::string const& vt_suffix);
