@@ -59,8 +59,11 @@ class TestSimulator:
         c = dft.get_element_by_name("C").id
 
         state = simulator.current()
+        assert state.operational(a)
         assert not state.failed(a)
+        assert state.operational(b)
         assert not state.failed(b)
+        assert state.operational(c)
         assert not state.failed(c)
 
         # Let C fail
@@ -73,8 +76,11 @@ class TestSimulator:
         res = simulator.step(next_fail)
         assert res == stormpy.dft.SimulationResult.SUCCESSFUL
         state = simulator.current()
+        assert state.operational(a)
         assert not state.failed(a)
+        assert state.operational(b)
         assert not state.failed(b)
+        assert not state.operational(c)
         assert state.failed(c)
 
         # Let B fail
@@ -87,8 +93,11 @@ class TestSimulator:
         res = simulator.step(next_fail)
         assert res == stormpy.dft.SimulationResult.SUCCESSFUL
         state = simulator.current()
+        assert not state.operational(a)
         assert state.failed(a)
+        assert not state.operational(b)
         assert state.failed(b)
+        assert not state.operational(c)
         assert state.failed(c)
 
         failable = state.failable()
