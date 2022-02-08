@@ -19,10 +19,10 @@
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
-<script type="text/javascript" src="_static/js/jquery-1.12.4.min.js "></script>
-<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
-<script type="text/javascript" src="_static/bootstrap-3.4.1/js/bootstrap.min.js "></script>
-<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
+<script type="text/javascript" src="_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
 
     <style>
         .navbar p {
@@ -335,7 +335,11 @@
       <li><a href="api/dft.html#stormpy.dft.analyze_parametric_dft">analyze_parametric_dft() (in module stormpy.dft)</a>
 </li>
       <li><a href="api/core.html#stormpy.BinaryBooleanOperatorType.AND">AND (BinaryBooleanOperatorType attribute)</a>, <a href="api/logic.html#stormpy.logic.BinaryBooleanOperatorType.AND">[1]</a>
+
+      <ul>
+        <li><a href="api/dft.html#stormpy.dft.DFTElementType.AND">(DFTElementType attribute)</a>
 </li>
+      </ul></li>
       <li><a href="api/core.html#stormpy.OperatorType.And">And (OperatorType attribute)</a>, <a href="api/storage.html#stormpy.storage.OperatorType.And">[1]</a>
 </li>
       <li><a href="api/core.html#stormpy.Expression.And">And() (Expression method)</a>, <a href="api/storage.html#stormpy.storage.Expression.And">[1]</a>
@@ -416,6 +420,8 @@
         <li><a href="api/storage.html#stormpy.storage.Bdd_Sylvan">(class in stormpy.storage)</a>
 </li>
       </ul></li>
+      <li><a href="api/dft.html#stormpy.dft.DFTElementType.BE">BE (DFTElementType attribute)</a>
+</li>
       <li><a href="api/core.html#stormpy.BinaryBooleanOperatorType">BinaryBooleanOperatorType (class in stormpy)</a>
 
       <ul>
@@ -660,12 +666,12 @@
       </ul></li>
       <li><a href="api/core.html#stormpy.compute_all_until_probabilities">compute_all_until_probabilities() (in module stormpy)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/dft.html#stormpy.dft.compute_dependency_conflicts">compute_dependency_conflicts() (in module stormpy.dft)</a>
 </li>
       <li><a href="api/dft.html#stormpy.dft.compute_dependency_conflicts_parametric">compute_dependency_conflicts_parametric() (in module stormpy.dft)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core.html#stormpy.DdMetaVariable_Sylvan.compute_indices">compute_indices() (DdMetaVariable_Sylvan method)</a>, <a href="api/storage.html#stormpy.storage.DdMetaVariable_Sylvan.compute_indices">[1]</a>
 </li>
       <li><a href="api/core.html#stormpy.compute_prob01_states">compute_prob01_states() (in module stormpy)</a>
@@ -730,6 +736,8 @@
       </ul></li>
       <li><a href="api/utility.html#stormpy.utility.milliseconds.count">count() (milliseconds method)</a>
 </li>
+      <li><a href="api/dft.html#stormpy.dft.RandomGenerator.create">create() (RandomGenerator method)</a>
+</li>
       <li><a href="api/core.html#stormpy.ExpressionManager.create_boolean">create_boolean() (ExpressionManager method)</a>, <a href="api/storage.html#stormpy.storage.ExpressionManager.create_boolean">[1]</a>
 </li>
       <li><a href="api/core.html#stormpy.ExpressionManager.create_boolean_variable">create_boolean_variable() (ExpressionManager method)</a>, <a href="api/storage.html#stormpy.storage.ExpressionManager.create_boolean_variable">[1]</a>
@@ -772,6 +780,12 @@
 
       <ul>
         <li><a href="api/logic.html#stormpy.logic.CumulativeRewardFormula">(class in stormpy.logic)</a>
+</li>
+      </ul></li>
+      <li><a href="api/dft.html#stormpy.dft.DFTSimulator_double.current">current() (DFTSimulator_double method)</a>
+
+      <ul>
+        <li><a href="api/dft.html#stormpy.dft.DFTSimulator_ratfunc.current">(DFTSimulator_ratfunc method)</a>
 </li>
       </ul></li>
       <li><a href="api/core.html#stormpy.SMTCounterExampleGeneratorStats.cut_time">cut_time (SMTCounterExampleGeneratorStats property)</a>
@@ -860,8 +874,6 @@
         <li><a href="api/core.html#stormpy.RationalFunction.derive">(RationalFunction method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core.html#stormpy.JaniEdge.destinations">destinations (JaniEdge property)</a>, <a href="api/storage.html#stormpy.storage.JaniEdge.destinations">[1]</a>
 
       <ul>
@@ -878,11 +890,35 @@
         <li><a href="api/core.html#stormpy.SchedulerExact.deterministic">(SchedulerExact property)</a>, <a href="api/storage.html#stormpy.storage.SchedulerExact.deterministic">[1]</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/info.html#stormpy.info.Version.development">development (Version attribute)</a>
 </li>
       <li><a href="api/dft.html#stormpy.dft.DFT">DFT (class in stormpy.dft)</a>
 </li>
-      <li><a href="api/dft.html#stormpy.dft.DFTElement">DFTElement (class in stormpy.dft)</a>
+      <li><a href="api/dft.html#stormpy.dft.DFTBE_double">DFTBE_double (class in stormpy.dft)</a>
+</li>
+      <li><a href="api/dft.html#stormpy.dft.DFTBE_ratfunc">DFTBE_ratfunc (class in stormpy.dft)</a>
+</li>
+      <li><a href="api/dft.html#stormpy.dft.DFTDependency_double">DFTDependency_double (class in stormpy.dft)</a>
+</li>
+      <li><a href="api/dft.html#stormpy.dft.DFTDependency_ratfunc">DFTDependency_ratfunc (class in stormpy.dft)</a>
+</li>
+      <li><a href="api/dft.html#stormpy.dft.DFTElement_double">DFTElement_double (class in stormpy.dft)</a>
+</li>
+      <li><a href="api/dft.html#stormpy.dft.DFTElement_ratfunc">DFTElement_ratfunc (class in stormpy.dft)</a>
+</li>
+      <li><a href="api/dft.html#stormpy.dft.DFTElementType">DFTElementType (class in stormpy.dft)</a>
+</li>
+      <li><a href="api/dft.html#stormpy.dft.DFTSimulator_double">DFTSimulator_double (class in stormpy.dft)</a>
+</li>
+      <li><a href="api/dft.html#stormpy.dft.DFTSimulator_ratfunc">DFTSimulator_ratfunc (class in stormpy.dft)</a>
+</li>
+      <li><a href="api/dft.html#stormpy.dft.DFTState_double">DFTState_double (class in stormpy.dft)</a>
+</li>
+      <li><a href="api/dft.html#stormpy.dft.DFTState_ratfunc">DFTState_ratfunc (class in stormpy.dft)</a>
+</li>
+      <li><a href="api/dft.html#stormpy.dft.DFTStateInfo">DFTStateInfo (class in stormpy.dft)</a>
 </li>
       <li><a href="api/dft.html#stormpy.dft.DFTSymmetries">DFTSymmetries (class in stormpy.dft)</a>
 </li>
@@ -910,6 +946,12 @@
 </li>
       <li><a href="api/core.html#stormpy.Expression.Divide">Divide() (Expression method)</a>, <a href="api/storage.html#stormpy.storage.Expression.Divide">[1]</a>
 </li>
+      <li><a href="api/dft.html#stormpy.dft.DFTState_double.dontcare">dontcare() (DFTState_double method)</a>
+
+      <ul>
+        <li><a href="api/dft.html#stormpy.dft.DFTState_ratfunc.dontcare">(DFTState_ratfunc method)</a>
+</li>
+      </ul></li>
       <li><a href="api/core.html#stormpy.JaniModelType.DTMC">DTMC (JaniModelType attribute)</a>
 
       <ul>
@@ -919,6 +961,8 @@
 </li>
       </ul></li>
       <li><a href="api/pars.html#stormpy.pars.DtmcParameterLiftingModelChecker">DtmcParameterLiftingModelChecker (class in stormpy.pars)</a>
+</li>
+      <li><a href="api/dft.html#stormpy.dft.FailableElement.due_dependency">due_dependency() (FailableElement method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -1134,14 +1178,38 @@
 </li>
       <li><a href="api/core.html#stormpy.FactorizedRationalFunction">FactorizedRationalFunction (class in stormpy)</a>
 </li>
+      <li><a href="api/dft.html#stormpy.dft.DFTState_double.failable">failable() (DFTState_double method)</a>
+
+      <ul>
+        <li><a href="api/dft.html#stormpy.dft.DFTState_ratfunc.failable">(DFTState_ratfunc method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/dft.html#stormpy.dft.FailableElement">FailableElement (class in stormpy.dft)</a>
+</li>
+      <li><a href="api/dft.html#stormpy.dft.FailableElements">FailableElements (class in stormpy.dft)</a>
+</li>
+      <li><a href="api/dft.html#stormpy.dft.FailableIterator">FailableIterator (class in stormpy.dft)</a>
+</li>
+      <li><a href="api/dft.html#stormpy.dft.DFTState_double.failed">failed() (DFTState_double method)</a>
+
+      <ul>
+        <li><a href="api/dft.html#stormpy.dft.DFTState_ratfunc.failed">(DFTState_ratfunc method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/dft.html#stormpy.dft.DFTState_double.failsafe">failsafe() (DFTState_double method)</a>
+
+      <ul>
+        <li><a href="api/dft.html#stormpy.dft.DFTState_ratfunc.failsafe">(DFTState_ratfunc method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core.html#stormpy.JaniModel.finalize">finalize() (JaniModel method)</a>, <a href="api/storage.html#stormpy.storage.JaniModel.finalize">[1]</a>
 </li>
       <li><a href="api/gspn.html#stormpy.gspn.Transition.fire">fire() (Transition method)</a>
 </li>
       <li><a href="api/core.html#stormpy.SubsystemBuilderOptions.fix_deadlocks">fix_deadlocks (SubsystemBuilderOptions property)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core.html#stormpy.FlatSet">FlatSet (class in stormpy)</a>
 </li>
       <li><a href="api/core.html#stormpy.PrismProgram.flatten">flatten() (PrismProgram method)</a>, <a href="api/storage.html#stormpy.storage.PrismProgram.flatten">[1]</a>
@@ -1280,6 +1348,10 @@
         <li><a href="api/storage.html#stormpy.storage.Variable.get_expression">(Variable method)</a>
 </li>
       </ul></li>
+      <li><a href="api/dft.html#stormpy.dft.FailableElement.get_fail_be_double">get_fail_be_double() (FailableElement method)</a>
+</li>
+      <li><a href="api/dft.html#stormpy.dft.FailableElement.get_fail_be_ratfunc">get_fail_be_ratfunc() (FailableElement method)</a>
+</li>
       <li><a href="api/gspn.html#stormpy.gspn.Place.get_id">get_id() (Place method)</a>
 
       <ul>
@@ -1362,10 +1434,10 @@
       </ul></li>
       <li><a href="api/core.html#stormpy.StateValuation.get_nr_of_states">get_nr_of_states() (StateValuation method)</a>, <a href="api/storage.html#stormpy.storage.StateValuation.get_nr_of_states">[1]</a>
 </li>
-      <li><a href="api/core.html#stormpy.ChoiceOrigins.get_number_of_identifiers">get_number_of_identifiers() (ChoiceOrigins method)</a>, <a href="api/storage.html#stormpy.storage.ChoiceOrigins.get_number_of_identifiers">[1]</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/core.html#stormpy.ChoiceOrigins.get_number_of_identifiers">get_number_of_identifiers() (ChoiceOrigins method)</a>, <a href="api/storage.html#stormpy.storage.ChoiceOrigins.get_number_of_identifiers">[1]</a>
+</li>
       <li><a href="api/gspn.html#stormpy.gspn.GSPN.get_number_of_immediate_transitions">get_number_of_immediate_transitions() (GSPN method)</a>
 </li>
       <li><a href="api/gspn.html#stormpy.gspn.Place.get_number_of_initial_tokens">get_number_of_initial_tokens() (Place method)</a>
@@ -1692,10 +1764,10 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/utility.html#stormpy.utility.MatrixFormat.I_Minus_P">I_Minus_P (MatrixFormat attribute)</a>
 </li>
-      <li><a href="api/dft.html#stormpy.dft.DFTElement.id">id (DFTElement property)</a>
+      <li><a href="api/dft.html#stormpy.dft.DFTElement_double.id">id (DFTElement_double property)</a>
 
       <ul>
-        <li><a href="api/dft.html#stormpy.dft.ParametricDFTElement.id">(ParametricDFTElement property)</a>
+        <li><a href="api/dft.html#stormpy.dft.DFTElement_ratfunc.id">(DFTElement_ratfunc property)</a>
 </li>
         <li><a href="api/core.html#stormpy.SparseExactModelAction.id">(SparseExactModelAction property)</a>, <a href="api/storage.html#stormpy.storage.SparseExactModelAction.id">[1]</a>
 </li>
@@ -1772,16 +1844,24 @@
       </ul></li>
       <li><a href="api/core.html#stormpy.SymbolicModelDescription.instantiate_constants">instantiate_constants() (SymbolicModelDescription method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core.html#stormpy.DdMetaVariableType.Int">Int (DdMetaVariableType attribute)</a>, <a href="api/storage.html#stormpy.storage.DdMetaVariableType.Int">[1]</a>
 </li>
       <li><a href="api/core.html#stormpy.PrismModule.integer_variables">integer_variables (PrismModule property)</a>, <a href="api/storage.html#stormpy.storage.PrismModule.integer_variables">[1]</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core.html#stormpy.MinMaxMethod.interval_iteration">interval_iteration (MinMaxMethod attribute)</a>
 
       <ul>
         <li><a href="api/core.html#stormpy.NativeLinearEquationSolverMethod.interval_iteration">(NativeLinearEquationSolverMethod attribute)</a>
+</li>
+      </ul></li>
+      <li><a href="api/dft.html#stormpy.dft.SimulationResult.INVAlID">INVAlID (SimulationResult attribute)</a>
+</li>
+      <li><a href="api/dft.html#stormpy.dft.DFTState_double.invalid">invalid() (DFTState_double method)</a>
+
+      <ul>
+        <li><a href="api/dft.html#stormpy.dft.DFTState_ratfunc.invalid">(DFTState_ratfunc method)</a>
 </li>
       </ul></li>
       <li><a href="api/core.html#stormpy.ExpressionType.is_boolean">is_boolean (ExpressionType property)</a>, <a href="api/storage.html#stormpy.storage.ExpressionType.is_boolean">[1]</a>
@@ -2255,6 +2335,8 @@
 </li>
       <li><a href="api/core.html#stormpy.Expression.Multiply">Multiply() (Expression method)</a>, <a href="api/storage.html#stormpy.storage.Expression.Multiply">[1]</a>
 </li>
+      <li><a href="api/dft.html#stormpy.dft.DFTElementType.MUTEX">MUTEX (DFTElementType attribute)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -2264,7 +2346,9 @@
       <li><a href="api/core.html#stormpy.DdMetaVariable_Sylvan.name">name (DdMetaVariable_Sylvan property)</a>, <a href="api/storage.html#stormpy.storage.DdMetaVariable_Sylvan.name">[1]</a>
 
       <ul>
-        <li><a href="api/dft.html#stormpy.dft.DFTElement.name">(DFTElement property)</a>
+        <li><a href="api/dft.html#stormpy.dft.DFTElement_double.name">(DFTElement_double property)</a>
+</li>
+        <li><a href="api/dft.html#stormpy.dft.DFTElement_ratfunc.name">(DFTElement_ratfunc property)</a>
 </li>
         <li><a href="api/core.html#stormpy.JaniAutomaton.name">(JaniAutomaton property)</a>, <a href="api/storage.html#stormpy.storage.JaniAutomaton.name">[1]</a>
 </li>
@@ -2275,8 +2359,6 @@
         <li><a href="api/core.html#stormpy.JaniModel.name">(JaniModel property)</a>, <a href="api/storage.html#stormpy.storage.JaniModel.name">[1]</a>
 </li>
         <li><a href="api/core.html#stormpy.JaniVariable.name">(JaniVariable property)</a>, <a href="api/storage.html#stormpy.storage.JaniVariable.name">[1]</a>
-</li>
-        <li><a href="api/dft.html#stormpy.dft.ParametricDFTElement.name">(ParametricDFTElement property)</a>
 </li>
         <li><a href="api/core.html#stormpy.PrismConstant.name">(PrismConstant property)</a>, <a href="api/storage.html#stormpy.storage.PrismConstant.name">[1]</a>
 </li>
@@ -2463,6 +2545,12 @@
       </ul></li>
       <li><a href="api/core.html#stormpy.EndComponentEliminatorReturnTypeDouble.old_to_new_state_mapping">old_to_new_state_mapping (EndComponentEliminatorReturnTypeDouble property)</a>
 </li>
+      <li><a href="api/dft.html#stormpy.dft.DFTState_double.operational">operational() (DFTState_double method)</a>
+
+      <ul>
+        <li><a href="api/dft.html#stormpy.dft.DFTState_ratfunc.operational">(DFTState_ratfunc method)</a>
+</li>
+      </ul></li>
       <li><a href="api/core.html#stormpy.Expression.operator">operator (Expression property)</a>, <a href="api/storage.html#stormpy.storage.Expression.operator">[1]</a>
 </li>
       <li><a href="api/core.html#stormpy.OperatorFormula">OperatorFormula (class in stormpy)</a>
@@ -2490,7 +2578,11 @@
       <li><a href="api/core.html#stormpy.OptimizationDirection">OptimizationDirection (class in stormpy)</a>
 </li>
       <li><a href="api/core.html#stormpy.BinaryBooleanOperatorType.OR">OR (BinaryBooleanOperatorType attribute)</a>, <a href="api/logic.html#stormpy.logic.BinaryBooleanOperatorType.OR">[1]</a>
+
+      <ul>
+        <li><a href="api/dft.html#stormpy.dft.DFTElementType.OR">(DFTElementType attribute)</a>
 </li>
+      </ul></li>
       <li><a href="api/core.html#stormpy.OperatorType.Or">Or (OperatorType attribute)</a>, <a href="api/storage.html#stormpy.storage.OperatorType.Or">[1]</a>
 </li>
       <li><a href="api/core.html#stormpy.Expression.Or">Or() (Expression method)</a>, <a href="api/storage.html#stormpy.storage.Expression.Or">[1]</a>
@@ -2507,13 +2599,13 @@
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/dft.html#stormpy.dft.DFTElementType.PAND">PAND (DFTElementType attribute)</a>
+</li>
       <li><a href="api/pars.html#stormpy.pars.ParameterRegion">ParameterRegion (class in stormpy.pars)</a>
 </li>
       <li><a href="api/core.html#stormpy.ParametricCheckTask">ParametricCheckTask (class in stormpy)</a>
 </li>
       <li><a href="api/dft.html#stormpy.dft.ParametricDFT">ParametricDFT (class in stormpy.dft)</a>
-</li>
-      <li><a href="api/dft.html#stormpy.dft.ParametricDFTElement">ParametricDFTElement (class in stormpy.dft)</a>
 </li>
       <li><a href="api/core.html#stormpy.ParametricSparseMatrix">ParametricSparseMatrix (class in stormpy)</a>
 
@@ -2591,6 +2683,8 @@
 </li>
       <li><a href="api/pars.html#stormpy.pars.PCtmcInstantiator">PCtmcInstantiator (class in stormpy.pars)</a>
 </li>
+      <li><a href="api/dft.html#stormpy.dft.DFTElementType.PDEP">PDEP (DFTElementType attribute)</a>
+</li>
       <li><a href="api/pars.html#stormpy.pars.PDtmcExactInstantiationChecker">PDtmcExactInstantiationChecker (class in stormpy.pars)</a>
 </li>
       <li><a href="api/pars.html#stormpy.pars.PDtmcInstantiationChecker">PDtmcInstantiationChecker (class in stormpy.pars)</a>
@@ -2640,6 +2734,8 @@
 </li>
       </ul></li>
       <li><a href="api/utility.html#stormpy.utility.SmtSolver.pop">pop() (SmtSolver method)</a>
+</li>
+      <li><a href="api/dft.html#stormpy.dft.DFTElementType.POR">POR (DFTElementType attribute)</a>
 </li>
       <li><a href="api/core.html#stormpy.OperatorType.Power">Power (OperatorType attribute)</a>, <a href="api/storage.html#stormpy.storage.OperatorType.Power">[1]</a>
 </li>
@@ -2785,6 +2881,14 @@
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/dft.html#stormpy.dft.DFTSimulator_double.random_step">random_step() (DFTSimulator_double method)</a>
+
+      <ul>
+        <li><a href="api/dft.html#stormpy.dft.DFTSimulator_ratfunc.random_step">(DFTSimulator_ratfunc method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/dft.html#stormpy.dft.RandomGenerator">RandomGenerator (class in stormpy.dft)</a>
+</li>
       <li><a href="api/core.html#stormpy.Variable.rank">rank (Variable property)</a>
 </li>
       <li><a href="api/core.html#stormpy.JaniEdge.rate">rate (JaniEdge property)</a>, <a href="api/storage.html#stormpy.storage.JaniEdge.rate">[1]</a>
@@ -2833,10 +2937,10 @@
 </li>
       <li><a href="api/gspn.html#stormpy.gspn.Transition.remove_inhibition_arc">remove_inhibition_arc() (Transition method)</a>
 </li>
-      <li><a href="api/gspn.html#stormpy.gspn.Transition.remove_input_arc">remove_input_arc() (Transition method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/gspn.html#stormpy.gspn.Transition.remove_input_arc">remove_input_arc() (Transition method)</a>
+</li>
       <li><a href="api/core.html#stormpy.OperatorFormula.remove_optimality_type">remove_optimality_type() (OperatorFormula method)</a>, <a href="api/logic.html#stormpy.logic.OperatorFormula.remove_optimality_type">[1]</a>
 </li>
       <li><a href="api/gspn.html#stormpy.gspn.Transition.remove_output_arc">remove_output_arc() (Transition method)</a>
@@ -2851,8 +2955,14 @@
         <li><a href="api/core.html#stormpy.SparseMatrixBuilder.replace_columns">(SparseMatrixBuilder method)</a>, <a href="api/storage.html#stormpy.storage.SparseMatrixBuilder.replace_columns">[1]</a>
 </li>
       </ul></li>
-      <li><a href="api/utility.html#stormpy.utility.SmtSolver.reset">reset() (SmtSolver method)</a>
+      <li><a href="api/dft.html#stormpy.dft.DFTSimulator_double.reset">reset() (DFTSimulator_double method)</a>
+
+      <ul>
+        <li><a href="api/dft.html#stormpy.dft.DFTSimulator_ratfunc.reset">(DFTSimulator_ratfunc method)</a>
 </li>
+        <li><a href="api/utility.html#stormpy.utility.SmtSolver.reset">(SmtSolver method)</a>
+</li>
+      </ul></li>
       <li><a href="api/core.html#stormpy.reset_timeout">reset_timeout() (in module stormpy)</a>
 </li>
       <li><a href="api/core.html#stormpy.PrismProgram.restrict_commands">restrict_commands() (PrismProgram method)</a>, <a href="api/storage.html#stormpy.storage.PrismProgram.restrict_commands">[1]</a>
@@ -2925,6 +3035,8 @@
         <li><a href="api/storage.html#stormpy.storage.SchedulerExact">(class in stormpy.storage)</a>
 </li>
       </ul></li>
+      <li><a href="api/dft.html#stormpy.dft.DFTElementType.SEQ">SEQ (DFTElementType attribute)</a>
+</li>
       <li><a href="api/core.html#stormpy.BitVector.set">set() (BitVector method)</a>, <a href="api/storage.html#stormpy.storage.BitVector.set">[1]</a>
 </li>
       <li><a href="api/core.html#stormpy.BuilderOptions.set_add_out_of_bounds_state">set_add_out_of_bounds_state() (BuilderOptions method)</a>
@@ -3009,6 +3121,12 @@
       </ul></li>
       <li><a href="api/gspn.html#stormpy.gspn.TimedTransition.set_rate">set_rate() (TimedTransition method)</a>
 </li>
+      <li><a href="api/dft.html#stormpy.dft.DFT.set_relevant_events">set_relevant_events() (DFT method)</a>
+
+      <ul>
+        <li><a href="api/dft.html#stormpy.dft.ParametricDFT.set_relevant_events">(ParametricDFT method)</a>
+</li>
+      </ul></li>
       <li><a href="api/core.html#stormpy.set_settings">set_settings() (in module stormpy)</a>
 </li>
       <li><a href="api/gspn.html#stormpy.gspn.TimedTransition.set_single_server_semantics">set_single_server_semantics() (TimedTransition method)</a>
@@ -3063,6 +3181,14 @@
       </ul></li>
       <li><a href="api/pars.html#stormpy.pars.simplify_model">simplify_model() (in module stormpy.pars)</a>
 </li>
+      <li><a href="api/dft.html#stormpy.dft.DFTSimulator_double.simulate_trace">simulate_trace() (DFTSimulator_double method)</a>
+
+      <ul>
+        <li><a href="api/dft.html#stormpy.dft.DFTSimulator_ratfunc.simulate_trace">(DFTSimulator_ratfunc method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/dft.html#stormpy.dft.SimulationResult">SimulationResult (class in stormpy.dft)</a>
+</li>
       <li><a href="api/core.html#stormpy.EndComponentEliminatorReturnTypeDouble.sink_rows">sink_rows (EndComponentEliminatorReturnTypeDouble property)</a>
 </li>
       <li><a href="api/core.html#stormpy.BitVector.size">size() (BitVector method)</a>, <a href="api/storage.html#stormpy.storage.BitVector.size">[1]</a>
@@ -3097,6 +3223,14 @@
       </ul></li>
       <li><a href="api/core.html#stormpy.JaniEdge.source_location_index">source_location_index (JaniEdge property)</a>, <a href="api/storage.html#stormpy.storage.JaniEdge.source_location_index">[1]</a>
 </li>
+      <li><a href="api/dft.html#stormpy.dft.DFTElementType.SPARE">SPARE (DFTElementType attribute)</a>
+</li>
+      <li><a href="api/dft.html#stormpy.dft.DFTState_double.spare_uses">spare_uses() (DFTState_double method)</a>
+
+      <ul>
+        <li><a href="api/dft.html#stormpy.dft.DFTState_ratfunc.spare_uses">(DFTState_ratfunc method)</a>
+</li>
+      </ul></li>
       <li><a href="api/core.html#stormpy.QuotientFormat.SPARSE">SPARSE (QuotientFormat attribute)</a>
 </li>
       <li><a href="api/core.html#stormpy.SparseCtmc">SparseCtmc (class in stormpy)</a>
@@ -3213,14 +3347,14 @@
         <li><a href="api/storage.html#stormpy.storage.SparseMdp">(class in stormpy.storage)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core.html#stormpy.SparseModelAction">SparseModelAction (class in stormpy)</a>
 
       <ul>
         <li><a href="api/storage.html#stormpy.storage.SparseModelAction">(class in stormpy.storage)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core.html#stormpy.SparseModelActions">SparseModelActions (class in stormpy)</a>
 
       <ul>
@@ -3331,6 +3465,12 @@
       </ul></li>
       <li><a href="api/core.html#stormpy.JaniInformationObject.state_domain_size">state_domain_size (JaniInformationObject property)</a>, <a href="api/storage.html#stormpy.storage.JaniInformationObject.state_domain_size">[1]</a>
 </li>
+      <li><a href="api/dft.html#stormpy.dft.DFT.state_generation_info">state_generation_info() (DFT method)</a>
+
+      <ul>
+        <li><a href="api/dft.html#stormpy.dft.ParametricDFT.state_generation_info">(ParametricDFT method)</a>
+</li>
+      </ul></li>
       <li><a href="api/core.html#stormpy.SparseExactModelComponents.state_labeling">state_labeling (SparseExactModelComponents property)</a>, <a href="api/storage.html#stormpy.storage.SparseExactModelComponents.state_labeling">[1]</a>
 
       <ul>
@@ -3375,6 +3515,12 @@
 
       <ul>
         <li><a href="api/storage.html#stormpy.storage.StateValuationsBuilder">(class in stormpy.storage)</a>
+</li>
+      </ul></li>
+      <li><a href="api/dft.html#stormpy.dft.DFTSimulator_double.step">step() (DFTSimulator_double method)</a>
+
+      <ul>
+        <li><a href="api/dft.html#stormpy.dft.DFTSimulator_ratfunc.step">(DFTSimulator_ratfunc method)</a>
 </li>
       </ul></li>
       <li><a href="api/core.html#stormpy.BitVector.store_as_string">store_as_string() (BitVector method)</a>, <a href="api/storage.html#stormpy.storage.BitVector.store_as_string">[1]</a>
@@ -3504,6 +3650,8 @@
 </li>
       <li><a href="api/core.html#stormpy.SubsystemBuilderReturnTypeRatFunc">SubsystemBuilderReturnTypeRatFunc (class in stormpy)</a>
 </li>
+      <li><a href="api/dft.html#stormpy.dft.SimulationResult.SUCCESSFUL">SUCCESSFUL (SimulationResult attribute)</a>
+</li>
       <li><a href="api/core.html#stormpy.SymbolicExactQuantitativeCheckResult">SymbolicExactQuantitativeCheckResult (class in stormpy)</a>
 </li>
       <li><a href="api/core.html#stormpy.SymbolicModelDescription">SymbolicModelDescription (class in stormpy)</a>
@@ -3626,8 +3774,14 @@
         <li><a href="api/core.html#stormpy.RationalFunction.to_smt2">(RationalFunction method)</a>
 </li>
       </ul></li>
-      <li><a href="api/core.html#stormpy.DiceStringVisitor.to_string">to_string() (DiceStringVisitor method)</a>, <a href="api/storage.html#stormpy.storage.DiceStringVisitor.to_string">[1]</a>
+      <li><a href="api/dft.html#stormpy.dft.DFTState_double.to_string">to_string() (DFTState_double method)</a>
+
+      <ul>
+        <li><a href="api/dft.html#stormpy.dft.DFTState_ratfunc.to_string">(DFTState_ratfunc method)</a>
 </li>
+        <li><a href="api/core.html#stormpy.DiceStringVisitor.to_string">(DiceStringVisitor method)</a>, <a href="api/storage.html#stormpy.storage.DiceStringVisitor.to_string">[1]</a>
+</li>
+      </ul></li>
       <li><a href="api/dft.html#stormpy.dft.DFT.top_level_element">top_level_element (DFT property)</a>
 
       <ul>
@@ -3693,6 +3847,10 @@
       <li><a href="api/core.html#stormpy.DdMetaVariable_Sylvan.type">type (DdMetaVariable_Sylvan property)</a>, <a href="api/storage.html#stormpy.storage.DdMetaVariable_Sylvan.type">[1]</a>
 
       <ul>
+        <li><a href="api/dft.html#stormpy.dft.DFTElement_double.type">(DFTElement_double property)</a>
+</li>
+        <li><a href="api/dft.html#stormpy.dft.DFTElement_ratfunc.type">(DFTElement_ratfunc property)</a>
+</li>
         <li><a href="api/core.html#stormpy.Expression.type">(Expression property)</a>, <a href="api/storage.html#stormpy.storage.Expression.type">[1]</a>
 </li>
         <li><a href="api/core.html#stormpy.JaniConstant.type">(JaniConstant property)</a>, <a href="api/storage.html#stormpy.storage.JaniConstant.type">[1]</a>
@@ -3738,17 +3896,19 @@
         <li><a href="api/core.html#stormpy.PrismProgram.undefined_constants_are_graph_preserving">(PrismProgram property)</a>, <a href="api/storage.html#stormpy.storage.PrismProgram.undefined_constants_are_graph_preserving">[1]</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/pars.html#stormpy.pars.RegionResult.UNKNOWN">UNKNOWN (RegionResult attribute)</a>
 
       <ul>
         <li><a href="api/pars.html#stormpy.pars.RegionResultHypothesis.UNKNOWN">(RegionResultHypothesis attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/utility.html#stormpy.utility.SmtCheckResult.Unknown">Unknown (SmtCheckResult attribute)</a>
 </li>
       <li><a href="api/utility.html#stormpy.utility.SmtCheckResult.Unsat">Unsat (SmtCheckResult attribute)</a>
+</li>
+      <li><a href="api/dft.html#stormpy.dft.SimulationResult.UNSUCCESSFUL">UNSUCCESSFUL (SimulationResult attribute)</a>
 </li>
       <li><a href="api/core.html#stormpy.UntilFormula">UntilFormula (class in stormpy)</a>
 
@@ -3805,6 +3965,8 @@
 </li>
       </ul></li>
       <li><a href="api/info.html#stormpy.info.Version">Version (class in stormpy.info)</a>
+</li>
+      <li><a href="api/dft.html#stormpy.dft.DFTElementType.VOT">VOT (DFTElementType attribute)</a>
 </li>
   </ul></td>
 </tr></table>
