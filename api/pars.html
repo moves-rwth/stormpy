@@ -257,29 +257,47 @@
 <dt class="sig sig-object py" id="stormpy.pars.ModelType">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ModelType</span></span><a class="headerlink" href="#stormpy.pars.ModelType" title="Permalink to this definition">¶</a></dt>
 <dd><p>Type of the model</p>
+<p>Members:</p>
+<blockquote>
+<div><p>DTMC</p>
+<p>MDP</p>
+<p>POMDP</p>
+<p>CTMC</p>
+<p>MA</p>
+</div></blockquote>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="stormpy.pars.ModelType.CTMC">
-<span class="sig-name descname"><span class="pre">CTMC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">ModelType.CTMC</span></em><a class="headerlink" href="#stormpy.pars.ModelType.CTMC" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">CTMC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ModelType.CTMC:</span> <span class="pre">1&gt;</span></em><a class="headerlink" href="#stormpy.pars.ModelType.CTMC" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="stormpy.pars.ModelType.DTMC">
-<span class="sig-name descname"><span class="pre">DTMC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">ModelType.DTMC</span></em><a class="headerlink" href="#stormpy.pars.ModelType.DTMC" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">DTMC</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ModelType.DTMC:</span> <span class="pre">0&gt;</span></em><a class="headerlink" href="#stormpy.pars.ModelType.DTMC" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="stormpy.pars.ModelType.MA">
-<span class="sig-name descname"><span class="pre">MA</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">ModelType.MA</span></em><a class="headerlink" href="#stormpy.pars.ModelType.MA" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">MA</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ModelType.MA:</span> <span class="pre">3&gt;</span></em><a class="headerlink" href="#stormpy.pars.ModelType.MA" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="stormpy.pars.ModelType.MDP">
-<span class="sig-name descname"><span class="pre">MDP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">ModelType.MDP</span></em><a class="headerlink" href="#stormpy.pars.ModelType.MDP" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">MDP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ModelType.MDP:</span> <span class="pre">2&gt;</span></em><a class="headerlink" href="#stormpy.pars.ModelType.MDP" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="stormpy.pars.ModelType.POMDP">
-<span class="sig-name descname"><span class="pre">POMDP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">ModelType.POMDP</span></em><a class="headerlink" href="#stormpy.pars.ModelType.POMDP" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">POMDP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;ModelType.POMDP:</span> <span class="pre">5&gt;</span></em><a class="headerlink" href="#stormpy.pars.ModelType.POMDP" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.pars.ModelType.name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#stormpy.pars.ModelType.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.pars.ModelType.value">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><a class="headerlink" href="#stormpy.pars.ModelType.value" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -295,7 +313,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.pars.PCtmcExactInstantiationChecker.set_graph_preserving">
-<span class="sig-name descname"><span class="pre">set_graph_preserving</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">stormpy.pars.pars._PCtmcExactInstantiationCheckerBase</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#stormpy.pars.PCtmcExactInstantiationChecker.set_graph_preserving" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">set_graph_preserving</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pars.PCtmcExactInstantiationChecker" title="stormpy.pars.pars.PCtmcExactInstantiationChecker"><span class="pre">stormpy.pars.pars.PCtmcExactInstantiationChecker</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#stormpy.pars.PCtmcExactInstantiationChecker.set_graph_preserving" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -311,7 +329,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.pars.PCtmcInstantiationChecker.set_graph_preserving">
-<span class="sig-name descname"><span class="pre">set_graph_preserving</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">stormpy.pars.pars._PCtmcInstantiationCheckerBase</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#stormpy.pars.PCtmcInstantiationChecker.set_graph_preserving" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">set_graph_preserving</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pars.PCtmcInstantiationChecker" title="stormpy.pars.pars.PCtmcInstantiationChecker"><span class="pre">stormpy.pars.pars.PCtmcInstantiationChecker</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#stormpy.pars.PCtmcInstantiationChecker.set_graph_preserving" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -339,7 +357,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.pars.PDtmcExactInstantiationChecker.set_graph_preserving">
-<span class="sig-name descname"><span class="pre">set_graph_preserving</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">stormpy.pars.pars._PDtmcExactInstantiationCheckerBase</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#stormpy.pars.PDtmcExactInstantiationChecker.set_graph_preserving" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">set_graph_preserving</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pars.PDtmcExactInstantiationChecker" title="stormpy.pars.pars.PDtmcExactInstantiationChecker"><span class="pre">stormpy.pars.pars.PDtmcExactInstantiationChecker</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#stormpy.pars.PDtmcExactInstantiationChecker.set_graph_preserving" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -355,7 +373,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.pars.PDtmcInstantiationChecker.set_graph_preserving">
-<span class="sig-name descname"><span class="pre">set_graph_preserving</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">stormpy.pars.pars._PDtmcInstantiationCheckerBase</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#stormpy.pars.PDtmcInstantiationChecker.set_graph_preserving" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">set_graph_preserving</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pars.PDtmcInstantiationChecker" title="stormpy.pars.pars.PDtmcInstantiationChecker"><span class="pre">stormpy.pars.pars.PDtmcInstantiationChecker</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#stormpy.pars.PDtmcInstantiationChecker.set_graph_preserving" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -395,7 +413,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.pars.PMdpExactInstantiationChecker.set_graph_preserving">
-<span class="sig-name descname"><span class="pre">set_graph_preserving</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">stormpy.pars.pars._PMdpExactInstantiationCheckerBase</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#stormpy.pars.PMdpExactInstantiationChecker.set_graph_preserving" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">set_graph_preserving</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pars.PMdpExactInstantiationChecker" title="stormpy.pars.pars.PMdpExactInstantiationChecker"><span class="pre">stormpy.pars.pars.PMdpExactInstantiationChecker</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#stormpy.pars.PMdpExactInstantiationChecker.set_graph_preserving" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -411,7 +429,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.pars.PMdpInstantiationChecker.set_graph_preserving">
-<span class="sig-name descname"><span class="pre">set_graph_preserving</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">stormpy.pars.pars._PMdpInstantiationCheckerBase</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#stormpy.pars.PMdpInstantiationChecker.set_graph_preserving" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">set_graph_preserving</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pars.PMdpInstantiationChecker" title="stormpy.pars.pars.PMdpInstantiationChecker"><span class="pre">stormpy.pars.pars.PMdpInstantiationChecker</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#stormpy.pars.PMdpInstantiationChecker.set_graph_preserving" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -440,7 +458,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.pars.ParameterRegion.create_from_string">
-<span class="sig-name descname"><span class="pre">create_from_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variables</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="core.html#stormpy.Variable" title="pycarl.core.Variable"><span class="pre">pycarl.core.Variable</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">splitting_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#stormpy.pars.ParameterRegion" title="stormpy.pars.pars.ParameterRegion"><span class="pre">stormpy.pars.pars.ParameterRegion</span></a></span></span><a class="headerlink" href="#stormpy.pars.ParameterRegion.create_from_string" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_from_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variables</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="core.html#stormpy.Variable" title="pycarl.core.Variable"><span class="pre">pycarl.core.Variable</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">splitting_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#stormpy.pars.ParameterRegion" title="stormpy.pars.pars.ParameterRegion"><span class="pre">stormpy.pars.pars.ParameterRegion</span></a></span></span><a class="headerlink" href="#stormpy.pars.ParameterRegion.create_from_string" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create region from string</p>
 </dd></dl>
 
@@ -500,7 +518,7 @@
 <dd><p>Region model checker via paramater lifting</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.pars.RegionModelChecker.check_region">
-<span class="sig-name descname"><span class="pre">check_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pars.RegionModelChecker" title="stormpy.pars.pars.RegionModelChecker"><span class="pre">stormpy.pars.pars.RegionModelChecker</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="core.html#stormpy.Environment" title="stormpy.core.Environment"><span class="pre">stormpy.core.Environment</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pars.ParameterRegion" title="stormpy.pars.pars.ParameterRegion"><span class="pre">stormpy.pars.pars.ParameterRegion</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">hypothesis</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pars.RegionResultHypothesis" title="stormpy.pars.pars.RegionResultHypothesis"><span class="pre">stormpy.pars.pars.RegionResultHypothesis</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">RegionResultHypothesis.UNKNOWN</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initialResult</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pars.RegionResult" title="stormpy.pars.pars.RegionResult"><span class="pre">stormpy.pars.pars.RegionResult</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">RegionResult.UNKNOWN</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampleVertices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#stormpy.pars.RegionResult" title="stormpy.pars.pars.RegionResult"><span class="pre">stormpy.pars.pars.RegionResult</span></a></span></span><a class="headerlink" href="#stormpy.pars.RegionModelChecker.check_region" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">check_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.pars.pars.RegionModelChecker</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">environment:</span> <span class="pre">stormpy.core.Environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region:</span> <span class="pre">stormpy.pars.pars.ParameterRegion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hypothesis:</span> <span class="pre">stormpy.pars.pars.RegionResultHypothesis</span> <span class="pre">=</span> <span class="pre">&lt;RegionResultHypothesis.UNKNOWN:</span> <span class="pre">0&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initialResult:</span> <span class="pre">stormpy.pars.pars.RegionResult</span> <span class="pre">=</span> <span class="pre">&lt;RegionResult.UNKNOWN:</span> <span class="pre">0&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampleVertices:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#stormpy.pars.RegionResult" title="stormpy.pars.pars.RegionResult"><span class="pre">stormpy.pars.pars.RegionResult</span></a></span></span><a class="headerlink" href="#stormpy.pars.RegionModelChecker.check_region" title="Permalink to this definition">¶</a></dt>
 <dd><p>Check region</p>
 </dd></dl>
 
@@ -528,44 +546,71 @@
 <dt class="sig sig-object py" id="stormpy.pars.RegionResult">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">RegionResult</span></span><a class="headerlink" href="#stormpy.pars.RegionResult" title="Permalink to this definition">¶</a></dt>
 <dd><p>Types of region check results</p>
+<p>Members:</p>
+<blockquote>
+<div><p>EXISTSSAT</p>
+<p>EXISTSVIOLATED</p>
+<p>EXISTSBOTH</p>
+<p>CENTERSAT</p>
+<p>CENTERVIOLATED</p>
+<p>ALLSAT</p>
+<p>ALLVIOLATED</p>
+<p>UNKNOWN</p>
+</div></blockquote>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="stormpy.pars.RegionResult.ALLSAT">
-<span class="sig-name descname"><span class="pre">ALLSAT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">RegionResult.ALLSAT</span></em><a class="headerlink" href="#stormpy.pars.RegionResult.ALLSAT" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">ALLSAT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;RegionResult.ALLSAT:</span> <span class="pre">6&gt;</span></em><a class="headerlink" href="#stormpy.pars.RegionResult.ALLSAT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="stormpy.pars.RegionResult.ALLVIOLATED">
-<span class="sig-name descname"><span class="pre">ALLVIOLATED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">RegionResult.ALLVIOLATED</span></em><a class="headerlink" href="#stormpy.pars.RegionResult.ALLVIOLATED" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">ALLVIOLATED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;RegionResult.ALLVIOLATED:</span> <span class="pre">7&gt;</span></em><a class="headerlink" href="#stormpy.pars.RegionResult.ALLVIOLATED" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="stormpy.pars.RegionResult.CENTERSAT">
-<span class="sig-name descname"><span class="pre">CENTERSAT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">RegionResult.CENTERSAT</span></em><a class="headerlink" href="#stormpy.pars.RegionResult.CENTERSAT" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">CENTERSAT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;RegionResult.CENTERSAT:</span> <span class="pre">3&gt;</span></em><a class="headerlink" href="#stormpy.pars.RegionResult.CENTERSAT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="stormpy.pars.RegionResult.CENTERVIOLATED">
-<span class="sig-name descname"><span class="pre">CENTERVIOLATED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">RegionResult.CENTERVIOLATED</span></em><a class="headerlink" href="#stormpy.pars.RegionResult.CENTERVIOLATED" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">CENTERVIOLATED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;RegionResult.CENTERVIOLATED:</span> <span class="pre">4&gt;</span></em><a class="headerlink" href="#stormpy.pars.RegionResult.CENTERVIOLATED" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="stormpy.pars.RegionResult.EXISTSBOTH">
-<span class="sig-name descname"><span class="pre">EXISTSBOTH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">RegionResult.EXISTSBOTH</span></em><a class="headerlink" href="#stormpy.pars.RegionResult.EXISTSBOTH" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">EXISTSBOTH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;RegionResult.EXISTSBOTH:</span> <span class="pre">5&gt;</span></em><a class="headerlink" href="#stormpy.pars.RegionResult.EXISTSBOTH" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="stormpy.pars.RegionResult.EXISTSSAT">
-<span class="sig-name descname"><span class="pre">EXISTSSAT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">RegionResult.EXISTSSAT</span></em><a class="headerlink" href="#stormpy.pars.RegionResult.EXISTSSAT" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">EXISTSSAT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;RegionResult.EXISTSSAT:</span> <span class="pre">1&gt;</span></em><a class="headerlink" href="#stormpy.pars.RegionResult.EXISTSSAT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="stormpy.pars.RegionResult.EXISTSVIOLATED">
-<span class="sig-name descname"><span class="pre">EXISTSVIOLATED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">RegionResult.EXISTSVIOLATED</span></em><a class="headerlink" href="#stormpy.pars.RegionResult.EXISTSVIOLATED" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">EXISTSVIOLATED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;RegionResult.EXISTSVIOLATED:</span> <span class="pre">2&gt;</span></em><a class="headerlink" href="#stormpy.pars.RegionResult.EXISTSVIOLATED" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="stormpy.pars.RegionResult.UNKNOWN">
-<span class="sig-name descname"><span class="pre">UNKNOWN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">RegionResult.UNKNOWN</span></em><a class="headerlink" href="#stormpy.pars.RegionResult.UNKNOWN" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">UNKNOWN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;RegionResult.UNKNOWN:</span> <span class="pre">0&gt;</span></em><a class="headerlink" href="#stormpy.pars.RegionResult.UNKNOWN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.pars.RegionResult.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pars.RegionResult.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>__str__(<a href="#id1"><span class="problematic" id="id2">*</span></a>args, <a href="#id3"><span class="problematic" id="id4">**</span></a>kwargs)
+Overloaded function.</p>
+<ol class="arabic simple">
+<li><p>__str__(self: handle) -&gt; str</p></li>
+<li><p>__str__(self: stormpy.pars.pars.RegionResult) -&gt; str</p></li>
+</ol>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.pars.RegionResult.value">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><a class="headerlink" href="#stormpy.pars.RegionResult.value" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -574,19 +619,41 @@
 <dt class="sig sig-object py" id="stormpy.pars.RegionResultHypothesis">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">RegionResultHypothesis</span></span><a class="headerlink" href="#stormpy.pars.RegionResultHypothesis" title="Permalink to this definition">¶</a></dt>
 <dd><p>Hypothesis for the result of a parameter region</p>
+<p>Members:</p>
+<blockquote>
+<div><p>UNKNOWN</p>
+<p>ALLSAT</p>
+<p>ALLVIOLATED</p>
+</div></blockquote>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="stormpy.pars.RegionResultHypothesis.ALLSAT">
-<span class="sig-name descname"><span class="pre">ALLSAT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">RegionResultHypothesis.ALLSAT</span></em><a class="headerlink" href="#stormpy.pars.RegionResultHypothesis.ALLSAT" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">ALLSAT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;RegionResultHypothesis.ALLSAT:</span> <span class="pre">1&gt;</span></em><a class="headerlink" href="#stormpy.pars.RegionResultHypothesis.ALLSAT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="stormpy.pars.RegionResultHypothesis.ALLVIOLATED">
-<span class="sig-name descname"><span class="pre">ALLVIOLATED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">RegionResultHypothesis.ALLVIOLATED</span></em><a class="headerlink" href="#stormpy.pars.RegionResultHypothesis.ALLVIOLATED" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">ALLVIOLATED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;RegionResultHypothesis.ALLVIOLATED:</span> <span class="pre">2&gt;</span></em><a class="headerlink" href="#stormpy.pars.RegionResultHypothesis.ALLVIOLATED" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="stormpy.pars.RegionResultHypothesis.UNKNOWN">
-<span class="sig-name descname"><span class="pre">UNKNOWN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">RegionResultHypothesis.UNKNOWN</span></em><a class="headerlink" href="#stormpy.pars.RegionResultHypothesis.UNKNOWN" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">UNKNOWN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;RegionResultHypothesis.UNKNOWN:</span> <span class="pre">0&gt;</span></em><a class="headerlink" href="#stormpy.pars.RegionResultHypothesis.UNKNOWN" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.pars.RegionResultHypothesis.name">
+<span class="sig-name descname"><span class="pre">name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pars.RegionResultHypothesis.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>__str__(<a href="#id5"><span class="problematic" id="id6">*</span></a>args, <a href="#id7"><span class="problematic" id="id8">**</span></a>kwargs)
+Overloaded function.</p>
+<ol class="arabic simple">
+<li><p>__str__(self: handle) -&gt; str</p></li>
+<li><p>__str__(self: stormpy.pars.pars.RegionResultHypothesis) -&gt; str</p></li>
+</ol>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.pars.RegionResultHypothesis.value">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><a class="headerlink" href="#stormpy.pars.RegionResultHypothesis.value" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

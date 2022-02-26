@@ -235,14 +235,27 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="stormpy.utility.MatrixFormat">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MatrixFormat</span></span><a class="headerlink" href="#stormpy.utility.MatrixFormat" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="py attribute">
+<dd><p>Members:</p>
+<p>Straight</p>
+<p>I_Minus_P</p>
+<dl class="py attribute">
 <dt class="sig sig-object py" id="stormpy.utility.MatrixFormat.I_Minus_P">
-<span class="sig-name descname"><span class="pre">I_Minus_P</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">MatrixFormat.I_Minus_P</span></em><a class="headerlink" href="#stormpy.utility.MatrixFormat.I_Minus_P" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">I_Minus_P</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;MatrixFormat.I_Minus_P:</span> <span class="pre">1&gt;</span></em><a class="headerlink" href="#stormpy.utility.MatrixFormat.I_Minus_P" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="stormpy.utility.MatrixFormat.Straight">
-<span class="sig-name descname"><span class="pre">Straight</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">MatrixFormat.Straight</span></em><a class="headerlink" href="#stormpy.utility.MatrixFormat.Straight" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">Straight</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;MatrixFormat.Straight:</span> <span class="pre">0&gt;</span></em><a class="headerlink" href="#stormpy.utility.MatrixFormat.Straight" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.utility.MatrixFormat.name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#stormpy.utility.MatrixFormat.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.utility.MatrixFormat.value">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><a class="headerlink" href="#stormpy.utility.MatrixFormat.value" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -315,19 +328,35 @@
 <dt class="sig sig-object py" id="stormpy.utility.SmtCheckResult">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SmtCheckResult</span></span><a class="headerlink" href="#stormpy.utility.SmtCheckResult" title="Permalink to this definition">¶</a></dt>
 <dd><p>Result type</p>
+<p>Members:</p>
+<blockquote>
+<div><p>Sat</p>
+<p>Unsat</p>
+<p>Unknown</p>
+</div></blockquote>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="stormpy.utility.SmtCheckResult.Sat">
-<span class="sig-name descname"><span class="pre">Sat</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">SmtCheckResult.Sat</span></em><a class="headerlink" href="#stormpy.utility.SmtCheckResult.Sat" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">Sat</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;SmtCheckResult.Sat:</span> <span class="pre">0&gt;</span></em><a class="headerlink" href="#stormpy.utility.SmtCheckResult.Sat" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="stormpy.utility.SmtCheckResult.Unknown">
-<span class="sig-name descname"><span class="pre">Unknown</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">SmtCheckResult.Unknown</span></em><a class="headerlink" href="#stormpy.utility.SmtCheckResult.Unknown" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">Unknown</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;SmtCheckResult.Unknown:</span> <span class="pre">2&gt;</span></em><a class="headerlink" href="#stormpy.utility.SmtCheckResult.Unknown" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="stormpy.utility.SmtCheckResult.Unsat">
-<span class="sig-name descname"><span class="pre">Unsat</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">SmtCheckResult.Unsat</span></em><a class="headerlink" href="#stormpy.utility.SmtCheckResult.Unsat" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">Unsat</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;SmtCheckResult.Unsat:</span> <span class="pre">1&gt;</span></em><a class="headerlink" href="#stormpy.utility.SmtCheckResult.Unsat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.utility.SmtCheckResult.name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#stormpy.utility.SmtCheckResult.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.utility.SmtCheckResult.value">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><a class="headerlink" href="#stormpy.utility.SmtCheckResult.value" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
