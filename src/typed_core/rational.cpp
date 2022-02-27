@@ -12,21 +12,17 @@ void define_cln_rational(py::module& m) {
 #ifdef PYCARL_USE_CLN
     py::class_<cln::cl_RA>(m, "Rational", "Class wrapping cln-rational numbers")
         .def(py::init([](double val) { return carl::rationalize<cln::cl_RA>(val); }))
-        .def("__init__", [](cln::cl_RA &instance, carl::sint val) -> void { auto tmp = carl::rationalize<cln::cl_RA>(val); new (&instance) cln::cl_RA(tmp); })
-        .def("__init__", [](cln::cl_RA &instance, const cln::cl_I& numerator, const cln::cl_I& denominator) -> void { new (&instance) cln::cl_RA(cln::cl_RA(numerator)/cln::cl_RA(denominator)); })
-        .def("__init__", [](cln::cl_RA &instance, const std::string& val) -> void {
+        .def(py::init([](carl::sint val) { return carl::rationalize<cln::cl_RA>(val); }))
+        .def(py::init([](const cln::cl_I& numerator, const cln::cl_I& denominator) { return cln::cl_RA(numerator)/cln::cl_RA(denominator); }))
+        .def(py::init([](const std::string& val) {
                 cln::cl_RA tmp;
                 bool suc = carl::try_parse<cln::cl_RA>(val, tmp);
                 if(!suc) {
                    throw std::invalid_argument("Cannot translate " + val + " into a rational.");
                 }
-                new (&instance) cln::cl_RA(tmp);
-            })
-        .def("__init__", [](cln::cl_RA &instance, mpq_class const& val) -> void {
-                auto tmp = carl::convert<mpq_class, cln::cl_RA>(val);
-                new (&instance) cln::cl_RA(tmp);
-            })
-
+                return tmp;
+            }))
+        .def(py::init(&carl::convert<mpq_class, cln::cl_RA>))
 
         .def("__add__", [](const cln::cl_RA& lhs, const cln::cl_RA& rhs) -> cln::cl_RA { return lhs + rhs; })
         .def("__add__", [](const cln::cl_RA& lhs, carl::sint rhs) -> cln::cl_RA { return lhs + carl::rationalize<cln::cl_RA>(rhs); })
@@ -139,17 +135,21 @@ void define_cln_rational(py::module& m) {
 void define_gmp_rational(py::module& m) {
 #ifndef PYCARL_USE_CLN
     py::class_<mpq_class>(m, "Rational", "Class wrapping gmp-rational numbers")
-        .def("__init__", [](mpq_class &instance, double val) -> void { auto tmp = carl::rationalize<mpq_class>(val); new (&instance) mpq_class(tmp); })
-        .def("__init__", [](mpq_class &instance, carl::sint val) -> void { auto tmp = carl::rationalize<mpq_class>(val); new (&instance) mpq_class(tmp); })
-        .def("__init__", [](mpq_class &instance, const mpz_class& numerator, const mpz_class& denominator) -> void { new (&instance) mpq_class(mpq_class(numerator)/mpq_class(denominator)); })
-        .def("__init__", [](mpq_class &instance, const std::string& val) -> void {
+        .def(py::init([](double val) { return carl::rationalize<mpq_class>(val); }))
+        .def(py::init([](carl::sint val) { return carl::rationalize<mpq_class>(val); }))
+        .def(py::init<const mpz_class&, const mpz_class&>())
+        .def(py::init([](const std::string& val) {
                 mpq_class tmp;
                 bool suc = carl::try_parse<mpq_class>(val, tmp);
                 if(!suc) {
                     throw std::invalid_argument("Cannot translate " + val + " into a rational.");
                 }
-                new (&instance) mpq_class(tmp);
-            })
+                return tmp;
+            }))
+#ifdef PYCARL_HAS_CLN
+        .def(py::init(&carl::convert<cln::cl_RA, mpq_class>))
+#endif
+
         .def("__add__", [](const mpq_class& lhs, const mpq_class& rhs) -> mpq_class { return lhs + rhs; })
         .def("__add__", [](const mpq_class& lhs, carl::sint rhs) -> mpq_class { return lhs + carl::rationalize<mpq_class>(rhs); })
         .def("__radd__", [](const mpq_class& rhs, carl::sint lhs) -> mpq_class { return carl::rationalize<mpq_class>(lhs) + rhs; })

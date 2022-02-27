@@ -12,13 +12,13 @@ void define_cln_integer(py::module& m) {
     py::class_<cln::cl_I>(m, "Integer", "Class wrapping cln-integers")
         .def(py::init<int>())
         .def(py::init([](std::string const& val) {
-            cln::cl_I tmp;
-            bool suc = carl::try_parse<cln::cl_I>(val, tmp);
-            if(!suc) {
-                throw std::invalid_argument("Cannot translate " + val + " into an integer.");
-            }
-            return tmp; }
-            ))
+                cln::cl_I tmp;
+                bool suc = carl::try_parse<cln::cl_I>(val, tmp);
+                if(!suc) {
+                    throw std::invalid_argument("Cannot translate " + val + " into an integer.");
+                }
+                return tmp;
+            }))
         .def(py::init(&carl::convert<mpz_class, cln::cl_I>))
 
         .def(py::self + py::self)
@@ -80,16 +80,17 @@ void define_cln_integer(py::module& m) {
 void define_gmp_integer(py::module& m) {
 #ifndef PYCARL_USE_CLN
     py::class_<mpz_class>(m, "Integer", "Class wrapping gmp-integers")
-        .def("__init__", [](mpz_class &instance, int val) -> void { new (&instance) mpz_class(val); })
-        .def("__init__", [](mpz_class &instance, std::string const& val)  -> void {
-            mpz_class tmp;
-            bool suc = carl::try_parse<mpz_class>(val, tmp);
-            if(!suc) {
-                throw std::invalid_argument("Cannot translate " + val + " into an integer.");
-            }
-            new (&instance) mpz_class(tmp); })
+        .def(py::init<int>())
+        .def(py::init([](std::string const& val) {
+                mpz_class tmp;
+                bool suc = carl::try_parse<mpz_class>(val, tmp);
+                if(!suc) {
+                    throw std::invalid_argument("Cannot translate " + val + " into an integer.");
+                }
+                return tmp;
+            }))
 #ifdef PYCARL_HAS_CLN
-        .def("__init__", [](mpz_class &instance, cln::cl_I const& val) -> void { auto tmp = carl::convert<cln::cl_I, mpz_class>(val); new (&instance) mpz_class(tmp);})
+        .def(py::init(&carl::convert<cln::cl_I, mpz_class>))
 #endif
 
         .def("__add__", [](const mpz_class& lhs, const mpz_class& rhs) -> mpz_class { return lhs + rhs; })
