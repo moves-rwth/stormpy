@@ -3,6 +3,10 @@ Changelog
 
 Version 1.6.x
 -------------
+### Version 1.6.?
+- Developer: Storm is built with C++17
+- Developer: updated pybind11 to version 2.8.1 and adapted bindings accordingly
+
 ### Version 1.6.4 (2022/01)
 Requires storm version >= 1.6.4 and pycarl version >= 2.0.5
 
