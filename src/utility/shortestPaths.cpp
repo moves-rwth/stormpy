@@ -26,13 +26,13 @@ void define_ksp(py::module& m) {
 
     py::class_<Path>(m, "Path")
         // overload constructor rather than dealing with boost::optional
-        .def("__init__", [](Path &instance, state_t preNode, unsigned long preK, double distance) {
-                new (&instance) Path { boost::optional<state_t>(preNode), preK, distance };
-            }, "predecessorNode"_a, "predecessorK"_a, "distance"_a)
+        .def(py::init([](state_t preNode, unsigned long preK, double distance) {
+                return Path { boost::optional<state_t>(preNode), preK, distance };
+            }), "predecessorNode"_a, "predecessorK"_a, "distance"_a)
 
-        .def("__init__", [](Path &instance, unsigned long preK, double distance) {
-                new (&instance) Path { boost::none, preK, distance };
-            }, "predecessorK"_a, "distance"_a)
+        .def(py::init([](unsigned long preK, double distance) {
+                return Path { boost::none, preK, distance };
+            }), "predecessorK"_a, "distance"_a)
 
         .def(py::self == py::self, "Compares predecessor node and index, ignoring distance")
 

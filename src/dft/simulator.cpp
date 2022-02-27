@@ -37,9 +37,7 @@ void define_simulator_typed(py::module& m, std::string const& vt_suffix) {
 
     // Simulator for DFTs
     py::class_<Simulator<ValueType>, std::shared_ptr<Simulator<ValueType>>>(m, ("DFTSimulator"+vt_suffix).c_str(), "Simulator for DFT traces")
-        .def("__init__", [](Simulator<ValueType> &instance, storm::storage::DFT<ValueType> const& dft, DFTStateInfo const& stateInfo, RandomGenerator & randomGenerator) -> void {
-                new (&instance) Simulator<ValueType>(dft, stateInfo, randomGenerator);
-            }, py::keep_alive<1,2>(), py::keep_alive<1, 3>(), py::keep_alive<1,4>(), py::arg("dft"), py::arg("state_generation_info"), py::arg("generator"), "Create Simulator")
+        .def(py::init<storm::storage::DFT<ValueType> const&, DFTStateInfo const&, RandomGenerator&>(), py::keep_alive<1,2>(), py::keep_alive<1, 3>(), py::keep_alive<1,4>(), py::arg("dft"), py::arg("state_generation_info"), py::arg("generator"), "Create Simulator")
         .def("reset", &Simulator<ValueType>::resetToInitial, "Reset to initial state")
         .def("current", &Simulator<ValueType>::getCurrentState, "Get current state")
         .def("step", &Simulator<ValueType>::step, py::arg("next_failure"), py::arg("dependency_success") = true, "Perform simulation step according to next_failure. For PDEPs, dependency_success determines whether the PDEP was successful or not.")

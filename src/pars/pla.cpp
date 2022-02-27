@@ -73,15 +73,15 @@ void define_pla(py::module& m) {
 
     // Region
     py::class_<Region, std::shared_ptr<Region>>(m, "ParameterRegion", "Parameter region")
-        .def("__init__", [](Region &instance, std::map<Region::VariableType, std::pair<Region::CoefficientType, Region::CoefficientType>> valuation) -> void {
+        .def(py::init([](std::map<Region::VariableType, std::pair<Region::CoefficientType, Region::CoefficientType>> valuation) {
                 Region::Valuation lowerValuation;
                 Region::Valuation upperValuation;
                 for (auto const& val : valuation) {
                     lowerValuation[val.first] = val.second.first;
                     upperValuation[val.first] = val.second.second;
                 }
-                new (&instance) Region(lowerValuation, upperValuation);
-            }, "Create region from valuation of var -> (lower_bound, upper_bound)", py::arg("valuation"))
+                return Region(lowerValuation, upperValuation);
+            }), "Create region from valuation of var -> (lower_bound, upper_bound)", py::arg("valuation"))
         .def_static("create_from_string", [](std::string const& regionString, std::set<Region::VariableType> const& variables, boost::optional<int> splittingThreshold = boost::none) -> Region {
                 return storm::api::parseRegion<storm::RationalFunction>(regionString, variables, splittingThreshold);
             }, "Create region from string", py::arg("region_string"), py::arg("variables"), py::arg("splitting_threshold") = boost::none)
