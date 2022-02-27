@@ -115,14 +115,14 @@ void define_cln_rational(py::module& m) {
                 return carl::getDenom(val);
             })
 
-        .def("__getstate__", [](const cln::cl_RA& val) {
-                return std::pair<std::string, std::string>(carl::toString(carl::getNum(val)), carl::toString(carl::getDenom(val)));
-            })
-
-        .def("__setstate__", [](cln::cl_RA& val, std::pair<std::string, std::string> data) {
-                cln::cl_RA res = carl::parse<cln::cl_RA>(data.first) / carl::parse<cln::cl_RA>(data.second);
-                new (&val) cln::cl_RA(res);
-            })
+        .def(py::pickle(
+                [](const cln::cl_RA& val) {
+                    return std::pair<std::string, std::string>(carl::toString(carl::getNum(val)), carl::toString(carl::getDenom(val)));
+                },
+                [](std::pair<std::string, std::string> data) {
+                    return carl::parse<cln::cl_RA>(data.first) / carl::parse<cln::cl_RA>(data.second);
+                }
+            ))
         .def("__hash__", [](const cln::cl_RA& v) { std::hash<cln::cl_RA> h; return h(v);})
     ;
 
@@ -236,14 +236,14 @@ void define_gmp_rational(py::module& m) {
                 return carl::getDenom(val);
             })
 
-        .def("__getstate__", [](const mpq_class& val) {
-                return std::pair<std::string, std::string>(carl::toString(carl::getNum(val)), carl::toString(carl::getDenom(val)));
-            })
-
-        .def("__setstate__", [](mpq_class& val, std::pair<std::string, std::string> data) {
-                mpq_class res = carl::parse<mpq_class>(data.first) / carl::parse<mpq_class>(data.second);
-                new (&val) mpq_class(res);
-            })
+        .def(py::pickle(
+                [](const mpq_class& val) {
+                    return std::pair<std::string, std::string>(carl::toString(carl::getNum(val)), carl::toString(carl::getDenom(val)));
+                },
+                [](std::pair<std::string, std::string> data) {
+                    return carl::parse<mpq_class>(data.first) / carl::parse<mpq_class>(data.second);
+                }
+            ))
         .def("__hash__", [](const mpq_class& v) { std::hash<mpq_class> h; return h(v);})
     ;
 

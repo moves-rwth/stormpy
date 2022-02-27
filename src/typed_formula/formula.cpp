@@ -64,7 +64,13 @@ void define_formula(py::module& m) {
         .def("get_subformulas", &Formula::subformulas, "Get list of subformulas for n-ary formula")
         .def("get_constraint", &Formula::constraint, "Get constraint of constraint formula")
 
-        .def("__getstate__", [](const Formula& val) -> std::tuple<std::string> { throw NoPickling(); })
-        .def("__setstate__", [](Formula& val, const std::tuple<std::string>& data) { throw NoPickling(); })
+        .def(py::pickle(
+                [](const Formula& val) -> std::tuple<std::string> {
+                    throw NoPickling();
+                },
+                [](const std::tuple<std::string>& data) -> Formula {
+                    throw NoPickling();
+                }
+            ))
     ;
 }

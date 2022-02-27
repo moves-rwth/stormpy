@@ -37,8 +37,14 @@ void define_factorizedrationalfunction(py::module& m) {
         .def(py::self == py::self)
         .def(py::self != py::self)
         .def(py::self + Rational())
-        .def("__getstate__", [](const FactorizedRationalFunction& val) -> std::tuple<std::string> { throw NoPickling(); })
-        .def("__setstate__", [](FactorizedRationalFunction& val, const std::tuple<std::string>& data) { throw NoPickling(); })
+        .def(py::pickle(
+                [](const FactorizedRationalFunction& val) -> std::tuple<std::string> {
+                    throw NoPickling();
+                },
+                [](const std::tuple<std::string>& data) -> FactorizedRationalFunction {
+                    throw NoPickling();
+                }
+            ))
         .def("__hash__", [](const FactorizedRationalFunction& v) { std::hash<FactorizedRationalFunction> h; return h(v);})
     ;
 }

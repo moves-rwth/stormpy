@@ -60,12 +60,14 @@ void define_variable(py::module& m) {
         .def("__str__", &streamToString<carl::Variable>)
         .def_property_readonly("is_no_variable", [](const carl::Variable& v) {return v == carl::Variable::NO_VARIABLE;})
             // TODO get state has an issue if there are several variables with the same name; they cannot be distinguished afterwards
-        .def("__getstate__", [](const carl::Variable& v) { return std::make_tuple<std::string, std::string>(v.name(), carl::to_string(v.type()));})
-
-        .def("__setstate__", [](carl::Variable& v, const std::tuple<std::string, std::string>& data ) {
-                carl::Variable tmp = getOrCreateVariable(std::get<0>(data), carl::variableTypeFromString(std::get<1>(data)));
-                new(&v) carl::Variable(tmp);
-            })
+        .def(py::pickle(
+                [](const carl::Variable& v) {
+                    return std::make_tuple<std::string, std::string>(v.name(), carl::to_string(v.type()));
+                },
+                [](const std::tuple<std::string, std::string>& data ) {
+                    return getOrCreateVariable(std::get<0>(data), carl::variableTypeFromString(std::get<1>(data)));
+                }
+            ))
         .def("__hash__", [](const carl::Variable& v) { std::hash<carl::Variable> h; return h(v);})
 
     ;

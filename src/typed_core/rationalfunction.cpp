@@ -72,8 +72,14 @@ void define_rationalfunction(py::module& m) {
         .def("__eq__", [](const RationalFunction& lhs, const Polynomial& rhs) -> bool {return lhs == RationalFunction(rhs);})
         .def("__ne__", [](const RationalFunction& lhs, const Polynomial& rhs) -> bool {return lhs != RationalFunction(rhs);})
 
-        .def("__getstate__", [](const RationalFunction&) -> std::tuple<std::string> { throw NoPickling(); })
-        .def("__setstate__", [](RationalFunction&, const  std::tuple<std::string>&) { throw NoPickling(); })
+        .def(py::pickle(
+                [](const RationalFunction& val) -> std::tuple<std::string> {
+                    throw NoPickling();
+                },
+                [](const std::tuple<std::string>& data) -> RationalFunction {
+                    throw NoPickling();
+                }
+            ))
         .def("__hash__", [](const RationalFunction& v) { std::hash<RationalFunction> h; return h(v);})
     ;
 }

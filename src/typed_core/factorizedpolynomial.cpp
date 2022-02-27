@@ -48,8 +48,14 @@ void define_factorizedpolynomial(py::module& m) {
         .def(py::self != py::self)
         .def(py::self == Rational())
         .def(py::self != Rational())
-        .def("__getstate__", [](const FactorizedPolynomial& val) -> std::tuple<std::string> { throw NoPickling(); })
-        .def("__setstate__", [](FactorizedPolynomial& val, const std::tuple<std::string>& data) { throw NoPickling(); })
+        .def(py::pickle(
+                [](const FactorizedPolynomial& val) -> std::tuple<std::string> {
+                    throw NoPickling();
+                },
+                [](const std::tuple<std::string>& data) -> FactorizedPolynomial {
+                    throw NoPickling();
+                }
+            ))
         .def("__hash__", [](const FactorizedPolynomial& v) { std::hash<FactorizedPolynomial> h; return h(v);})
     ;
 }
