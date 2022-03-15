@@ -1,4 +1,5 @@
 name: Build Test
+# Builds and tests pycarl on different Linux systems
 
 on:
   push:
@@ -7,23 +8,25 @@ on:
   schedule:
     # run weekly
     - cron: '0 10 * * 3'
+  # needed to trigger the workflow manually
   workflow_dispatch:
+  pull_request:
 
 env:
   GIT_URL: "${{ github.server_url }}/${{ github.repository }}.git"
-  BRANCH: "master"
+  BRANCH: "${{ github.ref }}"
   # github runners currently have two cores
   NR_JOBS: "2"
 
   CARL_PARSER_GIT_URL: "https://github.com/ths-rwth/carl-parser"
   CARL_PARSER_BRANCH: "master14"
-  CARL_GIT_URL: "https://github.com/smtrat/carl"
+  CARL_GIT_URL: "https://github.com/ths-rwth/carl"
   CARL_BRANCH: "master14"
 
   CMAKE_DEBUG: "-DCMAKE_BUILD_TYPE=Debug"
   CMAKE_RELEASE: "-DCMAKE_BUILD_TYPE=Release"
-  CARL_CMAKE_DEBUG: "-DCMAKE_BUILD_TYPE=Debug -DUSE_CLN_NUMBERS=ON -DUSE_GINAC=ON -DTHREAD_SAFE=ON -DBUILD_ADDONS=ON -DBUILD_ADDON_PARSER=ON"
-  CARL_CMAKE_RELEASE: "-DCMAKE_BUILD_TYPE=Release -DUSE_CLN_NUMBERS=ON -DUSE_GINAC=ON -DTHREAD_SAFE=ON -DBUILD_ADDONS=ON -DBUILD_ADDON_PARSER=ON"
+  CARL_CMAKE_DEBUG: "-DCMAKE_BUILD_TYPE=Debug -DUSE_CLN_NUMBERS=ON -DUSE_GINAC=ON -DTHREAD_SAFE=ON"
+  CARL_CMAKE_RELEASE: "-DCMAKE_BUILD_TYPE=Release -DUSE_CLN_NUMBERS=ON -DUSE_GINAC=ON -DTHREAD_SAFE=ON"
 
   DOCUMENTATION_DISTRO: "ubuntu-20.04"
 
@@ -35,8 +38,7 @@ jobs:
       PYTHON: "python3"
     strategy:
       matrix:
-        # exclude debian-9 as it is broken
-        distro: ["ubuntu-20.04", "ubuntu-18.04", "debian-10"]
+        distro: ["ubuntu-21.10", "ubuntu-20.04", "debian-10", "debian-11"]
         debugOrRelease: ["debug", "release"]
 
     steps:
@@ -61,7 +63,9 @@ jobs:
         run: sudo docker exec ci apt-get install -qq -y maven uuid-dev libeigen3-dev python3 python3-venv
       - name: Git clone
         run: |
-          sudo docker exec ci git clone --depth 1 --branch $BRANCH $GIT_URL /opt/pycarl
+          # git clone cannot clone individual commits based on a sha and some other refs
+          # this workaround fixes this and fetches only one commit
+          sudo docker exec ci bash -c "mkdir /opt/pycarl; cd /opt/pycarl; git init && git remote add origin ${GIT_URL} && git fetch --depth 1 origin ${BRANCH} && git checkout FETCH_HEAD"
           sudo docker exec ci git clone --depth 1 --branch $CARL_BRANCH $CARL_GIT_URL /opt/carl
           sudo docker exec ci git clone --depth 1 --branch $CARL_PARSER_BRANCH $CARL_PARSER_GIT_URL /opt/carl-parser
 
@@ -96,7 +100,8 @@ jobs:
           sudo docker exec ci rm -r /opt/pycarl/doc/build/html/_sources
           sudo docker cp ci:/opt/pycarl/doc/build/html .
       - name: Deploy documentation
-        if: matrix.debugOrRelease == 'release' && matrix.distro == env.DOCUMENTATION_DISTRO
+        # Only deploy for release version and using master on original repo (and not for pull requests or forks)
+        if: matrix.debugOrRelease == 'release' && matrix.distro == env.DOCUMENTATION_DISTRO && github.repository_owner == 'moves-rwth' && github.ref == 'refs/heads/master'
         uses: peaceiris/actions-gh-pages@v3
         with:
           personal_token: ${{ secrets.GITHUB_TOKEN }}
@@ -106,7 +111,8 @@ jobs:
     name: Email notification
     runs-on: ubuntu-latest
     needs: [noDeploy]
-    if: always() # set always
+    # Only run in main repo and even if previous step failed
+    if: github.repository_owner == 'moves-rwth' && always()
     steps:
       - uses: technote-space/workflow-conclusion-action@v2
       - uses: dawidd6/action-send-mail@v2
