@@ -8,6 +8,10 @@ add_subdirectory(resources/pybind11)
 
 set(PYCARL_HAS_CLN ${CARL_USE_CLN_NUMBERS})
 set(CMAKE_CXX_STANDARD 14)
+
+# This sets interprocedural optimization off as this leads to some problems on some systems
+set(CMAKE_INTERPROCEDURAL_OPTIMIZATION OFF)
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated-declarations")
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/definitions.h.in ${CMAKE_CURRENT_BINARY_DIR}/src/definitions.h)

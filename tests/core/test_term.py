@@ -39,3 +39,9 @@ class TestTerm(PackageSelector):
         term3 = term1 * term2
         termOrig = package.Term(6, var * var * var)
         assert term3 == termOrig
+
+    def test_singleton_bug(self, package):
+        var = pycarl.Variable("x")
+        assert str(package.Term(var)) == "x"
+        # Ensures bug is fixed where second call would yield '1' instead of 'x'
+        assert str(package.Term(var)) == "x"
