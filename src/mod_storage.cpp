@@ -3,6 +3,7 @@
 #include "storage/bitvector.h"
 #include "storage/dd.h"
 #include "storage/model.h"
+#include "storage/decomposition.h"
 #include "storage/matrix.h"
 #include "storage/model_components.h"
 #include "storage/distribution.h"
@@ -54,5 +55,10 @@ PYBIND11_MODULE(storage, m) {
     define_distribution<double>(m, "Double");
     define_sparse_model_components<double>(m, "");
     define_sparse_model_components<storm::RationalNumber>(m, "Exact");
+
+    define_maximal_end_components(m);
+    define_maximal_end_component_decomposition<double>(m, "_double");
+    define_maximal_end_component_decomposition<storm::RationalNumber>(m, "_exact");
+    define_maximal_end_component_decomposition<storm::RationalFunction>(m, "_ratfunc");
 
 }
