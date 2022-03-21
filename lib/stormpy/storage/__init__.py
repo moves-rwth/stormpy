@@ -34,6 +34,7 @@ def build_sparse_matrix(array, row_group_indices=[]):
 
     return builder.build()
 
+
 def build_parametric_sparse_matrix(array, row_group_indices=[]):
     """
     Build a sparse matrix from numpy array.
@@ -49,7 +50,7 @@ def build_parametric_sparse_matrix(array, row_group_indices=[]):
     len_group_indices = len(row_group_indices)
     if len_group_indices > 0:
         builder = storage.ParametricSparseMatrixBuilder(rows=num_row, columns=num_col, has_custom_row_grouping=True,
-                                              row_groups=len_group_indices)
+                                                        row_groups=len_group_indices)
     else:
         builder = storage.ParametricSparseMatrixBuilder(rows=num_row, columns=num_col)
 
@@ -65,3 +66,16 @@ def build_parametric_sparse_matrix(array, row_group_indices=[]):
 
     return builder.build()
 
+
+def get_maximal_end_components(model):
+    """
+    Get maximal end components from model.
+    :param model: Model.
+    :return: Maximal end components.
+    """
+    if model.supports_parameters:
+        return stormpy.jMaximalEndComponentDecomposition_ratfunc(model)
+    elif model.is_exact:
+        return stormpy.MaximalEndComponentDecomposition_exact(model)
+    else:
+        return stormpy.MaximalEndComponentDecomposition_double(model)

@@ -4,6 +4,7 @@ Changelog
 Version 1.6.x
 -------------
 ### Version 1.6.?
+- Bindings for maximal end components
 - Developer: Storm is built with C++17
 - Developer: updated pybind11 to version 2.8.1 and adapted bindings accordingly
 
