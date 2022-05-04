@@ -23,7 +23,8 @@ void define_sparse_model_components(py::module& m, std::string const& vtSuffix) 
 
         .def(py::init<SparseMatrix<ValueType> const&, StateLabeling const&, std::unordered_map<std::string, SparseRewardModel<ValueType>> const&,
             bool, boost::optional<BitVector> const&, boost::optional<SparseMatrix<storm::storage::sparse::state_type>> const&>(),
-            py::arg("transition_matrix") = SparseMatrix<ValueType>(), py::arg("state_labeling") = storm::models::sparse::StateLabeling(),
+            py::arg("transition_matrix") = SparseMatrix<ValueType>(),
+            py::arg("state_labeling") = storm::models::sparse::StateLabeling(),
             py::arg("reward_models") =  std::unordered_map<std::string, SparseRewardModel<ValueType>>(), py::arg("rate_transitions") = false,
             py::arg("markovian_states") = boost::none, py::arg("player1_matrix") = boost::none)
 
@@ -52,3 +53,4 @@ void define_sparse_model_components(py::module& m, std::string const& vtSuffix) 
 
 template void define_sparse_model_components<double>(py::module& m, std::string const& vtSuffix);
 template void define_sparse_model_components<storm::RationalNumber>(py::module& m, std::string const& vtSuffix);
+template void define_sparse_model_components<storm::RationalFunction>(py::module& m, std::string const& vtSuffix);
