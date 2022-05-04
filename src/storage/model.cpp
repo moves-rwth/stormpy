@@ -345,7 +345,7 @@ void define_sparse_parametric_model(py::module& m) {
         .def_property_readonly("observations", &SparsePomdp<RationalFunction>::getObservations)
         .def_property_readonly("nr_observations", &SparsePomdp<RationalFunction>::getNrObservations)
     ;
-    
+
     py::class_<SparseCtmc<RationalFunction>, std::shared_ptr<SparseCtmc<RationalFunction>>>(m, "SparseParametricCtmc", "pCTMC in sparse representation", detModelRatFunc)
         .def(py::init<ModelComponents<RationalFunction> const&>(), py::arg("components"))
         .def("__str__", &getModelInfoPrinter)
