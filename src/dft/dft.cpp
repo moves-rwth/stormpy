@@ -28,13 +28,6 @@ void define_dft(py::module& m) {
 
 template<typename ValueType>
 void define_dft_typed(py::module& m, std::string const& vt_suffix) {
-    // DFT element
-    py::class_<DFTElement<ValueType>, std::shared_ptr<DFTElement<ValueType>>>(m, ("DFTElement"+vt_suffix).c_str(), "DFT element")
-        .def_property_readonly("id", &DFTElement<ValueType>::id, "Id")
-        .def_property_readonly("name", &DFTElement<ValueType>::name, "Name")
-        .def("__str__", &DFTElement<ValueType>::toString)
-    ;
-
     // DFT class
     py::class_<DFT<ValueType>, std::shared_ptr<DFT<ValueType>>>(m, ("DFT"+vt_suffix).c_str(), "Dynamic Fault Tree")
         .def("nr_elements", &DFT<ValueType>::nrElements, "Total number of elements")
@@ -53,7 +46,8 @@ void define_dft_typed(py::module& m, std::string const& vt_suffix) {
         .def("symmetries", [](DFT<ValueType>& dft) {
                 return dft.findSymmetries(dft.colourDFT());
             }, "Compute symmetries in DFT")
-        .def("set_relevant_events", &DFT<ValueType>::setRelevantEvents, "Set relevant events", py::arg("relevant_events"), py::arg("allow_dc_for_relevant")=false);
+        .def("state_generation_info", &DFT<ValueType>::buildStateGenerationInfo, py::arg("symmetries"), "Build state generation information")
+        .def("set_relevant_events", &DFT<ValueType>::setRelevantEvents, py::arg("relevant_events"), py::arg("allow_dc_for_revelant"))
     ;
 }
 

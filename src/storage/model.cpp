@@ -31,6 +31,8 @@ using ModelBase = storm::models::ModelBase;
 
 template<typename ValueType> using ModelComponents = storm::storage::sparse::ModelComponents<ValueType>;
 template<typename ValueType> using SparseModel = storm::models::sparse::Model<ValueType>;
+template<typename ValueType> using SparseDeterministicModel = storm::models::sparse::DeterministicModel<ValueType>;
+template<typename ValueType> using SparseNondeterministicModel = storm::models::sparse::NondeterministicModel<ValueType>;
 template<typename ValueType> using SparseDtmc = storm::models::sparse::Dtmc<ValueType>;
 template<typename ValueType> using SparseMdp = storm::models::sparse::Mdp<ValueType>;
 template<typename ValueType> using SparsePomdp = storm::models::sparse::Pomdp<ValueType>;
@@ -207,12 +209,17 @@ void define_sparse_model(py::module& m, std::string const& vtSuffix) {
         .def("__str__", &getModelInfoPrinter)
         .def("to_dot", [](SparseModel<ValueType>& model) { std::stringstream ss; model.writeDotToStream(ss); return ss.str(); }, "Write dot to a string")
     ;
-    py::class_<SparseDtmc<ValueType>, std::shared_ptr<SparseDtmc<ValueType>>>(m, ("Sparse" + vtSuffix + "Dtmc").c_str(), "DTMC in sparse representation", model)
+    py::class_<SparseDeterministicModel<ValueType>, std::shared_ptr<SparseDeterministicModel<ValueType>>> detModel(m, ("_SparseDeterministic" + vtSuffix + "Model").c_str(), "Deterministic sparse model", model)
+    ;
+    py::class_<SparseNondeterministicModel<ValueType>, std::shared_ptr<SparseNondeterministicModel<ValueType>>> nondetModel(m, ("_SparseNondeterministic" + vtSuffix + "Model").c_str(), "Nondeterministic sparse model", model)
+    ;
+
+    py::class_<SparseDtmc<ValueType>, std::shared_ptr<SparseDtmc<ValueType>>>(m, ("Sparse" + vtSuffix + "Dtmc").c_str(), "DTMC in sparse representation", detModel)
         .def(py::init<SparseDtmc<ValueType>>(), py::arg("other_model"))
         .def(py::init<ModelComponents<ValueType> const&>(), py::arg("components"))
         .def("__str__", &getModelInfoPrinter)
     ;
-    py::class_<SparseMdp<ValueType>, std::shared_ptr<SparseMdp<ValueType>>> mdp(m, ("Sparse" + vtSuffix + "Mdp").c_str(), "MDP in sparse representation", model);
+    py::class_<SparseMdp<ValueType>, std::shared_ptr<SparseMdp<ValueType>>> mdp(m, ("Sparse" + vtSuffix + "Mdp").c_str(), "MDP in sparse representation", nondetModel);
     mdp.def(py::init<SparseMdp<ValueType>>(), py::arg("other_model"))
         .def(py::init<ModelComponents<ValueType> const&, storm::models::ModelType>(), py::arg("components"), py::arg("type")=storm::models::ModelType::Mdp)
         .def_property_readonly("nondeterministic_choice_indices", [](SparseMdp<ValueType> const& mdp) { return mdp.getNondeterministicChoiceIndices(); })
@@ -231,13 +238,13 @@ void define_sparse_model(py::module& m, std::string const& vtSuffix) {
         .def("has_observation_valuations", &SparsePomdp<ValueType>::hasObservationValuations)
         .def_property_readonly("observation_valuations", &SparsePomdp<ValueType>::getObservationValuations)
     ;
-    py::class_<SparseCtmc<ValueType>, std::shared_ptr<SparseCtmc<ValueType>>>(m, ("Sparse" + vtSuffix + "Ctmc").c_str(), "CTMC in sparse representation", model)
+    py::class_<SparseCtmc<ValueType>, std::shared_ptr<SparseCtmc<ValueType>>>(m, ("Sparse" + vtSuffix + "Ctmc").c_str(), "CTMC in sparse representation", detModel)
         .def(py::init<SparseCtmc<ValueType>>(), py::arg("other_model"))
         .def(py::init<ModelComponents<ValueType> const&>(), py::arg("components"))
         .def_property_readonly("exit_rates", [](SparseCtmc<ValueType> const& ctmc) { return ctmc.getExitRateVector(); })
         .def("__str__", &getModelInfoPrinter)
     ;
-    py::class_<SparseMarkovAutomaton<ValueType>, std::shared_ptr<SparseMarkovAutomaton<ValueType>>>(m, ("Sparse" + vtSuffix + "MA").c_str(), "MA in sparse representation", model)
+    py::class_<SparseMarkovAutomaton<ValueType>, std::shared_ptr<SparseMarkovAutomaton<ValueType>>>(m, ("Sparse" + vtSuffix + "MA").c_str(), "MA in sparse representation", nondetModel)
         .def(py::init<SparseMarkovAutomaton<ValueType>>(), py::arg("other_model"))
         .def(py::init<ModelComponents<ValueType> const&>(), py::arg("components"))
         .def_property_readonly("exit_rates", [](SparseMarkovAutomaton<ValueType> const& ma) { return ma.getExitRates(); })
@@ -293,11 +300,15 @@ void define_sparse_parametric_model(py::module& m) {
         .def("__str__", &getModelInfoPrinter)
         .def("to_dot", [](SparseModel<RationalFunction>& model) { std::stringstream ss; model.writeDotToStream(ss); return ss.str(); }, "Write dot to a string")
     ;
+    py::class_<SparseDeterministicModel<RationalFunction>, std::shared_ptr<SparseDeterministicModel<RationalFunction>>> detModelRatFunc(m, "_SparseParametricDeterministicModel", "Parametric deterministic sparse model", modelRatFunc)
+    ;
+    py::class_<SparseNondeterministicModel<RationalFunction>, std::shared_ptr<SparseNondeterministicModel<RationalFunction>>> nondetModelRatFunc(m, "_SparseParametricNondeterministicModel", "Parametric nondeterministic sparse model", modelRatFunc)
+    ;
 
-    py::class_<SparseDtmc<RationalFunction>, std::shared_ptr<SparseDtmc<RationalFunction>>>(m, "SparseParametricDtmc", "pDTMC in sparse representation", modelRatFunc)
+    py::class_<SparseDtmc<RationalFunction>, std::shared_ptr<SparseDtmc<RationalFunction>>>(m, "SparseParametricDtmc", "pDTMC in sparse representation", detModelRatFunc)
         .def("__str__", &getModelInfoPrinter)
     ;
-    py::class_<SparseMdp<RationalFunction>, std::shared_ptr<SparseMdp<RationalFunction>>> pmdp(m, "SparseParametricMdp", "pMDP in sparse representation", modelRatFunc);
+    py::class_<SparseMdp<RationalFunction>, std::shared_ptr<SparseMdp<RationalFunction>>> pmdp(m, "SparseParametricMdp", "pMDP in sparse representation", nondetModelRatFunc);
     pmdp.def_property_readonly("nondeterministic_choice_indices", [](SparseMdp<RationalFunction> const& mdp) { return mdp.getNondeterministicChoiceIndices(); })
         .def("apply_scheduler", [](SparseMdp<RationalFunction> const& mdp, storm::storage::Scheduler<RationalFunction> const& scheduler, bool dropUnreachableStates) { return mdp.applyScheduler(scheduler, dropUnreachableStates); } , "apply scheduler", "scheduler"_a, "drop_unreachable_states"_a = true)
         .def("__str__", &getModelInfoPrinter)
@@ -311,10 +322,10 @@ void define_sparse_parametric_model(py::module& m) {
             .def_property_readonly("nr_observations", &SparsePomdp<RationalFunction>::getNrObservations)
             ;
 
-    py::class_<SparseCtmc<RationalFunction>, std::shared_ptr<SparseCtmc<RationalFunction>>>(m, "SparseParametricCtmc", "pCTMC in sparse representation", modelRatFunc)
+    py::class_<SparseCtmc<RationalFunction>, std::shared_ptr<SparseCtmc<RationalFunction>>>(m, "SparseParametricCtmc", "pCTMC in sparse representation", detModelRatFunc)
         .def("__str__", &getModelInfoPrinter)
     ;
-    py::class_<SparseMarkovAutomaton<RationalFunction>, std::shared_ptr<SparseMarkovAutomaton<RationalFunction>>>(m, "SparseParametricMA", "pMA in sparse representation", modelRatFunc)
+    py::class_<SparseMarkovAutomaton<RationalFunction>, std::shared_ptr<SparseMarkovAutomaton<RationalFunction>>>(m, "SparseParametricMA", "pMA in sparse representation", nondetModelRatFunc)
         .def_property_readonly("nondeterministic_choice_indices", [](SparseMarkovAutomaton<RationalFunction> const& ma) { return ma.getNondeterministicChoiceIndices(); })
         .def("apply_scheduler", [](SparseMarkovAutomaton<RationalFunction> const& ma, storm::storage::Scheduler<RationalFunction> const& scheduler, bool dropUnreachableStates) { return ma.applyScheduler(scheduler, dropUnreachableStates); } , "apply scheduler", "scheduler"_a, "drop_unreachable_states"_a = true)
         .def("__str__", &getModelInfoPrinter)

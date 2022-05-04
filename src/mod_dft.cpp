@@ -2,7 +2,10 @@
 
 #include "dft/analysis.h"
 #include "dft/dft.h"
+#include "dft/dft_elements.h"
+#include "dft/dft_state.h"
 #include "dft/io.h"
+#include "dft/simulator.h"
 #include "dft/transformations.h"
 
 PYBIND11_MODULE(dft, m) {
@@ -19,8 +22,17 @@ PYBIND11_MODULE(dft, m) {
     define_dft(m);
     define_dft_typed<double>(m, "_double");
     define_dft_typed<storm::RationalFunction>(m, "_ratfunc");
-    define_symmetries(m);
+    define_dft_elements(m);
+    define_dft_elements_typed<double>(m, "_double");
+    define_dft_elements_typed<storm::RationalFunction>(m, "_ratfunc");
+    define_dft_state<double>(m, "_double");
+    define_dft_state<storm::RationalFunction>(m, "_ratfunc");
+    define_failable_elements(m);
     define_input(m);
     define_output(m);
+    define_simulator(m);
+    define_simulator_typed<double>(m, "_double");
+    define_simulator_typed<storm::RationalFunction>(m, "_ratfunc");
+    define_symmetries(m);
     define_transformations(m);
 }
