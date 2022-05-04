@@ -278,13 +278,14 @@ def model_checking(model, property, only_initial_states=False, extract_scheduler
                               environment=environment)
 
 
-def check_model_sparse(model, property, only_initial_states=False, extract_scheduler=False, force_fully_observable=False, environment=Environment()):
+def check_model_sparse(model, property, only_initial_states=False, extract_scheduler=False, force_fully_observable=False, hint=None, environment=Environment()):
     """
     Perform model checking on model for property.
     :param model: Model.
     :param property: Property to check for.
     :param only_initial_states: If True, only results for initial states are computed, otherwise for all states.
     :param extract_scheduler: If True, try to extract a scheduler
+    :param hint: If not None, this hint is used by the model checker
     :param force_fully_observable: If True, treat a POMDP as an MDP
     :return: Model checking result.
     :rtype: CheckResult
@@ -302,10 +303,14 @@ def check_model_sparse(model, property, only_initial_states=False, extract_sched
             elif model.is_exact:
                 task = core.ExactCheckTask(formula, only_initial_states)
                 task.set_produce_schedulers(extract_scheduler)
+                if hint:
+                    task.set_hint(hint)
                 return core._exact_model_checking_fully_observable(model, task, environment=environment)
             else:
                 task = core.CheckTask(formula, only_initial_states)
                 task.set_produce_schedulers(extract_scheduler)
+                if hint:
+                    task.set_hint(hint)
                 return core._model_checking_fully_observable(model, task, environment=environment)
         else:
             raise RuntimeError("Forcing models that are fully observable is not possible")
@@ -313,16 +318,22 @@ def check_model_sparse(model, property, only_initial_states=False, extract_sched
     if model.supports_parameters:
         task = core.ParametricCheckTask(formula, only_initial_states)
         task.set_produce_schedulers(extract_scheduler)
+        if hint:
+            task.set_hint(hint)
         return core._parametric_model_checking_sparse_engine(model, task, environment=environment)
     else:
 
         if model.is_exact:
             task = core.ExactCheckTask(formula, only_initial_states)
             task.set_produce_schedulers(extract_scheduler)
+            if hint:
+                task.set_hint(hint)
             return core._exact_model_checking_sparse_engine(model, task, environment=environment)
         else:
             task = core.CheckTask(formula, only_initial_states)
             task.set_produce_schedulers(extract_scheduler)
+            if hint:
+                task.set_hint(hint)
             return core._model_checking_sparse_engine(model, task, environment=environment)
 
 
