@@ -3,11 +3,12 @@ import sys
 if sys.version_info[0] == 2:
     raise ImportError('Python 2.x is not supported for stormpy.')
 
+from ._config import *
+
 from . import core
 from .core import *
 from . import storage
 from .storage import *
-from ._config import *
 from .logic import *
 from .exceptions import *
 
