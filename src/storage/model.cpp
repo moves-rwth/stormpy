@@ -338,6 +338,7 @@ void define_sparse_parametric_model(py::module& m) {
     ;
 
     py::class_<SparsePomdp<RationalFunction>, std::shared_ptr<SparsePomdp<RationalFunction>>>(m, "SparseParametricPomdp", "POMDP in sparse representation", pmdp)
+
         .def(py::init<SparsePomdp<RationalFunction>>(), py::arg("other_model"))
         .def(py::init<ModelComponents<RationalFunction> const&>(), py::arg("components"))
         .def("__str__", &getModelInfoPrinter)
