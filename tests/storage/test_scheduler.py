@@ -83,7 +83,7 @@ class TestScheduler:
         assert scheduler.deterministic
         assert not scheduler.partial
         intermediate = model.apply_scheduler(scheduler, True)
-        assert intermediate.model_type == stormpy.ModelType.MDP
+        assert intermediate.model_type == stormpy.ModelType.DTMC
         assert intermediate.nr_states == 126
         assert intermediate.nr_transitions == 156
         for state in intermediate.states:
