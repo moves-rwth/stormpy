@@ -10,8 +10,8 @@ typedef storm::modelchecker::RegionModelChecker<storm::RationalFunction> RegionM
 typedef storm::storage::ParameterRegion<storm::RationalFunction> Region;
 
 // Thin wrappers
-std::shared_ptr<RegionModelChecker> createRegionChecker(storm::Environment const& env, std::shared_ptr<storm::models::sparse::Model<storm::RationalFunction>> const& model, std::shared_ptr<storm::logic::Formula> const& formula, bool generateSplittingEstimate, bool allowModelSimplifications) {
-    return storm::api::initializeParameterLiftingRegionModelChecker<storm::RationalFunction, double>(env, model, storm::api::createTask<storm::RationalFunction>(formula, true), generateSplittingEstimate, allowModelSimplifications);
+std::shared_ptr<RegionModelChecker> createRegionChecker(storm::Environment const& env, std::shared_ptr<storm::models::sparse::Model<storm::RationalFunction>> const& model, std::shared_ptr<storm::logic::Formula> const& formula, bool generateSplittingEstimate, bool allowModelSimplifications, bool preconditionsValidatedManually) {
+    return storm::api::initializeParameterLiftingRegionModelChecker<storm::RationalFunction, double>(env, model, storm::api::createTask<storm::RationalFunction>(formula, true), generateSplittingEstimate, allowModelSimplifications, preconditionsValidatedManually);
 }
 
 void specify(std::shared_ptr<RegionModelChecker>& checker, storm::Environment const& env, std::shared_ptr<storm::models::sparse::Model<storm::RationalFunction>> const& model, std::shared_ptr<storm::logic::Formula> const& formula, bool generateSplittingEstimate, bool allowModelSimplifications) {
@@ -105,7 +105,6 @@ void define_pla(py::module& m) {
             .def(py::init<>())
             .def("get_bound_all_states", &getBound_mdp, "Get bound", py::arg("environment"), py::arg("region"), py::arg("maximise")= true);
 
-    m.def("create_region_checker", &createRegionChecker, "Create region checker", py::arg("environment"), py::arg("model"), py::arg("formula"), py::arg("generate_splitting_estimate") = false, py::arg("allow_model_simplification") = true);
-    //m.def("is_parameter_lifting_sound", &storm::utility::parameterlifting::validateParameterLiftingSound, "Check if parameter lifting is sound", py::arg("model"), py::arg("formula"));
+    m.def("create_region_checker", &createRegionChecker, "Create region checker", py::arg("environment"), py::arg("model"), py::arg("formula"), py::arg("generate_splitting_estimate") = false, py::arg("allow_model_simplification") = true, py::arg("preconditions_validated_manually") = false );
     m.def("gather_derivatives", &gatherDerivatives, "Gather all derivatives of transition probabilities", py::arg("model"), py::arg("var"));
 }
