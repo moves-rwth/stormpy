@@ -55,10 +55,10 @@ void define_dft_typed(py::module& m, std::string const& vt_suffix) {
 void define_symmetries(py::module& m) {
 
     py::class_<DFTSymmetries, std::shared_ptr<DFTSymmetries>>(m, "DFTSymmetries", "Symmetries in DFT")
-        .def("__init__", [](DFTSymmetries &instance) {
+        .def(py::init([]() {
                 std::map<size_t, std::vector<std::vector<size_t>>> emptySymmetry;
-                new (&instance) DFTSymmetries(emptySymmetry);
-            }, "Constructor for empty symmetry")
+                return DFTSymmetries(emptySymmetry);
+            }), "Constructor for empty symmetry")
         .def_readonly("groups", &DFTSymmetries::groups, "Symmetry groups")
         .def("__str__", &streamToString<DFTSymmetries>)
     ;
