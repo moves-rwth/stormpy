@@ -3,11 +3,12 @@ import sys
 if sys.version_info[0] == 2:
     raise ImportError('Python 2.x is not supported for stormpy.')
 
+from ._config import *
+
 from . import core
 from .core import *
 from . import storage
 from .storage import *
-from ._config import *
 from .logic import *
 from .exceptions import *
 
@@ -278,13 +279,14 @@ def model_checking(model, property, only_initial_states=False, extract_scheduler
                               environment=environment)
 
 
-def check_model_sparse(model, property, only_initial_states=False, extract_scheduler=False, force_fully_observable=False, environment=Environment()):
+def check_model_sparse(model, property, only_initial_states=False, extract_scheduler=False, force_fully_observable=False, hint=None, environment=Environment()):
     """
     Perform model checking on model for property.
     :param model: Model.
     :param property: Property to check for.
     :param only_initial_states: If True, only results for initial states are computed, otherwise for all states.
     :param extract_scheduler: If True, try to extract a scheduler
+    :param hint: If not None, this hint is used by the model checker
     :param force_fully_observable: If True, treat a POMDP as an MDP
     :return: Model checking result.
     :rtype: CheckResult
@@ -302,10 +304,14 @@ def check_model_sparse(model, property, only_initial_states=False, extract_sched
             elif model.is_exact:
                 task = core.ExactCheckTask(formula, only_initial_states)
                 task.set_produce_schedulers(extract_scheduler)
+                if hint:
+                    task.set_hint(hint)
                 return core._exact_model_checking_fully_observable(model, task, environment=environment)
             else:
                 task = core.CheckTask(formula, only_initial_states)
                 task.set_produce_schedulers(extract_scheduler)
+                if hint:
+                    task.set_hint(hint)
                 return core._model_checking_fully_observable(model, task, environment=environment)
         else:
             raise RuntimeError("Forcing models that are fully observable is not possible")
@@ -313,16 +319,22 @@ def check_model_sparse(model, property, only_initial_states=False, extract_sched
     if model.supports_parameters:
         task = core.ParametricCheckTask(formula, only_initial_states)
         task.set_produce_schedulers(extract_scheduler)
+        if hint:
+            task.set_hint(hint)
         return core._parametric_model_checking_sparse_engine(model, task, environment=environment)
     else:
 
         if model.is_exact:
             task = core.ExactCheckTask(formula, only_initial_states)
             task.set_produce_schedulers(extract_scheduler)
+            if hint:
+                task.set_hint(hint)
             return core._exact_model_checking_sparse_engine(model, task, environment=environment)
         else:
             task = core.CheckTask(formula, only_initial_states)
             task.set_produce_schedulers(extract_scheduler)
+            if hint:
+                task.set_hint(hint)
             return core._model_checking_sparse_engine(model, task, environment=environment)
 
 
@@ -467,9 +479,10 @@ def compute_prob01max_states(model, phi_states, psi_states):
 def topological_sort(model, forward=True, initial=[]):
     """
 
-    :param model:
-    :param forward:
-    :return:
+    :param model: A sparse model
+    :param forward: A flag whether the sorting should be forward or backwards
+    :param initial: a list of states
+    :return: A topological sort of the states
     """
     matrix = model.transition_matrix if forward else model.backward_transition_matrix
     if isinstance(model, storage._SparseParametricModel):
@@ -481,12 +494,36 @@ def topological_sort(model, forward=True, initial=[]):
 
 
 def get_reachable_states(model, initial_states, constraint_states, target_states, maximal_steps = None, choice_filter = None ):
+    """
+    Get the states that are reachable in a sparse model
+
+    :param model: A model
+    :param initial_states: Which states should be definitively reachable
+    :param constraint_states:
+    :param target_states: Which states should be considered absorbing
+    :param maximal_steps: The maximal depth to explore
+    :param choice_filter:
+    :return:
+    """
     if model.supports_parameters:
         return core._get_reachable_states_rf(model, initial_states, constraint_states, target_states, maximal_steps, choice_filter)
     if model.is_exact:
         return core._get_reachable_states_exact(model, initial_states, constraint_states, target_states, maximal_steps, choice_filter)
     return core._get_reachable_states_double(model, initial_states, constraint_states, target_states, maximal_steps, choice_filter)
 
+def compute_expected_number_of_visits(environment, model):
+    """
+    Compute the number of expected visits. Model must be deterministic.
+
+    :param environment: An model checking environment
+    :param model: A DTMC or CTMC
+    :return: A vector with the expected number of visits
+    """
+    if model.supports_parameters:
+        raise NotImplementedError("Expected number of visits is not implemented for parametric models")
+    if model.is_exact:
+        return core._compute_expected_number_of_visits_exact(environment, model)
+    return core._compute_expected_number_of_visits_double(environment, model)
 
 def construct_submodel(model, states, actions, keep_unreachable_states=True, options=SubsystemBuilderOptions()):
     """

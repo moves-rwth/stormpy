@@ -2,6 +2,7 @@
 #include "result.h"
 #include "storm/models/symbolic/StandardRewardModel.h"
 #include "storm/modelchecker/results/CheckResult.h"
+#include "storm/modelchecker/hints/ExplicitModelCheckerHint.h"
 #include "storm/modelchecker/csl/helper/SparseCtmcCslHelper.h"
 #include "storm/environment/Environment.h"
 
@@ -58,7 +59,12 @@ std::pair<storm::storage::BitVector, storm::storage::BitVector> computeProb01max
 }
 
 template<typename ValueType>
-storm::storage::BitVector getReachableStates(storm::models::sparse::Mdp<ValueType> const& model, storm::storage::BitVector const& initialStates, storm::storage::BitVector const& constraintStates, storm::storage::BitVector const& targetStates, boost::optional<uint64_t> maximalStep, boost::optional<storm::storage::BitVector> const& choiceFilter) {
+std::shared_ptr<storm::modelchecker::CheckResult> getExpectedNumberOfVisits(storm::Environment const& env, std::shared_ptr<storm::models::sparse::Model<ValueType>> const& model) {
+    return storm::api::computeExpectedVisitingTimesWithSparseEngine(env, model);
+}
+
+template<typename ValueType>
+storm::storage::BitVector getReachableStates(storm::models::sparse::Model<ValueType> const& model, storm::storage::BitVector const& initialStates, storm::storage::BitVector const& constraintStates, storm::storage::BitVector const& targetStates, boost::optional<uint64_t> maximalStep, boost::optional<storm::storage::BitVector> const& choiceFilter) {
     uint64_t steps = 0;
     if (maximalStep != boost::none) {
         steps = maximalStep.get();
@@ -75,6 +81,7 @@ void define_modelchecking(py::module& m) {
     //m.def("create_check_task", &storm::api::createTask, "Create task for verification", py::arg("formula"), py::arg("only_initial_states") = false);
         .def(py::init<storm::logic::Formula const&, bool>(), py::arg("formula"), py::arg("only_initial_states") = false)
         .def("set_produce_schedulers", &CheckTask<double>::setProduceSchedulers, "Set whether schedulers should be produced (if possible)", py::arg("produce_schedulers") = true)
+        .def("set_hint", &CheckTask<double>::setHint, "Sets a hint that may speed up the solver")
     ;
     // CheckTask
     py::class_<CheckTask<storm::RationalNumber>, std::shared_ptr<CheckTask<storm::RationalNumber>>>(m, "ExactCheckTask", "Task for model checking with exact numbers")
@@ -88,9 +95,20 @@ void define_modelchecking(py::module& m) {
         .def("set_produce_schedulers", &CheckTask<storm::RationalFunction>::setProduceSchedulers, "Set whether schedulers should be produced (if possible)", py::arg("produce_schedulers") = true)
     ;
 
+    py::class_<storm::modelchecker::ModelCheckerHint, std::shared_ptr<storm::modelchecker::ModelCheckerHint>> mchint(m, "ModelCheckerHint", "Information that may accelerate the model checking process");
+    py::class_<storm::modelchecker::ExplicitModelCheckerHint<double>>(m, "ExplicitModelCheckerHintDouble", "Information that may accelerate an explicit state model checker", mchint)
+        .def(py::init<>())
+        .def("set_scheduler_hint", py::overload_cast<boost::optional<storm::storage::Scheduler<double>> const&>(&storm::modelchecker::ExplicitModelCheckerHint<double>::setSchedulerHint), "scheduler_hint"_a, "Set a scheduler that is close to the optimal scheduler")
+        .def("set_maybe_states", py::overload_cast<storm::storage::BitVector const&>(&storm::modelchecker::ExplicitModelCheckerHint<double>::setMaybeStates), "sets the maybe states. This is assumed to be correct.")
+        .def("set_compute_only_maybe_states", &storm::modelchecker::ExplicitModelCheckerHint<double>::setComputeOnlyMaybeStates, "value")
+        .def("set_result_hint", py::overload_cast<boost::optional<std::vector<double>> const&>(&storm::modelchecker::ExplicitModelCheckerHint<double>::setResultHint), "result_hint"_a);
+
     m.def("_get_reachable_states_double", &getReachableStates<double>, py::arg("model"), py::arg("initial_states"), py::arg("constraint_states"), py::arg("target_states"), py::arg("maximal_steps") = boost::none, py::arg("choice_filter") = boost::none);
     m.def("_get_reachable_states_exact", &getReachableStates<storm::RationalNumber>, py::arg("model"), py::arg("initial_states"), py::arg("constraint_states"), py::arg("target_states"), py::arg("maximal_steps") = boost::none, py::arg("choice_filter") = boost::none);
     m.def("_get_reachable_states_rf", &getReachableStates<storm::RationalFunction>, py::arg("model"), py::arg("initial_states"), py::arg("constraint_states"), py::arg("target_states"), py::arg("maximal_steps") = boost::none, py::arg("choice_filter") = boost::none);
+
+    m.def("_compute_expected_number_of_visits_double", &getExpectedNumberOfVisits<double>, py::arg("env"), py::arg("model"));
+    m.def("_compute_expected_number_of_visits_exact", &getExpectedNumberOfVisits<storm::RationalNumber>,  py::arg("env"), py::arg("model"));
 
     // Model checking
     m.def("_model_checking_fully_observable", &modelCheckingFullyObservableSparseEngine<double>, py::arg("model"), py::arg("task"), py::arg("environment")  = storm::Environment());

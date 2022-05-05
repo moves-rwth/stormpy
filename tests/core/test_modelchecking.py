@@ -157,3 +157,11 @@ class TestModelChecking:
         values = result.get_values()
         assert len(values) == 3
         assert math.isclose(values[0], 1 / 6)
+
+    def test_compute_expected_number_of_visits(self):
+        program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
+        model = stormpy.build_model(program)
+        environment = stormpy.Environment()
+        result = stormpy.compute_expected_number_of_visits(environment, model)
+        assert result.at(0) == 1
+        assert math.isclose(result.at(1),2.0/3)

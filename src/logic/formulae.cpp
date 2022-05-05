@@ -102,6 +102,7 @@ void define_formulae(py::module& m) {
     py::class_<storm::logic::ProbabilityOperatorFormula, std::shared_ptr<storm::logic::ProbabilityOperatorFormula>>(m, "ProbabilityOperator", "Probability operator", operatorFormula)
             .def(py::init<std::shared_ptr<storm::logic::Formula>>(), "construct probability operator formula", py::arg("subformula"))
     ;
+
     py::class_<storm::logic::RewardOperatorFormula, std::shared_ptr<storm::logic::RewardOperatorFormula>>(m, "RewardOperator", "Reward operator", operatorFormula)
             .def("has_reward_name", &storm::logic::RewardOperatorFormula::hasRewardModelName)
             .def_property_readonly("reward_name", &storm::logic::RewardOperatorFormula::getRewardModelName);

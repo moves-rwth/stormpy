@@ -40,10 +40,12 @@ void define_prism(py::module& m) {
             .def("define_constants", &Program::defineUndefinedConstants, "Define constants")
             .def("restrict_commands", &Program::restrictCommands, "Restrict commands")
             .def("simplify", &Program::simplify, "Simplify")
+            .def("has_label", &Program::hasLabel, py::arg("name"))
             .def("substitute_nonstandard_predicates", &Program::substituteNonStandardPredicates, "Remove nonstandard predicates from the prism program")
             .def("used_constants",&Program::usedConstants, "Compute Used Constants")
             .def("label_unlabelled_commands", &Program::labelUnlabelledCommands, "Label unlabelled commands", py::arg("name_suggestions"))
-            .def("get_constant", &Program::getConstant, py::arg("name"))
+            .def("has_constant", &Program::hasConstant, py::arg("name"))
+            .def("get_constant", &Program::getConstant, py::arg("name"), "Requires that the program has a constant with this name")
             .def_property_readonly("reward_models", &Program::getRewardModels, "The defined reward models")
             .def("get_module", [](Program const& prog, std::string const& name) {return prog.getModule(name);}, py::arg("module_name"))
             // TODO the following is a duplicate and should be deprecated.

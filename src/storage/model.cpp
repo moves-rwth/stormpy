@@ -77,6 +77,20 @@ std::set<storm::RationalFunctionVariable> allVariables(SparseModel<RationalFunct
     return storm::models::sparse::getAllParameters(model);
 }
 
+storm::storage::BitVector statesWithParameter(SparseModel<RationalFunction> const& model, storm::RationalFunctionVariable const& var) {
+    storm::storage::BitVector result(model.getNumberOfStates());
+    for (uint64_t s = 0; s < model.getNumberOfStates(); ++s) {
+        for(auto const& entry : model.getTransitionMatrix().getRowGroup(s)) {
+            if (entry.getValue().gatherVariables().count(var) > 0) {
+                result.set(s);
+                break;
+            }
+        }
+    }
+    return result;
+}
+
+
 std::string getModelInfoPrinter(ModelBase const& model) {
     std::stringstream ss;
     model.printModelInformationToStream(ss);
@@ -281,6 +295,12 @@ void define_sparse_parametric_model(py::module& m) {
     modelRatFunc.def("collect_probability_parameters", &probabilityVariables, "Collect parameters")
         .def("collect_reward_parameters", &rewardVariables, "Collect reward parameters")
         .def("collect_all_parameters", &allVariables, "Collect all parameters")
+        .def("get_states_with_parameter", &statesWithParameter, py::arg("parameter"), "Find states with a particular parameter")
+        .def("has_choice_labeling", [](SparseModel<RationalFunction> const& model) {return model.hasChoiceLabeling();}, "Does the model have an associated choice labelling?")
+        .def_property_readonly("choice_labeling", [](SparseModel<RationalFunction> const& model) {return model.getChoiceLabeling();}, "get choice labelling")
+        .def("has_choice_origins", [](SparseModel<RationalFunction> const& model) {return model.hasChoiceOrigins();}, "has choice origins?")
+        .def_property_readonly("choice_origins", [](SparseModel<RationalFunction> const& model) {return model.getChoiceOrigins();})
+
         .def_property_readonly("labeling", &getLabeling<RationalFunction>, "Labels")
         .def("labels_state", &SparseModel<RationalFunction>::getLabelsOfState, py::arg("state"), "Get labels of state")
         .def_property_readonly("initial_states", &getSparseInitialStates<RationalFunction>, "Initial states")
@@ -306,26 +326,33 @@ void define_sparse_parametric_model(py::module& m) {
     ;
 
     py::class_<SparseDtmc<RationalFunction>, std::shared_ptr<SparseDtmc<RationalFunction>>>(m, "SparseParametricDtmc", "pDTMC in sparse representation", detModelRatFunc)
+        .def(py::init<ModelComponents<RationalFunction> const&>(), py::arg("components"))
         .def("__str__", &getModelInfoPrinter)
     ;
     py::class_<SparseMdp<RationalFunction>, std::shared_ptr<SparseMdp<RationalFunction>>> pmdp(m, "SparseParametricMdp", "pMDP in sparse representation", nondetModelRatFunc);
-    pmdp.def_property_readonly("nondeterministic_choice_indices", [](SparseMdp<RationalFunction> const& mdp) { return mdp.getNondeterministicChoiceIndices(); })
+    pmdp.def(py::init<ModelComponents<RationalFunction> const&>(), py::arg("components"))
+        .def_property_readonly("nondeterministic_choice_indices", [](SparseMdp<RationalFunction> const& mdp) { return mdp.getNondeterministicChoiceIndices(); })
         .def("apply_scheduler", [](SparseMdp<RationalFunction> const& mdp, storm::storage::Scheduler<RationalFunction> const& scheduler, bool dropUnreachableStates) { return mdp.applyScheduler(scheduler, dropUnreachableStates); } , "apply scheduler", "scheduler"_a, "drop_unreachable_states"_a = true)
+        .def("get_nr_available_actions", [](SparseMdp<RationalFunction> const& mdp, uint64_t stateIndex) { return mdp.getNondeterministicChoiceIndices()[stateIndex+1] - mdp.getNondeterministicChoiceIndices()[stateIndex] ; }, py::arg("state"))
         .def("__str__", &getModelInfoPrinter)
     ;
 
     py::class_<SparsePomdp<RationalFunction>, std::shared_ptr<SparsePomdp<RationalFunction>>>(m, "SparseParametricPomdp", "POMDP in sparse representation", pmdp)
-            .def(py::init<SparsePomdp<RationalFunction>>(), py::arg("other_model"))
-            .def("__str__", &getModelInfoPrinter)
-            .def("get_observation", &SparsePomdp<RationalFunction>::getObservation, py::arg("state"))
-            .def_property_readonly("observations", &SparsePomdp<RationalFunction>::getObservations)
-            .def_property_readonly("nr_observations", &SparsePomdp<RationalFunction>::getNrObservations)
-            ;
+
+        .def(py::init<SparsePomdp<RationalFunction>>(), py::arg("other_model"))
+        .def(py::init<ModelComponents<RationalFunction> const&>(), py::arg("components"))
+        .def("__str__", &getModelInfoPrinter)
+        .def("get_observation", &SparsePomdp<RationalFunction>::getObservation, py::arg("state"))
+        .def_property_readonly("observations", &SparsePomdp<RationalFunction>::getObservations)
+        .def_property_readonly("nr_observations", &SparsePomdp<RationalFunction>::getNrObservations)
+    ;
 
     py::class_<SparseCtmc<RationalFunction>, std::shared_ptr<SparseCtmc<RationalFunction>>>(m, "SparseParametricCtmc", "pCTMC in sparse representation", detModelRatFunc)
+        .def(py::init<ModelComponents<RationalFunction> const&>(), py::arg("components"))
         .def("__str__", &getModelInfoPrinter)
     ;
     py::class_<SparseMarkovAutomaton<RationalFunction>, std::shared_ptr<SparseMarkovAutomaton<RationalFunction>>>(m, "SparseParametricMA", "pMA in sparse representation", nondetModelRatFunc)
+        .def(py::init<ModelComponents<RationalFunction> const&>(), py::arg("components"))
         .def_property_readonly("nondeterministic_choice_indices", [](SparseMarkovAutomaton<RationalFunction> const& ma) { return ma.getNondeterministicChoiceIndices(); })
         .def("apply_scheduler", [](SparseMarkovAutomaton<RationalFunction> const& ma, storm::storage::Scheduler<RationalFunction> const& scheduler, bool dropUnreachableStates) { return ma.applyScheduler(scheduler, dropUnreachableStates); } , "apply scheduler", "scheduler"_a, "drop_unreachable_states"_a = true)
         .def("__str__", &getModelInfoPrinter)
