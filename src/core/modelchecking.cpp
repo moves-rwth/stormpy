@@ -108,8 +108,7 @@ void define_modelchecking(py::module& m) {
     m.def("_get_reachable_states_rf", &getReachableStates<storm::RationalFunction>, py::arg("model"), py::arg("initial_states"), py::arg("constraint_states"), py::arg("target_states"), py::arg("maximal_steps") = boost::none, py::arg("choice_filter") = boost::none);
 
     m.def("_compute_expected_number_of_visits_double", &getExpectedNumberOfVisits<double>, py::arg("env"), py::arg("model"));
-    m.def("_compute_expected_number_of_visits_double", &getExpectedNumberOfVisits<storm::RationalNumber>,  py::arg("env"), py::arg("model"));
-
+    m.def("_compute_expected_number_of_visits_exact", &getExpectedNumberOfVisits<storm::RationalNumber>,  py::arg("env"), py::arg("model"));
 
     // Model checking
     m.def("_model_checking_fully_observable", &modelCheckingFullyObservableSparseEngine<double>, py::arg("model"), py::arg("task"), py::arg("environment")  = storm::Environment());

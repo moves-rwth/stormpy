@@ -479,9 +479,10 @@ def compute_prob01max_states(model, phi_states, psi_states):
 def topological_sort(model, forward=True, initial=[]):
     """
 
-    :param model:
-    :param forward:
-    :return:
+    :param model: A sparse model
+    :param forward: A flag whether the sorting should be forward or backwards
+    :param initial: a list of states
+    :return: A topological sort of the states
     """
     matrix = model.transition_matrix if forward else model.backward_transition_matrix
     if isinstance(model, storage._SparseParametricModel):
@@ -497,10 +498,10 @@ def get_reachable_states(model, initial_states, constraint_states, target_states
     Get the states that are reachable in a sparse model
 
     :param model: A model
-    :param initial_states:
+    :param initial_states: Which states should be definitively reachable
     :param constraint_states:
-    :param target_states:
-    :param maximal_steps:
+    :param target_states: Which states should be considered absorbing
+    :param maximal_steps: The maximal depth to explore
     :param choice_filter:
     :return:
     """
