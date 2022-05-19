@@ -37,6 +37,8 @@ prism_pmdp_coin_two_dice = _path("pmdp", "two_dice.nm")
 """Prism example for parametric two dice"""
 prism_mdp_maze = _path("mdp", "maze_2.nm")
 """Prism example for the maze MDP"""
+prism_mdp_slipgrid = _path("mdp", "slipgrid.nm")
+"""Prism example for a slippery grid with fixed dimensions"""
 drn_pomdp_maze = _path("pomdp", "maze.drn")
 """DRN example for the maze POMDP"""
 prism_pomdp_maze = _path("pomdp", "maze_2.prism")
