@@ -1,26 +1,26 @@
 #include "dft.h"
 #include "src/helpers.h"
-#include "storm-dft/storage/dft/DFT.h"
+#include "storm-dft/storage/DFT.h"
 #include "storm/settings/SettingsManager.h"
 #include "storm-dft/settings/modules/FaultTreeSettings.h"
 #include "storm-dft/settings/modules/DftIOSettings.h"
-#include "storm-dft/storage/dft/DFTIsomorphism.h"
+#include "storm-dft/storage/DFTIsomorphism.h"
 
 
-template<typename ValueType> using DFT = storm::storage::DFT<ValueType>;
-template<typename ValueType> using DFTElement = storm::storage::DFTElement<ValueType>;
-using DFTSymmetries = storm::storage::DFTIndependentSymmetries;
+template<typename ValueType> using DFT = storm::dft::storage::DFT<ValueType>;
+template<typename ValueType> using DFTElement = storm::dft::storage::elements::DFTElement<ValueType>;
+using DFTSymmetries = storm::dft::storage::DFTIndependentSymmetries;
 
 // requires pycarl.Variable
 std::set<storm::RationalFunctionVariable> getParameters(DFT<storm::RationalFunction> const& dft) {
-    return storm::storage::getParameters(dft);
+    return storm::dft::storage::getParameters(dft);
 }
 
 void define_dft(py::module& m) {
 
     m.def("_set_up", []() {
-            storm::settings::addModule<storm::settings::modules::FaultTreeSettings>();
-            storm::settings::addModule<storm::settings::modules::DftIOSettings>();
+            storm::settings::addModule<storm::dft::settings::modules::FaultTreeSettings>();
+            storm::settings::addModule<storm::dft::settings::modules::DftIOSettings>();
         }, "Initialize Storm-dft");
 
     m.def("get_parameters", &getParameters, "Collect parameters in parametric DFT", py::arg("dft"));
