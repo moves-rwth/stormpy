@@ -1,10 +1,10 @@
 #include "dft_state.h"
 #include "src/helpers.h"
-#include "storm-dft/storage/dft/DFTState.h"
-#include "storm-dft/storage/dft/FailableElements.h"
+#include "storm-dft/storage/DFTState.h"
+#include "storm-dft/storage/FailableElements.h"
 
 
-template<typename ValueType> using DFTState = storm::storage::DFTState<ValueType>;
+template<typename ValueType> using DFTState = storm::dft::storage::DFTState<ValueType>;
 typedef storm::dft::storage::FailableElements Failable;
 typedef storm::dft::storage::FailableElements::const_iterator FailableIter;
 
@@ -27,7 +27,7 @@ void define_dft_state(py::module& m, std::string const& vt_suffix) {
         .def("__str__", [](DFTState<ValueType> const& state) {
                 return streamToString<storm::storage::BitVector>(state.status());
             })
-        .def("to_string", [](std::shared_ptr<DFTState<ValueType>> const& state, storm::storage::DFT<ValueType> const& dft) {
+        .def("to_string", [](std::shared_ptr<DFTState<ValueType>> const& state, storm::dft::storage::DFT<ValueType> const& dft) {
                 return dft.getStateString(state);
             }, "Print status", py::arg("dft"))
     ;

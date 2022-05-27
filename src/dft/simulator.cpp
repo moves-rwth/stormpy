@@ -4,12 +4,12 @@
 #include "storm-dft/simulator/DFTTraceSimulator.h"
 #include "storm-dft/api/storm-dft.h"
 #include "storm-dft/generator/DftNextStateGenerator.h"
-#include "storm-dft/storage/dft/SymmetricUnits.h"
-#include "storm-dft/storage/dft/DFTIsomorphism.h"
+#include "storm-dft/storage/SymmetricUnits.h"
+#include "storm-dft/storage/DFTIsomorphism.h"
 
 
 template<typename ValueType> using Simulator = storm::dft::simulator::DFTTraceSimulator<ValueType>;
-typedef storm::storage::DFTStateGenerationInfo DFTStateInfo;
+typedef storm::dft::storage::DFTStateGenerationInfo DFTStateInfo;
 typedef boost::mt19937 RandomGenerator;
 
 
@@ -37,7 +37,7 @@ void define_simulator_typed(py::module& m, std::string const& vt_suffix) {
 
     // Simulator for DFTs
     py::class_<Simulator<ValueType>, std::shared_ptr<Simulator<ValueType>>>(m, ("DFTSimulator"+vt_suffix).c_str(), "Simulator for DFT traces")
-        .def(py::init<storm::storage::DFT<ValueType> const&, DFTStateInfo const&, RandomGenerator&>(), py::keep_alive<1,2>(), py::keep_alive<1, 3>(), py::keep_alive<1,4>(), py::arg("dft"), py::arg("state_generation_info"), py::arg("generator"), "Create Simulator")
+        .def(py::init<storm::dft::storage::DFT<ValueType> const&, DFTStateInfo const&, RandomGenerator&>(), py::keep_alive<1,2>(), py::keep_alive<1, 3>(), py::keep_alive<1,4>(), py::arg("dft"), py::arg("state_generation_info"), py::arg("generator"), "Create Simulator")
         .def("reset", &Simulator<ValueType>::resetToInitial, "Reset to initial state")
         .def("current", &Simulator<ValueType>::getCurrentState, "Get current state")
         .def("step", &Simulator<ValueType>::step, py::arg("next_failure"), py::arg("dependency_success") = true, "Perform simulation step according to next_failure. For PDEPs, dependency_success determines whether the PDEP was successful or not.")
