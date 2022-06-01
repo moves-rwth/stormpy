@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Installation &#8212; stormpy 1.6.4 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
@@ -11,6 +11,7 @@
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -251,9 +252,9 @@
     <div class="body col-md-9 content" role="main">
       
   <section id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h1>
 <section id="requirements">
-<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading">¶</a></h2>
 <p>Before installing stormpy, make sure</p>
 <ul class="simple">
 <li><p>Python 3 is available on your system.</p></li>
@@ -264,7 +265,7 @@
 The simplest way of ensuring this is to first install carl as explained in the <a class="reference external" href="https://www.stormchecker.org/documentation/obtain-storm/dependencies.html#carl">Storm installation guide</a>.
 You can then install Storm and pycarl independently.</p>
 <section id="compatibility-of-stormpy-and-storm">
-<span id="compatibility-stormpy-storm"></span><h3>Compatibility of stormpy and Storm<a class="headerlink" href="#compatibility-of-stormpy-and-storm" title="Permalink to this headline">¶</a></h3>
+<span id="compatibility-stormpy-storm"></span><h3>Compatibility of stormpy and Storm<a class="headerlink" href="#compatibility-of-stormpy-and-storm" title="Permalink to this heading">¶</a></h3>
 <p>Note that stormpy and Storm are continuously extended and modified.
 It is therefore important to use compatible versions of stormpy and Storm.
 You have two choices for stormpy depending on the version of Storm you are using:</p>
@@ -286,9 +287,9 @@ We will fix such issues as fast as possible.</p></li>
 </section>
 </section>
 <section id="installation-steps">
-<h2>Installation Steps<a class="headerlink" href="#installation-steps" title="Permalink to this headline">¶</a></h2>
+<h2>Installation Steps<a class="headerlink" href="#installation-steps" title="Permalink to this heading">¶</a></h2>
 <section id="virtual-environments">
-<h3>Virtual Environments<a class="headerlink" href="#virtual-environments" title="Permalink to this headline">¶</a></h3>
+<h3>Virtual Environments<a class="headerlink" href="#virtual-environments" title="Permalink to this heading">¶</a></h3>
 <p>Virtual environments create isolated environments for your projects.
 This helps to keep your system clean, work with different versions of packages and different version of python.
 While it is not required, we recommend the use of such virtual environments. To get you started, we recommend
@@ -304,7 +305,7 @@ $ source env/bin/activate
 Whenever using the environment, the console prompt is prefixed with <code class="docutils literal notranslate"><span class="pre">(env)</span></code>.</p>
 </section>
 <section id="building-stormpy">
-<h3>Building stormpy<a class="headerlink" href="#building-stormpy" title="Permalink to this headline">¶</a></h3>
+<h3>Building stormpy<a class="headerlink" href="#building-stormpy" title="Permalink to this heading">¶</a></h3>
 <p><strong>Clone</strong> the <a class="reference internal" href="#compatibility-stormpy-storm"><span class="std std-ref">compatible stormpy version</span></a> into any suitable location.
 For the <code class="docutils literal notranslate"><span class="pre">master</span></code> of stormpy use:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/moves-rwth/stormpy.git
@@ -325,7 +326,7 @@ $ cd stormpy
 </pre></div>
 </div>
 <section id="optional-build-arguments">
-<h4>Optional build arguments<a class="headerlink" href="#optional-build-arguments" title="Permalink to this headline">¶</a></h4>
+<h4>Optional build arguments<a class="headerlink" href="#optional-build-arguments" title="Permalink to this heading">¶</a></h4>
 <p>The build step <code class="docutils literal notranslate"><span class="pre">build_ext</span></code> also takes optional arguments for a more advanced configuration of stormpy.</p>
 <ul>
 <li><p><em>Specifying which Storm library to use</em></p>
@@ -359,7 +360,7 @@ If you want to configure the number of threads manually you can specify the <cod
 </section>
 </section>
 <section id="testing-stormpy-installation">
-<h3>Testing stormpy installation<a class="headerlink" href="#testing-stormpy-installation" title="Permalink to this headline">¶</a></h3>
+<h3>Testing stormpy installation<a class="headerlink" href="#testing-stormpy-installation" title="Permalink to this heading">¶</a></h3>
 <p>After building, you can run the test files by either:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python3 setup.py test
 </pre></div>
@@ -373,7 +374,7 @@ $ py.test tests/
 To get started, continue with our <a class="reference internal" href="getting_started.html"><span class="doc">Getting Started</span></a>, consult the test files in <code class="docutils literal notranslate"><span class="pre">tests/</span></code> or the <a class="reference internal" href="api.html"><span class="doc">Stormpy API Reference</span></a> (work in progress).</p>
 </section>
 <section id="building-stormpy-documentation">
-<h3>Building stormpy documentation<a class="headerlink" href="#building-stormpy-documentation" title="Permalink to this headline">¶</a></h3>
+<h3>Building stormpy documentation<a class="headerlink" href="#building-stormpy-documentation" title="Permalink to this heading">¶</a></h3>
 <p>To build this documentation, you need additional python dependencies as well as <a class="reference external" href="https://pandoc.org/">pandoc</a>.
 You can install the required python dependencies automatically with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python setup.py develop easy_install stormpy[doc,numpy]
@@ -412,7 +413,7 @@ $ make html
     </p>
     <p>
         &copy; Copyright 2016-2021 Moves RWTH Aachen.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.0.<br/>
     </p>
   </div>
 </footer>

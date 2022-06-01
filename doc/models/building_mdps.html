@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Markov decision processes (MDPs) &#8212; stormpy 1.6.4 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
@@ -11,6 +11,7 @@
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
@@ -494,9 +495,9 @@ div.rendered_html tbody tr:hover {
         display: none;
     }
 </style><section id="Markov-decision-processes-(MDPs)">
-<h1>Markov decision processes (MDPs)<a class="headerlink" href="#Markov-decision-processes-(MDPs)" title="Permalink to this headline">¶</a></h1>
+<h1>Markov decision processes (MDPs)<a class="headerlink" href="#Markov-decision-processes-(MDPs)" title="Permalink to this heading">¶</a></h1>
 <section id="Background">
-<h2>Background<a class="headerlink" href="#Background" title="Permalink to this headline">¶</a></h2>
+<h2>Background<a class="headerlink" href="#Background" title="Permalink to this heading">¶</a></h2>
 <p>In <a class="reference internal" href="building_dtmcs.html"><span class="doc">Discrete-time Markov chains (DTMCs)</span></a> we modelled Knuth-Yao’s model of a fair die by the means of a DTMC. In the following we extend this model with nondeterministic choice by building a Markov decision process.</p>
 <p><a class="reference external" href="https://github.com/moves-rwth/stormpy/blob/master/examples/building_mdps/01-building-mdps.py">01-building-mdps.py</a></p>
 <p>First, we import Stormpy:</p>
@@ -510,7 +511,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </section>
 <section id="Transition-Matrix">
-<h2>Transition Matrix<a class="headerlink" href="#Transition-Matrix" title="Permalink to this headline">¶</a></h2>
+<h2>Transition Matrix<a class="headerlink" href="#Transition-Matrix" title="Permalink to this heading">¶</a></h2>
 <p>Since we want to build a nondeterminstic model, we create a transition matrix with a custom row group for each state:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
@@ -575,7 +576,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </section>
 <section id="Labeling">
-<h2>Labeling<a class="headerlink" href="#Labeling" title="Permalink to this headline">¶</a></h2>
+<h2>Labeling<a class="headerlink" href="#Labeling" title="Permalink to this heading">¶</a></h2>
 <p>We have seen the construction of a state labeling in previous examples. Therefore we omit the description here Instead, we focus on the choices. Since in state 0 a nondeterministic choice over two actions is available, the number of choices is 14. To distinguish those we can define a choice labeling:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
@@ -613,7 +614,7 @@ Choice 2 labels
 </div>
 </section>
 <section id="Reward-models">
-<h2>Reward models<a class="headerlink" href="#Reward-models" title="Permalink to this headline">¶</a></h2>
+<h2>Reward models<a class="headerlink" href="#Reward-models" title="Permalink to this heading">¶</a></h2>
 <p>In this reward model the length of the action rewards coincides with the number of choices:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
@@ -627,7 +628,7 @@ Choice 2 labels
 </div>
 </section>
 <section id="Building-the-Model">
-<h2>Building the Model<a class="headerlink" href="#Building-the-Model" title="Permalink to this headline">¶</a></h2>
+<h2>Building the Model<a class="headerlink" href="#Building-the-Model" title="Permalink to this heading">¶</a></h2>
 <p>We collect the components:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
@@ -660,15 +661,15 @@ Transitions:    22
 Choices:        14
 Reward Models:  coin_flips
 State Labels:   9 labels
-   * init -&gt; 1 item(s)
    * one -&gt; 1 item(s)
-   * six -&gt; 1 item(s)
-   * deadlock -&gt; 0 item(s)
-   * five -&gt; 1 item(s)
    * two -&gt; 1 item(s)
+   * init -&gt; 1 item(s)
+   * six -&gt; 1 item(s)
    * done -&gt; 6 item(s)
    * four -&gt; 1 item(s)
    * three -&gt; 1 item(s)
+   * deadlock -&gt; 0 item(s)
+   * five -&gt; 1 item(s)
 Choice Labels:  2 labels
    * b -&gt; 1 item(s)
    * a -&gt; 1 item(s)
@@ -678,7 +679,7 @@ Choice Labels:  2 labels
 </div>
 </section>
 <section id="Partially-observable-Markov-decision-process-(POMDPs)">
-<h2>Partially observable Markov decision process (POMDPs)<a class="headerlink" href="#Partially-observable-Markov-decision-process-(POMDPs)" title="Permalink to this headline">¶</a></h2>
+<h2>Partially observable Markov decision process (POMDPs)<a class="headerlink" href="#Partially-observable-Markov-decision-process-(POMDPs)" title="Permalink to this heading">¶</a></h2>
 <p>To build a partially observable Markov decision process (POMDP), components.observations can be set to a list of numbers that defines the status of the observables in each state.</p>
 </section>
 </section>
@@ -703,7 +704,7 @@ Choice Labels:  2 labels
     </p>
     <p>
         &copy; Copyright 2016-2021 Moves RWTH Aachen.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.0.<br/>
     </p>
   </div>
 </footer>

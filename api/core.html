@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Stormpy.core &#8212; stormpy 1.6.4 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
@@ -11,6 +11,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -219,7 +220,7 @@
     <div class="body col-md-9 content" role="main">
       
   <section id="module-stormpy">
-<span id="stormpy-core"></span><h1>Stormpy.core<a class="headerlink" href="#module-stormpy" title="Permalink to this headline">¶</a></h1>
+<span id="stormpy-core"></span><h1>Stormpy.core<a class="headerlink" href="#module-stormpy" title="Permalink to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="stormpy.ActionMaskDouble">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ActionMaskDouble</span></span><a class="headerlink" href="#stormpy.ActionMaskDouble" title="Permalink to this definition">¶</a></dt>
@@ -1003,7 +1004,7 @@ column by column. As multiple entries per column are admitted, consecutive calls
 admitted to mention the same row-column-pair. If rows are skipped entirely, the corresponding rows are
 treated as empty. If these constraints are not met, an exception is thrown.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>row</strong> (<em>double</em>) – The row in which the matrix entry is to be set</p></li>
 <li><p><strong>column</strong> (<em>double</em>) – The column in which the matrix entry is to be set</p></li>
@@ -1049,7 +1050,7 @@ treated as empty. If these constraints are not met, an exception is thrown.</p>
 <dd><p>Replaces all columns with id &gt;= offset according to replacements.
 Every state with id offset+i is replaced by the id in replacements[i]. Afterwards the columns are sorted.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>replacements</strong> (<em>std::vector&lt;double&gt; const&amp;</em>) – replacements Mapping indicating the replacements from offset+i -&gt; value of i</p></li>
 <li><p><strong>offset</strong> (<em>int</em>) – Offset to add to each id in vector index.</p></li>
@@ -2158,7 +2159,7 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.JaniModel.flatten_composition">
-<span class="sig-name descname"><span class="pre">flatten_composition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.JaniModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_solver_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f0512238fb0&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.JaniModel" title="stormpy.storage.storage.JaniModel"><span class="pre">stormpy.storage.storage.JaniModel</span></a></span></span><a class="headerlink" href="#stormpy.JaniModel.flatten_composition" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">flatten_composition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.JaniModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_solver_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7fa5c52177b0&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.JaniModel" title="stormpy.storage.storage.JaniModel"><span class="pre">stormpy.storage.storage.JaniModel</span></a></span></span><a class="headerlink" href="#stormpy.JaniModel.flatten_composition" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -3170,7 +3171,7 @@ column by column. As multiple entries per column are admitted, consecutive calls
 admitted to mention the same row-column-pair. If rows are skipped entirely, the corresponding rows are
 treated as empty. If these constraints are not met, an exception is thrown.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>row</strong> (<em>double</em>) – The row in which the matrix entry is to be set</p></li>
 <li><p><strong>column</strong> (<em>double</em>) – The column in which the matrix entry is to be set</p></li>
@@ -3216,7 +3217,7 @@ treated as empty. If these constraints are not met, an exception is thrown.</p>
 <dd><p>Replaces all columns with id &gt;= offset according to replacements.
 Every state with id offset+i is replaced by the id in replacements[i]. Afterwards the columns are sorted.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>replacements</strong> (<em>std::vector&lt;double&gt; const&amp;</em>) – replacements Mapping indicating the replacements from offset+i -&gt; value of i</p></li>
 <li><p><strong>offset</strong> (<em>int</em>) – Offset to add to each id in vector index.</p></li>
@@ -3610,7 +3611,7 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.PrismProgram.flatten">
-<span class="sig-name descname"><span class="pre">flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.PrismProgram</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f0510dbf830&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.PrismProgram" title="stormpy.storage.storage.PrismProgram"><span class="pre">stormpy.storage.storage.PrismProgram</span></a></span></span><a class="headerlink" href="#stormpy.PrismProgram.flatten" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.PrismProgram</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7fa5c5242d70&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.PrismProgram" title="stormpy.storage.storage.PrismProgram"><span class="pre">stormpy.storage.storage.PrismProgram</span></a></span></span><a class="headerlink" href="#stormpy.PrismProgram.flatten" title="Permalink to this definition">¶</a></dt>
 <dd><p>Put program into a single module</p>
 </dd></dl>
 
@@ -4001,7 +4002,7 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <dl class="py attribute">
 <dt class="sig sig-object py" id="stormpy.RationalRF">
 <span class="sig-name descname"><span class="pre">RationalRF</span></span><a class="headerlink" href="#stormpy.RationalRF" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">pycarl.cln.cln.Rational</span></code></p>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">Rational</span></code></p>
 </dd></dl>
 
 <dl class="py class">
@@ -4767,7 +4768,7 @@ column by column. As multiple entries per column are admitted, consecutive calls
 admitted to mention the same row-column-pair. If rows are skipped entirely, the corresponding rows are
 treated as empty. If these constraints are not met, an exception is thrown.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>row</strong> (<em>double</em>) – The row in which the matrix entry is to be set</p></li>
 <li><p><strong>column</strong> (<em>double</em>) – The column in which the matrix entry is to be set</p></li>
@@ -4813,7 +4814,7 @@ treated as empty. If these constraints are not met, an exception is thrown.</p>
 <dd><p>Replaces all columns with id &gt;= offset according to replacements.
 Every state with id offset+i is replaced by the id in replacements[i]. Afterwards the columns are sorted.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>replacements</strong> (<em>std::vector&lt;double&gt; const&amp;</em>) – replacements Mapping indicating the replacements from offset+i -&gt; value of i</p></li>
 <li><p><strong>offset</strong> (<em>int</em>) – Offset to add to each id in vector index.</p></li>
@@ -5785,13 +5786,13 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <span class="sig-name descname"><span class="pre">build_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbolic_description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">properties</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.build_model" title="Permalink to this definition">¶</a></dt>
 <dd><p>Build a model in sparse representation from a symbolic description.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>symbolic_description</strong> – Symbolic model description to translate into a model.</p></li>
 <li><p><strong>properties</strong> (<em>List</em><em>[</em><a class="reference internal" href="#stormpy.Property" title="stormpy.Property"><em>Property</em></a><em>]</em>) – List of properties that should be preserved during the translation. If None, then all properties are preserved.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Model in sparse representation.</p>
 </dd>
 </dl>
@@ -5802,13 +5803,13 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <span class="sig-name descname"><span class="pre">build_model_from_drn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options=&lt;stormpy.core.DirectEncodingParserOptions</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.build_model_from_drn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Build a model in sparse representation from the explicit DRN representation.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>file</strong> (<em>String</em>) – DRN file containing the model.</p></li>
 <li><p><strong>DirectEncodingParserOptions</strong> – Options for the parser.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Model in sparse representation.</p>
 </dd>
 </dl>
@@ -5819,13 +5820,13 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <span class="sig-name descname"><span class="pre">build_parametric_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbolic_description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">properties</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.build_parametric_model" title="Permalink to this definition">¶</a></dt>
 <dd><p>Build a parametric model in sparse representation from a symbolic description.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>symbolic_description</strong> – Symbolic model description to translate into a model.</p></li>
 <li><p><strong>properties</strong> (<em>List</em><em>[</em><a class="reference internal" href="#stormpy.Property" title="stormpy.Property"><em>Property</em></a><em>]</em>) – List of properties that should be preserved during the translation. If None, then all properties are preserved.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Parametric model in sparse representation.</p>
 </dd>
 </dl>
@@ -5836,13 +5837,13 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <span class="sig-name descname"><span class="pre">build_parametric_model_from_drn</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options=&lt;stormpy.core.DirectEncodingParserOptions</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.build_parametric_model_from_drn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Build a parametric model in sparse representation from the explicit DRN representation.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>file</strong> (<em>String</em>) – DRN file containing the model.</p></li>
 <li><p><strong>DirectEncodingParserOptions</strong> – Options for the parser.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Parametric model in sparse representation.</p>
 </dd>
 </dl>
@@ -5853,13 +5854,13 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <span class="sig-name descname"><span class="pre">build_parametric_sparse_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_group_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.build_parametric_sparse_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Build a sparse matrix from numpy array.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>array</strong> (<em>numpy</em>) – The array.</p></li>
 <li><p><strong>row_group_indices</strong> (<em>List</em><em>[</em><em>double</em><em>]</em>) – List containing the starting row of each row group in ascending order.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Parametric sparse matrix.</p>
 </dd>
 </dl>
@@ -5876,13 +5877,13 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <span class="sig-name descname"><span class="pre">build_sparse_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_group_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.build_sparse_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Build a sparse matrix from numpy array.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>array</strong> (<em>numpy</em>) – The array.</p></li>
 <li><p><strong>row_group_indices</strong> (<em>List</em><em>[</em><em>double</em><em>]</em>) – List containing the starting row of each row group in ascending order.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Sparse matrix.</p>
 </dd>
 </dl>
@@ -5893,13 +5894,13 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <span class="sig-name descname"><span class="pre">build_sparse_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbolic_description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">properties</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.build_sparse_model" title="Permalink to this definition">¶</a></dt>
 <dd><p>Build a model in sparse representation from a symbolic description.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>symbolic_description</strong> – Symbolic model description to translate into a model.</p></li>
 <li><p><strong>properties</strong> (<em>List</em><em>[</em><a class="reference internal" href="#stormpy.Property" title="stormpy.Property"><em>Property</em></a><em>]</em>) – List of properties that should be preserved during the translation. If None, then all properties are preserved.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Model in sparse representation.</p>
 </dd>
 </dl>
@@ -5922,13 +5923,13 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <span class="sig-name descname"><span class="pre">build_sparse_parametric_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbolic_description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">properties</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.build_sparse_parametric_model" title="Permalink to this definition">¶</a></dt>
 <dd><p>Build a parametric model in sparse representation from a symbolic description.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>symbolic_description</strong> – Symbolic model description to translate into a model.</p></li>
 <li><p><strong>properties</strong> (<em>List</em><em>[</em><a class="reference internal" href="#stormpy.Property" title="stormpy.Property"><em>Property</em></a><em>]</em>) – List of properties that should be preserved during the translation. If None, then all properties are preserved.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Parametric model in sparse representation.</p>
 </dd>
 </dl>
@@ -5945,13 +5946,13 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <span class="sig-name descname"><span class="pre">build_symbolic_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbolic_description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">properties</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.build_symbolic_model" title="Permalink to this definition">¶</a></dt>
 <dd><p>Build a model in symbolic representation from a symbolic description.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>symbolic_description</strong> – Symbolic model description to translate into a model.</p></li>
 <li><p><strong>properties</strong> (<em>List</em><em>[</em><a class="reference internal" href="#stormpy.Property" title="stormpy.Property"><em>Property</em></a><em>]</em>) – List of properties that should be preserved during the translation. If None, then all properties are preserved.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Model in symbolic representation.</p>
 </dd>
 </dl>
@@ -5962,13 +5963,13 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <span class="sig-name descname"><span class="pre">build_symbolic_parametric_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">symbolic_description</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">properties</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.build_symbolic_parametric_model" title="Permalink to this definition">¶</a></dt>
 <dd><p>Build a parametric model in symbolic representation from a symbolic description.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>symbolic_description</strong> – Symbolic model description to translate into a model.</p></li>
 <li><p><strong>properties</strong> (<em>List</em><em>[</em><a class="reference internal" href="#stormpy.Property" title="stormpy.Property"><em>Property</em></a><em>]</em>) – List of properties that should be preserved during the translation. If None, then all properties are preserved.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Parametric model in symbolic representation.</p>
 </dd>
 </dl>
@@ -6026,13 +6027,13 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <span class="sig-name descname"><span class="pre">compute_expected_number_of_visits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.compute_expected_number_of_visits" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the number of expected visits. Model must be deterministic.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>environment</strong> – An model checking environment</p></li>
 <li><p><strong>model</strong> – A DTMC or CTMC</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A vector with the expected number of visits</p>
 </dd>
 </dl>
@@ -6043,7 +6044,7 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <span class="sig-name descname"><span class="pre">compute_prob01_states</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi_states</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">psi_states</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.compute_prob01_states" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute prob01 states for properties of the form phi_states until psi_states</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>model</strong> (<em>SparseDTMC</em>) – </p></li>
 <li><p><strong>phi_states</strong> (<a class="reference internal" href="#stormpy.BitVector" title="stormpy.BitVector"><em>BitVector</em></a>) – </p></li>
@@ -6073,7 +6074,7 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <dt class="sig sig-object py" id="stormpy.construct_submodel">
 <span class="sig-name descname"><span class="pre">construct_submodel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">states</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">actions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_unreachable_states=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options=&lt;stormpy.core.SubsystemBuilderOptions</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.construct_submodel" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>model</strong> – The model</p></li>
 <li><p><strong>states</strong> – Which states should be preserved</p></li>
@@ -6082,7 +6083,7 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <li><p><strong>options</strong> – An options object of type SubsystemBuilderOptions</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A model with fewer states/actions</p>
 </dd>
 </dl>
@@ -6114,7 +6115,7 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 </dd>
 </dl>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>matrix</strong> – </p></li>
 <li><p><strong>subsystem</strong> – BitVector with states many entries. Only states in the given subsystem are kept. Transitions leading to a state outside of the subsystem will be
@@ -6126,7 +6127,7 @@ Furthermore, the rows that contain a transition leading outside of the subsystem
 <li><p><strong>add_self_loop_at_sink_states</strong> – if true, such rows get a selfloop (with value 1). Otherwise, the row remains empty.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A container with various information.</p>
 </dd>
 </dl>
@@ -6171,7 +6172,7 @@ Furthermore, the rows that contain a transition leading outside of the subsystem
 <span class="sig-name descname"><span class="pre">get_reachable_states</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_states</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraint_states</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_states</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maximal_steps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">choice_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.get_reachable_states" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get the states that are reachable in a sparse model</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>model</strong> – A model</p></li>
 <li><p><strong>initial_states</strong> – Which states should be definitively reachable</p></li>
@@ -6181,7 +6182,7 @@ Furthermore, the rows that contain a transition leading outside of the subsystem
 <li><p><strong>choice_filter</strong> – </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p></p>
 </dd>
 </dl>
@@ -6244,14 +6245,14 @@ Furthermore, the rows that contain a transition leading outside of the subsystem
 <dt class="sig sig-object py" id="stormpy.parse_properties">
 <span class="sig-name descname"><span class="pre">parse_properties</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">properties</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.parse_properties" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>properties</strong> – A string with the pctl properties</p></li>
 <li><p><strong>context</strong> – A symbolic model that gives meaning to variables and constants.</p></li>
 <li><p><strong>filters</strong> – filters, if applicable.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A list of properties</p>
 </dd>
 </dl>
@@ -6267,14 +6268,14 @@ Furthermore, the rows that contain a transition leading outside of the subsystem
 <span class="sig-name descname"><span class="pre">parse_properties_for_prism_program</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">formula_string:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prism_program:</span> <span class="pre">storm::prism::Program</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">property_filter:</span> <span class="pre">Optional[Set[str]]</span> <span class="pre">=</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#stormpy.Property" title="stormpy.core.Property"><span class="pre">stormpy.core.Property</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#stormpy.parse_properties_for_prism_program" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parses properties given in the prism format, allows references to variables in the prism program.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>formula_str</strong> (<em>str</em>) – A string of formulas</p></li>
 <li><p><strong>prism_program</strong> (<a class="reference internal" href="#stormpy.PrismProgram" title="stormpy.PrismProgram"><em>PrismProgram</em></a>) – A prism program</p></li>
 <li><p><strong>property_filter</strong> (<em>str</em>) – A filter</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A list of properties</p>
 </dd>
 </dl>
@@ -6285,13 +6286,13 @@ Furthermore, the rows that contain a transition leading outside of the subsystem
 <span class="sig-name descname"><span class="pre">parse_properties_without_context</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">formula_string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">property_filter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#stormpy.Property" title="stormpy.core.Property"><span class="pre">stormpy.core.Property</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#stormpy.parse_properties_without_context" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parse properties given in the prism format.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>formula_str</strong> (<em>str</em>) – A string of formulas</p></li>
 <li><p><strong>property_filter</strong> (<em>str</em>) – A filter</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A list of properties</p>
 </dd>
 </dl>
@@ -6365,14 +6366,14 @@ Furthermore, the rows that contain a transition leading outside of the subsystem
 <dt class="sig sig-object py" id="stormpy.topological_sort">
 <span class="sig-name descname"><span class="pre">topological_sort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forward</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.topological_sort" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>model</strong> – A sparse model</p></li>
 <li><p><strong>forward</strong> – A flag whether the sorting should be forward or backwards</p></li>
 <li><p><strong>initial</strong> – a list of states</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A topological sort of the states</p>
 </dd>
 </dl>
@@ -6417,7 +6418,7 @@ Furthermore, the rows that contain a transition leading outside of the subsystem
     </p>
     <p>
         &copy; Copyright 2016-2021 Moves RWTH Aachen.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.0.<br/>
     </p>
   </div>
 </footer>

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Working with Shortest Paths &#8212; stormpy 1.6.4 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
@@ -11,6 +11,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
@@ -486,16 +487,16 @@ div.rendered_html tbody tr:hover {
         display: none;
     }
 </style><section id="Working-with-Shortest-Paths">
-<h1>Working with Shortest Paths<a class="headerlink" href="#Working-with-Shortest-Paths" title="Permalink to this headline">¶</a></h1>
+<h1>Working with Shortest Paths<a class="headerlink" href="#Working-with-Shortest-Paths" title="Permalink to this heading">¶</a></h1>
 <p>Storm can enumerate the most probable paths of a model, leading from the initial state to a defined set of target states, which we refer to as shortest paths. In particular, the model states visited along those paths are available as sets and can be accumulated, yielding a <em>sub-model</em>.</p>
 <section id="Background">
-<h2>Background<a class="headerlink" href="#Background" title="Permalink to this headline">¶</a></h2>
+<h2>Background<a class="headerlink" href="#Background" title="Permalink to this heading">¶</a></h2>
 <p>The underlying implementation uses the <em>recursive enumeration algorithm</em> <a class="reference external" href="#jm1999">[JM1999]</a>, substituting distance for probability – which is why we refer to the most probable paths as the <em>shortest</em> paths.</p>
 <p>This algorithm computes the shortest paths recursively and in order, i.e., to find the 7th shortest path, the 1st through 6th shortest paths are computed as precursors. The next (i.e., 8th shortest) path can then be computed efficiently.</p>
 <p>It is crucial to note that <em>any</em> path is eligible, including those that (repeatedly) traverse loops (i.e., <em>non-simple</em> paths). This is a common case in practice: Often a large number of similar paths that differ only in the order and number of loop traversals occur successively in the sequence of shortest paths. (For applications that are only interested in simple paths, this is rather unfortunate.)</p>
 </section>
 <section id="Examining-Shortest-Paths">
-<h2>Examining Shortest Paths<a class="headerlink" href="#Examining-Shortest-Paths" title="Permalink to this headline">¶</a></h2>
+<h2>Examining Shortest Paths<a class="headerlink" href="#Examining-Shortest-Paths" title="Permalink to this heading">¶</a></h2>
 <p><a class="reference external" href="https://github.com/moves-rwth/stormpy/blob/master/examples/shortest_paths/01-shortest-paths.py">01-shortest-paths.py</a></p>
 <p>As in <a class="reference internal" href="../getting_started.html"><span class="doc">Getting Started</span></a>, we import some required modules and build a model from the example files:</p>
 <div class="nbinput nblast docutils container">
@@ -585,7 +586,7 @@ div.rendered_html tbody tr:hover {
     </p>
     <p>
         &copy; Copyright 2016-2021 Moves RWTH Aachen.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.0.<br/>
     </p>
   </div>
 </footer>

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Continuous-time Markov chains (CTMCs) &#8212; stormpy 1.6.4 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
@@ -11,6 +11,7 @@
     <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
     <script src="../../_static/jquery.js"></script>
     <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
@@ -492,9 +493,9 @@ div.rendered_html tbody tr:hover {
         display: none;
     }
 </style><section id="Continuous-time-Markov-chains-(CTMCs)">
-<h1>Continuous-time Markov chains (CTMCs)<a class="headerlink" href="#Continuous-time-Markov-chains-(CTMCs)" title="Permalink to this headline">¶</a></h1>
+<h1>Continuous-time Markov chains (CTMCs)<a class="headerlink" href="#Continuous-time-Markov-chains-(CTMCs)" title="Permalink to this heading">¶</a></h1>
 <section id="Background">
-<h2>Background<a class="headerlink" href="#Background" title="Permalink to this headline">¶</a></h2>
+<h2>Background<a class="headerlink" href="#Background" title="Permalink to this heading">¶</a></h2>
 <p>In this section, we explain how Stormpy can be used to build a simple CTMC. Building CTMCs works similar to building DTMCs as in <a class="reference internal" href="building_dtmcs.html"><span class="doc">Discrete-time Markov chains (DTMCs)</span></a>, but additionally every state is equipped with an exit rate.</p>
 <p><a class="reference external" href="https://github.com/moves-rwth/stormpy/blob/master/examples/building_ctmcs/01-building-ctmcs.py">01-building-ctmcs.py</a></p>
 <p>First, we import Stormpy:</p>
@@ -508,7 +509,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </section>
 <section id="Transition-Matrix">
-<h2>Transition Matrix<a class="headerlink" href="#Transition-Matrix" title="Permalink to this headline">¶</a></h2>
+<h2>Transition Matrix<a class="headerlink" href="#Transition-Matrix" title="Permalink to this heading">¶</a></h2>
 <p>In this example, we build the transition matrix using a numpy array</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
@@ -553,7 +554,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </section>
 <section id="Labeling">
-<h2>Labeling<a class="headerlink" href="#Labeling" title="Permalink to this headline">¶</a></h2>
+<h2>Labeling<a class="headerlink" href="#Labeling" title="Permalink to this heading">¶</a></h2>
 <p>The state labeling is created analogously to the previous example in <a class="reference internal" href="building_dtmcs.html#Labeling"><span class="std std-ref">building DTMCs</span></a>:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
@@ -571,7 +572,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </section>
 <section id="Exit-Rates">
-<h2>Exit Rates<a class="headerlink" href="#Exit-Rates" title="Permalink to this headline">¶</a></h2>
+<h2>Exit Rates<a class="headerlink" href="#Exit-Rates" title="Permalink to this heading">¶</a></h2>
 <p>Lastly, we initialize a list to equip every state with an exit rate:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
@@ -583,7 +584,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </section>
 <section id="Building-the-Model">
-<h2>Building the Model<a class="headerlink" href="#Building-the-Model" title="Permalink to this headline">¶</a></h2>
+<h2>Building the Model<a class="headerlink" href="#Building-the-Model" title="Permalink to this heading">¶</a></h2>
 <p>Now, we can collect all components, including the choice labeling and the exit rates. To let the transition values be interpreted as rates we set rate_transitions to True:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
@@ -615,10 +616,10 @@ States:         4
 Transitions:    6
 Reward Models:  none
 State Labels:   4 labels
-   * full -&gt; 1 item(s)
-   * init -&gt; 1 item(s)
-   * empty -&gt; 1 item(s)
    * deadlock -&gt; 0 item(s)
+   * empty -&gt; 1 item(s)
+   * init -&gt; 1 item(s)
+   * full -&gt; 1 item(s)
 Choice Labels:  none
 --------------------------------------------------------------
 
@@ -647,7 +648,7 @@ Choice Labels:  none
     </p>
     <p>
         &copy; Copyright 2016-2021 Moves RWTH Aachen.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.0.<br/>
     </p>
   </div>
 </footer>

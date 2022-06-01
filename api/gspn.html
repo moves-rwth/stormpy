@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Stormpy.gspn &#8212; stormpy 1.6.4 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
@@ -11,6 +11,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -219,7 +220,7 @@
     <div class="body col-md-9 content" role="main">
       
   <section id="module-stormpy.gspn">
-<span id="stormpy-gspn"></span><h1>Stormpy.gspn<a class="headerlink" href="#module-stormpy.gspn" title="Permalink to this headline">¶</a></h1>
+<span id="stormpy-gspn"></span><h1>Stormpy.gspn<a class="headerlink" href="#module-stormpy.gspn" title="Permalink to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="stormpy.gspn.GSPN">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">GSPN</span></span><a class="headerlink" href="#stormpy.gspn.GSPN" title="Permalink to this definition">¶</a></dt>
@@ -249,7 +250,7 @@
 <div><p>Returns the immediate transitions of this GSPN.</p>
 </div></blockquote>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>list[stormpy.ImmediateTransition]</p>
 </dd>
 </dl>
@@ -302,10 +303,10 @@
 <div><p>Returns the place with the corresponding id.</p>
 </div></blockquote>
 <dl class="field-list simple">
-<dt class="field-odd">param uint64_t id</dt>
+<dt class="field-odd">param uint64_t id<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The ID of the place.</p>
 </dd>
-<dt class="field-even">rtype</dt>
+<dt class="field-even">rtype<span class="colon">:</span></dt>
 <dd class="field-even"><p>stormpy.Place</p>
 </dd>
 </dl>
@@ -322,7 +323,7 @@
 <div><p>Returns a vector of the places of this GSPN.</p>
 </div></blockquote>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>list[stormpy.Place]</p>
 </dd>
 </dl>
@@ -341,7 +342,7 @@
 <div><p>Returns a vector of the timed transitions of this GSPN.</p>
 </div></blockquote>
 <dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>list[stormpy.TimedTransition]</p>
 </dd>
 </dl>
@@ -408,19 +409,19 @@
 <div><p>Add an new inhibition arc from a place to a transition.</p>
 </div></blockquote>
 <dl class="field-list simple">
-<dt class="field-odd">param from</dt>
+<dt class="field-odd">param from<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The ID or name of the place from which the arc is originating.</p>
 </dd>
-<dt class="field-even">type from</dt>
+<dt class="field-even">type from<span class="colon">:</span></dt>
 <dd class="field-even"><p>uint_64_t or str</p>
 </dd>
-<dt class="field-odd">param to</dt>
+<dt class="field-odd">param to<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The ID or name of the transition to which the arc goes to.</p>
 </dd>
-<dt class="field-even">type to</dt>
+<dt class="field-even">type to<span class="colon">:</span></dt>
 <dd class="field-even"><p>uint_64_t or str</p>
 </dd>
-<dt class="field-odd">param uint64_t multiplicity</dt>
+<dt class="field-odd">param uint64_t multiplicity<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The multiplicity of the arc, default = 1.</p>
 </dd>
 </dl>
@@ -441,19 +442,19 @@
 <div><p>Add a new input arc from a place to a transition</p>
 </div></blockquote>
 <dl class="field-list simple">
-<dt class="field-odd">param from</dt>
+<dt class="field-odd">param from<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The ID or name of the place from which the arc is originating.</p>
 </dd>
-<dt class="field-even">type from</dt>
+<dt class="field-even">type from<span class="colon">:</span></dt>
 <dd class="field-even"><p>uint_64_t or str</p>
 </dd>
-<dt class="field-odd">param uint_64_t to</dt>
+<dt class="field-odd">param uint_64_t to<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The ID or name of the transition to which the arc goes to.</p>
 </dd>
-<dt class="field-even">type from</dt>
+<dt class="field-even">type from<span class="colon">:</span></dt>
 <dd class="field-even"><p>uint_64_t or str</p>
 </dd>
-<dt class="field-odd">param uint64_t multiplicity</dt>
+<dt class="field-odd">param uint64_t multiplicity<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The multiplicity of the arc, default = 1.</p>
 </dd>
 </dl>
@@ -472,7 +473,7 @@ Can be both input or output arc, but not an inhibition arc.
 Convenience function for textual format parsers.</p>
 </div></blockquote>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>from</strong> (<em>str</em>) – Source element in the GSPN from where this arc starts.</p></li>
 <li><p><strong>to</strong> (<em>str</em>) – Target element in the GSPN where this arc ends.</p></li>
@@ -493,19 +494,19 @@ Convenience function for textual format parsers.</p>
 <div><p>Add an new output arc from a transition to a place.</p>
 </div></blockquote>
 <dl class="field-list simple">
-<dt class="field-odd">param from</dt>
+<dt class="field-odd">param from<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The ID or name of the transition from which the arc is originating.</p>
 </dd>
-<dt class="field-even">type from</dt>
+<dt class="field-even">type from<span class="colon">:</span></dt>
 <dd class="field-even"><p>uint_64_t or str</p>
 </dd>
-<dt class="field-odd">param to</dt>
+<dt class="field-odd">param to<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The ID or name of the place to which the arc goes to.</p>
 </dd>
-<dt class="field-even">type to</dt>
+<dt class="field-even">type to<span class="colon">:</span></dt>
 <dd class="field-even"><p>uint_64_t or str</p>
 </dd>
-<dt class="field-odd">param uint64_t multiplicity</dt>
+<dt class="field-odd">param uint64_t multiplicity<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The multiplicity of the arc, default = 1.</p>
 </dd>
 </dl>
@@ -553,7 +554,7 @@ Convenience function for textual format parsers.</p>
 <div><p>Set place layout information.</p>
 </div></blockquote>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>id</strong> (<em>uint64_t</em>) – The ID of the place.</p></li>
 <li><p><strong>layout_info</strong> (<em>stormpy.LayoutInfo</em>) – The layout information.</p></li>
@@ -569,7 +570,7 @@ Convenience function for textual format parsers.</p>
 <div><p>Set transition layout information.</p>
 </div></blockquote>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>id</strong> (<em>uint64_t</em>) – The ID of the transition.</p></li>
 <li><p><strong>layout_info</strong> (<em>stormpy.LayoutInfo</em>) – The layout information.</p></li>
@@ -943,7 +944,7 @@ Convenience function for textual format parsers.</p>
     </p>
     <p>
         &copy; Copyright 2016-2021 Moves RWTH Aachen.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.0.<br/>
     </p>
   </div>
 </footer>

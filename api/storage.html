@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Stormpy.storage &#8212; stormpy 1.6.4 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
@@ -11,6 +11,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -219,7 +220,7 @@
     <div class="body col-md-9 content" role="main">
       
   <section id="module-stormpy.storage">
-<span id="stormpy-storage"></span><h1>Stormpy.storage<a class="headerlink" href="#module-stormpy.storage" title="Permalink to this headline">¶</a></h1>
+<span id="stormpy-storage"></span><h1>Stormpy.storage<a class="headerlink" href="#module-stormpy.storage" title="Permalink to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="stormpy.storage.Bdd_Sylvan">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Bdd_Sylvan</span></span><a class="headerlink" href="#stormpy.storage.Bdd_Sylvan" title="Permalink to this definition">¶</a></dt>
@@ -535,7 +536,7 @@ column by column. As multiple entries per column are admitted, consecutive calls
 admitted to mention the same row-column-pair. If rows are skipped entirely, the corresponding rows are
 treated as empty. If these constraints are not met, an exception is thrown.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>row</strong> (<em>double</em>) – The row in which the matrix entry is to be set</p></li>
 <li><p><strong>column</strong> (<em>double</em>) – The column in which the matrix entry is to be set</p></li>
@@ -581,7 +582,7 @@ treated as empty. If these constraints are not met, an exception is thrown.</p>
 <dd><p>Replaces all columns with id &gt;= offset according to replacements.
 Every state with id offset+i is replaced by the id in replacements[i]. Afterwards the columns are sorted.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>replacements</strong> (<em>std::vector&lt;double&gt; const&amp;</em>) – replacements Mapping indicating the replacements from offset+i -&gt; value of i</p></li>
 <li><p><strong>offset</strong> (<em>int</em>) – Offset to add to each id in vector index.</p></li>
@@ -1301,7 +1302,7 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.storage.JaniModel.flatten_composition">
-<span class="sig-name descname"><span class="pre">flatten_composition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.JaniModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_solver_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f0512238fb0&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#stormpy.storage.JaniModel" title="stormpy.storage.storage.JaniModel"><span class="pre">stormpy.storage.storage.JaniModel</span></a></span></span><a class="headerlink" href="#stormpy.storage.JaniModel.flatten_composition" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">flatten_composition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.JaniModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_solver_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7fa5c52177b0&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#stormpy.storage.JaniModel" title="stormpy.storage.storage.JaniModel"><span class="pre">stormpy.storage.storage.JaniModel</span></a></span></span><a class="headerlink" href="#stormpy.storage.JaniModel.flatten_composition" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1893,7 +1894,7 @@ column by column. As multiple entries per column are admitted, consecutive calls
 admitted to mention the same row-column-pair. If rows are skipped entirely, the corresponding rows are
 treated as empty. If these constraints are not met, an exception is thrown.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>row</strong> (<em>double</em>) – The row in which the matrix entry is to be set</p></li>
 <li><p><strong>column</strong> (<em>double</em>) – The column in which the matrix entry is to be set</p></li>
@@ -1939,7 +1940,7 @@ treated as empty. If these constraints are not met, an exception is thrown.</p>
 <dd><p>Replaces all columns with id &gt;= offset according to replacements.
 Every state with id offset+i is replaced by the id in replacements[i]. Afterwards the columns are sorted.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>replacements</strong> (<em>std::vector&lt;double&gt; const&amp;</em>) – replacements Mapping indicating the replacements from offset+i -&gt; value of i</p></li>
 <li><p><strong>offset</strong> (<em>int</em>) – Offset to add to each id in vector index.</p></li>
@@ -2270,7 +2271,7 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.storage.PrismProgram.flatten">
-<span class="sig-name descname"><span class="pre">flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.PrismProgram</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f0510dbf830&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#stormpy.storage.PrismProgram" title="stormpy.storage.storage.PrismProgram"><span class="pre">stormpy.storage.storage.PrismProgram</span></a></span></span><a class="headerlink" href="#stormpy.storage.PrismProgram.flatten" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.PrismProgram</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7fa5c5242d70&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#stormpy.storage.PrismProgram" title="stormpy.storage.storage.PrismProgram"><span class="pre">stormpy.storage.storage.PrismProgram</span></a></span></span><a class="headerlink" href="#stormpy.storage.PrismProgram.flatten" title="Permalink to this definition">¶</a></dt>
 <dd><p>Put program into a single module</p>
 </dd></dl>
 
@@ -3138,7 +3139,7 @@ column by column. As multiple entries per column are admitted, consecutive calls
 admitted to mention the same row-column-pair. If rows are skipped entirely, the corresponding rows are
 treated as empty. If these constraints are not met, an exception is thrown.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>row</strong> (<em>double</em>) – The row in which the matrix entry is to be set</p></li>
 <li><p><strong>column</strong> (<em>double</em>) – The column in which the matrix entry is to be set</p></li>
@@ -3184,7 +3185,7 @@ treated as empty. If these constraints are not met, an exception is thrown.</p>
 <dd><p>Replaces all columns with id &gt;= offset according to replacements.
 Every state with id offset+i is replaced by the id in replacements[i]. Afterwards the columns are sorted.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>replacements</strong> (<em>std::vector&lt;double&gt; const&amp;</em>) – replacements Mapping indicating the replacements from offset+i -&gt; value of i</p></li>
 <li><p><strong>offset</strong> (<em>int</em>) – Offset to add to each id in vector index.</p></li>
@@ -3895,13 +3896,13 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <span class="sig-name descname"><span class="pre">build_parametric_sparse_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_group_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.storage.build_parametric_sparse_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Build a sparse matrix from numpy array.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>array</strong> (<em>numpy</em>) – The array.</p></li>
 <li><p><strong>row_group_indices</strong> (<em>List</em><em>[</em><em>double</em><em>]</em>) – List containing the starting row of each row group in ascending order.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Parametric sparse matrix.</p>
 </dd>
 </dl>
@@ -3912,13 +3913,13 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <span class="sig-name descname"><span class="pre">build_sparse_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_group_indices</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.storage.build_sparse_matrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Build a sparse matrix from numpy array.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>array</strong> (<em>numpy</em>) – The array.</p></li>
 <li><p><strong>row_group_indices</strong> (<em>List</em><em>[</em><em>double</em><em>]</em>) – List containing the starting row of each row group in ascending order.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Sparse matrix.</p>
 </dd>
 </dl>
@@ -3965,7 +3966,7 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
     </p>
     <p>
         &copy; Copyright 2016-2021 Moves RWTH Aachen.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.0.<br/>
     </p>
   </div>
 </footer>

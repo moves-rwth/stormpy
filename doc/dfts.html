@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Dynamic Fault Trees &#8212; stormpy 1.6.4 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
@@ -11,6 +11,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
@@ -486,9 +487,9 @@ div.rendered_html tbody tr:hover {
         display: none;
     }
 </style><section id="Dynamic-Fault-Trees">
-<h1>Dynamic Fault Trees<a class="headerlink" href="#Dynamic-Fault-Trees" title="Permalink to this headline">¶</a></h1>
+<h1>Dynamic Fault Trees<a class="headerlink" href="#Dynamic-Fault-Trees" title="Permalink to this heading">¶</a></h1>
 <section id="Building-DFTs">
-<h2>Building DFTs<a class="headerlink" href="#Building-DFTs" title="Permalink to this headline">¶</a></h2>
+<h2>Building DFTs<a class="headerlink" href="#Building-DFTs" title="Permalink to this heading">¶</a></h2>
 <p><a class="reference external" href="https://github.com/moves-rwth/stormpy/blob/master/examples/dfts/01-dfts.py">01-dfts.py</a></p>
 <p>Dynamic fault trees can be loaded from either the Galileo format or from a custom JSON form. A file containing the DFT in the Galileo format can be loaded via <code class="docutils literal notranslate"><span class="pre">load_dft_galileo_file(path)</span></code>. The custom JSON format can be loaded from a file via <code class="docutils literal notranslate"><span class="pre">load_dft_json_file(path)</span></code> or directly from a string via <code class="docutils literal notranslate"><span class="pre">load_dft_json_string(path)</span></code>. We start by loading a simple DFT containing an AND gate from JSON:</p>
 <div class="nbinput docutils container">
@@ -544,7 +545,7 @@ DFT has 13 BEs and 2 dynamic elements.
 </div>
 </section>
 <section id="Analyzing-DFTs">
-<h2>Analyzing DFTs<a class="headerlink" href="#Analyzing-DFTs" title="Permalink to this headline">¶</a></h2>
+<h2>Analyzing DFTs<a class="headerlink" href="#Analyzing-DFTs" title="Permalink to this heading">¶</a></h2>
 <p><a class="reference external" href="https://github.com/moves-rwth/stormpy/blob/master/examples/dfts/01-dfts.py">01-dfts.py</a></p>
 <p>The next step is to analyze the DFT via <code class="docutils literal notranslate"><span class="pre">analyze_dft(dft,</span> <span class="pre">formula)</span></code>. Here we can use all standard properties as described in <a class="reference internal" href="../getting_started.html#Building-properties"><span class="std std-ref">Building properties</span></a>. In our example we compute the Mean-time-to-failure (MTTF):</p>
 <div class="nbinput docutils container">
@@ -590,7 +591,7 @@ MTTF: 363.89
     </p>
     <p>
         &copy; Copyright 2016-2021 Moves RWTH Aachen.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.5.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.0.0.<br/>
     </p>
   </div>
 </footer>
