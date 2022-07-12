@@ -57,7 +57,7 @@ void define_analysis_typed(py::module& m, std::string const& vt_suffix) {
 
     m.def(("_build_model"+vt_suffix).c_str(), &buildModel<ValueType>, "Build state-space model (CTMC or MA) for DFT", py::arg("dft"), py::arg("symmetries"), py::arg("relevant_events")=storm::dft::utility::RelevantEvents(), py::arg("allow_dc_for_relevant")=false);
 
-    m.def(("_transform_dft"+vt_suffix).c_str(), &storm::dft::api::applyTransformations<ValueType>, "Apply transformations on DFT", py::arg("dft"), py::arg("unique_constant_be"), py::arg("binary_fdeps"));
+    m.def(("_transform_dft"+vt_suffix).c_str(), &storm::dft::api::applyTransformations<ValueType>, "Apply transformations on DFT", py::arg("dft"), py::arg("unique_constant_be"), py::arg("binary_fdeps"), py::arg("exponential_distributions"));
 
     m.def(("_compute_dependency_conflicts"+vt_suffix).c_str(), &storm::dft::api::computeDependencyConflicts<ValueType>, "Set conflicts between FDEPs. Is used in analysis.", py::arg("dft"), py::arg("use_smt") = false, py::arg("solver_timeout") = 0);
 

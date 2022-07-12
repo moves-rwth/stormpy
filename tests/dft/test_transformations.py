@@ -24,7 +24,7 @@ class TestTransformations:
         assert inst_dft.nr_elements() == 7
         assert inst_dft.nr_be() == 4
         elem = inst_dft.get_element_by_name("C")
-        assert str(elem) == "{C} BE exp(5, 0.05)"
+        assert str(elem) == "{C} BE(exp 5, 0.05)"
         elem = inst_dft.get_element_by_name("D")
-        assert str(elem) == "{D} BE exp(0.01, 0)"
+        assert str(elem) == "{D} BE(exp 0.01, 0)"
 
