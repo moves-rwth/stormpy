@@ -22,12 +22,12 @@ def build_model(ft, symmetries, relevant_events=RelevantEvents(), allow_dc_for_r
         assert isinstance(ft, DFT_ratfunc)
         return dft._build_model_ratfunc(ft, symmetries, relevant_events, allow_dc_for_relevant)
 
-def transform_dft(ft, unique_constant_be, binary_fdeps):
+def transform_dft(ft, unique_constant_be, binary_fdeps, exponential_distributions):
     if isinstance(ft, DFT_double):
-        return dft._transform_dft_double(ft, unique_constant_be, binary_fdeps)
+        return dft._transform_dft_double(ft, unique_constant_be, binary_fdeps, exponential_distributions)
     else:
         assert isinstance(ft, DFT_ratfunc)
-        return dft._transform_dft_ratfunc(ft, unique_constant_be, binary_fdeps)
+        return dft._transform_dft_ratfunc(ft, unique_constant_be, binary_fdeps, exponential_distributions)
 
 def compute_dependency_conflicts(ft, use_smt=False, solver_timeout=0):
     if isinstance(ft, DFT_double):
