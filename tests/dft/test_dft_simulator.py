@@ -44,6 +44,22 @@ class TestSimulator:
         res = simulator.simulate_trace(2)
         assert res == stormpy.dft.SimulationResult.UNSUCCESSFUL
 
+    def test_simulate_trace(self):
+        dft = stormpy.dft.load_dft_galileo_file(get_example_path("dft", "rc2.dft"))
+        dft = stormpy.dft.prepare_for_analysis(dft)
+        symmetries = dft.symmetries()
+        relevant_events = stormpy.dft.compute_relevant_events(dft, [])
+        dft.set_relevant_events(relevant_events, False)
+        info = dft.state_generation_info(symmetries)
+        generator = stormpy.dft.RandomGenerator.create(5)
+        simulator = stormpy.dft.DFTSimulator_double(dft, info, generator)
+        res = simulator.simulate_trace(2)
+        assert res == stormpy.dft.SimulationResult.UNSUCCESSFUL
+        res = simulator.simulate_trace(2)
+        assert res == stormpy.dft.SimulationResult.SUCCESSFUL
+        res = simulator.simulate_trace(2)
+        assert res == stormpy.dft.SimulationResult.UNSUCCESSFUL
+
     def test_steps(self):
         dft = stormpy.dft.load_dft_json_file(get_example_path("dft", "and.json"))
         symmetries = dft.symmetries()
