@@ -37,8 +37,9 @@ void define_dft_state(py::module& m, std::string const& vt_suffix) {
 void define_failable_elements(py::module& m) {
 
     // Helper iterator for access from python
+    // We need to manually create the bindings (and not use make_iterator) as we need access to the iterator (and not only the value).
     struct FailableIterator {
-        FailableIterator(Failable const &failable, py::object ref) : failable(failable), ref(ref) { }
+        FailableIterator(Failable const &failable, py::object ref) : failable(failable), ref(ref), it(failable.begin()) { }
 
         FailableIter next() {
             if (it == failable.end()) {
@@ -50,19 +51,18 @@ void define_failable_elements(py::module& m) {
             }
         }
 
-        Failable const&failable;
+        Failable const& failable;
         py::object ref; // keep a reference
-        FailableIter it = failable.begin();
+        FailableIter it;
     };
 
-
     py::class_<Failable, std::shared_ptr<Failable>>(m, "FailableElements", "Failable elements in DFT state")
-        .def("__iter__", [](py::object s) { return FailableIterator(s.cast<Failable const&>(), s); })
+        .def("__iter__", [](py::object s) { return FailableIterator(s.cast<Failable const&>(), s); }, py::keep_alive<0, 1>())
     ;
 
     py::class_<FailableIterator>(m, "FailableIterator")
-        .def("__iter__", [](FailableIterator &it) -> FailableIterator& { return it; })
-        .def("__next__", &FailableIterator::next)
+        .def("__iter__", [](FailableIterator &it) -> FailableIterator& { return it; }, py::keep_alive<0, 1>())
+        .def("__next__", &FailableIterator::next, py::keep_alive<0, 1>())
     ;
 
     py::class_<FailableIter, std::shared_ptr<FailableIter>>(m, "FailableElement", "Failable element")
