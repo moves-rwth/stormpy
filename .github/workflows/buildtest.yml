@@ -172,7 +172,7 @@ jobs:
       - name: Build documentation
         if: matrix.debugOrRelease == 'release'
         run: |
-          sudo docker exec storm bash -c "cd stormpy/doc; make html"
+          sudo docker exec storm bash -c "cd /opt/stormpy/doc; make html"
           sudo docker exec storm rm -r /opt/stormpy/doc/build/html/_sources
           sudo docker cp storm:/opt/stormpy/doc/build/html .
       - name: Deploy documentation
