@@ -168,7 +168,7 @@ jobs:
         if: matrix.debugOrRelease == 'release'
         run: |
           sudo docker exec storm apt-get install -qq -y pandoc
-          sudo docker exec storm bash -c "cd stormpy; pip3 install -e '.[doc,numpy]'"
+          sudo docker exec storm bash -c "cd /opt/stormpy; pip3 install -e '.[doc,numpy]'"
       - name: Build documentation
         if: matrix.debugOrRelease == 'release'
         run: |
