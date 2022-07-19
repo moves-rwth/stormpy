@@ -34,7 +34,6 @@ jobs:
     env:
       RELEASE_IMG: "storm:1.6.4"
       DEBUG_IMG: "storm:1.6.4-debug"
-      PYTHON: "python3"
     strategy:
       matrix:
         debugOrRelease: ["debug", "release"]
@@ -49,6 +48,7 @@ jobs:
           ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "CMAKE_ARGS=${CMAKE_DEBUG}" || echo "CMAKE_ARGS=${CMAKE_RELEASE}") >> $GITHUB_ENV
           ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "IMG=${DEBUG_IMG}" || echo "IMG=${RELEASE_IMG}") >> $GITHUB_ENV
           ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "DEBUG_SWITCH=--debug" || true) >> $GITHUB_ENV
+
       - name: Init Docker
         run: sudo docker run -d -it --name storm --privileged movesrwth/$IMG
         # We should not do partial updates :/
@@ -59,7 +59,7 @@ jobs:
           sudo docker exec storm apt-get update
           sudo docker exec storm apt-get upgrade -qqy
       - name: install dependencies
-        run: sudo docker exec storm apt-get install -qq -y maven uuid-dev python python3 virtualenv
+        run: sudo docker exec storm apt-get install -qq -y maven uuid-dev python3 python3-pip
       - name: Git clone
         run: |
           # git clone cannot clone individual commits based on a sha and some other refs
@@ -71,18 +71,14 @@ jobs:
         run: sudo docker exec storm bash -c "mkdir /opt/carl-parser/build; cd /opt/carl-parser/build; cmake .. ${CMAKE_ARGS}"
       - name: make carl-parser
         run: sudo docker exec storm bash -c "cd /opt/carl-parser/build; make -j ${NR_JOBS}"
-
-      - name: Setup virtualenv
-        run: |
-          sudo docker exec storm bash -c "cd /opt; virtualenv --python=${PYTHON} venv; source venv/bin/activate; python --version"
       - name: Build pycarl
         run: |
-          sudo docker exec storm bash -c "cd /opt; source venv/bin/activate; cd /opt/pycarl; python setup.py build_ext $DEBUG_SWITCH -j ${NR_JOBS} develop"
+          sudo docker exec storm bash -c "cd /opt/pycarl; python3 setup.py build_ext $DEBUG_SWITCH -j ${NR_JOBS} develop"
       - name: Build stormpy
         id: build_stormpy
         shell: bash {0} // Deactivate fast-fail to handle exit code for incompatibility
         run: |
-          sudo docker exec storm bash -c "cd /opt; source venv/bin/activate; cd /opt/stormpy; python setup.py build_ext --storm-dir /opt/storm/build/ $DEBUG_SWITCH -j ${NR_JOBS} develop"
+          sudo docker exec storm bash -c "cd /opt/stormpy; python3 setup.py build_ext --storm-dir /opt/storm/build/ $DEBUG_SWITCH -j ${NR_JOBS} develop"
           status=$?
           if [ $status -eq 42 ]; then
             # Warn about incompatibility but do not handle as failure
@@ -98,9 +94,8 @@ jobs:
         run: |
           # Install dependencies for tests
           # numpy is used in sphinx tests
-          sudo docker exec storm bash -c "cd /opt; source venv/bin/activate; pip install numpy"
-          sudo docker exec storm bash -c "cd /opt; source venv/bin/activate; pip install pytest"
-          sudo docker exec storm bash -c "cd /opt; source venv/bin/activate; cd /opt/stormpy; python setup.py test"
+          sudo docker exec storm bash -c "pip3 install numpy pytest"
+          sudo docker exec storm bash -c "cd /opt/stormpy; python3 setup.py test"
 
   deploy:
     name: Test and Deploy on latest
@@ -108,7 +103,6 @@ jobs:
     env:
       RELEASE_IMG: "storm:ci-release"
       DEBUG_IMG: "storm:ci-debug"
-      PYTHON: "python3"
     strategy:
       matrix:
         debugOrRelease: ["debug", "release"]
@@ -137,7 +131,7 @@ jobs:
           sudo docker exec storm apt-get update
           sudo docker exec storm apt-get upgrade -qqy
       - name: install dependencies
-        run: sudo docker exec storm apt-get install -qq -y maven uuid-dev python3 virtualenv
+        run: sudo docker exec storm apt-get install -qq -y maven uuid-dev python3 python3-pip
       - name: Git clone
         run: |
           # git clone cannot clone individual commits based on a sha and some other refs
@@ -150,22 +144,18 @@ jobs:
       - name: make carl-parser
         run: sudo docker exec storm bash -c "cd /opt/carl-parser/build; make -j ${NR_JOBS}"
 
-      - name: Setup virtualenv
-        run: |
-          sudo docker exec storm bash -c "cd /opt; virtualenv --python=${PYTHON} venv; source venv/bin/activate; python --version"
       - name: Build pycarl
         run: |
-          sudo docker exec storm bash -c "cd /opt; source venv/bin/activate; cd /opt/pycarl; python setup.py build_ext $DEBUG_SWITCH -j ${NR_JOBS} develop"
+          sudo docker exec storm bash -c "cd /opt/pycarl; python3 setup.py build_ext $DEBUG_SWITCH -j ${NR_JOBS} develop"
       - name: Build stormpy
         run: |
-          sudo docker exec storm bash -c "cd /opt; source venv/bin/activate; cd /opt/stormpy; python setup.py build_ext --storm-dir /opt/storm/build/ $DEBUG_SWITCH -j ${NR_JOBS} develop"
+          sudo docker exec storm bash -c "cd /opt/stormpy; python3 setup.py build_ext --storm-dir /opt/storm/build/ $DEBUG_SWITCH -j ${NR_JOBS} develop"
       - name: Run tests
         run: |
           # Install dependencies for tests
           # numpy is used in sphinx tests
-          sudo docker exec storm bash -c "cd /opt; source venv/bin/activate; pip install numpy"
-          sudo docker exec storm bash -c "cd /opt; source venv/bin/activate; pip install pytest"
-          sudo docker exec storm bash -c "cd /opt; source venv/bin/activate; cd /opt/stormpy; python setup.py test"
+          sudo docker exec storm bash -c "pip3 install numpy pytest"
+          sudo docker exec storm bash -c "cd /opt/stormpy; python3 setup.py test"
 
       - name: Deploy stormpy
         # Only deploy if using master on original repo (and not for pull requests or forks)
@@ -178,11 +168,11 @@ jobs:
         if: matrix.debugOrRelease == 'release'
         run: |
           sudo docker exec storm apt-get install -qq -y pandoc
-          sudo docker exec storm bash -c "cd /opt; source venv/bin/activate; cd stormpy; pip install -e '.[doc,numpy]'"
+          sudo docker exec storm bash -c "cd stormpy; pip3 install -e '.[doc,numpy]'"
       - name: Build documentation
         if: matrix.debugOrRelease == 'release'
         run: |
-          sudo docker exec storm bash -c "cd /opt; source venv/bin/activate; cd stormpy/doc; make html"
+          sudo docker exec storm bash -c "cd stormpy/doc; make html"
           sudo docker exec storm rm -r /opt/stormpy/doc/build/html/_sources
           sudo docker cp storm:/opt/stormpy/doc/build/html .
       - name: Deploy documentation
