@@ -15,6 +15,7 @@
 #include "storage/choiceorigins.h"
 #include "storage/labeling.h"
 #include "storage/expressions.h"
+#include "storage/geometry.h"
 
 #include "storm/storage/dd/DdType.h"
 
@@ -55,6 +56,8 @@ PYBIND11_MODULE(storage, m) {
     define_distribution<double>(m, "Double");
     define_sparse_model_components<double>(m, "");
     define_sparse_model_components<storm::RationalNumber>(m, "Exact");
+    define_geometry<double>(m, "Double");
+    define_geometry<storm::RationalNumber>(m, "Exact");
 
     define_maximal_end_components(m);
     define_maximal_end_component_decomposition<double>(m, "_double");

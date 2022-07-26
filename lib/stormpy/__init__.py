@@ -323,14 +323,17 @@ def check_model_sparse(model, property, only_initial_states=False, extract_sched
             task.set_hint(hint)
         return core._parametric_model_checking_sparse_engine(model, task, environment=environment)
     else:
-
         if model.is_exact:
+            if formula.is_multi_objective_formula:
+                return core._multi_objective_model_checking_exact(model, formula, environment=environment)
             task = core.ExactCheckTask(formula, only_initial_states)
             task.set_produce_schedulers(extract_scheduler)
             if hint:
                 task.set_hint(hint)
             return core._exact_model_checking_sparse_engine(model, task, environment=environment)
         else:
+            if formula.is_multi_objective_formula:
+                return core._multi_objective_model_checking_double(model, formula, environment=environment)
             task = core.CheckTask(formula, only_initial_states)
             task.set_produce_schedulers(extract_scheduler)
             if hint:
