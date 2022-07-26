@@ -5,8 +5,12 @@ Version 1.6.x
 -------------
 ### Version 1.6.?
 - Bindings for maximal end components
+- Support for computing expected number of visits
+- Support for building complete/partial state space of DFT
+- Instantiator for parametric DFT
 - Developer: Storm is built with C++17
 - Developer: updated pybind11 to version 2.8.1 and adapted bindings accordingly
+- Adaption to changes in Storm: new namespace storm::dft.
 
 ### Version 1.6.4 (2022/01)
 Requires storm version >= 1.6.4 and pycarl version >= 2.0.5

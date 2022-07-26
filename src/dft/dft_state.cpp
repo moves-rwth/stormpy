@@ -1,10 +1,10 @@
 #include "dft_state.h"
 #include "src/helpers.h"
-#include "storm-dft/storage/dft/DFTState.h"
-#include "storm-dft/storage/dft/FailableElements.h"
+#include "storm-dft/storage/DFTState.h"
+#include "storm-dft/storage/FailableElements.h"
 
 
-template<typename ValueType> using DFTState = storm::storage::DFTState<ValueType>;
+template<typename ValueType> using DFTState = storm::dft::storage::DFTState<ValueType>;
 typedef storm::dft::storage::FailableElements Failable;
 typedef storm::dft::storage::FailableElements::const_iterator FailableIter;
 
@@ -27,7 +27,7 @@ void define_dft_state(py::module& m, std::string const& vt_suffix) {
         .def("__str__", [](DFTState<ValueType> const& state) {
                 return streamToString<storm::storage::BitVector>(state.status());
             })
-        .def("to_string", [](std::shared_ptr<DFTState<ValueType>> const& state, storm::storage::DFT<ValueType> const& dft) {
+        .def("to_string", [](std::shared_ptr<DFTState<ValueType>> const& state, storm::dft::storage::DFT<ValueType> const& dft) {
                 return dft.getStateString(state);
             }, "Print status", py::arg("dft"))
     ;
@@ -37,8 +37,9 @@ void define_dft_state(py::module& m, std::string const& vt_suffix) {
 void define_failable_elements(py::module& m) {
 
     // Helper iterator for access from python
+    // We need to manually create the bindings (and not use make_iterator) as we need access to the iterator (and not only the value).
     struct FailableIterator {
-        FailableIterator(Failable const &failable, py::object ref) : failable(failable), ref(ref) { }
+        FailableIterator(Failable const &failable, py::object ref) : failable(failable), ref(ref), it(failable.begin()) { }
 
         FailableIter next() {
             if (it == failable.end()) {
@@ -50,19 +51,18 @@ void define_failable_elements(py::module& m) {
             }
         }
 
-        Failable const&failable;
+        Failable const& failable;
         py::object ref; // keep a reference
-        FailableIter it = failable.begin();
+        FailableIter it;
     };
 
-
     py::class_<Failable, std::shared_ptr<Failable>>(m, "FailableElements", "Failable elements in DFT state")
-        .def("__iter__", [](py::object s) { return FailableIterator(s.cast<Failable const&>(), s); })
+        .def("__iter__", [](py::object s) { return FailableIterator(s.cast<Failable const&>(), s); }, py::keep_alive<0, 1>())
     ;
 
     py::class_<FailableIterator>(m, "FailableIterator")
-        .def("__iter__", [](FailableIterator &it) -> FailableIterator& { return it; })
-        .def("__next__", &FailableIterator::next)
+        .def("__iter__", [](FailableIterator &it) -> FailableIterator& { return it; }, py::keep_alive<0, 1>())
+        .def("__next__", &FailableIterator::next, py::keep_alive<0, 1>())
     ;
 
     py::class_<FailableIter, std::shared_ptr<FailableIter>>(m, "FailableElement", "Failable element")

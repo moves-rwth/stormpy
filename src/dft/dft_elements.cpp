@@ -1,27 +1,27 @@
 #include "dft_elements.h"
 #include "src/helpers.h"
-#include "storm-dft/storage/dft/DFTElements.h"
+#include "storm-dft/storage/elements/DFTElements.h"
 
 
-template<typename ValueType> using DFTElement = storm::storage::DFTElement<ValueType>;
-template<typename ValueType> using BE = storm::storage::DFTBE<ValueType>;
-template<typename ValueType> using Dependency = storm::storage::DFTDependency<ValueType>;
+template<typename ValueType> using DFTElement = storm::dft::storage::elements::DFTElement<ValueType>;
+template<typename ValueType> using BE = storm::dft::storage::elements::DFTBE<ValueType>;
+template<typename ValueType> using Dependency = storm::dft::storage::elements::DFTDependency<ValueType>;
 
 
 void define_dft_elements(py::module& m) {
 
     // DFT element type
-    py::enum_<storm::storage::DFTElementType>(m, "DFTElementType")
-        .value("BE", storm::storage::DFTElementType::BE)
-        .value("AND", storm::storage::DFTElementType::AND)
-        .value("OR", storm::storage::DFTElementType::OR)
-        .value("VOT", storm::storage::DFTElementType::VOT)
-        .value("PAND", storm::storage::DFTElementType::PAND)
-        .value("POR", storm::storage::DFTElementType::POR)
-        .value("SPARE", storm::storage::DFTElementType::SPARE)
-        .value("PDEP", storm::storage::DFTElementType::PDEP)
-        .value("SEQ", storm::storage::DFTElementType::SEQ)
-        .value("MUTEX", storm::storage::DFTElementType::MUTEX)
+    py::enum_<storm::dft::storage::elements::DFTElementType>(m, "DFTElementType")
+        .value("BE", storm::dft::storage::elements::DFTElementType::BE)
+        .value("AND", storm::dft::storage::elements::DFTElementType::AND)
+        .value("OR", storm::dft::storage::elements::DFTElementType::OR)
+        .value("VOT", storm::dft::storage::elements::DFTElementType::VOT)
+        .value("PAND", storm::dft::storage::elements::DFTElementType::PAND)
+        .value("POR", storm::dft::storage::elements::DFTElementType::POR)
+        .value("SPARE", storm::dft::storage::elements::DFTElementType::SPARE)
+        .value("PDEP", storm::dft::storage::elements::DFTElementType::PDEP)
+        .value("SEQ", storm::dft::storage::elements::DFTElementType::SEQ)
+        .value("MUTEX", storm::dft::storage::elements::DFTElementType::MUTEX)
     ;
 }
 
