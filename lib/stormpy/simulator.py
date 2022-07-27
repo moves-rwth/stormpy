@@ -13,7 +13,7 @@ class SimulatorActionMode(Enum):
 
 class Simulator:
     """
-    Base class for simulators.
+    Abstract base class for simulators.
     """
     def __init__(self, seed=None):
         self._seed = seed

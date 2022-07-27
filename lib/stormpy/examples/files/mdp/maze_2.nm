@@ -1,6 +1,6 @@
 
 
-// maze example (POMDP)
+// maze example (POMDP) as an MDP
 // slightly extends that presented in
 // Littman, Cassandra and Kaelbling
 // Learning policies for partially observable environments: Scaling up
