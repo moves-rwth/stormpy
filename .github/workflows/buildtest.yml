@@ -92,9 +92,6 @@ jobs:
       - name: Run tests
         if: steps.build_stormpy.outputs.run_tests == 'true'
         run: |
-          # Install dependencies for tests
-          # numpy is used in sphinx tests
-          sudo docker exec storm bash -c "pip3 install numpy pytest"
           sudo docker exec storm bash -c "cd /opt/stormpy; python3 setup.py test"
 
   deploy:
@@ -152,9 +149,6 @@ jobs:
           sudo docker exec storm bash -c "cd /opt/stormpy; python3 setup.py build_ext --storm-dir /opt/storm/build/ $DEBUG_SWITCH -j ${NR_JOBS} develop"
       - name: Run tests
         run: |
-          # Install dependencies for tests
-          # numpy is used in sphinx tests
-          sudo docker exec storm bash -c "pip3 install numpy pytest"
           sudo docker exec storm bash -c "cd /opt/stormpy; python3 setup.py test"
 
       - name: Deploy stormpy
