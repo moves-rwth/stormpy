@@ -278,6 +278,7 @@ setup(
     tests_require=['pytest', 'nbval', 'numpy'],
     extras_require={
         "numpy":  ["numpy"],
+        "plot":  ["matplotlib","numpy","scipy"],
         "doc": ["Sphinx", "sphinx-bootstrap-theme", "nbsphinx", "ipython", "ipykernel"], # also requires pandoc to be installed
     },
     python_requires='>=3',
