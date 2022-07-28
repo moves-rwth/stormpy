@@ -20,9 +20,15 @@ try:
 except ImportError:
     has_matplotlib = False
 
+try:
+    import scipy
+    has_scipy = True
+except ImportError:
+    has_scipy = False
+
 xml = pytest.mark.skipif(not has_xml, reason="No support for XML via xerces")
 dft = pytest.mark.skipif(not has_dft, reason="No support for DFTs")
 gspn = pytest.mark.skipif(not has_gspn, reason="No support for GSPNs")
 pars = pytest.mark.skipif(not has_pars, reason="No support for parametric model checking")
 numpy_avail = pytest.mark.skipif(not has_numpy, reason="Numpy not available")
-plotting = pytest.mark.skipif(not has_matplotlib, reason="Matplotlib not available")
+plotting = pytest.mark.skipif(not has_matplotlib or not has_scipy, reason="Libraries for plotting not available")
