@@ -33,7 +33,7 @@ else()
     set(HAVE_STORM_PARS FALSE)
 endif()
 
-# Check for storm-pompd
+# Check for storm-pomdp
 find_library(STORM_POMDP NAMES storm-pomdp HINTS "${storm_DIR}/lib/")
 if(STORM_POMDP)
     set(HAVE_STORM_POMDP TRUE)
@@ -59,6 +59,13 @@ if(STORM_HAVE_XERCES)
     set(STORM_XERCES_BOOL "True")
 else()
     set(STORM_XERCES_BOOL "False")
+endif()
+
+message("STORM_HAVE_SPOT ${STORM_HAVE_SPOT}")
+if(STORM_HAVE_SPOT)
+    set(STORM_SPOT_BOOL "True")
+else()
+    set(STORM_SPOT_BOOL "False")
 endif()
 
 if(HAVE_STORM_DFT)
