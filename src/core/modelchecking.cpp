@@ -4,6 +4,7 @@
 #include "storm/modelchecker/results/CheckResult.h"
 #include "storm/modelchecker/hints/ExplicitModelCheckerHint.h"
 #include "storm/modelchecker/csl/helper/SparseCtmcCslHelper.h"
+#include "storm/modelchecker/multiobjective/multiObjectiveModelChecking.h"
 #include "storm/environment/Environment.h"
 
 template<typename ValueType>
@@ -13,6 +14,18 @@ using CheckTask = storm::modelchecker::CheckTask<storm::logic::Formula, ValueTyp
 template<typename ValueType>
 std::shared_ptr<storm::modelchecker::CheckResult> modelCheckingSparseEngine(std::shared_ptr<storm::models::sparse::Model<ValueType>> model, CheckTask<ValueType> const& task, storm::Environment const& env) {
     return storm::api::verifyWithSparseEngine<ValueType>(env, model, task);
+}
+
+template<typename ValueType>
+std::shared_ptr<storm::modelchecker::CheckResult> multiObjectiveModelChecking(std::shared_ptr<storm::models::sparse::Model<ValueType>> model,
+                                                                              storm::logic::MultiObjectiveFormula const& formula, storm::Environment const& env) {
+    if (model->isOfType(storm::models::ModelType::Mdp)) {
+        return storm::modelchecker::multiobjective::performMultiObjectiveModelChecking<storm::models::sparse::Mdp<ValueType>>(env, *(model->template as<storm::models::sparse::Mdp<ValueType>>()), formula);
+    } else if (model->isOfType(storm::models::ModelType::MarkovAutomaton)) {
+        return storm::modelchecker::multiobjective::performMultiObjectiveModelChecking<storm::models::sparse::MarkovAutomaton<ValueType>>(env, *(model->template as<storm::models::sparse::MarkovAutomaton<ValueType>>()), formula);
+    } else {
+        throw storm::exceptions::NotSupportedException("Only systems with Nondeterminism are supported");
+    }
 }
 
 template<typename ValueType>
@@ -128,4 +141,6 @@ void define_modelchecking(py::module& m) {
     m.def("_compute_prob01states_max_double", &computeProb01max<double>, "Compute prob-0-1 states (max)", py::arg("model"), py::arg("phi_states"), py::arg("psi_states"));
     m.def("_compute_prob01states_min_rationalfunc", &computeProb01min<storm::RationalFunction>, "Compute prob-0-1 states (min)", py::arg("model"), py::arg("phi_states"), py::arg("psi_states"));
     m.def("_compute_prob01states_max_rationalfunc", &computeProb01max<storm::RationalFunction>, "Compute prob-0-1 states (max)", py::arg("model"), py::arg("phi_states"), py::arg("psi_states"));
+    m.def("_multi_objective_model_checking_double", &multiObjectiveModelChecking<double>, "Run multi-objective model checking",  py::arg("model"), py::arg("formula"), py::arg("environment") = storm::Environment());
+    m.def("_multi_objective_model_checking_exact", &multiObjectiveModelChecking<storm::RationalNumber>, "Run multi-objective model checking", py::arg("model"), py::arg("formula"), py::arg("environment") = storm::Environment());
 }

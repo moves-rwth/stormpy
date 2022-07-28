@@ -5,6 +5,7 @@
 #include "storm/modelchecker/results/HybridQuantitativeCheckResult.h"
 #include "storm/modelchecker/results/ExplicitQuantitativeCheckResult.h"
 #include "storm/modelchecker/results/ExplicitQualitativeCheckResult.h"
+#include "storm/modelchecker/results/ExplicitParetoCurveCheckResult.h"
 
 #include "storm/models/symbolic/StandardRewardModel.h"
 
@@ -123,9 +124,17 @@ void define_result(py::module& m) {
         .def("get_values", &storm::modelchecker::HybridQuantitativeCheckResult<storm::dd::DdType::Sylvan, storm::RationalFunction>::getExplicitValueVector, "Get model checking result values for all states")
     ;
 
+    py::class_<storm::modelchecker::ParetoCurveCheckResult<double>, std::shared_ptr<storm::modelchecker::ParetoCurveCheckResult<double>>> pccheckresult(m, "ParetoCurveCheckResultDouble", "Result for multiobjective model checking", checkResult);
+    pccheckresult.def("get_underapproximation", &storm::modelchecker::ParetoCurveCheckResult<double>::getUnderApproximation);
+    pccheckresult.def("get_overapproximation", &storm::modelchecker::ParetoCurveCheckResult<double>::getOverApproximation);
+
+    py::class_<storm::modelchecker::ExplicitParetoCurveCheckResult<double>, std::shared_ptr<storm::modelchecker::ExplicitParetoCurveCheckResult<double>>> epccheckresult(m, "ExplicitParetoCurveCheckResultDouble", "Result for explicit multiobjective model checking", pccheckresult);
+
+
     m.def("create_filter_symbolic", &createFilterSymbolic<storm::dd::DdType::Sylvan, double>, "Creates a filter for the given states and a symbolic model", py::arg("model"), py::arg("states"));
     m.def("create_filter_initial_states_sparse", &createFilterInitialStatesSparse<double>, "Create a filter for the initial states on a sparse model", py::arg("model"));
     m.def("create_filter_initial_states_symbolic", &createFilterInitialStatesSymbolic<storm::dd::DdType::Sylvan, double>, "Create a filter for the initial states on a symbolic model", py::arg("model"));
+
 
 }
 
