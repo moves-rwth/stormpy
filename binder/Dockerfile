@@ -1,4 +1,4 @@
-FROM movesrwth/stormpy:latest
+FROM movesrwth/stormpy:1.7.0
 MAINTAINER Matthias Volk <m.volk@utwente.nl>
 
 
