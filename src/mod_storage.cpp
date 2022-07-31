@@ -53,6 +53,7 @@ PYBIND11_MODULE(storage, m) {
     define_expressions(m);
     define_scheduler<double>(m, "Double");
     define_scheduler<storm::RationalNumber>(m, "Exact");
+    define_scheduler<storm::RationalFunction>(m, "Parametric");
     define_distribution<double>(m, "Double");
     define_sparse_model_components<double>(m, "");
     define_sparse_model_components<storm::RationalNumber>(m, "Exact");
