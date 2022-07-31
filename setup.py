@@ -153,6 +153,7 @@ class CMakeBuild(build_ext):
                     f.write("RationalFunction = pycarl.{}.RationalFunction\n".format(rfpackage))
                     f.write("FactorizedRationalFunction = pycarl.{}.FactorizedRationalFunction\n".format(rfpackage))
                     f.write("\n")
+                    f.write("storm_with_spot = {}\n".format(cmake_conf.STORM_SPOT))
                     f.write("storm_with_xerces = {}\n".format(cmake_conf.STORM_XERCES))
                     f.write("storm_with_dft = {}\n".format(use_dft))
                     f.write("storm_with_gspn = {}\n".format(use_gspn))

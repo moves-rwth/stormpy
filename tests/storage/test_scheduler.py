@@ -3,6 +3,7 @@ import stormpy.logic
 from helpers.helper import get_example_path
 
 import math
+from configurations import spot
 
 
 class TestScheduler:
@@ -88,6 +89,19 @@ class TestScheduler:
         assert intermediate.nr_transitions == 156
         for state in intermediate.states:
             assert len(state.actions) == 1
+
+    @spot
+    def test_apply_scheduler_mdp_ltl(self):
+        program = stormpy.parse_prism_program(get_example_path("mdp", "slipgrid.nm"))
+        properties = stormpy.parse_properties_for_prism_program("Pmax=? [ GF \"target\" & GF \"goal\" ]", program)
+        mdp = stormpy.build_model(program, properties)
+        result = stormpy.model_checking(mdp, properties[0], extract_scheduler=True)
+        assert result.has_scheduler
+        scheduler = result.scheduler
+        assert scheduler.memory_size == 8
+        assert scheduler.deterministic
+        induced = mdp.apply_scheduler(scheduler)
+        assert induced.nr_states == induced.nr_choices
 
     def test_apply_scheduler_ma(self):
         program = stormpy.parse_prism_program(get_example_path("ma", "simple.ma"), False, True)
