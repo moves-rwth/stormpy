@@ -86,8 +86,8 @@ jobs:
     name: Test on stable
     runs-on: ubuntu-latest
     env:
-      RELEASE_IMG: "storm:1.6.4"
-      DEBUG_IMG: "storm:1.6.4-debug"
+      RELEASE_IMG: "storm:stable"
+      DEBUG_IMG: "storm:stable-debug"
     strategy:
       matrix:
         debugOrRelease: ["debug", "release"]
