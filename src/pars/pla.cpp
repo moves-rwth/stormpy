@@ -94,9 +94,11 @@ void define_pla(py::module& m) {
     regionModelChecker.def("check_region", &checkRegion, "Check region", py::arg("environment"), py::arg("region"), py::arg("hypothesis") = storm::modelchecker::RegionResultHypothesis::Unknown, py::arg("initialResult") = storm::modelchecker::RegionResult::Unknown, py::arg("sampleVertices") = false)
         .def("get_bound", &getBoundAtInit, "Get bound", py::arg("environment"), py::arg("region"), py::arg("maximise")= true)
         .def("get_split_suggestion", &RegionModelChecker::getRegionSplitEstimate, "Get estimate")
-        .def("specify", &specify, "specify arguments",py::arg("environment"), py::arg("model"), py::arg("formula"), py::arg("generate_splitting_estimate") = false, py::arg("allow_model_simplification") = true);
+        .def("specify", &specify, "specify arguments",py::arg("environment"), py::arg("model"), py::arg("formula"), py::arg("generate_splitting_estimate") = false, py::arg("allow_model_simplification") = true)
+        .def("compute_extremum", [] (RegionModelChecker & r, storm::Environment const& env, Region const& region, storm::solver::OptimizationDirection const& dirForParameters, storm::RationalFunctionCoefficient const& precision, bool absolutePrecision) {
+            return r.computeExtremalValue(env, region, dirForParameters, storm::utility::one<storm::RationalFunction>() * precision, absolutePrecision); },
+            py::arg("environment"),  py::arg("region"), py::arg("extremum_direction"), py::arg("precision"), py::arg("precision_absolute") = false);
     ;
-
 
     py::class_<DtmcParameterLiftingModelChecker, std::shared_ptr<DtmcParameterLiftingModelChecker>>(m, "DtmcParameterLiftingModelChecker", "Region model checker for DTMCs", regionModelChecker)
             .def(py::init<>())
