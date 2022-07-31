@@ -10,6 +10,7 @@ Requires Storm version >= 1.7.0 and pycarl version >= 2.1.0
 
 - Support for plotting via extras `plot`
 - Support for LTL model checking via Spot
+- Some support for multi-objective model checking queries
 - Bindings for maximal end components
 - Support for computing expected number of visits
 - Added accessors for Prism program
