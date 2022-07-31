@@ -192,7 +192,7 @@ def build_symbolic_parametric_model(symbolic_description, properties=None):
     return _convert_symbolic_model(intermediate, parametric=True)
 
 
-def build_model_from_drn(file, options = DirectEncodingParserOptions()):
+def build_model_from_drn(file, options=DirectEncodingParserOptions()):
     """
     Build a model in sparse representation from the explicit DRN representation.
 
@@ -516,6 +516,7 @@ def get_reachable_states(model, initial_states, constraint_states, target_states
         return core._get_reachable_states_exact(model, initial_states, constraint_states, target_states, maximal_steps, choice_filter)
     return core._get_reachable_states_double(model, initial_states, constraint_states, target_states, maximal_steps, choice_filter)
 
+
 def compute_expected_number_of_visits(environment, model):
     """
     Compute the number of expected visits. Model must be deterministic.
@@ -529,6 +530,7 @@ def compute_expected_number_of_visits(environment, model):
     if model.is_exact:
         return core._compute_expected_number_of_visits_exact(environment, model)
     return core._compute_expected_number_of_visits_double(environment, model)
+
 
 def construct_submodel(model, states, actions, keep_unreachable_states=True, options=SubsystemBuilderOptions()):
     """
@@ -569,7 +571,6 @@ def eliminate_ECs(matrix, subsystem, possible_ecs, add_sink_row_states, add_self
     return core._eliminate_end_components_double(matrix, subsystem, possible_ecs, add_sink_row_states, add_self_loop_at_sink_states)
 
 
-
 def parse_properties(properties, context=None, filters=None):
     """
 
@@ -591,6 +592,7 @@ def parse_properties(properties, context=None, filters=None):
         core.parse_properties_for_jani_model(properties, context, filters)
     else:
         raise StormError("Unclear context. Please pass a symbolic model description")
+
 
 def export_to_drn(model, file, options=DirectEncodingOptions()):
     """
