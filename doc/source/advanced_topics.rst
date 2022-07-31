@@ -16,6 +16,7 @@ This guide is a collection of examples meant to bridge the gap between the getti
     doc/models/building_mas
     doc/engines
     doc/exploration
+    doc/simulator
     doc/reward_models
     doc/schedulers
     doc/shortest_paths
