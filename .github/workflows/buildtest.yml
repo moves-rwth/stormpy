@@ -28,7 +28,7 @@ env:
   CARL_CMAKE_DEBUG: "-DCMAKE_BUILD_TYPE=Debug -DUSE_CLN_NUMBERS=ON -DUSE_GINAC=ON -DTHREAD_SAFE=ON"
   CARL_CMAKE_RELEASE: "-DCMAKE_BUILD_TYPE=Release -DUSE_CLN_NUMBERS=ON -DUSE_GINAC=ON -DTHREAD_SAFE=ON"
 
-  DOCUMENTATION_DISTRO: "ubuntu-20.04"
+  DOCUMENTATION_DISTRO: "ubuntu-22.04"
 
 jobs:
   noDeploy:
@@ -38,7 +38,7 @@ jobs:
       PYTHON: "python3"
     strategy:
       matrix:
-        distro: ["ubuntu-21.10", "ubuntu-20.04", "debian-10", "debian-11"]
+        distro: ["ubuntu-18.04", "debian-10", "ubuntu-20.04", "debian-11", "ubuntu-22.04"]
         debugOrRelease: ["debug", "release"]
 
     steps:
