@@ -1,5 +1,5 @@
-FROM movesrwth/stormpy:1.6.4
-MAINTAINER Matthias Volk <matthias.volk@cs.rwth-aachen.de>
+FROM movesrwth/stormpy:latest
+MAINTAINER Matthias Volk <m.volk@utwente.nl>
 
 
 ##########
@@ -17,12 +17,6 @@ RUN adduser --disabled-password \
     --uid ${NB_UID} \
     ${NB_USER}
 
-# Change the owner of the virtual environment
-WORKDIR /opt
-USER root
-RUN chown -R ${NB_UID} venv
-USER ${NB_USER}
-
 WORKDIR ${HOME}
 # Add missing path
 ENV PATH="$HOME/.local/bin:$PATH"
@@ -32,8 +26,8 @@ ENV PATH="$HOME/.local/bin:$PATH"
 # Install dependencies
 ##########
 
-RUN pip install --no-cache-dir notebook==6.4.8
-RUN pip install --no-cache-dir numpy==1.22.1
+RUN pip install --no-cache-dir notebook==6.4.12
+RUN pip install --no-cache-dir numpy==1.23.1
 
 ##########
 # Copy files for notebooks
