@@ -24,11 +24,14 @@ void define_core(py::module& m) {
     m.def("set_settings", [](std::vector<std::string> const& args) {
             storm::settings::mutableManager().setFromExplodedString(args);
         }, "Set settings", py::arg("arguments"));
-    m.def("_set_loglevel_debug", []() {
+    m.def("set_loglevel_debug", []() {
         storm::utility::setLogLevel(l3pp::LogLevel::DEBUG);
     }, "set loglevel for storm to debug");
-    m.def("_set_loglevel_trace", []() {
+    m.def("set_loglevel_trace", []() {
         storm::utility::setLogLevel(l3pp::LogLevel::TRACE);
+    });
+    m.def("set_loglevel_error", []() {
+        storm::utility::setLogLevel(l3pp::LogLevel::ERR);
     });
 
     m.def("set_timeout", &storm::utility::resources::setTimeoutAlarm, py::arg("timeout"), "Set timeout in seconds");
