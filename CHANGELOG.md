@@ -1,16 +1,30 @@
 Changelog
 =============
 
-Version 1.6.x
+
+Version 1.7.x
 -------------
-### Version 1.6.?
+
+### Version 1.7.0 (2022/07)
+Requires Storm version >= 1.7.0 and pycarl version >= 2.1.0
+
+- Support for plotting via extras `plot`
+- Support for LTL model checking via Spot
 - Bindings for maximal end components
 - Support for computing expected number of visits
+- Added accessors for Prism program
+- Added documentation for simulator
 - Support for building complete/partial state space of DFT
 - Instantiator for parametric DFT
-- Developer: Storm is built with C++17
+- Simulator for DFT
+- Added Dockerfile
+- Developer: stormpy is built with C++17
 - Developer: updated pybind11 to version 2.8.1 and adapted bindings accordingly
-- Adaption to changes in Storm: new namespace storm::dft.
+- Adaption to changes in Storm such as the new namespace `storm::dft`
+
+
+Version 1.6.x
+-------------
 
 ### Version 1.6.4 (2022/01)
 Requires storm version >= 1.6.4 and pycarl version >= 2.0.5
