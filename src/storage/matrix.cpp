@@ -78,6 +78,7 @@ void define_sparse_matrix(py::module& m, std::string const& vtSuffix) {
         .def("get_row_group_start", [](SparseMatrix<ValueType>& matrix, entry_index<ValueType> row) {return matrix.getRowGroupIndices()[row];})
         .def("get_row_group_end", [](SparseMatrix<ValueType>& matrix, entry_index<ValueType> row) {return matrix.getRowGroupIndices()[row+1];})
         .def_property_readonly("has_trivial_row_grouping", &SparseMatrix<ValueType>::hasTrivialRowGrouping, "Trivial row grouping")
+        .def("make_row_grouping_trivial", &SparseMatrix<ValueType>::makeRowGroupingTrivial, "Makes row groups trivial. Use with care.")
         .def("get_row", [](SparseMatrix<ValueType>& matrix, entry_index<ValueType> row) {
                 return matrix.getRows(row, row+1);
             }, py::return_value_policy::reference, py::keep_alive<1, 0>(), py::arg("row"), "Get row")
