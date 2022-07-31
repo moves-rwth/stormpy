@@ -2,6 +2,7 @@
 #include "src/helpers.h"
 #include "storm-parsers/api/storm-parsers.h"
 #include "storm/storage/jani/Property.h"
+#include <storm/utility/cli.h>
 
 void define_property(py::module& m) {
     py::class_<storm::jani::Property>(m, "Property", "Property")
@@ -13,9 +14,14 @@ void define_property(py::module& m) {
     ;
 }
 
+std::map<storm::expressions::Variable, storm::expressions::Expression> parse_constants_string(storm::expressions::ExpressionManager const& m, std::string const& input) {
+    return storm::utility::cli::parseConstantDefinitionString(m, input);
+}
 
 // Define python bindings
 void define_input(py::module& m) {
+
+    m.def("parse_constants_string", &parse_constants_string, "Parse constants definition", py::arg("expression_manager"), py::arg("definition_string"));
 
     // Parse Prism program
     m.def("parse_prism_program", &storm::api::parseProgram, "Parse Prism program", py::arg("path"), py::arg("prism_compat") = false, py::arg("simplify") = true);
