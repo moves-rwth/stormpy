@@ -484,6 +484,12 @@
 <dd><p>Trivial row grouping</p>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.storage.ExactSparseMatrix.make_row_grouping_trivial">
+<span class="sig-name descname"><span class="pre">make_row_grouping_trivial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.storage.ExactSparseMatrix" title="stormpy.storage.storage.ExactSparseMatrix"><span class="pre">stormpy.storage.storage.ExactSparseMatrix</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#stormpy.storage.ExactSparseMatrix.make_row_grouping_trivial" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes row groups trivial. Use with care.</p>
+</dd></dl>
+
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.storage.ExactSparseMatrix.nr_columns">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nr_columns</span></span><a class="headerlink" href="#stormpy.storage.ExactSparseMatrix.nr_columns" title="Permalink to this definition">¶</a></dt>
@@ -1302,7 +1308,7 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.storage.JaniModel.flatten_composition">
-<span class="sig-name descname"><span class="pre">flatten_composition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.JaniModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_solver_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f27fa16deb0&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#stormpy.storage.JaniModel" title="stormpy.storage.storage.JaniModel"><span class="pre">stormpy.storage.storage.JaniModel</span></a></span></span><a class="headerlink" href="#stormpy.storage.JaniModel.flatten_composition" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">flatten_composition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.JaniModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_solver_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7fa4186a9270&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#stormpy.storage.JaniModel" title="stormpy.storage.storage.JaniModel"><span class="pre">stormpy.storage.storage.JaniModel</span></a></span></span><a class="headerlink" href="#stormpy.storage.JaniModel.flatten_composition" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1842,6 +1848,12 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <dd><p>Trivial row grouping</p>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.storage.ParametricSparseMatrix.make_row_grouping_trivial">
+<span class="sig-name descname"><span class="pre">make_row_grouping_trivial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.storage.ParametricSparseMatrix" title="stormpy.storage.storage.ParametricSparseMatrix"><span class="pre">stormpy.storage.storage.ParametricSparseMatrix</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#stormpy.storage.ParametricSparseMatrix.make_row_grouping_trivial" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes row groups trivial. Use with care.</p>
+</dd></dl>
+
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.storage.ParametricSparseMatrix.nr_columns">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nr_columns</span></span><a class="headerlink" href="#stormpy.storage.ParametricSparseMatrix.nr_columns" title="Permalink to this definition">¶</a></dt>
@@ -2311,7 +2323,7 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.storage.PrismProgram.flatten">
-<span class="sig-name descname"><span class="pre">flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.PrismProgram</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f27fa16ee30&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#stormpy.storage.PrismProgram" title="stormpy.storage.storage.PrismProgram"><span class="pre">stormpy.storage.storage.PrismProgram</span></a></span></span><a class="headerlink" href="#stormpy.storage.PrismProgram.flatten" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.PrismProgram</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7fa4186a83b0&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#stormpy.storage.PrismProgram" title="stormpy.storage.storage.PrismProgram"><span class="pre">stormpy.storage.storage.PrismProgram</span></a></span></span><a class="headerlink" href="#stormpy.storage.PrismProgram.flatten" title="Permalink to this definition">¶</a></dt>
 <dd><p>Put program into a single module</p>
 </dd></dl>
 
@@ -2633,9 +2645,57 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="stormpy.storage.SchedulerChoiceParametric">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SchedulerChoiceParametric</span></span><a class="headerlink" href="#stormpy.storage.SchedulerChoiceParametric" title="Permalink to this definition">¶</a></dt>
+<dd><p>A choice of a finite memory scheduler</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.storage.SchedulerChoiceParametric.defined">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">defined</span></span><a class="headerlink" href="#stormpy.storage.SchedulerChoiceParametric.defined" title="Permalink to this definition">¶</a></dt>
+<dd><p>Is the choice defined by the scheduler?</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.storage.SchedulerChoiceParametric.deterministic">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">deterministic</span></span><a class="headerlink" href="#stormpy.storage.SchedulerChoiceParametric.deterministic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Is the choice deterministic (given by a Dirac distribution)?</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.storage.SchedulerChoiceParametric.get_choice">
+<span class="sig-name descname"><span class="pre">get_choice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.storage.SchedulerChoiceParametric" title="stormpy.storage.storage.SchedulerChoiceParametric"><span class="pre">stormpy.storage.storage.SchedulerChoiceParametric</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">storm::storage::Distribution&lt;carl::RationalFunction&lt;carl::FactorizedPolynomial&lt;carl::MultivariatePolynomial&lt;cln::cl_RA,</span> <span class="pre">carl::MonomialComparator&lt;&amp;carl::Monomial::compareGradedLexical,</span> <span class="pre">true&gt;,</span> <span class="pre">carl::StdMultivariatePolynomialPolicies&lt;carl::NoReasons,</span> <span class="pre">carl::NoAllocator&gt;</span> <span class="pre">&gt;</span> <span class="pre">&gt;,</span> <span class="pre">true&gt;,</span> <span class="pre">unsigned</span> <span class="pre">long&gt;</span></span></span><a class="headerlink" href="#stormpy.storage.SchedulerChoiceParametric.get_choice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the distribution over the actions</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.storage.SchedulerChoiceParametric.get_deterministic_choice">
+<span class="sig-name descname"><span class="pre">get_deterministic_choice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.storage.SchedulerChoiceParametric" title="stormpy.storage.storage.SchedulerChoiceParametric"><span class="pre">stormpy.storage.storage.SchedulerChoiceParametric</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#stormpy.storage.SchedulerChoiceParametric.get_deterministic_choice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the deterministic choice</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="stormpy.storage.SchedulerDouble">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SchedulerDouble</span></span><a class="headerlink" href="#stormpy.storage.SchedulerDouble" title="Permalink to this definition">¶</a></dt>
 <dd><p>A Finite Memory Scheduler</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.storage.SchedulerDouble.cast_to_double_datatype">
+<span class="sig-name descname"><span class="pre">cast_to_double_datatype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.storage.SchedulerDouble" title="stormpy.storage.storage.SchedulerDouble"><span class="pre">stormpy.storage.storage.SchedulerDouble</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#stormpy.storage.SchedulerDouble" title="stormpy.storage.storage.SchedulerDouble"><span class="pre">stormpy.storage.storage.SchedulerDouble</span></a></span></span><a class="headerlink" href="#stormpy.storage.SchedulerDouble.cast_to_double_datatype" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct the scheduler with <cite>double</cite> value type</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.storage.SchedulerDouble.cast_to_exact_datatype">
+<span class="sig-name descname"><span class="pre">cast_to_exact_datatype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.storage.SchedulerDouble" title="stormpy.storage.storage.SchedulerDouble"><span class="pre">stormpy.storage.storage.SchedulerDouble</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">storm::storage::Scheduler&lt;__gmp_expr&lt;__mpq_struct</span> <span class="pre">[1],</span> <span class="pre">__mpq_struct</span> <span class="pre">[1]&gt;</span> <span class="pre">&gt;</span></span></span><a class="headerlink" href="#stormpy.storage.SchedulerDouble.cast_to_exact_datatype" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct the scheduler with <cite>exact</cite> value type</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.storage.SchedulerDouble.cast_to_parametric_datatype">
+<span class="sig-name descname"><span class="pre">cast_to_parametric_datatype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.storage.SchedulerDouble" title="stormpy.storage.storage.SchedulerDouble"><span class="pre">stormpy.storage.storage.SchedulerDouble</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">storm::storage::Scheduler&lt;carl::RationalFunction&lt;carl::FactorizedPolynomial&lt;carl::MultivariatePolynomial&lt;cln::cl_RA,</span> <span class="pre">carl::MonomialComparator&lt;&amp;carl::Monomial::compareGradedLexical,</span> <span class="pre">true&gt;,</span> <span class="pre">carl::StdMultivariatePolynomialPolicies&lt;carl::NoReasons,</span> <span class="pre">carl::NoAllocator&gt;</span> <span class="pre">&gt;</span> <span class="pre">&gt;,</span> <span class="pre">true&gt;</span> <span class="pre">&gt;</span></span></span><a class="headerlink" href="#stormpy.storage.SchedulerDouble.cast_to_parametric_datatype" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct the scheduler with <cite>parametric</cite> value type</p>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.storage.SchedulerDouble.compute_action_support">
 <span class="sig-name descname"><span class="pre">compute_action_support</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.storage.SchedulerDouble" title="stormpy.storage.storage.SchedulerDouble"><span class="pre">stormpy.storage.storage.SchedulerDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">nondeterministic_choice_indices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#stormpy.storage.BitVector" title="stormpy.storage.storage.BitVector"><span class="pre">stormpy.storage.storage.BitVector</span></a></span></span><a class="headerlink" href="#stormpy.storage.SchedulerDouble.compute_action_support" title="Permalink to this definition">¶</a></dt>
@@ -2670,12 +2730,35 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <dd><p>Is the scheduler partial?</p>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.storage.SchedulerDouble.to_json_str">
+<span class="sig-name descname"><span class="pre">to_json_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.storage.SchedulerDouble" title="stormpy.storage.storage.SchedulerDouble"><span class="pre">stormpy.storage.storage.SchedulerDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">stormpy.storage.storage._SparseModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_unique_choices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_dont_care_states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#stormpy.storage.SchedulerDouble.to_json_str" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="stormpy.storage.SchedulerExact">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SchedulerExact</span></span><a class="headerlink" href="#stormpy.storage.SchedulerExact" title="Permalink to this definition">¶</a></dt>
 <dd><p>A Finite Memory Scheduler</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.storage.SchedulerExact.cast_to_double_datatype">
+<span class="sig-name descname"><span class="pre">cast_to_double_datatype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.storage.SchedulerExact" title="stormpy.storage.storage.SchedulerExact"><span class="pre">stormpy.storage.storage.SchedulerExact</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#stormpy.storage.SchedulerDouble" title="stormpy.storage.storage.SchedulerDouble"><span class="pre">stormpy.storage.storage.SchedulerDouble</span></a></span></span><a class="headerlink" href="#stormpy.storage.SchedulerExact.cast_to_double_datatype" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct the scheduler with <cite>double</cite> value type</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.storage.SchedulerExact.cast_to_exact_datatype">
+<span class="sig-name descname"><span class="pre">cast_to_exact_datatype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.storage.SchedulerExact" title="stormpy.storage.storage.SchedulerExact"><span class="pre">stormpy.storage.storage.SchedulerExact</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#stormpy.storage.SchedulerExact" title="stormpy.storage.storage.SchedulerExact"><span class="pre">stormpy.storage.storage.SchedulerExact</span></a></span></span><a class="headerlink" href="#stormpy.storage.SchedulerExact.cast_to_exact_datatype" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct the scheduler with <cite>exact</cite> value type</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.storage.SchedulerExact.cast_to_parametric_datatype">
+<span class="sig-name descname"><span class="pre">cast_to_parametric_datatype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.storage.SchedulerExact" title="stormpy.storage.storage.SchedulerExact"><span class="pre">stormpy.storage.storage.SchedulerExact</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">storm::storage::Scheduler&lt;carl::RationalFunction&lt;carl::FactorizedPolynomial&lt;carl::MultivariatePolynomial&lt;cln::cl_RA,</span> <span class="pre">carl::MonomialComparator&lt;&amp;carl::Monomial::compareGradedLexical,</span> <span class="pre">true&gt;,</span> <span class="pre">carl::StdMultivariatePolynomialPolicies&lt;carl::NoReasons,</span> <span class="pre">carl::NoAllocator&gt;</span> <span class="pre">&gt;</span> <span class="pre">&gt;,</span> <span class="pre">true&gt;</span> <span class="pre">&gt;</span></span></span><a class="headerlink" href="#stormpy.storage.SchedulerExact.cast_to_parametric_datatype" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct the scheduler with <cite>parametric</cite> value type</p>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.storage.SchedulerExact.compute_action_support">
 <span class="sig-name descname"><span class="pre">compute_action_support</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.storage.SchedulerExact" title="stormpy.storage.storage.SchedulerExact"><span class="pre">stormpy.storage.storage.SchedulerExact</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">nondeterministic_choice_indices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#stormpy.storage.BitVector" title="stormpy.storage.storage.BitVector"><span class="pre">stormpy.storage.storage.BitVector</span></a></span></span><a class="headerlink" href="#stormpy.storage.SchedulerExact.compute_action_support" title="Permalink to this definition">¶</a></dt>
@@ -2709,6 +2792,74 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">partial</span></span><a class="headerlink" href="#stormpy.storage.SchedulerExact.partial" title="Permalink to this definition">¶</a></dt>
 <dd><p>Is the scheduler partial?</p>
 </dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.storage.SchedulerExact.to_json_str">
+<span class="sig-name descname"><span class="pre">to_json_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.storage.SchedulerExact" title="stormpy.storage.storage.SchedulerExact"><span class="pre">stormpy.storage.storage.SchedulerExact</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">stormpy.storage.storage._SparseExactModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_unique_choices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_dont_care_states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#stormpy.storage.SchedulerExact.to_json_str" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="stormpy.storage.SchedulerParametric">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SchedulerParametric</span></span><a class="headerlink" href="#stormpy.storage.SchedulerParametric" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Finite Memory Scheduler</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.storage.SchedulerParametric.cast_to_double_datatype">
+<span class="sig-name descname"><span class="pre">cast_to_double_datatype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.storage.SchedulerParametric" title="stormpy.storage.storage.SchedulerParametric"><span class="pre">stormpy.storage.storage.SchedulerParametric</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#stormpy.storage.SchedulerDouble" title="stormpy.storage.storage.SchedulerDouble"><span class="pre">stormpy.storage.storage.SchedulerDouble</span></a></span></span><a class="headerlink" href="#stormpy.storage.SchedulerParametric.cast_to_double_datatype" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct the scheduler with <cite>double</cite> value type</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.storage.SchedulerParametric.cast_to_exact_datatype">
+<span class="sig-name descname"><span class="pre">cast_to_exact_datatype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.storage.SchedulerParametric" title="stormpy.storage.storage.SchedulerParametric"><span class="pre">stormpy.storage.storage.SchedulerParametric</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#stormpy.storage.SchedulerExact" title="stormpy.storage.storage.SchedulerExact"><span class="pre">stormpy.storage.storage.SchedulerExact</span></a></span></span><a class="headerlink" href="#stormpy.storage.SchedulerParametric.cast_to_exact_datatype" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct the scheduler with <cite>exact</cite> value type</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.storage.SchedulerParametric.cast_to_parametric_datatype">
+<span class="sig-name descname"><span class="pre">cast_to_parametric_datatype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.storage.SchedulerParametric" title="stormpy.storage.storage.SchedulerParametric"><span class="pre">stormpy.storage.storage.SchedulerParametric</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#stormpy.storage.SchedulerParametric" title="stormpy.storage.storage.SchedulerParametric"><span class="pre">stormpy.storage.storage.SchedulerParametric</span></a></span></span><a class="headerlink" href="#stormpy.storage.SchedulerParametric.cast_to_parametric_datatype" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct the scheduler with <cite>parametric</cite> value type</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.storage.SchedulerParametric.compute_action_support">
+<span class="sig-name descname"><span class="pre">compute_action_support</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.storage.SchedulerParametric" title="stormpy.storage.storage.SchedulerParametric"><span class="pre">stormpy.storage.storage.SchedulerParametric</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">nondeterministic_choice_indices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#stormpy.storage.BitVector" title="stormpy.storage.storage.BitVector"><span class="pre">stormpy.storage.storage.BitVector</span></a></span></span><a class="headerlink" href="#stormpy.storage.SchedulerParametric.compute_action_support" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.storage.SchedulerParametric.deterministic">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">deterministic</span></span><a class="headerlink" href="#stormpy.storage.SchedulerParametric.deterministic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Is the scheduler deterministic?</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.storage.SchedulerParametric.get_choice">
+<span class="sig-name descname"><span class="pre">get_choice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.storage.SchedulerParametric" title="stormpy.storage.storage.SchedulerParametric"><span class="pre">stormpy.storage.storage.SchedulerParametric</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">state_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">storm::storage::SchedulerChoice&lt;carl::RationalFunction&lt;carl::FactorizedPolynomial&lt;carl::MultivariatePolynomial&lt;cln::cl_RA,</span> <span class="pre">carl::MonomialComparator&lt;&amp;carl::Monomial::compareGradedLexical,</span> <span class="pre">true&gt;,</span> <span class="pre">carl::StdMultivariatePolynomialPolicies&lt;carl::NoReasons,</span> <span class="pre">carl::NoAllocator&gt;</span> <span class="pre">&gt;</span> <span class="pre">&gt;,</span> <span class="pre">true&gt;</span> <span class="pre">&gt;</span></span></span><a class="headerlink" href="#stormpy.storage.SchedulerParametric.get_choice" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.storage.SchedulerParametric.memory_size">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">memory_size</span></span><a class="headerlink" href="#stormpy.storage.SchedulerParametric.memory_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>How much memory does the scheduler take?</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.storage.SchedulerParametric.memoryless">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">memoryless</span></span><a class="headerlink" href="#stormpy.storage.SchedulerParametric.memoryless" title="Permalink to this definition">¶</a></dt>
+<dd><p>Is the scheduler memoryless?</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.storage.SchedulerParametric.partial">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">partial</span></span><a class="headerlink" href="#stormpy.storage.SchedulerParametric.partial" title="Permalink to this definition">¶</a></dt>
+<dd><p>Is the scheduler partial?</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.storage.SchedulerParametric.to_json_str">
+<span class="sig-name descname"><span class="pre">to_json_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.storage.SchedulerParametric" title="stormpy.storage.storage.SchedulerParametric"><span class="pre">stormpy.storage.storage.SchedulerParametric</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">stormpy.storage.storage._SparseParametricModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_unique_choices</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip_dont_care_states</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#stormpy.storage.SchedulerParametric.to_json_str" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -3125,6 +3276,12 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <dt class="sig sig-object py" id="stormpy.storage.SparseMatrix.has_trivial_row_grouping">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">has_trivial_row_grouping</span></span><a class="headerlink" href="#stormpy.storage.SparseMatrix.has_trivial_row_grouping" title="Permalink to this definition">¶</a></dt>
 <dd><p>Trivial row grouping</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.storage.SparseMatrix.make_row_grouping_trivial">
+<span class="sig-name descname"><span class="pre">make_row_grouping_trivial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.storage.SparseMatrix" title="stormpy.storage.storage.SparseMatrix"><span class="pre">stormpy.storage.storage.SparseMatrix</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#stormpy.storage.SparseMatrix.make_row_grouping_trivial" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes row groups trivial. Use with care.</p>
 </dd></dl>
 
 <dl class="py property">
