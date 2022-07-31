@@ -8,8 +8,8 @@ Requirements
 Before installing pycarl, make sure
 
 - Python 3 is available on your system. Pycarl does not work with python 2.
-- `carl <https://smtrat.github.io/carl>`_ with branch ``master14`` is available on your system.
-- *(optional)* in order to have full parsing capabilities, you additionally need `carl-parser <https://github.com/smtrat/carl-parser>`_.
+- `carl <https://ths-rwth.github.io/carl/>`_ with branch ``master14`` is available on your system.
+- *(optional)* in order to have full parsing capabilities, you additionally need `carl-parser <https://github.com/ths-rwth/carl-parser>`_.
 
 .. note:: Make sure you are using the ``master14`` branch of carl as the current master branch uses a newer C++ standard that pycarl does not require and therefore does not enable.
 

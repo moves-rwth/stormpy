@@ -114,7 +114,7 @@ html_theme_options = {
     # Note the "1" or "True" value above as the third argument to indicate
     # an arbitrary url.
     'navbar_links': [
-        ("Carl", "http://smtrat.github.io/carl/", True),
+        ("Carl", "https://ths-rwth.github.io/carl/", True),
         ("Github", "https://github.com/moves-rwth/pycarl", True)
     ],
 

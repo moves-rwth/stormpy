@@ -50,7 +50,7 @@ Requires carl version >= 17.08
 - Added variable and integer pickling support. Throw errors if pickling is not supported
 - Added hash functions
 - Hide factorization caches for user
-- Depend on [carl-parser](https://github.com/smtrat/carl-parser) for parsing routines
+- Depend on [carl-parser](https://github.com/ths-rwth/carl-parser) for parsing routines
 - Check for carl version
 - Fixed issues when CLN is not available
 
