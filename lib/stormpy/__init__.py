@@ -296,8 +296,8 @@ def check_model_sparse(model, property, only_initial_states=False, extract_sched
     else:
         formula = property
 
-    if force_fully_observable:
-        if model.is_partially_observable:
+    if model.is_partially_observable:
+        if force_fully_observable:
             # Note that casting a model to a fully observable model wont work with python/pybind, so we actually have other access points
             if model.supports_parameters:
                 raise NotImplementedError("")
@@ -314,7 +314,9 @@ def check_model_sparse(model, property, only_initial_states=False, extract_sched
                     task.set_hint(hint)
                 return core._model_checking_fully_observable(model, task, environment=environment)
         else:
-            raise RuntimeError("Forcing models that are fully observable is not possible")
+            raise RuntimeError("Model checking of partially observable models is handled via dedicated methods, unless the force fully-observable is set.")
+
+
 
     if model.supports_parameters:
         task = core.ParametricCheckTask(formula, only_initial_states)
