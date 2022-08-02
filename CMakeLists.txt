@@ -1,10 +1,11 @@
-cmake_minimum_required(VERSION 3.0.0)
-project(pycarl)
+cmake_minimum_required(VERSION 3.14) # Needed for FetchContent_MakeAvailable
 
+project(pycarl)
 
 find_package(carl REQUIRED)
 find_package(carlparser QUIET)
-add_subdirectory(resources/pybind11)
+
+include(resources/include_pybind11.cmake)
 
 set(PYCARL_HAS_CLN ${CARL_USE_CLN_NUMBERS})
 set(CMAKE_CXX_STANDARD 14)

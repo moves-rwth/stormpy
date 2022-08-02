@@ -225,5 +225,5 @@ setup(
     extras_require={
         "doc": ["Sphinx", "sphinx-bootstrap-theme"]
     },
-    python_requires='>=3',
+    python_requires='>=3.6',
 )
