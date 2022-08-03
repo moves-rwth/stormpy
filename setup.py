@@ -65,7 +65,7 @@ class CMakeBuild(build_ext):
         if carl_dir:
             cmake_args += ['-Dcarl_DIR=' + carl_dir]
         if carl_parser_dir:
-            cmake_args += ['-Dcarl_parser_DIR=' + carl_parser_dir]
+            cmake_args += ['-Dcarlparser_DIR=' + carl_parser_dir]
         output = subprocess.check_output(['cmake', os.path.abspath("cmake")] + cmake_args, cwd=build_temp_version)
         cmake_conf = setup_helper.load_cmake_config(os.path.join(build_temp_version, 'generated/config.py'))
 
@@ -73,15 +73,13 @@ class CMakeBuild(build_ext):
         if carl_dir == "":
             carl_dir = cmake_conf.CARL_DIR
         if carl_dir != cmake_conf.CARL_DIR:
-            print("Pycarl - Warning: Using different carl directory {} instead of given {}!".format(cmake_conf.CARL_DIR,
-                                                                                                    carl_dir))
+            print("Pycarl - Warning: Using different carl directory {} instead of given {}!".format(cmake_conf.CARL_DIR, carl_dir))
             carl_dir = cmake_conf.CARL_DIR
         # Set carl-parser directory
         if carl_parser_dir == "":
             carl_parser_dir = cmake_conf.CARL_PARSER_DIR
         if carl_parser_dir != cmake_conf.CARL_PARSER_DIR:
-            print("Pycarl - Warning: Using different carl-parser directory {} instead of given {}!".format(
-                cmake_conf.CARL_PARSER_DIR, carl_parser_dir))
+            print("Pycarl - Warning: Using different carl-parser directory {} instead of given {}!".format(cmake_conf.CARL_PARSER_DIR, carl_parser_dir))
             carl_parser_dir = cmake_conf.CARL_PARSER_DIR
 
         # Check version
@@ -118,7 +116,7 @@ class CMakeBuild(build_ext):
         if carl_dir is not None:
             cmake_args += ['-Dcarl_DIR=' + carl_dir]
         if use_parser and carl_parser_dir:
-            cmake_args += ['-Dcarl_parser_DIR=' + carl_parser_dir]
+            cmake_args += ['-Dcarlparser_DIR=' + carl_parser_dir]
         cmake_args += ['-DUSE_PARSER=' + ('ON' if enable_parser else 'OFF')]
         cmake_args += ['-DUSE_CLN_NUMBERS=' + ('ON' if enable_cln else 'OFF')]
 
