@@ -1114,6 +1114,12 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <dd><p>Get model checking result values for all states</p>
 </dd></dl>
 
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.ExplicitExactQuantitativeCheckResult.scheduler">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">scheduler</span></span><a class="headerlink" href="#stormpy.ExplicitExactQuantitativeCheckResult.scheduler" title="Permalink to this definition">¶</a></dt>
+<dd><p>get scheduler</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -1195,6 +1201,12 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <dt class="sig sig-object py" id="stormpy.ExplicitParametricQuantitativeCheckResult.get_values">
 <span class="sig-name descname"><span class="pre">get_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.ExplicitParametricQuantitativeCheckResult" title="stormpy.core.ExplicitParametricQuantitativeCheckResult"><span class="pre">stormpy.core.ExplicitParametricQuantitativeCheckResult</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#stormpy.FactorizedRationalFunction" title="pycarl.cln.cln.FactorizedRationalFunction"><span class="pre">pycarl.cln.cln.FactorizedRationalFunction</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#stormpy.ExplicitParametricQuantitativeCheckResult.get_values" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get model checking result values for all states</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.ExplicitParametricQuantitativeCheckResult.scheduler">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">scheduler</span></span><a class="headerlink" href="#stormpy.ExplicitParametricQuantitativeCheckResult.scheduler" title="Permalink to this definition">¶</a></dt>
+<dd><p>get scheduler</p>
 </dd></dl>
 
 </dd></dl>
@@ -2177,7 +2189,7 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.JaniModel.flatten_composition">
-<span class="sig-name descname"><span class="pre">flatten_composition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.JaniModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_solver_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f1a724b7a70&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.JaniModel" title="stormpy.storage.storage.JaniModel"><span class="pre">stormpy.storage.storage.JaniModel</span></a></span></span><a class="headerlink" href="#stormpy.JaniModel.flatten_composition" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">flatten_composition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.JaniModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_solver_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7fb316bab9b0&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.JaniModel" title="stormpy.storage.storage.JaniModel"><span class="pre">stormpy.storage.storage.JaniModel</span></a></span></span><a class="headerlink" href="#stormpy.JaniModel.flatten_composition" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -3709,7 +3721,7 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.PrismProgram.flatten">
-<span class="sig-name descname"><span class="pre">flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.PrismProgram</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f1a723b0870&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.PrismProgram" title="stormpy.storage.storage.PrismProgram"><span class="pre">stormpy.storage.storage.PrismProgram</span></a></span></span><a class="headerlink" href="#stormpy.PrismProgram.flatten" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.PrismProgram</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7fb31764d1b0&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.PrismProgram" title="stormpy.storage.storage.PrismProgram"><span class="pre">stormpy.storage.storage.PrismProgram</span></a></span></span><a class="headerlink" href="#stormpy.PrismProgram.flatten" title="Permalink to this definition">¶</a></dt>
 <dd><p>Put program into a single module</p>
 </dd></dl>
 
