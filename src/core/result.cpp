@@ -102,6 +102,7 @@ void define_result(py::module& m) {
             return result[state];
         }, py::arg("state"), "Get result for given state")
         .def("get_values", [](storm::modelchecker::ExplicitQuantitativeCheckResult<storm::RationalNumber> const& res) { return res.getValueVector();}, "Get model checking result values for all states")
+        .def_property_readonly("scheduler", [](storm::modelchecker::ExplicitQuantitativeCheckResult<storm::RationalNumber> const& res) {return res.getScheduler();}, "get scheduler")
     ;
     py::class_<storm::modelchecker::SymbolicQuantitativeCheckResult<storm::dd::DdType::Sylvan, storm::RationalNumber>, std::shared_ptr<storm::modelchecker::SymbolicQuantitativeCheckResult<storm::dd::DdType::Sylvan, storm::RationalNumber>>>(m, "SymbolicExactQuantitativeCheckResult", "Symbolic exact quantitative model checking result", quantitativeCheckResult)
        .def("clone", [](storm::modelchecker::SymbolicQuantitativeCheckResult<storm::dd::DdType::Sylvan, storm::RationalNumber> const& dd)  {return dd.clone()->asSymbolicQuantitativeCheckResult<storm::dd::DdType::Sylvan, storm::RationalNumber>(); })
@@ -116,6 +117,7 @@ void define_result(py::module& m) {
             return result[state];
         }, py::arg("state"), "Get result for given state")
         .def("get_values", [](storm::modelchecker::ExplicitQuantitativeCheckResult<storm::RationalFunction> const& res) { return res.getValueVector();}, "Get model checking result values for all states")
+        .def_property_readonly("scheduler", [](storm::modelchecker::ExplicitQuantitativeCheckResult<storm::RationalFunction> const& res) {return res.getScheduler();}, "get scheduler")
     ;
     py::class_<storm::modelchecker::SymbolicQuantitativeCheckResult<storm::dd::DdType::Sylvan, storm::RationalFunction>, std::shared_ptr<storm::modelchecker::SymbolicQuantitativeCheckResult<storm::dd::DdType::Sylvan, storm::RationalFunction>>>(m, "SymbolicParametricQuantitativeCheckResult", "Symbolic parametric quantitative model checking result", quantitativeCheckResult)
          .def("clone", [](storm::modelchecker::SymbolicQuantitativeCheckResult<storm::dd::DdType::Sylvan, storm::RationalFunction> const& dd)  {return dd.clone()->asSymbolicQuantitativeCheckResult<storm::dd::DdType::Sylvan, storm::RationalFunction>(); })
