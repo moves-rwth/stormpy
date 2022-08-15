@@ -35,6 +35,7 @@ void define_prism(py::module& m) {
             .def_property_readonly("model_type", &storm::prism::Program::getModelType, "Model type")
             .def_property_readonly("has_undefined_constants", &storm::prism::Program::hasUndefinedConstants, "Flag if program has undefined constants")
             .def_property_readonly("undefined_constants_are_graph_preserving", &storm::prism::Program::undefinedConstantsAreGraphPreserving, "Flag if the undefined constants do not change the graph structure")
+            .def("get_undefined_constants", &Program::getUndefinedConstants, "Collect the undefined constants")
             .def("substitute_constants", &Program::substituteConstants, "Substitute constants within program")
             .def("substitute_formulas", &Program::substituteFormulas, "Substitute formulas within program")
             .def("define_constants", &Program::defineUndefinedConstants, "Define constants")
@@ -46,6 +47,7 @@ void define_prism(py::module& m) {
             .def("label_unlabelled_commands", &Program::labelUnlabelledCommands, "Label unlabelled commands", py::arg("name_suggestions"))
             .def("has_constant", &Program::hasConstant, py::arg("name"))
             .def("get_constant", &Program::getConstant, py::arg("name"), "Requires that the program has a constant with this name")
+            .def("has_reward_model", [](Program const& p, std::string const& name) {return p.hasRewardModel(name);},  py::arg("name"), "Is a reward model with the specified name defined?")
             .def_property_readonly("reward_models", &Program::getRewardModels, "The defined reward models")
             .def("get_module", [](Program const& prog, std::string const& name) {return prog.getModule(name);}, py::arg("module_name"))
             // TODO the following is a duplicate and should be deprecated.

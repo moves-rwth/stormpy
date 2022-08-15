@@ -215,6 +215,7 @@ void define_sparse_model(py::module& m, std::string const& vtSuffix) {
         .def_property_readonly("transition_matrix", &getTransitionMatrix<ValueType>, py::return_value_policy::reference, py::keep_alive<1, 0>(), "Transition matrix")
         .def_property_readonly("backward_transition_matrix", &SparseModel<ValueType>::getBackwardTransitions, py::return_value_policy::reference, py::keep_alive<1, 0>(), "Backward transition matrix")
         .def("get_reward_model", [](SparseModel<ValueType>& model, std::string const& name) -> SparseRewardModel<ValueType>& {return model.getRewardModel(name);}, py::return_value_policy::reference, py::keep_alive<1, 0>(), "Reward model")
+        .def("has_reward_model", [](SparseModel<ValueType> const& model, std::string const& name) {return model.hasRewardModel(name);}, py::arg("name"))
         .def("add_reward_model", [](SparseModel<ValueType>& model, std::string const& name, SparseRewardModel<ValueType> const& rewModel) { model.addRewardModel(name, rewModel);})
         .def("has_state_valuations", [](SparseModel<ValueType> const& model) {return model.hasStateValuations();}, "has state valuation?")
         .def_property_readonly("state_valuations",  [](SparseModel<ValueType> const& model) {return model.getStateValuations();}, "state valuations")
@@ -392,7 +393,6 @@ void define_symbolic_model(py::module& m, std::string vt_suffix) {
         .def("get_states", [](SymbolicModel<DdType, double> const& model, storm::expressions::Expression const& expr) {return model.getStates(expr);}, py::arg("expression"), "Get states that are described by the expression")
         .def("compute_depth", [](SymbolicModel<DdType, double> const& model) {return storm::utility::dd::computeReachableStates(model.getInitialStates(), model.getQualitativeTransitionMatrix(false), model.getRowVariables(), model.getColumnVariables()).second;}, "Computes the depth of the model, i.e., the distance to the node with the largest minimal distance from the initial states")
         .def("reduce_to_state_based_rewards", &SymbolicModel<DdType, double>::reduceToStateBasedRewards)
-
         .def("__str__", &getModelInfoPrinter)
     ;
     py::class_<SymbolicDtmc<DdType, double>, std::shared_ptr<SymbolicDtmc<DdType, double>>>(m, (prefixClassName+"Dtmc").c_str(), "DTMC in symbolic representation", model)
