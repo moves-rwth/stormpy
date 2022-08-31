@@ -87,7 +87,7 @@ class CMakeBuild(build_ext):
         use_dft = cmake_conf.HAVE_STORM_DFT and not self.config.get_as_bool("disable_dft")
         use_gspn = cmake_conf.HAVE_STORM_GSPN and not self.config.get_as_bool("disable_gspn")
         use_pars = cmake_conf.HAVE_STORM_PARS and not self.config.get_as_bool("disable_pars")
-        use_pomdp = cmake_conf.HAVE_STORM_POMDP #and not self.config.get_as_bool("disable_pomdp")
+        use_pomdp = cmake_conf.HAVE_STORM_POMDP and not self.config.get_as_bool("disable_pomdp")
 
         # Print build info
         print("Stormpy - Using storm {} from {}".format(storm_version, storm_dir))
