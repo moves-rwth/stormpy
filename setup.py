@@ -282,5 +282,5 @@ setup(
         "plot":  ["matplotlib","numpy","scipy"],
         "doc": ["Sphinx", "sphinx-bootstrap-theme", "nbsphinx", "ipython", "ipykernel"], # also requires pandoc to be installed
     },
-    python_requires='>=3',
+    python_requires='>=3.6',
 )

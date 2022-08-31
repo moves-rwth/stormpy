@@ -1,8 +1,10 @@
-cmake_minimum_required(VERSION 3.8.0)
+cmake_minimum_required(VERSION 3.14) # Needed for FetchContent_MakeAvailable
+
 project(pystorm)
 
 find_package(storm REQUIRED)
-add_subdirectory(resources/pybind11)
+
+include(resources/include_pybind11.cmake)
 
 set(CMAKE_CXX_STANDARD 17)
 option(STORMPY_DISABLE_SIGNATURE_DOC "Disable the signature in the documentation" OFF)
