@@ -19,3 +19,27 @@ function(storm_with_lib NAME)
     endif()
 endfunction(storm_with_lib)
 
+# Note that the following functions cannot simply call set_variable_string because the scope would change.
+# Using 'macro' instead of 'function' is also not viable because arguments are then not handled as variables any more.
+
+# Set variable for Storm dependencies
+# which can be checked with STORM_HAVE_XYZ
+# Sets variable STORM_WITH_XYZ_BOOL
+function(set_dependency_var NAME)
+    if (STORM_HAVE_${NAME})
+        set(STORM_WITH_${NAME}_BOOL "True" PARENT_SCOPE)
+    else()
+        set(STORM_WITH_${NAME}_BOOL "False" PARENT_SCOPE)
+    endif()
+endfunction(set_dependency_var)
+
+# Set variable for optional Storm libraries (if used)
+# which can be checked with HAVE_STORM_XYZ and optiona USE_STORM_XYZ
+# Sets variable STORM_WITH_XYZ_BOOL
+function(set_optional_lib_var NAME)
+    if ((USE_STORM_${NAME}) AND (HAVE_STORM_${NAME}))
+        set(STORM_WITH_${NAME}_BOOL "True" PARENT_SCOPE)
+    else()
+        set(STORM_WITH_${NAME}_BOOL "False" PARENT_SCOPE)
+    endif()
+endfunction(set_optional_lib_var)
