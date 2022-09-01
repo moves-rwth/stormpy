@@ -71,7 +71,7 @@ class CMakeBuild(build_ext):
         if storm_dir == "":
             storm_dir = cmake_conf.STORM_DIR
         if storm_dir != cmake_conf.STORM_DIR:
-            print("Stormpy - Warning: Using different storm directory {} instead of given {}!".format(
+            print("Stormpy - WARNING: Using different storm directory {} instead of given {}!".format(
                 cmake_conf.STORM_DIR,
                 storm_dir))
             storm_dir = cmake_conf.STORM_DIR
@@ -95,7 +95,7 @@ class CMakeBuild(build_ext):
         if pybind_version == "":
             pybind_version = pycarl_pybind_version
         elif StrictVersion(pybind_version) != StrictVersion(pycarl_pybind_version):
-            print("Stormpy - Warning: Given pybind11 version {} differs from pycarl pybind11 version {}!".format(pybind_version, pycarl_pybind_version))
+            print("Stormpy - WARNING: Given pybind11 version {} differs from pycarl pybind11 version {}!".format(pybind_version, pycarl_pybind_version))
 
         # Print build info
         print("Stormpy - Using storm {} from {}".format(storm_version, storm_dir))
@@ -103,19 +103,19 @@ class CMakeBuild(build_ext):
         if use_dft:
             print("Stormpy - Support for DFTs found and included.")
         else:
-            print("Stormpy - Warning: No support for DFTs!")
+            print("Stormpy - WARNING: No support for DFTs!")
         if use_gspn:
             print("Stormpy - Support for GSPNs found and included.")
         else:
-            print("Stormpy - Warning: No support for GSPNs!")
+            print("Stormpy - WARNING: No support for GSPNs!")
         if use_pars:
             print("Stormpy - Support for parametric models found and included.")
         else:
-            print("Stormpy - Warning: No support for parametric models!")
+            print("Stormpy - WARNING: No support for parametric models!")
         if use_pomdp:
             print("Stormpy - Support for POMDP analysis found and included.")
         else:
-            print("Stormpy - Warning: No support for POMDP analysis!")
+            print("Stormpy - WARNING: No support for POMDP analysis!")
 
         build_type = 'Debug' if self.config.get_as_bool("debug") else 'Release'
         # Set cmake build options
