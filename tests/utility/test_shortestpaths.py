@@ -1,5 +1,4 @@
 import stormpy
-import stormpy.logic
 from stormpy.storage import BitVector
 from stormpy.utility import ShortestPathsGenerator
 from stormpy.utility import MatrixFormat

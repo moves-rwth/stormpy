@@ -45,7 +45,6 @@ class TestMatrix:
             i += 0.1
 
     def test_change_matrix_modelchecking(self):
-        import stormpy.logic
         model = stormpy.build_sparse_model_from_explicit(get_example_path("dtmc", "die.tra"),
                                                          get_example_path("dtmc", "die.lab"))
         matrix = model.transition_matrix
@@ -88,8 +87,6 @@ class TestMatrix:
         assert math.isclose(resValue, 0.3555555555555556)
 
     def test_change_parametric_matrix_modelchecking(self):
-        import stormpy.logic
-
         program = stormpy.parse_prism_program(get_example_path("pdtmc", "brp16_2.pm"))
         formulas = stormpy.parse_properties_for_prism_program("P=? [ F s=5 ]", program)
         model = stormpy.build_parametric_model(program, formulas)
