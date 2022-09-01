@@ -33,6 +33,7 @@ class SetupConfig:
             "disable_parser": False,
             "debug": False,
             "jobs": str(no_jobs),
+            "pybind_version": ""
         }
 
     def load_from_file(self, path):
