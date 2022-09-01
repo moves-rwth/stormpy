@@ -5,6 +5,12 @@ Changelog
 Version 1.7.x
 -------------
 
+### Version 1.7.x
+Requires Storm version >= 1.7.0 and pycarl version >= 2.1.0
+
+- Developer: improved build process
+- Developer: updated pybind version to 2.10.0. Check compatibility to pybind version of pycarl.
+
 ### Version 1.7.0 (2022/07)
 Requires Storm version >= 1.7.0 and pycarl version >= 2.1.0
 
