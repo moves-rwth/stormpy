@@ -1,8 +1,6 @@
 import stormpy
-import stormpy.core
 
 import pycarl
-import pycarl.core
 
 import stormpy.examples
 import stormpy.examples.files

@@ -1,7 +1,6 @@
 import time
 
 import stormpy
-import stormpy.core
 
 import stormpy.examples
 import stormpy.examples.files

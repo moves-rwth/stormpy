@@ -1,5 +1,4 @@
 import stormpy
-import stormpy.logic
 import math
 from helpers.helper import get_example_path
 

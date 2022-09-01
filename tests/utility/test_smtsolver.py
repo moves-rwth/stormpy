@@ -1,5 +1,4 @@
 import stormpy
-import stormpy.utility
 
 import pytest
 
