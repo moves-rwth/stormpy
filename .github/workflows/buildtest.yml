@@ -29,7 +29,7 @@ env:
 
 jobs:
   indepthTests:
-    name: Indepth Tests
+    name: Indepth Tests (${{ matrix.debugOrRelease}}, ${{ matrix.setupArgs.name }})
     runs-on: ubuntu-latest
     env:
       RELEASE_IMG: "storm:ci-release"
@@ -37,7 +37,9 @@ jobs:
     strategy:
       matrix:
         debugOrRelease: ["debug", "release"]
-
+        setupArgs:
+          - {name: "all libraries", disableFlags: "", optionalLibs: "[numpy,plot]"}
+          - {name: "no libraries", disableFlags: "--disable-dft --disable-gspn --disable-pars --disable-pomdp", optionalLibs: ""}
     steps:
       - name: Setup environment variables
         # this is strangely the best way to implement environment variables based on the value of another
@@ -47,6 +49,8 @@ jobs:
           ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "CMAKE_ARGS=${CMAKE_DEBUG}" || echo "CMAKE_ARGS=${CMAKE_RELEASE}") >> $GITHUB_ENV
           ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "IMG=${DEBUG_IMG}" || echo "IMG=${RELEASE_IMG}") >> $GITHUB_ENV
           ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "DEBUG_SWITCH=--debug" || true) >> $GITHUB_ENV
+          # Restrict tests to directory 'tests' (excluding examples and documentation) if not all libraries are present
+          ([[ "${{ matrix.setupArgs.disableFlags }}" != "" ]] && echo "TEST_OPT=--addopts tests" || true) >> $GITHUB_ENV
 
       - name: Init Docker
         run: sudo docker run -d -it --name storm --privileged movesrwth/$IMG
@@ -75,11 +79,11 @@ jobs:
           sudo docker exec storm bash -c "cd /opt/pycarl; python3 setup.py build_ext $DEBUG_SWITCH -j ${NR_JOBS} develop"
       - name: Build stormpy
         run: |
-          sudo docker exec storm bash -c "cd /opt/stormpy; python3 setup.py build_ext --storm-dir /opt/storm/build/ $DEBUG_SWITCH -j ${NR_JOBS} develop"
-          sudo docker exec storm bash -c "cd /opt/stormpy; pip3 install -e '.[numpy,plot]'"
+          sudo docker exec storm bash -c "cd /opt/stormpy; python3 setup.py build_ext --storm-dir /opt/storm/build/ $DEBUG_SWITCH ${{ matrix.setupArgs.disableFlags }} -j ${NR_JOBS} develop"
+          sudo docker exec storm bash -c "cd /opt/stormpy; pip3 install -e '.${{ matrix.setupArgs.optionalLibs }}'"
       - name: Run tests
         run: |
-          sudo docker exec storm bash -c "cd /opt/stormpy; python3 setup.py test"
+          sudo docker exec storm bash -c "cd /opt/stormpy; python3 setup.py test $TEST_OPT"
 
 
   stableTest:

@@ -31,6 +31,7 @@ class SetupConfig:
             "disable_dft": False,
             "disable_gspn": False,
             "disable_pars": False,
+            "disable_pomdp": False,
             "debug": False,
             "jobs": str(no_jobs),
         }
