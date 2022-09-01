@@ -1,6 +1,5 @@
 import stormpy
 from stormpy.utility.multiobjective_plotting import prepare_multiobjective_result_for_plotting, plot_convex_pareto_curve_demo
-import stormpy.logic
 from helpers.helper import get_example_path
 
 from configurations import plotting, numpy_avail

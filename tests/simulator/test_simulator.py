@@ -1,5 +1,4 @@
 import stormpy
-import stormpy.logic
 import stormpy.simulator
 from helpers.helper import get_example_path
 

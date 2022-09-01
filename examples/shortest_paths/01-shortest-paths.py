@@ -1,7 +1,4 @@
-# TODO: it is not obvious which of these imports are needed under what circumstances
-# note that this script runs fine without stormpy[.core]!
 import stormpy
-import stormpy.core
 
 import stormpy.examples
 import stormpy.examples.files

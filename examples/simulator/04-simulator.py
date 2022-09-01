@@ -1,5 +1,4 @@
 import stormpy
-import stormpy.core
 import stormpy.simulator
 
 import stormpy.examples

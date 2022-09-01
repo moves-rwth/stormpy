@@ -1,6 +1,5 @@
 import stormpy
 import stormpy.info
-import stormpy.logic
 from helpers.helper import get_example_path
 
 from configurations import pars
