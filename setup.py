@@ -109,7 +109,6 @@ class CMakeBuild(build_ext):
 
         build_type = 'Debug' if self.config.get_as_bool("debug") else 'Release'
         # Set cmake build options
-        print(self._extdir("core"))
         cmake_args = ['-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=' + self._extdir("core")]
         cmake_args += ['-DPYTHON_EXECUTABLE=' + sys.executable]
         cmake_args += ['-DCMAKE_BUILD_TYPE=' + build_type]
