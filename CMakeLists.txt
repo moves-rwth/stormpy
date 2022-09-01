@@ -7,6 +7,9 @@ option(USE_STORM_GSPN "Enable support for GSPNs" ON)
 option(USE_STORM_PARS "Enable support for parametric models" ON)
 option(USE_STORM_POMDP "Enable support for POMDPs" ON)
 option(STORMPY_DISABLE_SIGNATURE_DOC "Disable the signature in the documentation" OFF)
+MARK_AS_ADVANCED(STORMPY_DISABLE_SIGNATURE_DOC)
+set(PYBIND_VERSION "" CACHE STRING "Pybind11 version to use")
+MARK_AS_ADVANCED(PYBIND_VERSION)
 
 find_package(storm REQUIRED)
 

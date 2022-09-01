@@ -35,7 +35,8 @@ class CMakeBuild(build_ext):
         ('disable-pars', None, 'Disable support for parametric models'),
         ('disable-pomdp', None, 'Disable support for POMDP analysis'),
         ('debug', None, 'Build in Debug mode'),
-        ('jobs=', 'j', 'Number of jobs to use for compiling')
+        ('jobs=', 'j', 'Number of jobs to use for compiling'),
+        ('pybind-version=', None, 'Pybind11 version to use'),
     ]
 
     config = SetupConfig()
@@ -88,8 +89,17 @@ class CMakeBuild(build_ext):
         use_pars = cmake_conf.HAVE_STORM_PARS and not self.config.get_as_bool("disable_pars")
         use_pomdp = cmake_conf.HAVE_STORM_POMDP and not self.config.get_as_bool("disable_pomdp")
 
+        # Set pybind version
+        from pycarl._config import PYBIND_VERSION as pycarl_pybind_version
+        pybind_version = self.config.get_as_string("pybind_version")
+        if pybind_version == "":
+            pybind_version = pycarl_pybind_version
+        elif StrictVersion(pybind_version) != StrictVersion(pycarl_pybind_version):
+            print("Stormpy - Warning: Given pybind11 version {} differs from pycarl pybind11 version {}!".format(pybind_version, pycarl_pybind_version))
+
         # Print build info
         print("Stormpy - Using storm {} from {}".format(storm_version, storm_dir))
+        print("Stormpy - Using pybind11 version {}".format(pybind_version))
         if use_dft:
             print("Stormpy - Support for DFTs found and included.")
         else:
@@ -112,6 +122,7 @@ class CMakeBuild(build_ext):
         cmake_args = ['-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=' + self._extdir("core")]
         cmake_args += ['-DPYTHON_EXECUTABLE=' + sys.executable]
         cmake_args += ['-DCMAKE_BUILD_TYPE=' + build_type]
+        cmake_args += ['-DPYBIND_VERSION=' + pybind_version]
         if storm_dir is not None:
             cmake_args += ['-Dstorm_DIR=' + storm_dir]
         cmake_args += ['-DUSE_STORM_DFT=' + ('ON' if use_dft else 'OFF')]
@@ -157,6 +168,7 @@ class CMakeBuild(build_ext):
         self.disable_pomdp = None
         self.debug = None
         self.jobs = None
+        self.pybind_version = None
 
     def finalize_options(self):
         build_ext.finalize_options(self)
@@ -171,6 +183,7 @@ class CMakeBuild(build_ext):
         self.config.update("disable_pomdp", self.disable_pomdp)
         self.config.update("debug", self.debug)
         self.config.update("jobs", self.jobs)
+        self.config.update("pybind_version", self.pybind_version)
 
 
 setup(
@@ -213,7 +226,9 @@ setup(
     cmdclass={'build_ext': CMakeBuild},
     zip_safe=False,
     install_requires=['pycarl>=2.1.0'],
-    setup_requires=['pytest-runner'],
+    setup_requires=['pycarl>=2.1.0', # required to check pybind version used for pycarl
+                   'pytest-runner'
+                   ],
     tests_require=['pytest', 'nbval', 'numpy'],
     extras_require={
         "numpy":  ["numpy"],

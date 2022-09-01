@@ -34,6 +34,7 @@ class SetupConfig:
             "disable_pomdp": False,
             "debug": False,
             "jobs": str(no_jobs),
+            "pybind_version": ""
         }
 
     def load_from_file(self, path):
