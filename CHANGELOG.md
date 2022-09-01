@@ -2,15 +2,24 @@ Changelog
 =============
 
 
-Version 2.0.x
+Version 2.1.x
 -------------
 
-### Version 2.1.0 (2022/07)
+### Version 2.1.x
+Requires carl with branch `master14`
 
+- Developer: improved build process
+- Developer: updated pybind11 to version 2.10.0
+
+### Version 2.1.0 (2022/07)
 Requires carl with branch `master14`
 
 - Developer: updated pybind11 to version 2.8.1 and adapted bindings accordingly
 - Improved continuous integration with Github Actions
+
+
+Version 2.0.x
+-------------
 
 ### Version 2.0.5 (2022/01)
 Requires carl with branch `master14`
