@@ -151,7 +151,6 @@ class TestAnalysis:
         dft = stormpy.dft.load_dft_galileo_file(get_example_path("dft", "rc2.dft"))
         valid, output = stormpy.dft.is_well_formed(dft)
         assert not valid
-        assert "not binary" in output
         dft = stormpy.dft.transform_dft(dft, unique_constant_be=True, binary_fdeps=True, exponential_distributions=True)
         valid, output = stormpy.dft.is_well_formed(dft)
         assert valid
