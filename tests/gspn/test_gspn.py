@@ -170,6 +170,7 @@ class TestGSPNBuilder:
         gspn.set_name(gspn_new_name)
         assert gspn.get_name() == gspn_new_name
 
+    @xml
     def test_export_to_pnpro(self, tmpdir):
         builder = stormpy.gspn.GSPNBuilder()
         builder.set_name("gspn_test")
