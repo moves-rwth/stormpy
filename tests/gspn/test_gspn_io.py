@@ -9,6 +9,7 @@ from configurations import gspn, xml
 
 @gspn
 class TestGSPNJani:
+    @xml
     def test_custom_property(self):
         gspn_parser = stormpy.gspn.GSPNParser()
         gspn = gspn_parser.parse(get_example_path("gspn", "philosophers_4.pnpro"))
@@ -33,7 +34,7 @@ class TestGSPNJani:
         result = stormpy.model_checking(model, properties[0])
         assert math.isclose(result.at(initial_state), 0.4372171069840004)
 
-
+    @xml
     def test_standard_properties(self):
         gspn_parser = stormpy.gspn.GSPNParser()
         gspn = gspn_parser.parse(get_example_path("gspn", "philosophers_4.pnpro"))
