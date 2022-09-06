@@ -5,7 +5,6 @@ import datetime
 
 from setuptools import setup, Extension, find_packages
 from setuptools.command.build_ext import build_ext
-from distutils.version import StrictVersion
 
 import setup.helper as setup_helper
 from setup.config import SetupConfig
@@ -76,8 +75,9 @@ class CMakeBuild(build_ext):
             storm_dir = cmake_conf.STORM_DIR
 
         # Check version
+        from packaging.version import Version # Need to import here because otherwise packaging cannot be automatically installed as required dependency
         storm_version, storm_commit = setup_helper.parse_storm_version(cmake_conf.STORM_VERSION)
-        if StrictVersion(storm_version) < StrictVersion(storm_min_version):
+        if Version(storm_version) < Version(storm_min_version):
             print('Stormpy - Error: Storm version {} from \'{}\' is not supported anymore!'.format(storm_version, storm_dir))
             print("                 For more information, see https://moves-rwth.github.io/stormpy/installation.html#compatibility-of-stormpy-and-storm")
             sys.exit(42)  # Custom exit code which can be used for incompatible checks
@@ -213,12 +213,12 @@ setup(
     cmdclass={'build_ext': CMakeBuild},
     zip_safe=False,
     install_requires=['pycarl>=2.1.0'],
-    setup_requires=['pytest-runner'],
+    setup_requires=['pytest-runner', 'packaging'],
     tests_require=['pytest', 'nbval', 'numpy'],
     extras_require={
         "numpy":  ["numpy"],
         "plot":  ["matplotlib","numpy","scipy"],
         "doc": ["Sphinx", "sphinx-bootstrap-theme", "nbsphinx", "ipython", "ipykernel"], # also requires pandoc to be installed
     },
-    python_requires='>=3',
+    python_requires='>=3.7', # required by packaging
 )
