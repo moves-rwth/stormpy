@@ -5,7 +5,7 @@ import datetime
 
 from setuptools import setup, Extension, find_packages
 from setuptools.command.build_ext import build_ext
-from distutils.version import StrictVersion
+from packaging.version import Version
 
 import setup.helper as setup_helper
 from setup.config import SetupConfig
@@ -77,7 +77,7 @@ class CMakeBuild(build_ext):
 
         # Check version
         storm_version, storm_commit = setup_helper.parse_storm_version(cmake_conf.STORM_VERSION)
-        if StrictVersion(storm_version) < StrictVersion(storm_min_version):
+        if Version(storm_version) < Version(storm_min_version):
             print('Stormpy - Error: Storm version {} from \'{}\' is not supported anymore!'.format(storm_version, storm_dir))
             print("                 For more information, see https://moves-rwth.github.io/stormpy/installation.html#compatibility-of-stormpy-and-storm")
             sys.exit(42)  # Custom exit code which can be used for incompatible checks
