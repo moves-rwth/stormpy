@@ -7,8 +7,9 @@ The following steps should be performed before releasing a new pycarl version.
    ```
    * Set release month
 
-2. Update used carl version:
+2. Update dependency versions:
    * Update `carl_min_version` in `setup.py`
+   * Update `pybind_version_default` in `setup.py`
 
 3. Check that pycarl builds without errors and all tests are successful
    * [Github Actions](https://github.com/moves-rwth/pycarl/actions) should run successfully

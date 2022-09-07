@@ -1,12 +1,16 @@
-cmake_minimum_required(VERSION 3.0.0)
+cmake_minimum_required(VERSION 3.14) # Needed for FetchContent_MakeAvailable
+
 project(pycarl)
 
 option(USE_CLN_NUMBERS "Make cln numbers available in pycarl" ON)
 option(USE_PARSER "Make carlparser available in pycarl" ON)
+set(PYBIND_VERSION "" CACHE STRING "Pybind11 version to use")
+MARK_AS_ADVANCED(PYBIND_VERSION)
 
 find_package(carl REQUIRED)
 find_package(carlparser QUIET)
-add_subdirectory(resources/pybind11)
+
+include(resources/include_pybind11.cmake)
 
 set(CMAKE_CXX_STANDARD 14)
 

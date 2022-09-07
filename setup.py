@@ -17,6 +17,7 @@ if sys.version_info[0] == 2:
 carl_min_version = "17.12"
 carl_max_version = "19.12"
 carl_master14_version = "14."
+pybind_version_default = "2.10.0"
 
 # Get the long description from the README file
 with open(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'README.md'), encoding='utf-8') as f:
@@ -37,6 +38,7 @@ class CMakeBuild(build_ext):
         ('disable-parser', None, 'Disable parsing support'),
         ('debug', None, 'Build in Debug mode'),
         ('jobs=', 'j', 'Number of jobs to use for compiling'),
+        ('pybind-version=', None, 'Pybind11 version to use'),
     ]
 
     config = SetupConfig()
@@ -66,20 +68,20 @@ class CMakeBuild(build_ext):
             cmake_args += ['-Dcarl_DIR=' + carl_dir]
         if carl_parser_dir:
             cmake_args += ['-Dcarlparser_DIR=' + carl_parser_dir]
-        output = subprocess.check_output(['cmake', os.path.abspath("cmake")] + cmake_args, cwd=build_temp_version)
+        _ = subprocess.check_output(['cmake', os.path.abspath("cmake")] + cmake_args, cwd=build_temp_version)
         cmake_conf = setup_helper.load_cmake_config(os.path.join(build_temp_version, 'generated/config.py'))
 
         # Set carl directory
         if carl_dir == "":
             carl_dir = cmake_conf.CARL_DIR
         if carl_dir != cmake_conf.CARL_DIR:
-            print("Pycarl - Warning: Using different carl directory {} instead of given {}!".format(cmake_conf.CARL_DIR, carl_dir))
+            print("Pycarl - WARNING: Using different carl directory {} instead of given {}!".format(cmake_conf.CARL_DIR, carl_dir))
             carl_dir = cmake_conf.CARL_DIR
         # Set carl-parser directory
         if carl_parser_dir == "":
             carl_parser_dir = cmake_conf.CARL_PARSER_DIR
         if carl_parser_dir != cmake_conf.CARL_PARSER_DIR:
-            print("Pycarl - Warning: Using different carl-parser directory {} instead of given {}!".format(cmake_conf.CARL_PARSER_DIR, carl_parser_dir))
+            print("Pycarl - WARNING: Using different carl-parser directory {} instead of given {}!".format(cmake_conf.CARL_PARSER_DIR, carl_parser_dir))
             carl_parser_dir = cmake_conf.CARL_PARSER_DIR
 
         # Check version
@@ -97,22 +99,29 @@ class CMakeBuild(build_ext):
         use_parser = enable_parser and cmake_conf.CARL_WITH_PARSER
         use_cln = enable_cln and cmake_conf.CARL_WITH_CLN
 
+        # Set pybind version
+        pybind_version = self.config.get_as_string("pybind_version")
+        if pybind_version == "":
+            pybind_version = pybind_version_default
+
         # Print build info
         print("Pycarl - Using carl {} from {}".format(carl_version, carl_dir))
+        print("Pycarl - Using pybind11 version {}".format(pybind_version))
         if use_parser:
             print("Pycarl - carl parser extension from {} included.".format(carl_parser_dir))
         else:
-            print("Pycarl - Warning: No parser support!")
+            print("Pycarl - WARNING: No parser support!")
         if use_cln:
             print("Pycarl - Support for CLN found and included.")
         else:
-            print("Pycarl - Warning: No support for CLN!")
+            print("Pycarl - WARNING: No support for CLN!")
 
         build_type = 'Debug' if self.config.get_as_bool("debug") else 'Release'
         # Set cmake build options
         cmake_args = ['-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=' + self._extdir("core")]
         cmake_args += ['-DPYTHON_EXECUTABLE=' + sys.executable]
         cmake_args += ['-DCMAKE_BUILD_TYPE=' + build_type]
+        cmake_args += ['-DPYBIND_VERSION=' + pybind_version]
         if carl_dir is not None:
             cmake_args += ['-Dcarl_DIR=' + carl_dir]
         if use_parser and carl_parser_dir:
@@ -153,6 +162,7 @@ class CMakeBuild(build_ext):
         self.disable_parser = None
         self.debug = None
         self.jobs = None
+        self.pybind_version = None
 
     def finalize_options(self):
         build_ext.finalize_options(self)
@@ -163,6 +173,7 @@ class CMakeBuild(build_ext):
         self.config.update("disable_parser", self.disable_parser)
         self.config.update("debug", self.debug)
         self.config.update("jobs", self.jobs)
+        self.config.update("pybind_version", self.pybind_version)
 
 
 setup(
@@ -208,5 +219,5 @@ setup(
     extras_require={
         "doc": ["Sphinx", "sphinx-bootstrap-theme"]
     },
-    python_requires='>=3',
+    python_requires='>=3.6',
 )
