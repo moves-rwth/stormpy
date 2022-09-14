@@ -9,7 +9,7 @@ The following steps should be performed when releasing a new stormpy version.
 
 2. Update used tool versions:
    * Update `storm_min_version` in `setup.py`
-   * Update `install_requires` version of pycarl in `setup.py`
+   * Update `install_requires`/`setup_requires` version of pycarl in `setup.py`
 
 3. Update the Storm Docker images for Github actions:
    * Set `RELEASE_IMG` and `DEBUG_IMG` in `.github/workflows/buildtest.yml`

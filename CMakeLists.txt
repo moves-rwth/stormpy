@@ -1,4 +1,5 @@
-cmake_minimum_required(VERSION 3.8.0)
+cmake_minimum_required(VERSION 3.14) # Needed for FetchContent_MakeAvailable
+
 project(stormpy)
 
 option(USE_STORM_DFT "Enable support for DFTs" ON)
@@ -6,10 +7,13 @@ option(USE_STORM_GSPN "Enable support for GSPNs" ON)
 option(USE_STORM_PARS "Enable support for parametric models" ON)
 option(USE_STORM_POMDP "Enable support for POMDPs" ON)
 option(STORMPY_DISABLE_SIGNATURE_DOC "Disable the signature in the documentation" OFF)
-
+MARK_AS_ADVANCED(STORMPY_DISABLE_SIGNATURE_DOC)
+set(PYBIND_VERSION "" CACHE STRING "Pybind11 version to use")
+MARK_AS_ADVANCED(PYBIND_VERSION)
 
 find_package(storm REQUIRED)
-add_subdirectory(resources/pybind11)
+
+include(resources/include_pybind11.cmake)
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/macros.cmake)
 
