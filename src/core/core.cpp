@@ -77,20 +77,20 @@ void define_parse(py::module& m) {
 
 // Thin wrapper for model building using sparse representation
 template<typename ValueType>
-std::shared_ptr<storm::models::sparse::Model<ValueType>> buildSparseModel(storm::storage::SymbolicModelDescription const& modelDescription, std::vector<std::shared_ptr<storm::logic::Formula const>> const& formulas, bool jit = false, bool doctor = false) {
+std::shared_ptr<storm::models::sparse::Model<ValueType>> buildSparseModel(storm::storage::SymbolicModelDescription const& modelDescription, std::vector<std::shared_ptr<storm::logic::Formula const>> const& formulas) {
     if (formulas.empty()) {
         // Build all labels and rewards
         storm::builder::BuilderOptions options(true, true);
-        return storm::api::buildSparseModel<ValueType>(modelDescription, options, jit, doctor);
+        return storm::api::buildSparseModel<ValueType>(modelDescription, options);
     } else {
         // Only build labels necessary for formulas
-        return storm::api::buildSparseModel<ValueType>(modelDescription, formulas, jit, doctor);
+        return storm::api::buildSparseModel<ValueType>(modelDescription, formulas);
     }
 }
 
 template<typename ValueType>
-std::shared_ptr<storm::models::ModelBase> buildSparseModelWithOptions(storm::storage::SymbolicModelDescription const& modelDescription, storm::builder::BuilderOptions const& options, bool jit = false, bool doctor = false) {
-    return storm::api::buildSparseModel<ValueType>(modelDescription, options, jit, doctor);
+std::shared_ptr<storm::models::ModelBase> buildSparseModelWithOptions(storm::storage::SymbolicModelDescription const& modelDescription, storm::builder::BuilderOptions const& options) {
+    return storm::api::buildSparseModel<ValueType>(modelDescription, options);
 }
 
 template<typename ValueType>
@@ -117,12 +117,12 @@ void define_build(py::module& m) {
             .def_readwrite("build_choice_labels", &storm::parser::DirectEncodingParserOptions::buildChoiceLabeling, "Build with choice labels");
 
     // Build model
-    m.def("_build_sparse_model_from_symbolic_description", &buildSparseModel<double>, "Build the model in sparse representation", py::arg("model_description"), py::arg("formulas") = std::vector<std::shared_ptr<storm::logic::Formula const>>(), py::arg("use_jit") = false, py::arg("doctor") = false);
-    m.def("_build_sparse_exact_model_from_symbolic_description", &buildSparseModel<storm::RationalNumber>, "Build the model in sparse representation with exact number representation", py::arg("model_description"), py::arg("formulas") = std::vector<std::shared_ptr<storm::logic::Formula const>>(), py::arg("use_jit") = false, py::arg("doctor") = false);
-    m.def("_build_sparse_parametric_model_from_symbolic_description", &buildSparseModel<storm::RationalFunction>, "Build the parametric model in sparse representation", py::arg("model_description"), py::arg("formulas") = std::vector<std::shared_ptr<storm::logic::Formula const>>(), py::arg("use_jit") = false, py::arg("doctor") = false);
-    m.def("build_sparse_model_with_options", &buildSparseModelWithOptions<double>, "Build the model in sparse representation", py::arg("model_description"), py::arg("options"), py::arg("use_jit") = false, py::arg("doctor") = false);
-    m.def("build_sparse_exact_model_with_options", &buildSparseModelWithOptions<storm::RationalNumber>, "Build the model in sparse representation with exact number representation", py::arg("model_description"), py::arg("options"), py::arg("use_jit") = false, py::arg("doctor") = false);
-    m.def("build_sparse_parametric_model_with_options", &buildSparseModelWithOptions<storm::RationalFunction>, "Build the model in sparse representation", py::arg("model_description"), py::arg("options"), py::arg("use_jit") = false, py::arg("doctor") = false);
+    m.def("_build_sparse_model_from_symbolic_description", &buildSparseModel<double>, "Build the model in sparse representation", py::arg("model_description"), py::arg("formulas") = std::vector<std::shared_ptr<storm::logic::Formula const>>());
+    m.def("_build_sparse_exact_model_from_symbolic_description", &buildSparseModel<storm::RationalNumber>, "Build the model in sparse representation with exact number representation", py::arg("model_description"), py::arg("formulas") = std::vector<std::shared_ptr<storm::logic::Formula const>>());
+    m.def("_build_sparse_parametric_model_from_symbolic_description", &buildSparseModel<storm::RationalFunction>, "Build the parametric model in sparse representation", py::arg("model_description"), py::arg("formulas") = std::vector<std::shared_ptr<storm::logic::Formula const>>());
+    m.def("build_sparse_model_with_options", &buildSparseModelWithOptions<double>, "Build the model in sparse representation", py::arg("model_description"), py::arg("options"));
+    m.def("build_sparse_exact_model_with_options", &buildSparseModelWithOptions<storm::RationalNumber>, "Build the model in sparse representation with exact number representation", py::arg("model_description"), py::arg("options"));
+    m.def("build_sparse_parametric_model_with_options", &buildSparseModelWithOptions<storm::RationalFunction>, "Build the model in sparse representation", py::arg("model_description"), py::arg("options"));
     m.def("_build_symbolic_model_from_symbolic_description", &buildSymbolicModel<storm::dd::DdType::Sylvan, double>, "Build the model in symbolic representation", py::arg("model_description"), py::arg("formulas") = std::vector<std::shared_ptr<storm::logic::Formula const>>());
     m.def("_build_symbolic_parametric_model_from_symbolic_description", &buildSymbolicModel<storm::dd::DdType::Sylvan, storm::RationalFunction>, "Build the parametric model in symbolic representation", py::arg("model_description"), py::arg("formulas") = std::vector<std::shared_ptr<storm::logic::Formula const>>());
     m.def("_build_sparse_model_from_drn", &storm::api::buildExplicitDRNModel<double>, "Build the model from DRN", py::arg("file"), py::arg("options") = storm::parser::DirectEncodingParserOptions());
