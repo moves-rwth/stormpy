@@ -2,6 +2,7 @@
 #include "src/helpers.h"
 #include "storm-dft/storage/DFT.h"
 #include "storm/settings/SettingsManager.h"
+#include "storm-dft/utility/DftModularizer.h"
 #include "storm-dft/settings/modules/FaultTreeSettings.h"
 #include "storm-dft/settings/modules/DftIOSettings.h"
 #include "storm-dft/storage/DFTIsomorphism.h"
@@ -42,7 +43,10 @@ void define_dft_typed(py::module& m, std::string const& vt_suffix) {
         .def("get_element_by_name", [](DFT<ValueType>& dft, std::string const& name) {
                 return dft.getElement(dft.getIndex(name));
             }, "Get DFT element by name", py::arg("name"))
-        .def("modularisation", &DFT<ValueType>::topModularisation, "Split DFT into independent modules")
+        .def("modules", [](DFT<ValueType> const& dft) {
+                storm::dft::utility::DftModularizer<ValueType> modularizer;
+                return modularizer.computeModules(dft);
+            }, "Compute independent modules of DFT")
         .def("symmetries", [](DFT<ValueType>& dft) {
                 return dft.findSymmetries(dft.colourDFT());
             }, "Compute symmetries in DFT")

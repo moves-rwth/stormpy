@@ -9,16 +9,6 @@ from configurations import dft
 
 @dft
 class TestDft:
-    def test_modularisation(self):
-        dft = stormpy.dft.load_dft_galileo_file(get_example_path("dft", "hecs.dft"))
-        assert dft.nr_elements() == 23
-        assert dft.nr_be() == 13
-        assert dft.nr_dynamic() == 2
-        dfts = dft.modularisation()
-        assert len(dfts) == 4
-        for ft in dfts:
-            assert ft.top_level_element.name in ["n116", "n137", "n120", "n21"]
-
     def test_parametric_dft(self):
         import pycarl
         pycarl.clear_pools()

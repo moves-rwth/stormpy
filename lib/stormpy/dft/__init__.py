@@ -5,6 +5,7 @@ if not _config.storm_with_dft:
 
 from . import dft
 from .dft import *
+from .modules import modules_json
 
 dft._set_up()
 
