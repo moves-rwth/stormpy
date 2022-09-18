@@ -5,6 +5,7 @@
 #include "dft/dft_elements.h"
 #include "dft/dft_state.h"
 #include "dft/io.h"
+#include "dft/module.h"
 #include "dft/simulator.h"
 #include "dft/transformations.h"
 
@@ -29,6 +30,7 @@ PYBIND11_MODULE(dft, m) {
     define_dft_state<storm::RationalFunction>(m, "_ratfunc");
     define_failable_elements(m);
     define_input(m);
+    define_module(m);
     define_output(m);
     define_simulator(m);
     define_simulator_typed<double>(m, "_double");
