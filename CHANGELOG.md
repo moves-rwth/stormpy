@@ -6,9 +6,10 @@ Version 1.7.x
 -------------
 
 ### Version 1.7.x
-Requires Storm version >= 1.7.0 and pycarl version >= 2.1.0
+Requires Storm version >= 1.7.1 and pycarl version >= 2.1.0
 
 - Adaption to changes in Storm such as the removal of JIT compilation
+- Added bindings for DFT modules
 - Developer: improved build process
 - Developer: updated pybind version to 2.10.0. Check compatibility to pybind version of pycarl.
 
