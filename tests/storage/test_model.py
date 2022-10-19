@@ -161,6 +161,21 @@ class TestSparseModel:
         model = stormpy.build_sparse_model_with_options(program, options)
         a = model.choice_origins.get_edge_index_set(3)
 
+    def test_cycles(self):
+        program = stormpy.parse_prism_program(get_example_path("dtmc", "crowds-5-5.pm"))
+        model = stormpy.build_model(program)
+        assert model.nr_states == 8607
+        assert model.nr_transitions == 15113
+        assert model.has_cycle()
+        program = stormpy.parse_prism_program(get_example_path("dtmc", "brp-16-2.pm"))
+        model = stormpy.build_model(program)
+        assert model.nr_states == 677
+        assert model.nr_transitions == 867
+        assert not model.has_cycle()
+        program = stormpy.parse_prism_program(get_example_path("ma", "simple.ma"))
+        model = stormpy.build_model(program)
+        assert model.has_cycle()
+
 class TestSymbolicSylvanModel:
     def test_build_dtmc_from_prism_program(self):
         program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))

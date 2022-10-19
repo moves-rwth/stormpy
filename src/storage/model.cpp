@@ -15,11 +15,10 @@
 #include "storm/models/symbolic/Ctmc.h"
 #include "storm/models/symbolic/MarkovAutomaton.h"
 #include "storm/models/symbolic/StandardRewardModel.h"
-#include "storm/utility/dd.h"
-
 #include "storm/storage/dd/DdManager.h"
-
 #include "storm/storage/Scheduler.h"
+#include "storm/utility/dd.h"
+#include "storm/utility/graph.h"
 
 #include <functional>
 #include <string>
@@ -90,6 +89,26 @@ storm::storage::BitVector statesWithParameter(SparseModel<RationalFunction> cons
     return result;
 }
 
+template<typename ValueType>
+bool hasCycle(SparseModel<ValueType> const& model) {
+    // Find all states with absorbing self-loops and exclude them
+    auto const& matrix = model.getTransitionMatrix();
+    storm::storage::BitVector subStates(matrix.getColumnCount(), true);
+    for (auto group = 0; group < matrix.getRowGroupCount(); ++group) {
+        for (auto& entry : matrix.getRowGroup(group)) {
+            if (entry.getColumn() == group) {
+                if (storm::utility::isOne<ValueType>(entry.getValue())) {
+                    // Found self-loop
+                    subStates.set(entry.getColumn(), false);
+                }
+            }
+            if (entry.getColumn() >= group) {
+                continue;
+            }
+        }
+    }
+    return storm::utility::graph::hasCycle(matrix, subStates);
+}
 
 std::string getModelInfoPrinter(ModelBase const& model) {
     std::stringstream ss;
@@ -221,6 +240,7 @@ void define_sparse_model(py::module& m, std::string const& vtSuffix) {
         .def_property_readonly("state_valuations",  [](SparseModel<ValueType> const& model) {return model.getStateValuations();}, "state valuations")
         .def("reduce_to_state_based_rewards", &SparseModel<ValueType>::reduceToStateBasedRewards)
         .def("is_sink_state", &SparseModel<ValueType>::isSinkState, py::arg("state"))
+        .def("has_cycle", &hasCycle<ValueType>, "Whether the model contains a cycle")
         .def("__str__", &getModelInfoPrinter)
         .def("to_dot", [](SparseModel<ValueType>& model) { std::stringstream ss; model.writeDotToStream(ss); return ss.str(); }, "Write dot to a string")
     ;
