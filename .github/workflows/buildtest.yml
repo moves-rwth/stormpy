@@ -142,9 +142,9 @@ jobs:
             # Warn about incompatibility but do not handle as failure
             echo "::warning file=setup.py,line=82::Stormpy is incompatible with stable version of Storm"
             # Deactivate tests
-            echo "::set-output name=run_tests::false"
+            echo "run_tests=false" >> $GITHUB_OUTPUT
           else
-            echo "::set-output name=run_tests::true"
+            echo "run_tests=true" >> $GITHUB_OUTPUT
             exit $status
           fi
       - name: Run tests
