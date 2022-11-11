@@ -73,7 +73,6 @@ void define_sparse_matrix(py::module& m, std::string const& vtSuffix) {
         .def_property_readonly("nr_rows", &SparseMatrix<ValueType>::getRowCount, "Number of rows")
         .def_property_readonly("nr_columns", &SparseMatrix<ValueType>::getColumnCount, "Number of columns")
         .def_property_readonly("nr_entries", &SparseMatrix<ValueType>::getEntryCount, "Number of non-zero entries")
-        .def_property_readonly("_row_group_indices", &SparseMatrix<ValueType>::getRowGroupIndices, "Starting rows of row groups")
 
         .def("get_row_group_start", [](SparseMatrix<ValueType>& matrix, entry_index<ValueType> row) {return matrix.getRowGroupIndices()[row];})
         .def("get_row_group_end", [](SparseMatrix<ValueType>& matrix, entry_index<ValueType> row) {return matrix.getRowGroupIndices()[row+1];})
@@ -82,9 +81,10 @@ void define_sparse_matrix(py::module& m, std::string const& vtSuffix) {
         .def("get_row", [](SparseMatrix<ValueType>& matrix, entry_index<ValueType> row) {
                 return matrix.getRows(row, row+1);
             }, py::return_value_policy::reference, py::keep_alive<1, 0>(), py::arg("row"), "Get row")
-        .def("get_rows", [](SparseMatrix<ValueType>& matrix, entry_index<ValueType> start, entry_index<ValueType> end) {
-                return matrix.getRows(start, end);
-            }, py::return_value_policy::reference, py::keep_alive<1, 0>(), py::arg("row_start"), py::arg("row_end"), "Get rows from start to end")
+        .def("get_rows_for_group", [](SparseMatrix<ValueType>& matrix, entry_index<ValueType> group) {
+                auto range = matrix.getRowGroupIndices(group);
+                return std::vector(range.begin(), range.end());
+            }, py::arg("row_group"), "Get rows within a row group")
         .def("print_row", [](SparseMatrix<ValueType> const& matrix, entry_index<ValueType> row) {
                 std::stringstream stream;
                 auto rows = matrix.getRows(row, row+1);
