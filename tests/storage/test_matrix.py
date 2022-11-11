@@ -29,6 +29,28 @@ class TestMatrix:
         for e in matrix:
             assert e.value() == 0.5 or e.value() == 0 or (e.value() == 1 and e.column > 6)
 
+    def test_matrix_row_groups(self):
+        model = stormpy.build_sparse_model_from_explicit(get_example_path("mdp", "two_dice.tra"),
+                                                         get_example_path("mdp", "two_dice.lab"))
+        matrix = model.transition_matrix
+        assert type(matrix) is stormpy.storage.SparseMatrix
+        assert matrix.nr_rows == 254
+        assert matrix.nr_columns == model.nr_states
+        assert matrix.nr_entries == 436
+        assert matrix.nr_entries == model.nr_transitions
+        i = 0
+        for x in range(0, 8):
+            for group in range(x*12, x*12+7):
+                for row in matrix.get_rows_for_group(group):
+                    assert row == i
+                    i += 1
+            for group in range(x*12+7, x*12+12):
+                for row in matrix.get_rows_for_group(group):
+                    assert row == i
+                    i += 1
+        for e in matrix:
+            assert e.value() == 0.5 or e.value() == 0 or (e.value() == 1 and e.column > 6)
+
     def test_change_matrix(self):
         model = stormpy.build_sparse_model_from_explicit(get_example_path("dtmc", "die.tra"),
                                                          get_example_path("dtmc", "die.lab"))
