@@ -1051,16 +1051,16 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">doctest</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">doctest</span><span class="o">.</span><span class="n">ELLIPSIS_MARKER</span> <span class="o">=</span> <span class="s1">&#39;-etc-&#39;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy.examples</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy.examples.files</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">program</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">parse_prism_program</span><span class="p">(</span><span class="n">stormpy</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">prism_mdp_maze</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">prop</span> <span class="o">=</span> <span class="s2">&quot;R=? [F </span><span class="se">\&quot;</span><span class="s2">goal</span><span class="se">\&quot;</span><span class="s2">]&quot;</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; import doctest
+&gt;&gt;&gt; doctest.ELLIPSIS_MARKER = &#39;-etc-&#39;
+&gt;&gt;&gt; import stormpy
+&gt;&gt;&gt; import stormpy.examples
+&gt;&gt;&gt; import stormpy.examples.files
+&gt;&gt;&gt; program = stormpy.parse_prism_program(stormpy.examples.files.prism_mdp_maze)
+&gt;&gt;&gt; prop = &quot;R=? [F \&quot;goal\&quot;]&quot;
 
-<span class="o">&gt;&gt;&gt;</span> <span class="n">properties</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">parse_properties_for_prism_program</span><span class="p">(</span><span class="n">prop</span><span class="p">,</span> <span class="n">program</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">model</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">build_model</span><span class="p">(</span><span class="n">program</span><span class="p">,</span> <span class="n">properties</span><span class="p">)</span>
+&gt;&gt;&gt; properties = stormpy.parse_properties_for_prism_program(prop, program, None)
+&gt;&gt;&gt; model = stormpy.build_model(program, properties)
 </pre></div>
 </div>
 </div>
@@ -1069,12 +1069,12 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">states</span><span class="p">:</span>
-<span class="o">...</span>    <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">id</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">initial_states</span><span class="p">:</span>
-<span class="o">...</span>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;State </span><span class="si">{}</span><span class="s2"> is initial&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">id</span><span class="p">))</span>
-<span class="o">...</span>    <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">actions</span><span class="p">:</span>
-<span class="o">...</span>        <span class="k">for</span> <span class="n">transition</span> <span class="ow">in</span> <span class="n">action</span><span class="o">.</span><span class="n">transitions</span><span class="p">:</span>
-<span class="o">...</span>            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;From state </span><span class="si">{}</span><span class="s2"> by action </span><span class="si">{}</span><span class="s2">, with probability </span><span class="si">{}</span><span class="s2">, go to state </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">transition</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="n">transition</span><span class="o">.</span><span class="n">column</span><span class="p">))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; for state in model.states:
+...    if state.id in model.initial_states:
+...        print(&quot;State {} is initial&quot;.format(state.id))
+...    for action in state.actions:
+...        for transition in action.transitions:
+...            print(&quot;From state {} by action {}, with probability {}, go to state {}&quot;.format(state, action, transition.value(), transition.column))
 </pre></div>
 </div>
 </div>
@@ -1163,13 +1163,13 @@ From state 14 by action 0, with probability 1.0, go to state 14
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy.examples</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy.examples.files</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">program</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">parse_prism_program</span><span class="p">(</span><span class="n">stormpy</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">prism_pomdp_maze</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">prop</span> <span class="o">=</span> <span class="s2">&quot;R=? [F </span><span class="se">\&quot;</span><span class="s2">goal</span><span class="se">\&quot;</span><span class="s2">]&quot;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">properties</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">parse_properties_for_prism_program</span><span class="p">(</span><span class="n">prop</span><span class="p">,</span> <span class="n">program</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">model</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">build_model</span><span class="p">(</span><span class="n">program</span><span class="p">,</span> <span class="n">properties</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; import stormpy
+&gt;&gt;&gt; import stormpy.examples
+&gt;&gt;&gt; import stormpy.examples.files
+&gt;&gt;&gt; program = stormpy.parse_prism_program(stormpy.examples.files.prism_pomdp_maze)
+&gt;&gt;&gt; prop = &quot;R=? [F \&quot;goal\&quot;]&quot;
+&gt;&gt;&gt; properties = stormpy.parse_properties_for_prism_program(prop, program, None)
+&gt;&gt;&gt; model = stormpy.build_model(program, properties)
 </pre></div>
 </div>
 </div>
@@ -1178,7 +1178,7 @@ From state 14 by action 0, with probability 1.0, go to state 14
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">model_type</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; print(model.model_type)
 </pre></div>
 </div>
 </div>
@@ -1195,9 +1195,9 @@ ModelType.POMDP
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">nr_observations</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">states</span><span class="p">:</span>
-<span class="o">...</span>     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;State </span><span class="si">{}</span><span class="s2"> has observation id </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">observations</span><span class="p">[</span><span class="n">state</span><span class="o">.</span><span class="n">id</span><span class="p">]))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; print(model.nr_observations)
+&gt;&gt;&gt; for state in model.states:
+...     print(&quot;State {} has observation id {}&quot;.format(state.id, model.observations[state.id]))
 </pre></div>
 </div>
 </div>

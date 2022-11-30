@@ -1040,15 +1040,15 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy.examples</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy.examples.files</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">program</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">parse_prism_program</span><span class="p">(</span><span class="n">stormpy</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">prism_dtmc_die</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">prop</span> <span class="o">=</span> <span class="s2">&quot;R=? [F </span><span class="se">\&quot;</span><span class="s2">done</span><span class="se">\&quot;</span><span class="s2">]&quot;</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; import stormpy
+&gt;&gt;&gt; import stormpy.examples
+&gt;&gt;&gt; import stormpy.examples.files
+&gt;&gt;&gt; program = stormpy.parse_prism_program(stormpy.examples.files.prism_dtmc_die)
+&gt;&gt;&gt; prop = &quot;R=? [F \&quot;done\&quot;]&quot;
 
-<span class="o">&gt;&gt;&gt;</span> <span class="n">properties</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">parse_properties</span><span class="p">(</span><span class="n">prop</span><span class="p">,</span> <span class="n">program</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">model</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">build_model</span><span class="p">(</span><span class="n">program</span><span class="p">,</span> <span class="n">properties</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">reward_models</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+&gt;&gt;&gt; properties = stormpy.parse_properties(prop, program, None)
+&gt;&gt;&gt; model = stormpy.build_model(program, properties)
+&gt;&gt;&gt; assert len(model.reward_models) == 1
 </pre></div>
 </div>
 </div>
@@ -1057,9 +1057,9 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">initial_state</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">initial_states</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">model_checking</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">properties</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Result: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="n">initial_state</span><span class="p">),</span> <span class="mi">6</span><span class="p">)))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; initial_state = model.initial_states[0]
+&gt;&gt;&gt; result = stormpy.model_checking(model, properties[0])
+&gt;&gt;&gt; print(&quot;Result: {}&quot;.format(round(result.at(initial_state), 6)))
 </pre></div>
 </div>
 </div>
@@ -1076,8 +1076,8 @@ Result: 3.666667
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">reward_model_name</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">reward_models</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">reward_model_name</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; reward_model_name = list(model.reward_models.keys())[0]
+&gt;&gt;&gt; print(reward_model_name)
 </pre></div>
 </div>
 </div>
@@ -1094,11 +1094,11 @@ coin_flips
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">assert</span> <span class="ow">not</span> <span class="n">model</span><span class="o">.</span><span class="n">reward_models</span><span class="p">[</span><span class="n">reward_model_name</span><span class="p">]</span><span class="o">.</span><span class="n">has_state_rewards</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">assert</span> <span class="n">model</span><span class="o">.</span><span class="n">reward_models</span><span class="p">[</span><span class="n">reward_model_name</span><span class="p">]</span><span class="o">.</span><span class="n">has_state_action_rewards</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">assert</span> <span class="ow">not</span> <span class="n">model</span><span class="o">.</span><span class="n">reward_models</span><span class="p">[</span><span class="n">reward_model_name</span><span class="p">]</span><span class="o">.</span><span class="n">has_transition_rewards</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">reward</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">reward_models</span><span class="p">[</span><span class="n">reward_model_name</span><span class="p">]</span><span class="o">.</span><span class="n">state_action_rewards</span><span class="p">:</span>
-<span class="o">...</span>    <span class="nb">print</span><span class="p">(</span><span class="n">reward</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; assert not model.reward_models[reward_model_name].has_state_rewards
+&gt;&gt;&gt; assert model.reward_models[reward_model_name].has_state_action_rewards
+&gt;&gt;&gt; assert not model.reward_models[reward_model_name].has_transition_rewards
+&gt;&gt;&gt; for reward in model.reward_models[reward_model_name].state_action_rewards:
+...    print(reward)
 </pre></div>
 </div>
 </div>

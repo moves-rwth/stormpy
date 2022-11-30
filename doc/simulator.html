@@ -1062,10 +1062,10 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">stormpy</span>
-<span class="kn">import</span> <span class="nn">stormpy.examples</span>
-<span class="kn">import</span> <span class="nn">stormpy.examples.files</span>
-<span class="kn">import</span> <span class="nn">stormpy.simulator</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import stormpy
+import stormpy.examples
+import stormpy.examples.files
+import stormpy.simulator
 </pre></div>
 </div>
 </div>
@@ -1082,11 +1082,11 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">prism_dtmc_die</span>
-<span class="n">prism_program</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">parse_prism_program</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">build_model</span><span class="p">(</span><span class="n">prism_program</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>path = stormpy.examples.files.prism_dtmc_die
+prism_program = stormpy.parse_prism_program(path)
+model = stormpy.build_model(prism_program)
 
-<span class="n">simulator</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">simulator</span><span class="o">.</span><span class="n">create_simulator</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+simulator = stormpy.simulator.create_simulator(model, seed=42)
 </pre></div>
 </div>
 </div>
@@ -1095,7 +1095,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulator</span><span class="o">.</span><span class="n">restart</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>simulator.restart()
 </pre></div>
 </div>
 </div>
@@ -1112,7 +1112,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulator</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>simulator.step()
 </pre></div>
 </div>
 </div>
@@ -1129,7 +1129,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulator</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>simulator.step()
 </pre></div>
 </div>
 </div>
@@ -1146,7 +1146,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulator</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>simulator.step()
 </pre></div>
 </div>
 </div>
@@ -1164,7 +1164,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">labeling</span><span class="o">.</span><span class="n">get_labels_of_state</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>model.labeling.get_labels_of_state(11)
 </pre></div>
 </div>
 </div>
@@ -1182,7 +1182,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulator</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>simulator.step()
 </pre></div>
 </div>
 </div>
@@ -1199,7 +1199,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulator</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>simulator.step()
 </pre></div>
 </div>
 </div>
@@ -1217,7 +1217,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulator</span><span class="o">.</span><span class="n">is_done</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>simulator.is_done()
 </pre></div>
 </div>
 </div>
@@ -1235,17 +1235,17 @@ True
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulator</span><span class="o">.</span><span class="n">restart</span><span class="p">()</span>
-<span class="n">final_outcomes</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
-    <span class="k">while</span> <span class="ow">not</span> <span class="n">simulator</span><span class="o">.</span><span class="n">is_done</span><span class="p">():</span>
-        <span class="n">observation</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">simulator</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
-    <span class="k">if</span> <span class="n">observation</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">final_outcomes</span><span class="p">:</span>
-        <span class="n">final_outcomes</span><span class="p">[</span><span class="n">observation</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">final_outcomes</span><span class="p">[</span><span class="n">observation</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="n">simulator</span><span class="o">.</span><span class="n">restart</span><span class="p">()</span>
-<span class="n">final_outcomes</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>simulator.restart()
+final_outcomes = dict()
+for n in range(100):
+    while not simulator.is_done():
+        observation, reward, labels = simulator.step()
+    if observation not in final_outcomes:
+        final_outcomes[observation] = 1
+    else:
+        final_outcomes[observation] += 1
+    simulator.restart()
+final_outcomes
 </pre></div>
 </div>
 </div>
@@ -1266,9 +1266,9 @@ True
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">options</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">BuilderOptions</span><span class="p">()</span>
-<span class="n">options</span><span class="o">.</span><span class="n">set_build_state_valuations</span><span class="p">()</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">build_sparse_model_with_options</span><span class="p">(</span><span class="n">prism_program</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>options = stormpy.BuilderOptions()
+options.set_build_state_valuations()
+model = stormpy.build_sparse_model_with_options(prism_program, options)
 </pre></div>
 </div>
 </div>
@@ -1277,8 +1277,8 @@ True
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulator</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">simulator</span><span class="o">.</span><span class="n">create_simulator</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">simulator</span><span class="o">.</span><span class="n">set_observation_mode</span><span class="p">(</span><span class="n">stormpy</span><span class="o">.</span><span class="n">simulator</span><span class="o">.</span><span class="n">SimulatorObservationMode</span><span class="o">.</span><span class="n">PROGRAM_LEVEL</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>simulator = stormpy.simulator.create_simulator(model, seed=42)
+simulator.set_observation_mode(stormpy.simulator.SimulatorObservationMode.PROGRAM_LEVEL)
 </pre></div>
 </div>
 </div>
@@ -1286,8 +1286,8 @@ True
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="n">simulator</span><span class="o">.</span><span class="n">restart</span><span class="p">()</span>
-<span class="nb">str</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>state, reward, label = simulator.restart()
+str(state)
 </pre></div>
 </div>
 </div>
@@ -1306,18 +1306,18 @@ True
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulator</span><span class="o">.</span><span class="n">restart</span><span class="p">()</span>
-<span class="n">final_outcomes</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">simulator</span><span class="o">.</span><span class="n">get_reward_names</span><span class="p">())</span>
-<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
-    <span class="k">while</span> <span class="ow">not</span> <span class="n">simulator</span><span class="o">.</span><span class="n">is_done</span><span class="p">():</span>
-        <span class="n">observation</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">simulator</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
-    <span class="k">if</span> <span class="n">observation</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">final_outcomes</span><span class="p">:</span>
-        <span class="n">final_outcomes</span><span class="p">[</span><span class="n">observation</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">final_outcomes</span><span class="p">[</span><span class="n">observation</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="n">simulator</span><span class="o">.</span><span class="n">restart</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">final_outcomes</span><span class="o">.</span><span class="n">items</span><span class="p">()]))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>simulator.restart()
+final_outcomes = dict()
+print(simulator.get_reward_names())
+for n in range(100):
+    while not simulator.is_done():
+        observation, reward, labels = simulator.step()
+    if observation not in final_outcomes:
+        final_outcomes[observation] = 1
+    else:
+        final_outcomes[observation] += 1
+    simulator.restart()
+print(&quot;, &quot;.join([f&quot;{str(k)}: {v}&quot; for k,v in final_outcomes.items()]))
 </pre></div>
 </div>
 </div>
@@ -1359,31 +1359,31 @@ True
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
-<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">23</span><span class="p">)</span>
-<span class="n">path</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">prism_mdp_slipgrid</span>
-<span class="n">prism_program</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">parse_prism_program</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import random
+random.seed(23)
+path = stormpy.examples.files.prism_mdp_slipgrid
+prism_program = stormpy.parse_prism_program(path)
 
-<span class="n">model</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">build_model</span><span class="p">(</span><span class="n">prism_program</span><span class="p">)</span>
-<span class="n">simulator</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">simulator</span><span class="o">.</span><span class="n">create_simulator</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="c1"># 3 paths of at most 20 steps.</span>
-<span class="n">paths</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
-    <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">simulator</span><span class="o">.</span><span class="n">restart</span><span class="p">()</span>
-    <span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">state</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span>
-    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
-        <span class="n">actions</span> <span class="o">=</span> <span class="n">simulator</span><span class="o">.</span><span class="n">available_actions</span><span class="p">()</span>
-        <span class="n">select_action</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">actions</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;--act=</span><span class="si">{</span><span class="n">actions</span><span class="p">[</span><span class="n">select_action</span><span class="p">]</span><span class="si">}</span><span class="s2">--&gt;&quot;</span><span class="p">)</span>
-        <span class="n">state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">simulator</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">actions</span><span class="p">[</span><span class="n">select_action</span><span class="p">])</span>
-        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">state</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">simulator</span><span class="o">.</span><span class="n">is_done</span><span class="p">():</span>
-            <span class="k">break</span>
-    <span class="n">paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;------&quot;</span><span class="p">)</span>
+model = stormpy.build_model(prism_program)
+simulator = stormpy.simulator.create_simulator(model, seed=42)
+# 3 paths of at most 20 steps.
+paths = []
+for m in range(3):
+    path = []
+    state, reward, labels = simulator.restart()
+    path = [f&quot;{state}&quot;]
+    for n in range(20):
+        actions = simulator.available_actions()
+        select_action = random.randint(0,len(actions)-1)
+        path.append(f&quot;--act={actions[select_action]}--&gt;&quot;)
+        state, reward, labels = simulator.step(actions[select_action])
+        path.append(f&quot;{state}&quot;)
+        if simulator.is_done():
+            break
+    paths.append(path)
+for path in paths:
+    print(&quot; &quot;.join(path))
+    print(&quot;------&quot;)
 </pre></div>
 </div>
 </div>
@@ -1405,30 +1405,30 @@ True
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">options</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">BuilderOptions</span><span class="p">()</span>
-<span class="n">options</span><span class="o">.</span><span class="n">set_build_choice_labels</span><span class="p">()</span>
-<span class="n">options</span><span class="o">.</span><span class="n">set_build_state_valuations</span><span class="p">()</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">build_sparse_model_with_options</span><span class="p">(</span><span class="n">prism_program</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span>
-<span class="n">simulator</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">simulator</span><span class="o">.</span><span class="n">create_simulator</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-<span class="n">simulator</span><span class="o">.</span><span class="n">set_action_mode</span><span class="p">(</span><span class="n">stormpy</span><span class="o">.</span><span class="n">simulator</span><span class="o">.</span><span class="n">SimulatorActionMode</span><span class="o">.</span><span class="n">GLOBAL_NAMES</span><span class="p">)</span>
-<span class="n">simulator</span><span class="o">.</span><span class="n">set_observation_mode</span><span class="p">(</span><span class="n">stormpy</span><span class="o">.</span><span class="n">simulator</span><span class="o">.</span><span class="n">SimulatorObservationMode</span><span class="o">.</span><span class="n">PROGRAM_LEVEL</span><span class="p">)</span>
-<span class="c1"># 3 paths of at most 20 steps.</span>
-<span class="n">paths</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
-    <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">simulator</span><span class="o">.</span><span class="n">restart</span><span class="p">()</span>
-    <span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">]</span>
-    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
-        <span class="n">actions</span> <span class="o">=</span> <span class="n">simulator</span><span class="o">.</span><span class="n">available_actions</span><span class="p">()</span>
-        <span class="n">select_action</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">actions</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;--</span><span class="si">{</span><span class="n">actions</span><span class="p">[</span><span class="n">select_action</span><span class="p">]</span><span class="si">}</span><span class="s2">--&gt;&quot;</span><span class="p">)</span>
-        <span class="n">state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">simulator</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">actions</span><span class="p">[</span><span class="n">select_action</span><span class="p">])</span>
-        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">simulator</span><span class="o">.</span><span class="n">is_done</span><span class="p">():</span>
-            <span class="k">break</span>
-    <span class="n">paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>options = stormpy.BuilderOptions()
+options.set_build_choice_labels()
+options.set_build_state_valuations()
+model = stormpy.build_sparse_model_with_options(prism_program, options)
+simulator = stormpy.simulator.create_simulator(model, seed=42)
+simulator.set_action_mode(stormpy.simulator.SimulatorActionMode.GLOBAL_NAMES)
+simulator.set_observation_mode(stormpy.simulator.SimulatorObservationMode.PROGRAM_LEVEL)
+# 3 paths of at most 20 steps.
+paths = []
+for m in range(3):
+    path = []
+    state, reward, labels = simulator.restart()
+    path = [f&quot;({state[&#39;x&#39;]},{state[&#39;y&#39;]})&quot;]
+    for n in range(20):
+        actions = simulator.available_actions()
+        select_action = random.randint(0,len(actions)-1)
+        path.append(f&quot;--{actions[select_action]}--&gt;&quot;)
+        state, reward, labels = simulator.step(actions[select_action])
+        path.append(f&quot;({state[&#39;x&#39;]},{state[&#39;y&#39;]})&quot;)
+        if simulator.is_done():
+            break
+    paths.append(path)
+for path in paths:
+    print(&quot; &quot;.join(path))
 </pre></div>
 </div>
 </div>
@@ -1452,7 +1452,7 @@ True
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">simulator</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">simulator</span><span class="o">.</span><span class="n">create_simulator</span><span class="p">(</span><span class="n">prism_program</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>simulator = stormpy.simulator.create_simulator(prism_program, seed=42)
 </pre></div>
 </div>
 </div>
@@ -1460,23 +1460,23 @@ True
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 3 paths of at most 20 steps.</span>
-<span class="n">paths</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
-    <span class="n">path</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">simulator</span><span class="o">.</span><span class="n">restart</span><span class="p">()</span>
-    <span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">]</span>
-    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">20</span><span class="p">):</span>
-        <span class="n">actions</span> <span class="o">=</span> <span class="n">simulator</span><span class="o">.</span><span class="n">available_actions</span><span class="p">()</span>
-        <span class="n">select_action</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">actions</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;--</span><span class="si">{</span><span class="n">actions</span><span class="p">[</span><span class="n">select_action</span><span class="p">]</span><span class="si">}</span><span class="s2">--&gt;&quot;</span><span class="p">)</span>
-        <span class="n">state</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">simulator</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">actions</span><span class="p">[</span><span class="n">select_action</span><span class="p">])</span>
-        <span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">simulator</span><span class="o">.</span><span class="n">is_done</span><span class="p">():</span>
-            <span class="k">break</span>
-    <span class="n">paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># 3 paths of at most 20 steps.
+paths = []
+for m in range(3):
+    path = []
+    state, reward, labels = simulator.restart()
+    path = [f&quot;({state[&#39;x&#39;]},{state[&#39;y&#39;]})&quot;]
+    for n in range(20):
+        actions = simulator.available_actions()
+        select_action = random.randint(0,len(actions)-1)
+        path.append(f&quot;--{actions[select_action]}--&gt;&quot;)
+        state, reward, labels = simulator.step(actions[select_action])
+        path.append(f&quot;({state[&#39;x&#39;]},{state[&#39;y&#39;]})&quot;)
+        if simulator.is_done():
+            break
+    paths.append(path)
+for path in paths:
+    print(&quot; &quot;.join(path))
 </pre></div>
 </div>
 </div>
