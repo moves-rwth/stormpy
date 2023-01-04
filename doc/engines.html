@@ -9,9 +9,6 @@
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -1048,12 +1045,12 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; import stormpy.examples
-&gt;&gt;&gt; import stormpy.examples.files
-&gt;&gt;&gt; prism_program = stormpy.parse_prism_program(stormpy.examples.files.prism_dtmc_die)
-&gt;&gt;&gt; properties = stormpy.parse_properties(&#39;P=? [F &quot;one&quot;]&#39;, prism_program)
-&gt;&gt;&gt; sparse_model = stormpy.build_sparse_model(prism_program, properties)
-&gt;&gt;&gt; print(type(sparse_model))
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy.examples</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy.examples.files</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">prism_program</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">parse_prism_program</span><span class="p">(</span><span class="n">stormpy</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">prism_dtmc_die</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">properties</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">parse_properties</span><span class="p">(</span><span class="s1">&#39;P=? [F &quot;one&quot;]&#39;</span><span class="p">,</span> <span class="n">prism_program</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">sparse_model</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">build_sparse_model</span><span class="p">(</span><span class="n">prism_program</span><span class="p">,</span> <span class="n">properties</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">sparse_model</span><span class="p">))</span>
 <br/></pre></div>
 </div>
 </div>
@@ -1069,7 +1066,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; print(&quot;Number of states: {}&quot;.format(sparse_model.nr_states))
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of states: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sparse_model</span><span class="o">.</span><span class="n">nr_states</span><span class="p">))</span>
 <br/><br/></pre></div>
 </div>
 </div>
@@ -1085,7 +1082,7 @@ Number of states: 13
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; print(&quot;Number of transitions: {}&quot;.format(sparse_model.nr_transitions))
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of transitions: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sparse_model</span><span class="o">.</span><span class="n">nr_transitions</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -1101,9 +1098,9 @@ Number of transitions: 20
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; sparse_result = stormpy.check_model_sparse(sparse_model, properties[0])
-&gt;&gt;&gt; initial_state = sparse_model.initial_states[0]
-&gt;&gt;&gt; print(sparse_result.at(initial_state))
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">sparse_result</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">check_model_sparse</span><span class="p">(</span><span class="n">sparse_model</span><span class="p">,</span> <span class="n">properties</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">initial_state</span> <span class="o">=</span> <span class="n">sparse_model</span><span class="o">.</span><span class="n">initial_states</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">sparse_result</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="n">initial_state</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -1123,8 +1120,8 @@ Number of transitions: 20
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; symbolic_model = stormpy.build_symbolic_model(prism_program, properties)
-&gt;&gt;&gt; print(type(symbolic_model))
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">symbolic_model</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">build_symbolic_model</span><span class="p">(</span><span class="n">prism_program</span><span class="p">,</span> <span class="n">properties</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">symbolic_model</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -1140,7 +1137,7 @@ Number of transitions: 20
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; print(&quot;Number of states: {}&quot;.format(symbolic_model.nr_states))
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of states: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">symbolic_model</span><span class="o">.</span><span class="n">nr_states</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -1156,7 +1153,7 @@ Number of states: 13
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; print(&quot;Number of transitions: {}&quot;.format(symbolic_model.nr_transitions))
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of transitions: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">symbolic_model</span><span class="o">.</span><span class="n">nr_transitions</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -1172,8 +1169,8 @@ Number of transitions: 20
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; symbolic_result = stormpy.check_model_dd(symbolic_model, properties[0])
-&gt;&gt;&gt; print(symbolic_result)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">symbolic_result</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">check_model_dd</span><span class="p">(</span><span class="n">symbolic_model</span><span class="p">,</span> <span class="n">properties</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">symbolic_result</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1190,9 +1187,9 @@ Number of transitions: 20
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; filter = stormpy.create_filter_initial_states_symbolic(symbolic_model)
-&gt;&gt;&gt; symbolic_result.filter(filter)
-&gt;&gt;&gt; print(symbolic_result.min)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">filter</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">create_filter_initial_states_symbolic</span><span class="p">(</span><span class="n">symbolic_model</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">symbolic_result</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="nb">filter</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">symbolic_result</span><span class="o">.</span><span class="n">min</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1209,7 +1206,7 @@ Number of transitions: 20
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; print(type(symbolic_model))
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">symbolic_model</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -1225,8 +1222,8 @@ Number of transitions: 20
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; transformed_model = stormpy.transform_to_sparse_model(symbolic_model)
-&gt;&gt;&gt; print(type(transformed_model))
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">transformed_model</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">transform_to_sparse_model</span><span class="p">(</span><span class="n">symbolic_model</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">transformed_model</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -1246,7 +1243,7 @@ Number of transitions: 20
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; print(type(symbolic_model))
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">symbolic_model</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -1262,10 +1259,10 @@ Number of transitions: 20
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; hybrid_result = stormpy.check_model_hybrid(symbolic_model, properties[0])
-&gt;&gt;&gt; filter = stormpy.create_filter_initial_states_symbolic(symbolic_model)
-&gt;&gt;&gt; hybrid_result.filter(filter)
-&gt;&gt;&gt; print(hybrid_result)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">hybrid_result</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">check_model_hybrid</span><span class="p">(</span><span class="n">symbolic_model</span><span class="p">,</span> <span class="n">properties</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">filter</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">create_filter_initial_states_symbolic</span><span class="p">(</span><span class="n">symbolic_model</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">hybrid_result</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="nb">filter</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">hybrid_result</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1300,7 +1297,7 @@ Number of transitions: 20
     </p>
     <p>
         &copy; Copyright 2016-2022 Moves RWTH Aachen.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 6.0.0.<br/>
     </p>
   </div>
 </footer>

@@ -9,9 +9,6 @@
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/sphinx_highlight.js"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -1064,7 +1061,7 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; import stormpy
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy</span>
 </pre></div>
 </div>
 </div>
@@ -1077,8 +1074,8 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; import stormpy.examples
-&gt;&gt;&gt; import stormpy.examples.files
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy.examples</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy.examples.files</span>
 </pre></div>
 </div>
 </div>
@@ -1087,8 +1084,8 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; path = stormpy.examples.files.prism_dtmc_die
-&gt;&gt;&gt; prism_program = stormpy.parse_prism_program(path)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">path</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">prism_dtmc_die</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">prism_program</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">parse_prism_program</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1097,8 +1094,8 @@ div.rendered_html tbody tr:hover {
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; model = stormpy.build_model(prism_program)
-&gt;&gt;&gt; print(&quot;Number of states: {}&quot;.format(model.nr_states))
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">model</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">build_model</span><span class="p">(</span><span class="n">prism_program</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of states: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">nr_states</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -1114,7 +1111,7 @@ Number of states: 13
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; print(&quot;Number of transitions: {}&quot;.format(model.nr_transitions))
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of transitions: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">nr_transitions</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -1132,7 +1129,7 @@ Number of transitions: 20
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; print(&quot;Labels: {}&quot;.format(model.labeling.get_labels()))
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Labels: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">labeling</span><span class="o">.</span><span class="n">get_labels</span><span class="p">()))</span>
 </pre></div>
 </div>
 </div>
@@ -1141,7 +1138,7 @@ Number of transitions: 20
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Labels: {&#39;three&#39;, &#39;two&#39;, &#39;five&#39;, &#39;one&#39;, &#39;done&#39;, &#39;init&#39;, &#39;deadlock&#39;, &#39;six&#39;, &#39;four&#39;}
+Labels: {&#39;init&#39;, &#39;deadlock&#39;, &#39;four&#39;, &#39;done&#39;, &#39;six&#39;, &#39;two&#39;, &#39;five&#39;, &#39;three&#39;, &#39;one&#39;}
 </pre></div></div>
 </div>
 <p>We will investigate ways to examine the model in more detail later in <a class="reference external" href="#getting-started-investigating-the-model">Investigating the model</a>.</p>
@@ -1158,8 +1155,8 @@ Labels: {&#39;three&#39;, &#39;two&#39;, &#39;five&#39;, &#39;one&#39;, &#39;don
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; formula_str = &quot;P=? [F s=2]&quot;
-&gt;&gt;&gt; properties = stormpy.parse_properties(formula_str, prism_program)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">formula_str</span> <span class="o">=</span> <span class="s2">&quot;P=? [F s=2]&quot;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">properties</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">parse_properties</span><span class="p">(</span><span class="n">formula_str</span><span class="p">,</span> <span class="n">prism_program</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1169,8 +1166,8 @@ Labels: {&#39;three&#39;, &#39;two&#39;, &#39;five&#39;, &#39;one&#39;, &#39;don
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; model = stormpy.build_model(prism_program, properties)
-&gt;&gt;&gt; print(&quot;Labels in the model: {}&quot;.format(sorted(model.labeling.get_labels())))
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">model</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">build_model</span><span class="p">(</span><span class="n">prism_program</span><span class="p">,</span> <span class="n">properties</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Labels in the model: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">labeling</span><span class="o">.</span><span class="n">get_labels</span><span class="p">())))</span>
 </pre></div>
 </div>
 </div>
@@ -1187,7 +1184,7 @@ Labels in the model: [&#39;(s = 2)&#39;, &#39;deadlock&#39;, &#39;init&#39;]
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; print(&quot;Number of states: {}&quot;.format(model.nr_states))
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of states: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">nr_states</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -1213,9 +1210,9 @@ Number of states: 8
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; properties = stormpy.parse_properties(formula_str, prism_program)
-&gt;&gt;&gt; model = stormpy.build_model(prism_program, properties)
-&gt;&gt;&gt; result = stormpy.model_checking(model, properties[0])
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">properties</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">parse_properties</span><span class="p">(</span><span class="n">formula_str</span><span class="p">,</span> <span class="n">prism_program</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">model</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">build_model</span><span class="p">(</span><span class="n">prism_program</span><span class="p">,</span> <span class="n">properties</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">model_checking</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">properties</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -1224,9 +1221,9 @@ Number of states: 8
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; assert result.result_for_all_states
-&gt;&gt;&gt; for x in result.get_values():
-...    pass # do something with x
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">assert</span> <span class="n">result</span><span class="o">.</span><span class="n">result_for_all_states</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">get_values</span><span class="p">():</span>
+<span class="o">...</span>    <span class="k">pass</span> <span class="c1"># do something with x</span>
 </pre></div>
 </div>
 </div>
@@ -1238,8 +1235,8 @@ Number of states: 8
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; initial_state = model.initial_states[0]
-&gt;&gt;&gt; print(result.at(initial_state))
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">initial_state</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">initial_states</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="n">initial_state</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -1261,9 +1258,9 @@ Number of states: 8
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; path = stormpy.examples.files.prism_dtmc_die
-&gt;&gt;&gt; prism_program = stormpy.parse_prism_program(path)
-&gt;&gt;&gt; model = stormpy.build_model(prism_program)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">path</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">prism_dtmc_die</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">prism_program</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">parse_prism_program</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">model</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">build_model</span><span class="p">(</span><span class="n">prism_program</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1272,7 +1269,7 @@ Number of states: 8
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; print(model.model_type)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">model_type</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1289,10 +1286,10 @@ ModelType.DTMC
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; for state in model.states:
-...    for action in state.actions:
-...        for transition in action.transitions:
-...            print(&quot;From state {}, with probability {}, go to state {}&quot;.format(state, transition.value(), transition.column))
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">states</span><span class="p">:</span>
+<span class="o">...</span>    <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">actions</span><span class="p">:</span>
+<span class="o">...</span>        <span class="k">for</span> <span class="n">transition</span> <span class="ow">in</span> <span class="n">action</span><span class="o">.</span><span class="n">transitions</span><span class="p">:</span>
+<span class="o">...</span>            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;From state </span><span class="si">{}</span><span class="s2">, with probability </span><span class="si">{}</span><span class="s2">, go to state </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">transition</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="n">transition</span><span class="o">.</span><span class="n">column</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -1328,8 +1325,8 @@ From state 12, with probability 1.0, go to state 12
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; for state in model.states:
-...    assert len(state.actions) &lt;= 1
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">states</span><span class="p">:</span>
+<span class="o">...</span>    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">actions</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span>
 </pre></div>
 </div>
 </div>
@@ -1338,9 +1335,9 @@ From state 12, with probability 1.0, go to state 12
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; for state in model.states:
-...     if state.id in model.initial_states:
-...         pass
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">states</span><span class="p">:</span>
+<span class="o">...</span>     <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">id</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">initial_states</span><span class="p">:</span>
+<span class="o">...</span>         <span class="k">pass</span>
 </pre></div>
 </div>
 </div>
@@ -1368,7 +1365,7 @@ From state 12, with probability 1.0, go to state 12
     </p>
     <p>
         &copy; Copyright 2016-2022 Moves RWTH Aachen.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 5.3.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 6.0.0.<br/>
     </p>
   </div>
 </footer>
