@@ -25,6 +25,16 @@ set(CMAKE_INTERPROCEDURAL_OPTIMIZATION OFF)
 set(CMAKE_CXX_VISIBILITY_PRESET "default")
 
 
+# Workaround for issue with Boost 1.81
+find_package(Boost 1.65.1 QUIET REQUIRED COMPONENTS filesystem system)
+if (Boost_FOUND)
+    if ("${Boost_VERSION}" STREQUAL "108100" OR "${Boost_VERSION}" VERSION_EQUAL "1.81")
+        message(STATUS "Stormpy - Using workaround for Boost 1.81")
+        set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBOOST_PHOENIX_STL_TUPLE_H_")
+    endif()
+endif ()
+
+
 # Set configurations
 set(STORM_VERSION ${storm_VERSION})
 # Set number types from Carl
