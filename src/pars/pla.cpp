@@ -60,7 +60,7 @@ void define_pla(py::module& m) {
         .value("ALLSAT", storm::modelchecker::RegionResult::AllSat)
         .value("ALLVIOLATED", storm::modelchecker::RegionResult::AllViolated)
         .value("UNKNOWN", storm::modelchecker::RegionResult::Unknown)
-        .def("__str__", &streamToString<storm::modelchecker::RegionResult>)
+        .def("__str__", &streamToString<storm::modelchecker::RegionResult>, py::prepend() /* use custom method instead of default enum overload */)
     ;
 
     // RegionResultHypothesis
@@ -68,7 +68,7 @@ void define_pla(py::module& m) {
         .value("UNKNOWN", storm::modelchecker::RegionResultHypothesis::Unknown)
         .value("ALLSAT", storm::modelchecker::RegionResultHypothesis::AllSat)
         .value("ALLVIOLATED", storm::modelchecker::RegionResultHypothesis::AllViolated)
-        .def("__str__", &streamToString<storm::modelchecker::RegionResultHypothesis>)
+        .def("__str__", &streamToString<storm::modelchecker::RegionResultHypothesis>, py::prepend() /* use custom method instead of default enum overload */)
     ;
 
     // Region

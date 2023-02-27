@@ -7,6 +7,12 @@ from configurations import pars
 
 @pars
 class TestPLA:
+    def test_to_string(self):
+        assert str(stormpy.pars.RegionResultHypothesis.UNKNOWN) == "Unknown"
+        assert str(stormpy.pars.RegionResultHypothesis.ALLSAT) == "AllSat?"
+        assert str(stormpy.pars.RegionResult.EXISTSVIOLATED) == "ExistsViolated"
+        assert str(stormpy.pars.RegionResult.ALLSAT) == "AllSat"
+
     def test_pla(self):
         program = stormpy.parse_prism_program(get_example_path("pdtmc", "brp16_2.pm"))
         prop = "P<=0.84 [F s=5 ]"
