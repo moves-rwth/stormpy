@@ -1,7 +1,7 @@
 #include "relation.h"
 #include "src/helpers.h"
 
-#include <carl/formula/Formula.h>
+#include <carl/core/Relation.h>
 
 void define_relation(py::module& m) {
     py::enum_<carl::Relation>(m, "Relation")
@@ -11,6 +11,6 @@ void define_relation(py::module& m) {
         .value("LEQ", carl::Relation::LEQ)
         .value("GREATER", carl::Relation::GREATER)
         .value("GEQ", carl::Relation::GEQ)
-        .def("__str__", &streamToString<carl::Relation>)
+        .def("__str__", &streamToString<carl::Relation>, py::prepend() /* use custom method instead of default enum overload */)
     ;
 }
