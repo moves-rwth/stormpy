@@ -272,9 +272,9 @@ void define_sparse_model(py::module& m, std::string const& vtSuffix) {
     ;
 
     py::class_<SparseRewardModel<ValueType>>(m, ("Sparse" + vtSuffix + "RewardModel").c_str(), "Reward structure for sparse models")
-        .def(py::init<boost::optional<std::vector<ValueType>> const&, boost::optional<std::vector<ValueType>> const&,
-                boost::optional<storm::storage::SparseMatrix<ValueType>> const&>(), py::arg("optional_state_reward_vector") = boost::none,
-                py::arg("optional_state_action_reward_vector") = boost::none,  py::arg("optional_transition_reward_matrix") = boost::none)
+        .def(py::init<std::optional<std::vector<ValueType>> const&, std::optional<std::vector<ValueType>> const&,
+                std::optional<storm::storage::SparseMatrix<ValueType>> const&>(), py::arg("optional_state_reward_vector") = std::nullopt,
+                py::arg("optional_state_action_reward_vector") = std::nullopt,  py::arg("optional_transition_reward_matrix") = std::nullopt)
         .def_property_readonly("has_state_rewards", &SparseRewardModel<ValueType>::hasStateRewards)
         .def_property_readonly("has_state_action_rewards", &SparseRewardModel<ValueType>::hasStateActionRewards)
         .def_property_readonly("has_transition_rewards", &SparseRewardModel<ValueType>::hasTransitionRewards)
