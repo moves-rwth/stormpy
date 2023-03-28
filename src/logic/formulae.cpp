@@ -2,11 +2,11 @@
 #include "storm/logic/Formulas.h"
 #include "storm/logic/CloneVisitor.h"
 #include "storm/logic/LabelSubstitutionVisitor.h"
-
+#include "storm/storage/expressions/Variable.h"
 
 
 void define_formulae(py::module& m) {
- 
+
     py::enum_<storm::logic::ComparisonType>(m, "ComparisonType")
         .value("LESS", storm::logic::ComparisonType::Less)
         .value("LEQ", storm::logic::ComparisonType::LessEqual)
