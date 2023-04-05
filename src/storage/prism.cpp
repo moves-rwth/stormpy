@@ -1,9 +1,11 @@
 #include "prism.h"
 #include <storm/storage/prism/Program.h>
 #include <boost/variant.hpp>
+#include <boost/algorithm/string/join.hpp>
 #include <random>
 #include "src/helpers.h"
 #include <storm/storage/expressions/ExpressionManager.h>
+#include <storm/storage/expressions/ExpressionEvaluator.h>
 #include <storm/storage/jani/Model.h>
 #include <storm/storage/jani/Property.h>
 #include <storm/storage/prism/OverlappingGuardAnalyser.h>
@@ -12,6 +14,7 @@
 #include <storm/generator/StateBehavior.h>
 #include <storm/generator/PrismNextStateGenerator.h>
 #include "storm/exceptions/NotSupportedException.h"
+#include "storm/exceptions/NotImplementedException.h"
 #include <storm/storage/expressions/SimpleValuation.h>
 #include "storm/exceptions/InvalidTypeException.h"
 #include "storm/exceptions/InvalidStateException.h"

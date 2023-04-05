@@ -1,6 +1,7 @@
 #include "scheduler.h"
 #include "src/helpers.h"
 
+#include "storm/adapters/RationalFunctionAdapter.h"
 #include "storm/storage/Scheduler.h"
 
 template<typename ValueType>
