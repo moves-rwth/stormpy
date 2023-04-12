@@ -1,5 +1,6 @@
 #include "model_components.h"
 
+#include "storm/adapters/RationalFunctionAdapter.h"
 #include "storm/models/sparse/StandardRewardModel.h"
 #include "storm/models/symbolic/StandardRewardModel.h"
 #include "storm/storage/sparse/ModelComponents.h"

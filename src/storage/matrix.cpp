@@ -1,7 +1,7 @@
 #include "matrix.h"
+#include "storm/adapters/RationalFunctionAdapter.h"
 #include "storm/storage/SparseMatrix.h"
 #include "storm/storage/BitVector.h"
-
 #include "storm/utility/graph.h"
 #include "src/helpers.h"
 

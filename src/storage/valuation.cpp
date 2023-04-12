@@ -1,10 +1,12 @@
-#include <storm/storage/expressions/SimpleValuation.h>
 #include "valuation.h"
 #include "src/helpers.h"
 
-#include "storm/storage/sparse/StateValuations.h"
-#include "storm/storage/expressions/Variable.h"
+#include "storm/adapters/RationalNumberAdapter.h"
+#include "storm/adapters/JsonAdapter.h"
 #include "storm/storage/expressions/ExpressionManager.h"
+#include "storm/storage/expressions/SimpleValuation.h"
+#include "storm/storage/expressions/Variable.h"
+#include "storm/storage/sparse/StateValuations.h"
 
 // Thin wrappers
 storm::json<storm::RationalNumber> toJson(storm::storage::sparse::StateValuations const& valuations, storm::storage::sparse::state_type const& stateIndex, boost::optional<std::set<storm::expressions::Variable>> const& selectedVariables) {

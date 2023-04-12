@@ -4,6 +4,7 @@
 #include <storm-pomdp/transformer/BinaryPomdpTransformer.h>
 #include <storm-pomdp/transformer/ApplyFiniteSchedulerToPomdp.h>
 #include <storm-pomdp/transformer/ObservationTraceUnfolder.h>
+#include <storm/adapters/RationalFunctionAdapter.h>
 #include <storm/storage/expressions/ExpressionManager.h>
 
 template<typename ValueType>
