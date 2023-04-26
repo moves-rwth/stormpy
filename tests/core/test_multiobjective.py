@@ -10,8 +10,14 @@ class TestModelChecking:
         properties = stormpy.parse_properties_for_prism_program("multi(Pmax=? [ F<=3 s=2 ],R{\"rew\"}max=? [ F s=2 ])", program)
         model = stormpy.build_model(program, properties)
         result = stormpy.model_checking(model,properties[0])
-        assert len(result.get_underapproximation().vertices) == 3
-        assert len(result.get_overapproximation().vertices) == 6
+        expected_vertices = [[124/125, 248/2125], [97/100, 5456/425 ], [91/100, 248/17]]
+        assert len(result.get_underapproximation().vertices) >= 3
+        assert len(result.get_overapproximation().vertices) >= 3
+        # check if each under/over-approximation point is close to one of the expected vertices
+        for p in result.get_underapproximation().vertices:
+            assert min([ max([ abs(pi-vi) for pi,vi in zip(p, v) ]) for v in expected_vertices]) <= 1e-4
+        for p in result.get_overapproximation().vertices:
+            assert min([ max([ abs(pi-vi) for pi,vi in zip(p, v) ]) for v in expected_vertices]) <= 1e-4
 
     @plotting
     @numpy_avail
