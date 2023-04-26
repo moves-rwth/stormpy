@@ -8,10 +8,10 @@ Requirements
 Before installing pycarl, make sure
 
 - Python 3 is available on your system. Pycarl does not work with python 2.
-- `carl <https://ths-rwth.github.io/carl/>`_ with branch ``master14`` is available on your system.
+- Storm's fork of `carl <https://github.com/moves-rwth/carl-storm/>`_ is available on your system.
 - *(optional)* in order to have full parsing capabilities, you additionally need `carl-parser <https://github.com/ths-rwth/carl-parser>`_.
 
-.. note:: Make sure you are using the ``master14`` branch of carl as the current master branch uses a newer C++ standard that pycarl does not require and therefore does not enable.
+.. note:: Users of Apple Silicon systems need to make sure that they are using an arm64 version of Python 3. You can find out using ``where python3`` and  ``file /your/path/to/python3``.
 
 
 Installation Steps
