@@ -38,8 +38,8 @@ endif ()
 # Set configurations
 set(STORM_VERSION ${storm_VERSION})
 # Set number types from Carl
-set_variable_string(STORM_USE_CLN_EA_BOOL STORM_USE_CLN_EA)
-set_variable_string(STORM_USE_CLN_RF_BOOL STORM_USE_CLN_RF)
+set_variable_string(STORM_USE_CLN_EA_BOOL ${STORM_USE_CLN_EA})
+set_variable_string(STORM_USE_CLN_RF_BOOL ${STORM_USE_CLN_RF})
 if (STORM_USE_CLN_EA)
     set(PYCARL_EA_PACKAGE "cln")
 else()
