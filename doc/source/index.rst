@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Pycarl is a set of python bindings for the computer arithmetic and logic library  `carl <https://github.com/ths-rwth/carl>`_.
+Pycarl is a set of python bindings for the computer arithmetic and logic library  `carl <https://github.com/moves-rwth/carl-storm>`_.
 
 Welcome to pycarl's documentation!
 ==================================

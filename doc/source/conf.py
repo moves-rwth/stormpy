@@ -54,8 +54,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'pycarl'
-copyright = '2016-2021 Moves RWTH Aachen'
-author = 'Harold Bruintjes, Sebastian Junges, Matthias Volk'
+copyright = 'MOVES RWTH Aachen'
+author = 'Sebastian Junges, Matthias Volk'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -114,7 +114,7 @@ html_theme_options = {
     # Note the "1" or "True" value above as the third argument to indicate
     # an arbitrary url.
     'navbar_links': [
-        ("Carl", "https://ths-rwth.github.io/carl/", True),
+        ("Carl", "https://github.com/moves-rwth/carl-storm", True),
         ("Github", "https://github.com/moves-rwth/pycarl", True)
     ],
 
@@ -200,7 +200,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (master_doc, 'pycarl.tex', 'pycarl Documentation',
-     'Harold Bruintjes, Sebastian Junges, Matthias Volk', 'manual'),
+     'Sebastian Junges, Matthias Volk', 'manual'),
 ]
 
 
