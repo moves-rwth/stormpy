@@ -20,8 +20,7 @@ env:
 
   CARL_PARSER_GIT_URL: "https://github.com/ths-rwth/carl-parser"
   CARL_PARSER_BRANCH: "master14"
-  CARL_GIT_URL: "https://github.com/ths-rwth/carl"
-  CARL_BRANCH: "master14"
+  CARL_GIT_URL: "https://github.com/moves-rwth/carl-storm"
 
   CMAKE_DEBUG: "-DCMAKE_BUILD_TYPE=Debug"
   CMAKE_RELEASE: "-DCMAKE_BUILD_TYPE=Release"
@@ -69,7 +68,7 @@ jobs:
           # git clone cannot clone individual commits based on a sha and some other refs
           # this workaround fixes this and fetches only one commit
           sudo docker exec ci bash -c "mkdir /opt/pycarl; cd /opt/pycarl; git init && git remote add origin ${GIT_URL} && git fetch --depth 1 origin ${BRANCH} && git checkout FETCH_HEAD"
-          sudo docker exec ci git clone --depth 1 --branch $CARL_BRANCH $CARL_GIT_URL /opt/carl
+          sudo docker exec ci git clone --depth 1 $CARL_GIT_URL /opt/carl
           sudo docker exec ci git clone --depth 1 --branch $CARL_PARSER_BRANCH $CARL_PARSER_GIT_URL /opt/carl-parser
 
       - name: Run cmake for carl
@@ -124,7 +123,7 @@ jobs:
           # git clone cannot clone individual commits based on a sha and some other refs
           # this workaround fixes this and fetches only one commit
           sudo docker exec ci bash -c "mkdir /opt/pycarl; cd /opt/pycarl; git init && git remote add origin ${GIT_URL} && git fetch --depth 1 origin ${BRANCH} && git checkout FETCH_HEAD"
-          sudo docker exec ci git clone --depth 1 --branch $CARL_BRANCH $CARL_GIT_URL /opt/carl
+          sudo docker exec ci git clone --depth 1 $CARL_GIT_URL /opt/carl
           sudo docker exec ci git clone --depth 1 --branch $CARL_PARSER_BRANCH $CARL_PARSER_GIT_URL /opt/carl-parser
 
       - name: Run cmake for carl
