@@ -22,7 +22,7 @@ std::shared_ptr<storm::models::sparse::Pomdp<ValueType>> unfold_memory(storm::mo
 template<typename ValueType>
 std::shared_ptr<storm::models::sparse::Pomdp<ValueType>> make_simple(storm::models::sparse::Pomdp<ValueType> const& pomdp, bool keepStateValuations) {
     storm::transformer::BinaryPomdpTransformer<ValueType> transformer;
-    return transformer.transform(pomdp,true, keepStateValuations);
+    return transformer.transform(pomdp,true, keepStateValuations).transformedPomdp;
 }
 
 template<typename ValueType>
