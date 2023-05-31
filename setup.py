@@ -5,7 +5,6 @@ import datetime
 
 from setuptools import setup, Extension, find_packages
 from setuptools.command.build_ext import build_ext
-from distutils.version import StrictVersion
 
 import setup.helper as setup_helper
 from setup.config import SetupConfig
@@ -84,11 +83,12 @@ class CMakeBuild(build_ext):
             carl_parser_dir = cmake_conf.CARL_PARSER_DIR
 
         # Check version
+        from packaging.version import Version  # Need to import here because otherwise packaging cannot be automatically installed as required dependency
         carl_version, carl_commit = setup_helper.parse_carl_version(cmake_conf.CARL_VERSION)
         if not carl_version.startswith(carl_storm_version_prefix):
             print("Pycarl - We only support carl-storm (https://github.com/moves-rwth/carl-storm) indicated by version 14.x. On this system, we only found version {} at {}".format(
                 carl_version, carl_dir))
-        elif StrictVersion(carl_version) < StrictVersion(carl_min_version):
+        elif Version(carl_version) < Version(carl_min_version):
             sys.exit("Pycarl - Error: carl version {} from '{}' is not supported anymore!".format(carl_version, carl_dir))
 
         # Check additional support
@@ -212,10 +212,11 @@ setup(
                  ],
     cmdclass={'build_ext': CMakeBuild},
     zip_safe=False,
-    setup_requires=['pytest-runner'],
+    setup_requires=['pytest-runner',
+                    'packaging'],
     tests_require=['pytest'],
     extras_require={
         "doc": ["Sphinx", "sphinx-bootstrap-theme"]
     },
-    python_requires='>=3.6',
+    python_requires='>=3.7',  # required by packaging
 )
