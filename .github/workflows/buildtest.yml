@@ -18,9 +18,8 @@ env:
   # github runners currently have two cores
   NR_JOBS: "2"
 
-  CARL_PARSER_GIT_URL: "https://github.com/ths-rwth/carl-parser"
-  CARL_PARSER_BRANCH: "master14"
   CARL_GIT_URL: "https://github.com/moves-rwth/carl-storm"
+  CARL_PARSER_GIT_URL: "https://github.com/moves-rwth/carl-parser"
 
   CMAKE_DEBUG: "-DCMAKE_BUILD_TYPE=Debug"
   CMAKE_RELEASE: "-DCMAKE_BUILD_TYPE=Release"
@@ -69,7 +68,7 @@ jobs:
           # this workaround fixes this and fetches only one commit
           sudo docker exec ci bash -c "mkdir /opt/pycarl; cd /opt/pycarl; git init && git remote add origin ${GIT_URL} && git fetch --depth 1 origin ${BRANCH} && git checkout FETCH_HEAD"
           sudo docker exec ci git clone --depth 1 $CARL_GIT_URL /opt/carl
-          sudo docker exec ci git clone --depth 1 --branch $CARL_PARSER_BRANCH $CARL_PARSER_GIT_URL /opt/carl-parser
+          sudo docker exec ci git clone --depth 1 $CARL_PARSER_GIT_URL /opt/carl-parser
 
       - name: Run cmake for carl
         run: sudo docker exec ci bash -c "mkdir /opt/carl/build; cd /opt/carl/build; cmake .. ${CMAKE_ARGS} ${CARL_CMAKE_ARGS}"
@@ -124,7 +123,7 @@ jobs:
           # this workaround fixes this and fetches only one commit
           sudo docker exec ci bash -c "mkdir /opt/pycarl; cd /opt/pycarl; git init && git remote add origin ${GIT_URL} && git fetch --depth 1 origin ${BRANCH} && git checkout FETCH_HEAD"
           sudo docker exec ci git clone --depth 1 $CARL_GIT_URL /opt/carl
-          sudo docker exec ci git clone --depth 1 --branch $CARL_PARSER_BRANCH $CARL_PARSER_GIT_URL /opt/carl-parser
+          sudo docker exec ci git clone --depth 1 $CARL_PARSER_GIT_URL /opt/carl-parser
 
       - name: Run cmake for carl
         run: sudo docker exec ci bash -c "mkdir /opt/carl/build; cd /opt/carl/build; cmake .. ${CARL_CMAKE_ARGS}"
