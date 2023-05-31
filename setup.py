@@ -14,9 +14,8 @@ if sys.version_info[0] == 2:
     sys.exit('Sorry, Python 2.x is not supported')
 
 # Minimal carl version required
-carl_min_version = "17.12"
-carl_max_version = "19.12"
-carl_master14_version = "14."
+carl_min_version = "14.23"
+carl_storm_version_prefix = "14."
 pybind_version_default = "2.10.0"
 
 # Get the long description from the README file
@@ -86,12 +85,11 @@ class CMakeBuild(build_ext):
 
         # Check version
         carl_version, carl_commit = setup_helper.parse_carl_version(cmake_conf.CARL_VERSION)
-        if carl_version.startswith(carl_master14_version):
-            print("Pycarl - Using carl with master14 branch.")
+        if not carl_version.startswith(carl_storm_version_prefix):
+            print("Pycarl - We only support carl-storm (https://github.com/moves-rwth/carl-storm) indicated by version 14.x. On this system, we only found version {} at {}".format(
+                carl_version, carl_dir))
         elif StrictVersion(carl_version) < StrictVersion(carl_min_version):
             sys.exit("Pycarl - Error: carl version {} from '{}' is not supported anymore!".format(carl_version, carl_dir))
-        elif StrictVersion(carl_version) > StrictVersion(carl_max_version):
-            sys.exit("Pycarl - Error: carl version {} from '{}' is not supported!".format(carl_version, carl_dir))
 
         # Check additional support
         enable_parser = not self.config.get_as_bool("disable_parser")
