@@ -6,7 +6,7 @@ Version 2.1.x
 -------------
 
 ### Version 2.1.x
-Requires carl with branch `master14`
+Requires carl-storm version >= 14.25
 
 - Developer: improved build process
 - Developer: updated pybind11 to version 2.10.0

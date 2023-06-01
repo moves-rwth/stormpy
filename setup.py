@@ -5,7 +5,6 @@ import datetime
 
 from setuptools import setup, Extension, find_packages
 from setuptools.command.build_ext import build_ext
-from distutils.version import StrictVersion
 
 import setup.helper as setup_helper
 from setup.config import SetupConfig
@@ -14,9 +13,8 @@ if sys.version_info[0] == 2:
     sys.exit('Sorry, Python 2.x is not supported')
 
 # Minimal carl version required
-carl_min_version = "17.12"
-carl_max_version = "19.12"
-carl_master14_version = "14."
+carl_min_version = "14.23"
+carl_storm_version_prefix = "14."
 pybind_version_default = "2.10.0"
 
 # Get the long description from the README file
@@ -54,12 +52,13 @@ class CMakeBuild(build_ext):
                                ", ".join(e.name for e in self.extensions))
 
         # Build cmake version info
+        print("Pycarl - Building into {}".format(self.build_temp))
         build_temp_version = self.build_temp + "-version"
         setup_helper.ensure_dir_exists(build_temp_version)
 
         # Write config
-        setup_helper.ensure_dir_exists("build")
-        self.config.write_config("build/build_config.cfg")
+        setup_helper.ensure_dir_exists(self.build_temp)
+        self.config.write_config(os.path.join(self.build_temp, "build_config.cfg"))
 
         cmake_args = []
         carl_dir = os.path.expanduser(self.config.get_as_string("carl_dir"))
@@ -85,13 +84,13 @@ class CMakeBuild(build_ext):
             carl_parser_dir = cmake_conf.CARL_PARSER_DIR
 
         # Check version
+        from packaging.version import Version  # Need to import here because otherwise packaging cannot be automatically installed as required dependency
         carl_version, carl_commit = setup_helper.parse_carl_version(cmake_conf.CARL_VERSION)
-        if carl_version.startswith(carl_master14_version):
-            print("Pycarl - Using carl with master14 branch.")
-        elif StrictVersion(carl_version) < StrictVersion(carl_min_version):
+        if not carl_version.startswith(carl_storm_version_prefix):
+            print("Pycarl - We only support carl-storm (https://github.com/moves-rwth/carl-storm) indicated by version 14.x. On this system, we only found version {} at {}".format(
+                carl_version, carl_dir))
+        elif Version(carl_version) < Version(carl_min_version):
             sys.exit("Pycarl - Error: carl version {} from '{}' is not supported anymore!".format(carl_version, carl_dir))
-        elif StrictVersion(carl_version) > StrictVersion(carl_max_version):
-            sys.exit("Pycarl - Error: carl version {} from '{}' is not supported!".format(carl_version, carl_dir))
 
         # Check additional support
         enable_parser = not self.config.get_as_bool("disable_parser")
@@ -153,8 +152,6 @@ class CMakeBuild(build_ext):
 
     def initialize_options(self):
         build_ext.initialize_options(self)
-        # Load setup config
-        self.config.load_from_file("build/build_config.cfg")
         # Set default values for custom cmdline flags
         self.carl_dir = None
         self.carl_parser_dir = None
@@ -166,6 +163,9 @@ class CMakeBuild(build_ext):
 
     def finalize_options(self):
         build_ext.finalize_options(self)
+        # Load setup config
+        # This can only be done after the finalization step, because otherwise build_temp is not initialized yet.
+        self.config.load_from_file(os.path.join(self.build_temp, "build_config.cfg"))
         # Update setup config
         self.config.update("carl_dir", self.carl_dir)
         self.config.update("carl_parser_dir", self.carl_parser_dir)
@@ -201,6 +201,7 @@ setup(
     packages=find_packages('lib'),
     package_dir={'': 'lib'},
     include_package_data=True,
+    package_data={'pycarl.examples': ['examples/files/*']},
     ext_package='pycarl',
     ext_modules=[CMakeExtension('core'),
                  CMakeExtension('cln'),
@@ -214,10 +215,11 @@ setup(
                  ],
     cmdclass={'build_ext': CMakeBuild},
     zip_safe=False,
-    setup_requires=['pytest-runner'],
+    setup_requires=['pytest-runner',
+                    'packaging'],
     tests_require=['pytest'],
     extras_require={
         "doc": ["Sphinx", "sphinx-bootstrap-theme"]
     },
-    python_requires='>=3.6',
+    python_requires='>=3.7',  # required by packaging
 )
