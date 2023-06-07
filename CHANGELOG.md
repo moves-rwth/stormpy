@@ -2,14 +2,20 @@ Changelog
 =============
 
 
-Version 2.1.x
+Version 2.2.x
 -------------
 
-### Version 2.1.x
-Requires carl-storm version >= 14.25
+### Version 2.2.0 (2023/06)
+Requires carl-storm version >= 14.23
 
+- Upgraded repo / version for carl, requires [carl-storm](https://github.com/moves-rwth/carl-storm) from now on
+- Developer: added Dockerfile
 - Developer: improved build process
 - Developer: updated pybind11 to version 2.10.0
+
+
+Version 2.1.x
+-------------
 
 ### Version 2.1.0 (2022/07)
 Requires carl with branch `master14`
