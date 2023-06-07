@@ -16,16 +16,8 @@ on:
 env:
   GIT_URL: "${{ github.server_url }}/${{ github.repository }}.git"
   BRANCH: "${{ github.ref }}"
-  # github runners currently have two cores
+  # GitHub runners currently have two cores
   NR_JOBS: "2"
-  CMAKE_DEBUG: "-DCMAKE_BUILD_TYPE=Debug"
-  CMAKE_RELEASE: "-DCMAKE_BUILD_TYPE=Release"
-
-  CARL_PARSER_GIT_URL: "https://github.com/ths-rwth/carl-parser"
-  CARL_PARSER_BRANCH: "master14"
-  PYCARL_GIT_URL: "https://github.com/moves-rwth/pycarl.git"
-  PYCARL_BRANCH: "master"
-
 
 jobs:
   indepthTests:
@@ -46,44 +38,22 @@ jobs:
         # GITHUB_ENV is a magic variable pointing to a file; if a line with format {NAME}={VALUE}
         # then the env variable with name NAME will be created/updated with VALUE
         run: |
-          ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "CMAKE_ARGS=${CMAKE_DEBUG}" || echo "CMAKE_ARGS=${CMAKE_RELEASE}") >> $GITHUB_ENV
+          ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "BUILD_TYPE=Debug" || echo "BUILD_TYPE=Release") >> $GITHUB_ENV
           ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "IMG=${DEBUG_IMG}" || echo "IMG=${RELEASE_IMG}") >> $GITHUB_ENV
           ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "DEBUG_SWITCH=--debug" || true) >> $GITHUB_ENV
           # Restrict tests to directory 'tests' (excluding examples and documentation) if not all libraries are present
           ([[ "${{ matrix.setupArgs.disableFlags }}" != "" ]] && echo "TEST_OPT=--addopts tests" || true) >> $GITHUB_ENV
 
-      - name: Init Docker
-        run: sudo docker run -d -it --name storm --privileged movesrwth/$IMG
-        # We should not do partial updates :/
-        # but we need to install some dependencies
-        # Surely we can find a better way to do this at some point
-      - name: Update base system
-        run: |
-          sudo docker exec storm apt-get update
-          sudo docker exec storm apt-get upgrade -qqy
-      - name: install dependencies
-        run: sudo docker exec storm apt-get install -qq -y maven uuid-dev python3 python3-pip
       - name: Git clone
-        run: |
-          # git clone cannot clone individual commits based on a sha and some other refs
-          # this workaround fixes this and fetches only one commit
-          sudo docker exec storm bash -c "mkdir /opt/stormpy; cd /opt/stormpy; git init && git remote add origin ${GIT_URL} && git fetch --depth 1 origin ${BRANCH} && git checkout FETCH_HEAD"
-          sudo docker exec storm git clone --depth 1 --branch $CARL_PARSER_BRANCH $CARL_PARSER_GIT_URL /opt/carl-parser
-          sudo docker exec storm git clone --depth 1 --branch $PYCARL_BRANCH $PYCARL_GIT_URL /opt/pycarl
-      - name: Run cmake for carl-parser
-        run: sudo docker exec storm bash -c "mkdir /opt/carl-parser/build; cd /opt/carl-parser/build; cmake .. ${CMAKE_ARGS}"
-      - name: make carl-parser
-        run: sudo docker exec storm bash -c "cd /opt/carl-parser/build; make -j ${NR_JOBS}"
-      - name: Build pycarl
-        run: |
-          sudo docker exec storm bash -c "cd /opt/pycarl; python3 setup.py build_ext $DEBUG_SWITCH -j ${NR_JOBS} develop"
-      - name: Build stormpy
-        run: |
-          sudo docker exec storm bash -c "cd /opt/stormpy; python3 setup.py build_ext --storm-dir /opt/storm/build/ $DEBUG_SWITCH ${{ matrix.setupArgs.disableFlags }} -j ${NR_JOBS} develop"
-          sudo docker exec storm bash -c "cd /opt/stormpy; pip3 install -e '.${{ matrix.setupArgs.optionalLibs }}'"
+        uses: actions/checkout@v3
+      - name: Build stormpy from Dockerfile
+        run: docker build -t movesrwth/stormpy:ci-${{ matrix.debugOrRelease }} . --build-arg STORM_BASE=movesrwth/${IMG} --build-arg build_type=${BUILD_TYPE} --build-arg setup_args="${DEBUG_SWITCH} ${{ matrix.setupArgs.disableFlags }}" --build-arg setup_args_pycarl=${DEBUG_SWITCH} --build-arg no_threads=${NR_JOBS}
+      - name: Run Docker
+        run: docker run -d -it --name ci movesrwth/stormpy:ci-${{ matrix.debugOrRelease }}
+      - name: Build optional stormpy libraries
+        run: docker exec ci bash -c "cd /opt/stormpy; pip3 install -e '.${{ matrix.setupArgs.optionalLibs }}'"
       - name: Run tests
-        run: |
-          sudo docker exec storm bash -c "cd /opt/stormpy; python3 setup.py test $TEST_OPT"
+        run: docker exec ci bash -c "cd /opt/stormpy; python setup.py test $TEST_OPT"
 
 
   stableTest:
@@ -103,40 +73,24 @@ jobs:
         # GITHUB_ENV is a magic variable pointing to a file; if a line with format {NAME}={VALUE}
         # then the env variable with name NAME will be created/updated with VALUE
         run: |
-          ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "CMAKE_ARGS=${CMAKE_DEBUG}" || echo "CMAKE_ARGS=${CMAKE_RELEASE}") >> $GITHUB_ENV
+          ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "BUILD_TYPE=Debug" || echo "BUILD_TYPE=Release") >> $GITHUB_ENV
           ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "IMG=${DEBUG_IMG}" || echo "IMG=${RELEASE_IMG}") >> $GITHUB_ENV
           ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "DEBUG_SWITCH=--debug" || true) >> $GITHUB_ENV
 
-      - name: Init Docker
-        run: sudo docker run -d -it --name storm --privileged movesrwth/$IMG
-        # We should not do partial updates :/
-        # but we need to install some dependencies
-        # Surely we can find a better way to do this at some point
-      - name: Update base system
-        run: |
-          sudo docker exec storm apt-get update
-          sudo docker exec storm apt-get upgrade -qqy
-      - name: install dependencies
-        run: sudo docker exec storm apt-get install -qq -y maven uuid-dev python3 python3-pip
       - name: Git clone
-        run: |
-          # git clone cannot clone individual commits based on a sha and some other refs
-          # this workaround fixes this and fetches only one commit
-          sudo docker exec storm bash -c "mkdir /opt/stormpy; cd /opt/stormpy; git init && git remote add origin ${GIT_URL} && git fetch --depth 1 origin ${BRANCH} && git checkout FETCH_HEAD"
-          sudo docker exec storm git clone --depth 1 --branch $CARL_PARSER_BRANCH $CARL_PARSER_GIT_URL /opt/carl-parser
-          sudo docker exec storm git clone --depth 1 --branch $PYCARL_BRANCH $PYCARL_GIT_URL /opt/pycarl
-      - name: Run cmake for carl-parser
-        run: sudo docker exec storm bash -c "mkdir /opt/carl-parser/build; cd /opt/carl-parser/build; cmake .. ${CMAKE_ARGS}"
-      - name: make carl-parser
-        run: sudo docker exec storm bash -c "cd /opt/carl-parser/build; make -j ${NR_JOBS}"
-      - name: Build pycarl
-        run: |
-          sudo docker exec storm bash -c "cd /opt/pycarl; python3 setup.py build_ext $DEBUG_SWITCH -j ${NR_JOBS} develop"
+        uses: actions/checkout@v3
+      - name: Replace Dockerfile
+        run: cp .github/workflows/Dockerfile.stable Dockerfile
+      - name: Build dependencies
+        run: docker build -t movesrwth/stormpy:ci-${{ matrix.debugOrRelease }} . --build-arg STORM_BASE=movesrwth/${IMG} --build-arg build_type=${BUILD_TYPE} --build-arg setup_args_pycarl=${DEBUG_SWITCH} --build-arg no_threads=${NR_JOBS}
+      - name: Run Docker
+        run: docker run -d -it --name ci movesrwth/stormpy:ci-${{ matrix.debugOrRelease }}
       - name: Build stormpy
+        # Build stormpy explicitly to catch exit code
         id: build_stormpy
         shell: bash {0} // Deactivate fast-fail to handle exit code for incompatibility
         run: |
-          sudo docker exec storm bash -c "cd /opt/stormpy; python3 setup.py build_ext --storm-dir /opt/storm/build/ $DEBUG_SWITCH -j ${NR_JOBS} develop"
+          docker exec ci bash -c "cd /opt/stormpy; python setup.py build_ext ${DEBUG_SWITCH} -j ${NR_JOBS} develop"
           status=$?
           if [ $status -eq 42 ]; then
             # Warn about incompatibility but do not handle as failure
@@ -149,8 +103,7 @@ jobs:
           fi
       - name: Run tests
         if: steps.build_stormpy.outputs.run_tests == 'true'
-        run: |
-          sudo docker exec storm bash -c "cd /opt/stormpy; python3 setup.py test"
+        run: docker exec ci bash -c "cd /opt/stormpy; python setup.py test"
 
 
   deploy:
@@ -172,62 +125,37 @@ jobs:
           ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "IMG=${DEBUG_IMG}" || echo "IMG=${RELEASE_IMG}") >> $GITHUB_ENV
           ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "DEBUG_SWITCH=--debug" || true) >> $GITHUB_ENV
 
+      - name: Git clone
+        uses: actions/checkout@v3
+      - name: Build stormpy from Dockerfile
+        run: docker build -t movesrwth/stormpy:ci-${{ matrix.debugOrRelease }} . --build-arg STORM_BASE=movesrwth/${IMG} --build-arg build_type=${BUILD_TYPE} --build-arg setup_args=${DEBUG_SWITCH} --build-arg setup_args_pycarl=${DEBUG_SWITCH} --build-arg no_threads=${NR_JOBS}
+      - name: Run Docker
+        run: docker run -d -it --name ci movesrwth/stormpy:ci-${{ matrix.debugOrRelease }}
+      - name: Run tests
+        run: docker exec ci bash -c "cd /opt/stormpy; python setup.py test"
+
       - name: Login into docker
         # Only login if using master on original repo (and not for pull requests or forks)
         if: github.repository_owner == 'moves-rwth' && github.ref == 'refs/heads/master'
-        run: echo "${{ secrets.STORM_CI_DOCKER_PASSWORD }}" | sudo docker login -u "${{ secrets.STORM_CI_DOCKER_USERNAME }}" --password-stdin
-      - name: Init Docker
-        run: sudo docker run -d -it --name storm --privileged movesrwth/$IMG
-
-        # We should not do partial updates :/
-        # but we need to install some dependencies
-        # Surely we can find a better way to do this at some point
-      - name: Update base system
-        run: |
-          sudo docker exec storm apt-get update
-          sudo docker exec storm apt-get upgrade -qqy
-      - name: install dependencies
-        run: sudo docker exec storm apt-get install -qq -y maven uuid-dev python3 python3-pip
-      - name: Git clone
-        run: |
-          # git clone cannot clone individual commits based on a sha and some other refs
-          # this workaround fixes this and fetches only one commit
-          sudo docker exec storm bash -c "mkdir /opt/stormpy; cd /opt/stormpy; git init && git remote add origin ${GIT_URL} && git fetch --depth 1 origin ${BRANCH} && git checkout FETCH_HEAD"
-          sudo docker exec storm git clone --depth 1 --branch $CARL_PARSER_BRANCH $CARL_PARSER_GIT_URL /opt/carl-parser
-          sudo docker exec storm git clone --depth 1 --branch $PYCARL_BRANCH $PYCARL_GIT_URL /opt/pycarl
-      - name: Run cmake for carl-parser
-        run: sudo docker exec storm bash -c "mkdir /opt/carl-parser/build; cd /opt/carl-parser/build; cmake .. ${CMAKE_ARGS}"
-      - name: make carl-parser
-        run: sudo docker exec storm bash -c "cd /opt/carl-parser/build; make -j ${NR_JOBS}"
-
-      - name: Build pycarl
-        run: |
-          sudo docker exec storm bash -c "cd /opt/pycarl; python3 setup.py build_ext $DEBUG_SWITCH -j ${NR_JOBS} develop"
-      - name: Build stormpy
-        run: |
-          sudo docker exec storm bash -c "cd /opt/stormpy; python3 setup.py build_ext --storm-dir /opt/storm/build/ $DEBUG_SWITCH -j ${NR_JOBS} develop"
-      - name: Run tests
-        run: |
-          sudo docker exec storm bash -c "cd /opt/stormpy; python3 setup.py test"
-
+        run: echo "${{ secrets.STORM_CI_DOCKER_PASSWORD }}" | docker login -u "${{ secrets.STORM_CI_DOCKER_USERNAME }}" --password-stdin
       - name: Deploy stormpy
         # Only deploy if using master on original repo (and not for pull requests or forks)
         if: github.repository_owner == 'moves-rwth' && github.ref == 'refs/heads/master'
         run: |
-          sudo docker commit storm movesrwth/stormpy:ci-${{ matrix.debugOrRelease }}
-          sudo docker push movesrwth/stormpy:ci-${{ matrix.debugOrRelease }}
+          docker commit ci movesrwth/stormpy:ci-${{ matrix.debugOrRelease }}
+          docker push movesrwth/stormpy:ci-${{ matrix.debugOrRelease }}
 
       - name: Install documentation dependencies
         if: matrix.debugOrRelease == 'release'
         run: |
-          sudo docker exec storm apt-get install -qq -y pandoc
-          sudo docker exec storm bash -c "cd /opt/stormpy; pip3 install -e '.[doc,numpy]'"
+          docker exec ci apt-get install -qq -y pandoc
+          docker exec ci bash -c "cd /opt/stormpy; pip install -e '.[doc,numpy]'"
       - name: Build documentation
         if: matrix.debugOrRelease == 'release'
         run: |
-          sudo docker exec storm bash -c "cd /opt/stormpy/doc; make html"
-          sudo docker exec storm rm -r /opt/stormpy/doc/build/html/_sources
-          sudo docker cp storm:/opt/stormpy/doc/build/html .
+          docker exec ci bash -c "cd /opt/stormpy/doc; make html"
+          docker exec ci rm -r /opt/stormpy/doc/build/html/_sources
+          docker cp ci:/opt/stormpy/doc/build/html .
       - name: Deploy documentation
         # Only deploy for release version and using master on original repo (and not for pull requests or forks)
         if: matrix.debugOrRelease == 'release' && github.repository_owner == 'moves-rwth' && github.ref == 'refs/heads/master'
