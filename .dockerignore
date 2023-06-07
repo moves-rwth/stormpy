@@ -1,0 +1,20 @@
+#Git files
+.git
+.git-blame-ignore-revs
+.github
+.gitignore
+build_pycarl.sh
+# The rest is based on .gitignore
+*.so
+*.py[cod]
+lib/**/_config.py
+.eggs/
+*.egg-info/
+build/
+dist/
+.idea/
+__pycache__/
+_build/
+.pytest_cache/
+.idea/
+.DS_Store

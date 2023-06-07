@@ -15,16 +15,8 @@ on:
 env:
   GIT_URL: "${{ github.server_url }}/${{ github.repository }}.git"
   BRANCH: "${{ github.ref }}"
-  # github runners currently have two cores
+  # GitHub runners currently have two cores
   NR_JOBS: "2"
-
-  CARL_GIT_URL: "https://github.com/moves-rwth/carl-storm"
-  CARL_PARSER_GIT_URL: "https://github.com/moves-rwth/carl-parser"
-
-  CMAKE_DEBUG: "-DCMAKE_BUILD_TYPE=Debug"
-  CMAKE_RELEASE: "-DCMAKE_BUILD_TYPE=Release"
-  CARL_CMAKE_CLN_ON: "-DUSE_CLN_NUMBERS=ON -DUSE_GINAC=ON -DTHREAD_SAFE=ON"
-  CARL_CMAKE_CLN_OFF: "-DUSE_CLN_NUMBERS=OFF -DUSE_GINAC=OFF -DTHREAD_SAFE=ON"
 
   DOCUMENTATION_DISTRO: "ubuntu-22.04"
 
@@ -34,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        distro: ["ubuntu-22.04"]
+        distro: ["latest"]
         debugOrRelease: ["release"]
         setupArgs:
           # This is the standard config
@@ -48,46 +40,23 @@ jobs:
         # GITHUB_ENV is a magic variable pointing to a file; if a line with format {NAME}={VALUE}
         # then the env variable with name NAME will be created/updated with VALUE
         run: |
-          ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "CMAKE_ARGS=${CMAKE_DEBUG}" || echo "CMAKE_ARGS=${CMAKE_RELEASE}") >> $GITHUB_ENV
-          ([[ ${{ matrix.setupArgs.cln }} == "true" ]] && echo "CARL_CMAKE_ARGS=${CARL_CMAKE_CLN_ON}" || echo "CARL_CMAKE_ARGS=${CARL_CMAKE_CLN_OFF}") >> $GITHUB_ENV
+          ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "BUILD_TYPE=Debug" || echo "BUILD_TYPE=Release") >> $GITHUB_ENV
+          ([[ ${{ matrix.setupArgs.cln }} == "true" ]] && echo "CARL_CMAKE_ARGS=-DUSE_CLN_NUMBERS=ON -DUSE_GINAC=ON" || echo "CARL_CMAKE_ARGS=-DUSE_CLN_NUMBERS=OFF -DUSE_GINAC=OFF") >> $GITHUB_ENV
           ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "DEBUG_SWITCH=--debug" || true) >> $GITHUB_ENV
-      - name: Init Docker
-        run: sudo docker run -d -it --name ci --privileged movesrwth/storm-basesystem:${{ matrix.distro }}
-        # We should not do partial updates :/
-        # but we need to install some dependencies
-        # Surely we can find a better way to do this at some point
-      - name: Update base system
-        run: |
-          sudo docker exec ci apt-get update
-          sudo docker exec ci apt-get upgrade -qqy
-      - name: install dependencies
-        run: sudo docker exec ci apt-get install -qq -y maven uuid-dev python3 python3-pip
+
       - name: Git clone
-        run: |
-          # git clone cannot clone individual commits based on a sha and some other refs
-          # this workaround fixes this and fetches only one commit
-          sudo docker exec ci bash -c "mkdir /opt/pycarl; cd /opt/pycarl; git init && git remote add origin ${GIT_URL} && git fetch --depth 1 origin ${BRANCH} && git checkout FETCH_HEAD"
-          sudo docker exec ci git clone --depth 1 $CARL_GIT_URL /opt/carl
-          sudo docker exec ci git clone --depth 1 $CARL_PARSER_GIT_URL /opt/carl-parser
-
-      - name: Run cmake for carl
-        run: sudo docker exec ci bash -c "mkdir /opt/carl/build; cd /opt/carl/build; cmake .. ${CMAKE_ARGS} ${CARL_CMAKE_ARGS}"
-      - name: Build carl
-        run: sudo docker exec ci bash -c "cd /opt/carl/build; make lib_carl -j ${NR_JOBS}"
-
-      - name: Run cmake for carl-parser
-        if: matrix.setupArgs.parser == 'true'
-        run: sudo docker exec ci bash -c "mkdir /opt/carl-parser/build; cd /opt/carl-parser/build; cmake .. ${CMAKE_ARGS}"
-      - name: make carl-parser
-        if: matrix.setupArgs.parser == 'true'
-        run: sudo docker exec ci bash -c "cd /opt/carl-parser/build; make -j ${NR_JOBS}"
-
-      - name: Build pycarl
-        run: |
-          sudo docker exec ci bash -c "cd /opt/pycarl; python3 setup.py build_ext $DEBUG_SWITCH -j ${NR_JOBS} develop"
+        uses: actions/checkout@v3
+      - name: Replace Dockerfile (optional)
+        # If carl-parser should be excluded
+        if: matrix.setupArgs.parser == 'false'
+        run: cp .github/workflows/Dockerfile.no_parser Dockerfile
+      - name: Build pycarl from Dockerfile
+        run: docker build -t movesrwth/pycarl:ci-${{ matrix.debugOrRelease }} . --build-arg BASE_IMAGE=movesrwth/storm-basesystem:${{ matrix.distro }} --build-arg build_type=${BUILD_TYPE} --build-arg carl_cmake_args="${CARL_CMAKE_ARGS}" --build-arg setup_args=${DEBUG_SWITCH} --build-arg no_threads=${NR_JOBS}
+      - name: Run Docker
+        run: docker run -d -it --name ci movesrwth/pycarl:ci-${{ matrix.debugOrRelease }}
       - name: Run tests
-        run: |
-          sudo docker exec ci bash -c "cd /opt/pycarl; python3 setup.py test"
+        run: docker exec ci bash -c "cd /opt/pycarl; python setup.py test"
+
 
   noDeploy:
     name: Build and Test
@@ -103,55 +72,28 @@ jobs:
         # GITHUB_ENV is a magic variable pointing to a file; if a line with format {NAME}={VALUE}
         # then the env variable with name NAME will be created/updated with VALUE
         run: |
-          ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "CMAKE_ARGS=${CMAKE_DEBUG}" || echo "CMAKE_ARGS=${CMAKE_RELEASE}") >> $GITHUB_ENV
-          ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "CARL_CMAKE_ARGS=${CARL_CMAKE_DEBUG}" || echo "CARL_CMAKE_ARGS=${CARL_CMAKE_RELEASE}") >> $GITHUB_ENV
+          ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "BUILD_TYPE=Debug" || echo "BUILD_TYPE=Release") >> $GITHUB_ENV
           ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "DEBUG_SWITCH=--debug" || true) >> $GITHUB_ENV
-      - name: Init Docker
-        run: sudo docker run -d -it --name ci --privileged movesrwth/storm-basesystem:${{ matrix.distro }}
-        # We should not do partial updates :/
-        # but we need to install some dependencies
-        # Surely we can find a better way to do this at some point
-      - name: Update base system
-        run: |
-          sudo docker exec ci apt-get update
-          sudo docker exec ci apt-get upgrade -qqy
-      - name: install dependencies
-        run: sudo docker exec ci apt-get install -qq -y maven uuid-dev python3 python3-pip
+
       - name: Git clone
-        run: |
-          # git clone cannot clone individual commits based on a sha and some other refs
-          # this workaround fixes this and fetches only one commit
-          sudo docker exec ci bash -c "mkdir /opt/pycarl; cd /opt/pycarl; git init && git remote add origin ${GIT_URL} && git fetch --depth 1 origin ${BRANCH} && git checkout FETCH_HEAD"
-          sudo docker exec ci git clone --depth 1 $CARL_GIT_URL /opt/carl
-          sudo docker exec ci git clone --depth 1 $CARL_PARSER_GIT_URL /opt/carl-parser
-
-      - name: Run cmake for carl
-        run: sudo docker exec ci bash -c "mkdir /opt/carl/build; cd /opt/carl/build; cmake .. ${CARL_CMAKE_ARGS}"
-      - name: Build carl
-        run: sudo docker exec ci bash -c "cd /opt/carl/build; make lib_carl -j ${NR_JOBS}"
-
-      - name: Run cmake for carl-parser
-        run: sudo docker exec ci bash -c "mkdir /opt/carl-parser/build; cd /opt/carl-parser/build; cmake .. ${CMAKE_ARGS}"
-      - name: make carl-parser
-        run: sudo docker exec ci bash -c "cd /opt/carl-parser/build; make -j ${NR_JOBS}"
-
-      - name: Build pycarl
-        run: |
-          sudo docker exec ci bash -c "cd /opt/pycarl; python3 setup.py build_ext $DEBUG_SWITCH -j ${NR_JOBS} develop"
+        uses: actions/checkout@v3
+      - name: Build pycarl from Dockerfile
+        run: docker build -t movesrwth/pycarl:ci-${{ matrix.debugOrRelease }} . --build-arg BASE_IMAGE=movesrwth/storm-basesystem:${{ matrix.distro }} --build-arg build_type=${BUILD_TYPE} --build-arg setup_args=${DEBUG_SWITCH} --build-arg no_threads=${NR_JOBS}
+      - name: Run Docker
+        run: docker run -d -it --name ci movesrwth/pycarl:ci-${{ matrix.debugOrRelease }}
       - name: Run tests
-        run: |
-          sudo docker exec ci bash -c "cd /opt/pycarl; python3 setup.py test"
+        run: docker exec ci bash -c "cd /opt/pycarl; python setup.py test"
 
-        # build and publish documentation
+        # Build and publish documentation
       - name: Install documentation dependencies
         if: matrix.debugOrRelease == 'release' && matrix.distro == env.DOCUMENTATION_DISTRO
-        run: sudo docker exec ci bash -c "cd /opt/pycarl; pip3 install -e '.[doc]'"
+        run: docker exec ci bash -c "cd /opt/pycarl; pip install -e '.[doc]'"
       - name: Build documentation
         if: matrix.debugOrRelease == 'release' && matrix.distro == env.DOCUMENTATION_DISTRO
         run: |
-          sudo docker exec ci bash -c "cd /opt/pycarl/doc; make html"
-          sudo docker exec ci rm -r /opt/pycarl/doc/build/html/_sources
-          sudo docker cp ci:/opt/pycarl/doc/build/html .
+          docker exec ci bash -c "cd /opt/pycarl/doc; make html"
+          docker exec ci rm -r /opt/pycarl/doc/build/html/_sources
+          docker cp ci:/opt/pycarl/doc/build/html .
       - name: Deploy documentation
         # Only deploy for release version and using master on original repo (and not for pull requests or forks)
         if: matrix.debugOrRelease == 'release' && matrix.distro == env.DOCUMENTATION_DISTRO && github.repository_owner == 'moves-rwth' && github.ref == 'refs/heads/master'
