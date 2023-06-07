@@ -1,5 +1,5 @@
-# Base Dockerfile for using pycarl
-###################################
+# Base Dockerfile for using pycarl without building carl-parser
+###############################################################
 # The Docker image can be built by executing:
 # docker build -t yourusername/pycarl .
 # A different base image can be set from the commandline with:
@@ -33,11 +33,9 @@ ARG carl_version=14.25
 # Uncomment to update packages beforehand
 RUN apt-get update -qq
 RUN apt-get install -y --no-install-recommends \
-    maven \
-    uuid-dev \
     python3 \
     python3-venv
-# Packages maven and uuid-dev are required for carl-parser
+# Packages maven and uuid-dev are only required for carl-parser
 
 
 # Build carl
@@ -58,22 +56,7 @@ RUN cmake .. $carl_cmake_args -DCMAKE_BUILD_TYPE=$build_type
 RUN make lib_carl -j $no_threads
 
 
-# Build carl-parser
-###################
-WORKDIR /opt/
-
-# Obtain carl-parser from public repository
-RUN git clone https://github.com/moves-rwth/carl-parser.git
-
-# Switch to build directory
-RUN mkdir -p /opt/carl-parser/build
-WORKDIR /opt/carl-parser/build
-
-# Configure carl-parser
-RUN cmake .. -DCMAKE_BUILD_TYPE=$build_type
-
-# Build carl-parser
-RUN make carl-parser -j $no_threads
+# Skip building carl-parser
 
 
 # Set-up virtual environment
