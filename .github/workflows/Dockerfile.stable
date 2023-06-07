@@ -18,8 +18,6 @@ MAINTAINER Matthias Volk <m.volk@utwente.nl>
 
 # CMake build type
 ARG build_type=Release
-# Additional arguments for compiling stormpy
-ARG setup_args=""
 # Additional arguments for compiling pycarl
 ARG setup_args_pycarl=""
 # Number of threads to use for parallel compilation
@@ -85,8 +83,4 @@ WORKDIR /opt/stormpy
 # Copy the content of the current local stormpy repository into the Docker image
 COPY . .
 
-# Build stormpy
-RUN python setup.py build_ext $setup_args -j $no_threads develop
-
-# Uncomment to build optional dependencies
-#RUN pip install -e '.[doc,numpy]'"
+# Stormpy is built from outside to catch exit code
