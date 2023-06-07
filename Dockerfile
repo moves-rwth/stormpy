@@ -2,27 +2,39 @@
 ###################################
 # The Docker image can be built by executing:
 # docker build -t yourusername/stormpy .
+# A different Storm base image can be set from the commandline with:
+# --build-arg STORM_BASE=<new_base_image>
 
-FROM movesrwth/storm:1.6.4
-# Change to movesrwth/storm:ci-release for the latest build
-# or your own container
+# Set Storm base image
+ARG STORM_BASE=movesrwth/storm:stable
+FROM $STORM_BASE
 MAINTAINER Matthias Volk <m.volk@utwente.nl>
 
-# Specify number of threads to use for parallel compilation
-# This number can be set from the commandline with:
-# --build-arg no_threads=<value>
-ARG no_threads=1
+
+# Configuration arguments
+#########################
+# The arguments can be set from the commandline with:
+# --build-arg <arg_name>=<value>
+
+# CMake build type
+ARG build_type=Release
+# Additional arguments for compiling stormpy
+ARG setup_args=""
+# Additional arguments for compiling pycarl
+ARG setup_args_pycarl=""
+# Number of threads to use for parallel compilation
+ARG no_threads=2
 
 
 # Install dependencies
 ######################
 # Uncomment to update packages beforehand
-# RUN apt-get update -qq
+RUN apt-get update -qq
 RUN apt-get install -y --no-install-recommends \
     maven \
     uuid-dev \
     python3 \
-    python3-pip
+    python3-venv
 # Packages maven and uuid-dev are required for carl-parser
 
 
@@ -31,17 +43,24 @@ RUN apt-get install -y --no-install-recommends \
 WORKDIR /opt/
 
 # Obtain carl-parser from public repository
-RUN git clone -b master14 https://github.com/ths-rwth/carl-parser.git
+RUN git clone https://github.com/moves-rwth/carl-parser.git
 
 # Switch to build directory
 RUN mkdir -p /opt/carl-parser/build
 WORKDIR /opt/carl-parser/build
 
 # Configure carl-parser
-RUN cmake .. -DCMAKE_BUILD_TYPE=Release
+RUN cmake .. -DCMAKE_BUILD_TYPE=$build_type
 
 # Build carl-parser
 RUN make carl-parser -j $no_threads
+
+
+# Set-up virtual environment
+############################
+ENV VIRTUAL_ENV=/opt/venv
+RUN python3 -m venv $VIRTUAL_ENV
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 
 # Build pycarl
@@ -55,8 +74,7 @@ RUN git clone https://github.com/moves-rwth/pycarl.git
 WORKDIR /opt/pycarl
 
 # Build pycarl
-RUN python3 setup.py build_ext -j $no_threads develop
-
+RUN python setup.py build_ext $setup_args_pycarl -j $no_threads develop
 
 
 # Build stormpy
@@ -68,4 +86,7 @@ WORKDIR /opt/stormpy
 COPY . .
 
 # Build stormpy
-RUN python3 setup.py build_ext -j $no_threads develop
+RUN python setup.py build_ext $setup_args -j $no_threads develop
+
+# Uncomment to build optional dependencies
+#RUN pip install -e '.[doc,numpy]'"
