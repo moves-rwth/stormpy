@@ -2,16 +2,21 @@ Changelog
 =============
 
 
-Version 1.7.x
+Version 1.8.x
 -------------
 
-### Version 1.7.x
-Requires Storm version >= 1.7.1 and pycarl version >= 2.1.0
+### Version 1.8.0 (2023/06)
+Requires Storm version >= 1.8.0 and pycarl version >= 2.2.0
 
-- Adaption to changes in Storm such as the removal of JIT compilation
+- Scheduler extraction for exact models
+- Adaption to changes in Storm such as the removal of JIT compilation and changes in `storm-pomdp`
 - Added bindings for DFT modules
 - Developer: improved build process
-- Developer: updated pybind version to 2.10.0. Check compatibility to pybind version of pycarl.
+- Developer: updated pybind version to 2.10.0. Check compatibility to pybind version of pycarl
+
+
+Version 1.7.x
+-------------
 
 ### Version 1.7.0 (2022/07)
 Requires Storm version >= 1.7.0 and pycarl version >= 2.1.0
