@@ -1,8 +1,11 @@
 import stormpy
-import stormpy.logic
-import stormpy.pomdp
+
+from configurations import pomdp
+
 from helpers.helper import get_example_path
 
+
+@pomdp
 class TestPomdpQuantitative:
     def test_underapprox_mc_maze_pmax(self):
         program = stormpy.parse_prism_program(get_example_path("pomdp", "maze_2.prism"))
