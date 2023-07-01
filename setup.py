@@ -125,8 +125,8 @@ class CMakeBuild(build_ext):
             cmake_args += ['-Dcarl_DIR=' + carl_dir]
         if use_parser and carl_parser_dir:
             cmake_args += ['-Dcarlparser_DIR=' + carl_parser_dir]
-        cmake_args += ['-DUSE_PARSER=' + ('ON' if enable_parser else 'OFF')]
-        cmake_args += ['-DUSE_CLN_NUMBERS=' + ('ON' if enable_cln else 'OFF')]
+        cmake_args += ['-DUSE_PARSER=' + ('ON' if use_parser else 'OFF')]
+        cmake_args += ['-DUSE_CLN_NUMBERS=' + ('ON' if use_cln else 'OFF')]
 
         # Configure extensions
         env = os.environ.copy()
