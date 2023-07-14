@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.14) # Needed for FetchContent_MakeAvailable
+cmake_minimum_required(VERSION 3.15)
 
 project(stormpy)
 
@@ -25,11 +25,11 @@ set(CMAKE_INTERPROCEDURAL_OPTIMIZATION OFF)
 set(CMAKE_CXX_VISIBILITY_PRESET "default")
 
 
-# Workaround for issue with Boost 1.81
+# Workaround for issue with Boost >= 1.81
 find_package(Boost 1.65.1 QUIET REQUIRED COMPONENTS filesystem system)
 if (Boost_FOUND)
-    if ("${Boost_VERSION}" STREQUAL "108100" OR "${Boost_VERSION}" VERSION_EQUAL "1.81")
-        message(STATUS "Stormpy - Using workaround for Boost 1.81")
+    if (${Boost_VERSION} VERSION_GREATER_EQUAL "1.81.0")
+        message(STATUS "Stormpy - Using workaround for Boost >= 1.81")
         set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBOOST_PHOENIX_STL_TUPLE_H_")
     endif()
 endif ()
