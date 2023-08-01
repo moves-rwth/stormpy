@@ -1,6 +1,6 @@
 import stormpy
 from helpers.helper import get_example_path
-from configurations import numpy_avail
+from configurations import numpy_avail, pars
 
 
 class TestSparseModelComponents:
@@ -771,3 +771,110 @@ class TestSparseModelComponents:
         assert not pomdp.has_choice_origins()
 
         assert pomdp.observations == [1, 0, 0, 0, 0, 0, 0, 0, 0, 2]
+
+    @pars
+    def test_build_parametric_dtmc(self):
+        import stormpy.info
+        import stormpy.pars
+        if stormpy.info.storm_ratfunc_use_cln():
+            import pycarl.cln as pc
+        else:
+            import pycarl.gmp as pc
+
+        def create_polynomial(pol):
+            num = pc.create_factorized_polynomial(pc.Polynomial(pol))
+            return pc.FactorizedRationalFunction(num)
+
+        def create_number(num):
+            num = pc.FactorizedPolynomial(pc.Rational(num))
+            return pc.FactorizedRationalFunction(num)
+
+        from pycarl import Variable
+        nr_states = 13
+        nr_choices = 13
+
+        # transition_matrix
+        builder = stormpy.ParametricSparseMatrixBuilder(rows=0, columns=0, entries=0, force_dimensions=False,
+                                                        has_custom_row_grouping=False, row_groups=0)
+
+        # Create variables
+        var_p = create_polynomial(Variable("p"))
+        var_q = create_polynomial(Variable("q"))
+        one = create_number(1)
+        zero = create_number(0)
+
+        # Add transitions
+        builder.add_next_value(0, 1, var_p)
+        builder.add_next_value(0, 2, one - var_p)
+        builder.add_next_value(1, 3, var_q)
+        builder.add_next_value(1, 4, one - var_q)
+        builder.add_next_value(2, 5, var_q)
+        builder.add_next_value(2, 6, one - var_q)
+        builder.add_next_value(3, 7, create_number(0.5))
+        builder.add_next_value(3, 1, create_number(0.5))
+        builder.add_next_value(4, 8, var_p * var_q)
+        builder.add_next_value(4, 9, one - var_p * var_q)
+        builder.add_next_value(5, 10, create_number(0.2) * var_p * var_q)
+        builder.add_next_value(5, 11, one - create_number(0.2) * var_p * var_q)
+        builder.add_next_value(6, 2, var_p + var_q)
+        builder.add_next_value(6, 12, one - var_p - var_q)
+        for s in range(7, 13):
+            builder.add_next_value(s, s, one)
+        # Build transition matrix, update number of rows and columns
+        transition_matrix = builder.build(nr_states, nr_states)
+
+        # state labeling
+        state_labeling = stormpy.storage.StateLabeling(nr_states)
+        state_labels = {'init', 'one', 'two', 'three', 'four', 'five', 'six', 'done', 'deadlock'}
+        for label in state_labels:
+            state_labeling.add_label(label)
+        # Add label to one state
+        state_labeling.add_label_to_state('init', 0)
+        state_labeling.add_label_to_state('one', 7)
+        state_labeling.add_label_to_state('two', 8)
+        state_labeling.add_label_to_state('three', 9)
+        state_labeling.add_label_to_state('four', 10)
+        state_labeling.add_label_to_state('five', 11)
+        state_labeling.add_label_to_state('six', 12)
+
+        state_labeling.set_states('done', stormpy.BitVector(nr_states, [7, 8, 9, 10, 11, 12]))
+
+        # reward_models
+        reward_models = {}
+        # Create a vector representing the state-action rewards
+        action_reward = [one, one, one, one, one, one, one, zero, zero, zero, zero, zero, zero]
+        reward_models['coin_flips'] = stormpy.SparseParametricRewardModel(optional_state_action_reward_vector=action_reward)
+
+        # Construct components
+        components = stormpy.SparseParametricModelComponents(transition_matrix=transition_matrix, state_labeling=state_labeling,
+                                                             reward_models=reward_models)
+        # Build parametric DTMC
+        dtmc = stormpy.storage.SparseParametricDtmc(components)
+
+        assert type(dtmc) is stormpy.SparseParametricDtmc
+        assert dtmc.supports_parameters
+        assert dtmc.has_parameters
+
+        # Test transition matrix
+        assert dtmc.nr_choices == nr_choices
+        assert dtmc.nr_states == nr_states
+        assert dtmc.nr_transitions == 20
+        assert dtmc.transition_matrix.nr_entries == dtmc.nr_transitions
+        for e in dtmc.transition_matrix:
+            assert type(e.value()) is pc.FactorizedRationalFunction
+        for state in dtmc.states:
+            assert len(state.actions) <= 1
+
+        # Test state labeling
+        assert dtmc.labeling.get_labels() == {'init', 'deadlock', 'done', 'one', 'two', 'three', 'four', 'five', 'six'}
+
+        # Test reward_models
+        assert len(dtmc.reward_models) == 1
+        assert not dtmc.reward_models["coin_flips"].has_state_rewards
+        assert dtmc.reward_models["coin_flips"].has_state_action_rewards
+        for reward in dtmc.reward_models["coin_flips"].state_action_rewards:
+            assert reward == one or reward == zero
+        assert not dtmc.reward_models["coin_flips"].has_transition_rewards
+
+        # Test choice labeling
+        assert not dtmc.has_choice_labeling()
