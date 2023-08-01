@@ -357,9 +357,6 @@ class TestSparseModelComponents:
         choice_labeling.set_choices('loop2b', stormpy.BitVector(nr_choices, [6, 9]))
         choice_labeling.set_choices('serve2', stormpy.BitVector(nr_choices, [10, 11]))
 
-        # state exit rates
-        exit_rates = [201.0, 200.5, 200.5, 201.0, 200.0, 1.5, 200.5, 200.5, 1.0, 200.0, 1.5, 1.0]
-
         # state valuations
         manager = stormpy.ExpressionManager()
         var_s = manager.create_integer_variable(name='s')
@@ -391,7 +388,7 @@ class TestSparseModelComponents:
         components = stormpy.SparseModelComponents(transition_matrix=transition_matrix, state_labeling=state_labeling,
                                                    reward_models=reward_models, rate_transitions=True)
         components.choice_labeling = choice_labeling
-        components.exit_rates = exit_rates
+        # exit_rates are not required due to using a rate matrix
         components.state_valuations = state_valuations
 
         # Build CTMC

@@ -35,13 +35,9 @@ def example_building_ctmcs_01():
     state_labeling.add_label_to_state('empty', 0)
     state_labeling.add_label_to_state('full', 3)
 
-    # Exit rate for each state
-    exit_rates = [1.5, 4.5, 4.5, 3.0]
-
     # Collect components
     # rate_transitions = True, because the transition values are interpreted as rates
     components = stormpy.SparseModelComponents(transition_matrix=transition_matrix, state_labeling=state_labeling, rate_transitions=True)
-    components.exit_rates = exit_rates
 
     # Build the model
     ctmc = stormpy.storage.SparseCtmc(components)
