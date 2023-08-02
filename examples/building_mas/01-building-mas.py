@@ -46,6 +46,7 @@ def example_building_mas_01():
     choice_labeling.add_label_to_choice('alpha', 0)
     choice_labeling.add_label_to_choice('beta', 1)
 
+    # Provide exit rates (for Markovian states)
     exit_rates = [0.0, 10.0, 12.0, 1.0, 1.0]
 
     markovian_states = stormpy.BitVector(5, [1, 2, 3, 4])

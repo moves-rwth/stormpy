@@ -57,6 +57,7 @@ PYBIND11_MODULE(storage, m) {
     define_distribution<double>(m, "Double");
     define_sparse_model_components<double>(m, "");
     define_sparse_model_components<storm::RationalNumber>(m, "Exact");
+    define_sparse_model_components<storm::RationalFunction>(m, "Parametric");
     define_geometry<double>(m, "Double");
     define_geometry<storm::RationalNumber>(m, "Exact");
 
