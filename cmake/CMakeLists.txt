@@ -1,7 +1,9 @@
 cmake_minimum_required(VERSION 3.15)
 
 project(storm-version)
-find_package(storm REQUIRED)
+set(STORM_DIR_HINT "" CACHE STRING "A hint where the Storm library can be found.")
+
+find_package(storm REQUIRED HINTS ${STORM_DIR_HINT})
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/macros.cmake)
 

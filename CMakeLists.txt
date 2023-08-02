@@ -10,8 +10,9 @@ option(STORMPY_DISABLE_SIGNATURE_DOC "Disable the signature in the documentation
 MARK_AS_ADVANCED(STORMPY_DISABLE_SIGNATURE_DOC)
 set(PYBIND_VERSION "" CACHE STRING "Pybind11 version to use")
 MARK_AS_ADVANCED(PYBIND_VERSION)
+set(STORM_DIR_HINT "" CACHE STRING "A hint where the Storm library can be found.")
 
-find_package(storm REQUIRED)
+find_package(storm REQUIRED HINTS ${STORM_DIR_HINT})
 
 find_package(Python COMPONENTS Interpreter Development REQUIRED)
 include(resources/include_pybind11.cmake)
