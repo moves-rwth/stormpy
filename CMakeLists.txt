@@ -13,11 +13,13 @@ MARK_AS_ADVANCED(PYBIND_VERSION)
 
 find_package(storm REQUIRED)
 
+find_package(Python COMPONENTS Interpreter Development REQUIRED)
 include(resources/include_pybind11.cmake)
 
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/macros.cmake)
 
 set(CMAKE_CXX_STANDARD 17)
+
 # This sets interprocedural optimization off as this leads to some problems on some systems
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION OFF)
 # This sets the default visibility from hidden to default,

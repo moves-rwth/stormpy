@@ -1,4 +1,5 @@
-cmake_minimum_required(VERSION 3.0.0)
+cmake_minimum_required(VERSION 3.15)
+
 project(storm-version)
 find_package(storm REQUIRED)
 
