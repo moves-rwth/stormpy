@@ -219,7 +219,8 @@ setup(
                     'packaging'],
     tests_require=['pytest'],
     extras_require={
-        "doc": ["Sphinx", "sphinx-bootstrap-theme"]
+        "doc": ["Sphinx", "sphinx-bootstrap-theme"],
+        "dev": ["black"],
     },
     python_requires='>=3.7',  # required by packaging
 )
