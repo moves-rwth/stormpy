@@ -319,6 +319,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../api/core.html#stormpy.SparseParametricMdp"><code class="docutils literal notranslate"><span class="pre">SparseParametricMdp</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/core.html#stormpy.SparseParametricModelAction"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelAction</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/core.html#stormpy.SparseParametricModelActions"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelActions</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/core.html#stormpy.SparseParametricModelComponents"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelComponents</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/core.html#stormpy.SparseParametricModelState"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelState</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/core.html#stormpy.SparseParametricModelStates"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelStates</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/core.html#stormpy.SparseParametricPomdp"><code class="docutils literal notranslate"><span class="pre">SparseParametricPomdp</span></code></a></li>
@@ -561,6 +562,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../api/storage.html#stormpy.storage.SparseParametricMdp"><code class="docutils literal notranslate"><span class="pre">SparseParametricMdp</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/storage.html#stormpy.storage.SparseParametricModelAction"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelAction</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/storage.html#stormpy.storage.SparseParametricModelActions"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelActions</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/storage.html#stormpy.storage.SparseParametricModelComponents"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelComponents</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/storage.html#stormpy.storage.SparseParametricModelState"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelState</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/storage.html#stormpy.storage.SparseParametricModelStates"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelStates</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../api/storage.html#stormpy.storage.SparseParametricPomdp"><code class="docutils literal notranslate"><span class="pre">SparseParametricPomdp</span></code></a></li>
@@ -782,7 +784,7 @@
 <h2>Background<a class="headerlink" href="#Background" title="Permalink to this heading">¶</a></h2>
 <p>We already saw the process of building <a class="reference internal" href="building_ctmcs.html"><span class="doc">CTMCs</span></a> and <a class="reference internal" href="building_mdps.html"><span class="doc">MDPs</span></a> via Stormpy.</p>
 <p>Markov automata use states that are probabilistic, i.e. like the states of an MDP, or Markovian, i.e. like the states of a CTMC.</p>
-<p>In this section, we build a small MA with five states from which the first four are Markovian. Since we covered labeling and exit rates already in the previous examples we omit the description of these components. The full example can be found here:</p>
+<p>In this section, we build a small MA with five states from which the first four are Markovian. Since we covered the labeling already in the previous examples we omit the description here. The full example can be found here:</p>
 <p><a class="reference external" href="https://github.com/moves-rwth/stormpy/blob/master/examples/building_mas/01-building-mas.py">01-building-mas.py</a></p>
 <p>First, we import Stormpy:</p>
 <div class="nbinput nblast docutils container">
@@ -861,7 +863,7 @@
 <h2>Building the Model<a class="headerlink" href="#Building-the-Model" title="Permalink to this heading">¶</a></h2>
 <p>Now, we can collect all components:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">components</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">SparseModelComponents</span><span class="p">(</span><span class="n">transition_matrix</span><span class="o">=</span><span class="n">transition_matrix</span><span class="p">,</span> <span class="n">state_labeling</span><span class="o">=</span><span class="n">state_labeling</span><span class="p">,</span> <span class="n">markovian_states</span><span class="o">=</span><span class="n">markovian_states</span><span class="p">)</span>
@@ -872,7 +874,7 @@
 </div>
 <p>Finally, we can build the model:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">ma</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">SparseMA</span><span class="p">(</span><span class="n">components</span><span class="p">)</span>
@@ -926,7 +928,7 @@ Choice Labels:  2 labels
     </p>
     <p>
         &copy; Copyright 2016-2022 Moves RWTH Aachen.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.1.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.1.2.<br/>
     </p>
   </div>
 </footer>

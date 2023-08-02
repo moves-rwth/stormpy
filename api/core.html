@@ -316,6 +316,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.SparseParametricMdp"><code class="docutils literal notranslate"><span class="pre">SparseParametricMdp</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.SparseParametricModelAction"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelAction</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.SparseParametricModelActions"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelActions</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#stormpy.SparseParametricModelComponents"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelComponents</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.SparseParametricModelState"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelState</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.SparseParametricModelStates"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelStates</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.SparseParametricPomdp"><code class="docutils literal notranslate"><span class="pre">SparseParametricPomdp</span></code></a></li>
@@ -558,6 +559,7 @@
 <li class="toctree-l2"><a class="reference internal" href="storage.html#stormpy.storage.SparseParametricMdp"><code class="docutils literal notranslate"><span class="pre">SparseParametricMdp</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="storage.html#stormpy.storage.SparseParametricModelAction"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelAction</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="storage.html#stormpy.storage.SparseParametricModelActions"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelActions</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.html#stormpy.storage.SparseParametricModelComponents"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelComponents</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="storage.html#stormpy.storage.SparseParametricModelState"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelState</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="storage.html#stormpy.storage.SparseParametricModelStates"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelStates</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="storage.html#stormpy.storage.SparseParametricPomdp"><code class="docutils literal notranslate"><span class="pre">SparseParametricPomdp</span></code></a></li>
@@ -1860,6 +1862,20 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#stormpy.SparseParametricModelActions"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelActions</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseParametricModelComponents"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelComponents</span></code></a><ul>
+<li><a class="reference internal" href="#stormpy.SparseParametricModelComponents.choice_labeling"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelComponents.choice_labeling</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseParametricModelComponents.choice_origins"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelComponents.choice_origins</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseParametricModelComponents.exit_rates"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelComponents.exit_rates</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseParametricModelComponents.markovian_states"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelComponents.markovian_states</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseParametricModelComponents.observability_classes"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelComponents.observability_classes</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseParametricModelComponents.player1_matrix"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelComponents.player1_matrix</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseParametricModelComponents.rate_transitions"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelComponents.rate_transitions</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseParametricModelComponents.reward_models"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelComponents.reward_models</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseParametricModelComponents.state_labeling"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelComponents.state_labeling</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseParametricModelComponents.state_valuations"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelComponents.state_valuations</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseParametricModelComponents.transition_matrix"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelComponents.transition_matrix</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#stormpy.SparseParametricModelState"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelState</span></code></a><ul>
 <li><a class="reference internal" href="#stormpy.SparseParametricModelState.actions"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelState.actions</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.SparseParametricModelState.id"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelState.id</span></code></a></li>
@@ -3291,6 +3307,20 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#stormpy.SparseParametricModelActions"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelActions</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseParametricModelComponents"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelComponents</span></code></a><ul>
+<li><a class="reference internal" href="#stormpy.SparseParametricModelComponents.choice_labeling"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelComponents.choice_labeling</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseParametricModelComponents.choice_origins"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelComponents.choice_origins</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseParametricModelComponents.exit_rates"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelComponents.exit_rates</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseParametricModelComponents.markovian_states"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelComponents.markovian_states</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseParametricModelComponents.observability_classes"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelComponents.observability_classes</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseParametricModelComponents.player1_matrix"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelComponents.player1_matrix</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseParametricModelComponents.rate_transitions"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelComponents.rate_transitions</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseParametricModelComponents.reward_models"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelComponents.reward_models</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseParametricModelComponents.state_labeling"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelComponents.state_labeling</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseParametricModelComponents.state_valuations"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelComponents.state_valuations</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseParametricModelComponents.transition_matrix"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelComponents.transition_matrix</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#stormpy.SparseParametricModelState"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelState</span></code></a><ul>
 <li><a class="reference internal" href="#stormpy.SparseParametricModelState.actions"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelState.actions</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.SparseParametricModelState.id"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelState.id</span></code></a></li>
@@ -5499,7 +5529,7 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.JaniModel.flatten_composition">
-<span class="sig-name descname"><span class="pre">flatten_composition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.JaniModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_solver_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7fcbbcbf3170&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.JaniModel" title="stormpy.storage.storage.JaniModel"><span class="pre">stormpy.storage.storage.JaniModel</span></a></span></span><a class="headerlink" href="#stormpy.JaniModel.flatten_composition" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">flatten_composition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.JaniModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_solver_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f67752cefb0&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.JaniModel" title="stormpy.storage.storage.JaniModel"><span class="pre">stormpy.storage.storage.JaniModel</span></a></span></span><a class="headerlink" href="#stormpy.JaniModel.flatten_composition" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -7031,7 +7061,7 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.PrismProgram.flatten">
-<span class="sig-name descname"><span class="pre">flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.PrismProgram</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7fcbbc10ac30&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.PrismProgram" title="stormpy.storage.storage.PrismProgram"><span class="pre">stormpy.storage.storage.PrismProgram</span></a></span></span><a class="headerlink" href="#stormpy.PrismProgram.flatten" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.PrismProgram</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f677533a330&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.PrismProgram" title="stormpy.storage.storage.PrismProgram"><span class="pre">stormpy.storage.storage.PrismProgram</span></a></span></span><a class="headerlink" href="#stormpy.PrismProgram.flatten" title="Permalink to this definition">¶</a></dt>
 <dd><p>Put program into a single module</p>
 </dd></dl>
 
@@ -8662,6 +8692,78 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="stormpy.SparseParametricModelComponents">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SparseParametricModelComponents</span></span><a class="headerlink" href="#stormpy.SparseParametricModelComponents" title="Permalink to this definition">¶</a></dt>
+<dd><p>Components required for building a sparse model</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.SparseParametricModelComponents.choice_labeling">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">choice_labeling</span></span><a class="headerlink" href="#stormpy.SparseParametricModelComponents.choice_labeling" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list that stores a labeling for each choice</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.SparseParametricModelComponents.choice_origins">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">choice_origins</span></span><a class="headerlink" href="#stormpy.SparseParametricModelComponents.choice_origins" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stores for each choice from which parts of the input model description it originates</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.SparseParametricModelComponents.exit_rates">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">exit_rates</span></span><a class="headerlink" href="#stormpy.SparseParametricModelComponents.exit_rates" title="Permalink to this definition">¶</a></dt>
+<dd><p>The exit rate for each state. Must be given for CTMCs and MAs, if rate_transitions is false. Otherwise, it is optional.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.SparseParametricModelComponents.markovian_states">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">markovian_states</span></span><a class="headerlink" href="#stormpy.SparseParametricModelComponents.markovian_states" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list that stores which states are Markovian (only for Markov Automata)</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.SparseParametricModelComponents.observability_classes">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">observability_classes</span></span><a class="headerlink" href="#stormpy.SparseParametricModelComponents.observability_classes" title="Permalink to this definition">¶</a></dt>
+<dd><p>The POMDP observations</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.SparseParametricModelComponents.player1_matrix">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">player1_matrix</span></span><a class="headerlink" href="#stormpy.SparseParametricModelComponents.player1_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Matrix of player 1 choices (needed for stochastic two player games</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.SparseParametricModelComponents.rate_transitions">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">rate_transitions</span></span><a class="headerlink" href="#stormpy.SparseParametricModelComponents.rate_transitions" title="Permalink to this definition">¶</a></dt>
+<dd><p>True iff the transition values (for Markovian choices) are interpreted as rates</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.SparseParametricModelComponents.reward_models">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reward_models</span></span><a class="headerlink" href="#stormpy.SparseParametricModelComponents.reward_models" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reward models associated with the model</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.SparseParametricModelComponents.state_labeling">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">state_labeling</span></span><a class="headerlink" href="#stormpy.SparseParametricModelComponents.state_labeling" title="Permalink to this definition">¶</a></dt>
+<dd><p>The state labeling</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.SparseParametricModelComponents.state_valuations">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">state_valuations</span></span><a class="headerlink" href="#stormpy.SparseParametricModelComponents.state_valuations" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list that stores for each state to which variable valuation it belongs</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.SparseParametricModelComponents.transition_matrix">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">transition_matrix</span></span><a class="headerlink" href="#stormpy.SparseParametricModelComponents.transition_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>The transition matrix</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="stormpy.SparseParametricModelState">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SparseParametricModelState</span></span><a class="headerlink" href="#stormpy.SparseParametricModelState" title="Permalink to this definition">¶</a></dt>
 <dd><p>State in sparse model</p>
@@ -10017,7 +10119,7 @@ Furthermore, the rows that contain a transition leading outside of the subsystem
     </p>
     <p>
         &copy; Copyright 2016-2022 Moves RWTH Aachen.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.1.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.1.2.<br/>
     </p>
   </div>
 </footer>
