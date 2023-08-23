@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -9,9 +9,9 @@
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
     <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=9764bf3a"></script>
+    <script src="../../_static/documentation_options.js?v=b51e6972"></script>
     <script src="../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -779,9 +779,9 @@
         display: none;
     }
 </style><section id="Markov-automata-(MAs)">
-<h1>Markov automata (MAs)<a class="headerlink" href="#Markov-automata-(MAs)" title="Permalink to this heading">¶</a></h1>
+<h1>Markov automata (MAs)<a class="headerlink" href="#Markov-automata-(MAs)" title="Link to this heading">¶</a></h1>
 <section id="Background">
-<h2>Background<a class="headerlink" href="#Background" title="Permalink to this heading">¶</a></h2>
+<h2>Background<a class="headerlink" href="#Background" title="Link to this heading">¶</a></h2>
 <p>We already saw the process of building <a class="reference internal" href="building_ctmcs.html"><span class="doc">CTMCs</span></a> and <a class="reference internal" href="building_mdps.html"><span class="doc">MDPs</span></a> via Stormpy.</p>
 <p>Markov automata use states that are probabilistic, i.e. like the states of an MDP, or Markovian, i.e. like the states of a CTMC.</p>
 <p>In this section, we build a small MA with five states from which the first four are Markovian. Since we covered the labeling already in the previous examples we omit the description here. The full example can be found here:</p>
@@ -797,7 +797,7 @@
 </div>
 </section>
 <section id="Transition-Matrix">
-<h2>Transition Matrix<a class="headerlink" href="#Transition-Matrix" title="Permalink to this heading">¶</a></h2>
+<h2>Transition Matrix<a class="headerlink" href="#Transition-Matrix" title="Link to this heading">¶</a></h2>
 <p>For <a class="reference internal" href="building_mdps.html#Transition-Matrix"><span class="std std-ref">building MDPS</span></a>, we used the SparseMatrixBuilder to create a matrix with a custom row grouping. In this example, we use the numpy library.</p>
 <p>In the beginning, we create a numpy array that will be used to build the transition matrix of our model.:</p>
 <div class="nbinput nblast docutils container">
@@ -848,7 +848,7 @@
 </div>
 </section>
 <section id="Markovian-States">
-<h2>Markovian States<a class="headerlink" href="#Markovian-States" title="Permalink to this heading">¶</a></h2>
+<h2>Markovian States<a class="headerlink" href="#Markovian-States" title="Link to this heading">¶</a></h2>
 <p>In order to define which states have only one probability distribution over the successor states, we build a BitVector that contains the respective Markovian states:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
@@ -860,7 +860,7 @@
 </div>
 </section>
 <section id="Building-the-Model">
-<h2>Building the Model<a class="headerlink" href="#Building-the-Model" title="Permalink to this heading">¶</a></h2>
+<h2>Building the Model<a class="headerlink" href="#Building-the-Model" title="Link to this heading">¶</a></h2>
 <p>Now, we can collect all components:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
@@ -896,8 +896,8 @@ Markovian St.:  4
 Max. Rate:      12
 Reward Models:  none
 State Labels:   2 labels
-   * deadlock -&gt; 0 item(s)
    * init -&gt; 1 item(s)
+   * deadlock -&gt; 0 item(s)
 Choice Labels:  2 labels
    * alpha -&gt; 1 item(s)
    * beta -&gt; 1 item(s)
@@ -928,7 +928,7 @@ Choice Labels:  2 labels
     </p>
     <p>
         &copy; Copyright 2016-2022 Moves RWTH Aachen.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.1.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.2.<br/>
     </p>
   </div>
 </footer>

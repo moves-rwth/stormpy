@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -9,9 +9,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=0bf093e7" />
     <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=9764bf3a"></script>
+    <script src="../_static/documentation_options.js?v=b51e6972"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -775,11 +775,11 @@
         display: none;
     }
 </style><section id="Working-with-Schedulers">
-<h1>Working with Schedulers<a class="headerlink" href="#Working-with-Schedulers" title="Permalink to this heading">¶</a></h1>
+<h1>Working with Schedulers<a class="headerlink" href="#Working-with-Schedulers" title="Link to this heading">¶</a></h1>
 <p>In non-deterministic models the notion of a scheduler (or policy) is important. The scheduler determines which action to take at each state.</p>
 <p>For a given reachability property, Storm can return the scheduler realizing the resulting probability.</p>
 <section id="Examining-Schedulers-for-MDPs">
-<h2>Examining Schedulers for MDPs<a class="headerlink" href="#Examining-Schedulers-for-MDPs" title="Permalink to this heading">¶</a></h2>
+<h2>Examining Schedulers for MDPs<a class="headerlink" href="#Examining-Schedulers-for-MDPs" title="Link to this heading">¶</a></h2>
 <p><a class="reference external" href="https://github.com/moves-rwth/stormpy/blob/master/examples/schedulers/01-schedulers.py">01-schedulers.py</a></p>
 <p>As in <a class="reference internal" href="../getting_started.html"><span class="doc">Getting Started</span></a>, we import some required modules and build a model from the example files:</p>
 <div class="nbinput nblast docutils container">
@@ -1397,7 +1397,7 @@ In state 271 choose action 0
 </div>
 </section>
 <section id="Examining-Schedulers-for-Markov-automata">
-<h2>Examining Schedulers for Markov automata<a class="headerlink" href="#Examining-Schedulers-for-Markov-automata" title="Permalink to this heading">¶</a></h2>
+<h2>Examining Schedulers for Markov automata<a class="headerlink" href="#Examining-Schedulers-for-Markov-automata" title="Link to this heading">¶</a></h2>
 <p><a class="reference external" href="https://github.com/moves-rwth/stormpy/blob/master/examples/schedulers/02-schedulers.py">02-schedulers.py</a></p>
 <p>Currently there is no support yet for scheduler extraction on MAs. However, if the timing information is not relevant for the property, we can circumvent this lack by first transforming the MA to an MDP.</p>
 <p>We build the model as before:</p>
@@ -1475,7 +1475,7 @@ ___________________________________________________________________
     </p>
     <p>
         &copy; Copyright 2016-2022 Moves RWTH Aachen.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.1.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.2.<br/>
     </p>
   </div>
 </footer>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -9,9 +9,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=0bf093e7" />
     <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=9764bf3a"></script>
+    <script src="../_static/documentation_options.js?v=b51e6972"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -779,13 +779,13 @@
         display: none;
     }
 </style><section id="Engines">
-<h1>Engines<a class="headerlink" href="#Engines" title="Permalink to this heading">¶</a></h1>
+<h1>Engines<a class="headerlink" href="#Engines" title="Link to this heading">¶</a></h1>
 <section id="Background">
-<h2>Background<a class="headerlink" href="#Background" title="Permalink to this heading">¶</a></h2>
+<h2>Background<a class="headerlink" href="#Background" title="Link to this heading">¶</a></h2>
 <p>Storm supports different engines for building and checking a model. A detailed comparison of the different engines provided in Storm can be found on the <a class="reference external" href="https://www.stormchecker.org/documentation/usage/engines.html">Storm website</a>.</p>
 </section>
 <section id="Sparse-engine">
-<h2>Sparse engine<a class="headerlink" href="#Sparse-engine" title="Permalink to this heading">¶</a></h2>
+<h2>Sparse engine<a class="headerlink" href="#Sparse-engine" title="Link to this heading">¶</a></h2>
 <p>In all of the examples so far we used the default sparse engine:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
@@ -860,7 +860,7 @@ Number of transitions: 20
 </div>
 </section>
 <section id="Symbolic-engine">
-<h2>Symbolic engine<a class="headerlink" href="#Symbolic-engine" title="Permalink to this heading">¶</a></h2>
+<h2>Symbolic engine<a class="headerlink" href="#Symbolic-engine" title="Link to this heading">¶</a></h2>
 <p>Instead of using the sparse engine, one can also use a symbolic representation in terms of binary decision diagrams (BDDs). To use the symbolic (dd) engine, we use the symbolic versions for the building and model checking:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
@@ -983,7 +983,7 @@ Number of transitions: 20
 </div>
 </section>
 <section id="Hybrid-engine">
-<h2>Hybrid engine<a class="headerlink" href="#Hybrid-engine" title="Permalink to this heading">¶</a></h2>
+<h2>Hybrid engine<a class="headerlink" href="#Hybrid-engine" title="Link to this heading">¶</a></h2>
 <p>A third possibility is to use the hybrid engine, a combination of sparse and dd engines. It first builds the model symbolically. The actual model checking is then performed with the engine which is deemed most suitable for the given task.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
@@ -1043,7 +1043,7 @@ Number of transitions: 20
     </p>
     <p>
         &copy; Copyright 2016-2022 Moves RWTH Aachen.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.1.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.2.<br/>
     </p>
   </div>
 </footer>

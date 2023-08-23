@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -9,9 +9,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=0bf093e7" />
     <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=9764bf3a"></script>
+    <script src="../_static/documentation_options.js?v=b51e6972"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -777,9 +777,9 @@
         display: none;
     }
 </style><section id="Parametric-Models">
-<h1>Parametric Models<a class="headerlink" href="#Parametric-Models" title="Permalink to this heading">¶</a></h1>
+<h1>Parametric Models<a class="headerlink" href="#Parametric-Models" title="Link to this heading">¶</a></h1>
 <section id="Instantiating-parametric-models">
-<h2>Instantiating parametric models<a class="headerlink" href="#Instantiating-parametric-models" title="Permalink to this heading">¶</a></h2>
+<h2>Instantiating parametric models<a class="headerlink" href="#Instantiating-parametric-models" title="Link to this heading">¶</a></h2>
 <p><a class="reference external" href="https://github.com/moves-rwth/stormpy/blob/master/examples//parametric_models/01-parametric-models.py">01-parametric-models.py</a></p>
 <p>Input formats such as prism allow to specify programs with open constants. We refer to these open constants as parameters. If the constants only influence the probabilities or rates, but not the topology of the underlying model, we can build these models as parametric models:</p>
 <div class="nbinput docutils container">
@@ -845,7 +845,7 @@ q
 <p>Initial states and labels are set as for the parameter-free case.</p>
 </section>
 <section id="Checking-parametric-models">
-<h2>Checking parametric models<a class="headerlink" href="#Checking-parametric-models" title="Permalink to this heading">¶</a></h2>
+<h2>Checking parametric models<a class="headerlink" href="#Checking-parametric-models" title="Link to this heading">¶</a></h2>
 <p><a class="reference external" href="https://github.com/moves-rwth/stormpy/blob/master/examples//parametric_models/02-parametric-models.py">02-parametric-models.py</a></p>
 <p>It is also possible to check the parametric model directly, similar as before in <a class="reference internal" href="../getting_started.html#Checking-properties"><span class="std std-ref">Checking properties</span></a>:</p>
 <div class="nbinput nblast docutils container">
@@ -881,19 +881,19 @@ q
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(&lt;= (* (- 1) q) 0)
-(&lt;= (+ p (- 1)) 0)
 (&lt;= (* (- 1) p) 0)
+(&lt;= (+ p (- 1)) 0)
 (&lt;= (+ q (- 1)) 0)
+(&lt;= (* (- 1) q) 0)
 (!= p 0)
-(!= (+ p (- 1)) 0)
 (!= q 0)
+(!= (+ p (- 1)) 0)
 (!= (+ q (- 1)) 0)
 </pre></div></div>
 </div>
 </section>
 <section id="Collecting-information-about-the-parametric-models">
-<h2>Collecting information about the parametric models<a class="headerlink" href="#Collecting-information-about-the-parametric-models" title="Permalink to this heading">¶</a></h2>
+<h2>Collecting information about the parametric models<a class="headerlink" href="#Collecting-information-about-the-parametric-models" title="Link to this heading">¶</a></h2>
 <p><a class="reference external" href="https://github.com/moves-rwth/stormpy/blob/master/examples//parametric_models/03-parametric-models.py">03-parametric-models.py</a></p>
 <p>This example shows three implementations to obtain the number of transitions with probability one in a parametric model.</p>
 </section>
@@ -919,7 +919,7 @@ q
     </p>
     <p>
         &copy; Copyright 2016-2022 Moves RWTH Aachen.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.1.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.2.<br/>
     </p>
   </div>
 </footer>

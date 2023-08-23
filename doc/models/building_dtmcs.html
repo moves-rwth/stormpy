@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -9,9 +9,9 @@
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=0bf093e7" />
     <link rel="stylesheet" type="text/css" href="../../_static/nbsphinx-code-cells.css" />
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=9764bf3a"></script>
+    <script src="../../_static/documentation_options.js?v=b51e6972"></script>
     <script src="../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -781,9 +781,9 @@
         display: none;
     }
 </style><section id="Discrete-time-Markov-chains-(DTMCs)">
-<h1>Discrete-time Markov chains (DTMCs)<a class="headerlink" href="#Discrete-time-Markov-chains-(DTMCs)" title="Permalink to this heading">¶</a></h1>
+<h1>Discrete-time Markov chains (DTMCs)<a class="headerlink" href="#Discrete-time-Markov-chains-(DTMCs)" title="Link to this heading">¶</a></h1>
 <section id="Background">
-<h2>Background<a class="headerlink" href="#Background" title="Permalink to this heading">¶</a></h2>
+<h2>Background<a class="headerlink" href="#Background" title="Link to this heading">¶</a></h2>
 <p>As described in <a class="reference internal" href="../../getting_started.html"><span class="doc">Getting Started</span></a>, Storm can be used to translate a model description e.g. in form of a prism file into a Markov chain.</p>
 <p>Here, we use Stormpy to create the components for a model and build a DTMC directly from these components without parsing a model description. We consider the previous example of the Knuth-Yao die.</p>
 <p><a class="reference external" href="https://github.com/moves-rwth/stormpy/blob/master/examples/building_dtmcs/01-building-dtmcs.py">01-building-dtmcs.py</a></p>
@@ -798,7 +798,7 @@
 </div>
 </section>
 <section id="Transition-Matrix">
-<h2>Transition Matrix<a class="headerlink" href="#Transition-Matrix" title="Permalink to this heading">¶</a></h2>
+<h2>Transition Matrix<a class="headerlink" href="#Transition-Matrix" title="Link to this heading">¶</a></h2>
 <p>We begin by creating the matrix representing the transitions in the model in terms of probabilities. For constructing the transition matrix, we use the SparseMatrixBuilder:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
@@ -854,7 +854,7 @@
 <p>It should be noted that entries can only be inserted in ascending order, i.e. row by row and column by column. Stormpy provides the possibility to build a sparse matrix using the numpy library (<a class="reference external" href="https://numpy.org/">https://numpy.org/</a> ) Instead of using the SparseMatrixBuilder, a sparse matrix can be build from a numpy array via the method stormpy.build_sparse_matrix. An example is given in <a class="reference internal" href="building_ctmcs.html#Transition-Matrix"><span class="std std-ref">building CTMCs</span></a>.</p>
 </section>
 <section id="Labeling">
-<h2>Labeling<a class="headerlink" href="#Labeling" title="Permalink to this heading">¶</a></h2>
+<h2>Labeling<a class="headerlink" href="#Labeling" title="Link to this heading">¶</a></h2>
 <p>States can be labeled with sets of propositions, for example state 0 can be labeled with “init”. In order to specify the state labeling we create an empty labeling for the given number of states and add the labels to the labeling:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
@@ -916,22 +916,22 @@ bit vector(1/13) [0 ]
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 9 labels
-   * two -&gt; 1 item(s)
-   * three -&gt; 1 item(s)
-   * four -&gt; 1 item(s)
-   * done -&gt; 6 item(s)
-   * six -&gt; 1 item(s)
    * deadlock -&gt; 0 item(s)
    * five -&gt; 1 item(s)
-   * init -&gt; 1 item(s)
+   * two -&gt; 1 item(s)
+   * three -&gt; 1 item(s)
+   * done -&gt; 6 item(s)
+   * four -&gt; 1 item(s)
+   * six -&gt; 1 item(s)
    * one -&gt; 1 item(s)
+   * init -&gt; 1 item(s)
 
 </pre></div></div>
 </div>
 <p>Defining a choice labeling is possible in a similar way.</p>
 </section>
 <section id="Reward-Models">
-<h2>Reward Models<a class="headerlink" href="#Reward-Models" title="Permalink to this heading">¶</a></h2>
+<h2>Reward Models<a class="headerlink" href="#Reward-Models" title="Link to this heading">¶</a></h2>
 <p>Stormpy supports multiple reward models such as state rewards, state-action rewards and as transition rewards. In this example, the actions of states which satisfy s&lt;7 acquire a reward of 1.0.</p>
 <p>The state-action rewards are represented by a vector, which is associated to a reward model named “coin_flips”:</p>
 <div class="nbinput nblast docutils container">
@@ -946,7 +946,7 @@ bit vector(1/13) [0 ]
 </div>
 </section>
 <section id="Building-the-Model">
-<h2>Building the Model<a class="headerlink" href="#Building-the-Model" title="Permalink to this heading">¶</a></h2>
+<h2>Building the Model<a class="headerlink" href="#Building-the-Model" title="Link to this heading">¶</a></h2>
 <p>Next, we collect all components:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
@@ -977,15 +977,15 @@ States:         13
 Transitions:    20
 Reward Models:  coin_flips
 State Labels:   9 labels
-   * two -&gt; 1 item(s)
-   * three -&gt; 1 item(s)
-   * four -&gt; 1 item(s)
-   * done -&gt; 6 item(s)
-   * six -&gt; 1 item(s)
    * deadlock -&gt; 0 item(s)
    * five -&gt; 1 item(s)
-   * init -&gt; 1 item(s)
+   * two -&gt; 1 item(s)
+   * three -&gt; 1 item(s)
+   * done -&gt; 6 item(s)
+   * four -&gt; 1 item(s)
+   * six -&gt; 1 item(s)
    * one -&gt; 1 item(s)
+   * init -&gt; 1 item(s)
 Choice Labels:  none
 --------------------------------------------------------------
 
@@ -1014,7 +1014,7 @@ Choice Labels:  none
     </p>
     <p>
         &copy; Copyright 2016-2022 Moves RWTH Aachen.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.1.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.2.<br/>
     </p>
   </div>
 </footer>

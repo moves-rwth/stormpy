@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -9,9 +9,9 @@
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css?v=0bf093e7" />
     <link rel="stylesheet" type="text/css" href="_static/nbsphinx-code-cells.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=9764bf3a"></script>
+    <script src="_static/documentation_options.js?v=b51e6972"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
-    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -791,10 +791,10 @@
         display: none;
     }
 </style><section id="Getting-Started">
-<h1>Getting Started<a class="headerlink" href="#Getting-Started" title="Permalink to this heading">¶</a></h1>
+<h1>Getting Started<a class="headerlink" href="#Getting-Started" title="Link to this heading">¶</a></h1>
 <p>Before starting with this guide, one should follow the instructions for <a class="reference internal" href="installation.html"><span class="doc">Installation</span></a>.</p>
 <section id="A-Quick-Tour-through-Stormpy">
-<h2>A Quick Tour through Stormpy<a class="headerlink" href="#A-Quick-Tour-through-Stormpy" title="Permalink to this heading">¶</a></h2>
+<h2>A Quick Tour through Stormpy<a class="headerlink" href="#A-Quick-Tour-through-Stormpy" title="Link to this heading">¶</a></h2>
 <p>This guide is intended for people which have a basic understanding of probabilistic models and their verification. More details and further pointers to literature can be found on the <a class="reference external" href="https://www.stormchecker.org/">Storm website</a>. While we assume some very basic programming concepts, we refrain from using more advanced concepts of python throughout the guide.</p>
 <p>We start with a selection of high-level constructs in stormpy, and go into more details afterwards. More in-depth examples can be found in the <a class="reference internal" href="advanced_topics.html"><span class="doc">Advanced Examples</span></a>.</p>
 <p>The code examples are also given in the <a class="reference external" href="https://github.com/moves-rwth/stormpy/blob/master/examples/">examples/</a> folder. These boxes throughout the text will tell you which example contains the code discussed.</p>
@@ -812,7 +812,7 @@
 </div>
 </div>
 <section id="Building-models">
-<h3>Building models<a class="headerlink" href="#Building-models" title="Permalink to this heading">¶</a></h3>
+<h3>Building models<a class="headerlink" href="#Building-models" title="Link to this heading">¶</a></h3>
 <p><a class="reference external" href="https://github.com/moves-rwth/stormpy/blob/master/examples/01-getting-started.py">01-getting-started.py</a></p>
 <p>There are several ways to create a Markov chain. One of the easiest is to parse a description of such a Markov chain and to let Storm build the chain.</p>
 <p>Here, we build a Markov chain from a prism program. Stormpy comes with a small set of examples, which we use here:</p>
@@ -884,13 +884,13 @@ Number of transitions: 20
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Labels: {&#39;five&#39;, &#39;init&#39;, &#39;four&#39;, &#39;two&#39;, &#39;six&#39;, &#39;deadlock&#39;, &#39;three&#39;, &#39;done&#39;, &#39;one&#39;}
+Labels: {&#39;one&#39;, &#39;deadlock&#39;, &#39;three&#39;, &#39;done&#39;, &#39;five&#39;, &#39;init&#39;, &#39;six&#39;, &#39;four&#39;, &#39;two&#39;}
 </pre></div></div>
 </div>
 <p>We will investigate ways to examine the model in more detail later in Investigating the model.</p>
 </section>
 <section id="Building-properties">
-<h3>Building properties<a class="headerlink" href="#Building-properties" title="Permalink to this heading">¶</a></h3>
+<h3>Building properties<a class="headerlink" href="#Building-properties" title="Link to this heading">¶</a></h3>
 <p><a class="reference external" href="https://github.com/moves-rwth/stormpy/blob/master/examples/02-getting-started.py">02-getting-started.py</a></p>
 <p>Storm takes properties in the prism-property format. To express that one is interested in the reachability of any state where the prism program variable <code class="docutils literal notranslate"><span class="pre">s</span></code> is 2, one would formulate:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>P=? [F s=2]
@@ -949,7 +949,7 @@ Number of states: 8
 <p>then Storm is only skipping exploration of successors of the particular state <code class="docutils literal notranslate"><span class="pre">y</span></code> where <code class="docutils literal notranslate"><span class="pre">s=7</span></code> and <code class="docutils literal notranslate"><span class="pre">d=2</span></code>. In this model, state <code class="docutils literal notranslate"><span class="pre">y</span></code> has a self-loop, so effectively, the whole model is explored.</p>
 </section>
 <section id="Checking-properties">
-<h3>Checking properties<a class="headerlink" href="#Checking-properties" title="Permalink to this heading">¶</a></h3>
+<h3>Checking properties<a class="headerlink" href="#Checking-properties" title="Link to this heading">¶</a></h3>
 <p><a class="reference external" href="https://github.com/moves-rwth/stormpy/blob/master/examples/03-getting-started.py">03-getting-started.py</a></p>
 <p>The last lesson taught us to construct properties and models with matching state labels. Now default checking routines are just a simple command away:</p>
 <div class="nbinput nblast docutils container">
@@ -974,7 +974,7 @@ Number of states: 8
 </div>
 </div>
 <section id="Results-for-all-states">
-<h4>Results for all states<a class="headerlink" href="#Results-for-all-states" title="Permalink to this heading">¶</a></h4>
+<h4>Results for all states<a class="headerlink" href="#Results-for-all-states" title="Link to this heading">¶</a></h4>
 <p>Some model checking algorithms do not provide results for all states. In those cases, the result is not valid for all states, and to iterate over them, a different method is required. We will explain this later.</p>
 <p>A good way to get the result for the initial states is as follows:</p>
 <div class="nbinput docutils container">
@@ -997,7 +997,7 @@ Number of states: 8
 </section>
 </section>
 <section id="Investigating-the-model">
-<h3>Investigating the model<a class="headerlink" href="#Investigating-the-model" title="Permalink to this heading">¶</a></h3>
+<h3>Investigating the model<a class="headerlink" href="#Investigating-the-model" title="Link to this heading">¶</a></h3>
 <p><a class="reference external" href="https://github.com/moves-rwth/stormpy/blob/master/examples/04-getting-started.py">04-getting-started.py</a></p>
 <p>One powerful part of the Storm model checker is to quickly create the Markov chain from higher-order descriptions, as seen above:</p>
 <div class="nbinput nblast docutils container">
@@ -1111,7 +1111,7 @@ From state 12, with probability 1.0, go to state 12
     </p>
     <p>
         &copy; Copyright 2016-2022 Moves RWTH Aachen.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.1.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.2.<br/>
     </p>
   </div>
 </footer>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="../">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -9,9 +9,9 @@
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=0bf093e7" />
     <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css" />
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=9764bf3a"></script>
+    <script src="../_static/documentation_options.js?v=b51e6972"></script>
     <script src="../_static/doctools.js?v=888ff710"></script>
-    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -781,13 +781,13 @@
         display: none;
     }
 </style><section id="Exploring-Models">
-<h1>Exploring Models<a class="headerlink" href="#Exploring-Models" title="Permalink to this heading">¶</a></h1>
+<h1>Exploring Models<a class="headerlink" href="#Exploring-Models" title="Link to this heading">¶</a></h1>
 <section id="Background">
-<h2>Background<a class="headerlink" href="#Background" title="Permalink to this heading">¶</a></h2>
+<h2>Background<a class="headerlink" href="#Background" title="Link to this heading">¶</a></h2>
 <p>Often, stormpy is used as a testbed for new algorithms. An essential step is to transfer the (low-level) descriptions of an MDP or other state-based model into an own algorithm. In this section, we discuss some of the functionality.</p>
 </section>
 <section id="Reading-MDPs">
-<h2>Reading MDPs<a class="headerlink" href="#Reading-MDPs" title="Permalink to this heading">¶</a></h2>
+<h2>Reading MDPs<a class="headerlink" href="#Reading-MDPs" title="Link to this heading">¶</a></h2>
 <p><a class="reference external" href="https://github.com/moves-rwth/stormpy/blob/master/examples/exploration/01-exploration.py">01-exploration.py</a></p>
 <p>In <a class="reference internal" href="../getting_started.html"><span class="doc">Getting Started</span></a>, we briefly iterated over a DTMC. In this section, we explore an MDP:</p>
 <div class="nbinput nblast docutils container">
@@ -899,7 +899,7 @@ From state 14 by action 0, with probability 1.0, go to state 14
 <p>Storm currently supports deterministic rewards on states or actions. More information can be found in <a class="reference internal" href="reward_models.html"><span class="doc">Reward Models</span></a>.</p>
 </section>
 <section id="Reading-POMDPs">
-<h2>Reading POMDPs<a class="headerlink" href="#Reading-POMDPs" title="Permalink to this heading">¶</a></h2>
+<h2>Reading POMDPs<a class="headerlink" href="#Reading-POMDPs" title="Link to this heading">¶</a></h2>
 <p><a class="reference external" href="https://github.com/moves-rwth/stormpy/blob/master/examples/exploration/02-exploration.py">02-exploration.py</a></p>
 <p>Internally, POMDPs extend MDPs. Thus, iterating over the MDP is done as before.</p>
 <div class="nbinput nblast docutils container">
@@ -969,12 +969,12 @@ State 14 has observation id 5
 </div>
 </section>
 <section id="Sorting-states">
-<h2>Sorting states<a class="headerlink" href="#Sorting-states" title="Permalink to this heading">¶</a></h2>
+<h2>Sorting states<a class="headerlink" href="#Sorting-states" title="Link to this heading">¶</a></h2>
 <p><a class="reference external" href="https://github.com/moves-rwth/stormpy/blob/master/examples/exploration/03-exploration.py">03-exploration.py</a></p>
 <p>Often, one may sort the states according to the graph structure. Storm supports some of these sorting algorithms, e.g., topological sort.</p>
 </section>
 <section id="Reading-MAs">
-<h2>Reading MAs<a class="headerlink" href="#Reading-MAs" title="Permalink to this heading">¶</a></h2>
+<h2>Reading MAs<a class="headerlink" href="#Reading-MAs" title="Link to this heading">¶</a></h2>
 <p>To be continued…</p>
 </section>
 </section>
@@ -999,7 +999,7 @@ State 14 has observation id 5
     </p>
     <p>
         &copy; Copyright 2016-2022 Moves RWTH Aachen.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.1.2.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.2.2.<br/>
     </p>
   </div>
 </footer>
