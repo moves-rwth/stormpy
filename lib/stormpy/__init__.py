@@ -532,6 +532,21 @@ def compute_expected_number_of_visits(environment, model):
     return core._compute_expected_number_of_visits_double(environment, model)
 
 
+def compute_steady_state_distribution(environment, model):
+    """
+    Compute the steady-state (aka stationary) distribution. Model must be deterministic.
+
+    :param environment: A model checking environment
+    :param model: A DTMC or CTMC
+    :return: A vector with the steady-state distribution
+    """
+    if model.supports_parameters:
+        raise NotImplementedError("Steady-state distribution is not implemented for parametric models")
+    if model.is_exact:
+        return core._compute_steady_state_distribution_exact(environment, model)
+    return core._compute_steady_state_distribution_double(environment, model)
+
+
 def construct_submodel(model, states, actions, keep_unreachable_states=True, options=SubsystemBuilderOptions()):
     """
 

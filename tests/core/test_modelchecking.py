@@ -179,3 +179,16 @@ class TestModelChecking:
         result = stormpy.compute_expected_number_of_visits(environment, model)
         assert result.at(0) == 1
         assert math.isclose(result.at(1),2.0/3)
+        
+    def test_compute_steady_state_distributioin(self):
+        program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
+        model = stormpy.build_model(program)
+        environment = stormpy.Environment()
+        result = stormpy.compute_steady_state_distribution(environment, model)
+        values = result.get_values()
+        assert len(values) == 13
+        sorted(values)
+        for i in range(7): 
+            assert values[i] == 0
+        for i in range(7,13):
+            assert math.isclose(values[i], 1.0/6)
