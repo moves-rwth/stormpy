@@ -1,4 +1,5 @@
 #include "common.h"
+#include "types.h"
 
 #include "typed_core/integer.h"
 #include "typed_core/rational.h"
@@ -23,5 +24,5 @@ PYBIND11_MODULE(cln, m) {
     define_rationalfunction(m);
     define_factorizedrationalfunction(m);
 
-    define_interval(m);
+    define_interval<Rational>(m);
 }
