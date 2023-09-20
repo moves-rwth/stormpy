@@ -180,7 +180,7 @@ class TestModelChecking:
         assert result.at(0) == 1
         assert math.isclose(result.at(1),2.0/3)
         
-    def test_compute_steady_state_distributioin(self):
+    def test_compute_steady_state_distribution(self):
         program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
         model = stormpy.build_model(program)
         environment = stormpy.Environment()
