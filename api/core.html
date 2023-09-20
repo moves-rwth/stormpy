@@ -377,6 +377,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.compute_prob01_states"><code class="docutils literal notranslate"><span class="pre">compute_prob01_states()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.compute_prob01max_states"><code class="docutils literal notranslate"><span class="pre">compute_prob01max_states()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.compute_prob01min_states"><code class="docutils literal notranslate"><span class="pre">compute_prob01min_states()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#stormpy.compute_steady_state_distribution"><code class="docutils literal notranslate"><span class="pre">compute_steady_state_distribution()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.compute_transient_probabilities"><code class="docutils literal notranslate"><span class="pre">compute_transient_probabilities()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.construct_submodel"><code class="docutils literal notranslate"><span class="pre">construct_submodel()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.create_filter_initial_states_sparse"><code class="docutils literal notranslate"><span class="pre">create_filter_initial_states_sparse()</span></code></a></li>
@@ -2068,6 +2069,7 @@
 <li><a class="reference internal" href="#stormpy.compute_prob01_states"><code class="docutils literal notranslate"><span class="pre">compute_prob01_states()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.compute_prob01max_states"><code class="docutils literal notranslate"><span class="pre">compute_prob01max_states()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.compute_prob01min_states"><code class="docutils literal notranslate"><span class="pre">compute_prob01min_states()</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.compute_steady_state_distribution"><code class="docutils literal notranslate"><span class="pre">compute_steady_state_distribution()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.compute_transient_probabilities"><code class="docutils literal notranslate"><span class="pre">compute_transient_probabilities()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.construct_submodel"><code class="docutils literal notranslate"><span class="pre">construct_submodel()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.create_filter_initial_states_sparse"><code class="docutils literal notranslate"><span class="pre">create_filter_initial_states_sparse()</span></code></a></li>
@@ -3513,6 +3515,7 @@
 <li><a class="reference internal" href="#stormpy.compute_prob01_states"><code class="docutils literal notranslate"><span class="pre">compute_prob01_states()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.compute_prob01max_states"><code class="docutils literal notranslate"><span class="pre">compute_prob01max_states()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.compute_prob01min_states"><code class="docutils literal notranslate"><span class="pre">compute_prob01min_states()</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.compute_steady_state_distribution"><code class="docutils literal notranslate"><span class="pre">compute_steady_state_distribution()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.compute_transient_probabilities"><code class="docutils literal notranslate"><span class="pre">compute_transient_probabilities()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.construct_submodel"><code class="docutils literal notranslate"><span class="pre">construct_submodel()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.create_filter_initial_states_sparse"><code class="docutils literal notranslate"><span class="pre">create_filter_initial_states_sparse()</span></code></a></li>
@@ -5529,7 +5532,7 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.JaniModel.flatten_composition">
-<span class="sig-name descname"><span class="pre">flatten_composition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.JaniModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_solver_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f0913cc9830&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.JaniModel" title="stormpy.storage.storage.JaniModel"><span class="pre">stormpy.storage.storage.JaniModel</span></a></span></span><a class="headerlink" href="#stormpy.JaniModel.flatten_composition" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">flatten_composition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.JaniModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_solver_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f7bafe2d6f0&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.JaniModel" title="stormpy.storage.storage.JaniModel"><span class="pre">stormpy.storage.storage.JaniModel</span></a></span></span><a class="headerlink" href="#stormpy.JaniModel.flatten_composition" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -7061,7 +7064,7 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.PrismProgram.flatten">
-<span class="sig-name descname"><span class="pre">flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.PrismProgram</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f0913cd6370&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.PrismProgram" title="stormpy.storage.storage.PrismProgram"><span class="pre">stormpy.storage.storage.PrismProgram</span></a></span></span><a class="headerlink" href="#stormpy.PrismProgram.flatten" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.PrismProgram</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f7bafe3a7b0&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.PrismProgram" title="stormpy.storage.storage.PrismProgram"><span class="pre">stormpy.storage.storage.PrismProgram</span></a></span></span><a class="headerlink" href="#stormpy.PrismProgram.flatten" title="Link to this definition">¶</a></dt>
 <dd><p>Put program into a single module</p>
 </dd></dl>
 
@@ -9742,6 +9745,23 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <dt class="sig sig-object py" id="stormpy.compute_prob01min_states">
 <span class="sig-name descname"><span class="pre">compute_prob01min_states</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phi_states</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">psi_states</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.compute_prob01min_states" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stormpy.compute_steady_state_distribution">
+<span class="sig-name descname"><span class="pre">compute_steady_state_distribution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">environment</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.compute_steady_state_distribution" title="Link to this definition">¶</a></dt>
+<dd><p>Compute the steady-state (aka stationary) distribution. Model must be deterministic.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>environment</strong> – A model checking environment</p></li>
+<li><p><strong>model</strong> – A DTMC or CTMC</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A vector with the steady-state distribution</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="stormpy.compute_transient_probabilities">

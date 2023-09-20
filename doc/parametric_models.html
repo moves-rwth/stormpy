@@ -380,6 +380,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../api/core.html#stormpy.compute_prob01_states"><code class="docutils literal notranslate"><span class="pre">compute_prob01_states()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/core.html#stormpy.compute_prob01max_states"><code class="docutils literal notranslate"><span class="pre">compute_prob01max_states()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/core.html#stormpy.compute_prob01min_states"><code class="docutils literal notranslate"><span class="pre">compute_prob01min_states()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/core.html#stormpy.compute_steady_state_distribution"><code class="docutils literal notranslate"><span class="pre">compute_steady_state_distribution()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/core.html#stormpy.compute_transient_probabilities"><code class="docutils literal notranslate"><span class="pre">compute_transient_probabilities()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/core.html#stormpy.construct_submodel"><code class="docutils literal notranslate"><span class="pre">construct_submodel()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/core.html#stormpy.create_filter_initial_states_sparse"><code class="docutils literal notranslate"><span class="pre">create_filter_initial_states_sparse()</span></code></a></li>
@@ -881,14 +882,14 @@ q
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(&lt;= (* (- 1) p) 0)
 (&lt;= (+ p (- 1)) 0)
-(&lt;= (* (- 1) q) 0)
 (&lt;= (+ q (- 1)) 0)
+(&lt;= (* (- 1) p) 0)
+(&lt;= (* (- 1) q) 0)
 (!= p 0)
-(!= q 0)
-(!= (+ p (- 1)) 0)
 (!= (+ q (- 1)) 0)
+(!= (+ p (- 1)) 0)
+(!= q 0)
 </pre></div></div>
 </div>
 </section>
