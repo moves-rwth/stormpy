@@ -83,7 +83,7 @@ void define_sparse_matrix(py::module& m, std::string const& vtSuffix) {
             }, py::return_value_policy::reference, py::keep_alive<1, 0>(), py::arg("row"), "Get row")
         .def("get_rows_for_group", [](SparseMatrix<ValueType>& matrix, entry_index<ValueType> group) {
                 auto range = matrix.getRowGroupIndices(group);
-                return std::vector(range.begin(), range.end());
+                return std::vector<uint64_t>(range.begin(), range.end());
             }, py::arg("row_group"), "Get rows within a row group")
         .def("print_row", [](SparseMatrix<ValueType> const& matrix, entry_index<ValueType> row) {
                 std::stringstream stream;
