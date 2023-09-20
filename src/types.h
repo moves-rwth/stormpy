@@ -22,5 +22,3 @@ typedef carl::FactorizedPolynomial<Polynomial> FactorizedPolynomial;
 typedef carl::RationalFunction<Polynomial, true> RationalFunction;
 typedef carl::RationalFunction<FactorizedPolynomial, true> FactorizedRationalFunction;
 typedef carl::PolynomialFactorizationPair<Polynomial> FactorizationPair;
-
-using Interval = carl::Interval<Rational>;

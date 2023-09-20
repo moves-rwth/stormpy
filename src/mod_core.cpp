@@ -3,6 +3,7 @@
 #include "core/variable.h"
 #include "core/monomial.h"
 #include "core/bound_type.h"
+#include "typed_core/interval.h"
 
 PYBIND11_MODULE(core, m) {
     m.doc() = "pycarl core untyped functions";
@@ -11,6 +12,8 @@ PYBIND11_MODULE(core, m) {
     define_variable(m);
     define_monomial(m);
     define_boundtype(m);
+
+    define_interval<double>(m);
 
     py::register_exception<NoPickling>(m, "NoPicklingSupport");
 }
