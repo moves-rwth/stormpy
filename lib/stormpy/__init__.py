@@ -300,7 +300,9 @@ def check_model_sparse(model, property, only_initial_states=False, extract_sched
         if force_fully_observable:
             # Note that casting a model to a fully observable model wont work with python/pybind, so we actually have other access points
             if model.supports_parameters:
-                raise NotImplementedError("")
+                raise NotImplementedError("Model checking of partially observable models is not supported for parametric models.")
+            elif model.supports_uncertainty:
+                raise NotImplementedError("Model checking of partially observable models is not supported for interval models.")
             elif model.is_exact:
                 task = core.ExactCheckTask(formula, only_initial_states)
                 task.set_produce_schedulers(extract_scheduler)
@@ -619,6 +621,8 @@ def export_to_drn(model, file, options=DirectEncodingOptions()):
     """
     if model.supports_parameters:
         return core._export_parametric_to_drn(model, file, options)
+    if model.supports_uncertainty:
+        return core._export_to_drn_interval(model, file, options)
     if model.is_exact:
         return core._export_exact_to_drn(model, file, options)
     return core._export_to_drn(model, file, options)

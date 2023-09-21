@@ -200,7 +200,8 @@ void define_sparse_model(py::module& m, std::string const& vtSuffix) {
     // Models with double numbers
     py::class_<SparseModel<ValueType>, std::shared_ptr<SparseModel<ValueType>>, ModelBase> model(m, ("_Sparse" + vtSuffix + "Model").c_str(),
                                                                                            "A probabilistic model where transitions are represented by doubles and saved in a sparse matrix");
-    model.def_property_readonly("labeling", &getLabeling<ValueType>, "Labels")
+    model.def_property_readonly("supports_uncertainty", &SparseModel<ValueType>::supportsUncertainty, "Flag whether model supports uncertainty via intervals")
+        .def_property_readonly("labeling", &getLabeling<ValueType>, "Labels")
         .def("has_choice_labeling", [](SparseModel<ValueType> const& model) {return model.hasChoiceLabeling();}, "Does the model have an associated choice labelling?")
         .def_property_readonly("choice_labeling", [](SparseModel<ValueType> const& model) {return model.getChoiceLabeling();}, "get choice labelling")
         .def("has_choice_origins", [](SparseModel<ValueType> const& model) {return model.hasChoiceOrigins();}, "has choice origins?")
@@ -453,3 +454,4 @@ void define_symbolic_model(py::module& m, std::string vt_suffix) {
 template void define_symbolic_model<storm::dd::DdType::Sylvan>(py::module& m, std::string vt_suffix);
 template void define_sparse_model<double>(py::module& m, std::string const& vt_suffix);
 template void define_sparse_model<storm::RationalNumber>(py::module& m, std::string const& vt_suffix);
+template void define_sparse_model<storm::Interval>(py::module& m, std::string const& vt_suffix);
