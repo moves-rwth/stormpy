@@ -4,6 +4,7 @@ from configurations import pomdp
 
 from helpers.helper import get_example_path
 
+import math
 
 @pomdp
 class TestPomdpQuantitative:
@@ -18,10 +19,11 @@ class TestPomdpQuantitative:
         options.use_clipping = False
         belmc = stormpy.pomdp.BeliefExplorationModelCheckerDouble(model, options)
         result = belmc.check(formulas[0].raw_formula, [])
-        print(result.lower_bound)
-        print(result.upper_bound)
-        print(result.induced_mc_from_scheduler)
-        print(result.cutoff_schedulers[0])
+        assert math.isclose(result.lower_bound, 0.351985, abs_tol=10**-6)
+        assert math.isinf(result.upper_bound)
+        assert result.induced_mc_from_scheduler.nr_states == 10
+        assert result.induced_mc_from_scheduler.nr_transitions == 23
+        assert len(result.cutoff_schedulers) == 4
 
     def test_underapprox_mc_maze_rmin(self):
         program = stormpy.parse_prism_program(get_example_path("pomdp", "maze_2.prism"))
@@ -34,10 +36,11 @@ class TestPomdpQuantitative:
         options.use_clipping = False
         belmc = stormpy.pomdp.BeliefExplorationModelCheckerDouble(model, options)
         result = belmc.check(formulas[0].raw_formula, [])
-        print(result.lower_bound)
-        print(result.upper_bound)
-        print(result.induced_mc_from_scheduler)
-        print(result.cutoff_schedulers[0])
+        assert math.isinf(result.lower_bound)
+        assert math.isclose(result.upper_bound, 12.270484, abs_tol=10**-6)
+        assert result.induced_mc_from_scheduler.nr_states == 9
+        assert result.induced_mc_from_scheduler.nr_transitions == 17
+        assert len(result.cutoff_schedulers) == 3
 
     def test_underapprox_mc_cmaze_rmin(self):
         program = stormpy.parse_prism_program(get_example_path("pomdp", "maze-concise.prism"))
@@ -50,7 +53,8 @@ class TestPomdpQuantitative:
         options.use_clipping = False
         belmc = stormpy.pomdp.BeliefExplorationModelCheckerDouble(model, options)
         result = belmc.check(formulas[0].raw_formula, [])
-        print(result.lower_bound)
-        print(result.upper_bound)
-        print(result.induced_mc_from_scheduler)
-        print(result.cutoff_schedulers[0])
+        assert math.isinf(result.lower_bound)
+        assert math.isclose(result.upper_bound, 19.781437, abs_tol=10**-6)
+        assert result.induced_mc_from_scheduler.nr_states == 9
+        assert result.induced_mc_from_scheduler.nr_transitions == 15
+        assert len(result.cutoff_schedulers) == 3
