@@ -62,7 +62,7 @@ class CMakeBuild(build_ext):
         cmake_args = []
         storm_dir = os.path.expanduser(self.config.get_as_string("storm_dir"))
         if storm_dir:
-            cmake_args += ['-Dstorm_DIR=' + storm_dir]
+            cmake_args += ['-DSTORM_DIR_HINT=' + storm_dir]
         _ = subprocess.check_output(['cmake', os.path.abspath("cmake")] + cmake_args, cwd=build_temp_version)
         cmake_conf = setup_helper.load_cmake_config(os.path.join(build_temp_version, 'generated/config.py'))
 
@@ -120,15 +120,16 @@ class CMakeBuild(build_ext):
         build_type = 'Debug' if self.config.get_as_bool("debug") else 'Release'
         # Set cmake build options
         cmake_args = ['-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=' + self._extdir("core")]
-        cmake_args += ['-DPYTHON_EXECUTABLE=' + sys.executable]
+        cmake_args += ['-DPython_EXECUTABLE=' + sys.executable]
         cmake_args += ['-DCMAKE_BUILD_TYPE=' + build_type]
         cmake_args += ['-DPYBIND_VERSION=' + pybind_version]
         if storm_dir is not None:
-            cmake_args += ['-Dstorm_DIR=' + storm_dir]
+            cmake_args += ['-DSTORM_DIR_HINT=' + storm_dir]
         cmake_args += ['-DUSE_STORM_DFT=' + ('ON' if use_dft else 'OFF')]
         cmake_args += ['-DUSE_STORM_GSPN=' + ('ON' if use_gspn else 'OFF')]
         cmake_args += ['-DUSE_STORM_PARS=' + ('ON' if use_pars else 'OFF')]
         cmake_args += ['-DUSE_STORM_POMDP=' + ('ON' if use_pomdp else 'OFF')]
+
         # Configure extensions
         env = os.environ.copy()
         env['CXXFLAGS'] = '{} -DVERSION_INFO=\\"{}\\"'.format(env.get('CXXFLAGS', ''), self.distribution.get_version())

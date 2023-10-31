@@ -360,6 +360,9 @@ void define_sparse_parametric_model(py::module& m) {
     ;
 
     py::class_<SparseRewardModel<RationalFunction>>(m, "SparseParametricRewardModel", "Reward structure for parametric sparse models")
+        .def(py::init<std::optional<std::vector<RationalFunction>> const&, std::optional<std::vector<RationalFunction>> const&,
+                std::optional<storm::storage::SparseMatrix<RationalFunction>> const&>(), py::arg("optional_state_reward_vector") = std::nullopt,
+                py::arg("optional_state_action_reward_vector") = std::nullopt,  py::arg("optional_transition_reward_matrix") = std::nullopt)
         .def_property_readonly("has_state_rewards", &SparseRewardModel<RationalFunction>::hasStateRewards)
         .def_property_readonly("has_state_action_rewards", &SparseRewardModel<RationalFunction>::hasStateActionRewards)
         .def_property_readonly("has_transition_rewards", &SparseRewardModel<RationalFunction>::hasTransitionRewards)

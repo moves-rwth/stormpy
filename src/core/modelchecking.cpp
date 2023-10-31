@@ -75,6 +75,10 @@ template<typename ValueType>
 std::shared_ptr<storm::modelchecker::CheckResult> getExpectedNumberOfVisits(storm::Environment const& env, std::shared_ptr<storm::models::sparse::Model<ValueType>> const& model) {
     return storm::api::computeExpectedVisitingTimesWithSparseEngine(env, model);
 }
+template<typename ValueType>
+std::shared_ptr<storm::modelchecker::CheckResult> getSteadyStateDistribution(storm::Environment const& env, std::shared_ptr<storm::models::sparse::Model<ValueType>> const& model) {
+    return storm::api::computeSteadyStateDistributionWithSparseEngine(env, model);
+}
 
 template<typename ValueType>
 storm::storage::BitVector getReachableStates(storm::models::sparse::Model<ValueType> const& model, storm::storage::BitVector const& initialStates, storm::storage::BitVector const& constraintStates, storm::storage::BitVector const& targetStates, boost::optional<uint64_t> maximalStep, boost::optional<storm::storage::BitVector> const& choiceFilter) {
@@ -122,6 +126,9 @@ void define_modelchecking(py::module& m) {
 
     m.def("_compute_expected_number_of_visits_double", &getExpectedNumberOfVisits<double>, py::arg("env"), py::arg("model"));
     m.def("_compute_expected_number_of_visits_exact", &getExpectedNumberOfVisits<storm::RationalNumber>,  py::arg("env"), py::arg("model"));
+
+    m.def("_compute_steady_state_distribution_double", &getSteadyStateDistribution<double>, py::arg("env"), py::arg("model"));
+    m.def("_compute_steady_state_distribution_exact", &getSteadyStateDistribution<storm::RationalNumber>,  py::arg("env"), py::arg("model"));
 
     // Model checking
     m.def("_model_checking_fully_observable", &modelCheckingFullyObservableSparseEngine<double>, py::arg("model"), py::arg("task"), py::arg("environment")  = storm::Environment());
