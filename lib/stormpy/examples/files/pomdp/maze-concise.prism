@@ -1,0 +1,85 @@
+pomdp
+
+// 3 | x x x x x
+// 2 | x   x   x
+// 1 | x   x   x
+// 0 | x   x   x
+// y ____________
+//   x 0 1 2 3 4
+
+// can go in this direction
+formula u = y<3;
+formula r = y=3 & x<4;
+formula d = y>0 & (x=0 | x=2 | x=4);
+formula l = y=3 & x>0;
+
+// target cell
+formula goal = x=2 & y=0;
+formula bad = (x=0 | x=4) & y=0;
+
+// updates of coordinates (if possible)
+formula yu = u ? (y+1) : y;
+formula xr = r ? (x+1) : x;
+formula yd = d ? (y-1) : y;
+formula xl = l ? (x-1) : x;
+
+// corresponding observables
+observable "u" = clk=1 & u;
+observable "r" = clk=1 & r;
+observable "d" = clk=1 & d;
+observable "l" = clk=1 & l;
+observable "goal" = goal;
+observable "bad" = bad;
+
+
+// modules
+
+module clock
+    // 0 - init, 1 - drive
+    clk : [0..1] init 0;
+
+    // random placement
+    [place] clk=0 -> (clk'=1);
+
+    // drive
+    [up] 	clk=1 -> true;
+    [right] clk=1 -> true;
+    [down] 	clk=1 -> true;
+    [left]  clk=1 -> true;
+endmodule
+
+module maze
+
+	x : [0..4] init 0;
+    y : [0..3] init 0;
+
+	// initialisation
+	[place] true ->
+          1/13 :    (x'=0)&(y'=0)
+        + 1/13 :    (x'=0)&(y'=1)
+		+ 1/13 :    (x'=0)&(y'=2)
+		+ 1/13 :    (x'=0)&(y'=3)
+		+ 1/13 :    (x'=1)&(y'=3)
+		+ 1/13 :    (x'=2)&(y'=0)
+		+ 1/13 :    (x'=2)&(y'=1)
+		+ 1/13 :    (x'=2)&(y'=2)
+		+ 1/13 :    (x'=2)&(y'=3)
+		+ 1/13 :    (x'=3)&(y'=3)
+		+ 1/13 :    (x'=4)&(y'=1)
+		+ 1/13 :    (x'=4)&(y'=2)
+		+ 1/13 :    (x'=4)&(y'=3);
+
+	// moving around the maze (all combinations)
+
+    [up]        true -> 0.8: (y'=yu) + 0.08: (x'=xr) + 0.08: (x'=xl) + 0.04: (y'=yd);
+    [right]     true -> 0.8: (x'=xr) + 0.08: (y'=yu) + 0.08: (y'=yd) + 0.04: (x'=xl);
+    [down]      true -> 0.8: (y'=yd) + 0.08: (x'=xr) + 0.08: (x'=xl) + 0.04: (y'=yu);
+    [left]      true -> 0.8: (x'=xl) + 0.08: (y'=yu) + 0.08: (y'=yd) + 0.04: (x'=xr);
+
+endmodule
+
+// rewards
+
+rewards "steps"
+	clk=1: 1;
+endrewards
