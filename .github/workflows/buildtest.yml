@@ -21,76 +21,55 @@ env:
 
 jobs:
   indepthTests:
-    name: Indepth Tests (${{ matrix.debugOrRelease}}, ${{ matrix.setupArgs.name }})
+    name: Indepth Tests (${{ matrix.buildType.name }}, ${{ matrix.configuration.name }})
     runs-on: ubuntu-latest
-    env:
-      RELEASE_IMG: "storm:ci-release"
-      DEBUG_IMG: "storm:ci-debug"
     strategy:
       matrix:
-        debugOrRelease: ["debug", "release"]
-        setupArgs:
-          - {name: "all libraries", disableFlags: "", optionalLibs: "[numpy,plot]"}
-          - {name: "no libraries", disableFlags: "--disable-dft --disable-gspn --disable-pars --disable-pomdp", optionalLibs: ""}
+        buildType:
+          - {name: "Debug", dockerTag: "ci-debug", stormTag: "ci-debug", buildArgs: "BUILD_TYPE=Debug", setupArgs: "--debug"}
+          - {name: "Release", dockerTag: "ci", stormTag: "ci", buildArgs: "BUILD_TYPE=Release", setupArgs: ""}
+        configuration:
+          - {name: "all libraries", disableFlags: "", optionalLibs: "[numpy,plot]", testOpt: ""}
+          - {name: "no libraries", disableFlags: "--disable-dft --disable-gspn --disable-pars --disable-pomdp", optionalLibs: "", testOpt: "--addopts tests"}
     steps:
-      - name: Setup environment variables
-        # this is strangely the best way to implement environment variables based on the value of another
-        # GITHUB_ENV is a magic variable pointing to a file; if a line with format {NAME}={VALUE}
-        # then the env variable with name NAME will be created/updated with VALUE
-        run: |
-          ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "BUILD_TYPE=Debug" || echo "BUILD_TYPE=Release") >> $GITHUB_ENV
-          ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "IMG=${DEBUG_IMG}" || echo "IMG=${RELEASE_IMG}") >> $GITHUB_ENV
-          ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "DEBUG_SWITCH=--debug" || true) >> $GITHUB_ENV
-          # Restrict tests to directory 'tests' (excluding examples and documentation) if not all libraries are present
-          ([[ "${{ matrix.setupArgs.disableFlags }}" != "" ]] && echo "TEST_OPT=--addopts tests" || true) >> $GITHUB_ENV
-
       - name: Git clone
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Build stormpy from Dockerfile
-        run: docker build -t movesrwth/stormpy:ci-${{ matrix.debugOrRelease }} . --build-arg STORM_BASE=movesrwth/${IMG} --build-arg build_type=${BUILD_TYPE} --build-arg setup_args="${DEBUG_SWITCH} ${{ matrix.setupArgs.disableFlags }}" --build-arg setup_args_pycarl=${DEBUG_SWITCH} --build-arg no_threads=${NR_JOBS}
+        run: docker build -t movesrwth/stormpy:${{ matrix.buildType.dockerTag }} . --build-arg STORM_BASE=movesrwth/storm:${{ matrix.buildType.stormTag }} --build-arg build_type=${{ matrix.buildType.buildArgs }} --build-arg setup_args="${{ matrix.buildType.setupArgs }} ${{ matrix.configuration.disableFlags }}" --build-arg setup_args_pycarl=${{ matrix.buildType.setupArgs }} --build-arg no_threads=${NR_JOBS}
       - name: Run Docker
-        run: docker run -d -it --name ci movesrwth/stormpy:ci-${{ matrix.debugOrRelease }}
+        run: docker run -d -it --name ci movesrwth/stormpy:${{ matrix.buildType.dockerTag }}
       - name: Build optional stormpy libraries
-        run: docker exec ci bash -c "cd /opt/stormpy; pip3 install -e '.${{ matrix.setupArgs.optionalLibs }}'"
+        run: docker exec ci bash -c "cd /opt/stormpy; pip3 install -e '.${{ matrix.configuration.optionalLibs }}'"
       - name: Run tests
-        run: docker exec ci bash -c "cd /opt/stormpy; python setup.py test $TEST_OPT"
+        run: docker exec ci bash -c "cd /opt/stormpy; python setup.py test ${{ matrix.configuration.testOpt }}"
 
 
   stableTest:
-    name: Test on stable
+    name: Test on stable (${{ matrix.buildType.name }})
     runs-on: ubuntu-latest
-    env:
-      RELEASE_IMG: "storm:stable"
-      DEBUG_IMG: "storm:stable-debug"
     strategy:
       matrix:
-        debugOrRelease: ["debug", "release"]
+        buildType:
+          - {name: "Debug", dockerTag: "ci-debug", stormTag: "stable-debug", buildArgs: "BUILD_TYPE=Debug", setupArgs: "--debug"}
+          - {name: "Release", dockerTag: "ci", stormTag: "stable", buildArgs: "BUILD_TYPE=Release", setupArgs: ""}
 
     # Allow failures of stable versions as new features might have been added
     steps:
-      - name: Setup environment variables
-        # this is strangely the best way to implement environment variables based on the value of another
-        # GITHUB_ENV is a magic variable pointing to a file; if a line with format {NAME}={VALUE}
-        # then the env variable with name NAME will be created/updated with VALUE
-        run: |
-          ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "BUILD_TYPE=Debug" || echo "BUILD_TYPE=Release") >> $GITHUB_ENV
-          ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "IMG=${DEBUG_IMG}" || echo "IMG=${RELEASE_IMG}") >> $GITHUB_ENV
-          ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "DEBUG_SWITCH=--debug" || true) >> $GITHUB_ENV
-
       - name: Git clone
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Replace Dockerfile
         run: cp .github/workflows/Dockerfile.stable Dockerfile
       - name: Build dependencies
-        run: docker build -t movesrwth/stormpy:ci-${{ matrix.debugOrRelease }} . --build-arg STORM_BASE=movesrwth/${IMG} --build-arg build_type=${BUILD_TYPE} --build-arg setup_args_pycarl=${DEBUG_SWITCH} --build-arg no_threads=${NR_JOBS}
+        run: docker build -t movesrwth/stormpy:${{ matrix.buildType.dockerTag }} . --build-arg STORM_BASE=movesrwth/storm:${{ matrix.buildType.stormTag }} --build-arg build_type=${{ matrix.buildType.buildArgs }} --build-arg setup_args_pycarl=${{ matrix.buildType.setupArgs }} --build-arg no_threads=${NR_JOBS}
+
       - name: Run Docker
-        run: docker run -d -it --name ci movesrwth/stormpy:ci-${{ matrix.debugOrRelease }}
+        run: docker run -d -it --name ci movesrwth/stormpy:${{ matrix.buildType.dockerTag }}
       - name: Build stormpy
         # Build stormpy explicitly to catch exit code
         id: build_stormpy
         shell: bash {0} // Deactivate fast-fail to handle exit code for incompatibility
         run: |
-          docker exec ci bash -c "cd /opt/stormpy; python setup.py build_ext ${DEBUG_SWITCH} -j ${NR_JOBS} develop"
+          docker exec ci bash -c "cd /opt/stormpy; python setup.py build_ext ${{ matrix.buildType.setupArgs }} -j ${NR_JOBS} develop"
           status=$?
           if [ $status -eq 42 ]; then
             # Warn about incompatibility but do not handle as failure
@@ -107,30 +86,20 @@ jobs:
 
 
   deploy:
-    name: Test and Deploy on latest
+    name: Test and Deploy on latest (${{ matrix.buildType.name }})
     runs-on: ubuntu-latest
-    env:
-      RELEASE_IMG: "storm:ci-release"
-      DEBUG_IMG: "storm:ci-debug"
     strategy:
       matrix:
-        debugOrRelease: ["debug", "release"]
+        buildType:
+          - {name: "Debug", dockerTag: "ci-debug", stormTag: "ci-debug", buildArgs: "BUILD_TYPE=Debug", setupArgs: "--debug"}
+          - {name: "Release", dockerTag: "ci", stormTag: "ci", buildArgs: "BUILD_TYPE=Release", setupArgs: ""}
     steps:
-      - name: Setup environment variables
-        # this is strangely the best way to implement environment variables based on the value of another
-        # GITHUB_ENV is a magic variable pointing to a file; if a line with format {NAME}={VALUE}
-        # then the env variable with name NAME will be created/updated with VALUE
-        run: |
-          ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "CMAKE_ARGS=${CMAKE_DEBUG}" || echo "CMAKE_ARGS=${CMAKE_RELEASE}") >> $GITHUB_ENV
-          ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "IMG=${DEBUG_IMG}" || echo "IMG=${RELEASE_IMG}") >> $GITHUB_ENV
-          ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "DEBUG_SWITCH=--debug" || true) >> $GITHUB_ENV
-
       - name: Git clone
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Build stormpy from Dockerfile
-        run: docker build -t movesrwth/stormpy:ci-${{ matrix.debugOrRelease }} . --build-arg STORM_BASE=movesrwth/${IMG} --build-arg build_type=${BUILD_TYPE} --build-arg setup_args=${DEBUG_SWITCH} --build-arg setup_args_pycarl=${DEBUG_SWITCH} --build-arg no_threads=${NR_JOBS}
+        run: docker build -t movesrwth/stormpy:${{ matrix.buildType.dockerTag }} . --build-arg STORM_BASE=movesrwth/storm:${{ matrix.buildType.stormTag }} --build-arg build_type=${{ matrix.buildType.buildArgs }} --build-arg setup_args=${{ matrix.buildType.setupArgs }} --build-arg setup_args_pycarl=${{ matrix.buildType.setupArgs }} --build-arg no_threads=${NR_JOBS}
       - name: Run Docker
-        run: docker run -d -it --name ci movesrwth/stormpy:ci-${{ matrix.debugOrRelease }}
+        run: docker run -d -it --name ci movesrwth/stormpy:${{ matrix.buildType.dockerTag }}
       - name: Run tests
         run: docker exec ci bash -c "cd /opt/stormpy; python setup.py test"
 
@@ -142,23 +111,23 @@ jobs:
         # Only deploy if using master on original repo (and not for pull requests or forks)
         if: github.repository_owner == 'moves-rwth' && github.ref == 'refs/heads/master'
         run: |
-          docker commit ci movesrwth/stormpy:ci-${{ matrix.debugOrRelease }}
-          docker push movesrwth/stormpy:ci-${{ matrix.debugOrRelease }}
+          docker commit ci movesrwth/stormpy:${{ matrix.buildType.dockerTag }}
+          docker push movesrwth/stormpy:${{ matrix.buildType.dockerTag }}
 
       - name: Install documentation dependencies
-        if: matrix.debugOrRelease == 'release'
+        if: matrix.buildType.name == 'Release'
         run: |
           docker exec ci apt-get install -qq -y pandoc
           docker exec ci bash -c "cd /opt/stormpy; pip install -e '.[doc,numpy]'"
       - name: Build documentation
-        if: matrix.debugOrRelease == 'release'
+        if: matrix.buildType.name == 'Release'
         run: |
           docker exec ci bash -c "cd /opt/stormpy/doc; make html"
           docker exec ci rm -r /opt/stormpy/doc/build/html/_sources
           docker cp ci:/opt/stormpy/doc/build/html .
       - name: Deploy documentation
         # Only deploy for release version and using master on original repo (and not for pull requests or forks)
-        if: matrix.debugOrRelease == 'release' && github.repository_owner == 'moves-rwth' && github.ref == 'refs/heads/master'
+        if: matrix.buildType.name == 'Release' && github.repository_owner == 'moves-rwth' && github.ref == 'refs/heads/master'
         uses: peaceiris/actions-gh-pages@v3
         with:
           personal_token: ${{ secrets.GITHUB_TOKEN }}
@@ -171,8 +140,8 @@ jobs:
     # Only run in main repo and even if previous step failed
     if: github.repository_owner == 'moves-rwth' && always()
     steps:
-      - uses: technote-space/workflow-conclusion-action@v2
-      - uses: dawidd6/action-send-mail@v2
+      - uses: technote-space/workflow-conclusion-action@v3
+      - uses: dawidd6/action-send-mail@v3
         with:
           server_address: ${{ secrets.STORM_CI_MAIL_SERVER }}
           server_port: 587
