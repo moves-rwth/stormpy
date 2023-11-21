@@ -71,7 +71,21 @@ class TestSparseModel:
         with pytest.raises(stormpy.StormError):
             model = stormpy.build_model(jani_model)
 
-    def test_build_instantiated_dtmc(self):
+    def test_build_instantiated_dtmc_prism(self):
+        program = stormpy.parse_prism_program(get_example_path("dtmc", "brp.pm"))
+        assert program.has_undefined_constants
+        assert not program.undefined_constants_are_graph_preserving
+        description = stormpy.SymbolicModelDescription(program)
+        constant_definitions = description.parse_constant_definitions("N=16, MAX=2")
+        instantiated_program = description.instantiate_constants(constant_definitions).as_prism_program()
+        model = stormpy.build_model(instantiated_program)
+        assert model.nr_states == 677
+        assert model.nr_transitions == 867
+        assert model.model_type == stormpy.ModelType.DTMC
+        assert not model.supports_parameters
+        assert type(model) is stormpy.SparseDtmc
+
+    def test_build_instantiated_dtmc_jani(self):
         jani_model, properties = stormpy.parse_jani_model(get_example_path("dtmc", "brp.jani"))
         assert jani_model.has_undefined_constants
         assert not jani_model.undefined_constants_are_graph_preserving
