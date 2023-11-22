@@ -6,6 +6,7 @@
 #include "storm/modelchecker/csl/helper/SparseCtmcCslHelper.h"
 #include "storm/modelchecker/multiobjective/multiObjectiveModelChecking.h"
 #include "storm/environment/Environment.h"
+#include "storm/utility/graph.h"
 
 template<typename ValueType>
 using CheckTask = storm::modelchecker::CheckTask<storm::logic::Formula, ValueType>;
