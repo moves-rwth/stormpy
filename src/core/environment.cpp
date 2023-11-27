@@ -34,7 +34,6 @@ void define_environment(py::module& m) {
         .value("interval_iteration", storm::solver::MinMaxMethod::IntervalIteration)
         .value("sound_value_iteration", storm::solver::MinMaxMethod::SoundValueIteration)
         .value("optimistic_value_iteration", storm::solver::MinMaxMethod::OptimisticValueIteration)
-        .value("topological_cuda", storm::solver::MinMaxMethod::TopologicalCuda)
     ;
 
     py::class_<storm::Environment>(m, "Environment", "Environment")
