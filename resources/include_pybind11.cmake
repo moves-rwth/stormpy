@@ -9,6 +9,7 @@ else()
         pybind11
         GIT_REPOSITORY https://github.com/pybind/pybind11
         GIT_TAG        "v${PYBIND_VERSION}"
+        PATCH_COMMAND git apply ${CMAKE_CURRENT_SOURCE_DIR}/resources/pybind11_${PYBIND_VERSION}.patch || git apply ${CMAKE_CURRENT_SOURCE_DIR}/resources/pybind11_${PYBIND_VERSION}.patch --reverse --check
     )
 
     FetchContent_MakeAvailable(pybind11)
