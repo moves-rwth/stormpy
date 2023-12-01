@@ -22,6 +22,9 @@ void define_dft_elements(py::module& m) {
         .value("PDEP", storm::dft::storage::elements::DFTElementType::PDEP)
         .value("SEQ", storm::dft::storage::elements::DFTElementType::SEQ)
         .value("MUTEX", storm::dft::storage::elements::DFTElementType::MUTEX)
+        .def("__str__", [](storm::dft::storage::elements::DFTElementType type) {
+                return storm::dft::storage::elements::toString(type);
+            }, py::prepend() /* use custom method instead of default enum overload */)
     ;
 }
 
@@ -41,6 +44,8 @@ void define_dft_elements_typed(py::module& m, std::string const& vt_suffix) {
     ;
 
     py::class_<Dependency<ValueType>, std::shared_ptr<Dependency<ValueType>>>(m, ("DFTDependency"+vt_suffix).c_str(), "Dependency", element)
+        .def_property_readonly("trigger", &Dependency<ValueType>::triggerEvent, "Trigger event")
+        .def_property_readonly("dependent_events", &Dependency<ValueType>::dependentEvents, "Dependent events")
         .def("__str__", &Dependency<ValueType>::toString)
     ;
 

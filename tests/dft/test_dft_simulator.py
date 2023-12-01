@@ -85,9 +85,10 @@ class TestSimulator:
         # Let C fail
         failable = state.failable()
         for f in failable:
-            fail_be = f.get_fail_be_double(dft)
-            assert fail_be[0].name in failable_check
-            if fail_be[0].name == "C":
+            assert not f.is_due_dependency()
+            fail_be = f.as_be_double(dft)
+            assert fail_be.name in failable_check
+            if fail_be.name == "C":
                 next_fail = f
         res = simulator.step(next_fail)
         assert res == stormpy.dft.SimulationResult.SUCCESSFUL
@@ -103,8 +104,9 @@ class TestSimulator:
         state = simulator.current()
         failable = state.failable()
         for f in failable:
-            fail_be = f.get_fail_be_double(dft)
-            assert fail_be[0].name == "B"
+            assert not f.is_due_dependency()
+            fail_be = f.as_be_double(dft)
+            assert fail_be.name == "B"
             next_fail = f
         res = simulator.step(next_fail)
         assert res == stormpy.dft.SimulationResult.SUCCESSFUL
@@ -142,9 +144,10 @@ class TestSimulator:
         # Let B_Power fail
         failable = state.failable()
         for f in failable:
-            fail_be = f.get_fail_be_double(dft)
-            assert fail_be[0].name in ["B", "P", "B_Power"]
-            if fail_be[0].name == "B_Power":
+            assert not f.is_due_dependency()
+            fail_be = f.as_be_double(dft)
+            assert fail_be.name in ["B", "P", "B_Power"]
+            if fail_be.name == "B_Power":
                 next_fail = f
         res = simulator.step(next_fail)
         assert res == stormpy.dft.SimulationResult.SUCCESSFUL
@@ -156,9 +159,12 @@ class TestSimulator:
         # Let B fail
         failable = state.failable()
         for f in failable:
-            fail_be = f.get_fail_be_double(dft)
-            assert fail_be[0].name in ["B", "P"]
-            if fail_be[0].name == "B":
+            assert f.is_due_dependency
+            fail_dependency = f.as_dependency_double(dft)
+            assert len(fail_dependency.dependent_events) == 1
+            fail_be = fail_dependency.dependent_events[0]
+            assert fail_be.name in ["B", "P"]
+            if fail_be.name == "B":
                 next_fail = f
         res = simulator.step(next_fail)
         assert res == stormpy.dft.SimulationResult.SUCCESSFUL
