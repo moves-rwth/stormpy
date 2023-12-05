@@ -10,7 +10,7 @@ if pycarl.has_cln():
 
 
 @pytest.mark.parametrize("convert_package,converter", parameters, ids=names)
-class TestConvertExplicit():
+class TestConvertExplicit:
     def test_convert_int(self, convert_package, converter):
         original = -2
         assert isinstance(original, int)

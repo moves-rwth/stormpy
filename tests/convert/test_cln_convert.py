@@ -3,7 +3,7 @@ from configurations import cln
 
 
 @cln
-class TestClnConvert():
+class TestClnConvert:
     def test_convert_int(self):
         original = 43
         assert isinstance(original, int)

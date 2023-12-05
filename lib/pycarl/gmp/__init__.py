@@ -15,12 +15,14 @@ def denominator(x):
     else:
         return 1
 
+
 def expand(x):
     if type(x) == gmp.FactorizedRationalFunction:
         return x.rational_function()
     if type(x) == gmp.FactorizedPolynomial:
         return x.polynomial()
     return x
+
 
 factorization_cache = gmp._FactorizationCache()
 

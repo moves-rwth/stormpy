@@ -92,10 +92,10 @@ def convert_factorized_polynomial(polynomial):
     if has_cln and isinstance(polynomial, pycarl.cln.FactorizedPolynomial):
         coefficient = convert_rational(polynomial.coefficient)
         converted = pycarl.gmp.FactorizedPolynomial(coefficient)
-        for (factor, exponent) in polynomial.factorization():
+        for factor, exponent in polynomial.factorization():
             pol = convert_polynomial(factor.polynomial())
             factorized = pycarl.gmp.create_factorized_polynomial(pol)
-            converted *= factorized ** exponent
+            converted *= factorized**exponent
         return converted
     elif isinstance(polynomial, pycarl.gmp.FactorizedPolynomial):
         return polynomial
@@ -133,6 +133,7 @@ def convert_constraint(constraint):
     else:
         raise TypeError("Constraint of type {} cannot be convert to gmp".format(type(constraint)))
 
+
 def convert_formula(formula):
     if isinstance(formula, pycarl.gmp.formula.Formula):
         return formula
@@ -141,12 +142,13 @@ def convert_formula(formula):
     if formula.type == pycarl.formula.FormulaType.FALSE:
         return pycarl.gmp.formula.Formula(pycarl.gmp.formula.Constraint(False))
     if formula.type == pycarl.formula.FormulaType.CONSTRAINT:
-            return convert_constraint(formula.get_constraint())
+        return convert_constraint(formula.get_constraint())
     if has_cln and isinstance(formula, pycarl.cln.formula.Formula):
         csubformulae = [pycarl.gmp.formula.Formula(convert(subf)) for subf in formula.get_subformulas()]
         return pycarl.gmp.formula.Formula(formula.type, csubformulae)
     else:
         raise TypeError("Formula of type {} cannot be convert to gmp".format(type(formula)))
+
 
 def convert(data):
     """
@@ -154,11 +156,9 @@ def convert(data):
     :param data: data structure.
     :return: gmp data structure.
     """
-    if (has_cln and isinstance(data, pycarl.cln.Integer)) or isinstance(data, pycarl.gmp.Integer) or isinstance(data,
-                                                                                                                int):
+    if (has_cln and isinstance(data, pycarl.cln.Integer)) or isinstance(data, pycarl.gmp.Integer) or isinstance(data, int):
         return convert_integer(data)
-    elif (has_cln and isinstance(data, pycarl.cln.Rational)) or isinstance(data, pycarl.gmp.Rational) or isinstance(
-            data, float):
+    elif (has_cln and isinstance(data, pycarl.cln.Rational)) or isinstance(data, pycarl.gmp.Rational) or isinstance(data, float):
         return convert_rational(data)
     elif (has_cln and isinstance(data, pycarl.cln.Term)) or isinstance(data, pycarl.gmp.Term):
         return convert_term(data)
@@ -166,18 +166,13 @@ def convert(data):
         return convert_polynomial(data)
     elif (has_cln and isinstance(data, pycarl.cln.RationalFunction)) or isinstance(data, pycarl.gmp.RationalFunction):
         return convert_rational_function(data)
-    elif (has_cln and isinstance(data, pycarl.cln.FactorizedPolynomial)) or isinstance(data,
-                                                                                       pycarl.gmp.FactorizedPolynomial):
+    elif (has_cln and isinstance(data, pycarl.cln.FactorizedPolynomial)) or isinstance(data, pycarl.gmp.FactorizedPolynomial):
         return convert_factorized_polynomial(data)
-    elif (has_cln and isinstance(data, pycarl.cln.FactorizedRationalFunction)) or isinstance(data,
-                                                                                             pycarl.gmp.FactorizedRationalFunction):
+    elif (has_cln and isinstance(data, pycarl.cln.FactorizedRationalFunction)) or isinstance(data, pycarl.gmp.FactorizedRationalFunction):
         return convert_factorized_rational_function(data)
-    elif (has_cln and isinstance(data, pycarl.cln.formula.Constraint)) or isinstance(data,
-                                                                                     pycarl.gmp.formula.Constraint):
+    elif (has_cln and isinstance(data, pycarl.cln.formula.Constraint)) or isinstance(data, pycarl.gmp.formula.Constraint):
         return convert_constraint(data)
-    elif (has_cln and isinstance(data, pycarl.cln.formula.Formula)) or isinstance(data,
-                                                                                pycarl.gmp.formula.Formula):
-
+    elif (has_cln and isinstance(data, pycarl.cln.formula.Formula)) or isinstance(data, pycarl.gmp.formula.Formula):
         return convert_formula(data)
 
     else:

@@ -60,10 +60,10 @@ class TestPolynomial(PackageSelector):
         var2 = pycarl.Variable("y")
         pol = package.Polynomial(var1 * var1 * var2) + package.Integer(2) * var2 + package.Integer(4)
         assert pol.constant_part() == 4
-        pol = package.Polynomial(package.Rational(-8/3))
+        pol = package.Polynomial(package.Rational(-8 / 3))
         assert pol.is_constant()
         print(type(pol))
-        assert pol.constant_part() == package.Rational(-8/3)
+        assert pol.constant_part() == package.Rational(-8 / 3)
         pol = package.Polynomial(1)
         assert pol.is_constant()
         print(type(pol))

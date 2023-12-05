@@ -15,7 +15,6 @@ def convert_to_gmp(data):
 if has_cln:
     from . import cln_converter
 
-
     def convert_to_cln(data):
         """
         Convert data type to cln.
