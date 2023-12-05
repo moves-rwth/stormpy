@@ -60,4 +60,3 @@ class TestRational(PackageSelector):
         assert r4 < pycarl.inf
         assert r4 > -pycarl.inf
         assert -pycarl.inf < r4
-

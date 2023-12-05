@@ -1,7 +1,7 @@
 import pycarl
 
 
-class TestGmpConvert():
+class TestGmpConvert:
     def test_convert_int(self):
         original = 43
         assert isinstance(original, int)

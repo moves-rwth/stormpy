@@ -1,7 +1,7 @@
 import sys
 
 if sys.version_info[0] == 2:
-    raise ImportError('Python 2.x is not supported for pycarl.')
+    raise ImportError("Python 2.x is not supported for pycarl.")
 
 from . import core
 from .core import *

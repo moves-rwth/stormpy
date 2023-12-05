@@ -92,10 +92,10 @@ def convert_factorized_polynomial(polynomial):
     elif isinstance(polynomial, pycarl.gmp.FactorizedPolynomial):
         coefficient = convert_rational(polynomial.coefficient)
         converted = pycarl.cln.FactorizedPolynomial(coefficient)
-        for (factor, exponent) in polynomial.factorization():
+        for factor, exponent in polynomial.factorization():
             pol = convert_polynomial(factor.polynomial())
             factorized = pycarl.cln.create_factorized_polynomial(pol)
-            converted *= factorized ** exponent
+            converted *= factorized**exponent
         return converted
     else:
         raise TypeError("Factorized polynomial of type {} cannot be convert to cln".format(type(polynomial)))
@@ -131,8 +131,9 @@ def convert_constraint(constraint):
     else:
         raise TypeError("Constraint of type {} cannot be convert to cln".format(type(constraint)))
 
+
 def convert_formula(formula):
-    if  isinstance(formula, pycarl.cln.formula.Formula):
+    if isinstance(formula, pycarl.cln.formula.Formula):
         return formula
     elif isinstance(formula, pycarl.gmp.formula.Formula):
         if formula.type == pycarl.formula.FormulaType.TRUE:
@@ -166,8 +167,7 @@ def convert(data):
         return convert_rational_function(data)
     elif isinstance(data, pycarl.cln.FactorizedPolynomial) or isinstance(data, pycarl.gmp.FactorizedPolynomial):
         return convert_factorized_polynomial(data)
-    elif isinstance(data, pycarl.cln.FactorizedRationalFunction) or isinstance(data,
-                                                                               pycarl.gmp.FactorizedRationalFunction):
+    elif isinstance(data, pycarl.cln.FactorizedRationalFunction) or isinstance(data, pycarl.gmp.FactorizedRationalFunction):
         return convert_factorized_rational_function(data)
     elif isinstance(data, pycarl.cln.formula.Constraint) or isinstance(data, pycarl.gmp.formula.Constraint):
         return convert_constraint(data)

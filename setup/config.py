@@ -33,7 +33,7 @@ class SetupConfig:
             "disable_parser": False,
             "debug": False,
             "jobs": str(no_jobs),
-            "pybind_version": ""
+            "pybind_version": "",
         }
 
     def load_from_file(self, path):
@@ -51,7 +51,7 @@ class SetupConfig:
         Save config with build settings.
         :param path Path to config file.
         """
-        with open(path, 'w') as configfile:
+        with open(path, "w") as configfile:
             self.config.write(configfile)
 
     def get_as_bool(self, name):

@@ -12,5 +12,5 @@ def example_getting_started_01():
     print("({}) * ({}) = {}".format(pol1, pol2, result))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     example_getting_started_01()

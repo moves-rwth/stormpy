@@ -27,7 +27,7 @@ def parse_carl_version(version_string):
     :param version_string: String containing version information.
     :return: Tuple (version, commit)
     """
-    split = version_string.split('-')
+    split = version_string.split("-")
     version = split[0]
     commit = ""
     if len(split) > 1:
@@ -43,7 +43,7 @@ def obtain_version():
     """
     verstr = "unknown"
     try:
-        verstrline = open('lib/pycarl/_version.py', "rt").read()
+        verstrline = open("lib/pycarl/_version.py", "rt").read()
     except EnvironmentError:
         pass  # Okay, there is no version file.
     else:
@@ -71,4 +71,5 @@ def load_cmake_config(path):
     else:
         # Deprecated method for Python <= 3.4
         from importlib.machinery import SourceFileLoader
+
         return SourceFileLoader("genconfig", path).load_module()
