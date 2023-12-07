@@ -18,7 +18,7 @@ def analyze_dft(ft, properties, symred=True, allow_modularisation=False, relevan
         return dft._analyze_dft_ratfunc(ft, properties, symred, allow_modularisation, relevant_events, allow_dc_for_relevant)
 
 
-def build_model(ft, symmetries, relevant_events=RelevantEvents(), allow_dc_for_relevant=False):
+def build_model(ft, symmetries=DftSymmetries(), relevant_events=RelevantEvents(), allow_dc_for_relevant=False):
     if isinstance(ft, DFT_double):
         return dft._build_model_double(ft, symmetries, relevant_events, allow_dc_for_relevant)
     else:
@@ -53,11 +53,3 @@ def is_well_formed(ft, check_valid_for_analysis=True):
     else:
         assert isinstance(ft, DFT_ratfunc)
         return dft._is_well_formed_ratfunc(ft, check_valid_for_analysis)
-
-
-def compute_relevant_events(ft, properties, additional_relevant_names=[]):
-    if isinstance(ft, DFT_double):
-        return dft._compute_relevant_events_double(ft, properties, additional_relevant_names)
-    else:
-        assert isinstance(ft, DFT_ratfunc)
-        return dft._compute_relevant_events_ratfunc(ft, properties, additional_relevant_names)

@@ -60,7 +60,7 @@ def main():
     dft = stormpy.dft.prepare_for_analysis(dft)
 
     # Create simulator
-    simulator = DftSimulator(dft, seed=42)
+    simulator = DftSimulator(dft, seed=42, relevant=['all'])
 
     # Get initial state
     logging.info("Initial status:")
@@ -68,7 +68,7 @@ def main():
 
     while True:
         if simulator.nr_next_failures() == 0:
-            logging.info("All BEs have failed -> will terminate")
+            logging.info("No BE can fail anymore -> will terminate")
             return
 
         # Ask user for next BE to fail
@@ -87,6 +87,8 @@ def main():
             logging.debug("Let {} fail".format(be_fail))
         # Let chosen BE fail
         res = simulator.let_fail(be_fail, dependency_successful=dep_success)
+        if res == stormpy.dft.SimulationResult.INVALID:
+            logging.warning("Failure leads to invalid state -> undo last failure")
         logging.debug("Simulation was {}".format(res))
         logging.info("New status:")
         logging.info(get_status(simulator))

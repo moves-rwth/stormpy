@@ -8,21 +8,20 @@ class DftSimulator:
     Adds convenience function to stormpy.dft.Simulator.
     """
 
-    def __init__(self, dft, seed=42):
+    def __init__(self, dft, seed=42, relevant=[]):
         """
         Create simulator.
 
         :param dft: DFT.
         :param seed: Seed for random number generator.
+        :param relevant: List of relevant events. 'all' sets all events as relevant.
         """
         self._dft = dft
-        # Compute all symmetries
-        symmetries = self._dft.symmetries()
         # Set only top event as relevant
-        relevant_events = stormpy.dft.compute_relevant_events(self._dft, [])
+        relevant_events = stormpy.dft.compute_relevant_events([], additional_relevant_names=relevant)
         self._dft.set_relevant_events(relevant_events, False)
         # Create information for state space generation
-        info = self._dft.state_generation_info(symmetries)
+        info = self._dft.state_generation_info()
         # Initialize random generator
         generator = stormpy.dft.RandomGenerator.create(seed)
         # Create simulator

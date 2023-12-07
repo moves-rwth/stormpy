@@ -4,9 +4,9 @@ def _get_tuple(dft, index):
     """
     Get json representation of element.
 
-    :param dft DFT.
+    :param dft: DFT.
     :param index: Index (Id).
-    :return Dict with 'name' and 'index'.
+    :return: Dict with 'name' and 'index'.
     """
     return {'id': str(index), 'name': dft.get_element(index).name}
 
