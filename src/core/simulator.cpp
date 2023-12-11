@@ -1,4 +1,6 @@
 #include "simulator.h"
+
+#include <storm/adapters/JsonAdapter.h>
 #include <storm/simulator/DiscreteTimeSparseModelSimulator.h>
 #include <storm/simulator/PrismProgramSimulator.h>
 
