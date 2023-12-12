@@ -160,6 +160,7 @@ void define_build(py::module& m) {
             .def("set_add_out_of_bounds_state", &storm::builder::BuilderOptions::setAddOutOfBoundsState, "Build with out of bounds state", py::arg("new_value")=true)
             .def("set_add_overlapping_guards_label", &storm::builder::BuilderOptions::setAddOverlappingGuardsLabel, "Build with overlapping guards state labeled", py::arg("new_value")=true)
             .def("set_build_choice_labels", &storm::builder::BuilderOptions::setBuildChoiceLabels, "Build with choice labels", py::arg("new_value")=true)
+            .def("set_exploration_checks", &storm::builder::BuilderOptions::setExplorationChecks, "Perform extra checks during exploration", py::arg("new_value")=true)
             .def("set_build_all_labels" , &storm::builder::BuilderOptions::setBuildAllLabels, "Build with all state labels", py::arg("new_value")=true)
             .def("set_build_all_reward_models", &storm::builder::BuilderOptions::setBuildAllRewardModels, "Build with all reward models", py::arg("new_value")=true);
 
