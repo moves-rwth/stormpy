@@ -2,7 +2,7 @@
 
 #include "storm-dft/parser/DFTJsonParser.h"
 #include "storm-dft/builder/ExplicitDFTModelBuilder.h"
-#include "storm-dft/storage/DFTIsomorphism.h"
+#include "storm-dft/storage/DftSymmetries.h"
 
 template<typename ValueType> using ExplicitDFTModelBuilder = storm::dft::builder::ExplicitDFTModelBuilder<ValueType>;
 
@@ -20,7 +20,7 @@ std::vector<ValueType> analyzeDFT(storm::dft::storage::DFT<ValueType> const& dft
 
 // Thin wrapper for building state space from DFT
 template<typename ValueType>
-std::shared_ptr<storm::models::sparse::Model<ValueType>> buildModel(storm::dft::storage::DFT<ValueType> const& dft, storm::dft::storage::DFTIndependentSymmetries const& symmetries, storm::dft::utility::RelevantEvents const& relevantEvents, bool allowDCForRelevant) {
+std::shared_ptr<storm::models::sparse::Model<ValueType>> buildModel(storm::dft::storage::DFT<ValueType> const& dft, storm::dft::storage::DftSymmetries const& symmetries, storm::dft::utility::RelevantEvents const& relevantEvents, bool allowDCForRelevant) {
     dft.setRelevantEvents(relevantEvents, allowDCForRelevant);
     storm::dft::builder::ExplicitDFTModelBuilder<ValueType> builder(dft, symmetries);
     builder.buildModel(0, 0.0);
@@ -41,13 +41,15 @@ void define_analysis(py::module& m) {
         .def(py::init<>(), "Create empty list of relevant events")
         .def("is_relevant", &storm::dft::utility::RelevantEvents::isRelevant, "Check whether the given name is a relevant event", py::arg("name"))
     ;
+
+    m.def("compute_relevant_events", &storm::dft::api::computeRelevantEvents, "Compute relevant event ids from properties and additional relevant names", py::arg("properties"), py::arg("additional_relevant_names") = std::vector<std::string>());
 }
 
 template<typename ValueType>
 void define_analysis_typed(py::module& m, std::string const& vt_suffix) {
 
     py::class_<ExplicitDFTModelBuilder<ValueType>, std::shared_ptr<ExplicitDFTModelBuilder<ValueType>>>(m, ("ExplicitDFTModelBuilder"+vt_suffix).c_str(), "Builder to generate explicit model from DFT")
-        .def(py::init<storm::dft::storage::DFT<ValueType> const&, storm::dft::storage::DFTIndependentSymmetries const&>(), "Constructor", py::arg("dft"), py::arg("symmetries"))
+        .def(py::init<storm::dft::storage::DFT<ValueType> const&, storm::dft::storage::DftSymmetries const&>(), "Constructor", py::arg("dft"), py::arg("symmetries")=storm::dft::storage::DftSymmetries())
         .def("build", &ExplicitDFTModelBuilder<ValueType>::buildModel, "Build state space of model", py::arg("iteration"), py::arg("approximation_threshold")=0.0, py::arg("approximation_heuristic")=storm::dft::builder::ApproximationHeuristic::DEPTH)
         .def("get_model", &ExplicitDFTModelBuilder<ValueType>::getModel, "Get complete model")
         .def("get_partial_model", &ExplicitDFTModelBuilder<ValueType>::getModelApproximation, "Get partial model", py::arg("lower_bound"), py::arg("expected_time"))
@@ -62,8 +64,6 @@ void define_analysis_typed(py::module& m, std::string const& vt_suffix) {
     m.def(("_compute_dependency_conflicts"+vt_suffix).c_str(), &storm::dft::api::computeDependencyConflicts<ValueType>, "Set conflicts between FDEPs. Is used in analysis.", py::arg("dft"), py::arg("use_smt") = false, py::arg("solver_timeout") = 0);
 
     m.def(("_is_well_formed"+vt_suffix).c_str(), &storm::dft::api::isWellFormed<ValueType>, "Check whether DFT is well-formed.", py::arg("dft"), py::arg("check_valid_for_analysis") = true);
-
-    m.def(("_compute_relevant_events"+vt_suffix).c_str(), &storm::dft::api::computeRelevantEvents<ValueType>, "Compute relevant event ids from properties and additional relevant names", py::arg("dft"), py::arg("properties"), py::arg("additional_relevant_names") = std::vector<std::string>());
 }
 
 

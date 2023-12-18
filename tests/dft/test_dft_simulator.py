@@ -10,10 +10,8 @@ class TestSimulator:
 
     def test_random_steps(self):
         dft = stormpy.dft.load_dft_json_file(get_example_path("dft", "and.json"))
-        symmetries = dft.symmetries()
-        relevant_events = stormpy.dft.compute_relevant_events(dft, [])
-        dft.set_relevant_events(relevant_events, False)
-        info = dft.state_generation_info(symmetries)
+        dft.set_relevant_events(stormpy.dft.RelevantEvents(), False)
+        info = dft.state_generation_info()
         generator = stormpy.dft.RandomGenerator.create(5)
         simulator = stormpy.dft.DFTSimulator_double(dft, info, generator)
         res, time = simulator.random_step()
@@ -31,10 +29,8 @@ class TestSimulator:
 
     def test_simulate_trace(self):
         dft = stormpy.dft.load_dft_json_file(get_example_path("dft", "and.json"))
-        symmetries = dft.symmetries()
-        relevant_events = stormpy.dft.compute_relevant_events(dft, [])
-        dft.set_relevant_events(relevant_events, False)
-        info = dft.state_generation_info(symmetries)
+        dft.set_relevant_events(stormpy.dft.RelevantEvents(), False)
+        info = dft.state_generation_info()
         generator = stormpy.dft.RandomGenerator.create(5)
         simulator = stormpy.dft.DFTSimulator_double(dft, info, generator)
         res = simulator.simulate_trace(2)
@@ -47,10 +43,8 @@ class TestSimulator:
     def test_simulate_trace(self):
         dft = stormpy.dft.load_dft_galileo_file(get_example_path("dft", "rc2.dft"))
         dft = stormpy.dft.prepare_for_analysis(dft)
-        symmetries = dft.symmetries()
-        relevant_events = stormpy.dft.compute_relevant_events(dft, [])
-        dft.set_relevant_events(relevant_events, False)
-        info = dft.state_generation_info(symmetries)
+        dft.set_relevant_events(stormpy.dft.RelevantEvents(), False)
+        info = dft.state_generation_info()
         generator = stormpy.dft.RandomGenerator.create(5)
         simulator = stormpy.dft.DFTSimulator_double(dft, info, generator)
         res = simulator.simulate_trace(2)
@@ -62,10 +56,8 @@ class TestSimulator:
 
     def test_steps(self):
         dft = stormpy.dft.load_dft_json_file(get_example_path("dft", "and.json"))
-        symmetries = dft.symmetries()
-        relevant_events = stormpy.dft.compute_relevant_events(dft, [])
-        dft.set_relevant_events(relevant_events, False)
-        info = dft.state_generation_info(symmetries)
+        dft.set_relevant_events(stormpy.dft.RelevantEvents(), False)
+        info = dft.state_generation_info()
         generator = stormpy.dft.RandomGenerator.create(5)
         simulator = stormpy.dft.DFTSimulator_double(dft, info, generator)
 
@@ -85,9 +77,10 @@ class TestSimulator:
         # Let C fail
         failable = state.failable()
         for f in failable:
-            fail_be = f.get_fail_be_double(dft)
-            assert fail_be[0].name in failable_check
-            if fail_be[0].name == "C":
+            assert not f.is_due_dependency()
+            fail_be = f.as_be_double(dft)
+            assert fail_be.name in failable_check
+            if fail_be.name == "C":
                 next_fail = f
         res = simulator.step(next_fail)
         assert res == stormpy.dft.SimulationResult.SUCCESSFUL
@@ -103,8 +96,9 @@ class TestSimulator:
         state = simulator.current()
         failable = state.failable()
         for f in failable:
-            fail_be = f.get_fail_be_double(dft)
-            assert fail_be[0].name == "B"
+            assert not f.is_due_dependency()
+            fail_be = f.as_be_double(dft)
+            assert fail_be.name == "B"
             next_fail = f
         res = simulator.step(next_fail)
         assert res == stormpy.dft.SimulationResult.SUCCESSFUL
@@ -123,10 +117,8 @@ class TestSimulator:
     def test_steps_dependency(self):
         dft = stormpy.dft.load_dft_galileo_file(get_example_path("dft", "fdep.dft"))
         dft = stormpy.dft.prepare_for_analysis(dft)
-        symmetries = dft.symmetries()
-        relevant_events = stormpy.dft.compute_relevant_events(dft, [])
-        dft.set_relevant_events(relevant_events, False)
-        info = dft.state_generation_info(symmetries)
+        dft.set_relevant_events(stormpy.dft.RelevantEvents(), False)
+        info = dft.state_generation_info()
         generator = stormpy.dft.RandomGenerator.create(5)
         simulator = stormpy.dft.DFTSimulator_double(dft, info, generator)
 
@@ -142,9 +134,10 @@ class TestSimulator:
         # Let B_Power fail
         failable = state.failable()
         for f in failable:
-            fail_be = f.get_fail_be_double(dft)
-            assert fail_be[0].name in ["B", "P", "B_Power"]
-            if fail_be[0].name == "B_Power":
+            assert not f.is_due_dependency()
+            fail_be = f.as_be_double(dft)
+            assert fail_be.name in ["B", "P", "B_Power"]
+            if fail_be.name == "B_Power":
                 next_fail = f
         res = simulator.step(next_fail)
         assert res == stormpy.dft.SimulationResult.SUCCESSFUL
@@ -156,9 +149,12 @@ class TestSimulator:
         # Let B fail
         failable = state.failable()
         for f in failable:
-            fail_be = f.get_fail_be_double(dft)
-            assert fail_be[0].name in ["B", "P"]
-            if fail_be[0].name == "B":
+            assert f.is_due_dependency
+            fail_dependency = f.as_dependency_double(dft)
+            assert len(fail_dependency.dependent_events) == 1
+            fail_be = fail_dependency.dependent_events[0]
+            assert fail_be.name in ["B", "P"]
+            if fail_be.name == "B":
                 next_fail = f
         res = simulator.step(next_fail)
         assert res == stormpy.dft.SimulationResult.SUCCESSFUL

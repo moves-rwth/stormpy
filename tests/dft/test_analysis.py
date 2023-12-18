@@ -17,8 +17,7 @@ class TestAnalysis:
 
     def test_build_model(self):
         dft = stormpy.dft.load_dft_json_file(get_example_path("dft", "and.json"))
-        symmetries = stormpy.dft.DFTSymmetries()
-        model = stormpy.dft.build_model(dft, symmetries)
+        model = stormpy.dft.build_model(dft)
         assert model.model_type == stormpy.ModelType.CTMC
         assert type(model) is stormpy.SparseCtmc
         assert model.nr_states == 4
@@ -27,8 +26,7 @@ class TestAnalysis:
 
     def test_explicit_model_builder(self):
         dft = stormpy.dft.load_dft_json_file(get_example_path("dft", "and.json"))
-        symmetries = stormpy.dft.DFTSymmetries()
-        builder = stormpy.dft.ExplicitDFTModelBuilder_double(dft, symmetries)
+        builder = stormpy.dft.ExplicitDFTModelBuilder_double(dft)
         builder.build(0)
         model = builder.get_model()
         assert model.model_type == stormpy.ModelType.CTMC
@@ -41,8 +39,7 @@ class TestAnalysis:
         dft = stormpy.dft.load_dft_galileo_file(get_example_path("dft", "rc.dft"))
         properties = stormpy.parse_properties("T=? [ F \"failed\" ]")
         prop = properties[0]
-        symmetries = stormpy.dft.DFTSymmetries()
-        builder = stormpy.dft.ExplicitDFTModelBuilder_double(dft, symmetries)
+        builder = stormpy.dft.ExplicitDFTModelBuilder_double(dft)
 
         # Iteration 0
         builder.build(0, 1.0)
@@ -98,8 +95,7 @@ class TestAnalysis:
         dft = stormpy.dft.load_dft_galileo_file(get_example_path("dft", "rc.dft"))
         properties = stormpy.parse_properties("T=? [ F \"failed\" ]")
         prop = properties[0]
-        symmetries = stormpy.dft.DFTSymmetries()
-        builder = stormpy.dft.ExplicitDFTModelBuilder_double(dft, symmetries)
+        builder = stormpy.dft.ExplicitDFTModelBuilder_double(dft)
 
         # Iteration 0
         builder.build(0, 1.0)
@@ -129,7 +125,7 @@ class TestAnalysis:
         dft = stormpy.dft.load_dft_json_file(get_example_path("dft", "and.json"))
         properties = stormpy.parse_properties("P=? [ F<=1 \"A_failed\" ]")
         formulas = [p.raw_formula for p in properties]
-        relevant_events = stormpy.dft.compute_relevant_events(dft, formulas)
+        relevant_events = stormpy.dft.compute_relevant_events(formulas)
         assert relevant_events.is_relevant("A")
         assert not relevant_events.is_relevant("B")
         assert not relevant_events.is_relevant("C")
@@ -140,7 +136,7 @@ class TestAnalysis:
         dft = stormpy.dft.load_dft_json_file(get_example_path("dft", "and.json"))
         properties = stormpy.parse_properties("P=? [ F<=1 \"failed\" ]")
         formulas = [p.raw_formula for p in properties]
-        relevant_events = stormpy.dft.compute_relevant_events(dft, formulas, ["B", "C"])
+        relevant_events = stormpy.dft.compute_relevant_events(formulas, ["B", "C"])
         assert relevant_events.is_relevant("B")
         assert relevant_events.is_relevant("C")
         assert not relevant_events.is_relevant("A")

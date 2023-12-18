@@ -47,14 +47,15 @@ class TestDftElement:
 @dft
 class TestDftSymmetries:
     def test_symmetries_none(self):
-        symmetries = stormpy.dft.DFTSymmetries()
-        assert len(symmetries.groups) == 0
+        symmetries = stormpy.dft.DftSymmetries()
+        assert len(symmetries) == 0
 
     def test_symmetries_small(self):
         dft = stormpy.dft.load_dft_json_file(get_example_path("dft", "and.json"))
         symmetries = dft.symmetries()
-        assert len(symmetries.groups) == 1
-        for index, group in symmetries.groups.items():
+        assert len(symmetries) == 1
+        for index in symmetries:
+            group = symmetries.get_group(index)
             assert len(group) == 1
             for syms in group:
                 assert len(syms) == 2
@@ -64,8 +65,9 @@ class TestDftSymmetries:
     def test_symmetries(self):
         dft = stormpy.dft.load_dft_galileo_file(get_example_path("dft", "rc.dft"))
         symmetries = dft.symmetries()
-        assert len(symmetries.groups) == 1
-        for index, group in symmetries.groups.items():
+        assert len(symmetries) == 1
+        for index in symmetries:
+            group = symmetries.get_group(index)
             assert len(group) == 3
             i = 4
             for syms in group:

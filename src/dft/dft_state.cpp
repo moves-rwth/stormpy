@@ -66,9 +66,11 @@ void define_failable_elements(py::module& m) {
     ;
 
     py::class_<FailableIter, std::shared_ptr<FailableIter>>(m, "FailableElement", "Failable element")
-        .def("due_dependency", &FailableIter::isFailureDueToDependency, "Is failure due to dependency")
-        .def("get_fail_be_double", &FailableIter::getFailBE<double>, py::arg("dft"), "Get BE which fails")
-        .def("get_fail_be_ratfunc", &FailableIter::getFailBE<storm::RationalFunction>, py::arg("dft"), "Get BE which fails")
+        .def("is_due_dependency", &FailableIter::isFailureDueToDependency, "Is failure due to dependency")
+        .def("as_be_double", &FailableIter::asBE<double>, py::arg("dft"), "Get BE which fails")
+        .def("as_be_ratfunc", &FailableIter::asBE<storm::RationalFunction>, py::arg("dft"), "Get BE which fails")
+        .def("as_dependency_double", &FailableIter::asDependency<double>, py::arg("dft"), "Get dependency which is triggered")
+        .def("as_dependency_ratfunc", &FailableIter::asDependency<storm::RationalFunction>, py::arg("dft"), "Get dependency which is triggered")
     ;
 
 }

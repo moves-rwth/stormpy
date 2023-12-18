@@ -1,63 +1,22 @@
-import stormpy
-import stormpy.dft
-
 import argparse
 import logging
 import pathlib
 
-
-def get_simulator(dft, seed=42):
-    # Compute all symmetries
-    symmetries = dft.symmetries()
-    # Set only top event as relevant
-    relevant_events = stormpy.dft.compute_relevant_events(dft, [])
-    dft.set_relevant_events(relevant_events, False)
-    # Create information for state space generation
-    info = dft.state_generation_info(symmetries)
-    # Initialize random generator
-    generator = stormpy.dft.RandomGenerator.create(seed)
-    # Create simulator
-    return stormpy.dft.DFTSimulator_double(dft, info, generator)
+import stormpy
+import stormpy.dft
+from stormpy.dft.simulator import DftSimulator
 
 
-def get_status(state, dft):
-    if state.invalid():
-        return "State is invalid because a SEQ is violated"
-    state_tle = state.failed(dft.top_level_element.id)
-    s = "DFT is {}".format("Failed" if state_tle else "Operational")
-    for i in range(dft.nr_elements()):
-        # Order of checks is important!
-        if state.operational(i):
-            status = "Operational"
-        elif state.dontcare(i):
-            status = "Don't Care"
-        elif state.failsafe(i):
-            status = "FailSafe"
-        elif state.failed(i):
-            status = "Failed"
-        else:
-            status = "Unknown"
-        elem = dft.get_element(i)
-        if elem.type == stormpy.dft.DFTElementType.SPARE:
-            cur_used = state.spare_uses(i)
-            if cur_used == i:
-                status += ", not using anything"
-            else:
-                elem_used = dft.get_element(cur_used)
-                status += ", currently using {}".format(elem_used.name)
-        s += "\n\t{0: <20}: {1}".format(elem.name, status)
+def get_status(simulator):
+    dft_state, states = simulator.status()
+    s = dft_state
+    for element, status in states.items():
+        elem_str = "{} ({})".format(element.name, element.type)
+        s += "\n\t{0: <20} : {1}".format(elem_str, status)
     return s
 
 
-def get_failables(state, dft):
-    failables = dict()
-    for f in state.failable():
-        fail_be = f.get_fail_be_double(dft)
-        failables[fail_be[0].name] = f
-    return failables
-
-
-def get_user_fail_be(failables):
+def get_user_fail_be(candidates):
     while True:
         inp = input("Select index of BE to fail next (use 'q' to abort)\n")
         if inp == 'q':
@@ -67,19 +26,26 @@ def get_user_fail_be(failables):
         except ValueError:
             logging.error("The input is not a number.")
         else:
-            if 0 <= inp_number < len(failables):
-                chosen_name = failables[inp_number]
-                assert chosen_name in failables
-                return chosen_name
+            if 0 <= inp_number < len(candidates):
+                return candidates[inp_number]
             else:
                 logging.error("Selected index is not valid.")
 
 
+def get_user_dep_success():
+    while True:
+        inp = input("Should the failure due a dependency be successful? (y/n)\n")
+        if inp == 'y':
+            return True
+        elif inp == 'n':
+            return False
+        else:
+            logging.error("Input is not valid.")
+
+
 def main():
     parser = argparse.ArgumentParser(description='Interactive simulator for DFTs.')
-
     parser.add_argument('infile', help='Input Galileo file', type=str)
-
     parser.add_argument('--verbose', '-v', help='print more output', action="store_true")
     args = parser.parse_args()
 
@@ -94,30 +60,38 @@ def main():
     dft = stormpy.dft.prepare_for_analysis(dft)
 
     # Create simulator
-    simulator = get_simulator(dft, seed=42)
+    simulator = DftSimulator(dft, seed=42, relevant=['all'])
 
     # Get initial state
-    state = simulator.current()
     logging.info("Initial status:")
-    logging.info(get_status(state, dft))
+    logging.info(get_status(simulator))
 
     while True:
-        failables = get_failables(state, dft)
-        if len(failables.keys()) == 0:
-            logging.info("All BEs have failed -> will terminate")
+        if simulator.nr_next_failures() == 0:
+            logging.info("No BE can fail anymore -> will terminate")
             return
-        failable_names = list(failables.keys())
-        logging.info("Failable BEs:\n" + "\n".join(["\t{}: {}".format(i, failable_names[i]) for i in range(len(failable_names))]))
-        chosen = get_user_fail_be(failable_names)
-        if chosen is None:
+
+        # Ask user for next BE to fail
+        candidates = simulator.next_failures()
+        logging.info("Failable BEs:\n" + "\n".join(["\t{}: {}".format(i, candidates[i]) for i in range(len(candidates))]))
+        be_fail = get_user_fail_be(candidates)
+        if be_fail is None:
             # Exit
             return
-        logging.debug("Let {} fail".format(chosen))
-        res = simulator.step(failables[chosen])
+        dep_success = True
+        if simulator.is_next_dependency_failure():
+            dep_success = get_user_dep_success()
+        if not dep_success:
+            logging.debug("Let {} not fail due to dependency".format(be_fail))
+        else:
+            logging.debug("Let {} fail".format(be_fail))
+        # Let chosen BE fail
+        res = simulator.let_fail(be_fail, dependency_successful=dep_success)
+        if res == stormpy.dft.SimulationResult.INVALID:
+            logging.warning("Failure leads to invalid state -> undo last failure")
         logging.debug("Simulation was {}".format(res))
-        state = simulator.current()
-        logging.info("Status after failure of {}:".format(chosen))
-        logging.info(get_status(state, dft))
+        logging.info("New status:")
+        logging.info(get_status(simulator))
 
 
 if __name__ == "__main__":
