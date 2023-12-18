@@ -621,10 +621,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../api/dft.html#stormpy.dft.DFTStateInfo"><code class="docutils literal notranslate"><span class="pre">DFTStateInfo</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/dft.html#stormpy.dft.DFTState_double"><code class="docutils literal notranslate"><span class="pre">DFTState_double</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/dft.html#stormpy.dft.DFTState_ratfunc"><code class="docutils literal notranslate"><span class="pre">DFTState_ratfunc</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="../api/dft.html#stormpy.dft.DFTSymmetries"><code class="docutils literal notranslate"><span class="pre">DFTSymmetries</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/dft.html#stormpy.dft.DFT_double"><code class="docutils literal notranslate"><span class="pre">DFT_double</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/dft.html#stormpy.dft.DFT_ratfunc"><code class="docutils literal notranslate"><span class="pre">DFT_ratfunc</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/dft.html#stormpy.dft.DftIndependentModule"><code class="docutils literal notranslate"><span class="pre">DftIndependentModule</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/dft.html#stormpy.dft.DftSymmetries"><code class="docutils literal notranslate"><span class="pre">DftSymmetries</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/dft.html#stormpy.dft.ExplicitDFTModelBuilder_double"><code class="docutils literal notranslate"><span class="pre">ExplicitDFTModelBuilder_double</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/dft.html#stormpy.dft.ExplicitDFTModelBuilder_ratfunc"><code class="docutils literal notranslate"><span class="pre">ExplicitDFTModelBuilder_ratfunc</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/dft.html#stormpy.dft.FailableElement"><code class="docutils literal notranslate"><span class="pre">FailableElement</span></code></a></li>
@@ -883,13 +883,13 @@ q
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 (&lt;= (+ p (- 1)) 0)
-(&lt;= (+ q (- 1)) 0)
-(&lt;= (* (- 1) p) 0)
 (&lt;= (* (- 1) q) 0)
-(!= p 0)
-(!= (+ q (- 1)) 0)
+(&lt;= (* (- 1) p) 0)
+(&lt;= (+ q (- 1)) 0)
 (!= (+ p (- 1)) 0)
 (!= q 0)
+(!= p 0)
+(!= (+ q (- 1)) 0)
 </pre></div></div>
 </div>
 </section>

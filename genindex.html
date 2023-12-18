@@ -615,10 +615,10 @@
 <li class="toctree-l2"><a class="reference internal" href="api/dft.html#stormpy.dft.DFTStateInfo"><code class="docutils literal notranslate"><span class="pre">DFTStateInfo</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/dft.html#stormpy.dft.DFTState_double"><code class="docutils literal notranslate"><span class="pre">DFTState_double</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/dft.html#stormpy.dft.DFTState_ratfunc"><code class="docutils literal notranslate"><span class="pre">DFTState_ratfunc</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/dft.html#stormpy.dft.DFTSymmetries"><code class="docutils literal notranslate"><span class="pre">DFTSymmetries</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/dft.html#stormpy.dft.DFT_double"><code class="docutils literal notranslate"><span class="pre">DFT_double</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/dft.html#stormpy.dft.DFT_ratfunc"><code class="docutils literal notranslate"><span class="pre">DFT_ratfunc</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/dft.html#stormpy.dft.DftIndependentModule"><code class="docutils literal notranslate"><span class="pre">DftIndependentModule</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/dft.html#stormpy.dft.DftSymmetries"><code class="docutils literal notranslate"><span class="pre">DftSymmetries</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/dft.html#stormpy.dft.ExplicitDFTModelBuilder_double"><code class="docutils literal notranslate"><span class="pre">ExplicitDFTModelBuilder_double</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/dft.html#stormpy.dft.ExplicitDFTModelBuilder_ratfunc"><code class="docutils literal notranslate"><span class="pre">ExplicitDFTModelBuilder_ratfunc</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/dft.html#stormpy.dft.FailableElement"><code class="docutils literal notranslate"><span class="pre">FailableElement</span></code></a></li>
@@ -857,14 +857,14 @@
         <li><a href="api/pars.html#stormpy.pars.RegionResultHypothesis.ALLSAT">(RegionResultHypothesis attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/pars.html#stormpy.pars.RegionResult.ALLVIOLATED">ALLVIOLATED (RegionResult attribute)</a>
 
       <ul>
         <li><a href="api/pars.html#stormpy.pars.RegionResultHypothesis.ALLVIOLATED">(RegionResultHypothesis attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core.html#stormpy.SMTCounterExampleGeneratorStats.analysis_time">analysis_time (SMTCounterExampleGeneratorStats property)</a>
 </li>
       <li><a href="api/dft.html#stormpy.dft.analyze_dft">analyze_dft() (in module stormpy.dft)</a>
@@ -898,6 +898,14 @@
       <li><a href="api/pars.html#stormpy.pars.ParameterRegion.area">area (ParameterRegion property)</a>
 </li>
       <li><a href="api/core.html#stormpy.Expression.arity">arity (Expression property)</a>, <a href="api/storage.html#stormpy.storage.Expression.arity">[1]</a>
+</li>
+      <li><a href="api/dft.html#stormpy.dft.FailableElement.as_be_double">as_be_double() (FailableElement method)</a>
+</li>
+      <li><a href="api/dft.html#stormpy.dft.FailableElement.as_be_ratfunc">as_be_ratfunc() (FailableElement method)</a>
+</li>
+      <li><a href="api/dft.html#stormpy.dft.FailableElement.as_dependency_double">as_dependency_double() (FailableElement method)</a>
+</li>
+      <li><a href="api/dft.html#stormpy.dft.FailableElement.as_dependency_ratfunc">as_dependency_ratfunc() (FailableElement method)</a>
 </li>
       <li><a href="api/core.html#stormpy.ChoiceOrigins.as_jani_choice_origins">as_jani_choice_origins() (ChoiceOrigins method)</a>, <a href="api/storage.html#stormpy.storage.ChoiceOrigins.as_jani_choice_origins">[1]</a>
 </li>
@@ -1451,6 +1459,12 @@
         <li><a href="api/core.html#stormpy.RationalFunction.denominator">(RationalFunction property)</a>
 </li>
       </ul></li>
+      <li><a href="api/dft.html#stormpy.dft.DFTDependency_double.dependent_events">dependent_events (DFTDependency_double property)</a>
+
+      <ul>
+        <li><a href="api/dft.html#stormpy.dft.DFTDependency_ratfunc.dependent_events">(DFTDependency_ratfunc property)</a>
+</li>
+      </ul></li>
       <li><a href="api/dft.html#stormpy.dft.ApproximationHeuristic.DEPTH">DEPTH (ApproximationHeuristic attribute)</a>
 </li>
       <li><a href="api/core.html#stormpy.FactorizedPolynomial.derive">derive() (FactorizedPolynomial method)</a>
@@ -1519,7 +1533,7 @@
 </li>
       <li><a href="api/dft.html#stormpy.dft.DFTStateInfo">DFTStateInfo (class in stormpy.dft)</a>
 </li>
-      <li><a href="api/dft.html#stormpy.dft.DFTSymmetries">DFTSymmetries (class in stormpy.dft)</a>
+      <li><a href="api/dft.html#stormpy.dft.DftSymmetries">DftSymmetries (class in stormpy.dft)</a>
 </li>
       <li><a href="api/core.html#stormpy.DiceStringVisitor">DiceStringVisitor (class in stormpy)</a>
 
@@ -1560,8 +1574,6 @@
 </li>
       </ul></li>
       <li><a href="api/pars.html#stormpy.pars.DtmcParameterLiftingModelChecker">DtmcParameterLiftingModelChecker (class in stormpy.pars)</a>
-</li>
-      <li><a href="api/dft.html#stormpy.dft.FailableElement.due_dependency">due_dependency() (FailableElement method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -1967,9 +1979,7 @@
         <li><a href="api/storage.html#stormpy.storage.Variable.get_expression">(Variable method)</a>
 </li>
       </ul></li>
-      <li><a href="api/dft.html#stormpy.dft.FailableElement.get_fail_be_double">get_fail_be_double() (FailableElement method)</a>
-</li>
-      <li><a href="api/dft.html#stormpy.dft.FailableElement.get_fail_be_ratfunc">get_fail_be_ratfunc() (FailableElement method)</a>
+      <li><a href="api/dft.html#stormpy.dft.DftSymmetries.get_group">get_group() (DftSymmetries method)</a>
 </li>
       <li><a href="api/gspn.html#stormpy.gspn.Place.get_id">get_id() (Place method)</a>
 
@@ -2271,8 +2281,6 @@
 </li>
       <li><a href="api/core.html#stormpy.OperatorType.GreaterOrEqual">GreaterOrEqual (OperatorType attribute)</a>, <a href="api/storage.html#stormpy.storage.OperatorType.GreaterOrEqual">[1]</a>
 </li>
-      <li><a href="api/dft.html#stormpy.dft.DFTSymmetries.groups">groups (DFTSymmetries property)</a>
-</li>
       <li><a href="api/gspn.html#stormpy.gspn.GSPN">GSPN (class in stormpy.gspn)</a>
 </li>
       <li><a href="api/gspn.html#stormpy.gspn.GSPNBuilder">GSPNBuilder (class in stormpy.gspn)</a>
@@ -2505,10 +2513,10 @@
 </li>
       <li><a href="api/core.html#stormpy.DdMetaVariableType.Int">Int (DdMetaVariableType attribute)</a>, <a href="api/storage.html#stormpy.storage.DdMetaVariableType.Int">[1]</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core.html#stormpy.PrismModule.integer_variables">integer_variables (PrismModule property)</a>, <a href="api/storage.html#stormpy.storage.PrismModule.integer_variables">[1]</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core.html#stormpy.MinMaxMethod.interval_iteration">interval_iteration (MinMaxMethod attribute)</a>
 
       <ul>
@@ -2538,6 +2546,8 @@
 </li>
       </ul></li>
       <li><a href="api/core.html#stormpy.PrismProgram.is_deterministic_model">is_deterministic_model (PrismProgram property)</a>, <a href="api/storage.html#stormpy.storage.PrismProgram.is_deterministic_model">[1]</a>
+</li>
+      <li><a href="api/dft.html#stormpy.dft.FailableElement.is_due_dependency">is_due_dependency() (FailableElement method)</a>
 </li>
       <li><a href="api/gspn.html#stormpy.gspn.Transition.is_enabled">is_enabled() (Transition method)</a>
 </li>
@@ -3067,8 +3077,6 @@
 </li>
         <li><a href="api/dft.html#stormpy.dft.DFTElement_ratfunc.name">(DFTElement_ratfunc property)</a>
 </li>
-        <li><a href="api/dft.html#stormpy.dft.DFTElementType.name">(DFTElementType property)</a>
-</li>
         <li><a href="api/core.html#stormpy.EliminationLabelBehavior.name">(EliminationLabelBehavior property)</a>
 </li>
         <li><a href="api/core.html#stormpy.EquationSolverType.name">(EquationSolverType property)</a>
@@ -3120,9 +3128,11 @@
         <li><a href="api/core.html#stormpy.Variable.name">(Variable property)</a>, <a href="api/storage.html#stormpy.storage.Variable.name">[1]</a>
 </li>
       </ul></li>
-      <li><a href="api/pars.html#stormpy.pars.RegionResult.name">name() (RegionResult method)</a>
+      <li><a href="api/dft.html#stormpy.dft.DFTElementType.name">name() (DFTElementType method)</a>
 
       <ul>
+        <li><a href="api/pars.html#stormpy.pars.RegionResult.name">(RegionResult method)</a>
+</li>
         <li><a href="api/pars.html#stormpy.pars.RegionResultHypothesis.name">(RegionResultHypothesis method)</a>
 </li>
       </ul></li>
@@ -3864,6 +3874,8 @@
 </li>
       <li><a href="api/core.html#stormpy.ExplicitModelCheckerHintDouble.set_compute_only_maybe_states">set_compute_only_maybe_states() (ExplicitModelCheckerHintDouble method)</a>
 </li>
+      <li><a href="api/core.html#stormpy.BuilderOptions.set_exploration_checks">set_exploration_checks() (BuilderOptions method)</a>
+</li>
       <li><a href="api/core.html#stormpy.SolverEnvironment.set_force_sound">set_force_sound() (SolverEnvironment method)</a>
 </li>
       <li><a href="api/pars.html#stormpy.pars.PCtmcExactInstantiationChecker.set_graph_preserving">set_graph_preserving() (PCtmcExactInstantiationChecker method)</a>
@@ -4437,6 +4449,12 @@
         <li><a href="api/utility.html#module-stormpy.utility">module</a>
 </li>
       </ul></li>
+      <li><a href="api/dft.html#stormpy.dft.DFT_double.str_long">str_long() (DFT_double method)</a>
+
+      <ul>
+        <li><a href="api/dft.html#stormpy.dft.DFT_ratfunc.str_long">(DFT_ratfunc method)</a>
+</li>
+      </ul></li>
       <li><a href="api/utility.html#stormpy.utility.MatrixFormat.Straight">Straight (MatrixFormat attribute)</a>
 </li>
       <li><a href="api/core.html#stormpy.BisimulationType.STRONG">STRONG (BisimulationType attribute)</a>
@@ -4693,6 +4711,12 @@
         <li><a href="api/core.html#stormpy.SparseParametricModelAction.transitions">(SparseParametricModelAction property)</a>, <a href="api/storage.html#stormpy.storage.SparseParametricModelAction.transitions">[1]</a>
 </li>
         <li><a href="api/gspn.html#stormpy.gspn.TransitionPartition.transitions">(TransitionPartition property)</a>
+</li>
+      </ul></li>
+      <li><a href="api/dft.html#stormpy.dft.DFTDependency_double.trigger">trigger (DFTDependency_double property)</a>
+
+      <ul>
+        <li><a href="api/dft.html#stormpy.dft.DFTDependency_ratfunc.trigger">(DFTDependency_ratfunc property)</a>
 </li>
       </ul></li>
       <li><a href="api/core.html#stormpy.DdMetaVariable_Sylvan.type">type (DdMetaVariable_Sylvan property)</a>, <a href="api/storage.html#stormpy.storage.DdMetaVariable_Sylvan.type">[1]</a>
