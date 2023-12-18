@@ -1,6 +1,7 @@
 #include "simulator.h"
 #include <storm/simulator/DiscreteTimeSparseModelSimulator.h>
 #include <storm/simulator/PrismProgramSimulator.h>
+#include <storm/adapters/JsonAdapter.h>
 
 template <typename ValueType>
 using PLSim = storm::simulator::DiscreteTimePrismProgramSimulator<ValueType>;
