@@ -602,11 +602,11 @@ def parse_properties(properties, context=None, filters=None):
         if context.is_prism_program():
             return core.parse_properties_for_prism_program(properties, context.as_prism_program(), filters)
         else:
-            core.parse_properties_for_jani_program(properties, context.as_jani_model(), filters)
+            return core.parse_properties_for_jani_program(properties, context.as_jani_model(), filters)
     elif type(context) == storage.PrismProgram:
         return core.parse_properties_for_prism_program(properties, context, filters)
     elif type(context) == storage.JaniModel:
-        core.parse_properties_for_jani_model(properties, context, filters)
+        return core.parse_properties_for_jani_model(properties, context, filters)
     else:
         raise StormError("Unclear context. Please pass a symbolic model description")
 

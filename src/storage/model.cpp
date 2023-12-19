@@ -209,6 +209,7 @@ void define_sparse_model(py::module& m, std::string const& vtSuffix) {
         .def("labels_state", &SparseModel<ValueType>::getLabelsOfState, py::arg("state"), "Get labels of state")
         .def_property_readonly("initial_states", &getSparseInitialStates<ValueType>, "Initial states")
         .def_property_readonly("initial_states_as_bitvector", [](SparseModel<ValueType> const& model) {return model.getInitialStates();})
+        .def("set_initial_states", &SparseModel<ValueType>::setInitialStates, py::arg("states"), "Set initial states")
         .def_property_readonly("states", [](SparseModel<ValueType>& model) {
                 return SparseModelStates<ValueType>(model);
             }, "Get states")
