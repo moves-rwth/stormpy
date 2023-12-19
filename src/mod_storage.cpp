@@ -54,11 +54,11 @@ PYBIND11_MODULE(storage, m) {
     define_labeling(m);
     define_origins(m);
     define_expressions(m);
-    define_scheduler<double>(m, "Double");
+    define_scheduler<double>(m, "");
     define_scheduler<storm::RationalNumber>(m, "Exact");
-//    define_scheduler<storm::Interval>(m, "Interval");
+    define_scheduler<storm::Interval>(m, "Interval");
     define_scheduler<storm::RationalFunction>(m, "Parametric");
-    define_distribution<double>(m, "Double");
+    define_distribution<double>(m, "");
     define_distribution<storm::RationalNumber>(m, "Exact");
     define_distribution<storm::Interval>(m, "Interval");
     define_sparse_model_components<double>(m, "");
