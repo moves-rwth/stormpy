@@ -49,7 +49,7 @@ void define_scheduler(py::module& m, std::string vt_suffix) {
     std::string schedulerChoiceClassName = std::string("SchedulerChoice") + vt_suffix;
     py::class_<SchedulerChoice> schedulerChoice(m, schedulerChoiceClassName.c_str(), "A choice of a finite memory scheduler");
     schedulerChoice
-        .def(py::init<uint_fast64_t>(), "choice"_a)
+        .def(py::init<uint64_t>(), "choice"_a)
         .def_property_readonly("defined", &SchedulerChoice::isDefined, "Is the choice defined by the scheduler?")
         .def_property_readonly("deterministic", &SchedulerChoice::isDeterministic, "Is the choice deterministic (given by a Dirac distribution)?")
         .def("get_deterministic_choice", &SchedulerChoice::getDeterministicChoice, "Get the deterministic choice")
