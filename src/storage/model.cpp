@@ -147,6 +147,9 @@ void define_model(py::module& m) {
         .def("_as_sparse_pmdp", [](ModelBase &modelbase) {
                 return modelbase.as<SparseMdp<RationalFunction>>();
             }, "Get model as sparse pMDP")
+        .def("_as_sparse_imdp", [](ModelBase &modelbase) {
+                return modelbase.as<SparseMdp<storm::Interval>>();
+            }, "Get model as sparse interval MDP")
         .def("_as_sparse_pomdp", [](ModelBase &modelbase) {
                 return modelbase.as<SparsePomdp<double>>();
             }, "Get model as sparse POMDP")
@@ -200,7 +203,8 @@ void define_sparse_model(py::module& m, std::string const& vtSuffix) {
     // Models with double numbers
     py::class_<SparseModel<ValueType>, std::shared_ptr<SparseModel<ValueType>>, ModelBase> model(m, ("_Sparse" + vtSuffix + "Model").c_str(),
                                                                                            "A probabilistic model where transitions are represented by doubles and saved in a sparse matrix");
-    model.def_property_readonly("labeling", &getLabeling<ValueType>, "Labels")
+    model.def_property_readonly("supports_uncertainty", &SparseModel<ValueType>::supportsUncertainty, "Flag whether model supports uncertainty via intervals")
+        .def_property_readonly("labeling", &getLabeling<ValueType>, "Labels")
         .def("has_choice_labeling", [](SparseModel<ValueType> const& model) {return model.hasChoiceLabeling();}, "Does the model have an associated choice labelling?")
         .def_property_readonly("choice_labeling", [](SparseModel<ValueType> const& model) {return model.getChoiceLabeling();}, "get choice labelling")
         .def("has_choice_origins", [](SparseModel<ValueType> const& model) {return model.hasChoiceOrigins();}, "has choice origins?")
@@ -208,6 +212,7 @@ void define_sparse_model(py::module& m, std::string const& vtSuffix) {
         .def("labels_state", &SparseModel<ValueType>::getLabelsOfState, py::arg("state"), "Get labels of state")
         .def_property_readonly("initial_states", &getSparseInitialStates<ValueType>, "Initial states")
         .def_property_readonly("initial_states_as_bitvector", [](SparseModel<ValueType> const& model) {return model.getInitialStates();})
+        .def("set_initial_states", &SparseModel<ValueType>::setInitialStates, py::arg("states"), "Set initial states")
         .def_property_readonly("states", [](SparseModel<ValueType>& model) {
                 return SparseModelStates<ValueType>(model);
             }, "Get states")
@@ -453,3 +458,4 @@ void define_symbolic_model(py::module& m, std::string vt_suffix) {
 template void define_symbolic_model<storm::dd::DdType::Sylvan>(py::module& m, std::string vt_suffix);
 template void define_sparse_model<double>(py::module& m, std::string const& vt_suffix);
 template void define_sparse_model<storm::RationalNumber>(py::module& m, std::string const& vt_suffix);
+template void define_sparse_model<storm::Interval>(py::module& m, std::string const& vt_suffix);

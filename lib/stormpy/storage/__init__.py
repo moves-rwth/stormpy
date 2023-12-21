@@ -77,5 +77,7 @@ def get_maximal_end_components(model):
         return stormpy.jMaximalEndComponentDecomposition_ratfunc(model)
     elif model.is_exact:
         return stormpy.MaximalEndComponentDecomposition_exact(model)
+    elif model.supports_uncertainty:
+        return stormpy.MaximalEndComponentDecomposition_interval(model)
     else:
         return stormpy.MaximalEndComponentDecomposition_double(model)

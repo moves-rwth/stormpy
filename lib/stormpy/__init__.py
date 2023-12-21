@@ -216,6 +216,22 @@ def build_parametric_model_from_drn(file, options = DirectEncodingParserOptions(
     return _convert_sparse_model(intermediate, parametric=True)
 
 
+def build_interval_model_from_drn(file, options = DirectEncodingParserOptions()):
+    """
+    Build an interval model in sparse representation from the explicit DRN representation.
+
+    :param String file: DRN file containing the model.
+    :param DirectEncodingParserOptions: Options for the parser.
+    :return: Interval model in sparse representation.
+    """
+    intermediate = core._build_sparse_interval_model_from_drn(file, options)
+    assert intermediate.supports_uncertainty
+    if intermediate.model_type == ModelType.MDP:
+        return intermediate._as_sparse_imdp()
+    else:
+        raise StormError("Not supported interval model constructed")
+
+
 def perform_bisimulation(model, properties, bisimulation_type):
     """
     Perform bisimulation on model.
@@ -300,7 +316,9 @@ def check_model_sparse(model, property, only_initial_states=False, extract_sched
         if force_fully_observable:
             # Note that casting a model to a fully observable model wont work with python/pybind, so we actually have other access points
             if model.supports_parameters:
-                raise NotImplementedError("")
+                raise NotImplementedError("Model checking of partially observable models is not supported for parametric models.")
+            elif model.supports_uncertainty:
+                raise NotImplementedError("Model checking of partially observable models is not supported for interval models.")
             elif model.is_exact:
                 task = core.ExactCheckTask(formula, only_initial_states)
                 task.set_produce_schedulers(extract_scheduler)
@@ -600,11 +618,11 @@ def parse_properties(properties, context=None, filters=None):
         if context.is_prism_program():
             return core.parse_properties_for_prism_program(properties, context.as_prism_program(), filters)
         else:
-            core.parse_properties_for_jani_program(properties, context.as_jani_model(), filters)
+            return core.parse_properties_for_jani_program(properties, context.as_jani_model(), filters)
     elif type(context) == storage.PrismProgram:
         return core.parse_properties_for_prism_program(properties, context, filters)
     elif type(context) == storage.JaniModel:
-        core.parse_properties_for_jani_model(properties, context, filters)
+        return core.parse_properties_for_jani_model(properties, context, filters)
     else:
         raise StormError("Unclear context. Please pass a symbolic model description")
 
@@ -619,6 +637,8 @@ def export_to_drn(model, file, options=DirectEncodingOptions()):
     """
     if model.supports_parameters:
         return core._export_parametric_to_drn(model, file, options)
+    if model.supports_uncertainty:
+        return core._export_to_drn_interval(model, file, options)
     if model.is_exact:
         return core._export_exact_to_drn(model, file, options)
     return core._export_to_drn(model, file, options)

@@ -21,6 +21,7 @@ void define_bitvector(py::module& m) {
         .def("set", [](BitVector& b, uint_fast64_t i, bool v) {
                 b.set(i, v);
             }, py::arg("index"), py::arg("value") = true, "Set")
+        .def("as_int", &BitVector::getAsInt, py::arg("index"), py::arg("no_bits"), "Get as unsigned int")
 
         .def("__len__", [](BitVector const& b) { return b.size(); })
         .def("__getitem__", [](BitVector const& b, uint_fast64_t i) {
@@ -49,7 +50,9 @@ void define_bitvector(py::module& m) {
         .def(py::self |= py::self)
 
         .def("__str__", &streamToString<BitVector>)
-
+        .def("__hash__", [](const BitVector &b) {
+                return storm::storage::Murmur3BitVectorHash<uint64_t>()(b);
+            })
     ;
 
 }
