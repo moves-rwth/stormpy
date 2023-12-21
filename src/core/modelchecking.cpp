@@ -50,7 +50,6 @@ std::shared_ptr<storm::modelchecker::CheckResult> modelCheckingHybridEngine(std:
 }
 
 std::shared_ptr<storm::modelchecker::CheckResult> checkIntervalMdp(std::shared_ptr<storm::models::sparse::Mdp<storm::Interval>> mdp, CheckTask<double> const& task, storm::Environment& env) {
-    env.solver().minMax().setMethod(storm::solver::MinMaxMethod::ValueIteration);
     auto checker = storm::modelchecker::SparseMdpPrctlModelChecker<storm::models::sparse::Mdp<storm::Interval>>(*mdp);
     return checker.check(env, task);
 }

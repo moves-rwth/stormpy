@@ -216,6 +216,22 @@ def build_parametric_model_from_drn(file, options = DirectEncodingParserOptions(
     return _convert_sparse_model(intermediate, parametric=True)
 
 
+def build_interval_model_from_drn(file, options = DirectEncodingParserOptions()):
+    """
+    Build an interval model in sparse representation from the explicit DRN representation.
+
+    :param String file: DRN file containing the model.
+    :param DirectEncodingParserOptions: Options for the parser.
+    :return: Interval model in sparse representation.
+    """
+    intermediate = core._build_sparse_interval_model_from_drn(file, options)
+    assert intermediate.supports_uncertainty
+    if intermediate.model_type == ModelType.MDP:
+        return intermediate._as_sparse_imdp()
+    else:
+        raise StormError("Not supported interval model constructed")
+
+
 def perform_bisimulation(model, properties, bisimulation_type):
     """
     Perform bisimulation on model.
