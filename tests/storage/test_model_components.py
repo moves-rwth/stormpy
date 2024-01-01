@@ -79,7 +79,7 @@ class TestSparseModelComponents:
         for s in range(7, 13):
             v_builder.add_state(state=s, integer_values=[7, s - 6])
 
-        state_valuations = v_builder.build(13)
+        state_valuations = v_builder.build()
 
         # choice origins
         prism_program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
@@ -229,7 +229,7 @@ class TestSparseModelComponents:
             v_builder.add_state(state=s, boolean_values=[], integer_values=[s, 0], rational_values=[])
         for s in range(7, 13):
             v_builder.add_state(state=s, boolean_values=[], integer_values=[7, s - 6], rational_values=[])
-        state_valuations = v_builder.build(13)
+        state_valuations = v_builder.build()
 
         # choice origins
         prism_program = stormpy.parse_prism_program(get_example_path("mdp", "die_c1.nm"))
@@ -382,7 +382,7 @@ class TestSparseModelComponents:
         v_builder.add_state(state=10, boolean_values=[], integer_values=[2, 1, 0, 1], rational_values=[])
         v_builder.add_state(state=11, boolean_values=[], integer_values=[2, 1, 1, 1], rational_values=[])
 
-        state_valuations = v_builder.build(nr_states)
+        state_valuations = v_builder.build()
 
         # set rate_transitions to True: the transition values are interpreted as rates
         components = stormpy.SparseModelComponents(transition_matrix=transition_matrix, state_labeling=state_labeling,
@@ -515,7 +515,7 @@ class TestSparseModelComponents:
         v_builder.add_state(state=3, boolean_values=[], integer_values=[4], rational_values=[])
         v_builder.add_state(state=4, boolean_values=[], integer_values=[3], rational_values=[])
 
-        state_valuations = v_builder.build(nr_states)
+        state_valuations = v_builder.build()
 
         # choice origins:
         prism_program = stormpy.parse_prism_program(get_example_path("ma", "hybrid_states.ma"))
@@ -709,7 +709,7 @@ class TestSparseModelComponents:
         v_builder.add_state(state=8, boolean_values=[], integer_values=[2, 2, 1], rational_values=[])
         v_builder.add_state(state=9, boolean_values=[], integer_values=[2, 0, 2], rational_values=[])
 
-        state_valuations = v_builder.build(nr_states)
+        state_valuations = v_builder.build()
 
         observations = [1, 0, 0, 0, 0, 0, 0, 0, 0, 2]
 
