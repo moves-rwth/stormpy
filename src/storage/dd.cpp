@@ -3,6 +3,7 @@
 #include "storm/storage/dd/DdMetaVariable.h"
 #include "storm/storage/dd/Dd.h"
 #include "storm/storage/dd/Bdd.h"
+#include "storm/storage/dd/Add.h"
 #include "src/helpers.h"
 
 template<storm::dd::DdType DdType>
@@ -26,6 +27,14 @@ void define_dd(py::module& m, std::string const& libstring) {
 
     py::class_<storm::dd::Bdd<DdType>> bdd(m, (std::string("Bdd_") + libstring).c_str(), "Bdd", dd);
     bdd.def("to_expression", &storm::dd::Bdd<DdType>::toExpression, py::arg("expression_manager"));
+
+    py::class_<storm::dd::Add<DdType, double>> add(m, (std::string("Add_") + libstring + "_Double").c_str(), "Add", dd);
+    add.def("__iter__", [](const storm::dd::Add<DdType, double> &s) { return py::make_iterator(s.begin(), s.end()); },
+         py::keep_alive<0, 1>() /* Essential: keep object alive while iterator exists */);
+
+    py::class_<storm::dd::AddIterator<DdType, double>> addIterator(m, (std::string("AddIterator_") + libstring + "_Double").c_str(), "AddIterator");
+    addIterator.def("get", [](const storm::dd::AddIterator<DdType, double> &it) { return *it; } );
+
 }
 
 

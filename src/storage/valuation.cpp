@@ -41,8 +41,11 @@ void define_statevaluation(py::module& m) {
 }
 
 void define_simplevaluation(py::module& m) {
-    py::class_<storm::expressions::SimpleValuation> sval(m, "SimpleValuation");
+    py::class_<storm::expressions::Valuation> val(m, "Valuation");
+    val.def_property_readonly("expression_manager", &storm::expressions::Valuation::getManager);
+    py::class_<storm::expressions::SimpleValuation> sval(m, "SimpleValuation", val);
     sval.def("to_json", &storm::expressions::SimpleValuation::toJson, "Convert to JSON");
+    sval.def("to_string", &storm::expressions::SimpleValuation::toString, py::arg("pretty")=true, "to string");
     sval.def("get_boolean_value", &storm::expressions::SimpleValuation::getBooleanValue, py::arg("variable"), "Get Boolean Value for expression variable");
     sval.def("get_integer_value", &storm::expressions::SimpleValuation::getIntegerValue, py::arg("variable"), "Get Integer Value for expression variable");
 
