@@ -121,8 +121,7 @@ void define_expressions(py::module& m) {
         .def_static("Implies", [](Expression const& lhs, Expression const& rhs) {return storm::expressions::implies(lhs, rhs);})
         .def_static("Iff", [](Expression const& lhs, Expression const& rhs) {return storm::expressions::iff(lhs, rhs);})
         .def_static("Conjunction", [](std::vector<Expression> const& expr) {return storm::expressions::conjunction(expr); })
-        .def_static("Disjunction", [](std::vector<Expression> const& expr) {return storm::expressions::conjunction(expr); })
-
+        .def_static("Disjunction", [](std::vector<Expression> const& expr) {return storm::expressions::disjunction(expr); })
             ;
 
 
