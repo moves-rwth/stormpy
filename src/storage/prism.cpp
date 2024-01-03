@@ -3,6 +3,7 @@
 #include <boost/variant.hpp>
 #include <boost/algorithm/string/join.hpp>
 #include <random>
+#include <optional>
 #include "src/helpers.h"
 #include <storm/storage/expressions/ExpressionManager.h>
 #include <storm/storage/expressions/ExpressionEvaluator.h>
@@ -48,6 +49,11 @@ void define_prism(py::module& m) {
             .def("substitute_nonstandard_predicates", &Program::substituteNonStandardPredicates, "Remove nonstandard predicates from the prism program")
             .def("used_constants",&Program::usedConstants, "Compute Used Constants")
             .def("label_unlabelled_commands", &Program::labelUnlabelledCommands, "Label unlabelled commands", py::arg("name_suggestions"))
+            .def("replace_variable_initialization_by_init_expression", &Program::replaceVariableInitializationByInitExpression, "Replaces initializations from the individual variables to a init expression.")
+            .def("replace_constant_by_variable", &Program::replaceConstantByVariable, py::arg("constant"), py::arg("lower_bound"), py::arg("upper_bound"), py::arg("observable") = true, "Operation to take a constant and make it into a global variable (ranging from lower to upper bound).")
+            .def_property_readonly("has_initial_states_expression", &Program::hasInitialConstruct, "Is an initial states expression given.")
+            .def_property_readonly("initial_states_expression", [](Program const& p) {return p.hasInitialConstruct() ? std::make_optional(p.getInitialStatesExpression()) : std::nullopt;}, "Get the initial states expression, or none, if none exists")
+            .def("update_initial_states_expression", &Program::updateInitialStatesExpression, py::arg("new_expression"), "Replace initial expression. Can only be called if initial expression exists.")
             .def("has_constant", &Program::hasConstant, py::arg("name"))
             .def("get_constant", &Program::getConstant, py::arg("name"), "Requires that the program has a constant with this name")
             .def("has_reward_model", [](Program const& p, std::string const& name) {return p.hasRewardModel(name);},  py::arg("name"), "Is a reward model with the specified name defined?")
