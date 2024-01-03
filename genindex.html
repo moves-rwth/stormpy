@@ -146,6 +146,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="api/core.html">Stormpy.core</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="api/core.html#stormpy.ActionMaskDouble"><code class="docutils literal notranslate"><span class="pre">ActionMaskDouble</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/core.html#stormpy.AddIterator_Sylvan_Double"><code class="docutils literal notranslate"><span class="pre">AddIterator_Sylvan_Double</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/core.html#stormpy.Add_Sylvan_Double"><code class="docutils literal notranslate"><span class="pre">Add_Sylvan_Double</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/core.html#stormpy.AtomicExpressionFormula"><code class="docutils literal notranslate"><span class="pre">AtomicExpressionFormula</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/core.html#stormpy.AtomicLabelFormula"><code class="docutils literal notranslate"><span class="pre">AtomicLabelFormula</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/core.html#stormpy.Bdd_Sylvan"><code class="docutils literal notranslate"><span class="pre">Bdd_Sylvan</span></code></a></li>
@@ -370,6 +372,7 @@
 <li class="toctree-l2"><a class="reference internal" href="api/core.html#stormpy.UnaryPathFormula"><code class="docutils literal notranslate"><span class="pre">UnaryPathFormula</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/core.html#stormpy.UnaryStateFormula"><code class="docutils literal notranslate"><span class="pre">UnaryStateFormula</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/core.html#stormpy.UntilFormula"><code class="docutils literal notranslate"><span class="pre">UntilFormula</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/core.html#stormpy.Valuation"><code class="docutils literal notranslate"><span class="pre">Valuation</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/core.html#stormpy.Variable"><code class="docutils literal notranslate"><span class="pre">Variable</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/core.html#stormpy.build_interval_model_from_drn"><code class="docutils literal notranslate"><span class="pre">build_interval_model_from_drn()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/core.html#stormpy.build_model"><code class="docutils literal notranslate"><span class="pre">build_model()</span></code></a></li>
@@ -481,6 +484,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api/storage.html">Stormpy.storage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/storage.html#stormpy.storage.AddIterator_Sylvan_Double"><code class="docutils literal notranslate"><span class="pre">AddIterator_Sylvan_Double</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/storage.html#stormpy.storage.Add_Sylvan_Double"><code class="docutils literal notranslate"><span class="pre">Add_Sylvan_Double</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/storage.html#stormpy.storage.Bdd_Sylvan"><code class="docutils literal notranslate"><span class="pre">Bdd_Sylvan</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/storage.html#stormpy.storage.BitVector"><code class="docutils literal notranslate"><span class="pre">BitVector</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/storage.html#stormpy.storage.ChoiceLabeling"><code class="docutils literal notranslate"><span class="pre">ChoiceLabeling</span></code></a></li>
@@ -619,6 +624,7 @@
 <li class="toctree-l2"><a class="reference internal" href="api/storage.html#stormpy.storage.SymbolicSylvanParametricMdp"><code class="docutils literal notranslate"><span class="pre">SymbolicSylvanParametricMdp</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/storage.html#stormpy.storage.SymbolicSylvanParametricRewardModel"><code class="docutils literal notranslate"><span class="pre">SymbolicSylvanParametricRewardModel</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/storage.html#stormpy.storage.SymbolicSylvanRewardModel"><code class="docutils literal notranslate"><span class="pre">SymbolicSylvanRewardModel</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/storage.html#stormpy.storage.Valuation"><code class="docutils literal notranslate"><span class="pre">Valuation</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/storage.html#stormpy.storage.Variable"><code class="docutils literal notranslate"><span class="pre">Variable</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/storage.html#stormpy.storage.build_parametric_sparse_matrix"><code class="docutils literal notranslate"><span class="pre">build_parametric_sparse_matrix()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/storage.html#stormpy.storage.build_sparse_matrix"><code class="docutils literal notranslate"><span class="pre">build_sparse_matrix()</span></code></a></li>
@@ -887,12 +893,24 @@
 </li>
       <li><a href="api/core.html#stormpy.StateValuationsBuilder.add_state">add_state() (StateValuationsBuilder method)</a>, <a href="api/storage.html#stormpy.storage.StateValuationsBuilder.add_state">[1]</a>
 </li>
+      <li><a href="api/core.html#stormpy.Add_Sylvan_Double">Add_Sylvan_Double (class in stormpy)</a>
+
+      <ul>
+        <li><a href="api/storage.html#stormpy.storage.Add_Sylvan_Double">(class in stormpy.storage)</a>
+</li>
+      </ul></li>
       <li><a href="api/gspn.html#stormpy.gspn.GSPNBuilder.add_timed_transition">add_timed_transition() (GSPNBuilder method)</a>
 </li>
       <li><a href="api/core.html#stormpy.JaniVariableSet.add_variable">add_variable() (JaniVariableSet method)</a>, <a href="api/storage.html#stormpy.storage.JaniVariableSet.add_variable">[1]</a>
 
       <ul>
         <li><a href="api/core.html#stormpy.StateValuationsBuilder.add_variable">(StateValuationsBuilder method)</a>, <a href="api/storage.html#stormpy.storage.StateValuationsBuilder.add_variable">[1]</a>
+</li>
+      </ul></li>
+      <li><a href="api/core.html#stormpy.AddIterator_Sylvan_Double">AddIterator_Sylvan_Double (class in stormpy)</a>
+
+      <ul>
+        <li><a href="api/storage.html#stormpy.storage.AddIterator_Sylvan_Double">(class in stormpy.storage)</a>
 </li>
       </ul></li>
       <li><a href="api/core.html#stormpy.DirectEncodingOptions.allow_placeholders">allow_placeholders (DirectEncodingOptions property)</a>
@@ -903,14 +921,14 @@
         <li><a href="api/pars.html#stormpy.pars.RegionResultHypothesis.ALLSAT">(RegionResultHypothesis attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/pars.html#stormpy.pars.RegionResult.ALLVIOLATED">ALLVIOLATED (RegionResult attribute)</a>
 
       <ul>
         <li><a href="api/pars.html#stormpy.pars.RegionResultHypothesis.ALLVIOLATED">(RegionResultHypothesis attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core.html#stormpy.SMTCounterExampleGeneratorStats.analysis_time">analysis_time (SMTCounterExampleGeneratorStats property)</a>
 </li>
       <li><a href="api/dft.html#stormpy.dft.analyze_dft">analyze_dft() (in module stormpy.dft)</a>
@@ -1860,6 +1878,8 @@
       <ul>
         <li><a href="api/core.html#stormpy.PrismProgram.expression_manager">(PrismProgram property)</a>, <a href="api/storage.html#stormpy.storage.PrismProgram.expression_manager">[1]</a>
 </li>
+        <li><a href="api/core.html#stormpy.Valuation.expression_manager">(Valuation property)</a>, <a href="api/storage.html#stormpy.storage.Valuation.expression_manager">[1]</a>
+</li>
       </ul></li>
       <li><a href="api/core.html#stormpy.JaniConstant.expression_variable">expression_variable (JaniConstant property)</a>, <a href="api/storage.html#stormpy.storage.JaniConstant.expression_variable">[1]</a>
 
@@ -1975,8 +1995,12 @@
 </li>
       <li><a href="api/core.html#stormpy.Expression.Geq">Geq() (Expression static method)</a>, <a href="api/storage.html#stormpy.storage.Expression.Geq">[1]</a>
 </li>
-      <li><a href="api/core.html#stormpy.BitVector.get">get() (BitVector method)</a>, <a href="api/storage.html#stormpy.storage.BitVector.get">[1]</a>
+      <li><a href="api/core.html#stormpy.AddIterator_Sylvan_Double.get">get() (AddIterator_Sylvan_Double method)</a>, <a href="api/storage.html#stormpy.storage.AddIterator_Sylvan_Double.get">[1]</a>
+
+      <ul>
+        <li><a href="api/core.html#stormpy.BitVector.get">(BitVector method)</a>, <a href="api/storage.html#stormpy.storage.BitVector.get">[1]</a>
 </li>
+      </ul></li>
       <li><a href="api/core.html#stormpy.PrismProgram.get_action_name">get_action_name() (PrismProgram method)</a>, <a href="api/storage.html#stormpy.storage.PrismProgram.get_action_name">[1]</a>
 </li>
       <li><a href="api/core.html#stormpy.PrismUpdate.get_as_variable_to_expression_map">get_as_variable_to_expression_map() (PrismUpdate method)</a>, <a href="api/storage.html#stormpy.storage.PrismUpdate.get_as_variable_to_expression_map">[1]</a>
@@ -2354,6 +2378,8 @@
 </li>
         <li><a href="api/core.html#stormpy.HybridQuantitativeCheckResult.get_values">(HybridQuantitativeCheckResult method)</a>
 </li>
+        <li><a href="api/core.html#stormpy.SymbolicQuantitativeCheckResult.get_values">(SymbolicQuantitativeCheckResult method)</a>
+</li>
       </ul></li>
       <li><a href="api/core.html#stormpy.ExpressionManager.get_variable">get_variable() (ExpressionManager method)</a>, <a href="api/storage.html#stormpy.storage.ExpressionManager.get_variable">[1]</a>
 </li>
@@ -2609,6 +2635,8 @@
 </li>
       <li><a href="api/core.html#stormpy.Expression.Implies">Implies() (Expression static method)</a>, <a href="api/storage.html#stormpy.storage.Expression.Implies">[1]</a>
 </li>
+      <li><a href="api/storage.html#stormpy.storage.Variable.index">index (Variable property)</a>
+</li>
       <li><a href="api/core.html#stormpy.JaniVariable.init_expression">init_expression (JaniVariable property)</a>, <a href="api/storage.html#stormpy.storage.JaniVariable.init_expression">[1]</a>
 </li>
       <li><a href="api/core.html#stormpy.JaniAutomaton.initial_location_indices">initial_location_indices (JaniAutomaton property)</a>, <a href="api/storage.html#stormpy.storage.JaniAutomaton.initial_location_indices">[1]</a>
@@ -2667,14 +2695,14 @@
         <li><a href="api/core.html#stormpy.NativeLinearEquationSolverMethod.interval_iteration">(NativeLinearEquationSolverMethod attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core.html#stormpy.IntervalSparseMatrix">IntervalSparseMatrix (class in stormpy)</a>
 
       <ul>
         <li><a href="api/storage.html#stormpy.storage.IntervalSparseMatrix">(class in stormpy.storage)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core.html#stormpy.IntervalSparseMatrixBuilder">IntervalSparseMatrixBuilder (class in stormpy)</a>
 
       <ul>
@@ -3516,6 +3544,8 @@
         <li><a href="api/core.html#stormpy.SparsePomdp.observations">(SparsePomdp property)</a>, <a href="api/storage.html#stormpy.storage.SparsePomdp.observations">[1]</a>
 </li>
       </ul></li>
+      <li><a href="api/storage.html#stormpy.storage.Variable.offset">offset (Variable property)</a>
+</li>
       <li><a href="api/core.html#stormpy.EndComponentEliminatorReturnTypeDouble.old_to_new_state_mapping">old_to_new_state_mapping (EndComponentEliminatorReturnTypeDouble property)</a>
 </li>
       <li><a href="api/dft.html#stormpy.dft.DFTState_double.operational">operational() (DFTState_double method)</a>
@@ -4984,6 +5014,8 @@
 </li>
         <li><a href="api/core.html#stormpy.DiceStringVisitor.to_string">(DiceStringVisitor method)</a>, <a href="api/storage.html#stormpy.storage.DiceStringVisitor.to_string">[1]</a>
 </li>
+        <li><a href="api/core.html#stormpy.SimpleValuation.to_string">(SimpleValuation method)</a>, <a href="api/storage.html#stormpy.storage.SimpleValuation.to_string">[1]</a>
+</li>
       </ul></li>
       <li><a href="api/dft.html#stormpy.dft.DFT_double.top_level_element">top_level_element (DFT_double property)</a>
 
@@ -5147,6 +5179,12 @@
 <h2 id="V">V</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/core.html#stormpy.Valuation">Valuation (class in stormpy)</a>
+
+      <ul>
+        <li><a href="api/storage.html#stormpy.storage.Valuation">(class in stormpy.storage)</a>
+</li>
+      </ul></li>
       <li><a href="api/dft.html#stormpy.dft.ApproximationHeuristic.value">value (ApproximationHeuristic property)</a>
 
       <ul>

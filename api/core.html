@@ -149,6 +149,8 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Stormpy.core</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.ActionMaskDouble"><code class="docutils literal notranslate"><span class="pre">ActionMaskDouble</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#stormpy.AddIterator_Sylvan_Double"><code class="docutils literal notranslate"><span class="pre">AddIterator_Sylvan_Double</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#stormpy.Add_Sylvan_Double"><code class="docutils literal notranslate"><span class="pre">Add_Sylvan_Double</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.AtomicExpressionFormula"><code class="docutils literal notranslate"><span class="pre">AtomicExpressionFormula</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.AtomicLabelFormula"><code class="docutils literal notranslate"><span class="pre">AtomicLabelFormula</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.Bdd_Sylvan"><code class="docutils literal notranslate"><span class="pre">Bdd_Sylvan</span></code></a></li>
@@ -373,6 +375,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.UnaryPathFormula"><code class="docutils literal notranslate"><span class="pre">UnaryPathFormula</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.UnaryStateFormula"><code class="docutils literal notranslate"><span class="pre">UnaryStateFormula</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.UntilFormula"><code class="docutils literal notranslate"><span class="pre">UntilFormula</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#stormpy.Valuation"><code class="docutils literal notranslate"><span class="pre">Valuation</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.Variable"><code class="docutils literal notranslate"><span class="pre">Variable</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.build_interval_model_from_drn"><code class="docutils literal notranslate"><span class="pre">build_interval_model_from_drn()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.build_model"><code class="docutils literal notranslate"><span class="pre">build_model()</span></code></a></li>
@@ -484,6 +487,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="storage.html">Stormpy.storage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="storage.html#stormpy.storage.AddIterator_Sylvan_Double"><code class="docutils literal notranslate"><span class="pre">AddIterator_Sylvan_Double</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.html#stormpy.storage.Add_Sylvan_Double"><code class="docutils literal notranslate"><span class="pre">Add_Sylvan_Double</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="storage.html#stormpy.storage.Bdd_Sylvan"><code class="docutils literal notranslate"><span class="pre">Bdd_Sylvan</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="storage.html#stormpy.storage.BitVector"><code class="docutils literal notranslate"><span class="pre">BitVector</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="storage.html#stormpy.storage.ChoiceLabeling"><code class="docutils literal notranslate"><span class="pre">ChoiceLabeling</span></code></a></li>
@@ -622,6 +627,7 @@
 <li class="toctree-l2"><a class="reference internal" href="storage.html#stormpy.storage.SymbolicSylvanParametricMdp"><code class="docutils literal notranslate"><span class="pre">SymbolicSylvanParametricMdp</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="storage.html#stormpy.storage.SymbolicSylvanParametricRewardModel"><code class="docutils literal notranslate"><span class="pre">SymbolicSylvanParametricRewardModel</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="storage.html#stormpy.storage.SymbolicSylvanRewardModel"><code class="docutils literal notranslate"><span class="pre">SymbolicSylvanRewardModel</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="storage.html#stormpy.storage.Valuation"><code class="docutils literal notranslate"><span class="pre">Valuation</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="storage.html#stormpy.storage.Variable"><code class="docutils literal notranslate"><span class="pre">Variable</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="storage.html#stormpy.storage.build_parametric_sparse_matrix"><code class="docutils literal notranslate"><span class="pre">build_parametric_sparse_matrix()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="storage.html#stormpy.storage.build_sparse_matrix"><code class="docutils literal notranslate"><span class="pre">build_sparse_matrix()</span></code></a></li>
@@ -750,6 +756,11 @@
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">Stormpy.core</a><ul>
 <li><a class="reference internal" href="#stormpy.ActionMaskDouble"><code class="docutils literal notranslate"><span class="pre">ActionMaskDouble</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.AddIterator_Sylvan_Double"><code class="docutils literal notranslate"><span class="pre">AddIterator_Sylvan_Double</span></code></a><ul>
+<li><a class="reference internal" href="#stormpy.AddIterator_Sylvan_Double.get"><code class="docutils literal notranslate"><span class="pre">AddIterator_Sylvan_Double.get()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#stormpy.Add_Sylvan_Double"><code class="docutils literal notranslate"><span class="pre">Add_Sylvan_Double</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.AtomicExpressionFormula"><code class="docutils literal notranslate"><span class="pre">AtomicExpressionFormula</span></code></a><ul>
 <li><a class="reference internal" href="#stormpy.AtomicExpressionFormula.get_expression"><code class="docutils literal notranslate"><span class="pre">AtomicExpressionFormula.get_expression()</span></code></a></li>
 </ul>
@@ -1789,6 +1800,7 @@
 <li><a class="reference internal" href="#stormpy.SimpleValuation.get_boolean_value"><code class="docutils literal notranslate"><span class="pre">SimpleValuation.get_boolean_value()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.SimpleValuation.get_integer_value"><code class="docutils literal notranslate"><span class="pre">SimpleValuation.get_integer_value()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.SimpleValuation.to_json"><code class="docutils literal notranslate"><span class="pre">SimpleValuation.to_json()</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SimpleValuation.to_string"><code class="docutils literal notranslate"><span class="pre">SimpleValuation.to_string()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#stormpy.SolverEnvironment"><code class="docutils literal notranslate"><span class="pre">SolverEnvironment</span></code></a><ul>
@@ -2179,6 +2191,7 @@
 </li>
 <li><a class="reference internal" href="#stormpy.SymbolicQuantitativeCheckResult"><code class="docutils literal notranslate"><span class="pre">SymbolicQuantitativeCheckResult</span></code></a><ul>
 <li><a class="reference internal" href="#stormpy.SymbolicQuantitativeCheckResult.clone"><code class="docutils literal notranslate"><span class="pre">SymbolicQuantitativeCheckResult.clone()</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SymbolicQuantitativeCheckResult.get_values"><code class="docutils literal notranslate"><span class="pre">SymbolicQuantitativeCheckResult.get_values()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#stormpy.SymbolicSylvanCtmc"><code class="docutils literal notranslate"><span class="pre">SymbolicSylvanCtmc</span></code></a></li>
@@ -2212,6 +2225,10 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#stormpy.UntilFormula"><code class="docutils literal notranslate"><span class="pre">UntilFormula</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.Valuation"><code class="docutils literal notranslate"><span class="pre">Valuation</span></code></a><ul>
+<li><a class="reference internal" href="#stormpy.Valuation.expression_manager"><code class="docutils literal notranslate"><span class="pre">Valuation.expression_manager</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#stormpy.Variable"><code class="docutils literal notranslate"><span class="pre">Variable</span></code></a><ul>
 <li><a class="reference internal" href="#stormpy.Variable.id"><code class="docutils literal notranslate"><span class="pre">Variable.id</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.Variable.is_no_variable"><code class="docutils literal notranslate"><span class="pre">Variable.is_no_variable</span></code></a></li>
@@ -2330,6 +2347,11 @@
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
 <li><a class="reference internal" href="#">Stormpy.core</a><ul>
 <li><a class="reference internal" href="#stormpy.ActionMaskDouble"><code class="docutils literal notranslate"><span class="pre">ActionMaskDouble</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.AddIterator_Sylvan_Double"><code class="docutils literal notranslate"><span class="pre">AddIterator_Sylvan_Double</span></code></a><ul>
+<li><a class="reference internal" href="#stormpy.AddIterator_Sylvan_Double.get"><code class="docutils literal notranslate"><span class="pre">AddIterator_Sylvan_Double.get()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#stormpy.Add_Sylvan_Double"><code class="docutils literal notranslate"><span class="pre">Add_Sylvan_Double</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.AtomicExpressionFormula"><code class="docutils literal notranslate"><span class="pre">AtomicExpressionFormula</span></code></a><ul>
 <li><a class="reference internal" href="#stormpy.AtomicExpressionFormula.get_expression"><code class="docutils literal notranslate"><span class="pre">AtomicExpressionFormula.get_expression()</span></code></a></li>
 </ul>
@@ -3369,6 +3391,7 @@
 <li><a class="reference internal" href="#stormpy.SimpleValuation.get_boolean_value"><code class="docutils literal notranslate"><span class="pre">SimpleValuation.get_boolean_value()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.SimpleValuation.get_integer_value"><code class="docutils literal notranslate"><span class="pre">SimpleValuation.get_integer_value()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.SimpleValuation.to_json"><code class="docutils literal notranslate"><span class="pre">SimpleValuation.to_json()</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SimpleValuation.to_string"><code class="docutils literal notranslate"><span class="pre">SimpleValuation.to_string()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#stormpy.SolverEnvironment"><code class="docutils literal notranslate"><span class="pre">SolverEnvironment</span></code></a><ul>
@@ -3759,6 +3782,7 @@
 </li>
 <li><a class="reference internal" href="#stormpy.SymbolicQuantitativeCheckResult"><code class="docutils literal notranslate"><span class="pre">SymbolicQuantitativeCheckResult</span></code></a><ul>
 <li><a class="reference internal" href="#stormpy.SymbolicQuantitativeCheckResult.clone"><code class="docutils literal notranslate"><span class="pre">SymbolicQuantitativeCheckResult.clone()</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SymbolicQuantitativeCheckResult.get_values"><code class="docutils literal notranslate"><span class="pre">SymbolicQuantitativeCheckResult.get_values()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#stormpy.SymbolicSylvanCtmc"><code class="docutils literal notranslate"><span class="pre">SymbolicSylvanCtmc</span></code></a></li>
@@ -3792,6 +3816,10 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#stormpy.UntilFormula"><code class="docutils literal notranslate"><span class="pre">UntilFormula</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.Valuation"><code class="docutils literal notranslate"><span class="pre">Valuation</span></code></a><ul>
+<li><a class="reference internal" href="#stormpy.Valuation.expression_manager"><code class="docutils literal notranslate"><span class="pre">Valuation.expression_manager</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#stormpy.Variable"><code class="docutils literal notranslate"><span class="pre">Variable</span></code></a><ul>
 <li><a class="reference internal" href="#stormpy.Variable.id"><code class="docutils literal notranslate"><span class="pre">Variable.id</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.Variable.is_no_variable"><code class="docutils literal notranslate"><span class="pre">Variable.is_no_variable</span></code></a></li>
@@ -3879,6 +3907,23 @@
 <dt class="sig sig-object py" id="stormpy.ActionMaskDouble">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ActionMaskDouble</span></span><a class="headerlink" href="#stormpy.ActionMaskDouble" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="stormpy.AddIterator_Sylvan_Double">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">AddIterator_Sylvan_Double</span></span><a class="headerlink" href="#stormpy.AddIterator_Sylvan_Double" title="Link to this definition">¶</a></dt>
+<dd><p>AddIterator</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.AddIterator_Sylvan_Double.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="storage.html#stormpy.storage.AddIterator_Sylvan_Double" title="stormpy.storage.storage.AddIterator_Sylvan_Double"><span class="pre">stormpy.storage.storage.AddIterator_Sylvan_Double</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple[storm::expressions::SimpleValuation,</span> <span class="pre">float]</span></span></span><a class="headerlink" href="#stormpy.AddIterator_Sylvan_Double.get" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="stormpy.Add_Sylvan_Double">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Add_Sylvan_Double</span></span><a class="headerlink" href="#stormpy.Add_Sylvan_Double" title="Link to this definition">¶</a></dt>
+<dd><p>Add</p>
+</dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="stormpy.AtomicExpressionFormula">
@@ -6049,7 +6094,7 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.JaniModel.flatten_composition">
-<span class="sig-name descname"><span class="pre">flatten_composition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.JaniModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_solver_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f98b23b44f0&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.JaniModel" title="stormpy.storage.storage.JaniModel"><span class="pre">stormpy.storage.storage.JaniModel</span></a></span></span><a class="headerlink" href="#stormpy.JaniModel.flatten_composition" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">flatten_composition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.JaniModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_solver_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f71b8aff7b0&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.JaniModel" title="stormpy.storage.storage.JaniModel"><span class="pre">stormpy.storage.storage.JaniModel</span></a></span></span><a class="headerlink" href="#stormpy.JaniModel.flatten_composition" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -7587,7 +7632,7 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.PrismProgram.flatten">
-<span class="sig-name descname"><span class="pre">flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.PrismProgram</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f98b23caf70&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.PrismProgram" title="stormpy.storage.storage.PrismProgram"><span class="pre">stormpy.storage.storage.PrismProgram</span></a></span></span><a class="headerlink" href="#stormpy.PrismProgram.flatten" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.PrismProgram</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f71b8b10eb0&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.PrismProgram" title="stormpy.storage.storage.PrismProgram"><span class="pre">stormpy.storage.storage.PrismProgram</span></a></span></span><a class="headerlink" href="#stormpy.PrismProgram.flatten" title="Link to this definition">¶</a></dt>
 <dd><p>Put program into a single module</p>
 </dd></dl>
 
@@ -8520,6 +8565,12 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <dt class="sig sig-object py" id="stormpy.SimpleValuation.to_json">
 <span class="sig-name descname"><span class="pre">to_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="storage.html#stormpy.storage.SimpleValuation" title="stormpy.storage.storage.SimpleValuation"><span class="pre">stormpy.storage.storage.SimpleValuation</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="utility.html#stormpy.utility.JsonContainerRational" title="stormpy.utility.utility.JsonContainerRational"><span class="pre">stormpy.utility.utility.JsonContainerRational</span></a></span></span><a class="headerlink" href="#stormpy.SimpleValuation.to_json" title="Link to this definition">¶</a></dt>
 <dd><p>Convert to JSON</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.SimpleValuation.to_string">
+<span class="sig-name descname"><span class="pre">to_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="storage.html#stormpy.storage.SimpleValuation" title="stormpy.storage.storage.SimpleValuation"><span class="pre">stormpy.storage.storage.SimpleValuation</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pretty</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#stormpy.SimpleValuation.to_string" title="Link to this definition">¶</a></dt>
+<dd><p>to string</p>
 </dd></dl>
 
 </dd></dl>
@@ -10227,6 +10278,11 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <span class="sig-name descname"><span class="pre">clone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.SymbolicQuantitativeCheckResult" title="stormpy.core.SymbolicQuantitativeCheckResult"><span class="pre">stormpy.core.SymbolicQuantitativeCheckResult</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#stormpy.SymbolicQuantitativeCheckResult" title="stormpy.core.SymbolicQuantitativeCheckResult"><span class="pre">stormpy.core.SymbolicQuantitativeCheckResult</span></a></span></span><a class="headerlink" href="#stormpy.SymbolicQuantitativeCheckResult.clone" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.SymbolicQuantitativeCheckResult.get_values">
+<span class="sig-name descname"><span class="pre">get_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.SymbolicQuantitativeCheckResult" title="stormpy.core.SymbolicQuantitativeCheckResult"><span class="pre">stormpy.core.SymbolicQuantitativeCheckResult</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">storm::dd::Add&lt;(storm::dd::DdType)1,</span> <span class="pre">double&gt;</span></span></span><a class="headerlink" href="#stormpy.SymbolicQuantitativeCheckResult.get_values" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -10359,6 +10415,16 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <dt class="sig sig-object py" id="stormpy.UntilFormula">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">UntilFormula</span></span><a class="headerlink" href="#stormpy.UntilFormula" title="Link to this definition">¶</a></dt>
 <dd><p>Path Formula for unbounded until</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="stormpy.Valuation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Valuation</span></span><a class="headerlink" href="#stormpy.Valuation" title="Link to this definition">¶</a></dt>
+<dd><dl class="py property">
+<dt class="sig sig-object py" id="stormpy.Valuation.expression_manager">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">expression_manager</span></span><a class="headerlink" href="#stormpy.Valuation.expression_manager" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
