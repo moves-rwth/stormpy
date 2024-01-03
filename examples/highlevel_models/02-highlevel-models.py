@@ -27,7 +27,7 @@ def example_highlevel_models():
 
     for v in all_in_one_program.constants:
         print(f"Variable {v.name} is {v.definition}")
-    build_options = options = stormpy.BuilderOptions([p.raw_formula for p in properties])
+    build_options = stormpy.BuilderOptions([p.raw_formula for p in properties])
     build_options.set_build_state_valuations()
     sparse_model = stormpy.build_sparse_model_with_options(all_in_one_program, build_options)
     print(sparse_model)
