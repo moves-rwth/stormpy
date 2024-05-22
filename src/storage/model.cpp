@@ -1,6 +1,7 @@
 #include "model.h"
 #include "state.h"
 
+#include "storm/adapters/RationalFunctionAdapter.h"
 #include "storm/models/ModelBase.h"
 #include "storm/models/sparse/Model.h"
 #include "storm/models/sparse/Dtmc.h"
