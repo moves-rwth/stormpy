@@ -1,4 +1,6 @@
 #include "quantitative_analysis.h"
+
+#include <storm/adapters/RationalFunctionAdapter.h>
 #include <storm/models/sparse/Pomdp.h>
 #include <storm-pomdp/api/verification.h>
 

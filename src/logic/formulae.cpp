@@ -3,6 +3,7 @@
 #include "storm/logic/CloneVisitor.h"
 #include "storm/logic/LabelSubstitutionVisitor.h"
 #include "storm/storage/expressions/Variable.h"
+#include "storm/adapters/RationalNumberAdapter.h"
 
 
 void define_formulae(py::module& m) {
