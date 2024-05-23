@@ -24,10 +24,7 @@ rewards
 endrewards
 
 // target observation
-<<<<<<< HEAD
 label "target" = x=3 & y=3;
-=======
->>>>>>> 04362becb6b6c29dac38e36872f8c1e24bdc2761
 label "goal" = x=N & y=M;
 
 

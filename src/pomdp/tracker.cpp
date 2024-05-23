@@ -1,5 +1,7 @@
 #include "tracker.h"
 #include "src/helpers.h"
+
+#include <storm/adapters/RationalFunctionAdapter.h>
 #include <storm-pomdp/generator/BeliefSupportTracker.h>
 #include <storm-pomdp/generator/NondeterministicBeliefTracker.h>
 
