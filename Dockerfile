@@ -25,7 +25,7 @@ ARG carl_cmake_args=""
 # Number of threads to use for parallel compilation
 ARG no_threads=2
 # Carl-storm version
-ARG carl_version=14.25
+ARG carl_version=master
 
 
 # Install dependencies
