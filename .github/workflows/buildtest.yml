@@ -18,8 +18,6 @@ env:
   # GitHub runners currently have two cores
   NR_JOBS: "2"
 
-  DOCUMENTATION_DISTRO: "ubuntu-22.04"
-
 jobs:
   indepthTests:
     name: Indepth Tests (${{ matrix.setupArgs.name }})
@@ -58,12 +56,12 @@ jobs:
         run: docker exec ci bash -c "cd /opt/pycarl; python setup.py test"
 
 
-  noDeploy:
+  distroTests:
     name: Build and Test
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        distro: ["ubuntu-20.04", "debian-11", "ubuntu-22.04"]
+        distro: ["debian-11", "debian-12", "ubuntu-20.04", "ubuntu-22.04", "ubuntu-24.04"]
         debugOrRelease: ["debug", "release"]
 
     steps:
@@ -84,19 +82,44 @@ jobs:
       - name: Run tests
         run: docker exec ci bash -c "cd /opt/pycarl; python setup.py test"
 
-        # Build and publish documentation
+  deploy:
+    name: Build, Test and deploy documentation
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        debugOrRelease: ["debug", "release"]
+
+    steps:
+      - name: Setup environment variables
+        # this is strangely the best way to implement environment variables based on the value of another
+        # GITHUB_ENV is a magic variable pointing to a file; if a line with format {NAME}={VALUE}
+        # then the env variable with name NAME will be created/updated with VALUE
+        run: |
+          ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "BUILD_TYPE=Debug" || echo "BUILD_TYPE=Release") >> $GITHUB_ENV
+          ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "DEBUG_SWITCH=--debug" || true) >> $GITHUB_ENV
+
+      - name: Git clone
+        uses: actions/checkout@v3
+      - name: Build pycarl from Dockerfile
+        run: docker build -t movesrwth/pycarl:ci-${{ matrix.debugOrRelease }} . --build-arg BASE_IMAGE=movesrwth/storm-basesystem:latest --build-arg build_type=${BUILD_TYPE} --build-arg setup_args=${DEBUG_SWITCH} --build-arg no_threads=${NR_JOBS}
+      - name: Run Docker
+        run: docker run -d -it --name ci movesrwth/pycarl:ci-${{ matrix.debugOrRelease }}
+      - name: Run tests
+        run: docker exec ci bash -c "cd /opt/pycarl; python setup.py test"
+
+        # Build and publish documentation for release build
       - name: Install documentation dependencies
-        if: matrix.debugOrRelease == 'release' && matrix.distro == env.DOCUMENTATION_DISTRO
+        if: matrix.debugOrRelease == 'release'
         run: docker exec ci bash -c "cd /opt/pycarl; pip install -e '.[doc]'"
       - name: Build documentation
-        if: matrix.debugOrRelease == 'release' && matrix.distro == env.DOCUMENTATION_DISTRO
+        if: matrix.debugOrRelease == 'release'
         run: |
           docker exec ci bash -c "cd /opt/pycarl/doc; make html"
           docker exec ci rm -r /opt/pycarl/doc/build/html/_sources
           docker cp ci:/opt/pycarl/doc/build/html .
       - name: Deploy documentation
-        # Only deploy for release version and using master on original repo (and not for pull requests or forks)
-        if: matrix.debugOrRelease == 'release' && matrix.distro == env.DOCUMENTATION_DISTRO && github.repository_owner == 'moves-rwth' && github.ref == 'refs/heads/master'
+        # Only deploy for master on original repo (and not for pull requests or forks)
+        if: matrix.debugOrRelease == 'release' && github.repository_owner == 'moves-rwth' && github.ref == 'refs/heads/master'
         uses: peaceiris/actions-gh-pages@v3
         with:
           personal_token: ${{ secrets.GITHUB_TOKEN }}
@@ -105,7 +128,7 @@ jobs:
   notify:
     name: Email notification
     runs-on: ubuntu-latest
-    needs: [indepthTests,noDeploy]
+    needs: [indepthTests,distroTests,deploy]
     # Only run in main repo and even if previous step failed
     if: github.repository_owner == 'moves-rwth' && always()
     steps:

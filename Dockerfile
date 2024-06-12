@@ -25,7 +25,7 @@ ARG carl_cmake_args=""
 # Number of threads to use for parallel compilation
 ARG no_threads=2
 # Carl-storm version
-ARG carl_version=14.25
+ARG carl_version=master
 
 
 # Install dependencies
@@ -82,6 +82,7 @@ ENV VIRTUAL_ENV=/opt/venv
 RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
+RUN pip install setuptools
 
 # Build pycarl
 ##############
