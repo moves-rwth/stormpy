@@ -43,7 +43,7 @@ jobs:
           ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "DEBUG_SWITCH=--debug" || true) >> $GITHUB_ENV
 
       - name: Git clone
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Replace Dockerfile (optional)
         # If carl-parser should be excluded
         if: matrix.setupArgs.parser == 'false'
@@ -74,7 +74,7 @@ jobs:
           ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "DEBUG_SWITCH=--debug" || true) >> $GITHUB_ENV
 
       - name: Git clone
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Build pycarl from Dockerfile
         run: docker build -t movesrwth/pycarl:ci-${{ matrix.debugOrRelease }} . --build-arg BASE_IMAGE=movesrwth/storm-basesystem:${{ matrix.distro }} --build-arg build_type=${BUILD_TYPE} --build-arg setup_args=${DEBUG_SWITCH} --build-arg no_threads=${NR_JOBS}
       - name: Run Docker
@@ -99,7 +99,7 @@ jobs:
           ([[ ${{ matrix.debugOrRelease }} == "debug" ]] && echo "DEBUG_SWITCH=--debug" || true) >> $GITHUB_ENV
 
       - name: Git clone
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Build pycarl from Dockerfile
         run: docker build -t movesrwth/pycarl:ci-${{ matrix.debugOrRelease }} . --build-arg BASE_IMAGE=movesrwth/storm-basesystem:latest --build-arg build_type=${BUILD_TYPE} --build-arg setup_args=${DEBUG_SWITCH} --build-arg no_threads=${NR_JOBS}
       - name: Run Docker
