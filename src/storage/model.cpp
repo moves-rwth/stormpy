@@ -9,6 +9,7 @@
 #include "storm/models/sparse/Pomdp.h"
 #include "storm/models/sparse/Ctmc.h"
 #include "storm/models/sparse/MarkovAutomaton.h"
+#include "storm/models/sparse/Smg.h"
 #include "storm/models/sparse/StandardRewardModel.h"
 #include "storm/models/symbolic/Model.h"
 #include "storm/models/symbolic/Dtmc.h"
@@ -39,6 +40,7 @@ template<typename ValueType> using SparseMdp = storm::models::sparse::Mdp<ValueT
 template<typename ValueType> using SparsePomdp = storm::models::sparse::Pomdp<ValueType>;
 template<typename ValueType> using SparseCtmc = storm::models::sparse::Ctmc<ValueType>;
 template<typename ValueType> using SparseMarkovAutomaton = storm::models::sparse::MarkovAutomaton<ValueType>;
+template<typename ValueType> using SparseSmg = storm::models::sparse::Smg<ValueType>;
 template<typename ValueType> using SparseRewardModel = storm::models::sparse::StandardRewardModel<ValueType>;
 
 template<storm::dd::DdType DdType, typename ValueType> using SymbolicModel = storm::models::symbolic::Model<DdType, ValueType>;
@@ -114,6 +116,7 @@ void define_model(py::module& m) {
         .value("POMDP", storm::models::ModelType::Pomdp)
         .value("CTMC", storm::models::ModelType::Ctmc)
         .value("MA", storm::models::ModelType::MarkovAutomaton)
+        .value("SMG", storm::models::ModelType::Smg)
     ;
 
     // ModelBase
@@ -169,7 +172,10 @@ void define_model(py::module& m) {
         .def("_as_sparse_pma", [](ModelBase &modelbase) {
                 return modelbase.as<SparseMarkovAutomaton<RationalFunction>>();
             }, "Get model as sparse pMA")
-         .def("_as_symbolic_dtmc", [](ModelBase &modelbase) {
+        .def("_as_sparse_smg", [](ModelBase &modelbase) {
+                return modelbase.as<SparseSmg<double>>();
+            }, "Get model as sparse SMG")
+        .def("_as_symbolic_dtmc", [](ModelBase &modelbase) {
                 return modelbase.as<SymbolicDtmc<storm::dd::DdType::Sylvan, double>>();
             }, "Get model as symbolic DTMC")
         .def("_as_symbolic_pdtmc", [](ModelBase &modelbase) {
@@ -275,6 +281,13 @@ void define_sparse_model(py::module& m, std::string const& vtSuffix) {
         .def("__str__", &getModelInfoPrinter)
         .def_property_readonly("convertible_to_ctmc", &SparseMarkovAutomaton<ValueType>::isConvertibleToCtmc, "Check whether the MA can be converted into a CTMC.")
         .def("convert_to_ctmc", &SparseMarkovAutomaton<ValueType>::convertToCtmc, "Convert the MA into a CTMC.")
+    ;
+
+    py::class_<SparseSmg<ValueType>, std::shared_ptr<SparseSmg<ValueType>>>(m, ("Sparse" + vtSuffix + "SMG").c_str(), "SMG in sparse representation", nondetModel)
+        .def(py::init<SparseSmg<ValueType>>(), py::arg("other_model"))
+        .def(py::init<ModelComponents<ValueType> const&>(), py::arg("components"))
+        .def("get_state_player_indications", &SparseSmg<ValueType>::getStatePlayerIndications, "Get for each state its corresponding player")
+        .def("get_player_of_state", &SparseSmg<ValueType>::getPlayerOfState, py::arg("state"), "Get player for the given state")
     ;
 
     py::class_<SparseRewardModel<ValueType>>(m, ("Sparse" + vtSuffix + "RewardModel").c_str(), "Reward structure for sparse models")
