@@ -63,9 +63,9 @@ class CMakeBuild(build_ext):
         carl_dir = os.path.expanduser(self.config.get_as_string("carl_dir"))
         carl_parser_dir = os.path.expanduser(self.config.get_as_string("carl_parser_dir"))
         if carl_dir:
-            cmake_args += ["-Dcarl_DIR=" + carl_dir]
+            cmake_args += ["-DCARL_DIR_HINT=" + carl_dir]
         if carl_parser_dir:
-            cmake_args += ["-Dcarlparser_DIR=" + carl_parser_dir]
+            cmake_args += ["-DCARLPARSER_DIR_HINT=" + carl_parser_dir]
         _ = subprocess.check_output(["cmake", os.path.abspath("cmake")] + cmake_args, cwd=build_temp_version)
         cmake_conf = setup_helper.load_cmake_config(os.path.join(build_temp_version, "generated/config.py"))
 
@@ -121,13 +121,13 @@ class CMakeBuild(build_ext):
         build_type = "Debug" if self.config.get_as_bool("debug") else "Release"
         # Set cmake build options
         cmake_args = ["-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=" + self._extdir("core")]
-        cmake_args += ["-DPYTHON_EXECUTABLE=" + sys.executable]
+        cmake_args += ["-DPython_EXECUTABLE=" + sys.executable]
         cmake_args += ["-DCMAKE_BUILD_TYPE=" + build_type]
         cmake_args += ["-DPYBIND_VERSION=" + pybind_version]
         if carl_dir is not None:
-            cmake_args += ["-Dcarl_DIR=" + carl_dir]
+            cmake_args += ["-DCARL_DIR_HINT=" + carl_dir]
         if use_parser and carl_parser_dir:
-            cmake_args += ["-Dcarlparser_DIR=" + carl_parser_dir]
+            cmake_args += ["-DCARLPARSER_DIR_HINT=" + carl_parser_dir]
         cmake_args += ["-DUSE_PARSER=" + ("ON" if use_parser else "OFF")]
         cmake_args += ["-DUSE_CLN_NUMBERS=" + ("ON" if use_cln else "OFF")]
 

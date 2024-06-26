@@ -1,16 +1,11 @@
-find_package(pybind11 ${PYBIND_VERSION} CONFIG QUIET)
-if(pybind11_FOUND)
-    message(STATUS "Pycarl - Using system version of pybind11 (version ${pybind_VERSION}).")
-else()
-    message(STATUS "Pycarl - Using shipped version of pybind11 (version ${PYBIND_VERSION}).")
+# Always use shipped version of pybind11
+message(STATUS "Pycarl - Using shipped version of pybind11 (version ${PYBIND_VERSION}).")
 
-    include(FetchContent)
-    FetchContent_Declare(
-        pybind11
-        GIT_REPOSITORY https://github.com/pybind/pybind11
-        GIT_TAG        "v${PYBIND_VERSION}"
-    )
+include(FetchContent)
+FetchContent_Declare(
+    pybind11
+    GIT_REPOSITORY https://github.com/pybind/pybind11
+    GIT_TAG        "v${PYBIND_VERSION}"
+)
 
-    FetchContent_MakeAvailable(pybind11)
-endif()
-
+FetchContent_MakeAvailable(pybind11)
