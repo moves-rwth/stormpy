@@ -20,10 +20,12 @@ MAINTAINER Matthias Volk <m.volk@utwente.nl>
 ARG build_type=Release
 # Additional arguments for compiling stormpy
 ARG setup_args=""
-# Additional arguments for compiling pycarl
-ARG setup_args_pycarl=""
+# Additional CMake arguments for carl
+ARG carl_cmake_args=""
 # Number of threads to use for parallel compilation
 ARG no_threads=2
+# Carl-storm version
+ARG carl_version=master
 
 
 # Install dependencies
@@ -36,6 +38,24 @@ RUN apt-get install -y --no-install-recommends \
     python3 \
     python3-venv
 # Packages maven and uuid-dev are required for carl-parser
+
+
+# Build carl
+############
+WORKDIR /opt/
+
+# Obtain carl from public repository
+RUN git clone -b $carl_version https://github.com/moves-rwth/carl-storm.git carl
+
+# Switch to build directory
+RUN mkdir -p /opt/carl/build
+WORKDIR /opt/carl/build
+
+# Configure carl
+RUN cmake .. $carl_cmake_args -DCMAKE_BUILD_TYPE=$build_type
+
+# Build carl
+RUN make lib_carl -j $no_threads
 
 
 # Build carl-parser
@@ -63,20 +83,6 @@ RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 RUN pip install setuptools
-
-# Build pycarl
-##############
-WORKDIR /opt/
-
-# Obtain latest version of pycarl from public repository
-RUN git clone https://github.com/moves-rwth/pycarl.git
-
-# Switch to pycarl directory
-WORKDIR /opt/pycarl
-
-# Build pycarl
-RUN python setup.py build_ext $setup_args_pycarl -j $no_threads develop
-
 
 # Build stormpy
 ###############
