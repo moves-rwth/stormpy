@@ -283,7 +283,7 @@ void define_sparse_model(py::module& m, std::string const& vtSuffix) {
         .def("convert_to_ctmc", &SparseMarkovAutomaton<ValueType>::convertToCtmc, "Convert the MA into a CTMC.")
     ;
 
-    py::class_<SparseSmg<ValueType>, std::shared_ptr<SparseSmg<ValueType>>>(m, ("Sparse" + vtSuffix + "SMG").c_str(), "SMG in sparse representation", nondetModel)
+    py::class_<SparseSmg<ValueType>, std::shared_ptr<SparseSmg<ValueType>>>(m, ("Sparse" + vtSuffix + "Smg").c_str(), "SMG in sparse representation", nondetModel)
         .def(py::init<SparseSmg<ValueType>>(), py::arg("other_model"))
         .def(py::init<ModelComponents<ValueType> const&>(), py::arg("components"))
         .def("get_state_player_indications", &SparseSmg<ValueType>::getStatePlayerIndications, "Get for each state its corresponding player")
