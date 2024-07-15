@@ -14,8 +14,6 @@ on:
   pull_request:
 
 env:
-  GIT_URL: "${{ github.server_url }}/${{ github.repository }}.git"
-  BRANCH: "${{ github.ref }}"
   # GitHub runners currently have two cores
   NR_JOBS: "2"
 
