@@ -71,3 +71,14 @@ class TestFormulas:
         assert type(labelform) == stormpy.logic.AtomicLabelFormula
         prop = stormpy.core.Property("label-formula", labelform)
         assert prop.raw_formula == labelform
+
+    def test_game_formula(self):
+        formula_str = "<<0>> Pmax=? [F \"goal\"]"
+        properties = stormpy.parse_properties(formula_str)
+        formula = properties[0].raw_formula
+        assert type(formula) == stormpy.logic.GameFormula
+        assert str(formula) == formula_str
+        assert len(properties) == 1
+        formula = formula.subformula
+        assert type(formula) == stormpy.logic.ProbabilityOperator
+        assert str(formula) == "Pmax=? [F \"goal\"]"
