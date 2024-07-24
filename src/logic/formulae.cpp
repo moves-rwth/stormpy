@@ -114,4 +114,7 @@ void define_formulae(py::module& m) {
     py::class_<storm::logic::MultiObjectiveFormula, std::shared_ptr<storm::logic::MultiObjectiveFormula>>(m, "MultiObjectiveFormula", "Multi objective formula", formula)
             .def_property_readonly("subformulas", &storm::logic::MultiObjectiveFormula::getSubformulas, "Get vector of subformulas")
             .def_property_readonly("nr_subformulas", &storm::logic::MultiObjectiveFormula::getNumberOfSubformulas, "Get number of subformulas");
+
+    py::class_<storm::logic::GameFormula, std::shared_ptr<storm::logic::GameFormula>>(m, "GameFormula", "Game formula", unaryStateFormula)
+            .def_property_readonly("is_game_formula", &storm::logic::GameFormula::isGameFormula, "is it a game formula");
 }
