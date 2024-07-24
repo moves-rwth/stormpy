@@ -207,6 +207,7 @@
 <li class="toctree-l2"><a class="reference internal" href="core.html#stormpy.FactorizedRationalFunction"><code class="docutils literal notranslate"><span class="pre">FactorizedRationalFunction</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="core.html#stormpy.FlatSet"><code class="docutils literal notranslate"><span class="pre">FlatSet</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="core.html#stormpy.Formula"><code class="docutils literal notranslate"><span class="pre">Formula</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="core.html#stormpy.GameFormula"><code class="docutils literal notranslate"><span class="pre">GameFormula</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="core.html#stormpy.GloballyFormula"><code class="docutils literal notranslate"><span class="pre">GloballyFormula</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="core.html#stormpy.HybridExactQuantitativeCheckResult"><code class="docutils literal notranslate"><span class="pre">HybridExactQuantitativeCheckResult</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="core.html#stormpy.HybridParametricQuantitativeCheckResult"><code class="docutils literal notranslate"><span class="pre">HybridParametricQuantitativeCheckResult</span></code></a></li>
@@ -472,6 +473,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.logic.CumulativeRewardFormula"><code class="docutils literal notranslate"><span class="pre">CumulativeRewardFormula</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.logic.EventuallyFormula"><code class="docutils literal notranslate"><span class="pre">EventuallyFormula</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.logic.Formula"><code class="docutils literal notranslate"><span class="pre">Formula</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#stormpy.logic.GameFormula"><code class="docutils literal notranslate"><span class="pre">GameFormula</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.logic.GloballyFormula"><code class="docutils literal notranslate"><span class="pre">GloballyFormula</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.logic.InstantaneousRewardFormula"><code class="docutils literal notranslate"><span class="pre">InstantaneousRewardFormula</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.logic.LongRunAvarageOperator"><code class="docutils literal notranslate"><span class="pre">LongRunAvarageOperator</span></code></a></li>
@@ -816,6 +818,10 @@
 <li><a class="reference internal" href="#stormpy.logic.Formula.substitute_labels_by_labels"><code class="docutils literal notranslate"><span class="pre">Formula.substitute_labels_by_labels()</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#stormpy.logic.GameFormula"><code class="docutils literal notranslate"><span class="pre">GameFormula</span></code></a><ul>
+<li><a class="reference internal" href="#stormpy.logic.GameFormula.is_game_formula"><code class="docutils literal notranslate"><span class="pre">GameFormula.is_game_formula</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#stormpy.logic.GloballyFormula"><code class="docutils literal notranslate"><span class="pre">GloballyFormula</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.logic.InstantaneousRewardFormula"><code class="docutils literal notranslate"><span class="pre">InstantaneousRewardFormula</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.logic.LongRunAvarageOperator"><code class="docutils literal notranslate"><span class="pre">LongRunAvarageOperator</span></code></a></li>
@@ -954,6 +960,10 @@
 <li><a class="reference internal" href="#stormpy.logic.Formula.is_until_formula"><code class="docutils literal notranslate"><span class="pre">Formula.is_until_formula</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.logic.Formula.substitute"><code class="docutils literal notranslate"><span class="pre">Formula.substitute()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.logic.Formula.substitute_labels_by_labels"><code class="docutils literal notranslate"><span class="pre">Formula.substitute_labels_by_labels()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#stormpy.logic.GameFormula"><code class="docutils literal notranslate"><span class="pre">GameFormula</span></code></a><ul>
+<li><a class="reference internal" href="#stormpy.logic.GameFormula.is_game_formula"><code class="docutils literal notranslate"><span class="pre">GameFormula.is_game_formula</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#stormpy.logic.GloballyFormula"><code class="docutils literal notranslate"><span class="pre">GloballyFormula</span></code></a></li>
@@ -1233,6 +1243,18 @@
 <dt class="sig sig-object py" id="stormpy.logic.Formula.substitute_labels_by_labels">
 <span class="sig-name descname"><span class="pre">substitute_labels_by_labels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.logic.Formula" title="stormpy.logic.logic.Formula"><span class="pre">stormpy.logic.logic.Formula</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">replacements</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#stormpy.logic.Formula" title="stormpy.logic.logic.Formula"><span class="pre">stormpy.logic.logic.Formula</span></a></span></span><a class="headerlink" href="#stormpy.logic.Formula.substitute_labels_by_labels" title="Link to this definition">¶</a></dt>
 <dd><p>substitute label occurences</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="stormpy.logic.GameFormula">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">GameFormula</span></span><a class="headerlink" href="#stormpy.logic.GameFormula" title="Link to this definition">¶</a></dt>
+<dd><p>Game formula</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.logic.GameFormula.is_game_formula">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_game_formula</span></span><a class="headerlink" href="#stormpy.logic.GameFormula.is_game_formula" title="Link to this definition">¶</a></dt>
+<dd><p>is it a game formula</p>
 </dd></dl>
 
 </dd></dl>

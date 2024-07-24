@@ -207,6 +207,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.FactorizedRationalFunction"><code class="docutils literal notranslate"><span class="pre">FactorizedRationalFunction</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.FlatSet"><code class="docutils literal notranslate"><span class="pre">FlatSet</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.Formula"><code class="docutils literal notranslate"><span class="pre">Formula</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#stormpy.GameFormula"><code class="docutils literal notranslate"><span class="pre">GameFormula</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.GloballyFormula"><code class="docutils literal notranslate"><span class="pre">GloballyFormula</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.HybridExactQuantitativeCheckResult"><code class="docutils literal notranslate"><span class="pre">HybridExactQuantitativeCheckResult</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.HybridParametricQuantitativeCheckResult"><code class="docutils literal notranslate"><span class="pre">HybridParametricQuantitativeCheckResult</span></code></a></li>
@@ -472,6 +473,7 @@
 <li class="toctree-l2"><a class="reference internal" href="logic.html#stormpy.logic.CumulativeRewardFormula"><code class="docutils literal notranslate"><span class="pre">CumulativeRewardFormula</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="logic.html#stormpy.logic.EventuallyFormula"><code class="docutils literal notranslate"><span class="pre">EventuallyFormula</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="logic.html#stormpy.logic.Formula"><code class="docutils literal notranslate"><span class="pre">Formula</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="logic.html#stormpy.logic.GameFormula"><code class="docutils literal notranslate"><span class="pre">GameFormula</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="logic.html#stormpy.logic.GloballyFormula"><code class="docutils literal notranslate"><span class="pre">GloballyFormula</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="logic.html#stormpy.logic.InstantaneousRewardFormula"><code class="docutils literal notranslate"><span class="pre">InstantaneousRewardFormula</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="logic.html#stormpy.logic.LongRunAvarageOperator"><code class="docutils literal notranslate"><span class="pre">LongRunAvarageOperator</span></code></a></li>
@@ -1127,6 +1129,10 @@
 <li><a class="reference internal" href="#stormpy.Formula.is_until_formula"><code class="docutils literal notranslate"><span class="pre">Formula.is_until_formula</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.Formula.substitute"><code class="docutils literal notranslate"><span class="pre">Formula.substitute()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.Formula.substitute_labels_by_labels"><code class="docutils literal notranslate"><span class="pre">Formula.substitute_labels_by_labels()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#stormpy.GameFormula"><code class="docutils literal notranslate"><span class="pre">GameFormula</span></code></a><ul>
+<li><a class="reference internal" href="#stormpy.GameFormula.is_game_formula"><code class="docutils literal notranslate"><span class="pre">GameFormula.is_game_formula</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#stormpy.GloballyFormula"><code class="docutils literal notranslate"><span class="pre">GloballyFormula</span></code></a></li>
@@ -2743,6 +2749,10 @@
 <li><a class="reference internal" href="#stormpy.Formula.is_until_formula"><code class="docutils literal notranslate"><span class="pre">Formula.is_until_formula</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.Formula.substitute"><code class="docutils literal notranslate"><span class="pre">Formula.substitute()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.Formula.substitute_labels_by_labels"><code class="docutils literal notranslate"><span class="pre">Formula.substitute_labels_by_labels()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#stormpy.GameFormula"><code class="docutils literal notranslate"><span class="pre">GameFormula</span></code></a><ul>
+<li><a class="reference internal" href="#stormpy.GameFormula.is_game_formula"><code class="docutils literal notranslate"><span class="pre">GameFormula.is_game_formula</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#stormpy.GloballyFormula"><code class="docutils literal notranslate"><span class="pre">GloballyFormula</span></code></a></li>
@@ -5556,6 +5566,18 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="stormpy.GameFormula">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">GameFormula</span></span><a class="headerlink" href="#stormpy.GameFormula" title="Link to this definition">¶</a></dt>
+<dd><p>Game formula</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.GameFormula.is_game_formula">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_game_formula</span></span><a class="headerlink" href="#stormpy.GameFormula.is_game_formula" title="Link to this definition">¶</a></dt>
+<dd><p>is it a game formula</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="stormpy.GloballyFormula">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">GloballyFormula</span></span><a class="headerlink" href="#stormpy.GloballyFormula" title="Link to this definition">¶</a></dt>
 <dd><p>Formula for globally</p>
@@ -6150,7 +6172,7 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.JaniModel.flatten_composition">
-<span class="sig-name descname"><span class="pre">flatten_composition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.JaniModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_solver_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f1d089578f0&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.JaniModel" title="stormpy.storage.storage.JaniModel"><span class="pre">stormpy.storage.storage.JaniModel</span></a></span></span><a class="headerlink" href="#stormpy.JaniModel.flatten_composition" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">flatten_composition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.JaniModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_solver_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f5bc08c46f0&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.JaniModel" title="stormpy.storage.storage.JaniModel"><span class="pre">stormpy.storage.storage.JaniModel</span></a></span></span><a class="headerlink" href="#stormpy.JaniModel.flatten_composition" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -7694,7 +7716,7 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.PrismProgram.flatten">
-<span class="sig-name descname"><span class="pre">flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.PrismProgram</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f1d094589f0&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.PrismProgram" title="stormpy.storage.storage.PrismProgram"><span class="pre">stormpy.storage.storage.PrismProgram</span></a></span></span><a class="headerlink" href="#stormpy.PrismProgram.flatten" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.PrismProgram</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f5bc0896db0&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.PrismProgram" title="stormpy.storage.storage.PrismProgram"><span class="pre">stormpy.storage.storage.PrismProgram</span></a></span></span><a class="headerlink" href="#stormpy.PrismProgram.flatten" title="Link to this definition">¶</a></dt>
 <dd><p>Put program into a single module</p>
 </dd></dl>
 
