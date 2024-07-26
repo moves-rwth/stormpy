@@ -87,7 +87,7 @@ def main():
             logging.debug("Let {} fail".format(be_fail))
         # Let chosen BE fail
         res = simulator.let_fail(be_fail, dependency_successful=dep_success)
-        if res == stormpy.dft.SimulationResult.INVALID:
+        if res == stormpy.dft.SimulationStepResult.INVALID:
             logging.warning("Failure leads to invalid state -> undo last failure")
         logging.debug("Simulation was {}".format(res))
         logging.info("New status:")

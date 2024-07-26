@@ -96,7 +96,7 @@ class DftSimulator:
         Update the internal state.
         """
         # Update state
-        self._state = self._simulator.current()
+        self._state = self._simulator.get_state()
         self._failed = self._state.failed(self._dft.top_level_element.id)
         # Compute next failures
         self._fail_candidates.clear()
@@ -132,11 +132,11 @@ class DftSimulator:
         Let a random BE fail next.
         The next BE is chosen according their associated failure probability.
 
-        :return: Result of the step (successful, unsuccessful, invalid) and the time till this BE failed.
+        :return: Result of the step (successful, unsuccessful, invalid).
         """
-        res, time = self._simulator.random_step()
+        res = self._simulator.random_step()
         self._update()
-        return res, time
+        return res
 
     def simulate_traces(self, timebound, nr_traces):
         """
@@ -150,7 +150,7 @@ class DftSimulator:
         success = 0
         for i in range(nr_traces):
             res = self._simulator.simulate_trace(timebound)
-            if res == stormpy.dft.SimulationResult.SUCCESSFUL:
+            if res == stormpy.dft.SimulationTraceResult.SUCCESSFUL:
                 success += 1
         self.reset()
         return success
