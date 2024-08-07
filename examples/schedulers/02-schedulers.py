@@ -10,7 +10,10 @@ def example_schedulers_02():
 
     program = stormpy.parse_prism_program(path, False, True)
     formulas = stormpy.parse_properties_for_prism_program(formula_str, program)
-    ma = stormpy.build_model(program, formulas)
+    options = stormpy.BuilderOptions([f.raw_formula for f in formulas])
+    options.set_build_choice_labels()
+    options.set_build_with_choice_origins()
+    ma = stormpy.build_sparse_model_with_options(program, options)
     assert ma.model_type == stormpy.ModelType.MA
 
     # Convert MA to MDP
@@ -28,8 +31,9 @@ def example_schedulers_02():
 
     for state in mdp.states:
         choice = scheduler.get_choice(state)
-        action = choice.get_deterministic_choice()
-        print("In state {} choose action {}".format(state, action))
+        action_index = choice.get_deterministic_choice()
+        action = state.actions[action_index]
+        print( "In state {} ({}) choose action {} ({})".format(state, ", ".join(state.labels), action, ", ".join(action.labels)))
 
 
 if __name__ == '__main__':
