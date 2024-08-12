@@ -7,4 +7,21 @@ target-version = [
     "py310",
     "py311",
 ]
-include = "\\.pyi?$"
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "--doctest-glob='*.rst'"
+testpaths = [
+    "tests",
+    "examples",
+    "doc",
+]
+python_files = [
+    "test*.py",
+    "examples/*.py",
+]
+python_functions = [
+    "*_test",
+    "test_*",
+    "example_*",
+]

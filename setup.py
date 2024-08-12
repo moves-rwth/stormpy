@@ -218,11 +218,10 @@ setup(
     ],
     cmdclass={"build_ext": CMakeBuild},
     zip_safe=False,
-    setup_requires=["pytest-runner", "packaging"],
-    tests_require=["pytest"],
+    setup_requires=["packaging"],
     extras_require={
         "doc": ["Sphinx", "sphinx-bootstrap-theme"],
-        "dev": ["black"],
+        "dev": ["tox"],
     },
     python_requires=">=3.7",  # required by packaging
 )
