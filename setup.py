@@ -228,13 +228,12 @@ setup(
     zip_safe=False,
     install_requires=['pycarl>=2.2.0'],
     setup_requires=['pycarl>=2.2.0', # required to check pybind version used for pycarl
-                   'pytest-runner',
                    'packaging'
                    ],
-    tests_require=['pytest', 'nbval', 'numpy'],
     extras_require={
         "numpy":  ["numpy"],
         "plot":  ["matplotlib","numpy","scipy"],
+        "test": ["pytest", "nbval", "numpy"],
         "doc": ["Sphinx", "sphinx-bootstrap-theme", "nbsphinx", "ipython", "ipykernel"], # also requires pandoc to be installed
     },
     python_requires='>=3.7', # required by packaging
