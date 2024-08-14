@@ -13,10 +13,8 @@ on:
   pull_request:
 
 env:
-  GIT_URL: "${{ github.server_url }}/${{ github.repository }}.git"
-  BRANCH: "${{ github.ref }}"
-  # GitHub runners currently have two cores
-  NR_JOBS: "2"
+  # GitHub runners currently have 4 cores
+  NR_JOBS: "4"
 
 jobs:
   indepthTests:
@@ -53,7 +51,7 @@ jobs:
       - name: Run Docker
         run: docker run -d -it --name ci movesrwth/pycarl:ci-${{ matrix.debugOrRelease }}
       - name: Run tests
-        run: docker exec ci bash -c "cd /opt/pycarl; python setup.py test"
+        run: docker exec ci bash -c "cd /opt/pycarl; pip install pytest; pytest"
 
 
   distroTests:
@@ -80,7 +78,7 @@ jobs:
       - name: Run Docker
         run: docker run -d -it --name ci movesrwth/pycarl:ci-${{ matrix.debugOrRelease }}
       - name: Run tests
-        run: docker exec ci bash -c "cd /opt/pycarl; python setup.py test"
+        run: docker exec ci bash -c "cd /opt/pycarl; pip install pytest; pytest"
 
   deploy:
     name: Build, Test and deploy documentation
@@ -105,7 +103,7 @@ jobs:
       - name: Run Docker
         run: docker run -d -it --name ci movesrwth/pycarl:ci-${{ matrix.debugOrRelease }}
       - name: Run tests
-        run: docker exec ci bash -c "cd /opt/pycarl; python setup.py test"
+        run: docker exec ci bash -c "cd /opt/pycarl; pip install pytest; pytest"
 
         # Build and publish documentation for release build
       - name: Install documentation dependencies
