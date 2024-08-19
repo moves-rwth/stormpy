@@ -685,7 +685,8 @@
 <li class="toctree-l2"><a class="reference internal" href="dft.html#stormpy.dft.FailableIterator"><code class="docutils literal notranslate"><span class="pre">FailableIterator</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="dft.html#stormpy.dft.RandomGenerator"><code class="docutils literal notranslate"><span class="pre">RandomGenerator</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="dft.html#stormpy.dft.RelevantEvents"><code class="docutils literal notranslate"><span class="pre">RelevantEvents</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="dft.html#stormpy.dft.SimulationResult"><code class="docutils literal notranslate"><span class="pre">SimulationResult</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="dft.html#stormpy.dft.SimulationStepResult"><code class="docutils literal notranslate"><span class="pre">SimulationStepResult</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="dft.html#stormpy.dft.SimulationTraceResult"><code class="docutils literal notranslate"><span class="pre">SimulationTraceResult</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="dft.html#stormpy.dft.analyze_dft"><code class="docutils literal notranslate"><span class="pre">analyze_dft()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="dft.html#stormpy.dft.build_model"><code class="docutils literal notranslate"><span class="pre">build_model()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="dft.html#stormpy.dft.compute_dependency_conflicts"><code class="docutils literal notranslate"><span class="pre">compute_dependency_conflicts()</span></code></a></li>
@@ -1856,6 +1857,8 @@
 </li>
 <li><a class="reference internal" href="#stormpy.SparseExactModelAction"><code class="docutils literal notranslate"><span class="pre">SparseExactModelAction</span></code></a><ul>
 <li><a class="reference internal" href="#stormpy.SparseExactModelAction.id"><code class="docutils literal notranslate"><span class="pre">SparseExactModelAction.id</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseExactModelAction.labels"><code class="docutils literal notranslate"><span class="pre">SparseExactModelAction.labels</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseExactModelAction.origins"><code class="docutils literal notranslate"><span class="pre">SparseExactModelAction.origins</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.SparseExactModelAction.transitions"><code class="docutils literal notranslate"><span class="pre">SparseExactModelAction.transitions</span></code></a></li>
 </ul>
 </li>
@@ -1879,6 +1882,7 @@
 <li><a class="reference internal" href="#stormpy.SparseExactModelState.actions"><code class="docutils literal notranslate"><span class="pre">SparseExactModelState.actions</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.SparseExactModelState.id"><code class="docutils literal notranslate"><span class="pre">SparseExactModelState.id</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.SparseExactModelState.labels"><code class="docutils literal notranslate"><span class="pre">SparseExactModelState.labels</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseExactModelState.valuations"><code class="docutils literal notranslate"><span class="pre">SparseExactModelState.valuations</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#stormpy.SparseExactModelStates"><code class="docutils literal notranslate"><span class="pre">SparseExactModelStates</span></code></a></li>
@@ -1932,6 +1936,8 @@
 </li>
 <li><a class="reference internal" href="#stormpy.SparseIntervalModelAction"><code class="docutils literal notranslate"><span class="pre">SparseIntervalModelAction</span></code></a><ul>
 <li><a class="reference internal" href="#stormpy.SparseIntervalModelAction.id"><code class="docutils literal notranslate"><span class="pre">SparseIntervalModelAction.id</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseIntervalModelAction.labels"><code class="docutils literal notranslate"><span class="pre">SparseIntervalModelAction.labels</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseIntervalModelAction.origins"><code class="docutils literal notranslate"><span class="pre">SparseIntervalModelAction.origins</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.SparseIntervalModelAction.transitions"><code class="docutils literal notranslate"><span class="pre">SparseIntervalModelAction.transitions</span></code></a></li>
 </ul>
 </li>
@@ -1955,6 +1961,7 @@
 <li><a class="reference internal" href="#stormpy.SparseIntervalModelState.actions"><code class="docutils literal notranslate"><span class="pre">SparseIntervalModelState.actions</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.SparseIntervalModelState.id"><code class="docutils literal notranslate"><span class="pre">SparseIntervalModelState.id</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.SparseIntervalModelState.labels"><code class="docutils literal notranslate"><span class="pre">SparseIntervalModelState.labels</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseIntervalModelState.valuations"><code class="docutils literal notranslate"><span class="pre">SparseIntervalModelState.valuations</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#stormpy.SparseIntervalModelStates"><code class="docutils literal notranslate"><span class="pre">SparseIntervalModelStates</span></code></a></li>
@@ -2035,6 +2042,8 @@
 </li>
 <li><a class="reference internal" href="#stormpy.SparseModelAction"><code class="docutils literal notranslate"><span class="pre">SparseModelAction</span></code></a><ul>
 <li><a class="reference internal" href="#stormpy.SparseModelAction.id"><code class="docutils literal notranslate"><span class="pre">SparseModelAction.id</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseModelAction.labels"><code class="docutils literal notranslate"><span class="pre">SparseModelAction.labels</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseModelAction.origins"><code class="docutils literal notranslate"><span class="pre">SparseModelAction.origins</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.SparseModelAction.transitions"><code class="docutils literal notranslate"><span class="pre">SparseModelAction.transitions</span></code></a></li>
 </ul>
 </li>
@@ -2058,6 +2067,7 @@
 <li><a class="reference internal" href="#stormpy.SparseModelState.actions"><code class="docutils literal notranslate"><span class="pre">SparseModelState.actions</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.SparseModelState.id"><code class="docutils literal notranslate"><span class="pre">SparseModelState.id</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.SparseModelState.labels"><code class="docutils literal notranslate"><span class="pre">SparseModelState.labels</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseModelState.valuations"><code class="docutils literal notranslate"><span class="pre">SparseModelState.valuations</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#stormpy.SparseModelStates"><code class="docutils literal notranslate"><span class="pre">SparseModelStates</span></code></a></li>
@@ -2076,6 +2086,8 @@
 </li>
 <li><a class="reference internal" href="#stormpy.SparseParametricModelAction"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelAction</span></code></a><ul>
 <li><a class="reference internal" href="#stormpy.SparseParametricModelAction.id"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelAction.id</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseParametricModelAction.labels"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelAction.labels</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseParametricModelAction.origins"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelAction.origins</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.SparseParametricModelAction.transitions"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelAction.transitions</span></code></a></li>
 </ul>
 </li>
@@ -2099,6 +2111,7 @@
 <li><a class="reference internal" href="#stormpy.SparseParametricModelState.actions"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelState.actions</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.SparseParametricModelState.id"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelState.id</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.SparseParametricModelState.labels"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelState.labels</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseParametricModelState.valuations"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelState.valuations</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#stormpy.SparseParametricModelStates"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelStates</span></code></a></li>
@@ -3476,6 +3489,8 @@
 </li>
 <li><a class="reference internal" href="#stormpy.SparseExactModelAction"><code class="docutils literal notranslate"><span class="pre">SparseExactModelAction</span></code></a><ul>
 <li><a class="reference internal" href="#stormpy.SparseExactModelAction.id"><code class="docutils literal notranslate"><span class="pre">SparseExactModelAction.id</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseExactModelAction.labels"><code class="docutils literal notranslate"><span class="pre">SparseExactModelAction.labels</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseExactModelAction.origins"><code class="docutils literal notranslate"><span class="pre">SparseExactModelAction.origins</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.SparseExactModelAction.transitions"><code class="docutils literal notranslate"><span class="pre">SparseExactModelAction.transitions</span></code></a></li>
 </ul>
 </li>
@@ -3499,6 +3514,7 @@
 <li><a class="reference internal" href="#stormpy.SparseExactModelState.actions"><code class="docutils literal notranslate"><span class="pre">SparseExactModelState.actions</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.SparseExactModelState.id"><code class="docutils literal notranslate"><span class="pre">SparseExactModelState.id</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.SparseExactModelState.labels"><code class="docutils literal notranslate"><span class="pre">SparseExactModelState.labels</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseExactModelState.valuations"><code class="docutils literal notranslate"><span class="pre">SparseExactModelState.valuations</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#stormpy.SparseExactModelStates"><code class="docutils literal notranslate"><span class="pre">SparseExactModelStates</span></code></a></li>
@@ -3552,6 +3568,8 @@
 </li>
 <li><a class="reference internal" href="#stormpy.SparseIntervalModelAction"><code class="docutils literal notranslate"><span class="pre">SparseIntervalModelAction</span></code></a><ul>
 <li><a class="reference internal" href="#stormpy.SparseIntervalModelAction.id"><code class="docutils literal notranslate"><span class="pre">SparseIntervalModelAction.id</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseIntervalModelAction.labels"><code class="docutils literal notranslate"><span class="pre">SparseIntervalModelAction.labels</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseIntervalModelAction.origins"><code class="docutils literal notranslate"><span class="pre">SparseIntervalModelAction.origins</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.SparseIntervalModelAction.transitions"><code class="docutils literal notranslate"><span class="pre">SparseIntervalModelAction.transitions</span></code></a></li>
 </ul>
 </li>
@@ -3575,6 +3593,7 @@
 <li><a class="reference internal" href="#stormpy.SparseIntervalModelState.actions"><code class="docutils literal notranslate"><span class="pre">SparseIntervalModelState.actions</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.SparseIntervalModelState.id"><code class="docutils literal notranslate"><span class="pre">SparseIntervalModelState.id</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.SparseIntervalModelState.labels"><code class="docutils literal notranslate"><span class="pre">SparseIntervalModelState.labels</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseIntervalModelState.valuations"><code class="docutils literal notranslate"><span class="pre">SparseIntervalModelState.valuations</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#stormpy.SparseIntervalModelStates"><code class="docutils literal notranslate"><span class="pre">SparseIntervalModelStates</span></code></a></li>
@@ -3655,6 +3674,8 @@
 </li>
 <li><a class="reference internal" href="#stormpy.SparseModelAction"><code class="docutils literal notranslate"><span class="pre">SparseModelAction</span></code></a><ul>
 <li><a class="reference internal" href="#stormpy.SparseModelAction.id"><code class="docutils literal notranslate"><span class="pre">SparseModelAction.id</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseModelAction.labels"><code class="docutils literal notranslate"><span class="pre">SparseModelAction.labels</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseModelAction.origins"><code class="docutils literal notranslate"><span class="pre">SparseModelAction.origins</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.SparseModelAction.transitions"><code class="docutils literal notranslate"><span class="pre">SparseModelAction.transitions</span></code></a></li>
 </ul>
 </li>
@@ -3678,6 +3699,7 @@
 <li><a class="reference internal" href="#stormpy.SparseModelState.actions"><code class="docutils literal notranslate"><span class="pre">SparseModelState.actions</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.SparseModelState.id"><code class="docutils literal notranslate"><span class="pre">SparseModelState.id</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.SparseModelState.labels"><code class="docutils literal notranslate"><span class="pre">SparseModelState.labels</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseModelState.valuations"><code class="docutils literal notranslate"><span class="pre">SparseModelState.valuations</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#stormpy.SparseModelStates"><code class="docutils literal notranslate"><span class="pre">SparseModelStates</span></code></a></li>
@@ -3696,6 +3718,8 @@
 </li>
 <li><a class="reference internal" href="#stormpy.SparseParametricModelAction"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelAction</span></code></a><ul>
 <li><a class="reference internal" href="#stormpy.SparseParametricModelAction.id"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelAction.id</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseParametricModelAction.labels"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelAction.labels</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseParametricModelAction.origins"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelAction.origins</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.SparseParametricModelAction.transitions"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelAction.transitions</span></code></a></li>
 </ul>
 </li>
@@ -3719,6 +3743,7 @@
 <li><a class="reference internal" href="#stormpy.SparseParametricModelState.actions"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelState.actions</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.SparseParametricModelState.id"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelState.id</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.SparseParametricModelState.labels"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelState.labels</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.SparseParametricModelState.valuations"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelState.valuations</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#stormpy.SparseParametricModelStates"><code class="docutils literal notranslate"><span class="pre">SparseParametricModelStates</span></code></a></li>
@@ -6172,7 +6197,7 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.JaniModel.flatten_composition">
-<span class="sig-name descname"><span class="pre">flatten_composition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.JaniModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_solver_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f5bc08c46f0&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.JaniModel" title="stormpy.storage.storage.JaniModel"><span class="pre">stormpy.storage.storage.JaniModel</span></a></span></span><a class="headerlink" href="#stormpy.JaniModel.flatten_composition" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">flatten_composition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.JaniModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_solver_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f37fa9d7f70&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.JaniModel" title="stormpy.storage.storage.JaniModel"><span class="pre">stormpy.storage.storage.JaniModel</span></a></span></span><a class="headerlink" href="#stormpy.JaniModel.flatten_composition" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -7716,7 +7741,7 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.PrismProgram.flatten">
-<span class="sig-name descname"><span class="pre">flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.PrismProgram</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f5bc0896db0&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.PrismProgram" title="stormpy.storage.storage.PrismProgram"><span class="pre">stormpy.storage.storage.PrismProgram</span></a></span></span><a class="headerlink" href="#stormpy.PrismProgram.flatten" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.PrismProgram</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f37f96dc0b0&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.PrismProgram" title="stormpy.storage.storage.PrismProgram"><span class="pre">stormpy.storage.storage.PrismProgram</span></a></span></span><a class="headerlink" href="#stormpy.PrismProgram.flatten" title="Link to this definition">¶</a></dt>
 <dd><p>Put program into a single module</p>
 </dd></dl>
 
@@ -8829,6 +8854,18 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 </dd></dl>
 
 <dl class="py property">
+<dt class="sig sig-object py" id="stormpy.SparseExactModelAction.labels">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">labels</span></span><a class="headerlink" href="#stormpy.SparseExactModelAction.labels" title="Link to this definition">¶</a></dt>
+<dd><p>Get choice labels</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.SparseExactModelAction.origins">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">origins</span></span><a class="headerlink" href="#stormpy.SparseExactModelAction.origins" title="Link to this definition">¶</a></dt>
+<dd><p>Get choice origins</p>
+</dd></dl>
+
+<dl class="py property">
 <dt class="sig sig-object py" id="stormpy.SparseExactModelAction.transitions">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">transitions</span></span><a class="headerlink" href="#stormpy.SparseExactModelAction.transitions" title="Link to this definition">¶</a></dt>
 <dd><p>Get transitions</p>
@@ -8939,7 +8976,13 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.SparseExactModelState.labels">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">labels</span></span><a class="headerlink" href="#stormpy.SparseExactModelState.labels" title="Link to this definition">¶</a></dt>
-<dd><p>Labels</p>
+<dd><p>Get state labels</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.SparseExactModelState.valuations">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">valuations</span></span><a class="headerlink" href="#stormpy.SparseExactModelState.valuations" title="Link to this definition">¶</a></dt>
+<dd><p>Get state valuations</p>
 </dd></dl>
 
 </dd></dl>
@@ -9157,6 +9200,18 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 </dd></dl>
 
 <dl class="py property">
+<dt class="sig sig-object py" id="stormpy.SparseIntervalModelAction.labels">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">labels</span></span><a class="headerlink" href="#stormpy.SparseIntervalModelAction.labels" title="Link to this definition">¶</a></dt>
+<dd><p>Get choice labels</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.SparseIntervalModelAction.origins">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">origins</span></span><a class="headerlink" href="#stormpy.SparseIntervalModelAction.origins" title="Link to this definition">¶</a></dt>
+<dd><p>Get choice origins</p>
+</dd></dl>
+
+<dl class="py property">
 <dt class="sig sig-object py" id="stormpy.SparseIntervalModelAction.transitions">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">transitions</span></span><a class="headerlink" href="#stormpy.SparseIntervalModelAction.transitions" title="Link to this definition">¶</a></dt>
 <dd><p>Get transitions</p>
@@ -9267,7 +9322,13 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.SparseIntervalModelState.labels">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">labels</span></span><a class="headerlink" href="#stormpy.SparseIntervalModelState.labels" title="Link to this definition">¶</a></dt>
-<dd><p>Labels</p>
+<dd><p>Get state labels</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.SparseIntervalModelState.valuations">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">valuations</span></span><a class="headerlink" href="#stormpy.SparseIntervalModelState.valuations" title="Link to this definition">¶</a></dt>
+<dd><p>Get state valuations</p>
 </dd></dl>
 
 </dd></dl>
@@ -9645,6 +9706,18 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 </dd></dl>
 
 <dl class="py property">
+<dt class="sig sig-object py" id="stormpy.SparseModelAction.labels">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">labels</span></span><a class="headerlink" href="#stormpy.SparseModelAction.labels" title="Link to this definition">¶</a></dt>
+<dd><p>Get choice labels</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.SparseModelAction.origins">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">origins</span></span><a class="headerlink" href="#stormpy.SparseModelAction.origins" title="Link to this definition">¶</a></dt>
+<dd><p>Get choice origins</p>
+</dd></dl>
+
+<dl class="py property">
 <dt class="sig sig-object py" id="stormpy.SparseModelAction.transitions">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">transitions</span></span><a class="headerlink" href="#stormpy.SparseModelAction.transitions" title="Link to this definition">¶</a></dt>
 <dd><p>Get transitions</p>
@@ -9755,7 +9828,13 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.SparseModelState.labels">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">labels</span></span><a class="headerlink" href="#stormpy.SparseModelState.labels" title="Link to this definition">¶</a></dt>
-<dd><p>Labels</p>
+<dd><p>Get state labels</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.SparseModelState.valuations">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">valuations</span></span><a class="headerlink" href="#stormpy.SparseModelState.valuations" title="Link to this definition">¶</a></dt>
+<dd><p>Get state valuations</p>
 </dd></dl>
 
 </dd></dl>
@@ -9825,6 +9904,18 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <dt class="sig sig-object py" id="stormpy.SparseParametricModelAction.id">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#stormpy.SparseParametricModelAction.id" title="Link to this definition">¶</a></dt>
 <dd><p>Id</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.SparseParametricModelAction.labels">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">labels</span></span><a class="headerlink" href="#stormpy.SparseParametricModelAction.labels" title="Link to this definition">¶</a></dt>
+<dd><p>Get choice labels</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.SparseParametricModelAction.origins">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">origins</span></span><a class="headerlink" href="#stormpy.SparseParametricModelAction.origins" title="Link to this definition">¶</a></dt>
+<dd><p>Get choice origins</p>
 </dd></dl>
 
 <dl class="py property">
@@ -9938,7 +10029,13 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.SparseParametricModelState.labels">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">labels</span></span><a class="headerlink" href="#stormpy.SparseParametricModelState.labels" title="Link to this definition">¶</a></dt>
-<dd><p>Labels</p>
+<dd><p>Get state labels</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="stormpy.SparseParametricModelState.valuations">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">valuations</span></span><a class="headerlink" href="#stormpy.SparseParametricModelState.valuations" title="Link to this definition">¶</a></dt>
+<dd><p>Get state valuations</p>
 </dd></dl>
 
 </dd></dl>
@@ -11350,7 +11447,7 @@ Furthermore, the rows that contain a transition leading outside of the subsystem
     </p>
     <p>
         &copy; Copyright 2016-2022 Moves RWTH Aachen.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.4.7.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.0.2.<br/>
     </p>
   </div>
 </footer>

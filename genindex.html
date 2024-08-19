@@ -682,7 +682,8 @@
 <li class="toctree-l2"><a class="reference internal" href="api/dft.html#stormpy.dft.FailableIterator"><code class="docutils literal notranslate"><span class="pre">FailableIterator</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/dft.html#stormpy.dft.RandomGenerator"><code class="docutils literal notranslate"><span class="pre">RandomGenerator</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/dft.html#stormpy.dft.RelevantEvents"><code class="docutils literal notranslate"><span class="pre">RelevantEvents</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/dft.html#stormpy.dft.SimulationResult"><code class="docutils literal notranslate"><span class="pre">SimulationResult</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/dft.html#stormpy.dft.SimulationStepResult"><code class="docutils literal notranslate"><span class="pre">SimulationStepResult</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/dft.html#stormpy.dft.SimulationTraceResult"><code class="docutils literal notranslate"><span class="pre">SimulationTraceResult</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/dft.html#stormpy.dft.analyze_dft"><code class="docutils literal notranslate"><span class="pre">analyze_dft()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/dft.html#stormpy.dft.build_model"><code class="docutils literal notranslate"><span class="pre">build_model()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/dft.html#stormpy.dft.compute_dependency_conflicts"><code class="docutils literal notranslate"><span class="pre">compute_dependency_conflicts()</span></code></a></li>
@@ -1405,6 +1406,8 @@
 </li>
       <li><a href="api/core.html#stormpy.Expression.contains_variables">contains_variables() (Expression method)</a>, <a href="api/storage.html#stormpy.storage.Expression.contains_variables">[1]</a>
 </li>
+      <li><a href="api/dft.html#stormpy.dft.SimulationTraceResult.CONTINUE">CONTINUE (SimulationTraceResult attribute)</a>
+</li>
       <li><a href="api/core.html#stormpy.SMTCounterExampleGeneratorOptions.continue_after_first_counterexample">continue_after_first_counterexample (SMTCounterExampleGeneratorOptions property)</a>
 </li>
       <li><a href="api/core.html#stormpy.SparseExactMA.convert_to_ctmc">convert_to_ctmc() (SparseExactMA method)</a>, <a href="api/storage.html#stormpy.storage.SparseExactMA.convert_to_ctmc">[1]</a>
@@ -1475,12 +1478,6 @@
 
       <ul>
         <li><a href="api/logic.html#stormpy.logic.CumulativeRewardFormula">(class in stormpy.logic)</a>
-</li>
-      </ul></li>
-      <li><a href="api/dft.html#stormpy.dft.DFTSimulator_double.current">current() (DFTSimulator_double method)</a>
-
-      <ul>
-        <li><a href="api/dft.html#stormpy.dft.DFTSimulator_ratfunc.current">(DFTSimulator_ratfunc method)</a>
 </li>
       </ul></li>
       <li><a href="api/core.html#stormpy.SMTCounterExampleGeneratorStats.cut_time">cut_time (SMTCounterExampleGeneratorStats property)</a>
@@ -2235,12 +2232,12 @@
 </li>
       <li><a href="api/gspn.html#stormpy.gspn.GSPN.get_number_of_immediate_transitions">get_number_of_immediate_transitions() (GSPN method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/gspn.html#stormpy.gspn.Place.get_number_of_initial_tokens">get_number_of_initial_tokens() (Place method)</a>
 </li>
       <li><a href="api/gspn.html#stormpy.gspn.GSPN.get_number_of_places">get_number_of_places() (GSPN method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/gspn.html#stormpy.gspn.TimedTransition.get_number_of_servers">get_number_of_servers() (TimedTransition method)</a>
 </li>
       <li><a href="api/gspn.html#stormpy.gspn.GSPN.get_number_of_timed_transitions">get_number_of_timed_transitions() (GSPN method)</a>
@@ -2341,6 +2338,12 @@
       </ul></li>
       <li><a href="api/pars.html#stormpy.pars.RegionModelChecker.get_split_suggestion">get_split_suggestion() (RegionModelChecker method)</a>
 </li>
+      <li><a href="api/dft.html#stormpy.dft.DFTSimulator_double.get_state">get_state() (DFTSimulator_double method)</a>
+
+      <ul>
+        <li><a href="api/dft.html#stormpy.dft.DFTSimulator_ratfunc.get_state">(DFTSimulator_ratfunc method)</a>
+</li>
+      </ul></li>
       <li><a href="api/core.html#stormpy.SparseExactRewardModel.get_state_action_reward">get_state_action_reward() (SparseExactRewardModel method)</a>, <a href="api/storage.html#stormpy.storage.SparseExactRewardModel.get_state_action_reward">[1]</a>
 
       <ul>
@@ -2379,6 +2382,12 @@
 </li>
       <li><a href="api/core.html#stormpy.PrismProgram.get_synchronizing_action_indices">get_synchronizing_action_indices() (PrismProgram method)</a>, <a href="api/storage.html#stormpy.storage.PrismProgram.get_synchronizing_action_indices">[1]</a>
 </li>
+      <li><a href="api/dft.html#stormpy.dft.DFTSimulator_double.get_time">get_time() (DFTSimulator_double method)</a>
+
+      <ul>
+        <li><a href="api/dft.html#stormpy.dft.DFTSimulator_ratfunc.get_time">(DFTSimulator_ratfunc method)</a>
+</li>
+      </ul></li>
       <li><a href="api/gspn.html#stormpy.gspn.GSPN.get_timed_transition">get_timed_transition() (GSPN method)</a>
 </li>
       <li><a href="api/gspn.html#stormpy.gspn.GSPN.get_timed_transitions">get_timed_transitions() (GSPN method)</a>
@@ -2729,14 +2738,14 @@
         <li><a href="api/core.html#stormpy.NativeLinearEquationSolverMethod.interval_iteration">(NativeLinearEquationSolverMethod attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core.html#stormpy.IntervalSparseMatrix">IntervalSparseMatrix (class in stormpy)</a>
 
       <ul>
         <li><a href="api/storage.html#stormpy.storage.IntervalSparseMatrix">(class in stormpy.storage)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core.html#stormpy.IntervalSparseMatrixBuilder">IntervalSparseMatrixBuilder (class in stormpy)</a>
 
       <ul>
@@ -2755,8 +2764,12 @@
         <li><a href="api/storage.html#stormpy.storage.IntervalSparseMatrixRows">(class in stormpy.storage)</a>
 </li>
       </ul></li>
-      <li><a href="api/dft.html#stormpy.dft.SimulationResult.INVAlID">INVAlID (SimulationResult attribute)</a>
+      <li><a href="api/dft.html#stormpy.dft.SimulationStepResult.INVALID">INVALID (SimulationStepResult attribute)</a>
+
+      <ul>
+        <li><a href="api/dft.html#stormpy.dft.SimulationTraceResult.INVALID">(SimulationTraceResult attribute)</a>
 </li>
+      </ul></li>
       <li><a href="api/dft.html#stormpy.dft.DFTState_double.invalid">invalid() (DFTState_double method)</a>
 
       <ul>
@@ -2982,11 +2995,19 @@
       <li><a href="api/core.html#stormpy.PrismProgram.labels">labels (PrismProgram property)</a>, <a href="api/storage.html#stormpy.storage.PrismProgram.labels">[1]</a>
 
       <ul>
+        <li><a href="api/core.html#stormpy.SparseExactModelAction.labels">(SparseExactModelAction property)</a>, <a href="api/storage.html#stormpy.storage.SparseExactModelAction.labels">[1]</a>
+</li>
         <li><a href="api/core.html#stormpy.SparseExactModelState.labels">(SparseExactModelState property)</a>, <a href="api/storage.html#stormpy.storage.SparseExactModelState.labels">[1]</a>
+</li>
+        <li><a href="api/core.html#stormpy.SparseIntervalModelAction.labels">(SparseIntervalModelAction property)</a>, <a href="api/storage.html#stormpy.storage.SparseIntervalModelAction.labels">[1]</a>
 </li>
         <li><a href="api/core.html#stormpy.SparseIntervalModelState.labels">(SparseIntervalModelState property)</a>, <a href="api/storage.html#stormpy.storage.SparseIntervalModelState.labels">[1]</a>
 </li>
+        <li><a href="api/core.html#stormpy.SparseModelAction.labels">(SparseModelAction property)</a>, <a href="api/storage.html#stormpy.storage.SparseModelAction.labels">[1]</a>
+</li>
         <li><a href="api/core.html#stormpy.SparseModelState.labels">(SparseModelState property)</a>, <a href="api/storage.html#stormpy.storage.SparseModelState.labels">[1]</a>
+</li>
+        <li><a href="api/core.html#stormpy.SparseParametricModelAction.labels">(SparseParametricModelAction property)</a>, <a href="api/storage.html#stormpy.storage.SparseParametricModelAction.labels">[1]</a>
 </li>
         <li><a href="api/core.html#stormpy.SparseParametricModelState.labels">(SparseParametricModelState property)</a>, <a href="api/storage.html#stormpy.storage.SparseParametricModelState.labels">[1]</a>
 </li>
@@ -3009,12 +3030,12 @@
 </li>
       <li><a href="api/core.html#stormpy.Expression.Less">Less() (Expression static method)</a>, <a href="api/storage.html#stormpy.storage.Expression.Less">[1]</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core.html#stormpy.OperatorType.LessOrEqual">LessOrEqual (OperatorType attribute)</a>, <a href="api/storage.html#stormpy.storage.OperatorType.LessOrEqual">[1]</a>
 </li>
       <li><a href="api/core.html#stormpy.MinMaxMethod.linear_programming">linear_programming (MinMaxMethod attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/dft.html#stormpy.dft.load_dft_galileo_file">load_dft_galileo_file() (in module stormpy.dft)</a>
 </li>
       <li><a href="api/dft.html#stormpy.dft.load_dft_json_file">load_dft_json_file() (in module stormpy.dft)</a>
@@ -3373,7 +3394,9 @@
 </li>
         <li><a href="api/core.html#stormpy.QuotientFormat.name">(QuotientFormat property)</a>
 </li>
-        <li><a href="api/dft.html#stormpy.dft.SimulationResult.name">(SimulationResult property)</a>
+        <li><a href="api/dft.html#stormpy.dft.SimulationStepResult.name">(SimulationStepResult property)</a>
+</li>
+        <li><a href="api/dft.html#stormpy.dft.SimulationTraceResult.name">(SimulationTraceResult property)</a>
 </li>
         <li><a href="api/utility.html#stormpy.utility.SmtCheckResult.name">(SmtCheckResult property)</a>
 </li>
@@ -3590,8 +3613,6 @@
         <li><a href="api/dft.html#stormpy.dft.DFTState_ratfunc.operational">(DFTState_ratfunc method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core.html#stormpy.Expression.operator">operator (Expression property)</a>, <a href="api/storage.html#stormpy.storage.Expression.operator">[1]</a>
 </li>
       <li><a href="api/core.html#stormpy.OperatorFormula">OperatorFormula (class in stormpy)</a>
@@ -3600,6 +3621,8 @@
         <li><a href="api/logic.html#stormpy.logic.OperatorFormula">(class in stormpy.logic)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core.html#stormpy.OperatorType">OperatorType (class in stormpy)</a>
 
       <ul>
@@ -3626,6 +3649,16 @@
 </li>
       <li><a href="api/core.html#stormpy.Expression.Or">Or() (Expression static method)</a>, <a href="api/storage.html#stormpy.storage.Expression.Or">[1]</a>
 </li>
+      <li><a href="api/core.html#stormpy.SparseExactModelAction.origins">origins (SparseExactModelAction property)</a>, <a href="api/storage.html#stormpy.storage.SparseExactModelAction.origins">[1]</a>
+
+      <ul>
+        <li><a href="api/core.html#stormpy.SparseIntervalModelAction.origins">(SparseIntervalModelAction property)</a>, <a href="api/storage.html#stormpy.storage.SparseIntervalModelAction.origins">[1]</a>
+</li>
+        <li><a href="api/core.html#stormpy.SparseModelAction.origins">(SparseModelAction property)</a>, <a href="api/storage.html#stormpy.storage.SparseModelAction.origins">[1]</a>
+</li>
+        <li><a href="api/core.html#stormpy.SparseParametricModelAction.origins">(SparseParametricModelAction property)</a>, <a href="api/storage.html#stormpy.storage.SparseParametricModelAction.origins">[1]</a>
+</li>
+      </ul></li>
       <li><a href="api/core.html#stormpy.OverlappingGuardAnalyser">OverlappingGuardAnalyser (class in stormpy)</a>
 
       <ul>
@@ -4014,10 +4047,10 @@
 </li>
       <li><a href="api/core.html#stormpy.OperatorFormula.remove_optimality_type">remove_optimality_type() (OperatorFormula method)</a>, <a href="api/logic.html#stormpy.logic.OperatorFormula.remove_optimality_type">[1]</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/gspn.html#stormpy.gspn.Transition.remove_output_arc">remove_output_arc() (Transition method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core.html#stormpy.JaniModel.replace_automaton">replace_automaton() (JaniModel method)</a>, <a href="api/storage.html#stormpy.storage.JaniModel.replace_automaton">[1]</a>
 </li>
       <li><a href="api/core.html#stormpy.ExactSparseMatrixBuilder.replace_columns">replace_columns() (ExactSparseMatrixBuilder method)</a>, <a href="api/storage.html#stormpy.storage.ExactSparseMatrixBuilder.replace_columns">[1]</a>
@@ -4042,6 +4075,12 @@
         <li><a href="api/dft.html#stormpy.dft.DFTSimulator_ratfunc.reset">(DFTSimulator_ratfunc method)</a>
 </li>
         <li><a href="api/utility.html#stormpy.utility.SmtSolver.reset">(SmtSolver method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/dft.html#stormpy.dft.DFTSimulator_double.reset_state">reset_state() (DFTSimulator_double method)</a>
+
+      <ul>
+        <li><a href="api/dft.html#stormpy.dft.DFTSimulator_ratfunc.reset_state">(DFTSimulator_ratfunc method)</a>
 </li>
       </ul></li>
       <li><a href="api/core.html#stormpy.reset_timeout">reset_timeout() (in module stormpy)</a>
@@ -4338,7 +4377,9 @@
         <li><a href="api/dft.html#stormpy.dft.DFTSimulator_ratfunc.simulate_trace">(DFTSimulator_ratfunc method)</a>
 </li>
       </ul></li>
-      <li><a href="api/dft.html#stormpy.dft.SimulationResult">SimulationResult (class in stormpy.dft)</a>
+      <li><a href="api/dft.html#stormpy.dft.SimulationStepResult">SimulationStepResult (class in stormpy.dft)</a>
+</li>
+      <li><a href="api/dft.html#stormpy.dft.SimulationTraceResult">SimulationTraceResult (class in stormpy.dft)</a>
 </li>
       <li><a href="api/dft.html#stormpy.dft.DftIndependentModule.single_be">single_be() (DftIndependentModule method)</a>
 </li>
@@ -4943,8 +4984,12 @@
 </li>
       <li><a href="api/core.html#stormpy.SubsystemBuilderReturnTypeRatFunc">SubsystemBuilderReturnTypeRatFunc (class in stormpy)</a>
 </li>
-      <li><a href="api/dft.html#stormpy.dft.SimulationResult.SUCCESSFUL">SUCCESSFUL (SimulationResult attribute)</a>
+      <li><a href="api/dft.html#stormpy.dft.SimulationStepResult.SUCCESSFUL">SUCCESSFUL (SimulationStepResult attribute)</a>
+
+      <ul>
+        <li><a href="api/dft.html#stormpy.dft.SimulationTraceResult.SUCCESSFUL">(SimulationTraceResult attribute)</a>
 </li>
+      </ul></li>
       <li><a href="api/core.html#stormpy.SymbolicExactQuantitativeCheckResult">SymbolicExactQuantitativeCheckResult (class in stormpy)</a>
 </li>
       <li><a href="api/core.html#stormpy.SymbolicModelDescription">SymbolicModelDescription (class in stormpy)</a>
@@ -5223,8 +5268,12 @@
 </li>
       <li><a href="api/utility.html#stormpy.utility.SmtCheckResult.Unsat">Unsat (SmtCheckResult attribute)</a>
 </li>
-      <li><a href="api/dft.html#stormpy.dft.SimulationResult.UNSUCCESSFUL">UNSUCCESSFUL (SimulationResult attribute)</a>
+      <li><a href="api/dft.html#stormpy.dft.SimulationStepResult.UNSUCCESSFUL">UNSUCCESSFUL (SimulationStepResult attribute)</a>
+
+      <ul>
+        <li><a href="api/dft.html#stormpy.dft.SimulationTraceResult.UNSUCCESSFUL">(SimulationTraceResult attribute)</a>
 </li>
+      </ul></li>
       <li><a href="api/core.html#stormpy.UntilFormula">UntilFormula (class in stormpy)</a>
 
       <ul>
@@ -5255,6 +5304,16 @@
 
       <ul>
         <li><a href="api/storage.html#stormpy.storage.Valuation">(class in stormpy.storage)</a>
+</li>
+      </ul></li>
+      <li><a href="api/core.html#stormpy.SparseExactModelState.valuations">valuations (SparseExactModelState property)</a>, <a href="api/storage.html#stormpy.storage.SparseExactModelState.valuations">[1]</a>
+
+      <ul>
+        <li><a href="api/core.html#stormpy.SparseIntervalModelState.valuations">(SparseIntervalModelState property)</a>, <a href="api/storage.html#stormpy.storage.SparseIntervalModelState.valuations">[1]</a>
+</li>
+        <li><a href="api/core.html#stormpy.SparseModelState.valuations">(SparseModelState property)</a>, <a href="api/storage.html#stormpy.storage.SparseModelState.valuations">[1]</a>
+</li>
+        <li><a href="api/core.html#stormpy.SparseParametricModelState.valuations">(SparseParametricModelState property)</a>, <a href="api/storage.html#stormpy.storage.SparseParametricModelState.valuations">[1]</a>
 </li>
       </ul></li>
       <li><a href="api/dft.html#stormpy.dft.ApproximationHeuristic.value">value (ApproximationHeuristic property)</a>
@@ -5296,7 +5355,9 @@
 </li>
         <li><a href="api/pars.html#stormpy.pars.RegionResultHypothesis.value">(RegionResultHypothesis property)</a>
 </li>
-        <li><a href="api/dft.html#stormpy.dft.SimulationResult.value">(SimulationResult property)</a>
+        <li><a href="api/dft.html#stormpy.dft.SimulationStepResult.value">(SimulationStepResult property)</a>
+</li>
+        <li><a href="api/dft.html#stormpy.dft.SimulationTraceResult.value">(SimulationTraceResult property)</a>
 </li>
         <li><a href="api/utility.html#stormpy.utility.SmtCheckResult.value">(SmtCheckResult property)</a>
 </li>
@@ -5409,7 +5470,7 @@
     </p>
     <p>
         &copy; Copyright 2016-2022 Moves RWTH Aachen.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.4.7.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 8.0.2.<br/>
     </p>
   </div>
 </footer>
