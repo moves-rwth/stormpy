@@ -46,7 +46,10 @@ void define_sparse_model_components(py::module& m, std::string const& vtSuffix) 
         .def_readwrite("markovian_states", &SparseModelComponents<ValueType>::markovianStates, "A list that stores which states are Markovian (only for Markov Automata)")
 
         // Stochastic two player game specific components:
-        .def_readwrite("player1_matrix", &SparseModelComponents<ValueType>::observabilityClasses, "Matrix of player 1 choices (needed for stochastic two player games")
+        .def_readwrite("player1_matrix", &SparseModelComponents<ValueType>::player1Matrix, "Matrix of player 1 choices (needed for stochastic two player games")
+
+        // Stochastic multiplayer game specific components:
+        .def_readwrite("state_player_indications", &SparseModelComponents<ValueType>::statePlayerIndications, "The vector mapping states to player indices")
         ;
 
 }

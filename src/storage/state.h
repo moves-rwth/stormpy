@@ -27,6 +27,13 @@ class SparseModelState {
             return this->model.getStateLabeling().getLabelsOfState(this->stateIndex);
         }
 
+        std::string getValuations() const {
+            if (!this->model.hasStateValuations()) {
+                throw std::invalid_argument("No state valuations available");
+            }
+            return this->model.getStateValuations().getStateInfo(this->stateIndex);
+        }
+
         SparseModelActions<ValueType> getActions() const {
             return SparseModelActions<ValueType>(this->model, stateIndex);
         }
@@ -84,6 +91,20 @@ class SparseModelAction {
         typename storm::storage::SparseMatrix<ValueType>::rows getTransitions() {
             return model.getTransitionMatrix().getRow(stateIndex, actionIndex);
         }
+
+        std::set<std::string> getLabels() const {
+            if (!this->model.hasChoiceLabeling()) {
+                throw std::invalid_argument("No choice labeling available");
+            }
+            return this->model.getChoiceLabeling().getLabelsOfChoice(getActionIndex());
+        }
+
+        std::string getOrigins() const {
+            if (!this->model.hasChoiceOrigins()) {
+                throw std::invalid_argument("No choice origins available");
+            }
+            return this->model.getChoiceOrigins()->getChoiceInfo(getActionIndex());
+        }
         
         std::string toString() const {
             std::stringstream stream;
@@ -91,8 +112,11 @@ class SparseModelAction {
             return stream.str();
         }
 
-
     private:
+        s_index getActionIndex() const {
+            return model.getTransitionMatrix().getRowGroupIndices()[stateIndex] + actionIndex;
+        }
+
         s_index stateIndex;
         s_index actionIndex;
         storm::models::sparse::Model<ValueType>& model;
