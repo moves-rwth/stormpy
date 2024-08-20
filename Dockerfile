@@ -39,25 +39,6 @@ RUN apt-get install -y --no-install-recommends \
     python3-venv
 # Packages maven and uuid-dev are required for carl-parser
 
-
-# Build carl
-############
-WORKDIR /opt/
-
-# Obtain carl from public repository
-RUN git clone -b $carl_version https://github.com/moves-rwth/carl-storm.git carl
-
-# Switch to build directory
-RUN mkdir -p /opt/carl/build
-WORKDIR /opt/carl/build
-
-# Configure carl
-RUN cmake .. $carl_cmake_args -DCMAKE_BUILD_TYPE=$build_type
-
-# Build carl
-RUN make lib_carl -j $no_threads
-
-
 # Build carl-parser
 ###################
 WORKDIR /opt/
