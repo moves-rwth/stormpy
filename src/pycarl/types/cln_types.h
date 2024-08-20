@@ -1,6 +1,6 @@
 #pragma once
 
-#include "definitions.h"
+#include "pycarl/definitions.h"
 #include <carl/numbers/numbers.h>
 
 
