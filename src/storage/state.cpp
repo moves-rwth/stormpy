@@ -13,7 +13,8 @@ void define_state(py::module& m, std::string const& vtSuffix) {
     py::class_<SparseModelState<ValueType>>(m, ("Sparse" + vtSuffix + "ModelState").c_str(), "State in sparse model")
         .def("__str__", &SparseModelState<ValueType>::toString)
         .def_property_readonly("id", &SparseModelState<ValueType>::getIndex, "Id")
-        .def_property_readonly("labels", &SparseModelState<ValueType>::getLabels, "Labels")
+        .def_property_readonly("labels", &SparseModelState<ValueType>::getLabels, "Get state labels")
+        .def_property_readonly("valuations", &SparseModelState<ValueType>::getValuations, "Get state valuations")
         .def_property_readonly("actions", &SparseModelState<ValueType>::getActions, "Get actions")
         .def("__int__",&SparseModelState<ValueType>::getIndex)
     ;
@@ -29,8 +30,9 @@ void define_state(py::module& m, std::string const& vtSuffix) {
         .def("__str__", &SparseModelAction<ValueType>::toString)
         .def_property_readonly("id", &SparseModelAction<ValueType>::getIndex, "Id")
         .def_property_readonly("transitions", &SparseModelAction<ValueType>::getTransitions, "Get transitions")
+        .def_property_readonly("labels", &SparseModelAction<ValueType>::getLabels, "Get choice labels")
+        .def_property_readonly("origins", &SparseModelAction<ValueType>::getOrigins, "Get choice origins")
     ;
-
 }
 
 template void define_state<double>(py::module& m, std::string const& vtSuffix);

@@ -83,7 +83,7 @@ void define_jani(py::module& m) {
         .def_property_readonly("nr_destinations", &Edge::getNumberOfDestinations, "nr edge destinations")
         .def_property_readonly("guard", &Edge::getGuard, "edge guard")
         .def_property("color", &Edge::getColor, &Edge::setColor, "color for the edge")
-        .def("substitute", &Edge::substitute, py::arg("mapping"))
+        .def("substitute", &Edge::substitute, py::arg("mapping"), py::arg("substitute_transcendental_numbers"))
         .def("has_silent_action", &Edge::hasSilentAction, "Is the edge labelled with the silent action")
     ;
 
@@ -112,7 +112,7 @@ void define_jani(py::module& m) {
         .def(py::init<std::vector<Assignment> const&>(), "assignments")
         .def("__str__", &streamToString<OrderedAssignments>)
         .def("clone", &OrderedAssignments::clone, "clone assignments (performs a deep copy)")
-        .def("substitute", &OrderedAssignments::substitute, "substitute in rhs according to given substitution map", "substitution_map"_a)
+        .def("substitute", &OrderedAssignments::substitute, "substitute in rhs according to given substitution map", "substitution_map"_a, "substitute_transcendental_numbers"_a)
         .def("add", [](OrderedAssignments& oa, Assignment const& newAssignment, bool addToExisting) {return oa.add(newAssignment, addToExisting); }, "new_assignment"_a, "add_to_existing"_a = false)
     ;
 
