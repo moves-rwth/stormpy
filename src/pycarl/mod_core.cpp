@@ -6,7 +6,6 @@
 #include "typed_core/interval.h"
 
 PYBIND11_MODULE(pycarl_core, m) {
-    m.attr("__name__") = "stormpy.pycarl.core";
     m.doc() = "pycarl core untyped functions";
 
     define_variabletype(m);
