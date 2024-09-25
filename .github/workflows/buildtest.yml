@@ -14,10 +14,8 @@ on:
   pull_request:
 
 env:
-  GIT_URL: "${{ github.server_url }}/${{ github.repository }}.git"
-  BRANCH: "${{ github.ref }}"
-  # GitHub runners currently have two cores
-  NR_JOBS: "2"
+  # GitHub runners currently have 4 cores
+  NR_JOBS: "4"
 
 jobs:
   indepthTests:
@@ -30,7 +28,7 @@ jobs:
           - {name: "Release", dockerTag: "ci", stormTag: "ci", buildArgs: "BUILD_TYPE=Release", setupArgs: ""}
         configuration:
           - {name: "all libraries", disableFlags: "", optionalLibs: "[numpy,plot]", testOpt: ""}
-          - {name: "no libraries", disableFlags: "--disable-dft --disable-gspn --disable-pars --disable-pomdp", optionalLibs: "", testOpt: "--addopts tests"}
+          - {name: "no libraries", disableFlags: "--disable-dft --disable-gspn --disable-pars --disable-pomdp", optionalLibs: "", testOpt: "tests"}
     steps:
       - name: Git clone
         uses: actions/checkout@v4
@@ -41,7 +39,7 @@ jobs:
       - name: Build optional stormpy libraries
         run: docker exec ci bash -c "cd /opt/stormpy; pip3 install -e '.${{ matrix.configuration.optionalLibs }}'"
       - name: Run tests
-        run: docker exec ci bash -c "cd /opt/stormpy; python setup.py test ${{ matrix.configuration.testOpt }}"
+        run: docker exec ci bash -c "cd /opt/stormpy; pip install -e '.[test]'; pytest ${{ matrix.configuration.testOpt }}"
 
 
   stableTest:
@@ -82,7 +80,7 @@ jobs:
           fi
       - name: Run tests
         if: steps.build_stormpy.outputs.run_tests == 'true'
-        run: docker exec ci bash -c "cd /opt/stormpy; python setup.py test"
+        run: docker exec ci bash -c "cd /opt/stormpy; pip install -e '.[test]'; pytest"
 
 
   deploy:
@@ -101,7 +99,7 @@ jobs:
       - name: Run Docker
         run: docker run -d -it --name ci movesrwth/stormpy:${{ matrix.buildType.dockerTag }}
       - name: Run tests
-        run: docker exec ci bash -c "cd /opt/stormpy; python setup.py test"
+        run: docker exec ci bash -c "cd /opt/stormpy; pip install -e '.[test]'; pytest"
 
       - name: Login into docker
         # Only login if using master on original repo (and not for pull requests or forks)
@@ -128,7 +126,7 @@ jobs:
       - name: Deploy documentation
         # Only deploy for release version and using master on original repo (and not for pull requests or forks)
         if: matrix.buildType.name == 'Release' && github.repository_owner == 'moves-rwth' && github.ref == 'refs/heads/master'
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           personal_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./html

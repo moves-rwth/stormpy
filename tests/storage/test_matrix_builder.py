@@ -211,17 +211,39 @@ class TestMatrixBuilder:
         # Check matrix dimension
         assert matrix.nr_rows == array.shape[0]
         assert matrix.nr_columns == array.shape[1]
-        assert matrix.nr_entries == 8
+        assert matrix.nr_entries == 7
 
         # Check matrix values
         for r in range(array.shape[1]):
             row = matrix.get_row(r)
             for e in row:
-                assert (e.value() == array[r, e.column])
+                assert e.value() == array[r, e.column]
+
+    @numpy_avail
+    def test_matrix_from_numpy_zeros(self):
+        import numpy as np
+        array = np.array([[0, 0, 1, 0],
+                          [0.1, 0, 0, 0.9],
+                          [0, 0, 0, 0],
+                          [1, 0, 0, 0]], dtype='float64')
+
+        matrix = stormpy.build_sparse_matrix(array)
+
+        # Check matrix dimension
+        assert matrix.nr_rows == array.shape[0]
+        assert matrix.nr_columns == array.shape[1]
+        assert matrix.nr_entries == 4
+
+        # Check matrix values
+        for r in range(array.shape[1]):
+            row = matrix.get_row(r)
+            for e in row:
+                assert e.value() == array[r, e.column]
 
     @numpy_avail
     def test_parametric_matrix_from_numpy(self):
         import numpy as np
+        zero = stormpy.RationalRF(0)
         one_pol = stormpy.RationalRF(1)
         one_pol = stormpy.FactorizedPolynomial(one_pol)
         first_val = stormpy.FactorizedRationalFunction(one_pol, one_pol)
@@ -231,8 +253,8 @@ class TestMatrixBuilder:
         third_val = stormpy.FactorizedRationalFunction(one_pol, two_pol)
 
         array = np.array([[sec_val, first_val],
-                          [first_val, sec_val],
-                          [sec_val, sec_val],
+                          [first_val, zero],
+                          [0, sec_val],
                           [third_val, third_val]])
 
         matrix = stormpy.build_parametric_sparse_matrix(array)
@@ -240,13 +262,13 @@ class TestMatrixBuilder:
         # Check matrix dimension
         assert matrix.nr_rows == array.shape[0]
         assert matrix.nr_columns == array.shape[1]
-        assert matrix.nr_entries == 8
+        assert matrix.nr_entries == 6
 
         # Check matrix values
         for r in range(array.shape[1]):
             row = matrix.get_row(r)
             for e in row:
-                assert (e.value() == array[r, e.column])
+                assert e.value() == array[r, e.column]
 
     @numpy_avail
     def test_matrix_from_numpy_row_grouping(self):
@@ -261,13 +283,13 @@ class TestMatrixBuilder:
         # Check matrix dimension
         assert matrix.nr_rows == array.shape[0]
         assert matrix.nr_columns == array.shape[1]
-        assert matrix.nr_entries == 8
+        assert matrix.nr_entries == 7
 
         # Check matrix values
         for r in range(array.shape[1]):
             row = matrix.get_row(r)
             for e in row:
-                assert (e.value() == array[r, e.column])
+                assert e.value() == array[r, e.column]
 
         # Check row groups
         assert matrix.get_row_group_start(0) == 1
@@ -303,7 +325,7 @@ class TestMatrixBuilder:
         for r in range(array.shape[1]):
             row = matrix.get_row(r)
             for e in row:
-                assert (e.value() == array[r, e.column])
+                assert e.value() == array[r, e.column]
 
         # Check row groups
         assert matrix.get_row_group_start(0) == 1

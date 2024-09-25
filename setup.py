@@ -13,7 +13,7 @@ if sys.version_info[0] == 2:
     sys.exit('Sorry, Python 2.x is not supported')
 
 # Minimal storm version required
-storm_min_version = "1.8.2"
+storm_min_version = "1.9.0"
 
 # Get the long description from the README file
 with open(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'README.md'), encoding='utf-8') as f:
@@ -226,15 +226,14 @@ setup(
                  ],
     cmdclass={'build_ext': CMakeBuild},
     zip_safe=False,
-    install_requires=['pycarl>=2.2.0'],
-    setup_requires=['pycarl>=2.2.0', # required to check pybind version used for pycarl
-                   'pytest-runner',
+    install_requires=['pycarl>=2.3.0'],
+    setup_requires=['pycarl>=2.3.0', # required to check pybind version used for pycarl
                    'packaging'
                    ],
-    tests_require=['pytest', 'nbval', 'numpy'],
     extras_require={
         "numpy":  ["numpy"],
         "plot":  ["matplotlib","numpy","scipy"],
+        "test": ["pytest", "nbval", "numpy"],
         "doc": ["Sphinx", "sphinx-bootstrap-theme", "nbsphinx", "ipython", "ipykernel"], # also requires pandoc to be installed
     },
     python_requires='>=3.7', # required by packaging
