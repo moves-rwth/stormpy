@@ -36,6 +36,8 @@ prism_mdp_firewire = _path("mdp", "firewire.nm")
 prism_pmdp_coin_two_dice = _path("pmdp", "two_dice.nm")
 """Prism example for parametric two dice"""
 prism_mdp_maze = _path("mdp", "maze_2.nm")
+""""""
+prism_mdp_maze_multigoal = _path("mdp", "maze_2_multigoal.nm")
 """Prism example for the maze MDP"""
 prism_mdp_slipgrid = _path("mdp", "slipgrid.nm")
 """Prism example for the maze MDP towards sketching"""
@@ -55,3 +57,4 @@ gspn_pnpro_simple = _path("gspn", "gspn_simple.pnpro")
 """GSPN example (PNPRO format)"""
 gspn_pnml_simple = _path("gspn", "gspn_simple.pnml")
 """GSPN example (PNML format)"""
+

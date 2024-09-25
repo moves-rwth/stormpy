@@ -3,6 +3,7 @@
 #include "core/core.h"
 #include "core/result.h"
 #include "core/modelchecking.h"
+#include "core/multiobjective.h"
 #include "core/bisimulation.h"
 #include "core/input.h"
 #include "core/analysis.h"
@@ -29,6 +30,7 @@ PYBIND11_MODULE(core, m) {
     define_export(m);
     define_result(m);
     define_modelchecking(m);
+    define_multiobjective(m);
     define_counterexamples(m);
     define_bisimulation(m);
     define_input(m);
