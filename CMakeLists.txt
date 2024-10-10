@@ -15,7 +15,7 @@ find_package(carlparser QUIET HINTS ${CARLPARSER_DIR_HINT})
 find_package(Python COMPONENTS Interpreter Development REQUIRED)
 include(resources/include_pybind11.cmake)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 20)
 
 # This sets interprocedural optimization off as this leads to some problems on some systems
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION OFF)
