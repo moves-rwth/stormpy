@@ -64,15 +64,18 @@ def create_nondeterminstic_belief_tracker(model, reduction_timeout, track_timeou
         return pomdp.NondeterministicBeliefTrackerDoubleSparse(model, opts)
 
 
-def create_observation_trace_unfolder(model, risk_assessment, expr_manager):
+def create_observation_trace_unfolder(model, risk_assessment, expr_manager, rejection_sampling = True):
     """
 
     :param model:
     :param risk_assessment:
     :param expr_manager:
+    :param rejection_sampling:
     :return:
     """
+    options = pomdp.ObservationTraceUnfolderOptions()
+    options.rejection_sampling = rejection_sampling
     if model.is_exact:
-        return pomdp.ObservationTraceUnfolderExact(model, risk_assessment, expr_manager)
+        return pomdp.ObservationTraceUnfolderExact(model, risk_assessment, expr_manager, options)
     else:
-        return pomdp.ObservationTraceUnfolderDouble(model, risk_assessment, expr_manager)
+        return pomdp.ObservationTraceUnfolderDouble(model, risk_assessment, expr_manager, options)
