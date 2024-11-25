@@ -464,7 +464,7 @@ def prob01max_states(model, eventually_formula):
     labelprop = core.Property("label-prop", labelform)
     phiStates = BitVector(model.nr_states, True)
     psiStates = model_checking(model, labelprop).get_truth_values()
-    return compute_prob01min_states(model, phiStates, psiStates)
+    return compute_prob01max_states(model, phiStates, psiStates)
 
 
 def compute_prob01_states(model, phi_states, psi_states):

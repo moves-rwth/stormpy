@@ -141,15 +141,19 @@ class TestModelChecking:
         (prob0, prob1) = stormpy.compute_prob01_states(model, phiStates, psiStates)
         assert prob0.number_of_set_bits() == 9
         assert prob1.number_of_set_bits() == 1
-        (prob0, prob1) = stormpy.compute_prob01min_states(model, phiStates, psiStates)
-        assert prob0.number_of_set_bits() == 9
-        assert prob1.number_of_set_bits() == 1
-        (prob0, prob1) = stormpy.compute_prob01max_states(model, phiStates, psiStates)
-        assert prob0.number_of_set_bits() == 9
-        assert prob1.number_of_set_bits() == 1
         labelprop = stormpy.core.Property("cora", formulaPsi.raw_formula)
         result = stormpy.model_checking(model, labelprop)
         assert result.get_truth_values().number_of_set_bits() == 1
+
+        program = stormpy.parse_prism_program(get_example_path("mdp", "coin2-2.nm"))
+        formulas = stormpy.parse_properties_for_prism_program('Pmin=? [ F "finished" & "all_coins_equal_1"]', program)
+        model = stormpy.build_model(program, formulas)
+        prob0, prob1 = stormpy.prob01min_states(model, formulas[0].raw_formula.subformula)
+        assert prob0.number_of_set_bits() == 94
+        assert prob1.number_of_set_bits() == 15
+        prob0, prob1 = stormpy.prob01max_states(model, formulas[0].raw_formula.subformula)
+        assert prob0.number_of_set_bits() == 83
+        assert prob1.number_of_set_bits() == 18
 
     def test_model_checking_ctmc(self):
         model = stormpy.build_model_from_drn(get_example_path("ctmc", "dft.drn"))
