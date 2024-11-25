@@ -844,17 +844,18 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy.examples</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy.examples.files</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">path</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">prism_pdtmc_die</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">prism_program</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">parse_prism_program</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">formula_str</span> <span class="o">=</span> <span class="s2">&quot;P=? [F s=7 &amp; d=2]&quot;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">properties</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">parse_properties</span><span class="p">(</span><span class="n">formula_str</span><span class="p">,</span> <span class="n">prism_program</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">model</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">build_parametric_model</span><span class="p">(</span><span class="n">prism_program</span><span class="p">,</span> <span class="n">properties</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">parameters</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">collect_probability_parameters</span><span class="p">()</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">parameters</span><span class="p">:</span>
-<span class="o">...</span>     <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">stormpy</span>
+<span class="kn">import</span> <span class="nn">stormpy.examples</span>
+<span class="kn">import</span> <span class="nn">stormpy.examples.files</span>
+
+<span class="n">path</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">prism_pdtmc_die</span>
+<span class="n">prism_program</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">parse_prism_program</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="n">formula_str</span> <span class="o">=</span> <span class="s2">&quot;P=? [F s=7 &amp; d=2]&quot;</span>
+<span class="n">properties</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">parse_properties</span><span class="p">(</span><span class="n">formula_str</span><span class="p">,</span> <span class="n">prism_program</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">build_parametric_model</span><span class="p">(</span><span class="n">prism_program</span><span class="p">,</span> <span class="n">properties</span><span class="p">)</span>
+<span class="n">parameters</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">collect_probability_parameters</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">parameters</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -872,8 +873,9 @@ q
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy.pars</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">instantiator</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">pars</span><span class="o">.</span><span class="n">PDtmcInstantiator</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">stormpy.pars</span>
+
+<span class="n">instantiator</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">pars</span><span class="o">.</span><span class="n">PDtmcInstantiator</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -882,12 +884,12 @@ q
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">point</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">parameters</span><span class="p">:</span>
-<span class="o">...</span>    <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-<span class="o">...</span>    <span class="n">point</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">RationalRF</span><span class="p">(</span><span class="mf">0.4</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">instantiated_model</span> <span class="o">=</span> <span class="n">instantiator</span><span class="o">.</span><span class="n">instantiate</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">model_checking</span><span class="p">(</span><span class="n">instantiated_model</span><span class="p">,</span> <span class="n">properties</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">point</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">parameters</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+    <span class="n">point</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">RationalRF</span><span class="p">(</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="n">instantiated_model</span> <span class="o">=</span> <span class="n">instantiator</span><span class="o">.</span><span class="n">instantiate</span><span class="p">(</span><span class="n">point</span><span class="p">)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">model_checking</span><span class="p">(</span><span class="n">instantiated_model</span><span class="p">,</span> <span class="n">properties</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -910,9 +912,9 @@ q
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">model_checking</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">properties</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">initial_state</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">initial_states</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">func</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="n">initial_state</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">model_checking</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">properties</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">initial_state</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">initial_states</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">func</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">at</span><span class="p">(</span><span class="n">initial_state</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -921,16 +923,17 @@ q
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy.info</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">if</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">storm_ratfunc_use_cln</span><span class="p">():</span>
-<span class="o">...</span>     <span class="kn">import</span> <span class="nn">pycarl.cln.formula</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">else</span><span class="p">:</span>
-<span class="o">...</span>     <span class="kn">import</span> <span class="nn">pycarl.gmp.formula</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">collector</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">ConstraintCollector</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">formula</span> <span class="ow">in</span> <span class="n">collector</span><span class="o">.</span><span class="n">wellformed_constraints</span><span class="p">:</span>
-<span class="o">...</span>     <span class="nb">print</span><span class="p">(</span><span class="n">formula</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">formula</span> <span class="ow">in</span> <span class="n">collector</span><span class="o">.</span><span class="n">graph_preserving_constraints</span><span class="p">:</span>
-<span class="o">...</span>     <span class="nb">print</span><span class="p">(</span><span class="n">formula</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">stormpy.info</span>
+
+<span class="k">if</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">storm_ratfunc_use_cln</span><span class="p">():</span>
+    <span class="kn">import</span> <span class="nn">pycarl.cln.formula</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">pycarl.gmp.formula</span>
+<span class="n">collector</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">ConstraintCollector</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">formula</span> <span class="ow">in</span> <span class="n">collector</span><span class="o">.</span><span class="n">wellformed_constraints</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">formula</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">formula</span> <span class="ow">in</span> <span class="n">collector</span><span class="o">.</span><span class="n">graph_preserving_constraints</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">formula</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -939,14 +942,14 @@ q
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(&lt;= (* (- 1) p) 0)
-(&lt;= (* (- 1) q) 0)
 (&lt;= (+ p (- 1)) 0)
+(&lt;= (* (- 1) q) 0)
+(&lt;= (* (- 1) p) 0)
 (&lt;= (+ q (- 1)) 0)
 (!= q 0)
 (!= p 0)
-(!= (+ q (- 1)) 0)
 (!= (+ p (- 1)) 0)
+(!= (+ q (- 1)) 0)
 </pre></div></div>
 </div>
 </section>

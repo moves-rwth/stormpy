@@ -845,8 +845,8 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy.examples</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy.examples.files</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">stormpy.examples</span>
+<span class="kn">import</span> <span class="nn">stormpy.examples.files</span>
 </pre></div>
 </div>
 </div>
@@ -855,9 +855,9 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">path</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">drn_ctmc_dft</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">model</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">build_model_from_drn</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">model_type</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">drn_ctmc_dft</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">build_model_from_drn</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">model_type</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -875,9 +875,9 @@ ModelType.CTMC
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">path</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">drn_pdtmc_die</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">model</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">build_parametric_model_from_drn</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">model_type</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">drn_pdtmc_die</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">build_parametric_model_from_drn</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">model_type</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -895,10 +895,10 @@ ModelType.DTMC
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">path</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">jani_dtmc_die</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">jani_program</span><span class="p">,</span> <span class="n">properties</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">parse_jani_model</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">model</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">build_model</span><span class="p">(</span><span class="n">jani_program</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">model_type</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">jani_dtmc_die</span>
+<span class="n">jani_program</span><span class="p">,</span> <span class="n">properties</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">parse_jani_model</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">build_model</span><span class="p">(</span><span class="n">jani_program</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">model_type</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

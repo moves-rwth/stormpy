@@ -849,7 +849,7 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">stormpy</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">stormpy</span>
 </pre></div>
 </div>
 </div>
@@ -862,14 +862,9 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">transitions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-<span class="o">...</span>        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-<span class="o">...</span>        <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-<span class="o">...</span>        <span class="p">[</span><span class="mf">0.9</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-<span class="o">...</span>        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-<span class="o">...</span>        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
-<span class="o">...</span>        <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">transitions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.9</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;float64&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -878,8 +873,8 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">transition_matrix</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">build_sparse_matrix</span><span class="p">(</span><span class="n">transitions</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">transition_matrix</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">transition_matrix</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">build_sparse_matrix</span><span class="p">(</span><span class="n">transitions</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">transition_matrix</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -912,7 +907,7 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">markovian_states</span> <span class="o">=</span>  <span class="n">stormpy</span><span class="o">.</span><span class="n">BitVector</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">markovian_states</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">BitVector</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -924,9 +919,9 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">components</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">SparseModelComponents</span><span class="p">(</span><span class="n">transition_matrix</span><span class="o">=</span><span class="n">transition_matrix</span><span class="p">,</span> <span class="n">state_labeling</span><span class="o">=</span><span class="n">state_labeling</span><span class="p">,</span> <span class="n">markovian_states</span><span class="o">=</span><span class="n">markovian_states</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">components</span><span class="o">.</span><span class="n">choice_labeling</span> <span class="o">=</span> <span class="n">choice_labeling</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">components</span><span class="o">.</span><span class="n">exit_rates</span> <span class="o">=</span> <span class="n">exit_rates</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">components</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">SparseModelComponents</span><span class="p">(</span><span class="n">transition_matrix</span><span class="o">=</span><span class="n">transition_matrix</span><span class="p">,</span> <span class="n">state_labeling</span><span class="o">=</span><span class="n">state_labeling</span><span class="p">,</span> <span class="n">markovian_states</span><span class="o">=</span><span class="n">markovian_states</span><span class="p">)</span>
+<span class="n">components</span><span class="o">.</span><span class="n">choice_labeling</span> <span class="o">=</span> <span class="n">choice_labeling</span>
+<span class="n">components</span><span class="o">.</span><span class="n">exit_rates</span> <span class="o">=</span> <span class="n">exit_rates</span>
 </pre></div>
 </div>
 </div>
@@ -935,8 +930,8 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">ma</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">SparseMA</span><span class="p">(</span><span class="n">components</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">ma</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ma</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">storage</span><span class="o">.</span><span class="n">SparseMA</span><span class="p">(</span><span class="n">components</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ma</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -954,11 +949,11 @@ Markovian St.:  4
 Max. Rate:      12
 Reward Models:  none
 State Labels:   2 labels
-   * deadlock -&gt; 0 item(s)
    * init -&gt; 1 item(s)
+   * deadlock -&gt; 0 item(s)
 Choice Labels:  2 labels
-   * beta -&gt; 1 item(s)
    * alpha -&gt; 1 item(s)
+   * beta -&gt; 1 item(s)
 --------------------------------------------------------------
 
 </pre></div></div>
