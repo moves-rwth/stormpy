@@ -2,6 +2,7 @@ import stormpy
 from stormpy.examples.files import prism_dtmc_die
 import pytest
 
+
 class _DfsQueue:
     def __init__(self):
         self.queue = []
@@ -44,9 +45,7 @@ def _load_program(filename):
     program = program.substitute_constants()
 
     expression_parser = stormpy.ExpressionParser(program.expression_manager)
-    expression_parser.set_identifier_mapping(
-        {var.name: var.get_expression()
-         for var in program.variables})
+    expression_parser.set_identifier_mapping({var.name: var.get_expression() for var in program.variables})
     return program, expression_parser
 
 
@@ -55,6 +54,7 @@ def _find_variable(program, name):
         if var.name is name:
             return var
     return None
+
 
 @pytest.mark.skipif(True, reason="State generation is broken")
 def test_knuth_yao_die():
