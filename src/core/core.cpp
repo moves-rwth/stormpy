@@ -3,6 +3,7 @@
 #include "core.h"
 #include "storm/utility/initialize.h"
 #include "storm/utility/SignalHandler.h"
+#include "storm/io/file.h"
 #include "storm/io/DirectEncodingExporter.h"
 #include "storm/storage/ModelFormulasPair.h"
 #include "storm/storage/dd/DdType.h"
