@@ -618,7 +618,7 @@ def parse_properties(properties, context=None, filters=None):
     if context is None:
         return core.parse_properties_without_context(properties, filters)
     elif type(context) == core.SymbolicModelDescription:
-        if context.is_prism_program():
+        if context.is_prism_program:
             return core.parse_properties_for_prism_program(properties, context.as_prism_program(), filters)
         else:
             return core.parse_properties_for_jani_program(properties, context.as_jani_model(), filters)
