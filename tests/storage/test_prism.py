@@ -29,7 +29,15 @@ class TestPrism:
         assert len(new_properties) == len(orig_properties)
 
     def test_prism_variables(selfs):
-        program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
-        module = program.modules[0]
-        assert len(module.integer_variables) == 2
-        assert len(module.boolean_variables) == 0
+        program = stormpy.parse_prism_program(get_example_path("mdp", "leader3.nm"))
+        assert program.nr_modules == 3
+        assert program.model_type == stormpy.PrismModelType.MDP
+        assert not program.has_undefined_constants
+        assert len(program.constants) == 1
+        assert len(program.global_boolean_variables) == 0
+        assert len(program.global_integer_variables) == 0
+        assert len(program.get_variables()) == 16
+        assert len(program.get_variables(False)) == 15
+        for module in program.modules:
+            assert len(module.integer_variables) == 5
+            assert len(module.boolean_variables) == 0

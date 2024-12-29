@@ -17,6 +17,28 @@ class TestState:
         state = states[5]
         assert state.id == 5
 
+    def test_state_valuations(self):
+        program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
+        options = stormpy.BuilderOptions()
+        options.set_build_state_valuations()
+        model = stormpy.build_sparse_model_with_options(program, options)
+        assert model.has_state_valuations()
+        for var in program.get_variables():
+            if var.name == "s":
+                var_s = var
+            elif var.name == "d":
+                var_d = var
+            else:
+                assert False
+        # Values of s should be 0, ..., 6 and then 6 times 7
+        vals_s = model.state_valuations.get_integer_values_states(var_s)
+        comp_s = [i for i in range(0, 7)] + [7] * 6
+        assert vals_s == comp_s
+        # Values of d should be 7 times 0 and then 1, ..., 6
+        vals_d = model.state_valuations.get_integer_values_states(var_d)
+        comp_d = [0] * 7 + [i for i in range(1, 7)]
+        assert vals_d == comp_d
+
     def test_states_mdp(self):
         model = stormpy.build_sparse_model_from_explicit(get_example_path("mdp", "two_dice.tra"), get_example_path("mdp", "two_dice.lab"))
         i = 0

@@ -45,12 +45,12 @@ def _load_program(filename):
     program = program.substitute_constants()
 
     expression_parser = stormpy.ExpressionParser(program.expression_manager)
-    expression_parser.set_identifier_mapping({var.name: var.get_expression() for var in program.variables})
+    expression_parser.set_identifier_mapping({var.name: var.get_expression() for var in program.get_variables()})
     return program, expression_parser
 
 
 def _find_variable(program, name):
-    for var in program.variables:
+    for var in program.get_variables():
         if var.name is name:
             return var
     return None
