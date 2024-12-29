@@ -1616,6 +1616,7 @@
 <li><a class="reference internal" href="#stormpy.PrismProgram.get_module_indices_by_action_index"><code class="docutils literal notranslate"><span class="pre">PrismProgram.get_module_indices_by_action_index()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.PrismProgram.get_synchronizing_action_indices"><code class="docutils literal notranslate"><span class="pre">PrismProgram.get_synchronizing_action_indices()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.PrismProgram.get_undefined_constants"><code class="docutils literal notranslate"><span class="pre">PrismProgram.get_undefined_constants()</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.PrismProgram.get_variables"><code class="docutils literal notranslate"><span class="pre">PrismProgram.get_variables()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.PrismProgram.global_boolean_variables"><code class="docutils literal notranslate"><span class="pre">PrismProgram.global_boolean_variables</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.PrismProgram.global_integer_variables"><code class="docutils literal notranslate"><span class="pre">PrismProgram.global_integer_variables</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.PrismProgram.has_constant"><code class="docutils literal notranslate"><span class="pre">PrismProgram.has_constant()</span></code></a></li>
@@ -2171,10 +2172,13 @@
 </li>
 <li><a class="reference internal" href="#stormpy.StateValuation"><code class="docutils literal notranslate"><span class="pre">StateValuation</span></code></a><ul>
 <li><a class="reference internal" href="#stormpy.StateValuation.get_boolean_value"><code class="docutils literal notranslate"><span class="pre">StateValuation.get_boolean_value()</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.StateValuation.get_boolean_values_states"><code class="docutils literal notranslate"><span class="pre">StateValuation.get_boolean_values_states()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.StateValuation.get_integer_value"><code class="docutils literal notranslate"><span class="pre">StateValuation.get_integer_value()</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.StateValuation.get_integer_values_states"><code class="docutils literal notranslate"><span class="pre">StateValuation.get_integer_values_states()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.StateValuation.get_json"><code class="docutils literal notranslate"><span class="pre">StateValuation.get_json()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.StateValuation.get_nr_of_states"><code class="docutils literal notranslate"><span class="pre">StateValuation.get_nr_of_states()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.StateValuation.get_rational_value"><code class="docutils literal notranslate"><span class="pre">StateValuation.get_rational_value()</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.StateValuation.get_rational_values_states"><code class="docutils literal notranslate"><span class="pre">StateValuation.get_rational_values_states()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.StateValuation.get_string"><code class="docutils literal notranslate"><span class="pre">StateValuation.get_string()</span></code></a></li>
 </ul>
 </li>
@@ -3248,6 +3252,7 @@
 <li><a class="reference internal" href="#stormpy.PrismProgram.get_module_indices_by_action_index"><code class="docutils literal notranslate"><span class="pre">PrismProgram.get_module_indices_by_action_index()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.PrismProgram.get_synchronizing_action_indices"><code class="docutils literal notranslate"><span class="pre">PrismProgram.get_synchronizing_action_indices()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.PrismProgram.get_undefined_constants"><code class="docutils literal notranslate"><span class="pre">PrismProgram.get_undefined_constants()</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.PrismProgram.get_variables"><code class="docutils literal notranslate"><span class="pre">PrismProgram.get_variables()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.PrismProgram.global_boolean_variables"><code class="docutils literal notranslate"><span class="pre">PrismProgram.global_boolean_variables</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.PrismProgram.global_integer_variables"><code class="docutils literal notranslate"><span class="pre">PrismProgram.global_integer_variables</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.PrismProgram.has_constant"><code class="docutils literal notranslate"><span class="pre">PrismProgram.has_constant()</span></code></a></li>
@@ -3803,10 +3808,13 @@
 </li>
 <li><a class="reference internal" href="#stormpy.StateValuation"><code class="docutils literal notranslate"><span class="pre">StateValuation</span></code></a><ul>
 <li><a class="reference internal" href="#stormpy.StateValuation.get_boolean_value"><code class="docutils literal notranslate"><span class="pre">StateValuation.get_boolean_value()</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.StateValuation.get_boolean_values_states"><code class="docutils literal notranslate"><span class="pre">StateValuation.get_boolean_values_states()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.StateValuation.get_integer_value"><code class="docutils literal notranslate"><span class="pre">StateValuation.get_integer_value()</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.StateValuation.get_integer_values_states"><code class="docutils literal notranslate"><span class="pre">StateValuation.get_integer_values_states()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.StateValuation.get_json"><code class="docutils literal notranslate"><span class="pre">StateValuation.get_json()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.StateValuation.get_nr_of_states"><code class="docutils literal notranslate"><span class="pre">StateValuation.get_nr_of_states()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.StateValuation.get_rational_value"><code class="docutils literal notranslate"><span class="pre">StateValuation.get_rational_value()</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.StateValuation.get_rational_values_states"><code class="docutils literal notranslate"><span class="pre">StateValuation.get_rational_values_states()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.StateValuation.get_string"><code class="docutils literal notranslate"><span class="pre">StateValuation.get_string()</span></code></a></li>
 </ul>
 </li>
@@ -6197,7 +6205,7 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.JaniModel.flatten_composition">
-<span class="sig-name descname"><span class="pre">flatten_composition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.JaniModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_solver_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f4181027eb0&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.JaniModel" title="stormpy.storage.storage.JaniModel"><span class="pre">stormpy.storage.storage.JaniModel</span></a></span></span><a class="headerlink" href="#stormpy.JaniModel.flatten_composition" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">flatten_composition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.JaniModel</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_solver_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f7472c0c5b0&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.JaniModel" title="stormpy.storage.storage.JaniModel"><span class="pre">stormpy.storage.storage.JaniModel</span></a></span></span><a class="headerlink" href="#stormpy.JaniModel.flatten_composition" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -7741,7 +7749,7 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.PrismProgram.flatten">
-<span class="sig-name descname"><span class="pre">flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.PrismProgram</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f4181f0f3f0&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.PrismProgram" title="stormpy.storage.storage.PrismProgram"><span class="pre">stormpy.storage.storage.PrismProgram</span></a></span></span><a class="headerlink" href="#stormpy.PrismProgram.flatten" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">flatten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.PrismProgram</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">smt_factory:</span> <span class="pre">stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.utility.utility.SmtSolverFactory</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f7472be6330&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.PrismProgram" title="stormpy.storage.storage.PrismProgram"><span class="pre">stormpy.storage.storage.PrismProgram</span></a></span></span><a class="headerlink" href="#stormpy.PrismProgram.flatten" title="Link to this definition">¶</a></dt>
 <dd><p>Put program into a single module</p>
 </dd></dl>
 
@@ -7784,6 +7792,12 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <dt class="sig sig-object py" id="stormpy.PrismProgram.get_undefined_constants">
 <span class="sig-name descname"><span class="pre">get_undefined_constants</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="storage.html#stormpy.storage.PrismProgram" title="stormpy.storage.storage.PrismProgram"><span class="pre">stormpy.storage.storage.PrismProgram</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List[storm::prism::Constant]</span></span></span><a class="headerlink" href="#stormpy.PrismProgram.get_undefined_constants" title="Link to this definition">¶</a></dt>
 <dd><p>Collect the undefined constants</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.PrismProgram.get_variables">
+<span class="sig-name descname"><span class="pre">get_variables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="storage.html#stormpy.storage.PrismProgram" title="stormpy.storage.storage.PrismProgram"><span class="pre">stormpy.storage.storage.PrismProgram</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_constants</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Set[storm::expressions::Variable]</span></span></span><a class="headerlink" href="#stormpy.PrismProgram.get_variables" title="Link to this definition">¶</a></dt>
+<dd><p>Get all expression variables (and constants) used by the program</p>
 </dd></dl>
 
 <dl class="py property">
@@ -7949,7 +7963,7 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.PrismProgram.variables">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">variables</span></span><a class="headerlink" href="#stormpy.PrismProgram.variables" title="Link to this definition">¶</a></dt>
-<dd><p>Get all Expression Variables used by the program</p>
+<dd><p>Retrieves all expression variables (including constants) of the program</p>
 </dd></dl>
 
 </dd></dl>
@@ -10283,9 +10297,21 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="stormpy.StateValuation.get_boolean_values_states">
+<span class="sig-name descname"><span class="pre">get_boolean_values_states</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.StateValuation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variable:</span> <span class="pre">storm::expressions::Variable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="storage.html#stormpy.storage.BitVector" title="stormpy.storage.storage.BitVector"><span class="pre">stormpy.storage.storage.BitVector</span></a></span></span><a class="headerlink" href="#stormpy.StateValuation.get_boolean_values_states" title="Link to this definition">¶</a></dt>
+<dd><p>Get the value of the Boolean variable of all states. The i’th entry represents the value of state i.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="stormpy.StateValuation.get_integer_value">
 <span class="sig-name descname"><span class="pre">get_integer_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.StateValuation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variable:</span> <span class="pre">storm::expressions::Variable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#stormpy.StateValuation.get_integer_value" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.StateValuation.get_integer_values_states">
+<span class="sig-name descname"><span class="pre">get_integer_values_states</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.StateValuation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variable:</span> <span class="pre">storm::expressions::Variable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#stormpy.StateValuation.get_integer_values_states" title="Link to this definition">¶</a></dt>
+<dd><p>Get the value of the integer variable of all states. The i’th entry represents the value of state i.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.StateValuation.get_json">
@@ -10301,6 +10327,12 @@ Every state with id offset+i is replaced by the id in replacements[i]. Afterward
 <dt class="sig sig-object py" id="stormpy.StateValuation.get_rational_value">
 <span class="sig-name descname"><span class="pre">get_rational_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.StateValuation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">state:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variable:</span> <span class="pre">storm::expressions::Variable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#stormpy.Rational" title="pycarl.gmp.gmp.Rational"><span class="pre">pycarl.gmp.gmp.Rational</span></a></span></span><a class="headerlink" href="#stormpy.StateValuation.get_rational_value" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="stormpy.StateValuation.get_rational_values_states">
+<span class="sig-name descname"><span class="pre">get_rational_values_states</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.storage.storage.StateValuation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variable:</span> <span class="pre">storm::expressions::Variable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#stormpy.Rational" title="pycarl.gmp.gmp.Rational"><span class="pre">pycarl.gmp.gmp.Rational</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#stormpy.StateValuation.get_rational_values_states" title="Link to this definition">¶</a></dt>
+<dd><p>Get the value of the rational variable of all states. The i’th entry represents the value of state i.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.StateValuation.get_string">
