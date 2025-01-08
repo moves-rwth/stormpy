@@ -34,7 +34,7 @@ void define_prism(py::module& m) {
     program.def_property_readonly("constants", &Program::getConstants, "Get Program Constants")
             .def_property_readonly("global_boolean_variables", &Program::getGlobalBooleanVariables, "Retrieves the global boolean variables of the program")
             .def_property_readonly("global_integer_variables", &Program::getGlobalIntegerVariables, "Retrieves the global integer variables of the program")
-            .def_property_readonly("variables", &Program::getAllExpressionVariables, "Retrieves all expression variables (including constants) of the program")
+            .def_property_readonly("variables", [](Program const& prog) {return prog.getAllExpressionVariables(true);}, "Retrieves all expression variables (including constants) of the program")
             .def("get_variables", &Program::getAllExpressionVariables, py::arg("include_constants") = true, "Get all expression variables (and constants) used by the program")
             .def_property_readonly("nr_modules", &storm::prism::Program::getNumberOfModules, "Number of modules")
             .def_property_readonly("modules", &storm::prism::Program::getModules, "Modules in the program")
