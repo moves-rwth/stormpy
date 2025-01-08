@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Parametric Models &#8212; stormpy 1.9.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="../_static/bootstrap-sphinx.css?v=0bf093e7" />
     <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
     <script src="../_static/documentation_options.js?v=c4cb232b"></script>
@@ -844,9 +844,9 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">stormpy</span>
-<span class="kn">import</span> <span class="nn">stormpy.examples</span>
-<span class="kn">import</span> <span class="nn">stormpy.examples.files</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">stormpy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">stormpy.examples</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">stormpy.examples.files</span>
 
 <span class="n">path</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">files</span><span class="o">.</span><span class="n">prism_pdtmc_die</span>
 <span class="n">prism_program</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">parse_prism_program</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
@@ -873,7 +873,7 @@ q
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">stormpy.pars</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">stormpy.pars</span>
 
 <span class="n">instantiator</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">pars</span><span class="o">.</span><span class="n">PDtmcInstantiator</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
 </pre></div>
@@ -923,12 +923,12 @@ q
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">stormpy.info</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">stormpy.info</span>
 
 <span class="k">if</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">storm_ratfunc_use_cln</span><span class="p">():</span>
-    <span class="kn">import</span> <span class="nn">pycarl.cln.formula</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">pycarl.cln.formula</span>
 <span class="k">else</span><span class="p">:</span>
-    <span class="kn">import</span> <span class="nn">pycarl.gmp.formula</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">pycarl.gmp.formula</span>
 <span class="n">collector</span> <span class="o">=</span> <span class="n">stormpy</span><span class="o">.</span><span class="n">ConstraintCollector</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">formula</span> <span class="ow">in</span> <span class="n">collector</span><span class="o">.</span><span class="n">wellformed_constraints</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">formula</span><span class="p">)</span>
@@ -947,9 +947,9 @@ q
 (&lt;= (* (- 1) p) 0)
 (&lt;= (* (- 1) q) 0)
 (!= p 0)
-(!= q 0)
-(!= (+ p (- 1)) 0)
 (!= (+ q (- 1)) 0)
+(!= (+ p (- 1)) 0)
+(!= q 0)
 </pre></div></div>
 </div>
 </section>
