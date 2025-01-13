@@ -12,18 +12,21 @@ has_pomdp = config.storm_with_pomdp
 
 try:
     import numpy
+
     has_numpy = True
 except ImportError:
     has_numpy = False
 
 try:
     import matplotlib
+
     has_matplotlib = True
 except ImportError:
     has_matplotlib = False
 
 try:
     import scipy
+
     has_scipy = True
 except ImportError:
     has_scipy = False
