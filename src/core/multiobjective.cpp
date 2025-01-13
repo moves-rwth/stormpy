@@ -2,6 +2,7 @@
 
 #include "storm/modelchecker/multiobjective/multiObjectiveModelChecking.h"
 
+#include "storm/adapters/RationalNumberAdapter.h"
 #include "storm/environment/Environment.h"
 #include "storm/environment/modelchecker/MultiObjectiveModelCheckerEnvironment.h"
 #include "storm/modelchecker/multiobjective/constraintbased/SparseCbAchievabilityQuery.h"
@@ -24,18 +25,20 @@
 #include "storm/exceptions/InvalidEnvironmentException.h"
 
 
-std::pair<double, double> _checkForRelReach(storm::Environment const& env, storm::models::sparse::Mdp<double> const& model,
+template<typename ValueType>
+std::pair<ValueType, ValueType> _checkForRelReach(storm::Environment const& env, storm::models::sparse::Mdp<ValueType> const& model,
                                                                 storm::logic::MultiObjectiveFormula const& formula) {
     // This internal check for RelReach requires some cleanup before it makes sense to merge this.
     //    STORM_LOG_ASSERT(model.getInitialStates().getNumberOfSetBits() == 1,
     //                     "Multi-objective Model checking on model with multiple initial states is not supported.");
-    std::vector<double> weightVector = {1.0,-1.0};
+    std::vector<ValueType> weightVector = {storm::utility::one<ValueType>(),-storm::utility::one<ValueType>()};
     // Preprocess the model
-    auto preprocessorResult = storm::modelchecker::multiobjective::preprocessing::SparseMultiObjectivePreprocessor<storm::models::sparse::Mdp<double>>::preprocess(env, model, formula);
+    auto preprocessorResult = storm::modelchecker::multiobjective::preprocessing::SparseMultiObjectivePreprocessor<storm::models::sparse::Mdp<ValueType>>::preprocess(env, model, formula);
     auto checker = storm::modelchecker::multiobjective::StandardMdpPcaaWeightVectorChecker(preprocessorResult);
     checker.check(env, weightVector);
-    double underApprox = checker.getUnderApproximationOfInitialStateResults().at(0);
-    double overApprox = checker.getOverApproximationOfInitialStateResults().at(0);
+    ValueType underApprox = checker.getUnderApproximationOfInitialStateResults().at(0) - checker.getOverApproximationOfInitialStateResults().at(1);
+    ValueType overApprox = checker.getOverApproximationOfInitialStateResults().at(0) - checker.getUnderApproximationOfInitialStateResults().at(1);
+
 //
 //    /*!
 //     * Retrieves a scheduler that induces the current values
@@ -49,5 +52,6 @@ std::pair<double, double> _checkForRelReach(storm::Environment const& env, storm
 
 // Define python bindings
 void define_multiobjective(py::module& m) {
-    m.def("compute_rel_reach_helper", &_checkForRelReach, py::arg("env"), py::arg("model"), py::arg("formula"));
+    m.def("compute_rel_reach_helper", &_checkForRelReach<double>, py::arg("env"), py::arg("model"), py::arg("formula"));
+    m.def("compute_rel_reach_helper_exact", &_checkForRelReach<storm::RationalNumber>, py::arg("env"), py::arg("model"), py::arg("formula"));
 }
