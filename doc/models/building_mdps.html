@@ -769,7 +769,10 @@
 <li><a class="reference internal" href="#">Markov decision processes (MDPs)</a><ul>
 <li><a class="reference internal" href="#Background">Background</a></li>
 <li><a class="reference internal" href="#Transition-Matrix">Transition Matrix</a></li>
-<li><a class="reference internal" href="#Labeling">Labeling</a></li>
+<li><a class="reference internal" href="#Labeling">Labeling</a><ul>
+<li><a class="reference internal" href="#Choice-labeling">Choice labeling</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#Reward-models">Reward models</a></li>
 <li><a class="reference internal" href="#Building-the-Model">Building the Model</a></li>
 <li><a class="reference internal" href="#Partially-observable-Markov-decision-process-(POMDPs)">Partially observable Markov decision process (POMDPs)</a></li>
@@ -819,7 +822,10 @@
 <li><a class="reference internal" href="#">Markov decision processes (MDPs)</a><ul>
 <li><a class="reference internal" href="#Background">Background</a></li>
 <li><a class="reference internal" href="#Transition-Matrix">Transition Matrix</a></li>
-<li><a class="reference internal" href="#Labeling">Labeling</a></li>
+<li><a class="reference internal" href="#Labeling">Labeling</a><ul>
+<li><a class="reference internal" href="#Choice-labeling">Choice labeling</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#Reward-models">Reward models</a></li>
 <li><a class="reference internal" href="#Building-the-Model">Building the Model</a></li>
 <li><a class="reference internal" href="#Partially-observable-Markov-decision-process-(POMDPs)">Partially observable Markov decision process (POMDPs)</a></li>
@@ -923,7 +929,10 @@
 </section>
 <section id="Labeling">
 <h2>Labeling<a class="headerlink" href="#Labeling" title="Link to this heading">¶</a></h2>
-<p>We have seen the construction of a state labeling in previous examples. Therefore we omit the description here Instead, we focus on the choices. Since in state 0 a nondeterministic choice over two actions is available, the number of choices is 14. To distinguish those we can define a choice labeling:</p>
+<p>We have seen the construction of a state labeling in the previous example for <a class="reference internal" href="building_dtmcs.html"><span class="doc">building a DTMC</span></a>. Therefore we omit the description here.</p>
+<section id="Choice-labeling">
+<h3>Choice labeling<a class="headerlink" href="#Choice-labeling" title="Link to this heading">¶</a></h3>
+<p>We focus on the labeling of choices. Since in state 0 a nondeterministic choice over two actions is available, the total number of choices is 14. To distinguish those we can define a choice labeling:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
@@ -953,11 +962,12 @@
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Choice 2 labels
-   * b -&gt; 1 item(s)
    * a -&gt; 1 item(s)
+   * b -&gt; 1 item(s)
 
 </pre></div></div>
 </div>
+</section>
 </section>
 <section id="Reward-models">
 <h2>Reward models<a class="headerlink" href="#Reward-models" title="Link to this heading">¶</a></h2>
@@ -1009,18 +1019,18 @@ Transitions:    22
 Choices:        14
 Reward Models:  coin_flips
 State Labels:   9 labels
-   * five -&gt; 1 item(s)
-   * deadlock -&gt; 0 item(s)
-   * done -&gt; 6 item(s)
    * four -&gt; 1 item(s)
-   * one -&gt; 1 item(s)
-   * init -&gt; 1 item(s)
+   * done -&gt; 6 item(s)
    * two -&gt; 1 item(s)
-   * three -&gt; 1 item(s)
+   * one -&gt; 1 item(s)
    * six -&gt; 1 item(s)
+   * three -&gt; 1 item(s)
+   * init -&gt; 1 item(s)
+   * deadlock -&gt; 0 item(s)
+   * five -&gt; 1 item(s)
 Choice Labels:  2 labels
-   * b -&gt; 1 item(s)
    * a -&gt; 1 item(s)
+   * b -&gt; 1 item(s)
 --------------------------------------------------------------
 
 </pre></div></div>
