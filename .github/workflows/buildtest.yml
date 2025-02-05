@@ -14,8 +14,8 @@ on:
   pull_request:
 
 env:
-  # GitHub runners currently have two cores
-  NR_JOBS: "2"
+  # GitHub runners currently have 4 cores
+  NR_JOBS: "4"
 
 jobs:
   indepthTests:
@@ -139,7 +139,7 @@ jobs:
     if: github.repository_owner == 'moves-rwth' && always()
     steps:
       - uses: technote-space/workflow-conclusion-action@v3
-      - uses: dawidd6/action-send-mail@v3
+      - uses: dawidd6/action-send-mail@v4
         with:
           server_address: ${{ secrets.STORM_CI_MAIL_SERVER }}
           server_port: 587

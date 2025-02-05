@@ -42,5 +42,5 @@ def example_parametric_models_02():
         print(formula.get_constraint())
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     example_parametric_models_02()

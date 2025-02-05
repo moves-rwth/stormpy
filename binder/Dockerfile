@@ -1,5 +1,5 @@
-FROM movesrwth/stormpy:1.8.0
-MAINTAINER Matthias Volk <m.volk@utwente.nl>
+FROM movesrwth/stormpy:1.9.0
+MAINTAINER Matthias Volk <m.volk@tue.nl>
 
 
 ##########
@@ -33,13 +33,13 @@ USER ${NB_USER}
 ##########
 
 # Jupyter notebook and Jupyterlab
-RUN pip install --no-cache-dir notebook==6.5.4
-RUN pip install --no-cache-dir jupyterlab==4.0.2
+RUN pip install --no-cache-dir notebook==6.5.7
+RUN pip install --no-cache-dir jupyterlab==4.1.8
 # Use older version of jupyter-server to avoid issue with token
 # see https://github.com/jupyter/notebook/issues/6702#issuecomment-1412832225
 RUN pip install --no-cache-dir jupyter-server==1.24.0
 # Dependencies for stormpy
-RUN pip install --no-cache-dir numpy==1.24.3
+RUN pip install --no-cache-dir numpy==1.26.4
 
 ##########
 # Prepare files for notebooks

@@ -44,6 +44,7 @@ class TestDftElement:
             d = dft.get_element_by_name("D")
         assert "InvalidArgumentException" in str(exception.value)
 
+
 @dft
 class TestDftSymmetries:
     def test_symmetries_none(self):
@@ -73,5 +74,5 @@ class TestDftSymmetries:
             for syms in group:
                 assert len(syms) == 2
                 for elem in syms:
-                    assert elem == i or elem == i+3
+                    assert elem == i or elem == i + 3
                 i += 1

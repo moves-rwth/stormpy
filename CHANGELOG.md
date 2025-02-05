@@ -1,6 +1,23 @@
 Changelog
 =============
 
+Version 1.9.x
+-------------
+
+### Version 1.9.0 (2024/08)
+Requires Storm version >= 1.9.0 and pycarl version >= 2.3.0
+
+- Support for computing steady-state distributions
+- Support for quantitative POMDP analysis
+- Support for interval-based models
+- Extended ADD support
+- Support for all-in-one MDP
+- Bindings for Smg and GameFormula
+- Build parametric models from model components
+- Improved access to state valuations, choice labels and choice origins
+- Adaption to changes in Storm such as DFT simulator
+- Developer: improved build process
+
 
 Version 1.8.x
 -------------

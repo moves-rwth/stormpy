@@ -10,17 +10,17 @@ import setup.helper as setup_helper
 from setup.config import SetupConfig
 
 if sys.version_info[0] == 2:
-    sys.exit('Sorry, Python 2.x is not supported')
+    sys.exit("Sorry, Python 2.x is not supported")
 
 # Minimal storm version required
-storm_min_version = "1.8.2"
+storm_min_version = "1.9.1"
 # Minimal carl version required
 carl_min_version = "14.23"
 carl_storm_version_prefix = "14."
 pybind_version_default = "2.10.0"
 
 # Get the long description from the README file
-with open(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'README.md'), encoding='utf-8') as f:
+with open(os.path.join(os.path.abspath(os.path.dirname(__file__)), "README.md"), encoding="utf-8") as f:
     long_description = f.read()
 
 
@@ -53,10 +53,9 @@ class CMakeBuild(build_ext):
 
     def run(self):
         try:
-            _ = subprocess.check_output(['cmake', '--version'])
+            _ = subprocess.check_output(["cmake", "--version"])
         except OSError:
-            raise RuntimeError("CMake must be installed to build the following extensions: " +
-                               ", ".join(e.name for e in self.extensions))
+            raise RuntimeError("CMake must be installed to build the following extensions: " + ", ".join(e.name for e in self.extensions))
 
         # Build cmake version info
         print("Stormpy - Building into {}".format(self.build_temp))
@@ -85,9 +84,7 @@ class CMakeBuild(build_ext):
         if storm_dir == "":
             storm_dir = cmake_conf.STORM_DIR
         if storm_dir != cmake_conf.STORM_DIR:
-            print("Stormpy - WARNING: Using different storm directory {} instead of given {}!".format(
-                cmake_conf.STORM_DIR,
-                storm_dir))
+            print("Stormpy - WARNING: Using different storm directory {} instead of given {}!".format(cmake_conf.STORM_DIR, storm_dir))
             storm_dir = cmake_conf.STORM_DIR
         # Set carl directory
         if carl_dir == "":
@@ -103,10 +100,11 @@ class CMakeBuild(build_ext):
             carl_parser_dir = cmake_conf.CARL_PARSER_DIR
 
         # Check version
-        from packaging.version import Version # Need to import here because otherwise packaging cannot be automatically installed as required dependency
+        from packaging.version import Version  # Need to import here because otherwise packaging cannot be automatically installed as required dependency
+
         storm_version, storm_commit = setup_helper.parse_storm_version(cmake_conf.STORM_VERSION)
         if Version(storm_version) < Version(storm_min_version):
-            print('Stormpy - Error: Storm version {} from \'{}\' is not supported anymore!'.format(storm_version, storm_dir))
+            print("Stormpy - Error: Storm version {} from '{}' is not supported anymore!".format(storm_version, storm_dir))
             print("                 For more information, see https://moves-rwth.github.io/stormpy/installation.html#compatibility-of-stormpy-and-storm")
             sys.exit(42)  # Custom exit code which can be used for incompatible checks
 
@@ -170,10 +168,10 @@ class CMakeBuild(build_ext):
 
         build_type = 'Debug' if self.config.get_as_bool("debug") else 'Release'
         # Set cmake build options
-        cmake_args = ['-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=' + self._extdir("core")]
-        cmake_args += ['-DPython_EXECUTABLE=' + sys.executable]
-        cmake_args += ['-DCMAKE_BUILD_TYPE=' + build_type]
-        cmake_args += ['-DPYBIND_VERSION=' + pybind_version]
+        cmake_args = ["-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=" + self._extdir("core")]
+        cmake_args += ["-DPython_EXECUTABLE=" + sys.executable]
+        cmake_args += ["-DCMAKE_BUILD_TYPE=" + build_type]
+        cmake_args += ["-DPYBIND_VERSION=" + pybind_version]
         if storm_dir is not None:
             cmake_args += ['-DSTORM_DIR_HINT=' + storm_dir]
         cmake_args += ['-DUSE_STORM_DFT=' + ('ON' if use_dft else 'OFF')]
@@ -189,15 +187,15 @@ class CMakeBuild(build_ext):
 
         # Configure extensions
         env = os.environ.copy()
-        env['CXXFLAGS'] = '{} -DVERSION_INFO=\\"{}\\"'.format(env.get('CXXFLAGS', ''), self.distribution.get_version())
+        env["CXXFLAGS"] = '{} -DVERSION_INFO=\\"{}\\"'.format(env.get("CXXFLAGS", ""), self.distribution.get_version())
         setup_helper.ensure_dir_exists(self.build_temp)
         print("Stormpy - CMake args={}".format(cmake_args))
         # Call cmake
-        subprocess.check_call(['cmake', os.path.abspath("")] + cmake_args, cwd=self.build_temp, env=env)
+        subprocess.check_call(["cmake", os.path.abspath("")] + cmake_args, cwd=self.build_temp, env=env)
 
         # Set build args
-        build_args = ['--config', build_type]
-        build_args += ['--', '-j{}'.format(self.config.get_as_int("jobs"))]
+        build_args = ["--config", build_type]
+        build_args += ["--", "-j{}".format(self.config.get_as_int("jobs"))]
 
         # Build extensions
         for ext in self.extensions:
@@ -220,7 +218,7 @@ class CMakeBuild(build_ext):
                 print("Pycarl - Skipped parser bindings")
                 continue
             # Call make
-            subprocess.check_call(['cmake', '--build', '.', '--target', ext.name] + build_args, cwd=self.build_temp)
+            subprocess.check_call(["cmake", "--build", ".", "--target", ext.name] + build_args, cwd=self.build_temp)
 
     def initialize_options(self):
         build_ext.initialize_options(self)
@@ -268,20 +266,19 @@ setup(
     url="https://github.com/moves-rwth/stormpy/",
     description="stormpy - Python Bindings for Storm",
     long_description=long_description,
-    long_description_content_type='text/markdown',
+    long_description_content_type="text/markdown",
     project_urls={
-        'Documentation': 'https://moves-rwth.github.io/stormpy/',
-        'Source': 'https://github.com/moves-rwth/stormpy/',
-        'Bug reports': 'https://github.com/moves-rwth/stormpy/issues',
+        "Documentation": "https://moves-rwth.github.io/stormpy/",
+        "Source": "https://github.com/moves-rwth/stormpy/",
+        "Bug reports": "https://github.com/moves-rwth/stormpy/issues",
     },
     classifiers=[
-        'Intended Audience :: Science/Research',
-        'Topic :: Scientific/Engineering',
-        'Topic :: Software Development :: Libraries :: Python Modules',
+        "Intended Audience :: Science/Research",
+        "Topic :: Scientific/Engineering",
+        "Topic :: Software Development :: Libraries :: Python Modules",
     ],
-
-    packages=find_packages('lib'),
-    package_dir={'': 'lib'},
+    packages=find_packages("lib"),
+    package_dir={"": "lib"},
     include_package_data=True,
     package_data={'stormpy.examples': ['examples/files/*']},
     ext_package='stormpy',
@@ -312,10 +309,11 @@ setup(
                     ],
     tests_require=['pytest', 'nbval', 'numpy'],
     extras_require={
-        "numpy":  ["numpy"],
-        "plot":  ["matplotlib","numpy","scipy"],
+        "numpy": ["numpy"],
+        "plot": ["matplotlib", "numpy", "scipy"],
         "test": ["pytest", "nbval", "numpy"],
-        "doc": ["Sphinx", "sphinx-bootstrap-theme", "nbsphinx", "ipython", "ipykernel"], # also requires pandoc to be installed
+        "doc": ["Sphinx", "sphinx-bootstrap-theme", "nbsphinx", "ipython", "ipykernel"],  # also requires pandoc to be installed
+        "dev": ["black"],
     },
     python_requires='>=3.7', # required by packaging
     # name="pycarl",

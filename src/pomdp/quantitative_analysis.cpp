@@ -30,6 +30,7 @@ void define_belief_exploration(py::module& m, std::string const& vtSuffix) {
     belmc.def("get_status", &BeliefExplorationPomdpModelChecker<ValueType>::getStatus);
     belmc.def("get_interactive_belief_explorer", &BeliefExplorationPomdpModelChecker<ValueType>::getInteractiveBeliefExplorer);
     belmc.def("has_converged", &BeliefExplorationPomdpModelChecker<ValueType>::hasConverged);
+    belmc.def("set_fsc_values", &BeliefExplorationPomdpModelChecker<ValueType>::setFMSchedValueList, py::arg("value_list"));
 
     py::class_<typename storm::builder::BeliefMdpExplorer<Pomdp<ValueType>, ValueType>> belmdpexpl(m, ("BeliefMdpExplorer" + vtSuffix).c_str());
     belmdpexpl.def("set_fsc_values", &storm::builder::BeliefMdpExplorer<Pomdp<ValueType>, ValueType>::setFMSchedValueList, py::arg("value_list"));
