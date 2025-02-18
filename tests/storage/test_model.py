@@ -151,7 +151,7 @@ class TestSparseModel:
         assert model.nr_transitions == 7
         assert model.model_type == stormpy.ModelType.SMG
         assert type(model) is stormpy.SparseSmg
-        assert model.get_state_player_indications() == [1,0,0,0]
+        assert model.get_state_player_indications() == [1, 0, 0, 0]
 
     def test_convert_ma_to_ctmc(self):
         program = stormpy.parse_prism_program(get_example_path("ma", "ctmc.ma"), True)
