@@ -43,8 +43,8 @@ plotting = pytest.mark.skipif(not has_matplotlib or not has_scipy, reason="Libra
 from stormpy import pycarl
 
 # Skip not supported functionality
-cln = pytest.mark.skipif(not pycarl.has_cln(), reason="No support for CLN")
-parser = pytest.mark.skipif(not pycarl.has_parser(), reason="No support for carlparser")
+pycarl_cln = pytest.mark.skipif(not pycarl.has_cln(), reason="No support for CLN")
+pycarl_parser = pytest.mark.skipif(not pycarl.has_parser(), reason="No support for carlparser")
 
 # Parametrize available number types
 from stormpy.pycarl import gmp
