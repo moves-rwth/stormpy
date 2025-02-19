@@ -78,6 +78,7 @@ class TestParametric:
 
     def test_constraints_collector(self):
         from stormpy.pycarl.formula import FormulaType, Relation
+
         if stormpy.info.storm_ratfunc_use_cln():
             from stormpy.pycarl.cln import formula
         else:

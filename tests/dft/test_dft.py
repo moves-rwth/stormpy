@@ -11,6 +11,7 @@ from configurations import dft
 class TestDft:
     def test_parametric_dft(self):
         from stormpy import pycarl
+
         pycarl.clear_pools()
         dft = stormpy.dft.load_parametric_dft_galileo_file(get_example_path("dft", "symmetry_param.dft"))
         assert dft.nr_elements() == 7

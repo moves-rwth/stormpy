@@ -813,6 +813,7 @@ class TestSparseModelComponents:
             return pc.FactorizedRationalFunction(num)
 
         from stormpy.pycarl import Variable
+
         nr_states = 13
         nr_choices = 13
 

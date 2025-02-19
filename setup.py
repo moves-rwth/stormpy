@@ -32,18 +32,18 @@ class CMakeExtension(Extension):
 
 class CMakeBuild(build_ext):
     user_options = build_ext.user_options + [
-        ('storm-dir=', None, 'Path to storm root (binary) location'),
-        ('disable-dft', None, 'Disable support for DFTs'),
-        ('disable-gspn', None, 'Disable support for GSPNs'),
-        ('disable-pars', None, 'Disable support for parametric models'),
-        ('disable-pomdp', None, 'Disable support for POMDP analysis'),
+        ("storm-dir=", None, "Path to storm root (binary) location"),
+        ("disable-dft", None, "Disable support for DFTs"),
+        ("disable-gspn", None, "Disable support for GSPNs"),
+        ("disable-pars", None, "Disable support for parametric models"),
+        ("disable-pomdp", None, "Disable support for POMDP analysis"),
         ("carl-dir=", None, "Path to carl root (binary) location"),
         ("carl-parser-dir=", None, "Path to carl-parser root (binary) location"),
         ("disable-cln", None, "Disable support for CLN"),
         ("disable-parser", None, "Disable parsing support"),
-        ('debug', None, 'Build in Debug mode'),
-        ('jobs=', 'j', 'Number of jobs to use for compiling'),
-        ('pybind-version=', None, 'Pybind11 version to use'),
+        ("debug", None, "Build in Debug mode"),
+        ("jobs=", "j", "Number of jobs to use for compiling"),
+        ("pybind-version=", None, "Pybind11 version to use"),
     ]
 
     config = SetupConfig()
@@ -71,14 +71,14 @@ class CMakeBuild(build_ext):
         carl_dir = os.path.expanduser(self.config.get_as_string("carl_dir"))
         carl_parser_dir = os.path.expanduser(self.config.get_as_string("carl_parser_dir"))
         if storm_dir:
-            cmake_args += ['-DSTORM_DIR_HINT=' + storm_dir]
+            cmake_args += ["-DSTORM_DIR_HINT=" + storm_dir]
         if carl_dir:
             cmake_args += ["-DCARL_DIR_HINT=" + carl_dir]
         if carl_parser_dir:
             cmake_args += ["-DCARLPARSER_DIR_HINT=" + carl_parser_dir]
         print("Running cmake with args", cmake_args)
-        _ = subprocess.check_output(['cmake', os.path.abspath("cmake")] + cmake_args, cwd=build_temp_version)
-        cmake_conf = setup_helper.load_cmake_config(os.path.join(build_temp_version, 'generated/config.py'))
+        _ = subprocess.check_output(["cmake", os.path.abspath("cmake")] + cmake_args, cwd=build_temp_version)
+        cmake_conf = setup_helper.load_cmake_config(os.path.join(build_temp_version, "generated/config.py"))
 
         # Set storm directory
         if storm_dir == "":
@@ -117,7 +117,6 @@ class CMakeBuild(build_ext):
             )
         elif Version(carl_version) < Version(carl_min_version):
             sys.exit("Pycarl - Error: carl version {} from '{}' is not supported anymore!".format(carl_version, carl_dir))
-
 
         # Check additional support
         use_dft = cmake_conf.HAVE_STORM_DFT and not self.config.get_as_bool("disable_dft")
@@ -166,18 +165,18 @@ class CMakeBuild(build_ext):
         else:
             print("Pycarl - WARNING: No support for CLN!")
 
-        build_type = 'Debug' if self.config.get_as_bool("debug") else 'Release'
+        build_type = "Debug" if self.config.get_as_bool("debug") else "Release"
         # Set cmake build options
         cmake_args = ["-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=" + self._extdir("core")]
         cmake_args += ["-DPython_EXECUTABLE=" + sys.executable]
         cmake_args += ["-DCMAKE_BUILD_TYPE=" + build_type]
         cmake_args += ["-DPYBIND_VERSION=" + pybind_version]
         if storm_dir is not None:
-            cmake_args += ['-DSTORM_DIR_HINT=' + storm_dir]
-        cmake_args += ['-DUSE_STORM_DFT=' + ('ON' if use_dft else 'OFF')]
-        cmake_args += ['-DUSE_STORM_GSPN=' + ('ON' if use_gspn else 'OFF')]
-        cmake_args += ['-DUSE_STORM_PARS=' + ('ON' if use_pars else 'OFF')]
-        cmake_args += ['-DUSE_STORM_POMDP=' + ('ON' if use_pomdp else 'OFF')]
+            cmake_args += ["-DSTORM_DIR_HINT=" + storm_dir]
+        cmake_args += ["-DUSE_STORM_DFT=" + ("ON" if use_dft else "OFF")]
+        cmake_args += ["-DUSE_STORM_GSPN=" + ("ON" if use_gspn else "OFF")]
+        cmake_args += ["-DUSE_STORM_PARS=" + ("ON" if use_pars else "OFF")]
+        cmake_args += ["-DUSE_STORM_POMDP=" + ("ON" if use_pomdp else "OFF")]
         if carl_dir is not None:
             cmake_args += ["-DCARL_DIR_HINT=" + carl_dir]
         if use_parser and carl_parser_dir:
@@ -305,10 +304,8 @@ setup(
     cmdclass={"build_ext": CMakeBuild},
     zip_safe=False,
     install_requires=[],
-    setup_requires=['pytest-runner',
-                    'packaging'
-                    ],
-    tests_require=['pytest', 'nbval', 'numpy'],
+    setup_requires=["pytest-runner", "packaging"],
+    tests_require=["pytest", "nbval", "numpy"],
     extras_require={
         "numpy": ["numpy"],
         "plot": ["matplotlib", "numpy", "scipy"],
@@ -316,7 +313,7 @@ setup(
         "doc": ["Sphinx", "sphinx-bootstrap-theme", "nbsphinx", "ipython", "ipykernel"],  # also requires pandoc to be installed
         "dev": ["black"],
     },
-    python_requires='>=3.7', # required by packaging
+    python_requires=">=3.7",  # required by packaging
     # name="pycarl",
     # version=setup_helper.obtain_version(),
     # author="S. Junges",
