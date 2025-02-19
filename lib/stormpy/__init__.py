@@ -57,6 +57,8 @@ def _convert_sparse_model(model, parametric=False):
             return model._as_sparse_ctmc()
         elif model.model_type == ModelType.MA:
             return model._as_sparse_ma()
+        elif model.model_type == ModelType.SMG:
+            return model._as_sparse_smg()
         else:
             raise StormError("Not supported non-parametric model constructed")
 

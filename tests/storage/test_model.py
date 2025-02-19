@@ -142,6 +142,17 @@ class TestSparseModel:
         assert not model.supports_parameters
         assert type(model) is stormpy.SparseMA
 
+    def test_build_smg(self):
+        program = stormpy.parse_prism_program(get_example_path("smg", "example_smg.nm"))
+        formulas = stormpy.parse_properties_for_prism_program("<<maxP>> Pmax=? [ F s=2 ]", program)
+        model = stormpy.build_model(program, formulas)
+        assert model.nr_states == 4
+        assert model.nr_choices == 5
+        assert model.nr_transitions == 7
+        assert model.model_type == stormpy.ModelType.SMG
+        assert type(model) is stormpy.SparseSmg
+        assert model.get_state_player_indications() == [1, 0, 0, 0]
+
     def test_convert_ma_to_ctmc(self):
         program = stormpy.parse_prism_program(get_example_path("ma", "ctmc.ma"), True)
         formulas = stormpy.parse_properties_for_prism_program("P=? [ F<=3 s=2 ]", program)
