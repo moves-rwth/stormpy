@@ -74,3 +74,61 @@ def get_maximal_end_components(model):
         return stormpy.MaximalEndComponentDecomposition_interval(model)
     else:
         return stormpy.MaximalEndComponentDecomposition_double(model)
+
+
+# Extend class StateValuation
+def get_value(self, state, var):
+    """
+    Get the value of the given variable at the given state.
+    :param state: State.
+    :param var: Variable.
+    :return Value of var in state.
+    """
+    if var.has_boolean_type():
+        return self._get_boolean_value(state, var)
+    elif var.has_integer_type():
+        return self._get_integer_value(state, var)
+    elif var.has_rational_type():
+        return self._get_rational_value(state, var)
+    else:
+        raise ValueError(f"Variable {var} has unsupported type")
+
+
+def get_values_states(self, var):
+    """
+    Get the value of the given variable of all states.
+    :param var: Variable.
+    :return Values of var. The i'th entry represents the value of state i.
+    """
+    if var.has_boolean_type():
+        return self._get_boolean_values_states(var)
+    elif var.has_integer_type():
+        return self._get_integer_values_states(var)
+    elif var.has_rational_type():
+        return self._get_rational_values_states(var)
+    else:
+        raise ValueError(f"Variable {var} has unsupported type")
+
+
+StateValuation.get_value = get_value
+StateValuation.get_values_states = get_values_states
+
+
+# Extend class SimpleValuation
+def get_value(self, var):
+    """
+    Get the value of the given variable.
+    :param var: Variable.
+    :return Value of var.
+    """
+    if var.has_boolean_type():
+        return self._get_boolean_value(var)
+    elif var.has_integer_type():
+        return self._get_integer_value(var)
+    elif var.has_rational_type():
+        return self._get_rational_value(var)
+    else:
+        raise ValueError(f"Variable {var} has unsupported type")
+
+
+SimpleValuation.get_value = get_value
