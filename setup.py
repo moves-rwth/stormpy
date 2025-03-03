@@ -311,7 +311,7 @@ setup(
         "plot": ["matplotlib", "numpy", "scipy"],
         "test": ["pytest", "nbval", "numpy"],
         "doc": ["Sphinx<8.2.0", "sphinx-bootstrap-theme", "nbsphinx", "ipython", "ipykernel"],  # also requires pandoc to be installed
-        "dev": ["black"],
+        "dev": ["black", "tox"],
     },
     python_requires=">=3.7",  # required by packaging
 )
