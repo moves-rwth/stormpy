@@ -47,8 +47,8 @@ set_variable_string(HAVE_STORM_PARS_BOOL ${HAVE_STORM_PARS})
 set_variable_string(HAVE_STORM_POMDP_BOOL ${HAVE_STORM_POMDP})
 
 # Set configuration
-set_variable_string(CARL_DIR ${carl_DIR})
-set_variable_string(CARL_VERSION ${carl_VERSION})
+set(CARL_DIR ${carl_DIR})
+set(CARL_VERSION ${carl_VERSION})
 if(carlparser_FOUND)
     set(CARL_PARSER_DIR ${carlparser_DIR})
     set_variable_string(CARL_WITH_PARSER "True")
