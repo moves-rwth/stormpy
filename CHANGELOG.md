@@ -217,8 +217,6 @@ Requires carl-storm version >= 14.23
 - Developer: improved build and CMake support
 - Developer: improved CI
 
-=============
-
 
 Version 2.2.x
 -------------
