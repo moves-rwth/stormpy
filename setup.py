@@ -304,8 +304,7 @@ setup(
     cmdclass={"build_ext": CMakeBuild},
     zip_safe=False,
     install_requires=[],
-    setup_requires=["pytest-runner", "packaging"],
-    tests_require=["pytest", "nbval", "numpy"],
+    setup_requires=["packaging"],
     extras_require={
         "numpy": ["numpy"],
         "plot": ["matplotlib", "numpy", "scipy"],
