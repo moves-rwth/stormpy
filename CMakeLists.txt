@@ -166,12 +166,6 @@ if(HAVE_STORM_POMDP)
     stormpy_optional_module(pomdp storm-pomdp "${storm-pomdp_INCLUDE_DIR}")
 endif()
 
-message("Configure done")
-
-# TODO Extensions
-############
-
-
 # Typed core
 file(GLOB_RECURSE PYCARL_TYPED_CORE_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/pycarl/typed_core/*.cpp)
 # GMP

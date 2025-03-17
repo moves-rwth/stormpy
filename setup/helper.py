@@ -72,7 +72,6 @@ def obtain_version():
 
 
 def load_cmake_config(path):
-    print("Loading config from", path)
     """
     Load cmake config.
     :param path: Path.
