@@ -204,7 +204,9 @@ Version 0.9.x
 ### Version 0.9 (2017/03)
 - Start of this changelog
 
-Appendix: Pycarl Changelog
+
+# Appendix: Pycarl Changelog
+=============
 
 Version 2.3.x
 -------------
