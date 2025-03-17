@@ -20,8 +20,6 @@ MAINTAINER Matthias Volk <m.volk@utwente.nl>
 ARG build_type=Release
 # Additional arguments for compiling stormpy
 ARG setup_args=""
-# Additional CMake arguments for carl
-ARG carl_cmake_args=""
 # Number of threads to use for parallel compilation
 ARG no_threads=2
 # Carl-storm version
