@@ -4,7 +4,7 @@ import stormpy.examples
 import stormpy.examples.files
 
 import stormpy.info
-import pycarl
+from stormpy import pycarl
 
 
 def example_building_models_02():
@@ -12,9 +12,9 @@ def example_building_models_02():
     import stormpy.pars
 
     if stormpy.info.storm_ratfunc_use_cln():
-        import pycarl.cln as pc
+        from stormpy.pycarl import cln as pc
     else:
-        import pycarl.gmp as pc
+        from stormpy.pycarl import gmp as pc
 
     def make_factorized_rf(var, cache):
         num = pc.FactorizedPolynomial(pc.Polynomial(var), cache)

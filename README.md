@@ -23,3 +23,7 @@ Stormpy depends on [pycarl](https://github.com/moves-rwth/pycarl/).
 
 - Sebastian Junges
 - Matthias Volk
+Stormpy includes Pycarl, the Python Bindings for [CArL](https://github.com/moves-rwth/carl-storm).
+
+The development of pycarl received significant contributions from:
+- Harold Bruintjes
