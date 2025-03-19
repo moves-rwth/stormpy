@@ -750,6 +750,28 @@
 <li class="toctree-l2"><a class="reference internal" href="api/pars.html#stormpy.pars.simplify_model"><code class="docutils literal notranslate"><span class="pre">simplify_model()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="api/pycarl/core.html">Pycarl core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/pycarl/core.html#module-stormpy.pycarl">Number independent types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/pycarl/core.html#module-stormpy.pycarl.gmp">Number dependent types (gmp)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/pycarl/core.html#module-stormpy.pycarl.cln">Number dependent types (cln)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/pycarl/convert.html">Pycarl convert</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/pycarl/convert.html#module-stormpy.pycarl.convert">Number conversion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/pycarl/formula.html">Pycarl formula</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/pycarl/formula.html#module-stormpy.pycarl.formula">Number independent types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/pycarl/formula.html#module-stormpy.pycarl.gmp.formula">Number dependent types (gmp)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/pycarl/formula.html#module-stormpy.pycarl.cln.formula">Number dependent types (cln)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/pycarl/parse.html">Pycarl parse</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/pycarl/parse.html#number-independent-types">Number independent types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/pycarl/parse.html#number-dependent-types-gmp">Number dependent types (gmp)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/pycarl/parse.html#number-dependent-types-cln">Number dependent types (cln)</a></li>
+</ul>
+</li>
 </ul>
 </ul>
 </li>
@@ -851,12 +873,8 @@
 <p>Before installing stormpy, make sure</p>
 <ul class="simple">
 <li><p>Python 3 is available on your system.</p></li>
-<li><p><a class="reference external" href="https://moves-rwth.github.io/pycarl">pycarl</a> is available.</p></li>
 <li><p><a class="reference external" href="https://www.stormchecker.org/">Storm</a> is available on your system.</p></li>
 </ul>
-<p>To avoid issues, we suggest that both pycarl and Storm use the same version of <a class="reference external" href="https://smtrat.github.io/carl">carl</a>.
-The simplest way of ensuring this is to first install carl as explained in the <a class="reference external" href="https://www.stormchecker.org/documentation/obtain-storm/dependencies.html#carl">Storm installation guide</a>.
-You can then install Storm and pycarl independently.</p>
 <section id="compatibility-of-stormpy-and-storm">
 <span id="compatibility-stormpy-storm"></span><h3>Compatibility of stormpy and Storm<a class="headerlink" href="#compatibility-of-stormpy-and-storm" title="Link to this heading">¶</a></h3>
 <p>Note that stormpy and Storm are continuously extended and modified.

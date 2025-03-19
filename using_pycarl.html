@@ -5,19 +5,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Advanced Examples &#8212; stormpy 1.9.0 documentation</title>
+    <title>Getting Started with Pycarl &#8212; stormpy 1.9.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
     <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css?v=0bf093e7" />
     <script src="_static/documentation_options.js?v=c4cb232b"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Analysis" href="doc/analysis.html" />
-    <link rel="prev" title="Getting Started" href="getting_started.html" />
     
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
@@ -117,7 +113,7 @@
   <ul class="dropdown-menu globaltoc"
       role="menu"
       aria-labelledby="dLabelGlobalToc"><p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#requirements">Requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#installation-steps">Installation Steps</a></li>
@@ -127,7 +123,7 @@
 <li class="toctree-l2"><a class="reference internal" href="getting_started.html#A-Quick-Tour-through-Stormpy">A Quick Tour through Stormpy</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Advanced Examples</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="advanced_topics.html">Advanced Examples</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="doc/analysis.html">Analysis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="doc/building_models.html">Building Models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="doc/models/building_dtmcs.html">Discrete-time Markov chains (DTMCs)</a></li>
@@ -787,7 +783,13 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">Advanced Examples</a></li>
+<li><a class="reference internal" href="#">Getting Started with Pycarl</a><ul>
+<li><a class="reference internal" href="#a-quick-tour-through-pycarl">A Quick Tour through pycarl</a><ul>
+<li><a class="reference internal" href="#simple-arithmetic-operations">Simple arithmetic operations</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </ul>
 </li>
@@ -796,14 +798,6 @@
             
               
                 
-  <li>
-    <a href="getting_started.html" title="Previous Chapter: Getting Started"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Getting Started</span>
-    </a>
-  </li>
-  <li>
-    <a href="doc/analysis.html" title="Next Chapter: Analysis"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Analysis &raquo;</span>
-    </a>
-  </li>
               
             
             
@@ -829,114 +823,60 @@
   <div class="row">
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li><a class="reference internal" href="#">Advanced Examples</a></li>
+<li><a class="reference internal" href="#">Getting Started with Pycarl</a><ul>
+<li><a class="reference internal" href="#a-quick-tour-through-pycarl">A Quick Tour through pycarl</a><ul>
+<li><a class="reference internal" href="#simple-arithmetic-operations">Simple arithmetic operations</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
         </div>
       </div>
     <div class="body col-md-9 content" role="main">
       
-  <section id="advanced-examples">
-<h1>Advanced Examples<a class="headerlink" href="#advanced-examples" title="Link to this heading">¶</a></h1>
-<p>This guide is a collection of examples meant to bridge the gap between the getting started guide and the API.</p>
-<div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="doc/analysis.html">Analysis</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="doc/analysis.html#Background">Background</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/analysis.html#Qualitative-Analysis">Qualitative Analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/analysis.html#Adapting-the-model-checking-engine">Adapting the model checking engine</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/analysis.html#Adapting-model-checking-algorithms">Adapting model checking algorithms</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="doc/building_models.html">Building Models</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="doc/building_models.html#Background">Background</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/building_models.html#Building-different-formalisms">Building different formalisms</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="doc/models/building_dtmcs.html">Discrete-time Markov chains (DTMCs)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="doc/models/building_dtmcs.html#Background">Background</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/models/building_dtmcs.html#Transition-Matrix">Transition Matrix</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/models/building_dtmcs.html#Labeling">Labeling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/models/building_dtmcs.html#Reward-Models">Reward Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/models/building_dtmcs.html#Building-the-Model">Building the Model</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="doc/models/building_mdps.html">Markov decision processes (MDPs)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="doc/models/building_mdps.html#Background">Background</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/models/building_mdps.html#Transition-Matrix">Transition Matrix</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/models/building_mdps.html#Labeling">Labeling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/models/building_mdps.html#Reward-models">Reward models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/models/building_mdps.html#Building-the-Model">Building the Model</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/models/building_mdps.html#Partially-observable-Markov-decision-process-(POMDPs)">Partially observable Markov decision process (POMDPs)</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="doc/models/building_ctmcs.html">Continuous-time Markov chains (CTMCs)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="doc/models/building_ctmcs.html#Background">Background</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/models/building_ctmcs.html#Transition-Matrix">Transition Matrix</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/models/building_ctmcs.html#Labeling">Labeling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/models/building_ctmcs.html#Building-the-Model">Building the Model</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="doc/models/building_mas.html">Markov automata (MAs)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="doc/models/building_mas.html#Background">Background</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/models/building_mas.html#Transition-Matrix">Transition Matrix</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/models/building_mas.html#Markovian-States">Markovian States</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/models/building_mas.html#Building-the-Model">Building the Model</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="doc/engines.html">Engines</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="doc/engines.html#Background">Background</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/engines.html#Sparse-engine">Sparse engine</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/engines.html#Symbolic-engine">Symbolic engine</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/engines.html#Hybrid-engine">Hybrid engine</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="doc/exploration.html">Exploring Models</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="doc/exploration.html#Background">Background</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/exploration.html#Reading-MDPs">Reading MDPs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/exploration.html#Reading-POMDPs">Reading POMDPs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/exploration.html#Sorting-states">Sorting states</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/exploration.html#Reading-MAs">Reading MAs</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="doc/simulator.html">Working with Simulators</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="doc/simulator.html#Model-based-simulation">Model-based simulation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/simulator.html#Program-level-simulator">Program-level simulator</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="doc/reward_models.html">Reward Models</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="doc/reward_models.html#Exploring-reward-models">Exploring reward models</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="doc/schedulers.html">Working with Schedulers</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="doc/schedulers.html#Examining-Schedulers-for-MDPs">Examining Schedulers for MDPs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/schedulers.html#Examining-Schedulers-for-Markov-automata">Examining Schedulers for Markov automata</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="doc/shortest_paths.html">Working with Shortest Paths</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="doc/shortest_paths.html#Background">Background</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/shortest_paths.html#Examining-Shortest-Paths">Examining Shortest Paths</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="doc/parametric_models.html">Parametric Models</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="doc/parametric_models.html#Instantiating-parametric-models">Instantiating parametric models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/parametric_models.html#Checking-parametric-models">Checking parametric models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/parametric_models.html#Collecting-information-about-the-parametric-models">Collecting information about the parametric models</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="doc/dfts.html">Dynamic Fault Trees</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="doc/dfts.html#Building-DFTs">Building DFTs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/dfts.html#Analyzing-DFTs">Analyzing DFTs</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="doc/gspns.html">Generalized Stochastic Petri Nets</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="doc/gspns.html#Loading-GSPNs">Loading GSPNs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/gspns.html#Building-GSPNs">Building GSPNs</a></li>
-</ul>
-</li>
-</ul>
+  <section id="getting-started-with-pycarl">
+<h1>Getting Started with Pycarl<a class="headerlink" href="#getting-started-with-pycarl" title="Link to this heading">¶</a></h1>
+<p>Before starting with this guide, one should follow the instructions for <a class="reference internal" href="installation.html"><span class="doc">Installation</span></a>.</p>
+<section id="a-quick-tour-through-pycarl">
+<h2>A Quick Tour through pycarl<a class="headerlink" href="#a-quick-tour-through-pycarl" title="Link to this heading">¶</a></h2>
+<p>We start by launching the python 3 interpreter:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python3
+</pre></div>
 </div>
+<p>First we import pycarl:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">stormpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">pycarl</span>
+</pre></div>
+</div>
+<p>Pycarl can use two different number types: <code class="docutils literal notranslate"><span class="pre">gmp</span></code> and <code class="docutils literal notranslate"><span class="pre">cln</span></code>.
+In this example we will use <code class="docutils literal notranslate"><span class="pre">gmp</span></code> numbers and therefore import the corresponding module:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">stormpy.pycarl</span><span class="w"> </span><span class="kn">import</span> <span class="n">gmp</span>
+</pre></div>
+</div>
+<section id="simple-arithmetic-operations">
+<h3>Simple arithmetic operations<a class="headerlink" href="#simple-arithmetic-operations" title="Link to this heading">¶</a></h3>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="https://github.com/moves-rwth/pycarl/blob/master/examples/01-getting-started.py">01-getting-started.py</a></p>
+</div>
+<p>We start by doing some simple arithmetic operations.
+First we create two variables <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pycarl</span><span class="o">.</span><span class="n">clear_variable_pool</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">pycarl</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">pycarl</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We perform some operations on polynomials by using the common arithmetic operations of python:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">pol1</span> <span class="o">=</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">pycarl</span><span class="o">.</span><span class="n">gmp</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pol2</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="n">pycarl</span><span class="o">.</span><span class="n">gmp</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">pol1</span> <span class="o">*</span> <span class="n">pol2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;(</span><span class="si">{}</span><span class="s2">) * (</span><span class="si">{}</span><span class="s2">) = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pol1</span><span class="p">,</span> <span class="n">pol2</span><span class="p">,</span> <span class="n">result</span><span class="p">))</span>
+<span class="go">(x^2+2) * (y+1) = x^2*y+2*y+x^2+2</span>
+</pre></div>
+</div>
+</section>
+</section>
 </section>
 
 
@@ -952,7 +892,7 @@
         <br/>
         
 <div id="sourcelink">
-  <a href="_sources/advanced_topics.rst.txt"
+  <a href="_sources/using_pycarl.rst.txt"
      rel="nofollow">Source</a>
 </div>
       

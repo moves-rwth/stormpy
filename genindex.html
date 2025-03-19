@@ -747,6 +747,28 @@
 <li class="toctree-l2"><a class="reference internal" href="api/pars.html#stormpy.pars.simplify_model"><code class="docutils literal notranslate"><span class="pre">simplify_model()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="api/pycarl/core.html">Pycarl core</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/pycarl/core.html#module-stormpy.pycarl">Number independent types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/pycarl/core.html#module-stormpy.pycarl.gmp">Number dependent types (gmp)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/pycarl/core.html#module-stormpy.pycarl.cln">Number dependent types (cln)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/pycarl/convert.html">Pycarl convert</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/pycarl/convert.html#module-stormpy.pycarl.convert">Number conversion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/pycarl/formula.html">Pycarl formula</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/pycarl/formula.html#module-stormpy.pycarl.formula">Number independent types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/pycarl/formula.html#module-stormpy.pycarl.gmp.formula">Number dependent types (gmp)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/pycarl/formula.html#module-stormpy.pycarl.cln.formula">Number dependent types (cln)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/pycarl/parse.html">Pycarl parse</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/pycarl/parse.html#number-independent-types">Number independent types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/pycarl/parse.html#number-dependent-types-gmp">Number dependent types (gmp)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/pycarl/parse.html#number-dependent-types-cln">Number dependent types (cln)</a></li>
+</ul>
+</li>
 </ul>
 </ul>
 </li>
@@ -830,6 +852,16 @@
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.abs">abs() (in module stormpy.pycarl)</a>
+
+      <ul>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.cln.abs">(in module stormpy.pycarl.cln)</a>
+</li>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.gmp.abs">(in module stormpy.pycarl.gmp)</a>
+</li>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.Interval.abs">(Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.abs">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.abs">[2]</a>
+</li>
+      </ul></li>
       <li><a href="api/core.html#stormpy.JaniEdge.action_index">action_index (JaniEdge property)</a>, <a href="api/storage.html#stormpy.storage.JaniEdge.action_index">[1]</a>
 
       <ul>
@@ -946,6 +978,8 @@
 
       <ul>
         <li><a href="api/dft.html#stormpy.dft.DFTElementType.AND">(DFTElementType attribute)</a>
+</li>
+        <li><a href="api/pycarl/formula.html#stormpy.pycarl.formula.FormulaType.AND">(FormulaType attribute)</a>
 </li>
       </ul></li>
       <li><a href="api/core.html#stormpy.OperatorType.And">And (OperatorType attribute)</a>, <a href="api/storage.html#stormpy.storage.OperatorType.And">[1]</a>
@@ -1074,8 +1108,16 @@
       </ul></li>
       <li><a href="api/core.html#stormpy.DdMetaVariableType.Bitvector">Bitvector (DdMetaVariableType attribute)</a>, <a href="api/storage.html#stormpy.storage.DdMetaVariableType.Bitvector">[1]</a>
 </li>
+      <li><a href="api/pycarl/formula.html#stormpy.pycarl.formula.FormulaType.BITVECTOR">BITVECTOR (FormulaType attribute)</a>
+</li>
       <li><a href="api/core.html#stormpy.DdMetaVariableType.Bool">Bool (DdMetaVariableType attribute)</a>, <a href="api/storage.html#stormpy.storage.DdMetaVariableType.Bool">[1]</a>
 </li>
+      <li><a href="api/pycarl/formula.html#stormpy.pycarl.formula.FormulaType.BOOL">BOOL (FormulaType attribute)</a>
+
+      <ul>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.VariableType.BOOL">(VariableType attribute)</a>
+</li>
+      </ul></li>
       <li><a href="api/core.html#stormpy.PrismModule.boolean_variables">boolean_variables (PrismModule property)</a>, <a href="api/storage.html#stormpy.storage.PrismModule.boolean_variables">[1]</a>
 </li>
       <li><a href="api/core.html#stormpy.BooleanBinaryStateFormula">BooleanBinaryStateFormula (class in stormpy)</a>
@@ -1098,6 +1140,8 @@
         <li><a href="api/logic.html#stormpy.logic.BoundedUntilFormula">(class in stormpy.logic)</a>
 </li>
       </ul></li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.BoundType">BoundType (class in stormpy.pycarl)</a>
+</li>
       <li><a href="api/core.html#stormpy.ExactSparseMatrixBuilder.build">build() (ExactSparseMatrixBuilder method)</a>, <a href="api/storage.html#stormpy.storage.ExactSparseMatrixBuilder.build">[1]</a>
 
       <ul>
@@ -1186,7 +1230,7 @@
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/core.html#stormpy.FactorizedPolynomial.cache">cache() (FactorizedPolynomial method)</a>
+      <li><a href="api/core.html#stormpy.FactorizedPolynomial.cache">cache() (FactorizedPolynomial method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.FactorizedPolynomial.cache">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.FactorizedPolynomial.cache">[2]</a>
 </li>
       <li><a href="api/dft.html#stormpy.dft.DFT_double.can_have_nondeterminism">can_have_nondeterminism() (DFT_double method)</a>
 
@@ -1194,6 +1238,8 @@
         <li><a href="api/dft.html#stormpy.dft.DFT_ratfunc.can_have_nondeterminism">(DFT_ratfunc method)</a>
 </li>
       </ul></li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.carl_version">carl_version() (in module stormpy.pycarl)</a>
+</li>
       <li><a href="api/core.html#stormpy.Scheduler.cast_to_double_datatype">cast_to_double_datatype() (Scheduler method)</a>, <a href="api/storage.html#stormpy.storage.Scheduler.cast_to_double_datatype">[1]</a>
 
       <ul>
@@ -1225,6 +1271,16 @@
 </li>
       </ul></li>
       <li><a href="api/core.html#stormpy.OperatorType.Ceil">Ceil (OperatorType attribute)</a>, <a href="api/storage.html#stormpy.storage.OperatorType.Ceil">[1]</a>
+</li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.ceil">ceil() (in module stormpy.pycarl)</a>
+
+      <ul>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.cln.ceil">(in module stormpy.pycarl.cln)</a>
+</li>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.gmp.ceil">(in module stormpy.pycarl.gmp)</a>
+</li>
+      </ul></li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Interval.center">center() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.center">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.center">[2]</a>
 </li>
       <li><a href="api/pars.html#stormpy.pars.RegionResult.CENTERSAT">CENTERSAT (RegionResult attribute)</a>
 </li>
@@ -1296,6 +1352,12 @@
         <li><a href="api/storage.html#stormpy.storage.ChoiceOrigins">(class in stormpy.storage)</a>
 </li>
       </ul></li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.clear_monomial_pool">clear_monomial_pool() (in module stormpy.pycarl)</a>
+</li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.clear_pools">clear_pools() (in module stormpy.pycarl)</a>
+</li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.clear_variable_pool">clear_variable_pool() (in module stormpy.pycarl)</a>
+</li>
       <li><a href="api/core.html#stormpy.Formula.clone">clone() (Formula method)</a>, <a href="api/logic.html#stormpy.logic.Formula.clone">[1]</a>
 
       <ul>
@@ -1308,7 +1370,9 @@
         <li><a href="api/core.html#stormpy.SymbolicQuantitativeCheckResult.clone">(SymbolicQuantitativeCheckResult method)</a>
 </li>
       </ul></li>
-      <li><a href="api/core.html#stormpy.FactorizedPolynomial.coefficient">coefficient (FactorizedPolynomial property)</a>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.cln.Term.coeff">coeff (Term property)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Term.coeff">[1]</a>
+</li>
+      <li><a href="api/core.html#stormpy.FactorizedPolynomial.coefficient">coefficient (FactorizedPolynomial property)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.FactorizedPolynomial.coefficient">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.FactorizedPolynomial.coefficient">[2]</a>
 </li>
       <li><a href="api/core.html#stormpy.collect_information">collect_information() (in module stormpy)</a>
 
@@ -1340,6 +1404,8 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Interval.complement">complement() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.complement">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.complement">[2]</a>
+</li>
       <li><a href="api/core.html#stormpy.Scheduler.compute_action_support">compute_action_support() (Scheduler method)</a>, <a href="api/storage.html#stormpy.storage.Scheduler.compute_action_support">[1]</a>
 
       <ul>
@@ -1380,14 +1446,14 @@
       </ul></li>
       <li><a href="api/core.html#stormpy.Expression.Conjunction">Conjunction() (Expression static method)</a>, <a href="api/storage.html#stormpy.storage.Expression.Conjunction">[1]</a>
 </li>
-      <li><a href="api/core.html#stormpy.FactorizedPolynomial.constant_part">constant_part() (FactorizedPolynomial method)</a>
+      <li><a href="api/core.html#stormpy.FactorizedPolynomial.constant_part">constant_part() (FactorizedPolynomial method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.FactorizedPolynomial.constant_part">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.FactorizedPolynomial.constant_part">[2]</a>
 
       <ul>
-        <li><a href="api/core.html#stormpy.FactorizedRationalFunction.constant_part">(FactorizedRationalFunction method)</a>
+        <li><a href="api/core.html#stormpy.FactorizedRationalFunction.constant_part">(FactorizedRationalFunction method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.FactorizedRationalFunction.constant_part">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.FactorizedRationalFunction.constant_part">[2]</a>
 </li>
-        <li><a href="api/core.html#stormpy.Polynomial.constant_part">(Polynomial method)</a>
+        <li><a href="api/core.html#stormpy.Polynomial.constant_part">(Polynomial method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Polynomial.constant_part">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Polynomial.constant_part">[2]</a>
 </li>
-        <li><a href="api/core.html#stormpy.RationalFunction.constant_part">(RationalFunction method)</a>
+        <li><a href="api/core.html#stormpy.RationalFunction.constant_part">(RationalFunction method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.RationalFunction.constant_part">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.RationalFunction.constant_part">[2]</a>
 </li>
       </ul></li>
       <li><a href="api/core.html#stormpy.JaniModel.constants">constants (JaniModel property)</a>, <a href="api/storage.html#stormpy.storage.JaniModel.constants">[1]</a>
@@ -1396,9 +1462,19 @@
         <li><a href="api/core.html#stormpy.PrismProgram.constants">(PrismProgram property)</a>, <a href="api/storage.html#stormpy.storage.PrismProgram.constants">[1]</a>
 </li>
       </ul></li>
+      <li><a href="api/pycarl/formula.html#stormpy.pycarl.cln.formula.Constraint">Constraint (class in stormpy.pycarl.cln.formula)</a>
+
+      <ul>
+        <li><a href="api/pycarl/formula.html#stormpy.pycarl.gmp.formula.Constraint">(class in stormpy.pycarl.gmp.formula)</a>
+</li>
+      </ul></li>
+      <li><a href="api/pycarl/formula.html#stormpy.pycarl.formula.FormulaType.CONSTRAINT">CONSTRAINT (FormulaType attribute)</a>
+</li>
       <li><a href="api/core.html#stormpy.ConstraintCollector">ConstraintCollector (class in stormpy)</a>
 </li>
       <li><a href="api/core.html#stormpy.construct_submodel">construct_submodel() (in module stormpy)</a>
+</li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Interval.contains">contains() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.contains">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.contains">[2]</a>
 </li>
       <li><a href="api/core.html#stormpy.ItemLabeling.contains_label">contains_label() (ItemLabeling method)</a>, <a href="api/storage.html#stormpy.storage.ItemLabeling.contains_label">[1]</a>
 </li>
@@ -1410,6 +1486,8 @@
 </li>
       <li><a href="api/core.html#stormpy.SMTCounterExampleGeneratorOptions.continue_after_first_counterexample">continue_after_first_counterexample (SMTCounterExampleGeneratorOptions property)</a>
 </li>
+      <li><a href="api/pycarl/convert.html#stormpy.pycarl.convert.convert_to_cln">convert_to_cln() (in module stormpy.pycarl.convert)</a>
+</li>
       <li><a href="api/core.html#stormpy.SparseExactMA.convert_to_ctmc">convert_to_ctmc() (SparseExactMA method)</a>, <a href="api/storage.html#stormpy.storage.SparseExactMA.convert_to_ctmc">[1]</a>
 
       <ul>
@@ -1418,6 +1496,8 @@
         <li><a href="api/core.html#stormpy.SparseMA.convert_to_ctmc">(SparseMA method)</a>, <a href="api/storage.html#stormpy.storage.SparseMA.convert_to_ctmc">[1]</a>
 </li>
       </ul></li>
+      <li><a href="api/pycarl/convert.html#stormpy.pycarl.convert.convert_to_gmp">convert_to_gmp() (in module stormpy.pycarl.convert)</a>
+</li>
       <li><a href="api/core.html#stormpy.SparseExactMA.convertible_to_ctmc">convertible_to_ctmc (SparseExactMA property)</a>, <a href="api/storage.html#stormpy.storage.SparseExactMA.convertible_to_ctmc">[1]</a>
 
       <ul>
@@ -1442,6 +1522,12 @@
         <li><a href="api/core.html#stormpy.PolytopeExact.create_downward_closure">(PolytopeExact method)</a>, <a href="api/storage.html#stormpy.storage.PolytopeExact.create_downward_closure">[1]</a>
 </li>
       </ul></li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.cln.create_factorized_polynomial">create_factorized_polynomial() (in module stormpy.pycarl.cln)</a>
+
+      <ul>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.gmp.create_factorized_polynomial">(in module stormpy.pycarl.gmp)</a>
+</li>
+      </ul></li>
       <li><a href="api/core.html#stormpy.create_filter_initial_states_sparse">create_filter_initial_states_sparse() (in module stormpy)</a>
 </li>
       <li><a href="api/core.html#stormpy.create_filter_initial_states_symbolic">create_filter_initial_states_symbolic() (in module stormpy)</a>
@@ -1453,6 +1539,8 @@
       <li><a href="api/core.html#stormpy.ExpressionManager.create_integer">create_integer() (ExpressionManager method)</a>, <a href="api/storage.html#stormpy.storage.ExpressionManager.create_integer">[1]</a>
 </li>
       <li><a href="api/core.html#stormpy.ExpressionManager.create_integer_variable">create_integer_variable() (ExpressionManager method)</a>, <a href="api/storage.html#stormpy.storage.ExpressionManager.create_integer_variable">[1]</a>
+</li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.create_monomial">create_monomial() (in module stormpy.pycarl)</a>
 </li>
       <li><a href="api/core.html#stormpy.ExpressionManager.create_rational">create_rational() (ExpressionManager method)</a>, <a href="api/storage.html#stormpy.storage.ExpressionManager.create_rational">[1]</a>
 </li>
@@ -1548,16 +1636,22 @@
       </ul></li>
       <li><a href="api/core.html#stormpy.PrismConstant.definition">definition (PrismConstant property)</a>, <a href="api/storage.html#stormpy.storage.PrismConstant.definition">[1]</a>
 </li>
-      <li><a href="api/core.html#stormpy.Polynomial.degree">degree() (Polynomial method)</a>
+      <li><a href="api/core.html#stormpy.Polynomial.degree">degree() (Polynomial method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Polynomial.degree">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Polynomial.degree">[2]</a>
 </li>
       <li><a href="api/core.html#stormpy.EliminationLabelBehavior.DELETE_LABELS">DELETE_LABELS (EliminationLabelBehavior attribute)</a>
 </li>
-      <li><a href="api/core.html#stormpy.FactorizedRationalFunction.denominator">denominator (FactorizedRationalFunction property)</a>
+      <li><a href="api/core.html#stormpy.FactorizedRationalFunction.denominator">denominator (FactorizedRationalFunction property)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.FactorizedRationalFunction.denominator">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.FactorizedRationalFunction.denominator">[2]</a>
 
       <ul>
-        <li><a href="api/core.html#stormpy.Rational.denominator">(Rational property)</a>
+        <li><a href="api/core.html#stormpy.Rational.denominator">(Rational property)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Rational.denominator">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Rational.denominator">[2]</a>
 </li>
-        <li><a href="api/core.html#stormpy.RationalFunction.denominator">(RationalFunction property)</a>
+        <li><a href="api/core.html#stormpy.RationalFunction.denominator">(RationalFunction property)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.RationalFunction.denominator">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.RationalFunction.denominator">[2]</a>
+</li>
+      </ul></li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.cln.denominator">denominator() (in module stormpy.pycarl.cln)</a>
+
+      <ul>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.gmp.denominator">(in module stormpy.pycarl.gmp)</a>
 </li>
       </ul></li>
       <li><a href="api/dft.html#stormpy.dft.DFTDependency_double.dependent_events">dependent_events (DFTDependency_double property)</a>
@@ -1568,14 +1662,14 @@
       </ul></li>
       <li><a href="api/dft.html#stormpy.dft.ApproximationHeuristic.DEPTH">DEPTH (ApproximationHeuristic attribute)</a>
 </li>
-      <li><a href="api/core.html#stormpy.FactorizedPolynomial.derive">derive() (FactorizedPolynomial method)</a>
+      <li><a href="api/core.html#stormpy.FactorizedPolynomial.derive">derive() (FactorizedPolynomial method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.FactorizedPolynomial.derive">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.FactorizedPolynomial.derive">[2]</a>
 
       <ul>
-        <li><a href="api/core.html#stormpy.FactorizedRationalFunction.derive">(FactorizedRationalFunction method)</a>
+        <li><a href="api/core.html#stormpy.FactorizedRationalFunction.derive">(FactorizedRationalFunction method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.FactorizedRationalFunction.derive">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.FactorizedRationalFunction.derive">[2]</a>
 </li>
-        <li><a href="api/core.html#stormpy.Polynomial.derive">(Polynomial method)</a>
+        <li><a href="api/core.html#stormpy.Polynomial.derive">(Polynomial method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Polynomial.derive">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Polynomial.derive">[2]</a>
 </li>
-        <li><a href="api/core.html#stormpy.RationalFunction.derive">(RationalFunction method)</a>
+        <li><a href="api/core.html#stormpy.RationalFunction.derive">(RationalFunction method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.RationalFunction.derive">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.RationalFunction.derive">[2]</a>
 </li>
       </ul></li>
       <li><a href="api/core.html#stormpy.JaniEdge.destinations">destinations (JaniEdge property)</a>, <a href="api/storage.html#stormpy.storage.JaniEdge.destinations">[1]</a>
@@ -1640,12 +1734,16 @@
 </li>
       <li><a href="api/dft.html#stormpy.dft.DftSymmetries">DftSymmetries (class in stormpy.dft)</a>
 </li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Interval.diameter">diameter() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.diameter">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.diameter">[2]</a>
+</li>
       <li><a href="api/core.html#stormpy.DiceStringVisitor">DiceStringVisitor (class in stormpy)</a>
 
       <ul>
         <li><a href="api/storage.html#stormpy.storage.DiceStringVisitor">(class in stormpy.storage)</a>
 </li>
       </ul></li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Interval.difference">difference() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.difference">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.difference">[2]</a>
+</li>
       <li><a href="api/core.html#stormpy.DirectEncodingOptions">DirectEncodingOptions (class in stormpy)</a>
 </li>
       <li><a href="api/core.html#stormpy.DirectEncodingParserOptions">DirectEncodingParserOptions (class in stormpy)</a>
@@ -1670,6 +1768,16 @@
 
       <ul>
         <li><a href="api/storage.html#stormpy.storage.DistributionInterval">(class in stormpy.storage)</a>
+</li>
+      </ul></li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.div">div() (in module stormpy.pycarl)</a>
+
+      <ul>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.cln.div">(in module stormpy.pycarl.cln)</a>
+</li>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.gmp.div">(in module stormpy.pycarl.gmp)</a>
+</li>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.Interval.div">(Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.div">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.div">[2]</a>
 </li>
       </ul></li>
       <li><a href="api/core.html#stormpy.OperatorType.Divide">Divide (OperatorType attribute)</a>, <a href="api/storage.html#stormpy.storage.OperatorType.Divide">[1]</a>
@@ -1720,6 +1828,8 @@
 </li>
       <li><a href="api/core.html#stormpy.JaniVariableSet.empty">empty() (JaniVariableSet method)</a>, <a href="api/storage.html#stormpy.storage.JaniVariableSet.empty">[1]</a>
 </li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Interval.emptyInterval">emptyInterval() (Interval static method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.emptyInterval">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.emptyInterval">[2]</a>
+</li>
       <li><a href="api/core.html#stormpy.JaniModel.encode_automaton_and_edge_index">encode_automaton_and_edge_index() (JaniModel static method)</a>, <a href="api/storage.html#stormpy.storage.JaniModel.encode_automaton_and_edge_index">[1]</a>
 </li>
       <li><a href="api/core.html#stormpy.SMTCounterExampleGeneratorOptions.encode_reachability">encode_reachability (SMTCounterExampleGeneratorOptions property)</a>
@@ -1727,6 +1837,8 @@
       <li><a href="api/core.html#stormpy.EndComponentEliminatorReturnTypeDouble">EndComponentEliminatorReturnTypeDouble (class in stormpy)</a>
 </li>
       <li><a href="api/core.html#stormpy.Environment">Environment (class in stormpy)</a>
+</li>
+      <li><a href="api/pycarl/formula.html#stormpy.pycarl.formula.Relation.EQ">EQ (Relation attribute)</a>
 </li>
       <li><a href="api/core.html#stormpy.Expression.Eq">Eq() (Expression static method)</a>, <a href="api/storage.html#stormpy.storage.Expression.Eq">[1]</a>
 </li>
@@ -1736,14 +1848,14 @@
 </li>
       <li><a href="api/core.html#stormpy.JaniVariableSet.erase_variable">erase_variable() (JaniVariableSet method)</a>, <a href="api/storage.html#stormpy.storage.JaniVariableSet.erase_variable">[1]</a>
 </li>
-      <li><a href="api/core.html#stormpy.FactorizedPolynomial.evaluate">evaluate() (FactorizedPolynomial method)</a>
+      <li><a href="api/core.html#stormpy.FactorizedPolynomial.evaluate">evaluate() (FactorizedPolynomial method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.FactorizedPolynomial.evaluate">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.FactorizedPolynomial.evaluate">[2]</a>
 
       <ul>
-        <li><a href="api/core.html#stormpy.FactorizedRationalFunction.evaluate">(FactorizedRationalFunction method)</a>
+        <li><a href="api/core.html#stormpy.FactorizedRationalFunction.evaluate">(FactorizedRationalFunction method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.FactorizedRationalFunction.evaluate">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.FactorizedRationalFunction.evaluate">[2]</a>
 </li>
-        <li><a href="api/core.html#stormpy.Polynomial.evaluate">(Polynomial method)</a>
+        <li><a href="api/core.html#stormpy.Polynomial.evaluate">(Polynomial method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Polynomial.evaluate">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Polynomial.evaluate">[2]</a>
 </li>
-        <li><a href="api/core.html#stormpy.RationalFunction.evaluate">(RationalFunction method)</a>
+        <li><a href="api/core.html#stormpy.RationalFunction.evaluate">(RationalFunction method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.RationalFunction.evaluate">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.RationalFunction.evaluate">[2]</a>
 </li>
       </ul></li>
       <li><a href="api/core.html#stormpy.Expression.evaluate_as_bool">evaluate_as_bool() (Expression method)</a>, <a href="api/storage.html#stormpy.storage.Expression.evaluate_as_bool">[1]</a>
@@ -1786,6 +1898,8 @@
         <li><a href="api/storage.html#stormpy.storage.ExactSparseMatrixRows">(class in stormpy.storage)</a>
 </li>
       </ul></li>
+      <li><a href="api/pycarl/formula.html#stormpy.pycarl.formula.FormulaType.EXISTS">EXISTS (FormulaType attribute)</a>
+</li>
       <li><a href="api/gspn.html#stormpy.gspn.Transition.exists_inhibition_arc">exists_inhibition_arc() (Transition method)</a>
 </li>
       <li><a href="api/gspn.html#stormpy.gspn.Transition.exists_input_arc">exists_input_arc() (Transition method)</a>
@@ -1822,6 +1936,12 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.cln.expand">expand() (in module stormpy.pycarl.cln)</a>
+
+      <ul>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.gmp.expand">(in module stormpy.pycarl.gmp)</a>
+</li>
+      </ul></li>
       <li><a href="api/dft.html#stormpy.dft.ExplicitDFTModelBuilder_double">ExplicitDFTModelBuilder_double (class in stormpy.dft)</a>
 </li>
       <li><a href="api/dft.html#stormpy.dft.ExplicitDFTModelBuilder_ratfunc">ExplicitDFTModelBuilder_ratfunc (class in stormpy.dft)</a>
@@ -1843,6 +1963,8 @@
       <li><a href="api/core.html#stormpy.ExplicitQuantitativeCheckResult">ExplicitQuantitativeCheckResult (class in stormpy)</a>
 </li>
       <li><a href="api/core.html#stormpy.ExplicitStateLookup">ExplicitStateLookup (class in stormpy)</a>
+</li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Monomial.exponents">exponents (Monomial property)</a>
 </li>
       <li><a href="api/dft.html#stormpy.dft.export_dft_json_file">export_dft_json_file() (in module stormpy.dft)</a>
 </li>
@@ -1920,12 +2042,30 @@
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/core.html#stormpy.FactorizedPolynomial.factorization">factorization() (FactorizedPolynomial method)</a>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.cln.Factorization">Factorization (class in stormpy.pycarl.cln)</a>
+
+      <ul>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.gmp.Factorization">(class in stormpy.pycarl.gmp)</a>
+</li>
+      </ul></li>
+      <li><a href="api/core.html#stormpy.FactorizedPolynomial.factorization">factorization() (FactorizedPolynomial method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.FactorizedPolynomial.factorization">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.FactorizedPolynomial.factorization">[2]</a>
 </li>
       <li><a href="api/core.html#stormpy.FactorizedPolynomial">FactorizedPolynomial (class in stormpy)</a>
+
+      <ul>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.cln.FactorizedPolynomial">(class in stormpy.pycarl.cln)</a>
 </li>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.gmp.FactorizedPolynomial">(class in stormpy.pycarl.gmp)</a>
+</li>
+      </ul></li>
       <li><a href="api/core.html#stormpy.FactorizedRationalFunction">FactorizedRationalFunction (class in stormpy)</a>
+
+      <ul>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.cln.FactorizedRationalFunction">(class in stormpy.pycarl.cln)</a>
 </li>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.gmp.FactorizedRationalFunction">(class in stormpy.pycarl.gmp)</a>
+</li>
+      </ul></li>
       <li><a href="api/dft.html#stormpy.dft.DFTState_double.failable">failable() (DFTState_double method)</a>
 
       <ul>
@@ -1952,6 +2092,8 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/pycarl/formula.html#stormpy.pycarl.formula.FormulaType.FALSE">FALSE (FormulaType attribute)</a>
+</li>
       <li><a href="api/core.html#stormpy.JaniModel.finalize">finalize() (JaniModel method)</a>, <a href="api/storage.html#stormpy.storage.JaniModel.finalize">[1]</a>
 </li>
       <li><a href="api/gspn.html#stormpy.gspn.Transition.fire">fire() (Transition method)</a>
@@ -1966,13 +2108,29 @@
 </li>
       <li><a href="api/core.html#stormpy.OperatorType.Floor">Floor (OperatorType attribute)</a>, <a href="api/storage.html#stormpy.storage.OperatorType.Floor">[1]</a>
 </li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.floor">floor() (in module stormpy.pycarl)</a>
+
+      <ul>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.cln.floor">(in module stormpy.pycarl.cln)</a>
+</li>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.gmp.floor">(in module stormpy.pycarl.gmp)</a>
+</li>
+      </ul></li>
+      <li><a href="api/pycarl/formula.html#stormpy.pycarl.formula.FormulaType.FORALL">FORALL (FormulaType attribute)</a>
+</li>
       <li><a href="api/core.html#stormpy.Formula">Formula (class in stormpy)</a>
 
       <ul>
         <li><a href="api/logic.html#stormpy.logic.Formula">(class in stormpy.logic)</a>
 </li>
+        <li><a href="api/pycarl/formula.html#stormpy.pycarl.cln.formula.Formula">(class in stormpy.pycarl.cln.formula)</a>
+</li>
+        <li><a href="api/pycarl/formula.html#stormpy.pycarl.gmp.formula.Formula">(class in stormpy.pycarl.gmp.formula)</a>
+</li>
       </ul></li>
       <li><a href="api/core.html#stormpy.ModelFormulasPair.formulas">formulas (ModelFormulasPair property)</a>
+</li>
+      <li><a href="api/pycarl/formula.html#stormpy.pycarl.formula.FormulaType">FormulaType (class in stormpy.pycarl.formula)</a>
 </li>
       <li><a href="api/dft.html#stormpy.dft.DftIndependentModule.fully_static">fully_static() (DftIndependentModule method)</a>
 </li>
@@ -1990,20 +2148,24 @@
       </ul></li>
       <li><a href="api/pars.html#stormpy.pars.gather_derivatives">gather_derivatives() (in module stormpy.pars)</a>
 </li>
-      <li><a href="api/core.html#stormpy.FactorizedPolynomial.gather_variables">gather_variables() (FactorizedPolynomial method)</a>
+      <li><a href="api/core.html#stormpy.FactorizedPolynomial.gather_variables">gather_variables() (FactorizedPolynomial method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.FactorizedPolynomial.gather_variables">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.FactorizedPolynomial.gather_variables">[2]</a>
 
       <ul>
-        <li><a href="api/core.html#stormpy.FactorizedRationalFunction.gather_variables">(FactorizedRationalFunction method)</a>
+        <li><a href="api/core.html#stormpy.FactorizedRationalFunction.gather_variables">(FactorizedRationalFunction method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.FactorizedRationalFunction.gather_variables">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.FactorizedRationalFunction.gather_variables">[2]</a>
 </li>
-        <li><a href="api/core.html#stormpy.Polynomial.gather_variables">(Polynomial method)</a>
+        <li><a href="api/core.html#stormpy.Polynomial.gather_variables">(Polynomial method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Polynomial.gather_variables">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Polynomial.gather_variables">[2]</a>
 </li>
-        <li><a href="api/core.html#stormpy.RationalFunction.gather_variables">(RationalFunction method)</a>
+        <li><a href="api/core.html#stormpy.RationalFunction.gather_variables">(RationalFunction method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.RationalFunction.gather_variables">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.RationalFunction.gather_variables">[2]</a>
 </li>
       </ul></li>
       <li><a href="api/core.html#stormpy.NativeLinearEquationSolverMethod.gauss_seidel">gauss_seidel (NativeLinearEquationSolverMethod attribute)</a>
 </li>
       <li><a href="api/core.html#stormpy.ComparisonType.GEQ">GEQ (ComparisonType attribute)</a>, <a href="api/logic.html#stormpy.logic.ComparisonType.GEQ">[1]</a>
+
+      <ul>
+        <li><a href="api/pycarl/formula.html#stormpy.pycarl.formula.Relation.GEQ">(Relation attribute)</a>
 </li>
+      </ul></li>
       <li><a href="api/core.html#stormpy.Expression.Geq">Geq() (Expression static method)</a>, <a href="api/storage.html#stormpy.storage.Expression.Geq">[1]</a>
 </li>
       <li><a href="api/core.html#stormpy.AddIterator_Sylvan_Double.get">get() (AddIterator_Sylvan_Double method)</a>, <a href="api/storage.html#stormpy.storage.AddIterator_Sylvan_Double.get">[1]</a>
@@ -2084,6 +2246,8 @@
         <li><a href="api/core.html#stormpy.PrismProgram.get_constant">(PrismProgram method)</a>, <a href="api/storage.html#stormpy.storage.PrismProgram.get_constant">[1]</a>
 </li>
       </ul></li>
+      <li><a href="api/pycarl/formula.html#stormpy.pycarl.cln.formula.Formula.get_constraint">get_constraint() (Formula method)</a>, <a href="api/pycarl/formula.html#stormpy.pycarl.gmp.formula.Formula.get_constraint">[1]</a>
+</li>
       <li><a href="api/core.html#stormpy.ExactSparseMatrixBuilder.get_current_row_group_count">get_current_row_group_count() (ExactSparseMatrixBuilder method)</a>, <a href="api/storage.html#stormpy.storage.ExactSparseMatrixBuilder.get_current_row_group_count">[1]</a>
 
       <ul>
@@ -2123,7 +2287,7 @@
       <li><a href="api/core.html#stormpy.AtomicExpressionFormula.get_expression">get_expression() (AtomicExpressionFormula method)</a>, <a href="api/logic.html#stormpy.logic.AtomicExpressionFormula.get_expression">[1]</a>
 
       <ul>
-        <li><a href="api/storage.html#stormpy.storage.Variable.get_expression">(Variable method)</a>
+        <li><a href="api/core.html#stormpy.Variable.get_expression">(Variable method)</a>, <a href="api/storage.html#stormpy.storage.Variable.get_expression">[1]</a>
 </li>
       </ul></li>
       <li><a href="api/dft.html#stormpy.dft.DftSymmetries.get_group">get_group() (DftSymmetries method)</a>
@@ -2139,6 +2303,10 @@
       <li><a href="api/gspn.html#stormpy.gspn.GSPN.get_immediate_transition">get_immediate_transition() (GSPN method)</a>
 </li>
       <li><a href="api/gspn.html#stormpy.gspn.GSPN.get_immediate_transitions">get_immediate_transitions() (GSPN method)</a>
+</li>
+      <li><a href="api/pycarl/formula.html#stormpy.pycarl.cln.formula.Formula.get_implication_conclusion">get_implication_conclusion() (Formula method)</a>, <a href="api/pycarl/formula.html#stormpy.pycarl.gmp.formula.Formula.get_implication_conclusion">[1]</a>
+</li>
+      <li><a href="api/pycarl/formula.html#stormpy.pycarl.cln.formula.Formula.get_implication_premise">get_implication_premise() (Formula method)</a>, <a href="api/pycarl/formula.html#stormpy.pycarl.gmp.formula.Formula.get_implication_premise">[1]</a>
 </li>
       <li><a href="api/gspn.html#stormpy.gspn.Transition.get_inhibition_arc_multiplicity">get_inhibition_arc_multiplicity() (Transition method)</a>
 </li>
@@ -2161,6 +2329,12 @@
       <li><a href="api/core.html#stormpy.StateValuation.get_integer_values_states">get_integer_values_states() (StateValuation method)</a>, <a href="api/storage.html#stormpy.storage.StateValuation.get_integer_values_states">[1]</a>
 </li>
       <li><a href="api/core.html#stormpy.PrismModule.get_integer_variable">get_integer_variable() (PrismModule method)</a>, <a href="api/storage.html#stormpy.storage.PrismModule.get_integer_variable">[1]</a>
+</li>
+      <li><a href="api/pycarl/formula.html#stormpy.pycarl.cln.formula.Formula.get_ite_condition">get_ite_condition() (Formula method)</a>, <a href="api/pycarl/formula.html#stormpy.pycarl.gmp.formula.Formula.get_ite_condition">[1]</a>
+</li>
+      <li><a href="api/pycarl/formula.html#stormpy.pycarl.cln.formula.Formula.get_ite_first_case">get_ite_first_case() (Formula method)</a>, <a href="api/pycarl/formula.html#stormpy.pycarl.gmp.formula.Formula.get_ite_first_case">[1]</a>
+</li>
+      <li><a href="api/pycarl/formula.html#stormpy.pycarl.cln.formula.Formula.get_ite_second_case">get_ite_second_case() (Formula method)</a>, <a href="api/pycarl/formula.html#stormpy.pycarl.gmp.formula.Formula.get_ite_second_case">[1]</a>
 </li>
       <li><a href="api/core.html#stormpy.StateValuation.get_json">get_json() (StateValuation method)</a>, <a href="api/storage.html#stormpy.storage.StateValuation.get_json">[1]</a>
 </li>
@@ -2220,6 +2394,8 @@
         <li><a href="api/gspn.html#stormpy.gspn.Transition.get_name">(Transition method)</a>
 </li>
       </ul></li>
+      <li><a href="api/pycarl/formula.html#stormpy.pycarl.cln.formula.Formula.get_negation_subformula">get_negation_subformula() (Formula method)</a>, <a href="api/pycarl/formula.html#stormpy.pycarl.gmp.formula.Formula.get_negation_subformula">[1]</a>
+</li>
       <li><a href="api/core.html#stormpy.SparseExactMdp.get_nr_available_actions">get_nr_available_actions() (SparseExactMdp method)</a>, <a href="api/storage.html#stormpy.storage.SparseExactMdp.get_nr_available_actions">[1]</a>
 
       <ul>
@@ -2234,14 +2410,14 @@
 </li>
       <li><a href="api/core.html#stormpy.ChoiceOrigins.get_number_of_identifiers">get_number_of_identifiers() (ChoiceOrigins method)</a>, <a href="api/storage.html#stormpy.storage.ChoiceOrigins.get_number_of_identifiers">[1]</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/gspn.html#stormpy.gspn.GSPN.get_number_of_immediate_transitions">get_number_of_immediate_transitions() (GSPN method)</a>
 </li>
       <li><a href="api/gspn.html#stormpy.gspn.Place.get_number_of_initial_tokens">get_number_of_initial_tokens() (Place method)</a>
 </li>
       <li><a href="api/gspn.html#stormpy.gspn.GSPN.get_number_of_places">get_number_of_places() (GSPN method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/gspn.html#stormpy.gspn.TimedTransition.get_number_of_servers">get_number_of_servers() (TimedTransition method)</a>
 </li>
       <li><a href="api/gspn.html#stormpy.gspn.GSPN.get_number_of_timed_transitions">get_number_of_timed_transitions() (GSPN method)</a>
@@ -2386,6 +2562,8 @@
       </ul></li>
       <li><a href="api/core.html#stormpy.StateValuation.get_string">get_string() (StateValuation method)</a>, <a href="api/storage.html#stormpy.storage.StateValuation.get_string">[1]</a>
 </li>
+      <li><a href="api/pycarl/formula.html#stormpy.pycarl.cln.formula.Formula.get_subformulas">get_subformulas() (Formula method)</a>, <a href="api/pycarl/formula.html#stormpy.pycarl.gmp.formula.Formula.get_subformulas">[1]</a>
+</li>
       <li><a href="api/core.html#stormpy.PrismProgram.get_synchronizing_action_indices">get_synchronizing_action_indices() (PrismProgram method)</a>, <a href="api/storage.html#stormpy.storage.PrismProgram.get_synchronizing_action_indices">[1]</a>
 </li>
       <li><a href="api/dft.html#stormpy.dft.DFTSimulator_double.get_time">get_time() (DFTSimulator_double method)</a>
@@ -2482,6 +2660,8 @@
 </li>
       <li><a href="api/core.html#stormpy.OperatorType.Greater">Greater (OperatorType attribute)</a>, <a href="api/storage.html#stormpy.storage.OperatorType.Greater">[1]</a>
 </li>
+      <li><a href="api/pycarl/formula.html#stormpy.pycarl.formula.Relation.GREATER">GREATER (Relation attribute)</a>
+</li>
       <li><a href="api/core.html#stormpy.Expression.Greater">Greater() (Expression static method)</a>, <a href="api/storage.html#stormpy.storage.Expression.Greater">[1]</a>
 </li>
       <li><a href="api/core.html#stormpy.OperatorType.GreaterOrEqual">GreaterOrEqual (OperatorType attribute)</a>, <a href="api/storage.html#stormpy.storage.OperatorType.GreaterOrEqual">[1]</a>
@@ -2510,15 +2690,17 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core.html#stormpy.JaniModelType.HA">HA (JaniModelType attribute)</a>
 </li>
-      <li><a href="api/storage.html#stormpy.storage.Variable.has_bitvector_type">has_bitvector_type() (Variable method)</a>
+      <li><a href="api/core.html#stormpy.Variable.has_bitvector_type">has_bitvector_type() (Variable method)</a>, <a href="api/storage.html#stormpy.storage.Variable.has_bitvector_type">[1]</a>
 </li>
       <li><a href="api/core.html#stormpy.Expression.has_boolean_type">has_boolean_type() (Expression method)</a>, <a href="api/storage.html#stormpy.storage.Expression.has_boolean_type">[1]</a>
 
       <ul>
-        <li><a href="api/storage.html#stormpy.storage.Variable.has_boolean_type">(Variable method)</a>
+        <li><a href="api/core.html#stormpy.Variable.has_boolean_type">(Variable method)</a>, <a href="api/storage.html#stormpy.storage.Variable.has_boolean_type">[1]</a>
 </li>
       </ul></li>
       <li><a href="api/core.html#stormpy.OperatorFormula.has_bound">has_bound (OperatorFormula property)</a>, <a href="api/logic.html#stormpy.logic.OperatorFormula.has_bound">[1]</a>
+</li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.has_cln">has_cln() (in module stormpy.pycarl)</a>
 </li>
       <li><a href="api/core.html#stormpy.PrismProgram.has_constant">has_constant() (PrismProgram method)</a>, <a href="api/storage.html#stormpy.storage.PrismProgram.has_constant">[1]</a>
 </li>
@@ -2529,7 +2711,7 @@
       <li><a href="api/core.html#stormpy.Expression.has_integer_type">has_integer_type() (Expression method)</a>, <a href="api/storage.html#stormpy.storage.Expression.has_integer_type">[1]</a>
 
       <ul>
-        <li><a href="api/storage.html#stormpy.storage.Variable.has_integer_type">(Variable method)</a>
+        <li><a href="api/core.html#stormpy.Variable.has_integer_type">(Variable method)</a>, <a href="api/storage.html#stormpy.storage.Variable.has_integer_type">[1]</a>
 </li>
       </ul></li>
       <li><a href="api/gspn.html#stormpy.gspn.TimedTransition.has_k_server_semantics">has_k_server_semantics() (TimedTransition method)</a>
@@ -2540,7 +2722,7 @@
 </li>
       <li><a href="api/core.html#stormpy.OverlappingGuardAnalyser.has_module_with_inner_action_overlapping_guard">has_module_with_inner_action_overlapping_guard() (OverlappingGuardAnalyser method)</a>, <a href="api/storage.html#stormpy.storage.OverlappingGuardAnalyser.has_module_with_inner_action_overlapping_guard">[1]</a>
 </li>
-      <li><a href="api/storage.html#stormpy.storage.Variable.has_numerical_type">has_numerical_type() (Variable method)</a>
+      <li><a href="api/core.html#stormpy.Variable.has_numerical_type">has_numerical_type() (Variable method)</a>, <a href="api/storage.html#stormpy.storage.Variable.has_numerical_type">[1]</a>
 </li>
       <li><a href="api/core.html#stormpy.SparseExactPomdp.has_observation_valuations">has_observation_valuations() (SparseExactPomdp method)</a>, <a href="api/storage.html#stormpy.storage.SparseExactPomdp.has_observation_valuations">[1]</a>
 
@@ -2552,10 +2734,12 @@
       </ul></li>
       <li><a href="api/core.html#stormpy.OperatorFormula.has_optimality_type">has_optimality_type (OperatorFormula property)</a>, <a href="api/logic.html#stormpy.logic.OperatorFormula.has_optimality_type">[1]</a>
 </li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.has_parser">has_parser() (in module stormpy.pycarl)</a>
+</li>
       <li><a href="api/core.html#stormpy.Expression.has_rational_type">has_rational_type() (Expression method)</a>, <a href="api/storage.html#stormpy.storage.Expression.has_rational_type">[1]</a>
 
       <ul>
-        <li><a href="api/storage.html#stormpy.storage.Variable.has_rational_type">(Variable method)</a>
+        <li><a href="api/core.html#stormpy.Variable.has_rational_type">(Variable method)</a>, <a href="api/storage.html#stormpy.storage.Variable.has_rational_type">[1]</a>
 </li>
       </ul></li>
       <li><a href="api/gspn.html#stormpy.gspn.Place.has_restricted_capacity">has_restricted_capacity() (Place method)</a>
@@ -2568,10 +2752,10 @@
 </li>
       <li><a href="api/gspn.html#stormpy.gspn.TimedTransition.has_single_server_semantics">has_single_server_semantics() (TimedTransition method)</a>
 </li>
-      <li><a href="api/core.html#stormpy.JaniModel.has_standard_composition">has_standard_composition() (JaniModel method)</a>, <a href="api/storage.html#stormpy.storage.JaniModel.has_standard_composition">[1]</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/core.html#stormpy.JaniModel.has_standard_composition">has_standard_composition() (JaniModel method)</a>, <a href="api/storage.html#stormpy.storage.JaniModel.has_standard_composition">[1]</a>
+</li>
       <li><a href="api/core.html#stormpy.SparseExactRewardModel.has_state_action_rewards">has_state_action_rewards (SparseExactRewardModel property)</a>, <a href="api/storage.html#stormpy.storage.SparseExactRewardModel.has_state_action_rewards">[1]</a>
 
       <ul>
@@ -2667,10 +2851,12 @@
 </li>
         <li><a href="api/core.html#stormpy.SparseParametricModelState.id">(SparseParametricModelState property)</a>, <a href="api/storage.html#stormpy.storage.SparseParametricModelState.id">[1]</a>
 </li>
-        <li><a href="api/core.html#stormpy.Variable.id">(Variable property)</a>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.Variable.id">(Variable property)</a>
 </li>
       </ul></li>
       <li><a href="api/core.html#stormpy.Expression.identifier">identifier() (Expression method)</a>, <a href="api/storage.html#stormpy.storage.Expression.identifier">[1]</a>
+</li>
+      <li><a href="api/pycarl/formula.html#stormpy.pycarl.formula.FormulaType.IFF">IFF (FormulaType attribute)</a>
 </li>
       <li><a href="api/core.html#stormpy.OperatorType.Iff">Iff (OperatorType attribute)</a>, <a href="api/storage.html#stormpy.storage.OperatorType.Iff">[1]</a>
 </li>
@@ -2680,11 +2866,15 @@
 </li>
       <li><a href="api/gspn.html#stormpy.gspn.ImmediateTransition">ImmediateTransition (class in stormpy.gspn)</a>
 </li>
+      <li><a href="api/pycarl/formula.html#stormpy.pycarl.formula.FormulaType.IMPLIES">IMPLIES (FormulaType attribute)</a>
+</li>
       <li><a href="api/core.html#stormpy.OperatorType.Implies">Implies (OperatorType attribute)</a>, <a href="api/storage.html#stormpy.storage.OperatorType.Implies">[1]</a>
 </li>
       <li><a href="api/core.html#stormpy.Expression.Implies">Implies() (Expression static method)</a>, <a href="api/storage.html#stormpy.storage.Expression.Implies">[1]</a>
 </li>
-      <li><a href="api/storage.html#stormpy.storage.Variable.index">index (Variable property)</a>
+      <li><a href="api/core.html#stormpy.Variable.index">index (Variable property)</a>, <a href="api/storage.html#stormpy.storage.Variable.index">[1]</a>
+</li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.BoundType.INFTY">INFTY (BoundType attribute)</a>
 </li>
       <li><a href="api/core.html#stormpy.JaniVariable.init_expression">init_expression (JaniVariable property)</a>, <a href="api/storage.html#stormpy.storage.JaniVariable.init_expression">[1]</a>
 </li>
@@ -2738,8 +2928,30 @@
 </li>
       <li><a href="api/core.html#stormpy.DdMetaVariableType.Int">Int (DdMetaVariableType attribute)</a>, <a href="api/storage.html#stormpy.storage.DdMetaVariableType.Int">[1]</a>
 </li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.VariableType.INT">INT (VariableType attribute)</a>
+</li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.cln.Integer">Integer (class in stormpy.pycarl.cln)</a>
+
+      <ul>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.gmp.Integer">(class in stormpy.pycarl.gmp)</a>
+</li>
+      </ul></li>
       <li><a href="api/core.html#stormpy.PrismModule.integer_variables">integer_variables (PrismModule property)</a>, <a href="api/storage.html#stormpy.storage.PrismModule.integer_variables">[1]</a>
 </li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Interval.integralPart">integralPart() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.integralPart">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.integralPart">[2]</a>
+</li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Interval.intersect">intersect() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.intersect">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.intersect">[2]</a>
+</li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Interval.intersectsWith">intersectsWith() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.intersectsWith">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.intersectsWith">[2]</a>
+</li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Interval">Interval (class in stormpy.pycarl)</a>
+
+      <ul>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval">(class in stormpy.pycarl.cln)</a>
+</li>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval">(class in stormpy.pycarl.gmp)</a>
+</li>
+      </ul></li>
       <li><a href="api/core.html#stormpy.MinMaxMethod.interval_iteration">interval_iteration (MinMaxMethod attribute)</a>
 
       <ul>
@@ -2752,8 +2964,6 @@
         <li><a href="api/storage.html#stormpy.storage.IntervalSparseMatrix">(class in stormpy.storage)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core.html#stormpy.IntervalSparseMatrixBuilder">IntervalSparseMatrixBuilder (class in stormpy)</a>
 
       <ul>
@@ -2772,6 +2982,8 @@
         <li><a href="api/storage.html#stormpy.storage.IntervalSparseMatrixRows">(class in stormpy.storage)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/dft.html#stormpy.dft.SimulationStepResult.INVALID">INVALID (SimulationStepResult attribute)</a>
 
       <ul>
@@ -2784,18 +2996,22 @@
         <li><a href="api/dft.html#stormpy.dft.DFTState_ratfunc.invalid">(DFTState_ratfunc method)</a>
 </li>
       </ul></li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Interval.inverse">inverse() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.inverse">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.inverse">[2]</a>
+</li>
       <li><a href="api/core.html#stormpy.ExpressionType.is_boolean">is_boolean (ExpressionType property)</a>, <a href="api/storage.html#stormpy.storage.ExpressionType.is_boolean">[1]</a>
 </li>
       <li><a href="api/core.html#stormpy.Formula.is_bounded_until_formula">is_bounded_until_formula (Formula property)</a>, <a href="api/logic.html#stormpy.logic.Formula.is_bounded_until_formula">[1]</a>
 </li>
-      <li><a href="api/core.html#stormpy.FactorizedPolynomial.is_constant">is_constant() (FactorizedPolynomial method)</a>
+      <li><a href="api/core.html#stormpy.FactorizedPolynomial.is_constant">is_constant() (FactorizedPolynomial method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.FactorizedPolynomial.is_constant">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.FactorizedPolynomial.is_constant">[2]</a>
 
       <ul>
-        <li><a href="api/core.html#stormpy.FactorizedRationalFunction.is_constant">(FactorizedRationalFunction method)</a>
+        <li><a href="api/core.html#stormpy.FactorizedRationalFunction.is_constant">(FactorizedRationalFunction method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.FactorizedRationalFunction.is_constant">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.FactorizedRationalFunction.is_constant">[2]</a>
 </li>
-        <li><a href="api/core.html#stormpy.Polynomial.is_constant">(Polynomial method)</a>
+        <li><a href="api/core.html#stormpy.Polynomial.is_constant">(Polynomial method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Polynomial.is_constant">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Polynomial.is_constant">[2]</a>
 </li>
-        <li><a href="api/core.html#stormpy.RationalFunction.is_constant">(RationalFunction method)</a>
+        <li><a href="api/core.html#stormpy.RationalFunction.is_constant">(RationalFunction method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.RationalFunction.is_constant">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.RationalFunction.is_constant">[2]</a>
+</li>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.cln.Term.is_constant">(Term method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Term.is_constant">[1]</a>
 </li>
       </ul></li>
       <li><a href="api/core.html#stormpy.PrismProgram.is_deterministic_model">is_deterministic_model (PrismProgram property)</a>, <a href="api/storage.html#stormpy.storage.PrismProgram.is_deterministic_model">[1]</a>
@@ -2820,14 +3036,22 @@
 </li>
       <li><a href="api/core.html#stormpy.Expression.is_literal">is_literal() (Expression method)</a>, <a href="api/storage.html#stormpy.storage.Expression.is_literal">[1]</a>
 </li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.cln.Rational.is_minus_one">is_minus_one() (Rational method)</a>
+</li>
       <li><a href="api/core.html#stormpy.Formula.is_multi_objective_formula">is_multi_objective_formula (Formula property)</a>, <a href="api/logic.html#stormpy.logic.Formula.is_multi_objective_formula">[1]</a>
 </li>
       <li><a href="api/core.html#stormpy.BoundedUntilFormula.is_multidimensional">is_multidimensional (BoundedUntilFormula property)</a>, <a href="api/logic.html#stormpy.logic.BoundedUntilFormula.is_multidimensional">[1]</a>
 </li>
-      <li><a href="api/core.html#stormpy.Variable.is_no_variable">is_no_variable (Variable property)</a>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Variable.is_no_variable">is_no_variable (Variable property)</a>
 </li>
-      <li><a href="api/core.html#stormpy.FactorizedPolynomial.is_one">is_one() (FactorizedPolynomial method)</a>
+      <li><a href="api/core.html#stormpy.FactorizedPolynomial.is_one">is_one() (FactorizedPolynomial method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.FactorizedPolynomial.is_one">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.FactorizedPolynomial.is_one">[2]</a>
+
+      <ul>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.cln.Rational.is_one">(Rational method)</a>
 </li>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.cln.Term.is_one">(Term method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Term.is_one">[1]</a>
+</li>
+      </ul></li>
       <li><a href="api/core.html#stormpy.ChoiceOrigins.is_prism_choice_origins">is_prism_choice_origins() (ChoiceOrigins method)</a>, <a href="api/storage.html#stormpy.storage.ChoiceOrigins.is_prism_choice_origins">[1]</a>
 </li>
       <li><a href="api/core.html#stormpy.SymbolicModelDescription.is_prism_program">is_prism_program (SymbolicModelDescription property)</a>
@@ -2849,6 +3073,46 @@
       <li><a href="api/core.html#stormpy.Expression.is_variable">is_variable() (Expression method)</a>, <a href="api/storage.html#stormpy.storage.Expression.is_variable">[1]</a>
 </li>
       <li><a href="api/dft.html#stormpy.dft.is_well_formed">is_well_formed() (in module stormpy.dft)</a>
+</li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Interval.isClosedInterval">isClosedInterval() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.isClosedInterval">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.isClosedInterval">[2]</a>
+</li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Interval.isEmpty">isEmpty() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.isEmpty">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.isEmpty">[2]</a>
+</li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Interval.isHalfBounded">isHalfBounded() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.isHalfBounded">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.isHalfBounded">[2]</a>
+</li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Interval.isInfinite">isInfinite() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.isInfinite">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.isInfinite">[2]</a>
+</li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.isInteger">isInteger() (in module stormpy.pycarl)</a>
+
+      <ul>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.cln.isInteger">(in module stormpy.pycarl.cln)</a>
+</li>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.gmp.isInteger">(in module stormpy.pycarl.gmp)</a>
+</li>
+      </ul></li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Interval.isNegative">isNegative() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.isNegative">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.isNegative">[2]</a>
+</li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Interval.isOne">isOne() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.isOne">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.isOne">[2]</a>
+</li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Interval.isOpenInterval">isOpenInterval() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.isOpenInterval">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.isOpenInterval">[2]</a>
+</li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Interval.isPointInterval">isPointInterval() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.isPointInterval">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.isPointInterval">[2]</a>
+</li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Interval.isPositive">isPositive() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.isPositive">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.isPositive">[2]</a>
+</li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Interval.isProperSubset">isProperSubset() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.isProperSubset">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.isProperSubset">[2]</a>
+</li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Interval.isSemiNegative">isSemiNegative() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.isSemiNegative">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.isSemiNegative">[2]</a>
+</li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Interval.isSemiPositive">isSemiPositive() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.isSemiPositive">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.isSemiPositive">[2]</a>
+</li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Interval.isSubset">isSubset() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.isSubset">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.isSubset">[2]</a>
+</li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Interval.isUnbounded">isUnbounded() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.isUnbounded">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.isUnbounded">[2]</a>
+</li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Interval.isZero">isZero() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.isZero">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.isZero">[2]</a>
+</li>
+      <li><a href="api/pycarl/formula.html#stormpy.pycarl.formula.FormulaType.ITE">ITE (FormulaType attribute)</a>
 </li>
       <li><a href="api/core.html#stormpy.OperatorType.Ite">Ite (OperatorType attribute)</a>, <a href="api/storage.html#stormpy.storage.OperatorType.Ite">[1]</a>
 </li>
@@ -3029,19 +3293,33 @@
 </li>
       </ul></li>
       <li><a href="api/core.html#stormpy.ComparisonType.LEQ">LEQ (ComparisonType attribute)</a>, <a href="api/logic.html#stormpy.logic.ComparisonType.LEQ">[1]</a>
+
+      <ul>
+        <li><a href="api/pycarl/formula.html#stormpy.pycarl.formula.Relation.LEQ">(Relation attribute)</a>
 </li>
+      </ul></li>
       <li><a href="api/core.html#stormpy.Expression.Leq">Leq() (Expression static method)</a>, <a href="api/storage.html#stormpy.storage.Expression.Leq">[1]</a>
 </li>
       <li><a href="api/core.html#stormpy.ComparisonType.LESS">LESS (ComparisonType attribute)</a>, <a href="api/logic.html#stormpy.logic.ComparisonType.LESS">[1]</a>
 </li>
       <li><a href="api/core.html#stormpy.OperatorType.Less">Less (OperatorType attribute)</a>, <a href="api/storage.html#stormpy.storage.OperatorType.Less">[1]</a>
 </li>
+      <li><a href="api/pycarl/formula.html#stormpy.pycarl.formula.Relation.LESS">LESS (Relation attribute)</a>
+</li>
       <li><a href="api/core.html#stormpy.Expression.Less">Less() (Expression static method)</a>, <a href="api/storage.html#stormpy.storage.Expression.Less">[1]</a>
+</li>
+      <li><a href="api/core.html#stormpy.OperatorType.LessOrEqual">LessOrEqual (OperatorType attribute)</a>, <a href="api/storage.html#stormpy.storage.OperatorType.LessOrEqual">[1]</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/core.html#stormpy.OperatorType.LessOrEqual">LessOrEqual (OperatorType attribute)</a>, <a href="api/storage.html#stormpy.storage.OperatorType.LessOrEqual">[1]</a>
+      <li><a href="api/pycarl/formula.html#stormpy.pycarl.cln.formula.Constraint.lhs">lhs (Constraint property)</a>, <a href="api/pycarl/formula.html#stormpy.pycarl.gmp.formula.Constraint.lhs">[1]</a>
 </li>
+      <li><a href="api/pycarl/formula.html#stormpy.pycarl.cln.formula.SimpleConstraint.lhs">lhs() (SimpleConstraint method)</a>, <a href="api/pycarl/formula.html#stormpy.pycarl.gmp.formula.SimpleConstraint.lhs">[1]</a>
+
+      <ul>
+        <li><a href="api/pycarl/formula.html#stormpy.pycarl.cln.formula.SimpleConstraintRatFunc.lhs">(SimpleConstraintRatFunc method)</a>, <a href="api/pycarl/formula.html#stormpy.pycarl.gmp.formula.SimpleConstraintRatFunc.lhs">[1]</a>
+</li>
+      </ul></li>
       <li><a href="api/core.html#stormpy.MinMaxMethod.linear_programming">linear_programming (MinMaxMethod attribute)</a>
 </li>
       <li><a href="api/dft.html#stormpy.dft.load_dft_galileo_file">load_dft_galileo_file() (in module stormpy.dft)</a>
@@ -3077,6 +3355,8 @@
 </li>
       </ul></li>
       <li><a href="api/core.html#stormpy.ExplicitStateLookup.lookup">lookup() (ExplicitStateLookup method)</a>
+</li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Interval.lower">lower() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.lower">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.lower">[2]</a>
 </li>
       <li><a href="api/core.html#stormpy.PrismIntegerVariable.lower_bound_expression">lower_bound_expression (PrismIntegerVariable property)</a>, <a href="api/storage.html#stormpy.storage.PrismIntegerVariable.lower_bound_expression">[1]</a>
 </li>
@@ -3123,7 +3403,7 @@
       <li><a href="api/core.html#stormpy.Expression.manager">manager (Expression property)</a>, <a href="api/storage.html#stormpy.storage.Expression.manager">[1]</a>
 
       <ul>
-        <li><a href="api/storage.html#stormpy.storage.Variable.manager">(Variable property)</a>
+        <li><a href="api/core.html#stormpy.Variable.manager">(Variable property)</a>, <a href="api/storage.html#stormpy.storage.Variable.manager">[1]</a>
 </li>
       </ul></li>
       <li><a href="api/core.html#stormpy.SparseExactMA.markovian_states">markovian_states (SparseExactMA property)</a>, <a href="api/storage.html#stormpy.storage.SparseExactMA.markovian_states">[1]</a>
@@ -3196,6 +3476,8 @@
       </ul></li>
       <li><a href="api/pars.html#stormpy.pars.MdpParameterLiftingModelChecker">MdpParameterLiftingModelChecker (class in stormpy.pars)</a>
 </li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Interval.meets">meets() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.meets">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.meets">[2]</a>
+</li>
       <li><a href="api/core.html#stormpy.Scheduler.memory_size">memory_size (Scheduler property)</a>, <a href="api/storage.html#stormpy.storage.Scheduler.memory_size">[1]</a>
 
       <ul>
@@ -3216,8 +3498,6 @@
         <li><a href="api/core.html#stormpy.SchedulerParametric.memoryless">(SchedulerParametric property)</a>, <a href="api/storage.html#stormpy.storage.SchedulerParametric.memoryless">[1]</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core.html#stormpy.EliminationLabelBehavior.MERGE_LABELS">MERGE_LABELS (EliminationLabelBehavior attribute)</a>
 </li>
       <li><a href="api/core.html#stormpy.Dd_Sylvan.meta_variables">meta_variables (Dd_Sylvan property)</a>, <a href="api/storage.html#stormpy.storage.Dd_Sylvan.meta_variables">[1]</a>
@@ -3228,6 +3508,8 @@
         <li><a href="api/core.html#stormpy.NativeSolverEnvironment.method">(NativeSolverEnvironment property)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/utility.html#stormpy.utility.milliseconds">milliseconds (class in stormpy.utility)</a>
 </li>
       <li><a href="api/core.html#stormpy.OperatorType.Min">Min (OperatorType attribute)</a>, <a href="api/storage.html#stormpy.storage.OperatorType.Min">[1]</a>
@@ -3306,6 +3588,20 @@
 </li>
         <li><a href="api/pars.html#module-stormpy.pars">stormpy.pars</a>
 </li>
+        <li><a href="api/pycarl/core.html#module-stormpy.pycarl">stormpy.pycarl</a>
+</li>
+        <li><a href="api/pycarl/core.html#module-stormpy.pycarl.cln">stormpy.pycarl.cln</a>
+</li>
+        <li><a href="api/pycarl/formula.html#module-stormpy.pycarl.cln.formula">stormpy.pycarl.cln.formula</a>
+</li>
+        <li><a href="api/pycarl/convert.html#module-stormpy.pycarl.convert">stormpy.pycarl.convert</a>
+</li>
+        <li><a href="api/pycarl/formula.html#module-stormpy.pycarl.formula">stormpy.pycarl.formula</a>
+</li>
+        <li><a href="api/pycarl/core.html#module-stormpy.pycarl.gmp">stormpy.pycarl.gmp</a>
+</li>
+        <li><a href="api/pycarl/formula.html#module-stormpy.pycarl.gmp.formula">stormpy.pycarl.gmp.formula</a>
+</li>
         <li><a href="api/storage.html#module-stormpy.storage">stormpy.storage</a>
 </li>
         <li><a href="api/utility.html#module-stormpy.utility">stormpy.utility</a>
@@ -3324,6 +3620,10 @@
       <li><a href="api/core.html#stormpy.OperatorType.Modulo">Modulo (OperatorType attribute)</a>, <a href="api/storage.html#stormpy.storage.OperatorType.Modulo">[1]</a>
 </li>
       <li><a href="api/core.html#stormpy.Expression.Modulo">Modulo() (Expression static method)</a>, <a href="api/storage.html#stormpy.storage.Expression.Modulo">[1]</a>
+</li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Monomial">Monomial (class in stormpy.pycarl)</a>
+</li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.cln.Term.monomial">monomial (Term property)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Term.monomial">[1]</a>
 </li>
       <li><a href="api/core.html#stormpy.MultiObjectiveFormula">MultiObjectiveFormula (class in stormpy)</a>
 
@@ -3348,6 +3648,8 @@
 </li>
         <li><a href="api/core.html#stormpy.BisimulationType.name">(BisimulationType property)</a>
 </li>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.BoundType.name">(BoundType property)</a>
+</li>
         <li><a href="api/core.html#stormpy.ComparisonType.name">(ComparisonType property)</a>, <a href="api/logic.html#stormpy.logic.ComparisonType.name">[1]</a>
 </li>
         <li><a href="api/core.html#stormpy.DdMetaVariable_Sylvan.name">(DdMetaVariable_Sylvan property)</a>, <a href="api/storage.html#stormpy.storage.DdMetaVariable_Sylvan.name">[1]</a>
@@ -3361,6 +3663,8 @@
         <li><a href="api/core.html#stormpy.EliminationLabelBehavior.name">(EliminationLabelBehavior property)</a>
 </li>
         <li><a href="api/core.html#stormpy.EquationSolverType.name">(EquationSolverType property)</a>
+</li>
+        <li><a href="api/pycarl/formula.html#stormpy.pycarl.formula.FormulaType.name">(FormulaType property)</a>
 </li>
         <li><a href="api/core.html#stormpy.JaniAutomaton.name">(JaniAutomaton property)</a>, <a href="api/storage.html#stormpy.storage.JaniAutomaton.name">[1]</a>
 </li>
@@ -3408,7 +3712,9 @@
 </li>
         <li><a href="api/utility.html#stormpy.utility.SmtCheckResult.name">(SmtCheckResult property)</a>
 </li>
-        <li><a href="api/core.html#stormpy.Variable.name">(Variable property)</a>, <a href="api/storage.html#stormpy.storage.Variable.name">[1]</a>
+        <li><a href="api/core.html#stormpy.Variable.name">(Variable property)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.Variable.name">[1]</a>, <a href="api/storage.html#stormpy.storage.Variable.name">[2]</a>
+</li>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.VariableType.name">(VariableType property)</a>
 </li>
       </ul></li>
       <li><a href="api/dft.html#stormpy.dft.DFTElementType.name">name() (DFTElementType method)</a>
@@ -3418,6 +3724,8 @@
 </li>
         <li><a href="api/pars.html#stormpy.pars.RegionResultHypothesis.name">(RegionResultHypothesis method)</a>
 </li>
+        <li><a href="api/pycarl/formula.html#stormpy.pycarl.formula.Relation.name">(Relation method)</a>
+</li>
       </ul></li>
       <li><a href="api/core.html#stormpy.EquationSolverType.native">native (EquationSolverType attribute)</a>
 </li>
@@ -3426,6 +3734,8 @@
       <li><a href="api/core.html#stormpy.NativeLinearEquationSolverMethod">NativeLinearEquationSolverMethod (class in stormpy)</a>
 </li>
       <li><a href="api/core.html#stormpy.NativeSolverEnvironment">NativeSolverEnvironment (class in stormpy)</a>
+</li>
+      <li><a href="api/pycarl/formula.html#stormpy.pycarl.formula.Relation.NEQ">NEQ (Relation attribute)</a>
 </li>
       <li><a href="api/core.html#stormpy.Expression.Neq">Neq() (Expression static method)</a>, <a href="api/storage.html#stormpy.storage.Expression.Neq">[1]</a>
 </li>
@@ -3449,6 +3759,8 @@
       </ul></li>
       <li><a href="api/core.html#stormpy.EndComponentEliminatorReturnTypeDouble.new_to_old_row_mapping">new_to_old_row_mapping (EndComponentEliminatorReturnTypeDouble property)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core.html#stormpy.SubsystemBuilderReturnTypeDouble.new_to_old_state_mapping">new_to_old_state_mapping (SubsystemBuilderReturnTypeDouble property)</a>
 
       <ul>
@@ -3457,16 +3769,14 @@
         <li><a href="api/core.html#stormpy.SubsystemBuilderReturnTypeRatFunc.new_to_old_state_mapping">(SubsystemBuilderReturnTypeRatFunc property)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/gspn.html#stormpy.gspn.ImmediateTransition.no_weight_attached">no_weight_attached() (ImmediateTransition method)</a>
 </li>
       <li><a href="api/core.html#stormpy.Dd_Sylvan.node_count">node_count (Dd_Sylvan property)</a>, <a href="api/storage.html#stormpy.storage.Dd_Sylvan.node_count">[1]</a>
 </li>
-      <li><a href="api/core.html#stormpy.Rational.nominator">nominator (Rational property)</a>
+      <li><a href="api/core.html#stormpy.Rational.nominator">nominator (Rational property)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Rational.nominator">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Rational.nominator">[2]</a>
 
       <ul>
-        <li><a href="api/core.html#stormpy.RationalFunction.nominator">(RationalFunction property)</a>
+        <li><a href="api/core.html#stormpy.RationalFunction.nominator">(RationalFunction property)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.RationalFunction.nominator">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.RationalFunction.nominator">[2]</a>
 </li>
       </ul></li>
       <li><a href="api/core.html#stormpy.SparseExactMA.nondeterministic_choice_indices">nondeterministic_choice_indices (SparseExactMA property)</a>, <a href="api/storage.html#stormpy.storage.SparseExactMA.nondeterministic_choice_indices">[1]</a>
@@ -3487,6 +3797,10 @@
         <li><a href="api/core.html#stormpy.SparseParametricMdp.nondeterministic_choice_indices">(SparseParametricMdp property)</a>, <a href="api/storage.html#stormpy.storage.SparseParametricMdp.nondeterministic_choice_indices">[1]</a>
 </li>
       </ul></li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.NoPicklingSupport">NoPicklingSupport</a>
+</li>
+      <li><a href="api/pycarl/formula.html#stormpy.pycarl.formula.FormulaType.NOT">NOT (FormulaType attribute)</a>
+</li>
       <li><a href="api/core.html#stormpy.OperatorType.Not">Not (OperatorType attribute)</a>, <a href="api/storage.html#stormpy.storage.OperatorType.Not">[1]</a>
 </li>
       <li><a href="api/core.html#stormpy.OperatorType.NotEqual">NotEqual (OperatorType attribute)</a>, <a href="api/storage.html#stormpy.storage.OperatorType.NotEqual">[1]</a>
@@ -3559,7 +3873,7 @@
       </ul></li>
       <li><a href="api/core.html#stormpy.MultiObjectiveFormula.nr_subformulas">nr_subformulas (MultiObjectiveFormula property)</a>, <a href="api/logic.html#stormpy.logic.MultiObjectiveFormula.nr_subformulas">[1]</a>
 </li>
-      <li><a href="api/core.html#stormpy.Polynomial.nr_terms">nr_terms (Polynomial property)</a>
+      <li><a href="api/core.html#stormpy.Polynomial.nr_terms">nr_terms (Polynomial property)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Polynomial.nr_terms">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Polynomial.nr_terms">[2]</a>
 </li>
       <li><a href="api/gspn.html#stormpy.gspn.TransitionPartition.nr_transitions">nr_transitions() (TransitionPartition method)</a>
 </li>
@@ -3569,12 +3883,18 @@
 </li>
       <li><a href="api/core.html#stormpy.PrismProgram.number_of_unlabeled_commands">number_of_unlabeled_commands (PrismProgram property)</a>, <a href="api/storage.html#stormpy.storage.PrismProgram.number_of_unlabeled_commands">[1]</a>
 </li>
-      <li><a href="api/core.html#stormpy.FactorizedRationalFunction.numerator">numerator (FactorizedRationalFunction property)</a>
+      <li><a href="api/core.html#stormpy.FactorizedRationalFunction.numerator">numerator (FactorizedRationalFunction property)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.FactorizedRationalFunction.numerator">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.FactorizedRationalFunction.numerator">[2]</a>
 
       <ul>
-        <li><a href="api/core.html#stormpy.Rational.numerator">(Rational property)</a>
+        <li><a href="api/core.html#stormpy.Rational.numerator">(Rational property)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Rational.numerator">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Rational.numerator">[2]</a>
 </li>
-        <li><a href="api/core.html#stormpy.RationalFunction.numerator">(RationalFunction property)</a>
+        <li><a href="api/core.html#stormpy.RationalFunction.numerator">(RationalFunction property)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.RationalFunction.numerator">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.RationalFunction.numerator">[2]</a>
+</li>
+      </ul></li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.cln.numerator">numerator() (in module stormpy.pycarl.cln)</a>
+
+      <ul>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.gmp.numerator">(in module stormpy.pycarl.gmp)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -3611,7 +3931,7 @@
         <li><a href="api/core.html#stormpy.SparsePomdp.observations">(SparsePomdp property)</a>, <a href="api/storage.html#stormpy.storage.SparsePomdp.observations">[1]</a>
 </li>
       </ul></li>
-      <li><a href="api/storage.html#stormpy.storage.Variable.offset">offset (Variable property)</a>
+      <li><a href="api/core.html#stormpy.Variable.offset">offset (Variable property)</a>, <a href="api/storage.html#stormpy.storage.Variable.offset">[1]</a>
 </li>
       <li><a href="api/core.html#stormpy.EndComponentEliminatorReturnTypeDouble.old_to_new_state_mapping">old_to_new_state_mapping (EndComponentEliminatorReturnTypeDouble property)</a>
 </li>
@@ -3651,6 +3971,8 @@
 
       <ul>
         <li><a href="api/dft.html#stormpy.dft.DFTElementType.OR">(DFTElementType attribute)</a>
+</li>
+        <li><a href="api/pycarl/formula.html#stormpy.pycarl.formula.FormulaType.OR">(FormulaType attribute)</a>
 </li>
       </ul></li>
       <li><a href="api/core.html#stormpy.OperatorType.Or">Or (OperatorType attribute)</a>, <a href="api/storage.html#stormpy.storage.OperatorType.Or">[1]</a>
@@ -3812,17 +4134,23 @@
       <li><a href="api/core.html#stormpy.MinMaxMethod.policy_iteration">policy_iteration (MinMaxMethod attribute)</a>
 </li>
       <li><a href="api/core.html#stormpy.Polynomial">Polynomial (class in stormpy)</a>
+
+      <ul>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.cln.Polynomial">(class in stormpy.pycarl.cln)</a>
 </li>
-      <li><a href="api/core.html#stormpy.FactorizedPolynomial.polynomial">polynomial() (FactorizedPolynomial method)</a>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.gmp.Polynomial">(class in stormpy.pycarl.gmp)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
+      </ul></li>
+      <li><a href="api/core.html#stormpy.FactorizedPolynomial.polynomial">polynomial() (FactorizedPolynomial method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.FactorizedPolynomial.polynomial">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.FactorizedPolynomial.polynomial">[2]</a>
+</li>
       <li><a href="api/core.html#stormpy.PolytopeDouble">PolytopeDouble (class in stormpy)</a>
 
       <ul>
         <li><a href="api/storage.html#stormpy.storage.PolytopeDouble">(class in stormpy.storage)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core.html#stormpy.PolytopeExact">PolytopeExact (class in stormpy)</a>
 
       <ul>
@@ -3839,6 +4167,14 @@
 </li>
       <li><a href="api/dft.html#stormpy.dft.DFTElementType.POR">POR (DFTElementType attribute)</a>
 </li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.pow">pow() (in module stormpy.pycarl)</a>
+
+      <ul>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.cln.pow">(in module stormpy.pycarl.cln)</a>
+</li>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.gmp.pow">(in module stormpy.pycarl.gmp)</a>
+</li>
+      </ul></li>
       <li><a href="api/core.html#stormpy.OperatorType.Power">Power (OperatorType attribute)</a>, <a href="api/storage.html#stormpy.storage.OperatorType.Power">[1]</a>
 </li>
       <li><a href="api/core.html#stormpy.NativeLinearEquationSolverMethod.power_iteration">power_iteration (NativeLinearEquationSolverMethod attribute)</a>
@@ -3860,6 +4196,8 @@
       <li><a href="api/core.html#stormpy.preprocess_symbolic_input">preprocess_symbolic_input() (in module stormpy)</a>
 </li>
       <li><a href="api/core.html#stormpy.BuilderOptions.preserved_label_names">preserved_label_names (BuilderOptions property)</a>
+</li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.print_info">print_info() (in module stormpy.pycarl)</a>
 </li>
       <li><a href="api/core.html#stormpy.ExactSparseMatrix.print_row">print_row() (ExactSparseMatrix method)</a>, <a href="api/storage.html#stormpy.storage.ExactSparseMatrix.print_row">[1]</a>
 
@@ -3981,6 +4319,16 @@
 <h2 id="Q">Q</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.quotient">quotient() (in module stormpy.pycarl)</a>
+
+      <ul>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.cln.quotient">(in module stormpy.pycarl.cln)</a>
+</li>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.gmp.quotient">(in module stormpy.pycarl.gmp)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core.html#stormpy.QuotientFormat">QuotientFormat (class in stormpy)</a>
 </li>
   </ul></td>
@@ -3997,7 +4345,7 @@
       </ul></li>
       <li><a href="api/dft.html#stormpy.dft.RandomGenerator">RandomGenerator (class in stormpy.dft)</a>
 </li>
-      <li><a href="api/core.html#stormpy.Variable.rank">rank (Variable property)</a>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Variable.rank">rank (Variable property)</a>
 </li>
       <li><a href="api/core.html#stormpy.JaniEdge.rate">rate (JaniEdge property)</a>, <a href="api/storage.html#stormpy.storage.JaniEdge.rate">[1]</a>
 </li>
@@ -4012,8 +4360,14 @@
 </li>
       </ul></li>
       <li><a href="api/core.html#stormpy.Rational">Rational (class in stormpy)</a>
+
+      <ul>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.cln.Rational">(class in stormpy.pycarl.cln)</a>
 </li>
-      <li><a href="api/core.html#stormpy.FactorizedRationalFunction.rational_function">rational_function() (FactorizedRationalFunction method)</a>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.gmp.Rational">(class in stormpy.pycarl.gmp)</a>
+</li>
+      </ul></li>
+      <li><a href="api/core.html#stormpy.FactorizedRationalFunction.rational_function">rational_function() (FactorizedRationalFunction method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.FactorizedRationalFunction.rational_function">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.FactorizedRationalFunction.rational_function">[2]</a>
 </li>
       <li><a href="api/core.html#stormpy.MinMaxMethod.rational_search">rational_search (MinMaxMethod attribute)</a>
 
@@ -4022,10 +4376,18 @@
 </li>
       </ul></li>
       <li><a href="api/core.html#stormpy.RationalFunction">RationalFunction (class in stormpy)</a>
+
+      <ul>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.cln.RationalFunction">(class in stormpy.pycarl.cln)</a>
 </li>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.gmp.RationalFunction">(class in stormpy.pycarl.gmp)</a>
+</li>
+      </ul></li>
       <li><a href="api/core.html#stormpy.RationalRF">RationalRF (in module stormpy)</a>
 </li>
       <li><a href="api/core.html#stormpy.Property.raw_formula">raw_formula (Property property)</a>
+</li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.VariableType.REAL">REAL (VariableType attribute)</a>
 </li>
       <li><a href="api/core.html#stormpy.SparseExactRewardModel.reduce_to_state_based_rewards">reduce_to_state_based_rewards() (SparseExactRewardModel method)</a>, <a href="api/storage.html#stormpy.storage.SparseExactRewardModel.reduce_to_state_based_rewards">[1]</a>
 
@@ -4043,12 +4405,24 @@
 </li>
       <li><a href="api/pars.html#stormpy.pars.RegionResultHypothesis">RegionResultHypothesis (class in stormpy.pars)</a>
 </li>
+      <li><a href="api/pycarl/formula.html#stormpy.pycarl.cln.formula.SimpleConstraint.rel">rel() (SimpleConstraint method)</a>, <a href="api/pycarl/formula.html#stormpy.pycarl.gmp.formula.SimpleConstraint.rel">[1]</a>
+
+      <ul>
+        <li><a href="api/pycarl/formula.html#stormpy.pycarl.cln.formula.SimpleConstraintRatFunc.rel">(SimpleConstraintRatFunc method)</a>, <a href="api/pycarl/formula.html#stormpy.pycarl.gmp.formula.SimpleConstraintRatFunc.rel">[1]</a>
+</li>
+      </ul></li>
+      <li><a href="api/pycarl/formula.html#stormpy.pycarl.formula.Relation">Relation (class in stormpy.pycarl.formula)</a>
+</li>
+      <li><a href="api/pycarl/formula.html#stormpy.pycarl.cln.formula.Constraint.relation">relation (Constraint property)</a>, <a href="api/pycarl/formula.html#stormpy.pycarl.gmp.formula.Constraint.relation">[1]</a>
+</li>
       <li><a href="api/dft.html#stormpy.dft.RelevantEvents">RelevantEvents (class in stormpy.dft)</a>
 </li>
       <li><a href="api/core.html#stormpy.OperatorFormula.remove_bound">remove_bound() (OperatorFormula method)</a>, <a href="api/logic.html#stormpy.logic.OperatorFormula.remove_bound">[1]</a>
 </li>
       <li><a href="api/core.html#stormpy.JaniModel.remove_constant">remove_constant() (JaniModel method)</a>, <a href="api/storage.html#stormpy.storage.JaniModel.remove_constant">[1]</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/gspn.html#stormpy.gspn.Transition.remove_inhibition_arc">remove_inhibition_arc() (Transition method)</a>
 </li>
       <li><a href="api/gspn.html#stormpy.gspn.Transition.remove_input_arc">remove_input_arc() (Transition method)</a>
@@ -4057,8 +4431,6 @@
 </li>
       <li><a href="api/gspn.html#stormpy.gspn.Transition.remove_output_arc">remove_output_arc() (Transition method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core.html#stormpy.JaniModel.replace_automaton">replace_automaton() (JaniModel method)</a>, <a href="api/storage.html#stormpy.storage.JaniModel.replace_automaton">[1]</a>
 </li>
       <li><a href="api/core.html#stormpy.ExactSparseMatrixBuilder.replace_columns">replace_columns() (ExactSparseMatrixBuilder method)</a>, <a href="api/storage.html#stormpy.storage.ExactSparseMatrixBuilder.replace_columns">[1]</a>
@@ -4141,6 +4513,8 @@
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Interval.sample">sample() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.sample">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.sample">[2]</a>
+</li>
       <li><a href="api/utility.html#stormpy.utility.SmtCheckResult.Sat">Sat (SmtCheckResult attribute)</a>
 </li>
       <li><a href="api/core.html#stormpy.Scheduler">Scheduler (class in stormpy)</a>
@@ -4355,7 +4729,11 @@
       </ul></li>
       <li><a href="api/gspn.html#stormpy.gspn.ImmediateTransition.set_weight">set_weight() (ImmediateTransition method)</a>
 </li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Interval.setLower">setLower() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.setLower">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.setLower">[2]</a>
+</li>
       <li><a href="api/core.html#stormpy.SMTCounterExampleGeneratorStats.setup_time">setup_time (SMTCounterExampleGeneratorStats property)</a>
+</li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Interval.setUpper">setUpper() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.setUpper">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.setUpper">[2]</a>
 </li>
       <li><a href="api/core.html#stormpy.JaniModelType.SHA">SHA (JaniModelType attribute)</a>
 </li>
@@ -4365,6 +4743,18 @@
 </li>
       <li><a href="api/core.html#stormpy.SMTCounterExampleGeneratorOptions.silent">silent (SMTCounterExampleGeneratorOptions property)</a>
 </li>
+      <li><a href="api/pycarl/formula.html#stormpy.pycarl.cln.formula.SimpleConstraint">SimpleConstraint (class in stormpy.pycarl.cln.formula)</a>
+
+      <ul>
+        <li><a href="api/pycarl/formula.html#stormpy.pycarl.gmp.formula.SimpleConstraint">(class in stormpy.pycarl.gmp.formula)</a>
+</li>
+      </ul></li>
+      <li><a href="api/pycarl/formula.html#stormpy.pycarl.cln.formula.SimpleConstraintRatFunc">SimpleConstraintRatFunc (class in stormpy.pycarl.cln.formula)</a>
+
+      <ul>
+        <li><a href="api/pycarl/formula.html#stormpy.pycarl.gmp.formula.SimpleConstraintRatFunc">(class in stormpy.pycarl.gmp.formula)</a>
+</li>
+      </ul></li>
       <li><a href="api/core.html#stormpy.SimpleValuation">SimpleValuation (class in stormpy)</a>
 
       <ul>
@@ -4583,8 +4973,6 @@
         <li><a href="api/storage.html#stormpy.storage.SparseIntervalModelState">(class in stormpy.storage)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core.html#stormpy.SparseIntervalModelStates">SparseIntervalModelStates (class in stormpy)</a>
 
       <ul>
@@ -4597,6 +4985,8 @@
         <li><a href="api/storage.html#stormpy.storage.SparseIntervalPomdp">(class in stormpy.storage)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core.html#stormpy.SparseIntervalRewardModel">SparseIntervalRewardModel (class in stormpy)</a>
 
       <ul>
@@ -4915,6 +5305,55 @@
 </li>
       </ul></li>
       <li>
+    stormpy.pycarl
+
+      <ul>
+        <li><a href="api/pycarl/core.html#module-stormpy.pycarl">module</a>
+</li>
+      </ul></li>
+      <li>
+    stormpy.pycarl.cln
+
+      <ul>
+        <li><a href="api/pycarl/core.html#module-stormpy.pycarl.cln">module</a>
+</li>
+      </ul></li>
+      <li>
+    stormpy.pycarl.cln.formula
+
+      <ul>
+        <li><a href="api/pycarl/formula.html#module-stormpy.pycarl.cln.formula">module</a>
+</li>
+      </ul></li>
+      <li>
+    stormpy.pycarl.convert
+
+      <ul>
+        <li><a href="api/pycarl/convert.html#module-stormpy.pycarl.convert">module</a>
+</li>
+      </ul></li>
+      <li>
+    stormpy.pycarl.formula
+
+      <ul>
+        <li><a href="api/pycarl/formula.html#module-stormpy.pycarl.formula">module</a>
+</li>
+      </ul></li>
+      <li>
+    stormpy.pycarl.gmp
+
+      <ul>
+        <li><a href="api/pycarl/core.html#module-stormpy.pycarl.gmp">module</a>
+</li>
+      </ul></li>
+      <li>
+    stormpy.pycarl.gmp.formula
+
+      <ul>
+        <li><a href="api/pycarl/formula.html#module-stormpy.pycarl.gmp.formula">module</a>
+</li>
+      </ul></li>
+      <li>
     stormpy.storage
 
       <ul>
@@ -4935,6 +5374,8 @@
 </li>
       </ul></li>
       <li><a href="api/utility.html#stormpy.utility.MatrixFormat.Straight">Straight (MatrixFormat attribute)</a>
+</li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.BoundType.STRICT">STRICT (BoundType attribute)</a>
 </li>
       <li><a href="api/core.html#stormpy.BisimulationType.STRONG">STRONG (BisimulationType attribute)</a>
 </li>
@@ -4967,7 +5408,7 @@
 </li>
         <li><a href="api/core.html#stormpy.JaniOrderedAssignments.substitute">(JaniOrderedAssignments method)</a>, <a href="api/storage.html#stormpy.storage.JaniOrderedAssignments.substitute">[1]</a>
 </li>
-        <li><a href="api/core.html#stormpy.Polynomial.substitute">(Polynomial method)</a>
+        <li><a href="api/core.html#stormpy.Polynomial.substitute">(Polynomial method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Polynomial.substitute">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Polynomial.substitute">[2]</a>
 </li>
         <li><a href="api/core.html#stormpy.PrismUpdate.substitute">(PrismUpdate method)</a>, <a href="api/storage.html#stormpy.storage.PrismUpdate.substitute">[1]</a>
 </li>
@@ -5070,6 +5511,8 @@
         <li><a href="api/storage.html#stormpy.storage.SymbolicSylvanRewardModel">(class in stormpy.storage)</a>
 </li>
       </ul></li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Interval.symmetricDifference">symmetricDifference() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.symmetricDifference">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.symmetricDifference">[2]</a>
+</li>
       <li><a href="api/dft.html#stormpy.dft.DFT_double.symmetries">symmetries() (DFT_double method)</a>
 
       <ul>
@@ -5086,8 +5529,20 @@
 </li>
       <li><a href="api/core.html#stormpy.JaniEdgeDestination.target_location_index">target_location_index (JaniEdgeDestination property)</a>, <a href="api/storage.html#stormpy.storage.JaniEdgeDestination.target_location_index">[1]</a>
 </li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Monomial.tdeg">tdeg (Monomial property)</a>
+
+      <ul>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.cln.Term.tdeg">(Term property)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Term.tdeg">[1]</a>
+</li>
+      </ul></li>
       <li><a href="api/core.html#stormpy.JaniEdge.template_edge">template_edge (JaniEdge property)</a>, <a href="api/storage.html#stormpy.storage.JaniEdge.template_edge">[1]</a>
 </li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.cln.Term">Term (class in stormpy.pycarl.cln)</a>
+
+      <ul>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.gmp.Term">(class in stormpy.pycarl.gmp)</a>
+</li>
+      </ul></li>
       <li><a href="api/core.html#stormpy.OperatorFormula.threshold">threshold (OperatorFormula property)</a>, <a href="api/logic.html#stormpy.logic.OperatorFormula.threshold">[1]</a>
 </li>
       <li><a href="api/core.html#stormpy.OperatorFormula.threshold_expr">threshold_expr (OperatorFormula property)</a>, <a href="api/logic.html#stormpy.logic.OperatorFormula.threshold_expr">[1]</a>
@@ -5122,14 +5577,18 @@
         <li><a href="api/core.html#stormpy.SchedulerParametric.to_json_str">(SchedulerParametric method)</a>, <a href="api/storage.html#stormpy.storage.SchedulerParametric.to_json_str">[1]</a>
 </li>
       </ul></li>
-      <li><a href="api/core.html#stormpy.FactorizedPolynomial.to_smt2">to_smt2() (FactorizedPolynomial method)</a>
+      <li><a href="api/pycarl/formula.html#stormpy.pycarl.cln.formula.Constraint.to_smt2">to_smt2() (Constraint method)</a>, <a href="api/pycarl/formula.html#stormpy.pycarl.gmp.formula.Constraint.to_smt2">[1]</a>
 
       <ul>
-        <li><a href="api/core.html#stormpy.FactorizedRationalFunction.to_smt2">(FactorizedRationalFunction method)</a>
+        <li><a href="api/core.html#stormpy.FactorizedPolynomial.to_smt2">(FactorizedPolynomial method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.FactorizedPolynomial.to_smt2">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.FactorizedPolynomial.to_smt2">[2]</a>
 </li>
-        <li><a href="api/core.html#stormpy.Polynomial.to_smt2">(Polynomial method)</a>
+        <li><a href="api/core.html#stormpy.FactorizedRationalFunction.to_smt2">(FactorizedRationalFunction method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.FactorizedRationalFunction.to_smt2">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.FactorizedRationalFunction.to_smt2">[2]</a>
 </li>
-        <li><a href="api/core.html#stormpy.RationalFunction.to_smt2">(RationalFunction method)</a>
+        <li><a href="api/pycarl/formula.html#stormpy.pycarl.cln.formula.Formula.to_smt2">(Formula method)</a>, <a href="api/pycarl/formula.html#stormpy.pycarl.gmp.formula.Formula.to_smt2">[1]</a>
+</li>
+        <li><a href="api/core.html#stormpy.Polynomial.to_smt2">(Polynomial method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Polynomial.to_smt2">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Polynomial.to_smt2">[2]</a>
+</li>
+        <li><a href="api/core.html#stormpy.RationalFunction.to_smt2">(RationalFunction method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.RationalFunction.to_smt2">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.RationalFunction.to_smt2">[2]</a>
 </li>
       </ul></li>
       <li><a href="api/dft.html#stormpy.dft.DFTState_double.to_string">to_string() (DFTState_double method)</a>
@@ -5154,11 +5613,11 @@
         <li><a href="api/core.html#stormpy.MinMaxMethod.topological">(MinMaxMethod attribute)</a>
 </li>
       </ul></li>
-      <li><a href="api/core.html#stormpy.topological_sort">topological_sort() (in module stormpy)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/core.html#stormpy.Polynomial.total_degree">total_degree (Polynomial property)</a>
+      <li><a href="api/core.html#stormpy.topological_sort">topological_sort() (in module stormpy)</a>
+</li>
+      <li><a href="api/core.html#stormpy.Polynomial.total_degree">total_degree (Polynomial property)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Polynomial.total_degree">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Polynomial.total_degree">[2]</a>
 </li>
       <li><a href="api/core.html#stormpy.JaniLocationExpander.transform">transform() (JaniLocationExpander method)</a>, <a href="api/storage.html#stormpy.storage.JaniLocationExpander.transform">[1]</a>
 </li>
@@ -5214,6 +5673,8 @@
         <li><a href="api/dft.html#stormpy.dft.DFTDependency_ratfunc.trigger">(DFTDependency_ratfunc property)</a>
 </li>
       </ul></li>
+      <li><a href="api/pycarl/formula.html#stormpy.pycarl.formula.FormulaType.TRUE">TRUE (FormulaType attribute)</a>
+</li>
       <li><a href="api/core.html#stormpy.DdMetaVariable_Sylvan.type">type (DdMetaVariable_Sylvan property)</a>, <a href="api/storage.html#stormpy.storage.DdMetaVariable_Sylvan.type">[1]</a>
 
       <ul>
@@ -5223,11 +5684,13 @@
 </li>
         <li><a href="api/core.html#stormpy.Expression.type">(Expression property)</a>, <a href="api/storage.html#stormpy.storage.Expression.type">[1]</a>
 </li>
+        <li><a href="api/pycarl/formula.html#stormpy.pycarl.cln.formula.Formula.type">(Formula property)</a>, <a href="api/pycarl/formula.html#stormpy.pycarl.gmp.formula.Formula.type">[1]</a>
+</li>
         <li><a href="api/core.html#stormpy.JaniConstant.type">(JaniConstant property)</a>, <a href="api/storage.html#stormpy.storage.JaniConstant.type">[1]</a>
 </li>
         <li><a href="api/core.html#stormpy.PrismConstant.type">(PrismConstant property)</a>, <a href="api/storage.html#stormpy.storage.PrismConstant.type">[1]</a>
 </li>
-        <li><a href="api/core.html#stormpy.Variable.type">(Variable property)</a>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.Variable.type">(Variable property)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -5236,6 +5699,8 @@
 <h2 id="U">U</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/pycarl/formula.html#stormpy.pycarl.formula.FormulaType.UEQ">UEQ (FormulaType attribute)</a>
+</li>
       <li><a href="api/core.html#stormpy.UnaryBooleanStateFormula">UnaryBooleanStateFormula (class in stormpy)</a>
 
       <ul>
@@ -5254,6 +5719,8 @@
         <li><a href="api/logic.html#stormpy.logic.UnaryStateFormula">(class in stormpy.logic)</a>
 </li>
       </ul></li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Interval.unboundedInterval">unboundedInterval() (Interval static method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.unboundedInterval">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.unboundedInterval">[2]</a>
+</li>
       <li><a href="api/core.html#stormpy.JaniModelType.UNDEFINED">UNDEFINED (JaniModelType attribute)</a>
 
       <ul>
@@ -5266,6 +5733,8 @@
         <li><a href="api/core.html#stormpy.PrismProgram.undefined_constants_are_graph_preserving">(PrismProgram property)</a>, <a href="api/storage.html#stormpy.storage.PrismProgram.undefined_constants_are_graph_preserving">[1]</a>
 </li>
       </ul></li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Interval.unite">unite() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.unite">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.unite">[2]</a>
+</li>
       <li><a href="api/pars.html#stormpy.pars.RegionResult.UNKNOWN">UNKNOWN (RegionResult attribute)</a>
 
       <ul>
@@ -5293,6 +5762,8 @@
       <li><a href="api/core.html#stormpy.PrismProgram.update_initial_states_expression">update_initial_states_expression() (PrismProgram method)</a>, <a href="api/storage.html#stormpy.storage.PrismProgram.update_initial_states_expression">[1]</a>
 </li>
       <li><a href="api/core.html#stormpy.PrismCommand.updates">updates (PrismCommand property)</a>, <a href="api/storage.html#stormpy.storage.PrismCommand.updates">[1]</a>
+</li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Interval.upper">upper() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.upper">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.upper">[2]</a>
 </li>
       <li><a href="api/core.html#stormpy.BoundedUntilFormula.upper_bound_expression">upper_bound_expression (BoundedUntilFormula property)</a>, <a href="api/logic.html#stormpy.logic.BoundedUntilFormula.upper_bound_expression">[1]</a>
 
@@ -5333,6 +5804,8 @@
 </li>
         <li><a href="api/core.html#stormpy.BisimulationType.value">(BisimulationType property)</a>
 </li>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.BoundType.value">(BoundType property)</a>
+</li>
         <li><a href="api/core.html#stormpy.ComparisonType.value">(ComparisonType property)</a>, <a href="api/logic.html#stormpy.logic.ComparisonType.value">[1]</a>
 </li>
         <li><a href="api/core.html#stormpy.DdMetaVariableType.value">(DdMetaVariableType property)</a>, <a href="api/storage.html#stormpy.storage.DdMetaVariableType.value">[1]</a>
@@ -5342,6 +5815,8 @@
         <li><a href="api/core.html#stormpy.EliminationLabelBehavior.value">(EliminationLabelBehavior property)</a>
 </li>
         <li><a href="api/core.html#stormpy.EquationSolverType.value">(EquationSolverType property)</a>
+</li>
+        <li><a href="api/pycarl/formula.html#stormpy.pycarl.formula.FormulaType.value">(FormulaType property)</a>
 </li>
         <li><a href="api/core.html#stormpy.JaniModelType.value">(JaniModelType property)</a>
 </li>
@@ -5365,11 +5840,15 @@
 </li>
         <li><a href="api/pars.html#stormpy.pars.RegionResultHypothesis.value">(RegionResultHypothesis property)</a>
 </li>
+        <li><a href="api/pycarl/formula.html#stormpy.pycarl.formula.Relation.value">(Relation property)</a>
+</li>
         <li><a href="api/dft.html#stormpy.dft.SimulationStepResult.value">(SimulationStepResult property)</a>
 </li>
         <li><a href="api/dft.html#stormpy.dft.SimulationTraceResult.value">(SimulationTraceResult property)</a>
 </li>
         <li><a href="api/utility.html#stormpy.utility.SmtCheckResult.value">(SmtCheckResult property)</a>
+</li>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.VariableType.value">(VariableType property)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -5389,6 +5868,8 @@
       <li><a href="api/core.html#stormpy.Variable">Variable (class in stormpy)</a>
 
       <ul>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.Variable">(class in stormpy.pycarl)</a>
+</li>
         <li><a href="api/storage.html#stormpy.storage.Variable">(class in stormpy.storage)</a>
 </li>
       </ul></li>
@@ -5398,12 +5879,16 @@
         <li><a href="api/core.html#stormpy.PrismAssignment.variable">(PrismAssignment property)</a>, <a href="api/storage.html#stormpy.storage.PrismAssignment.variable">[1]</a>
 </li>
       </ul></li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.variable_with_name">variable_with_name() (in module stormpy.pycarl)</a>
+</li>
       <li><a href="api/core.html#stormpy.JaniAutomaton.variables">variables (JaniAutomaton property)</a>, <a href="api/storage.html#stormpy.storage.JaniAutomaton.variables">[1]</a>
 
       <ul>
         <li><a href="api/core.html#stormpy.PrismProgram.variables">(PrismProgram property)</a>, <a href="api/storage.html#stormpy.storage.PrismProgram.variables">[1]</a>
 </li>
       </ul></li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.VariableType">VariableType (class in stormpy.pycarl)</a>
+</li>
       <li><a href="api/info.html#stormpy.info.Version">Version (class in stormpy.info)</a>
 </li>
       <li><a href="api/core.html#stormpy.PolytopeDouble.vertices">vertices (PolytopeDouble property)</a>, <a href="api/storage.html#stormpy.storage.PolytopeDouble.vertices">[1]</a>
@@ -5422,10 +5907,14 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core.html#stormpy.NativeLinearEquationSolverMethod.walker_chae">walker_chae (NativeLinearEquationSolverMethod attribute)</a>
 </li>
+      <li><a href="api/core.html#stormpy.BisimulationType.WEAK">WEAK (BisimulationType attribute)</a>
+
+      <ul>
+        <li><a href="api/pycarl/core.html#stormpy.pycarl.BoundType.WEAK">(BoundType attribute)</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/core.html#stormpy.BisimulationType.WEAK">WEAK (BisimulationType attribute)</a>
-</li>
       <li><a href="api/core.html#stormpy.ConstraintCollector.wellformed_constraints">wellformed_constraints (ConstraintCollector property)</a>
 </li>
   </ul></td>
@@ -5438,6 +5927,8 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/pycarl/formula.html#stormpy.pycarl.formula.FormulaType.XOR">XOR (FormulaType attribute)</a>
+</li>
       <li><a href="api/core.html#stormpy.OperatorType.Xor">Xor (OperatorType attribute)</a>, <a href="api/storage.html#stormpy.storage.OperatorType.Xor">[1]</a>
 </li>
   </ul></td>
@@ -5459,6 +5950,8 @@
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/utility.html#stormpy.utility.Z3SmtSolverFactory">Z3SmtSolverFactory (class in stormpy.utility)</a>
+</li>
+      <li><a href="api/pycarl/core.html#stormpy.pycarl.Interval.zeroInterval">zeroInterval() (Interval static method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.zeroInterval">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.zeroInterval">[2]</a>
 </li>
   </ul></td>
 </tr></table>
