@@ -35,6 +35,8 @@ option(USE_PARSER "Make carlparser available in pycarl" ON)
 set(CARLPARSER_DIR_HINT "" CACHE STRING "A hint where the Carl-parser library can be found.")
 option(STORMPY_DISABLE_SIGNATURE_DOC "Disable the signature in the documentation" OFF)
 MARK_AS_ADVANCED(STORMPY_DISABLE_SIGNATURE_DOC)
+option(COMPILE_WITH_CCACHE "Compile using CCache (if found)" ON)
+mark_as_advanced(COMPILE_WITH_CCACHE)
 
 # Find the module development requirements (requires FindPython from 3.17 or scikit-build-core's built-in backport)
 find_package(Python REQUIRED COMPONENTS Interpreter Development.Module)
@@ -78,6 +80,20 @@ if (Boost_FOUND)
     endif()
 endif()
 
+# CCache
+if(COMPILE_WITH_CCACHE)
+    find_program(CCACHE_FOUND ccache)
+    mark_as_advanced(CCACHE_FOUND)
+    if(CCACHE_FOUND)
+        message(STATUS "Stormpy - Using ccache")
+        set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
+        set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK ccache)
+    else()
+        message(STATUS "Stormpy - Could not find ccache.")
+    endif()
+else()
+    message(STATUS "Stormpy - Disabled use of ccache.")
+endif()
 
 
 # Set configurations
