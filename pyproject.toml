@@ -46,10 +46,10 @@ doc = [
 dev = [
     # Formatting
     "black[jupyter]",
-    # Testing
+]
+test = [
     "pytest",
     "nbval",
-    "numpy",
 ]
 
 [tool.scikit-build]

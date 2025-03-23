@@ -50,13 +50,11 @@ find_package(storm REQUIRED HINTS ${STORM_DIR_HINT})
 message(STATUS "Stormpy - Using Storm version ${storm_VERSION} from ${storm_DIR}")
 # Check Storm version
 if (${storm_VERSION} VERSION_LESS ${STORM_MIN_VERSION})
-    MESSAGE(FATAL_ERROR "Stormpy - Storm version ${storm_VERSION} from ${storm_DIR} is not supported anymore!\n
-        Stormpy requires at least Storm version >= ${STORM_MIN_VERSION}.\n
-        For more information, see https://moves-rwth.github.io/stormpy/installation.html#compatibility-of-stormpy-and-storm")
+    MESSAGE(FATAL_ERROR "Stormpy - Storm version ${storm_VERSION} from ${storm_DIR} is not supported anymore!\nStormpy requires at least Storm version >= ${STORM_MIN_VERSION}.\nFor more information, see https://moves-rwth.github.io/stormpy/installation.html#compatibility-of-stormpy-and-storm")
 endif()
 if (NOT ${STORM_DIR_HINT} STREQUAL "")
     if (NOT ${storm_DIR} STREQUAL ${STORM_DIR_HINT})
-        MESSAGE(ERROR "Stormpy - Using different Storm directory ${storm_DIR} instead of given ${STORM_DIR_HINT}!")
+        MESSAGE(SEND_ERROR "Stormpy - Using different Storm directory ${storm_DIR} instead of given ${STORM_DIR_HINT}!")
     endif()
 endif()
 find_package(carl REQUIRED HINTS ${CARL_DIR_HINT})
@@ -100,6 +98,7 @@ endif()
 include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/macros.cmake)
 
 set(STORM_VERSION ${storm_VERSION})
+set(CARL_VERSION ${carl_VERSION})
 # Set number types from Carl
 set_variable_string(STORM_USE_CLN_EA_BOOL ${STORM_USE_CLN_EA})
 set_variable_string(STORM_USE_CLN_RF_BOOL ${STORM_USE_CLN_RF})
@@ -121,7 +120,6 @@ if (NOT STORM_USE_CLN_EA OR NOT STORM_USE_CLN_RF)
     set(PYCARL_IMPORTS "${PYCARL_IMPORTS}\nfrom stormpy.pycarl import gmp")
 endif()
 
-set(CARL_VERSION ${carl_VERSION})
 if ((USE_PARSER) AND (carlparser_FOUND))
     set(CARL_WITH_PARSER "True")
     set(PYCARL_HAS_PARSE TRUE)

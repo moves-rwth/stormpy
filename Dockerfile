@@ -20,6 +20,8 @@ MAINTAINER Matthias Volk <m.volk@utwente.nl>
 ARG build_type=Release
 # Additional arguments for compiling stormpy
 ARG setup_args=""
+# Optional support to install for stormpy, such as '[test,doc]'
+ARG options=""
 # Number of threads to use for parallel compilation
 ARG no_threads=2
 
@@ -59,7 +61,6 @@ ENV VIRTUAL_ENV=/opt/venv
 RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
-RUN pip install setuptools
 
 # Build stormpy
 ###############
@@ -70,7 +71,4 @@ WORKDIR /opt/stormpy
 COPY . .
 
 # Build stormpy
-RUN python setup.py build_ext $setup_args -j $no_threads develop
-
-# Uncomment to build optional dependencies
-#RUN pip install -e '.[doc,numpy]'"
+RUN pip install -v --config-settings=cmake.define.CMAKE_BUILD_PARALLEL_LEVEL=$no_threads $setup_args .$options

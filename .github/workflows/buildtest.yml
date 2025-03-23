@@ -24,22 +24,20 @@ jobs:
     strategy:
       matrix:
         buildType:
-          - {name: "Debug", dockerTag: "ci-debug", stormTag: "ci-debug", buildArgs: "BUILD_TYPE=Debug", setupArgs: "--debug"}
-          - {name: "Release", dockerTag: "ci", stormTag: "ci", buildArgs: "BUILD_TYPE=Release", setupArgs: ""}
+          - {name: "Debug", dockerTag: "ci-debug", stormTag: "ci-debug", buildArgs: "Debug", setupArgs: "--config-settings=cmake.build-type='Debug'"}
+          - {name: "Release", dockerTag: "ci", stormTag: "ci", buildArgs: "Release", setupArgs: ""}
         configuration:
-          - {name: "all libraries", disableFlags: "", optionalLibs: "[numpy,plot]", testOpt: ""}
-          - {name: "no libraries", disableFlags: "--disable-dft --disable-gspn --disable-pars --disable-pomdp", optionalLibs: "", testOpt: "tests"}
+          - {name: "all libraries", disableFlags: "", optionalLibs: "[numpy,plot,test]", testOpt: ""}
+          - {name: "no libraries", disableFlags: "--config-settings=cmake.define.USE_STORM_DFT=OFF --config-settings=cmake.define.USE_STORM_GSPN=OFF --config-settings=cmake.define.USE_STORM_PARS=OFF --config-settings=cmake.define.USE_STORM_POMDP=OFF --config-settings=cmake.define.USE_PARSER=OFF", optionalLibs: "[test]", testOpt: "tests"}
     steps:
       - name: Git clone
         uses: actions/checkout@v4
       - name: Build stormpy from Dockerfile
-        run: docker build -t movesrwth/stormpy:${{ matrix.buildType.dockerTag }} . --build-arg STORM_BASE=movesrwth/storm:${{ matrix.buildType.stormTag }} --build-arg build_type=${{ matrix.buildType.buildArgs }} --build-arg setup_args="${{ matrix.buildType.setupArgs }} ${{ matrix.configuration.disableFlags }}" --build-arg setup_args_pycarl=${{ matrix.buildType.setupArgs }} --build-arg no_threads=${NR_JOBS}
+        run: docker build -t movesrwth/stormpy:${{ matrix.buildType.dockerTag }} . --build-arg STORM_BASE=movesrwth/storm:${{ matrix.buildType.stormTag }} --build-arg build_type=${{ matrix.buildType.buildArgs }} --build-arg setup_args="${{ matrix.buildType.setupArgs }} ${{ matrix.configuration.disableFlags }}" --build-arg options=${{ matrix.configuration.optionalLibs }} --build-arg no_threads=${NR_JOBS}
       - name: Run Docker
         run: docker run -d -it --name ci movesrwth/stormpy:${{ matrix.buildType.dockerTag }}
-      - name: Build optional stormpy libraries
-        run: docker exec ci bash -c "cd /opt/stormpy; pip3 install -e '.${{ matrix.configuration.optionalLibs }}'"
       - name: Run tests
-        run: docker exec ci bash -c "cd /opt/stormpy; pip install -e '.[test]'; pytest ${{ matrix.configuration.testOpt }}"
+        run: docker exec ci bash -c "cd /opt/stormpy; pytest ${{ matrix.configuration.testOpt }}"
 
 
   stableTest:
@@ -48,8 +46,8 @@ jobs:
     strategy:
       matrix:
         buildType:
-          - {name: "Debug", dockerTag: "ci-debug", stormTag: "stable-debug", buildArgs: "BUILD_TYPE=Debug", setupArgs: "--debug"}
-          - {name: "Release", dockerTag: "ci", stormTag: "stable", buildArgs: "BUILD_TYPE=Release", setupArgs: ""}
+          - {name: "Debug", dockerTag: "ci-debug", stormTag: "stable-debug", buildArgs: "Debug", setupArgs: "--config-settings=cmake.build-type='Debug'", optionalLibs: "[test,plot]"}
+          - {name: "Release", dockerTag: "ci", stormTag: "stable", buildArgs: "Release", setupArgs: "", optionalLibs: "[test,plot]"}
 
     # Allow failures of stable versions as new features might have been added
     steps:
@@ -58,7 +56,7 @@ jobs:
       - name: Replace Dockerfile
         run: cp .github/workflows/Dockerfile.stable Dockerfile
       - name: Build dependencies
-        run: docker build -t movesrwth/stormpy:${{ matrix.buildType.dockerTag }} . --build-arg STORM_BASE=movesrwth/storm:${{ matrix.buildType.stormTag }} --build-arg build_type=${{ matrix.buildType.buildArgs }} --build-arg setup_args_pycarl=${{ matrix.buildType.setupArgs }} --build-arg no_threads=${NR_JOBS}
+        run: docker build -t movesrwth/stormpy:${{ matrix.buildType.dockerTag }} . --build-arg STORM_BASE=movesrwth/storm:${{ matrix.buildType.stormTag }} --build-arg build_type=${{ matrix.buildType.buildArgs }} --build-arg no_threads=${NR_JOBS}
 
       - name: Run Docker
         run: docker run -d -it --name ci movesrwth/stormpy:${{ matrix.buildType.dockerTag }}
@@ -67,11 +65,11 @@ jobs:
         id: build_stormpy
         shell: bash {0} // Deactivate fast-fail to handle exit code for incompatibility
         run: |
-          docker exec ci bash -c "cd /opt/stormpy; python setup.py build_ext ${{ matrix.buildType.setupArgs }} -j ${NR_JOBS} develop"
+          docker exec ci bash -c "cd /opt/stormpy; pip install -v --config-settings=cmake.define.CMAKE_BUILD_PARALLEL_LEVEL=${NR_JOBS} ${{ matrix.buildType.setupArgs }} .${{ matrix.buildType.optionalLibs }}"
           status=$?
-          if [ $status -eq 42 ]; then
-            # Warn about incompatibility but do not handle as failure
-            echo "::warning file=setup.py,line=82::Stormpy is incompatible with stable version of Storm"
+          if [ $status -eq 1 ]; then
+            # Warn about possible incompatibility but do not handle as failure
+            echo "::warning file=CMakeLists.txt,line=52::Stormpy might be incompatible with stable version of Storm"
             # Deactivate tests
             echo "run_tests=false" >> $GITHUB_OUTPUT
           else
@@ -80,7 +78,7 @@ jobs:
           fi
       - name: Run tests
         if: steps.build_stormpy.outputs.run_tests == 'true'
-        run: docker exec ci bash -c "cd /opt/stormpy; pip install -e '.[test]'; pytest"
+        run: docker exec ci bash -c "cd /opt/stormpy; pytest"
 
 
   deploy:
@@ -89,17 +87,17 @@ jobs:
     strategy:
       matrix:
         buildType:
-          - {name: "Debug", dockerTag: "ci-debug", stormTag: "ci-debug", buildArgs: "BUILD_TYPE=Debug", setupArgs: "--debug"}
-          - {name: "Release", dockerTag: "ci", stormTag: "ci", buildArgs: "BUILD_TYPE=Release", setupArgs: ""}
+          - {name: "Debug", dockerTag: "ci-debug", stormTag: "ci-debug", buildArgs: "Debug", setupArgs: "--config-settings=cmake.build-type='Debug'", optionalLibs: "[test,plot]"}
+          - {name: "Release", dockerTag: "ci", stormTag: "ci", buildArgs: "Release", setupArgs: "", optionalLibs: "[test,plot,doc]"}
     steps:
       - name: Git clone
         uses: actions/checkout@v4
       - name: Build stormpy from Dockerfile
-        run: docker build -t movesrwth/stormpy:${{ matrix.buildType.dockerTag }} . --build-arg STORM_BASE=movesrwth/storm:${{ matrix.buildType.stormTag }} --build-arg build_type=${{ matrix.buildType.buildArgs }} --build-arg setup_args=${{ matrix.buildType.setupArgs }} --build-arg setup_args_pycarl=${{ matrix.buildType.setupArgs }} --build-arg no_threads=${NR_JOBS}
+        run: docker build -t movesrwth/stormpy:${{ matrix.buildType.dockerTag }} . --build-arg STORM_BASE=movesrwth/storm:${{ matrix.buildType.stormTag }} --build-arg build_type=${{ matrix.buildType.buildArgs }} --build-arg setup_args=${{ matrix.buildType.setupArgs }} --build-arg options=${{ matrix.buildType.optionalLibs }} --build-arg no_threads=${NR_JOBS}
       - name: Run Docker
         run: docker run -d -it --name ci movesrwth/stormpy:${{ matrix.buildType.dockerTag }}
       - name: Run tests
-        run: docker exec ci bash -c "cd /opt/stormpy; pip install -e '.[test]'; pytest"
+        run: docker exec ci bash -c "cd /opt/stormpy; pytest"
 
       - name: Login into docker
         # Only login if using master on original repo (and not for pull requests or forks)
@@ -116,7 +114,6 @@ jobs:
         if: matrix.buildType.name == 'Release'
         run: |
           docker exec ci apt-get install -qq -y pandoc
-          docker exec ci bash -c "cd /opt/stormpy; pip install -e '.[doc,numpy]'"
       - name: Build documentation
         if: matrix.buildType.name == 'Release'
         run: |
