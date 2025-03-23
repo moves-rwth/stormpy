@@ -65,7 +65,7 @@ jobs:
         id: build_stormpy
         shell: bash {0} // Deactivate fast-fail to handle exit code for incompatibility
         run: |
-          docker exec ci bash -c "cd /opt/stormpy; pip install -v --config-settings=cmake.define.CMAKE_BUILD_PARALLEL_LEVEL=${NR_JOBS} ${{ matrix.buildType.setupArgs }} .${{ matrix.buildType.optionalLibs }}"
+          docker exec ci bash -c "cd /opt/stormpy; pip install -v --config-settings=cmake.define.CMAKE_BUILD_PARALLEL_LEVEL=${NR_JOBS} --config-settings=cmake.define.CARLPARSER_DIR_HINT=/opt/carl-parser/build/ ${{ matrix.buildType.setupArgs }} .${{ matrix.buildType.optionalLibs }}"
           status=$?
           if [ $status -eq 1 ]; then
             # Warn about possible incompatibility but do not handle as failure

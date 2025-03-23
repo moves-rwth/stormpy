@@ -71,4 +71,4 @@ WORKDIR /opt/stormpy
 COPY . .
 
 # Build stormpy
-RUN pip install -v --config-settings=cmake.define.CMAKE_BUILD_PARALLEL_LEVEL=$no_threads $setup_args .$options
+RUN pip install -v --config-settings=cmake.define.CMAKE_BUILD_PARALLEL_LEVEL=$no_threads --config-settings=cmake.define.CARLPARSER_DIR_HINT=/opt/carl-parser/build/ $setup_args .$options
