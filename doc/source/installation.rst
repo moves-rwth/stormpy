@@ -21,7 +21,7 @@ You have two choices for stormpy depending on the version of Storm you are using
 1. **Release version**:
    You use the latest `release of Storm <https://github.com/moves-rwth/storm/releases>`_ or the ``stable`` branch.
    In these cases, you need to use the latest `release of stormpy <https://github.com/moves-rwth/stormpy/releases>`_.
-   For example, Storm 1.6.0 is compatible with stormpy 1.6.0.
+   For example, Storm |version| is compatible with stormpy |version|.
 
 2. **Master branch**:
    You use the ``master`` branch of Storm.
@@ -63,9 +63,9 @@ For the ``master`` of stormpy use::
 	$ git clone https://github.com/moves-rwth/stormpy.git
 	$ cd stormpy
 
-or for the latest release use (remember to use the correct version)::
+or for the latest release use the ``stable`` branch::
 
-	$ git clone https://github.com/moves-rwth/stormpy.git --branch 1.6.0
+	$ git clone https://github.com/moves-rwth/stormpy.git -b stable
 	$ cd stormpy
 
 **Build** stormpy in using your favourite python distribution way of installing: e.g.::

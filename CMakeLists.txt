@@ -119,21 +119,12 @@ endif()
 if (NOT STORM_USE_CLN_EA OR NOT STORM_USE_CLN_RF)
     set(PYCARL_IMPORTS "${PYCARL_IMPORTS}\nfrom stormpy.pycarl import gmp")
 endif()
-
-if ((USE_PARSER) AND (carlparser_FOUND))
-    set(CARL_WITH_PARSER "True")
-    set(PYCARL_HAS_PARSE TRUE)
-else()
-    set(CARL_WITH_PARSER "False")
-    set(PYCARL_HAS_PARSE FALSE)
-endif()
-if ((USE_CLN_NUMBERS) AND (CARL_USE_CLN_NUMBERS))
-    set(CARL_WITH_CLN "True")
-    set(PYCARL_HAS_CLN TRUE)
-else()
-    set(CARL_WITH_CLN "False")
-    set(PYCARL_HAS_CLN FALSE)
-endif()
+# Check support for carl-parser
+set(PYCARL_HAS_PARSE ((USE_PARSER) AND (carlparser_FOUND)))
+set_variable_string(CARL_WITH_PARSER PYCARL_HAS_PARSE)
+# Check support for CLN
+set(PYCARL_HAS_CLN ((USE_CLN_NUMBERS) AND (CARL_USE_CLN_NUMBERS)))
+set_variable_string(CARL_WITH_CLN PYCARL_HAS_CLN)
 
 # Set dependency variables
 set_dependency_var(SPOT)
