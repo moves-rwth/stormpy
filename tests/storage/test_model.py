@@ -272,3 +272,21 @@ class TestSymbolicSylvanModel:
         formulas = stormpy.parse_properties_for_prism_program("P=? [ F<=2 s=2 ]", program)
         with pytest.raises(Exception):
             model = stormpy.build_symbolic_model(program, formulas)
+
+    def test_build_ipomdp(self):
+        model = stormpy.build_interval_model_from_drn(get_example_path("ipomdp", "tiny-01.drn"))
+        assert model.nr_states == 4
+        assert model.nr_choices == 5
+        assert model.nr_transitions == 8
+        assert model.nr_observations == 3
+
+        for transition in model.transition_matrix.row_iter(0, 0):
+            if transition.column == 1:
+                assert transition.value().lower() == 0.2
+                assert transition.value().upper() == 0.7
+            elif transition.column == 2:
+                assert transition.value().lower() == 0.3
+                assert transition.value().upper() == 0.8
+
+        assert model.model_type == stormpy.ModelType.POMDP
+        assert type(model) is stormpy.SparseIntervalPomdp
