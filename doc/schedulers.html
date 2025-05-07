@@ -699,6 +699,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../api/dft.html#stormpy.dft.export_parametric_dft_json_file"><code class="docutils literal notranslate"><span class="pre">export_parametric_dft_json_file()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/dft.html#stormpy.dft.export_parametric_dft_json_string"><code class="docutils literal notranslate"><span class="pre">export_parametric_dft_json_string()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/dft.html#stormpy.dft.get_parameters"><code class="docutils literal notranslate"><span class="pre">get_parameters()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/dft.html#stormpy.dft.has_potential_modeling_issues"><code class="docutils literal notranslate"><span class="pre">has_potential_modeling_issues()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/dft.html#stormpy.dft.is_well_formed"><code class="docutils literal notranslate"><span class="pre">is_well_formed()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/dft.html#stormpy.dft.load_dft_galileo_file"><code class="docutils literal notranslate"><span class="pre">load_dft_galileo_file()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="../api/dft.html#stormpy.dft.load_dft_json_file"><code class="docutils literal notranslate"><span class="pre">load_dft_json_file()</span></code></a></li>
@@ -1463,7 +1464,7 @@ In state 126 () choose action 1 ()
 [counter=2      &amp; pc1=1     &amp; coin1=1   &amp; pc2=2     &amp; coin2=0]
 In state 127 (all_coins_equal_0, agree) choose action 0 ()
 [counter=2      &amp; pc1=0     &amp; coin1=0   &amp; pc2=3     &amp; coin2=0]
-In state 128 (finished, all_coins_equal_0, agree) choose action 0 (done)
+In state 128 (all_coins_equal_0, finished, agree) choose action 0 (done)
 [counter=2      &amp; pc1=3     &amp; coin1=0   &amp; pc2=3     &amp; coin2=0]
 In state 129 (all_coins_equal_0, agree) choose action 0 ()
 [counter=10     &amp; pc1=1     &amp; coin1=0   &amp; pc2=2     &amp; coin2=0]
@@ -1477,7 +1478,7 @@ In state 133 () choose action 0 ()
 [counter=10     &amp; pc1=1     &amp; coin1=1   &amp; pc2=2     &amp; coin2=0]
 In state 134 () choose action 0 ()
 [counter=10     &amp; pc1=0     &amp; coin1=0   &amp; pc2=3     &amp; coin2=1]
-In state 135 (all_coins_equal_1, finished, agree) choose action 0 (done)
+In state 135 (finished, all_coins_equal_1, agree) choose action 0 (done)
 [counter=10     &amp; pc1=3     &amp; coin1=1   &amp; pc2=3     &amp; coin2=1]
 In state 136 (all_coins_equal_0, agree) choose action 0 ()
 [counter=2      &amp; pc1=3     &amp; coin1=0   &amp; pc2=1     &amp; coin2=0]
@@ -1515,7 +1516,7 @@ In state 152 () choose action 0 ()
 [counter=11     &amp; pc1=3     &amp; coin1=1   &amp; pc2=2     &amp; coin2=0]
 In state 153 () choose action 0 ()
 [counter=11     &amp; pc1=2     &amp; coin1=0   &amp; pc2=3     &amp; coin2=1]
-In state 154 (finished, all_coins_equal_0, agree) choose action 0 (done)
+In state 154 (all_coins_equal_0, finished, agree) choose action 0 (done)
 [counter=1      &amp; pc1=3     &amp; coin1=0   &amp; pc2=3     &amp; coin2=0]
 In state 155 (all_coins_equal_0, agree) choose action 0 ()
 [counter=3      &amp; pc1=3     &amp; coin1=0   &amp; pc2=0     &amp; coin2=0]
@@ -1525,7 +1526,7 @@ In state 157 () choose action 0 ()
 [counter=9      &amp; pc1=0     &amp; coin1=0   &amp; pc2=3     &amp; coin2=1]
 In state 158 () choose action 0 ()
 [counter=9      &amp; pc1=3     &amp; coin1=1   &amp; pc2=0     &amp; coin2=0]
-In state 159 (all_coins_equal_1, finished, agree) choose action 0 (done)
+In state 159 (finished, all_coins_equal_1, agree) choose action 0 (done)
 [counter=11     &amp; pc1=3     &amp; coin1=1   &amp; pc2=3     &amp; coin2=1]
 In state 160 (all_coins_equal_0, agree) choose action 0 ()
 [counter=3      &amp; pc1=3     &amp; coin1=0   &amp; pc2=1     &amp; coin2=0]

@@ -696,6 +696,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.dft.export_parametric_dft_json_file"><code class="docutils literal notranslate"><span class="pre">export_parametric_dft_json_file()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.dft.export_parametric_dft_json_string"><code class="docutils literal notranslate"><span class="pre">export_parametric_dft_json_string()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.dft.get_parameters"><code class="docutils literal notranslate"><span class="pre">get_parameters()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#stormpy.dft.has_potential_modeling_issues"><code class="docutils literal notranslate"><span class="pre">has_potential_modeling_issues()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.dft.is_well_formed"><code class="docutils literal notranslate"><span class="pre">is_well_formed()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.dft.load_dft_galileo_file"><code class="docutils literal notranslate"><span class="pre">load_dft_galileo_file()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#stormpy.dft.load_dft_json_file"><code class="docutils literal notranslate"><span class="pre">load_dft_json_file()</span></code></a></li>
@@ -979,6 +980,7 @@
 <li><a class="reference internal" href="#stormpy.dft.export_parametric_dft_json_file"><code class="docutils literal notranslate"><span class="pre">export_parametric_dft_json_file()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.dft.export_parametric_dft_json_string"><code class="docutils literal notranslate"><span class="pre">export_parametric_dft_json_string()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.dft.get_parameters"><code class="docutils literal notranslate"><span class="pre">get_parameters()</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.dft.has_potential_modeling_issues"><code class="docutils literal notranslate"><span class="pre">has_potential_modeling_issues()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.dft.is_well_formed"><code class="docutils literal notranslate"><span class="pre">is_well_formed()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.dft.load_dft_galileo_file"><code class="docutils literal notranslate"><span class="pre">load_dft_galileo_file()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.dft.load_dft_json_file"><code class="docutils literal notranslate"><span class="pre">load_dft_json_file()</span></code></a></li>
@@ -1226,6 +1228,7 @@
 <li><a class="reference internal" href="#stormpy.dft.export_parametric_dft_json_file"><code class="docutils literal notranslate"><span class="pre">export_parametric_dft_json_file()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.dft.export_parametric_dft_json_string"><code class="docutils literal notranslate"><span class="pre">export_parametric_dft_json_string()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.dft.get_parameters"><code class="docutils literal notranslate"><span class="pre">get_parameters()</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.dft.has_potential_modeling_issues"><code class="docutils literal notranslate"><span class="pre">has_potential_modeling_issues()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.dft.is_well_formed"><code class="docutils literal notranslate"><span class="pre">is_well_formed()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.dft.load_dft_galileo_file"><code class="docutils literal notranslate"><span class="pre">load_dft_galileo_file()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.dft.load_dft_json_file"><code class="docutils literal notranslate"><span class="pre">load_dft_json_file()</span></code></a></li>
@@ -1736,7 +1739,7 @@ Overloaded function.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.dft.DFT_double.state_generation_info">
-<span class="sig-name descname"><span class="pre">state_generation_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.dft.dft.DFT_double</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symmetries:</span> <span class="pre">stormpy.dft.dft.DftSymmetries</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.dft.dft.DftSymmetries</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7fcdc41e9ef0&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">storm::dft::storage::DFTStateGenerationInfo</span></span></span><a class="headerlink" href="#stormpy.dft.DFT_double.state_generation_info" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">state_generation_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.dft.dft.DFT_double</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symmetries:</span> <span class="pre">stormpy.dft.dft.DftSymmetries</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.dft.dft.DftSymmetries</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f6a8727cd70&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">storm::dft::storage::DFTStateGenerationInfo</span></span></span><a class="headerlink" href="#stormpy.dft.DFT_double.state_generation_info" title="Link to this definition">¶</a></dt>
 <dd><p>Build state generation information</p>
 </dd></dl>
 
@@ -1812,7 +1815,7 @@ Overloaded function.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.dft.DFT_ratfunc.state_generation_info">
-<span class="sig-name descname"><span class="pre">state_generation_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.dft.dft.DFT_ratfunc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symmetries:</span> <span class="pre">stormpy.dft.dft.DftSymmetries</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.dft.dft.DftSymmetries</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7fcdc41d2170&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">storm::dft::storage::DFTStateGenerationInfo</span></span></span><a class="headerlink" href="#stormpy.dft.DFT_ratfunc.state_generation_info" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">state_generation_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.dft.dft.DFT_ratfunc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">symmetries:</span> <span class="pre">stormpy.dft.dft.DftSymmetries</span> <span class="pre">=</span> <span class="pre">&lt;stormpy.dft.dft.DftSymmetries</span> <span class="pre">object</span> <span class="pre">at</span> <span class="pre">0x7f6a8727df70&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">storm::dft::storage::DFTStateGenerationInfo</span></span></span><a class="headerlink" href="#stormpy.dft.DFT_ratfunc.state_generation_info" title="Link to this definition">¶</a></dt>
 <dd><p>Build state generation information</p>
 </dd></dl>
 
@@ -2132,6 +2135,11 @@ Overloaded function.</p>
 <span class="sig-name descname"><span class="pre">get_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dft:</span> <span class="pre">storm::dft::storage::DFT&lt;carl::RationalFunction&lt;carl::FactorizedPolynomial&lt;carl::MultivariatePolynomial&lt;cln::cl_RA</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">carl::NotRelevant</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">carl::StdMultivariatePolynomialPolicies&lt;0&gt;</span> <span class="pre">&gt;</span> <span class="pre">&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">true&gt;</span> <span class="pre">&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Set</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pycarl/core.html#stormpy.pycarl.Variable" title="stormpy.pycarl.pycarl_core.Variable"><span class="pre">stormpy.pycarl.pycarl_core.Variable</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#stormpy.dft.get_parameters" title="Link to this definition">¶</a></dt>
 <dd><p>Collect parameters in parametric DFT</p>
 </dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stormpy.dft.has_potential_modeling_issues">
+<span class="sig-name descname"><span class="pre">has_potential_modeling_issues</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ft</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.dft.has_potential_modeling_issues" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="stormpy.dft.is_well_formed">
