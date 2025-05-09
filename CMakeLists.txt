@@ -82,8 +82,8 @@ if (carlparser_FOUND)
     check_hint("carl-parser" ${carlparser_DIR} "${CARLPARSER_DIR_HINT}" "")
 endif()
 
+# Set variables
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/lib/stormpy")
-
 # This sets interprocedural optimization off as this leads to some problems on some systems
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION OFF)
 # This sets the default visibility from hidden to default,
@@ -168,25 +168,59 @@ set_optional_lib_var(POMDP)
 
 
 # Helper functions
-function(stormpy_module NAME)
-    file(GLOB_RECURSE "STORM_${NAME}_SOURCES" "${CMAKE_CURRENT_SOURCE_DIR}/src/${NAME}/*.cpp")
-    pybind11_add_module(${NAME} "${CMAKE_CURRENT_SOURCE_DIR}/src/mod_${NAME}.cpp" ${STORM_${NAME}_SOURCES})
-    target_include_directories(${NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${storm_INCLUDE_DIR} ${storm-parsers_INCLUDE_DIR} ${storm-counterexamples_INCLUDE_DIR} ${storm-version-info_INCLUDE_DIR} ${CMAKE_CURRENT_BINARY_DIR}/src)
-    target_link_libraries(${NAME} PRIVATE storm storm-parsers storm-counterexamples storm-version-info )
-    if (NOT (${NAME} STREQUAL "core"))
-        set_target_properties(${NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/${NAME}")
-    endif()
-endfunction(stormpy_module)
+######
+# Helper function to build a general module
+function(build_module MOD_NAME # Module name
+                      OUT_DIR OUT_NAME # Output directory and name for library
+                      MOD_FILE SOURCE_PATH # Module source file and regex for all module source files
+                      ADDITIONAL_INCLUDES ADDITIONAL_LIBS) # Additional include directories and libraries
+    file(GLOB_RECURSE "${MOD_NAME}_SOURCES" "${CMAKE_CURRENT_SOURCE_DIR}/src/${SOURCE_PATH}")
+    pybind11_add_module(${MOD_NAME} "${CMAKE_CURRENT_SOURCE_DIR}/src/${MOD_FILE}" ${${MOD_NAME}_SOURCES})
+    target_include_directories(${MOD_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${ADDITIONAL_INCLUDES} ${CMAKE_CURRENT_BINARY_DIR}/src)
+    target_link_libraries(${MOD_NAME} PRIVATE ${ADDITIONAL_LIBS})
+    set_target_properties(${MOD_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/${OUT_DIR}" OUTPUT_NAME "${OUT_NAME}")
+endfunction(build_module)
 
-function(stormpy_optional_module NAME ADDITIONAL_LIBS ADDITIONAL_INCLUDES)
-    file(GLOB_RECURSE "STORM_${NAME}_SOURCES" "${CMAKE_CURRENT_SOURCE_DIR}/src/${NAME}/*.cpp")
-    pybind11_add_module(${NAME} "${CMAKE_CURRENT_SOURCE_DIR}/src/mod_${NAME}.cpp" ${STORM_${NAME}_SOURCES})
-    target_include_directories(${NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${storm_INCLUDE_DIR} ${storm-parsers_INCLUDE_DIR} ${storm-counterexamples_INCLUDE_DIR} ${storm-version-info_INCLUDE_DIR} ${ADDITIONAL_INCLUDES} ${CMAKE_CURRENT_BINARY_DIR}/src)
-    target_link_libraries(${NAME} PRIVATE storm storm-parsers storm-counterexamples storm-version-info ${ADDITIONAL_LIBS})
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/${NAME}_config.py.in ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/${NAME}/_config.py @ONLY)
-    set_target_properties(${NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/${NAME}")
+# Helper function to build stormpy module
+function(stormpy_module MOD_NAME OUT_DIR ADDITIONAL_INCLUDES ADDITIONAL_LIBS)
+    build_module("storm_${MOD_NAME}"
+                 "${OUT_DIR}" "${MOD_NAME}"
+                 "mod_${MOD_NAME}.cpp" "${MOD_NAME}/*.cpp"
+                 "${storm_INCLUDE_DIR};${storm-parsers_INCLUDE_DIR};${ADDITIONAL_INCLUDES}"
+                 "storm;storm-parsers;${ADDITIONAL_LIBS}")
+endfunction(stormpy_module)
+# Helper function to build an optional stormpy module (if supported and required)
+function(stormpy_optional_module MOD_NAME DESCRIPTION)
+    string(TOUPPER "${MOD_NAME}" LIB_NAME)
+    if(HAVE_STORM_${LIB_NAME} AND USE_STORM_${LIB_NAME})
+        build_module("storm_${MOD_NAME}"
+                 "${MOD_NAME}" "${MOD_NAME}"
+                 "mod_${MOD_NAME}.cpp" "${MOD_NAME}/*.cpp"
+                 "${storm_INCLUDE_DIR};${storm-parsers_INCLUDE_DIR};${storm-${MOD_NAME}_INCLUDE_DIR}"
+                 "storm;storm-parsers;storm-${MOD_NAME}")
+        configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/${MOD_NAME}_config.py.in ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/${MOD_NAME}/_config.py @ONLY)
+        MESSAGE(STATUS "Stormpy - Support for ${DESCRIPTION} found and included.")
+    else()
+        MESSAGE(WARNING "Stormpy - No support for ${DESCRIPTION}!")
+    endif()
 endfunction(stormpy_optional_module)
 
+# Helper function to build a pycarl module
+function(pycarl_module MOD_NAME ADDITIONAL_INCLUDES ADDITIONAL_LIBS)
+    build_module("pycarl_${MOD_NAME}"
+                 "pycarl/${MOD_NAME}" "${MOD_NAME}"
+                 "pycarl/mod_${MOD_NAME}.cpp" "pycarl/${MOD_NAME}/*.cpp"
+                 "${carl_INCLUDE_DIR};${ADDITIONAL_INCLUDES}"
+                 "lib_carl;${ADDITIONAL_LIBS}")
+endfunction(pycarl_module)
+# Helper function to build an optional pycarl module
+function(pycarl_typed_module MOD_NAME TYPE ADDITIONAL_INCLUDES ADDITIONAL_LIBS)
+    build_module("pycarl_${MOD_NAME}_${TYPE}"
+                 "pycarl/${TYPE}/${MOD_NAME}" "${MOD_NAME}"
+                 "pycarl/mod_typed_${MOD_NAME}.cpp" "pycarl/typed_${MOD_NAME}/*.cpp"
+                 "${carl_INCLUDE_DIR};${ADDITIONAL_INCLUDES}"
+                 "lib_carl;${ADDITIONAL_LIBS}")
+endfunction(pycarl_typed_module)
 
 # Generate stormpy definitions used during compilation
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/config.h.in ${CMAKE_CURRENT_BINARY_DIR}/src/config.h)
@@ -194,125 +228,63 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/config.h.in ${CMAKE_CURRENT_BINAR
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/pycarl/definitions.h.in ${CMAKE_CURRENT_BINARY_DIR}/src/pycarl/definitions.h)
 
 
-# Stormpy
+# Build stormpy
 ######
 # Build stormpy modules
-stormpy_module(core)
+stormpy_module(core "" "${storm-counterexamples_INCLUDE_DIR}" storm-counterexamples)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/core_config.py.in ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/_config.py @ONLY)
-stormpy_module(info)
+stormpy_module(info info "${storm-version-info_INCLUDE_DIR}" storm-version-info)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/info_config.py.in ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/info/_config.py @ONLY)
-stormpy_module(logic)
-stormpy_module(storage)
-stormpy_module(utility)
+stormpy_module(logic logic "" "")
+stormpy_module(storage storage "" "")
+stormpy_module(utility utility "" "")
 
-# Build optional modules
-if(HAVE_STORM_DFT AND USE_STORM_DFT)
-    stormpy_optional_module(dft storm-dft "${storm-dft_INCLUDE_DIR}")
-    MESSAGE(STATUS "Stormpy - Support for DFT found and included.")
-else()
-    MESSAGE(WARNING "Stormpy - No support for DFT!")
-endif()
-if(HAVE_STORM_GSPN AND USE_STORM_GSPN)
-    stormpy_optional_module(gspn storm-gspn "${storm-gspn_INCLUDE_DIR}")
-    MESSAGE(STATUS "Stormpy - Support for GSPN found and included.")
-else()
-    MESSAGE(WARNING "Stormpy - No support for GSPN!")
-endif()
-if(HAVE_STORM_PARS AND USE_STORM_PARS)
-    stormpy_optional_module(pars storm-pars "${storm-pars_INCLUDE_DIR}")
-    MESSAGE(STATUS "Stormpy - Support for parametric models found and included.")
-else()
-    MESSAGE(WARNING "Stormpy - No support for parametric models!")
-endif()
-if(HAVE_STORM_POMDP AND USE_STORM_POMDP)
-    stormpy_optional_module(pomdp storm-pomdp "${storm-pomdp_INCLUDE_DIR}")
-    MESSAGE(STATUS "Stormpy - Support for POMDP found and included.")
-else()
-    MESSAGE(WARNING "Stormpy - No support for POMDP!")
-endif()
+# Build optional stormpy modules
+stormpy_optional_module(dft "DFT")
+stormpy_optional_module(gspn "GSPN")
+stormpy_optional_module(pars "parametric models")
+stormpy_optional_module(pomdp "POMDP")
 
-
-# Pycarl core
+# Build pycarl modules
 ######
-file(GLOB_RECURSE pycarl_core_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/pycarl/pycarl_core/*.cpp)
-pybind11_add_module(pycarl_core ${CMAKE_CURRENT_SOURCE_DIR}/src/pycarl/mod_core.cpp ${pycarl_core_SOURCES})
-target_include_directories(pycarl_core PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}/src/)
-target_link_libraries(pycarl_core PRIVATE lib_carl)
-set_target_properties(pycarl_core PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/pycarl" OUTPUT_NAME "pycarl_core")
+# Pycarl core
+build_module(pycarl_core
+             "pycarl" "pycarl_core"
+             "pycarl/mod_core.cpp" "pycarl/pycarl_core/*.cpp"
+             "${carl_INCLUDE_DIR}"
+             lib_carl)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/pycarl_core_config.py.in ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/pycarl/_config.py @ONLY)
-
-# Typed core
-file(GLOB_RECURSE PYCARL_TYPED_CORE_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/pycarl/typed_core/*.cpp)
-# GMP
-pybind11_add_module(pycarl.gmp ${CMAKE_CURRENT_SOURCE_DIR}/src/pycarl/mod_gmp.cpp ${PYCARL_TYPED_CORE_SOURCES})
-target_include_directories(pycarl.gmp PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}/src)
-target_link_libraries(pycarl.gmp PRIVATE lib_carl)
-set_target_properties(pycarl.gmp PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/pycarl/gmp" OUTPUT_NAME "gmp")
-# CLN
+build_module(pycarl_gmp
+             "pycarl/gmp" "gmp"
+             "pycarl/mod_gmp.cpp" "pycarl/typed_core/*.cpp"
+             "${carl_INCLUDE_DIR}"
+             lib_carl)
 if (PYCARL_HAS_CLN)
-    pybind11_add_module(pycarl.cln ${CMAKE_CURRENT_SOURCE_DIR}/src/pycarl/mod_cln.cpp ${PYCARL_TYPED_CORE_SOURCES})
-    target_include_directories(pycarl.cln PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}/src)
-    target_link_libraries(pycarl.cln PRIVATE lib_carl)
-    target_compile_definitions(pycarl.cln PUBLIC "PYCARL_USE_CLN=ON")
-    set_target_properties(pycarl.cln PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/pycarl/cln" OUTPUT_NAME "cln")
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/pycarl_cln_config.py.in ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/pycarl/cln/_config.py @ONLY)
+    build_module(pycarl_cln
+                 "pycarl/cln" "cln"
+                 "pycarl/mod_cln.cpp" "pycarl/typed_core/*.cpp"
+                 "${carl_INCLUDE_DIR}"
+                 lib_carl)
+    target_compile_definitions(pycarl_cln PUBLIC "PYCARL_USE_CLN=ON")
 endif()
-
 
 # Pycarl formula
-#########
-file(GLOB_RECURSE PYCARL_FORMULA_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/pycarl/formula/*.cpp)
-pybind11_add_module(pycarl.formula ${CMAKE_CURRENT_SOURCE_DIR}/src/pycarl/mod_formula.cpp ${PYCARL_FORMULA_SOURCES})
-target_include_directories(pycarl.formula PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}  ${CMAKE_CURRENT_BINARY_DIR}/src)
-target_link_libraries(pycarl.formula PRIVATE lib_carl)
-set_target_properties(pycarl.formula PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/pycarl/formula" OUTPUT_NAME "formula")
-
-# Typed formula
-file(GLOB_RECURSE PYCARL_TYPED_FORMULA_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/pycarl/typed_formula/*.cpp)
-# GMP
-pybind11_add_module(pycarl.formula-gmp ${CMAKE_CURRENT_SOURCE_DIR}/src/pycarl/mod_typed_formula.cpp ${PYCARL_TYPED_FORMULA_SOURCES})
-target_include_directories(pycarl.formula-gmp PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}  ${CMAKE_CURRENT_BINARY_DIR}/src)
-target_link_libraries(pycarl.formula-gmp PRIVATE lib_carl)
-set_target_properties(pycarl.formula-gmp PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/pycarl/gmp/formula" OUTPUT_NAME "formula")
-# CLN
+pycarl_module(formula "" "")
+pycarl_typed_module(formula gmp "" "")
 if (PYCARL_HAS_CLN)
-    pybind11_add_module(pycarl.formula-cln ${CMAKE_CURRENT_SOURCE_DIR}/src/pycarl/mod_typed_formula.cpp ${PYCARL_TYPED_FORMULA_SOURCES})
-    target_include_directories(pycarl.formula-cln PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}  ${CMAKE_CURRENT_BINARY_DIR}/src)
-    target_link_libraries(pycarl.formula-cln PRIVATE lib_carl)
-    target_compile_definitions(pycarl.formula-cln PUBLIC "PYCARL_USE_CLN=ON")
-    set_target_properties(pycarl.formula-cln PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/pycarl/cln/formula" OUTPUT_NAME "formula")
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/pycarl_cln_config.py.in ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/pycarl/cln/formula/_config.py @ONLY)
+    pycarl_typed_module(formula cln "" "")
+    target_compile_definitions(pycarl_formula_cln PUBLIC "PYCARL_USE_CLN=ON")
 endif()
 
 # Pycarl parse
-# #######
 if (PYCARL_HAS_PARSE)
     MESSAGE(STATUS "Stormpy - Support for carl-parser found and included.")
-
-    file(GLOB_RECURSE PYCARL_PARSE_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/pycarl/parse/*.cpp)
-
-    pybind11_add_module(pycarl.parse ${CMAKE_CURRENT_SOURCE_DIR}/src/pycarl/mod_parse.cpp ${PYCARL_PARSE_SOURCES})
-    target_include_directories(pycarl.parse PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}  ${CMAKE_CURRENT_BINARY_DIR}/src)
-    target_link_libraries(pycarl.parse PRIVATE lib_carl carl-parser)
-    set_target_properties(pycarl.parse PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/pycarl/parse" OUTPUT_NAME "parse")
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/pycarl_parser_config.py.in ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/pycarl/parse/_config.py @ONLY)
-
-    # Typed parse
-    file(GLOB_RECURSE PYCARL_TYPED_PARSE_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/pycarl/typed_parse/*.cpp)
-    # GMP
-    pybind11_add_module(pycarl.parse-gmp ${CMAKE_CURRENT_SOURCE_DIR}/src/pycarl/mod_typed_parse.cpp ${PYCARL_TYPED_PARSE_SOURCES})
-    target_include_directories(pycarl.parse-gmp PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}/src)
-    target_link_libraries(pycarl.parse-gmp PRIVATE lib_carl carl-parser)
-    set_target_properties(pycarl.parse-gmp PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/pycarl/gmp/parse" OUTPUT_NAME "parse")
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/pycarl_parser_config.py.in ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/pycarl/gmp/parse/_config.py @ONLY)
-    # CLN
+    pycarl_module(parse "${carlparser_INCLUDE_DIR}" carl-parser)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/pycarl_parse_config.py.in ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/pycarl/parse/_config.py @ONLY)
+    pycarl_typed_module(parse gmp "${carlparser_INCLUDE_DIR}" carl-parser)
     if (PYCARL_HAS_CLN)
-        pybind11_add_module(pycarl.parse-cln ${CMAKE_CURRENT_SOURCE_DIR}/src/pycarl/mod_typed_parse.cpp ${PYCARL_TYPED_PARSE_SOURCES})
-        target_include_directories(pycarl.parse-cln PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_BINARY_DIR}/src)
-        target_link_libraries(pycarl.parse-cln PRIVATE lib_carl carl-parser)
-        target_compile_definitions(pycarl.parse-cln PUBLIC "PYCARL_USE_CLN=ON")
-        set_target_properties(pycarl.parse-cln PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/pycarl/cln/parse" OUTPUT_NAME "parse")
-        configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/pycarl_parser_config.py.in ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/pycarl/cln/parse/_config.py @ONLY)
+        pycarl_typed_module(parse cln "${carlparser_INCLUDE_DIR}" carl-parser)
+        target_compile_definitions(pycarl_parse_cln PUBLIC "PYCARL_USE_CLN=ON")
     endif()
 else()
     MESSAGE(WARNING "Stormpy - No support for carl-parser")
