@@ -179,6 +179,7 @@ function(build_module MOD_NAME # Module name
     target_include_directories(${MOD_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${ADDITIONAL_INCLUDES} ${CMAKE_CURRENT_BINARY_DIR}/src)
     target_link_libraries(${MOD_NAME} PRIVATE ${ADDITIONAL_LIBS})
     set_target_properties(${MOD_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/${OUT_DIR}" OUTPUT_NAME "${OUT_NAME}")
+    install(TARGETS ${MOD_NAME} DESTINATION ${OUT_DIR})
 endfunction(build_module)
 
 # Helper function to build stormpy module
@@ -244,7 +245,7 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/pycarl/definitions.h.in ${CMAKE_C
 # Build stormpy
 ######
 # Build stormpy modules
-stormpy_module(core "" "${storm-counterexamples_INCLUDE_DIR}" storm-counterexamples)
+stormpy_module(core "." "${storm-counterexamples_INCLUDE_DIR}" storm-counterexamples)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/core_config.py.in ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/_config.py @ONLY)
 stormpy_module(info info "${storm-version-info_INCLUDE_DIR}" storm-version-info)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/info_config.py.in ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/info/_config.py @ONLY)
