@@ -44,21 +44,43 @@ include(resources/include_pybind11.cmake)
 #find_package(pybind11 ${PYBIND_VERSION} EXACT CONFIG REQUIRED)
 message(STATUS "Stormpy - Using pybind11 version ${pybind11_VERSION}")
 
-# Find Storm and carl
+# Helper function to print path where library was found and check whether hint was used
+function(check_hint NAME DIR_FOUND HINT_DIR FOUND_VERSION)
+    # Get absolute path
+    get_filename_component(PATH_FOUND ${DIR_FOUND} ABSOLUTE)
+    # Print path
+    if (NOT "${FOUND_VERSION}" STREQUAL "")
+        message(STATUS "Stormpy - Using ${NAME} version ${FOUND_VERSION} from ${PATH_FOUND}")
+    else()
+        message(STATUS "Stormpy - Using ${NAME} from ${PATH_FOUND}")
+    endif()
+
+    # Check that hint was used
+    if (NOT "${HINT_DIR}" STREQUAL "")
+        get_filename_component(PATH_HINT ${HINT_DIR} ABSOLUTE)
+        if (NOT "${PATH_FOUND}" STREQUAL "${PATH_HINT}")
+            MESSAGE(SEND_ERROR "Stormpy - Using different ${NAME} directory ${PATH_HINT} instead of given ${HINT_DIR}!")
+        endif()
+    endif()
+endfunction(check_hint)
+
+# Find Storm
 set(STORM_MIN_VERSION "1.9.1")
 find_package(storm REQUIRED HINTS ${STORM_DIR_HINT})
-message(STATUS "Stormpy - Using Storm version ${storm_VERSION} from ${storm_DIR}")
+check_hint("Storm" ${storm_DIR} "${STORM_DIR_HINT}" ${storm_VERSION})
 # Check Storm version
 if (${storm_VERSION} VERSION_LESS ${STORM_MIN_VERSION})
     MESSAGE(FATAL_ERROR "Stormpy - Storm version ${storm_VERSION} from ${storm_DIR} is not supported anymore!\nStormpy requires at least Storm version >= ${STORM_MIN_VERSION}.\nFor more information, see https://moves-rwth.github.io/stormpy/installation.html#compatibility-of-stormpy-and-storm")
 endif()
-if (NOT ${STORM_DIR_HINT} STREQUAL "")
-    if (NOT ${storm_DIR} STREQUAL ${STORM_DIR_HINT})
-        MESSAGE(SEND_ERROR "Stormpy - Using different Storm directory ${storm_DIR} instead of given ${STORM_DIR_HINT}!")
-    endif()
-endif()
+
+# Find carl-storm and (optionally) carl-parser
 find_package(carl REQUIRED HINTS ${CARL_DIR_HINT})
+check_hint("carl" ${carl_DIR} "${CARL_DIR_HINT}" ${carl_VERSION})
+
 find_package(carlparser QUIET HINTS ${CARLPARSER_DIR_HINT})
+if (carlparser_FOUND)
+    check_hint("carl-parser" ${carlparser_DIR} "${CARLPARSER_DIR_HINT}" "")
+endif()
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/lib/stormpy")
 
