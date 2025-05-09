@@ -182,22 +182,29 @@ function(build_module MOD_NAME # Module name
 endfunction(build_module)
 
 # Helper function to build stormpy module
-function(stormpy_module MOD_NAME OUT_DIR ADDITIONAL_INCLUDES ADDITIONAL_LIBS)
-    build_module("storm_${MOD_NAME}"
-                 "${OUT_DIR}" "${MOD_NAME}"
-                 "mod_${MOD_NAME}.cpp" "${MOD_NAME}/*.cpp"
+function(build_stormpy_module MOD_NAME OUT_DIR OUT_NAME MOD_FILE SOURCE_PATH ADDITIONAL_INCLUDES ADDITIONAL_LIBS)
+    build_module("${MOD_NAME}"
+                 "${OUT_DIR}" "${OUT_NAME}"
+                 "${MOD_FILE}" "${SOURCE_PATH}"
                  "${storm_INCLUDE_DIR};${storm-parsers_INCLUDE_DIR};${ADDITIONAL_INCLUDES}"
                  "storm;storm-parsers;${ADDITIONAL_LIBS}")
+endfunction(build_stormpy_module)
+function(stormpy_module MOD_NAME OUT_DIR ADDITIONAL_INCLUDES ADDITIONAL_LIBS)
+    build_stormpy_module("stormpy_${MOD_NAME}"
+                         "${OUT_DIR}" "${MOD_NAME}"
+                         "mod_${MOD_NAME}.cpp" "${MOD_NAME}/*.cpp"
+                         "${ADDITIONAL_INCLUDES}"
+                         "${ADDITIONAL_LIBS}")
 endfunction(stormpy_module)
 # Helper function to build an optional stormpy module (if supported and required)
 function(stormpy_optional_module MOD_NAME DESCRIPTION)
     string(TOUPPER "${MOD_NAME}" LIB_NAME)
     if(HAVE_STORM_${LIB_NAME} AND USE_STORM_${LIB_NAME})
-        build_module("storm_${MOD_NAME}"
-                 "${MOD_NAME}" "${MOD_NAME}"
-                 "mod_${MOD_NAME}.cpp" "${MOD_NAME}/*.cpp"
-                 "${storm_INCLUDE_DIR};${storm-parsers_INCLUDE_DIR};${storm-${MOD_NAME}_INCLUDE_DIR}"
-                 "storm;storm-parsers;storm-${MOD_NAME}")
+        build_stormpy_module("stormpy_${MOD_NAME}"
+                             "${MOD_NAME}" "${MOD_NAME}"
+                             "mod_${MOD_NAME}.cpp" "${MOD_NAME}/*.cpp"
+                             "${storm-${MOD_NAME}_INCLUDE_DIR}"
+                             "storm-${MOD_NAME}")
         configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/${MOD_NAME}_config.py.in ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/${MOD_NAME}/_config.py @ONLY)
         MESSAGE(STATUS "Stormpy - Support for ${DESCRIPTION} found and included.")
     else()
@@ -206,20 +213,27 @@ function(stormpy_optional_module MOD_NAME DESCRIPTION)
 endfunction(stormpy_optional_module)
 
 # Helper function to build a pycarl module
-function(pycarl_module MOD_NAME ADDITIONAL_INCLUDES ADDITIONAL_LIBS)
-    build_module("pycarl_${MOD_NAME}"
-                 "pycarl/${MOD_NAME}" "${MOD_NAME}"
-                 "pycarl/mod_${MOD_NAME}.cpp" "pycarl/${MOD_NAME}/*.cpp"
+function(build_pycarl_module MOD_NAME OUT_DIR OUT_NAME MOD_FILE SOURCE_PATH ADDITIONAL_INCLUDES ADDITIONAL_LIBS)
+    build_module("${MOD_NAME}"
+                 "${OUT_DIR}" "${OUT_NAME}"
+                 "${MOD_FILE}" "${SOURCE_PATH}"
                  "${carl_INCLUDE_DIR};${ADDITIONAL_INCLUDES}"
                  "lib_carl;${ADDITIONAL_LIBS}")
+endfunction(build_pycarl_module)
+function(pycarl_module MOD_NAME ADDITIONAL_INCLUDES ADDITIONAL_LIBS)
+    build_pycarl_module("pycarl_${MOD_NAME}"
+                        "pycarl/${MOD_NAME}" "${MOD_NAME}"
+                        "pycarl/mod_${MOD_NAME}.cpp" "pycarl/${MOD_NAME}/*.cpp"
+                        "${ADDITIONAL_INCLUDES}"
+                        "${ADDITIONAL_LIBS}")
 endfunction(pycarl_module)
 # Helper function to build an optional pycarl module
 function(pycarl_typed_module MOD_NAME TYPE ADDITIONAL_INCLUDES ADDITIONAL_LIBS)
-    build_module("pycarl_${MOD_NAME}_${TYPE}"
-                 "pycarl/${TYPE}/${MOD_NAME}" "${MOD_NAME}"
-                 "pycarl/mod_typed_${MOD_NAME}.cpp" "pycarl/typed_${MOD_NAME}/*.cpp"
-                 "${carl_INCLUDE_DIR};${ADDITIONAL_INCLUDES}"
-                 "lib_carl;${ADDITIONAL_LIBS}")
+    build_pycarl_module("pycarl_${MOD_NAME}_${TYPE}"
+                        "pycarl/${TYPE}/${MOD_NAME}" "${MOD_NAME}"
+                        "pycarl/mod_typed_${MOD_NAME}.cpp" "pycarl/typed_${MOD_NAME}/*.cpp"
+                        "${ADDITIONAL_INCLUDES}"
+                        "${ADDITIONAL_LIBS}")
 endfunction(pycarl_typed_module)
 
 # Generate stormpy definitions used during compilation
@@ -248,23 +262,23 @@ stormpy_optional_module(pomdp "POMDP")
 # Build pycarl modules
 ######
 # Pycarl core
-build_module(pycarl_core
-             "pycarl" "pycarl_core"
-             "pycarl/mod_core.cpp" "pycarl/pycarl_core/*.cpp"
-             "${carl_INCLUDE_DIR}"
-             lib_carl)
+build_pycarl_module(pycarl_core
+                    "pycarl" "pycarl_core"
+                    "pycarl/mod_core.cpp" "pycarl/core/*.cpp"
+                    ""
+                    "")
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/cmake/pycarl_core_config.py.in ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/pycarl/_config.py @ONLY)
-build_module(pycarl_gmp
-             "pycarl/gmp" "gmp"
-             "pycarl/mod_gmp.cpp" "pycarl/typed_core/*.cpp"
-             "${carl_INCLUDE_DIR}"
-             lib_carl)
+build_pycarl_module(pycarl_gmp
+                    "pycarl/gmp" "gmp"
+                    "pycarl/mod_gmp.cpp" "pycarl/typed_core/*.cpp"
+                    ""
+                    "")
 if (PYCARL_HAS_CLN)
-    build_module(pycarl_cln
-                 "pycarl/cln" "cln"
-                 "pycarl/mod_cln.cpp" "pycarl/typed_core/*.cpp"
-                 "${carl_INCLUDE_DIR}"
-                 lib_carl)
+    build_pycarl_module(pycarl_cln
+                        "pycarl/cln" "cln"
+                        "pycarl/mod_cln.cpp" "pycarl/typed_core/*.cpp"
+                        ""
+                        "")
     target_compile_definitions(pycarl_cln PUBLIC "PYCARL_USE_CLN=ON")
 endif()
 
