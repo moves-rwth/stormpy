@@ -90,6 +90,17 @@ set(CMAKE_INTERPROCEDURAL_OPTIMIZATION OFF)
 # which is recommended *not* to do, but leads to errors otherwise.
 set(CMAKE_CXX_VISIBILITY_PRESET "default")
 
+# RPATH settings (https://gitlab.kitware.com/cmake/community/-/wikis/doc/cmake/RPATH-handling#always-full-rpath)
+# don't skip the full RPATH for the build tree
+SET(CMAKE_SKIP_BUILD_RPATH  FALSE)
+# when building, don't use the install RPATH already (but only when installing)
+SET(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
+# the RPATH to be used when installing
+SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
+# don't add the automatically determined parts of the RPATH
+# which point to directories outside the build tree to the install RPATH
+SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+
 
 # Workaround for issue with Boost >= 1.81
 find_package(Boost 1.65.1 QUIET REQUIRED COMPONENTS filesystem system)
