@@ -162,7 +162,7 @@ class TestMatrix:
         assert matrix.nr_entries == 436
         assert matrix.nr_entries == model.nr_transitions
 
-        assert matrix.nr_states != matrix.nr_columns
+        assert matrix.nr_rows != matrix.nr_columns
 
         row_constraint = stormpy.BitVector(254, [0, 1, 3, 4, 7, 8, 9])
         submatrix = matrix.submatrix(row_constraint, row_constraint, use_groups=False)
