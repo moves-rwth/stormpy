@@ -9,7 +9,6 @@ The following steps should be performed when releasing a new stormpy version.
 
 2. Update used tool versions:
    * Update `storm_min_version` in `setup.py`
-   * Update `install_requires`/`setup_requires` version of pycarl in `setup.py`
 
 3. Check that stormpy builds without errors and all tests are successful
    * [Github Actions](https://github.com/moves-rwth/stormpy/actions) should run successfully
