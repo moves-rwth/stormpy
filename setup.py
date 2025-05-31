@@ -13,7 +13,7 @@ if sys.version_info[0] == 2:
     sys.exit("Sorry, Python 2.x is not supported")
 
 # Minimal storm version required
-storm_min_version = "1.9.1"
+storm_min_version = "1.10.0"
 # Minimal carl version required
 carl_min_version = "14.23"
 carl_storm_version_prefix = "14."
