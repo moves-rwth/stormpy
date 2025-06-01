@@ -49,7 +49,7 @@ RUN mkdir -p /opt/carl-parser/build
 WORKDIR /opt/carl-parser/build
 
 # Configure carl-parser
-RUN cmake .. -DCMAKE_BUILD_TYPE=$build_type
+RUN cmake .. -DCMAKE_BUILD_TYPE=$build_type -DPORTABLE=ON
 
 # Build carl-parser
 RUN make carl-parser -j $no_threads
