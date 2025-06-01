@@ -1,31 +1,22 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.24)
 
 # Scikit-build-core sets these values
 project(
     ${SKBUILD_PROJECT_NAME}
     VERSION ${SKBUILD_PROJECT_VERSION}
-    LANGUAGES CXX
+    LANGUAGES CXX C
 )
 
+include(FetchContent)
+# Set configurations
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/macros.cmake)
+
 set(CMAKE_CXX_STANDARD 20)
-
-# include(FetchContent)
-
-# FetchContent_Declare(
-#     storm
-#     GIT_REPOSITORY https://github.com/moves-rwth/storm.git
-#     GIT_BRANCH     master
-#     OVERRIDE_FIND_PACKAGE
-# )
-# message(Callign make available)
-# FetchContent_MakeAvailable(storm)
-# message(Done with make)
 
 # Configuration options
 set(PYBIND_VERSION "" CACHE STRING "Pybind11 version to use")
 MARK_AS_ADVANCED(PYBIND_VERSION)
 set(STORM_DIR_HINT "" CACHE STRING "A hint where the Storm library can be found.")
-set(CARL_DIR_HINT "" CACHE STRING "A hint where the Carl library can be found.")
 option(USE_STORM_DFT "Enable support for DFTs" ON)
 option(USE_STORM_GSPN "Enable support for GSPNs" ON)
 option(USE_STORM_PARS "Enable support for parametric models" ON)
@@ -41,23 +32,62 @@ mark_as_advanced(COMPILE_WITH_CCACHE)
 # Find the module development requirements (requires FindPython from 3.17 or scikit-build-core's built-in backport)
 find_package(Python REQUIRED COMPONENTS Interpreter Development.Module)
 include(resources/include_pybind11.cmake)
-#find_package(pybind11 ${PYBIND_VERSION} EXACT CONFIG REQUIRED)
 message(STATUS "Stormpy - Using pybind11 version ${pybind11_VERSION}")
 
 # Find Storm and carl
-set(STORM_MIN_VERSION "1.9.1")
-find_package(storm REQUIRED HINTS ${STORM_DIR_HINT})
-message(STATUS "Stormpy - Using Storm version ${storm_VERSION} from ${storm_DIR}")
-# Check Storm version
-if (${storm_VERSION} VERSION_LESS ${STORM_MIN_VERSION})
-    MESSAGE(FATAL_ERROR "Stormpy - Storm version ${storm_VERSION} from ${storm_DIR} is not supported anymore!\nStormpy requires at least Storm version >= ${STORM_MIN_VERSION}.\nFor more information, see https://moves-rwth.github.io/stormpy/installation.html#compatibility-of-stormpy-and-storm")
-endif()
-if (NOT ${STORM_DIR_HINT} STREQUAL "")
-    if (NOT ${storm_DIR} STREQUAL ${STORM_DIR_HINT})
-        MESSAGE(SEND_ERROR "Stormpy - Using different Storm directory ${storm_DIR} instead of given ${STORM_DIR_HINT}!")
+set(STORM_MIN_VERSION "1.9.0")
+# search for Storm library
+if (NOT ALWAYS_FETCH_STORM)
+    # The hint is no longer necessary due to CMP0144 from cmake 3.27 onwards.
+
+    message(STATUS "Finding storm...")
+    find_package(storm HINTS ${STORM_DIR_HINT})
+
+    if (storm_FOUND)
+        message(STATUS "Stormpy - Using Storm version ${storm_VERSION} from ${storm_DIR}")
+
+        # Check Storm version
+        if (${storm_VERSION} VERSION_LESS ${STORM_MIN_VERSION})
+            MESSAGE(WARNING "Stormpy - Storm version ${storm_VERSION} from ${storm_DIR} is not supported anymore!\nStormpy requires at least Storm version >= ${STORM_MIN_VERSION}.\nFor more information, see https://moves-rwth.github.io/stormpy/installation.html#compatibility-of-stormpy-and-storm")
+            set(storm_FOUND FALSE)
+        endif()
+        if (NOT ${STORM_DIR_HINT} STREQUAL "")
+            if (NOT ${storm_DIR} STREQUAL ${STORM_DIR_HINT})
+                MESSAGE(SEND_ERROR "Stormpy - Using different Storm directory ${storm_DIR} instead of given ${STORM_DIR_HINT}!")
+            endif()
+        endif()
+
+
+        # TODO: This should be moved (more targetted) to the storm targets that need this.
+        if (${Boost_VERSION} VERSION_GREATER_EQUAL "1.81.0")
+            message(STATUS "Stormpy - Using workaround for Boost >= 1.81")
+            set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBOOST_PHOENIX_STL_TUPLE_H_")
+        endif()
+    else()
+        message(STATUS "Did not find storm...")
+
     endif()
 endif()
-find_package(carl REQUIRED HINTS ${CARL_DIR_HINT})
+
+if(NOT storm_FOUND)
+    if(NOT NEVER_FETCH_STORM)
+        message(STATUS "Fetching storm!")
+        SET(FETCHCONTENT_QUIET OFF)
+        FetchContent_Declare(
+                storm
+                SOURCE_DIR /Users/junges/storm/
+                #GIT_REPOSITORY https://github.com/sjunges/storm.git
+                #GIT_TAG        3ef5b2d850fa2fe83a619f600f196ac745356ba4 #
+        )
+        FetchContent_MakeAvailable(storm)
+        include(${storm_BINARY_DIR}/stormOptions.cmake)
+        message(STATUS "STORM_HAVE_Z3: ${STORM_HAVE_Z3}")
+    else()
+        message(FATAL_ERROR "Storm not included.")
+    endif()
+endif()
+
+
 find_package(carlparser QUIET HINTS ${CARLPARSER_DIR_HINT})
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/lib/stormpy")
@@ -67,16 +97,6 @@ set(CMAKE_INTERPROCEDURAL_OPTIMIZATION OFF)
 # This sets the default visibility from hidden to default,
 # which is recommended *not* to do, but leads to errors otherwise.
 set(CMAKE_CXX_VISIBILITY_PRESET "default")
-
-
-# Workaround for issue with Boost >= 1.81
-find_package(Boost 1.65.1 QUIET REQUIRED COMPONENTS filesystem system)
-if (Boost_FOUND)
-    if (${Boost_VERSION} VERSION_GREATER_EQUAL "1.81.0")
-        message(STATUS "Stormpy - Using workaround for Boost >= 1.81")
-        set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DBOOST_PHOENIX_STL_TUPLE_H_")
-    endif()
-endif()
 
 # CCache
 if(COMPILE_WITH_CCACHE)
@@ -93,9 +113,6 @@ else()
     message(STATUS "Stormpy - Disabled use of ccache.")
 endif()
 
-
-# Set configurations
-include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/macros.cmake)
 
 set(STORM_VERSION ${storm_VERSION})
 set(CARL_VERSION ${carl_VERSION})
@@ -120,11 +137,19 @@ if (NOT STORM_USE_CLN_EA OR NOT STORM_USE_CLN_RF)
     set(PYCARL_IMPORTS "${PYCARL_IMPORTS}\nfrom stormpy.pycarl import gmp")
 endif()
 # Check support for carl-parser
-set(PYCARL_HAS_PARSE ((USE_PARSER) AND (carlparser_FOUND)))
-set_variable_string(CARL_WITH_PARSER PYCARL_HAS_PARSE)
+if(USE_PARSER AND carlparser_FOUND)
+    set(PYCARL_HAS_PARSE ON)
+else()
+    set(PYCARL_HAS_PARSE OFF)
+endif()
+set_variable_string(CARL_WITH_PARSER ${PYCARL_HAS_PARSE})
 # Check support for CLN
-set(PYCARL_HAS_CLN ((USE_CLN_NUMBERS) AND (CARL_USE_CLN_NUMBERS)))
-set_variable_string(CARL_WITH_CLN PYCARL_HAS_CLN)
+if(USE_CLN_NUMBERS AND CARL_USE_CLN_NUMBERS)
+    set(PYCARL_HAS_CLN ON)
+else()
+    set(PYCARL_HAS_CLN OFF)
+endif()
+set_variable_string(CARL_WITH_CLN ${PYCARL_HAS_CLN})
 
 # Set dependency variables
 set_dependency_var(SPOT)
