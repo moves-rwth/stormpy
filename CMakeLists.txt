@@ -71,9 +71,9 @@ if (NOT storm_FOUND AND ALLOW_STORM_FETCH)
     SET(FETCHCONTENT_QUIET OFF)
     FetchContent_Declare(
             storm
-            #GIT_REPOSITORY https://github.com/sjunges/storm.git
-            #GIT_TAG        34b03239df66b87879e0455308d3cdfbb3bb7908 #
-            SOURCE_DIR /Users/junges/storm/
+            GIT_REPOSITORY https://github.com/sjunges/storm.git
+            GIT_TAG        cedf851f4adc1e979ea5810a7fad1500c8193bb2 #
+            #SOURCE_DIR /Users/junges/storm/
     )
     FETCHCONTENT_MAKEAVAILABLE(storm)
 endif()
@@ -97,7 +97,7 @@ SET(CMAKE_SKIP_BUILD_RPATH  FALSE)
 # when building, don't use the install RPATH already (but only when installing)
 SET(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
 # the RPATH to be used when installing
-SET(CMAKE_INSTALL_RPATH "@loader_path;${CMAKE_INSTALL_PREFIX}/lib;${CMAKE_INSTALL_PREFIX}/lib/resources")
+SET(CMAKE_INSTALL_RPATH "@loader_path/../lib/storm;@loader_path/../lib/storm/resources;@loader_path/lib/storm;@loader_path/lib/storm/resources;$ORIGIN/../lib/storm;$ORIGIN/../lib/storm/resources;$ORIGIN/lib/storm;$ORIGIN/lib/storm/resources;")
 # don't add the automatically determined parts of the RPATH
 # which point to directories outside the build tree to the install RPATH
 SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
@@ -159,7 +159,7 @@ else()
 endif()
 set_variable_string(CARL_WITH_PARSER ${PYCARL_HAS_PARSE})
 # Check support for CLN
-if(USE_CLN_NUMBERS AND CARL_USE_CLN_NUMBERS)
+if(STORM_USE_CLN_EA OR STORM_USE_CLN_RF)
     set(PYCARL_HAS_CLN ON)
 else()
     set(PYCARL_HAS_CLN OFF)
