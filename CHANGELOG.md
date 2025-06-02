@@ -7,7 +7,6 @@ Version 1.10.x
 ### Version 1.10.0 (2025/05)
 Requires Storm version >= 1.10.0
 
-## What's Changed
 - Integrated pycarl into stormpy. Pycarl is no longer available as a separate library.
 - Support for forcing exact mode in environment
 - Support for building Prism SMGs
