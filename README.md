@@ -15,15 +15,13 @@ Get started with stormpy directly in the browser via JupyterLab:
 For more information on stormpy, please check the [documentation](https://moves-rwth.github.io/stormpy/).
 
 
-### Dependencies
+Stormpy includes Pycarl, the Python Bindings for [CArL](https://github.com/moves-rwth/carl-storm).
 
-Stormpy depends on [pycarl](https://github.com/moves-rwth/pycarl/).
 
 ### Authors
 
 - Sebastian Junges
 - Matthias Volk
-Stormpy includes Pycarl, the Python Bindings for [CArL](https://github.com/moves-rwth/carl-storm).
 
 The development of pycarl received significant contributions from:
 - Harold Bruintjes
