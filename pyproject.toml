@@ -75,7 +75,7 @@ sdist.include = [
 ]
 
 [tool.scikit-build.cmake.define]
-PYBIND_VERSION="2.10.0"
+PYBIND_VERSION="2.13.6"
 STORM_DIR_HINT="/Users/junges/storm/build"
 USE_STORM_DFT="ON"
 USE_STORM_GSPN="ON"
@@ -86,7 +86,7 @@ USE_PARSER="ON"
 CARLPARSER_DIR_HINT=""
 COMPILE_WITH_CCACHE="ON"
 STORMPY_DISABLE_SIGNATURE_DOC="OFF"
-STORM_SPOT_DISABLE="ON"
+STORM_DISABLE_SPOT="ON"
 
 [tool.scikit-build.metadata.version]
 provider = "scikit_build_core.metadata.regex"
