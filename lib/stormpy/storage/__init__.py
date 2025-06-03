@@ -1,6 +1,7 @@
 import stormpy.utility
 from . import storage
 from .storage import *
+from deprecated import deprecated
 
 
 def build_sparse_matrix(array, row_group_indices=[]):
@@ -114,6 +115,55 @@ StateValuation.get_value = get_value
 StateValuation.get_values_states = get_values_states
 
 
+# Deprecated functions
+@deprecated("Use general method 'get_value' instead.")
+def get_boolean_value(self, state, var):
+    return self._get_boolean_value(state, var)
+
+
+StateValuation.get_boolean_value = get_boolean_value
+
+
+@deprecated("Use general method 'get_value' instead.")
+def get_integer_value(self, state, var):
+    return self._get_integer_value(state, var)
+
+
+StateValuation.get_integer_value = get_integer_value
+
+
+@deprecated("Use general method 'get_value' instead.")
+def get_rational_value(self, state, var):
+    return self._get_rational_value(state, var)
+
+
+StateValuation.get_rational_value = get_rational_value
+
+
+@deprecated("Use general method 'get_values_states' instead.")
+def get_boolean_values_states(self, var):
+    return self._get_boolean_values_states(var)
+
+
+StateValuation.get_boolean_values_states = get_boolean_values_states
+
+
+@deprecated("Use general method 'get_values_states' instead.")
+def get_integer_values_states(self, var):
+    return self._get_integer_values_states(var)
+
+
+StateValuation.get_integer_values_states = get_integer_values_states
+
+
+@deprecated("Use general method 'get_values_states' instead.")
+def get_rational_values_states(self, var):
+    return self._get_rational_values_states(var)
+
+
+StateValuation.get_rational_values_states = get_rational_values_states
+
+
 # Extend class SimpleValuation
 def get_value(self, var):
     """
@@ -132,3 +182,20 @@ def get_value(self, var):
 
 
 SimpleValuation.get_value = get_value
+
+
+# Deprecated functions
+@deprecated("Use general method 'get_value' instead.")
+def get_boolean_value(self, var):
+    return self._get_boolean_value(var)
+
+
+SimpleValuation.get_boolean_value = get_boolean_value
+
+
+@deprecated("Use general method 'get_value' instead.")
+def get_integer_value(self, var):
+    return self._get_integer_value(var)
+
+
+SimpleValuation.get_integer_value = get_integer_value

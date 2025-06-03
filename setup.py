@@ -303,7 +303,7 @@ setup(
     ],
     cmdclass={"build_ext": CMakeBuild},
     zip_safe=False,
-    install_requires=[],
+    install_requires=["Deprecated"],
     setup_requires=["packaging"],
     extras_require={
         "numpy": ["numpy"],
