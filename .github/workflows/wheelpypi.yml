@@ -38,10 +38,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: maxim-lobanov/setup-xcode@v1
-        if: ${{ matrix.config.xcode }}
-        with:
-          xcode-version: ${{ matrix.config.xcode }}
       - name: Build wheels
         uses: pypa/cibuildwheel@v3.0.0b5
         env:
@@ -50,6 +46,7 @@ jobs:
           CIBW_MANYLINUX_X86_64_IMAGE: manylinux_2_34
           CIBW_BEFORE_ALL_LINUX: .github/workflows/before-all-linux.sh
           CIBW_BEFORE_ALL_MACOS: brew install automake boost cln ginac glpk hwloc z3 xerces-c
+          MACOSX_DEPLOYMENT_TARGET: 14.3
 
         # Can also be configured directly, using `with:`
         # with:
