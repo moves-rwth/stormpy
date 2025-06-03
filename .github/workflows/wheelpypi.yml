@@ -16,27 +16,32 @@ jobs:
     runs-on: ${{ matrix.runs-on }}
     strategy:
       matrix:
-        os: [ linux-intel, linux-arm, macOS-intel, macOS-arm ]
+        os: [ linux-intel, macOS-intel, macOS-arm ]
         include:
           - archs: auto
             platform: auto
           - os: linux-intel
             runs-on: ubuntu-latest
             arch: auto64
-          - os: linux-arm
-            runs-on: ubuntu-24.04-arm
+#          - os: linux-arm
+#            runs-on: ubuntu-24.04-arm
           - os: macos-intel
             # macos-13 was the last x86_64 runner
             runs-on: macos-13
+            xcode: 14.3
           - os: macos-arm
             # macos-14+ (including latest) are ARM64 runners
             runs-on: macos-latest
             archs: auto,universal2
+            xcode: 14.3
       fail-fast: false
 
     steps:
       - uses: actions/checkout@v4
-
+      - uses: maxim-lobanov/setup-xcode@v1
+        if: ${{ matrix.config.xcode }}
+        with:
+          xcode-version: ${{ matrix.config.xcode }}
       - name: Build wheels
         uses: pypa/cibuildwheel@v3.0.0b5
         env:
