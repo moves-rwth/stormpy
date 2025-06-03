@@ -65,6 +65,15 @@ if(ALLOW_STORM_SYSTEM)
     if (${storm_VERSION} VERSION_LESS ${STORM_MIN_VERSION})
         MESSAGE(FATAL_ERROR "Stormpy - Storm version ${storm_VERSION} from ${storm_DIR} is not supported anymore!\nStormpy requires at least Storm version >= ${STORM_MIN_VERSION}.\nFor more information, see https://moves-rwth.github.io/stormpy/installation.html#compatibility-of-stormpy-and-storm")
     endif()
+
+    # Set dependency variables
+    set_dependency_var(SPOT)
+    set_dependency_var(XERCES)
+    # Check for optional Storm libraries
+    storm_with_lib(DFT)
+    storm_with_lib(GSPN)
+    storm_with_lib(PARS)
+    storm_with_lib(POMDP)
 endif ()
 if (NOT storm_FOUND AND ALLOW_STORM_FETCH)
     include(FetchContent)
@@ -76,6 +85,12 @@ if (NOT storm_FOUND AND ALLOW_STORM_FETCH)
             #SOURCE_DIR /Users/junges/storm/
     )
     FETCHCONTENT_MAKEAVAILABLE(storm)
+    set(HAVE_STORM_DFT TRUE)
+    set(HAVE_STORM_GSPN TRUE)
+    set(HAVE_STORM_PARS TRUE)
+    set(HAVE_STORM_POMDP TRUE)
+
+
 endif()
 
 find_package(carlparser QUIET HINTS ${CARLPARSER_DIR_HINT})
@@ -166,14 +181,6 @@ else()
 endif()
 set_variable_string(CARL_WITH_CLN ${PYCARL_HAS_CLN})
 
-# Set dependency variables
-set_dependency_var(SPOT)
-set_dependency_var(XERCES)
-# Check for optional Storm libraries
-storm_with_lib(DFT)
-storm_with_lib(GSPN)
-storm_with_lib(PARS)
-storm_with_lib(POMDP)
 # Set optional library variables
 set_optional_lib_var(DFT)
 set_optional_lib_var(GSPN)
