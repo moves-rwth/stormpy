@@ -51,7 +51,9 @@ jobs:
           CIBW_MANYLINUX_X86_64_IMAGE: manylinux_2_34
           CIBW_BEFORE_ALL_LINUX: .github/workflows/before-all-linux.sh
           CIBW_BEFORE_ALL_MACOS: brew install automake boost cln ginac glpk hwloc z3 xerces-c
-          CIBW_REPAIR_WHEEL_LINUX: auditwheel repair --disable-isa-ext-check -w {dest_dir} {wheel}
+          CIBW_REPAIR_WHEEL_COMMAND_LINUX: "auditwheel repair --disable-isa-ext-check -w {dest_dir} {wheel}"
+          CIBW_REPAIR_WHEEL_COMMAND_MACOS: "DYLD_LIBRARY_PATH=$REPAIR_LIBRARY_PATH delocate-wheel --require-archs {delocate_archs} -w {dest_dir} -v {wheel}"
+          CIBW_CONFIG_SETTINGS: "-DSTORM_PORTABLE=ON"
           MACOSX_DEPLOYMENT_TARGET: ${{ matrix.xcode }}
 
       - uses: actions/upload-artifact@v4
