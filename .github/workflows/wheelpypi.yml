@@ -33,7 +33,7 @@ jobs:
           - os: macos-arm
             # macos-14+ (including latest) are ARM64 runners
             runs-on: macos-latest
-            archs: auto,universal2
+#            archs: auto,universal2
             xcode: 16.2
       fail-fast: false
 
