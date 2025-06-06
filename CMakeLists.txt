@@ -65,7 +65,7 @@ function(check_hint NAME DIR_FOUND HINT_DIR FOUND_VERSION)
 endfunction(check_hint)
 
 # Find Storm
-set(STORM_MIN_VERSION "1.9.1")
+set(STORM_MIN_VERSION "1.10.0")
 find_package(storm REQUIRED HINTS ${STORM_DIR_HINT})
 check_hint("Storm" ${storm_DIR} "${STORM_DIR_HINT}" ${storm_VERSION})
 # Check Storm version
