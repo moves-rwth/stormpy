@@ -23,7 +23,7 @@ jobs:
             xcode: ""
           - os: linux-intel
             runs-on: ubuntu-latest
-            arch: auto64
+            archs: x86_64
 #          - os: linux-arm
 #            runs-on: ubuntu-24.04-arm
           - os: macos-intel
