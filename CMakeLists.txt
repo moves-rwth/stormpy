@@ -85,10 +85,14 @@ if (NOT storm_FOUND AND ALLOW_STORM_FETCH)
             #SOURCE_DIR /Users/junges/storm/
     )
     FETCHCONTENT_MAKEAVAILABLE(storm)
+    include(${storm_BINARY_DIR}/stormOptions.cmake)
     set(HAVE_STORM_DFT TRUE)
     set(HAVE_STORM_GSPN TRUE)
     set(HAVE_STORM_PARS TRUE)
     set(HAVE_STORM_POMDP TRUE)
+    # Set dependency variables
+    set(HAVE_STORM_SPOT ${STORM_HAVE_SPOT})
+    set(HAVE_STORM_XERCES ${STORM_HAVE_XERCES})
 endif()
 
 find_package(carlparser QUIET HINTS ${CARLPARSER_DIR_HINT})
