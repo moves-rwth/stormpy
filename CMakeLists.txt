@@ -78,10 +78,11 @@ endif ()
 if (NOT storm_FOUND AND ALLOW_STORM_FETCH)
     include(FetchContent)
     SET(FETCHCONTENT_QUIET OFF)
+    SET(STORM_BUILD_EXECUTABLES OFF)
     FetchContent_Declare(
             storm
             GIT_REPOSITORY https://github.com/sjunges/storm.git
-            GIT_TAG        2e93532593cc7232b27cac96226529268bdf3291 #
+            GIT_TAG        6c496654d267aa45ba3ff42d053085c8555ddf5f #
             #SOURCE_DIR /Users/junges/storm/
     )
     FETCHCONTENT_MAKEAVAILABLE(storm)
