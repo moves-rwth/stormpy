@@ -110,8 +110,13 @@ SET(CMAKE_SKIP_BUILD_RPATH  FALSE)
 # when building, don't use the install RPATH already (but only when installing)
 SET(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
 # the RPATH to be used when installing
-SET(CMAKE_INSTALL_RPATH "@loader_path/../lib/storm;@loader_path/../lib/storm/resources;@loader_path/lib/storm;@loader_path/lib/storm/resources;$ORIGIN/../lib/storm;$ORIGIN/../lib/storm/resources;$ORIGIN/lib/storm;$ORIGIN/lib/storm/resources;")
-# don't add the automatically determined parts of the RPATH
+if(APPLE)
+    set(RELPOS_STRING "@loader_path")
+else()
+    set(RELPOS_STRING "$ORIGIN")
+endif()
+SET(CMAKE_INSTALL_RPATH "${RELPOS_STRING}/../../../lib/storm;${RELPOS_STRING}/../../../lib/storm/resources;${RELPOS_STRING}/../../lib/storm;${RELPOS_STRING}/../../lib/storm/resources;${RELPOS_STRING}/../lib/storm;${RELPOS_STRING}/../lib/storm/resources;${RELPOS_STRING}/lib/storm;${RELPOS_STRING}/lib/storm/resources")
+#  add the automatically determined parts of the RPATH
 # which point to directories outside the build tree to the install RPATH
 SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 SET(CMAKE_BUILD_RPATH_USE_ORIGIN TRUE)
