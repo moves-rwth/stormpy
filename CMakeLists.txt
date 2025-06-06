@@ -81,7 +81,7 @@ if (NOT storm_FOUND AND ALLOW_STORM_FETCH)
     FetchContent_Declare(
             storm
             GIT_REPOSITORY https://github.com/sjunges/storm.git
-            GIT_TAG        cedf851f4adc1e979ea5810a7fad1500c8193bb2 #
+            GIT_TAG        2e93532593cc7232b27cac96226529268bdf3291 #
             #SOURCE_DIR /Users/junges/storm/
     )
     FETCHCONTENT_MAKEAVAILABLE(storm)
@@ -89,8 +89,6 @@ if (NOT storm_FOUND AND ALLOW_STORM_FETCH)
     set(HAVE_STORM_GSPN TRUE)
     set(HAVE_STORM_PARS TRUE)
     set(HAVE_STORM_POMDP TRUE)
-
-
 endif()
 
 find_package(carlparser QUIET HINTS ${CARLPARSER_DIR_HINT})
@@ -112,8 +110,13 @@ SET(CMAKE_SKIP_BUILD_RPATH  FALSE)
 # when building, don't use the install RPATH already (but only when installing)
 SET(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
 # the RPATH to be used when installing
-SET(CMAKE_INSTALL_RPATH "@loader_path/../lib/storm;@loader_path/../lib/storm/resources;@loader_path/lib/storm;@loader_path/lib/storm/resources;$ORIGIN/../lib/storm;$ORIGIN/../lib/storm/resources;$ORIGIN/lib/storm;$ORIGIN/lib/storm/resources;")
-# don't add the automatically determined parts of the RPATH
+if(APPLE)
+    set(RELPOS_STRING "@loader_path")
+else()
+    set(RELPOS_STRING "$ORIGIN")
+endif()
+SET(CMAKE_INSTALL_RPATH "${RELPOS_STRING}/../../../lib/storm;${RELPOS_STRING}/../../../lib/storm/resources;${RELPOS_STRING}/../../lib/storm;${RELPOS_STRING}/../../lib/storm/resources;${RELPOS_STRING}/../lib/storm;${RELPOS_STRING}/../lib/storm/resources;${RELPOS_STRING}/lib/storm;${RELPOS_STRING}/lib/storm/resources")
+#  add the automatically determined parts of the RPATH
 # which point to directories outside the build tree to the install RPATH
 SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 SET(CMAKE_BUILD_RPATH_USE_ORIGIN TRUE)
