@@ -81,7 +81,7 @@ if (NOT storm_FOUND AND ALLOW_STORM_FETCH)
     FetchContent_Declare(
             storm
             GIT_REPOSITORY https://github.com/sjunges/storm.git
-            GIT_TAG        cedf851f4adc1e979ea5810a7fad1500c8193bb2 #
+            GIT_TAG        2e93532593cc7232b27cac96226529268bdf3291 #
             #SOURCE_DIR /Users/junges/storm/
     )
     FETCHCONTENT_MAKEAVAILABLE(storm)
@@ -89,8 +89,6 @@ if (NOT storm_FOUND AND ALLOW_STORM_FETCH)
     set(HAVE_STORM_GSPN TRUE)
     set(HAVE_STORM_PARS TRUE)
     set(HAVE_STORM_POMDP TRUE)
-
-
 endif()
 
 find_package(carlparser QUIET HINTS ${CARLPARSER_DIR_HINT})
