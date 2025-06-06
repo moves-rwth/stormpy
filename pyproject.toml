@@ -14,7 +14,7 @@ authors = [
 ]
 requires-python = ">=3.9"
 dependencies = [
-    # Currently no dependencies
+    "Deprecated",
 ]
 classifiers = [
     'Intended Audience :: Science/Research',
