@@ -785,9 +785,9 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Pycarl parse</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#number-independent-types">Number independent types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#number-dependent-types-gmp">Number dependent types (gmp)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#number-dependent-types-cln">Number dependent types (cln)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-stormpy.pycarl.parse">Number independent types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-stormpy.pycarl.gmp.parse">Number dependent types (gmp)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-stormpy.pycarl.cln.parse">Number dependent types (cln)</a></li>
 </ul>
 </li>
 </ul>
@@ -804,9 +804,13 @@
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">Pycarl parse</a><ul>
-<li><a class="reference internal" href="#number-independent-types">Number independent types</a></li>
-<li><a class="reference internal" href="#number-dependent-types-gmp">Number dependent types (gmp)</a></li>
-<li><a class="reference internal" href="#number-dependent-types-cln">Number dependent types (cln)</a></li>
+<li><a class="reference internal" href="#module-stormpy.pycarl.parse">Number independent types</a><ul>
+<li><a class="reference internal" href="#stormpy.pycarl.parse.ParserError"><code class="docutils literal notranslate"><span class="pre">ParserError</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.pycarl.parse.deserialize"><code class="docutils literal notranslate"><span class="pre">deserialize()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-stormpy.pycarl.gmp.parse">Number dependent types (gmp)</a></li>
+<li><a class="reference internal" href="#module-stormpy.pycarl.cln.parse">Number dependent types (cln)</a></li>
 </ul>
 </li>
 </ul>
@@ -847,9 +851,13 @@
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
 <li><a class="reference internal" href="#">Pycarl parse</a><ul>
-<li><a class="reference internal" href="#number-independent-types">Number independent types</a></li>
-<li><a class="reference internal" href="#number-dependent-types-gmp">Number dependent types (gmp)</a></li>
-<li><a class="reference internal" href="#number-dependent-types-cln">Number dependent types (cln)</a></li>
+<li><a class="reference internal" href="#module-stormpy.pycarl.parse">Number independent types</a><ul>
+<li><a class="reference internal" href="#stormpy.pycarl.parse.ParserError"><code class="docutils literal notranslate"><span class="pre">ParserError</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.pycarl.parse.deserialize"><code class="docutils literal notranslate"><span class="pre">deserialize()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-stormpy.pycarl.gmp.parse">Number dependent types (gmp)</a></li>
+<li><a class="reference internal" href="#module-stormpy.pycarl.cln.parse">Number dependent types (cln)</a></li>
 </ul>
 </li>
 </ul>
@@ -860,14 +868,33 @@
       
   <section id="pycarl-parse">
 <h1>Pycarl parse<a class="headerlink" href="#pycarl-parse" title="Link to this heading">¶</a></h1>
-<section id="number-independent-types">
-<h2>Number independent types<a class="headerlink" href="#number-independent-types" title="Link to this heading">¶</a></h2>
+<section id="module-stormpy.pycarl.parse">
+<span id="number-independent-types"></span><h2>Number independent types<a class="headerlink" href="#module-stormpy.pycarl.parse" title="Link to this heading">¶</a></h2>
+<dl class="py exception">
+<dt class="sig sig-object py" id="stormpy.pycarl.parse.ParserError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ParserError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pycarl.parse.ParserError" title="Link to this definition">¶</a></dt>
+<dd><p>Error which is meant to be raised when the parser throws an error.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stormpy.pycarl.parse.deserialize">
+<span class="sig-name descname"><span class="pre">deserialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">package</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pycarl.parse.deserialize" title="Link to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>input</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<section id="number-dependent-types-gmp">
-<h2>Number dependent types (gmp)<a class="headerlink" href="#number-dependent-types-gmp" title="Link to this heading">¶</a></h2>
+<section id="module-stormpy.pycarl.gmp.parse">
+<span id="number-dependent-types-gmp"></span><h2>Number dependent types (gmp)<a class="headerlink" href="#module-stormpy.pycarl.gmp.parse" title="Link to this heading">¶</a></h2>
 </section>
-<section id="number-dependent-types-cln">
-<h2>Number dependent types (cln)<a class="headerlink" href="#number-dependent-types-cln" title="Link to this heading">¶</a></h2>
+<section id="module-stormpy.pycarl.cln.parse">
+<span id="number-dependent-types-cln"></span><h2>Number dependent types (cln)<a class="headerlink" href="#module-stormpy.pycarl.cln.parse" title="Link to this heading">¶</a></h2>
 </section>
 </section>
 

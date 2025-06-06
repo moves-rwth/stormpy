@@ -783,9 +783,9 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api/pycarl/parse.html">Pycarl parse</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/pycarl/parse.html#number-independent-types">Number independent types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/pycarl/parse.html#number-dependent-types-gmp">Number dependent types (gmp)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/pycarl/parse.html#number-dependent-types-cln">Number dependent types (cln)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/pycarl/parse.html#module-stormpy.pycarl.parse">Number independent types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/pycarl/parse.html#module-stormpy.pycarl.gmp.parse">Number dependent types (gmp)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/pycarl/parse.html#module-stormpy.pycarl.cln.parse">Number dependent types (cln)</a></li>
 </ul>
 </li>
 </ul>
@@ -1697,6 +1697,8 @@
         <li><a href="api/core.html#stormpy.RationalFunction.derive">(RationalFunction method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.RationalFunction.derive">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.RationalFunction.derive">[2]</a>
 </li>
       </ul></li>
+      <li><a href="api/pycarl/parse.html#stormpy.pycarl.parse.deserialize">deserialize() (in module stormpy.pycarl.parse)</a>
+</li>
       <li><a href="api/core.html#stormpy.JaniEdge.destinations">destinations (JaniEdge property)</a>, <a href="api/storage.html#stormpy.storage.JaniEdge.destinations">[1]</a>
 
       <ul>
@@ -3583,10 +3585,10 @@
         <li><a href="api/core.html#stormpy.NativeSolverEnvironment.method">(NativeSolverEnvironment property)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/utility.html#stormpy.utility.milliseconds">milliseconds (class in stormpy.utility)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core.html#stormpy.OperatorType.Min">Min (OperatorType attribute)</a>, <a href="api/storage.html#stormpy.storage.OperatorType.Min">[1]</a>
 </li>
       <li><a href="api/core.html#stormpy.OptimizationDirection.Minimize">Minimize (OptimizationDirection attribute)</a>
@@ -3669,6 +3671,8 @@
 </li>
         <li><a href="api/pycarl/formula.html#module-stormpy.pycarl.cln.formula">stormpy.pycarl.cln.formula</a>
 </li>
+        <li><a href="api/pycarl/parse.html#module-stormpy.pycarl.cln.parse">stormpy.pycarl.cln.parse</a>
+</li>
         <li><a href="api/pycarl/convert.html#module-stormpy.pycarl.convert">stormpy.pycarl.convert</a>
 </li>
         <li><a href="api/pycarl/formula.html#module-stormpy.pycarl.formula">stormpy.pycarl.formula</a>
@@ -3676,6 +3680,10 @@
         <li><a href="api/pycarl/core.html#module-stormpy.pycarl.gmp">stormpy.pycarl.gmp</a>
 </li>
         <li><a href="api/pycarl/formula.html#module-stormpy.pycarl.gmp.formula">stormpy.pycarl.gmp.formula</a>
+</li>
+        <li><a href="api/pycarl/parse.html#module-stormpy.pycarl.gmp.parse">stormpy.pycarl.gmp.parse</a>
+</li>
+        <li><a href="api/pycarl/parse.html#module-stormpy.pycarl.parse">stormpy.pycarl.parse</a>
 </li>
         <li><a href="api/storage.html#module-stormpy.storage">stormpy.storage</a>
 </li>
@@ -4132,6 +4140,8 @@
 </li>
       <li><a href="api/core.html#stormpy.parse_properties_without_context">parse_properties_without_context() (in module stormpy)</a>
 </li>
+      <li><a href="api/pycarl/parse.html#stormpy.pycarl.parse.ParserError">ParserError</a>
+</li>
       <li><a href="api/core.html#stormpy.Scheduler.partial">partial (Scheduler property)</a>, <a href="api/storage.html#stormpy.storage.Scheduler.partial">[1]</a>
 
       <ul>
@@ -4218,14 +4228,14 @@
       </ul></li>
       <li><a href="api/core.html#stormpy.FactorizedPolynomial.polynomial">polynomial() (FactorizedPolynomial method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.FactorizedPolynomial.polynomial">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.FactorizedPolynomial.polynomial">[2]</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core.html#stormpy.PolytopeDouble">PolytopeDouble (class in stormpy)</a>
 
       <ul>
         <li><a href="api/storage.html#stormpy.storage.PolytopeDouble">(class in stormpy.storage)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core.html#stormpy.PolytopeExact">PolytopeExact (class in stormpy)</a>
 
       <ul>
@@ -5060,14 +5070,14 @@
         <li><a href="api/storage.html#stormpy.storage.SparseIntervalPomdp">(class in stormpy.storage)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core.html#stormpy.SparseIntervalRewardModel">SparseIntervalRewardModel (class in stormpy)</a>
 
       <ul>
         <li><a href="api/storage.html#stormpy.storage.SparseIntervalRewardModel">(class in stormpy.storage)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core.html#stormpy.SparseIntervalSmg">SparseIntervalSmg (class in stormpy)</a>
 
       <ul>
@@ -5401,6 +5411,13 @@
 </li>
       </ul></li>
       <li>
+    stormpy.pycarl.cln.parse
+
+      <ul>
+        <li><a href="api/pycarl/parse.html#module-stormpy.pycarl.cln.parse">module</a>
+</li>
+      </ul></li>
+      <li>
     stormpy.pycarl.convert
 
       <ul>
@@ -5426,6 +5443,20 @@
 
       <ul>
         <li><a href="api/pycarl/formula.html#module-stormpy.pycarl.gmp.formula">module</a>
+</li>
+      </ul></li>
+      <li>
+    stormpy.pycarl.gmp.parse
+
+      <ul>
+        <li><a href="api/pycarl/parse.html#module-stormpy.pycarl.gmp.parse">module</a>
+</li>
+      </ul></li>
+      <li>
+    stormpy.pycarl.parse
+
+      <ul>
+        <li><a href="api/pycarl/parse.html#module-stormpy.pycarl.parse">module</a>
 </li>
       </ul></li>
       <li>

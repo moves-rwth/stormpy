@@ -786,9 +786,9 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api/pycarl/parse.html">Pycarl parse</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/pycarl/parse.html#number-independent-types">Number independent types</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/pycarl/parse.html#number-dependent-types-gmp">Number dependent types (gmp)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/pycarl/parse.html#number-dependent-types-cln">Number dependent types (cln)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/pycarl/parse.html#module-stormpy.pycarl.parse">Number independent types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/pycarl/parse.html#module-stormpy.pycarl.gmp.parse">Number dependent types (gmp)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/pycarl/parse.html#module-stormpy.pycarl.cln.parse">Number dependent types (cln)</a></li>
 </ul>
 </li>
 </ul>
@@ -903,7 +903,7 @@ You have two choices for stormpy depending on the version of Storm you are using
 <li><p><strong>Release version</strong>:
 You use the latest <a class="reference external" href="https://github.com/moves-rwth/storm/releases">release of Storm</a> or the <code class="docutils literal notranslate"><span class="pre">stable</span></code> branch.
 In these cases, you need to use the latest <a class="reference external" href="https://github.com/moves-rwth/stormpy/releases">release of stormpy</a>.
-For example, Storm 1.6.0 is compatible with stormpy 1.6.0.</p></li>
+For example, Storm 1.10.0 is compatible with stormpy 1.10.0.</p></li>
 <li><p><strong>Master branch</strong>:
 You use the <code class="docutils literal notranslate"><span class="pre">master</span></code> branch of Storm.
 In this case, you need to use the <code class="docutils literal notranslate"><span class="pre">master</span></code> branch of stormpy as well.
@@ -942,60 +942,51 @@ For the <code class="docutils literal notranslate"><span class="pre">master</spa
 $ cd stormpy
 </pre></div>
 </div>
-<p>or for the latest release use (remember to use the correct version):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/moves-rwth/stormpy.git --branch 1.6.0
+<p>or for the latest release use the <code class="docutils literal notranslate"><span class="pre">stable</span></code> branch:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/moves-rwth/stormpy.git -b stable
 $ cd stormpy
 </pre></div>
 </div>
-<p><strong>Build</strong> stormpy in develop mode using your favourite python distribution way of installing: e.g.:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python3 setup.py develop
-</pre></div>
-</div>
-<p>or:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install -ve .
+<p><strong>Build</strong> stormpy in using your favourite python distribution way of installing: e.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install -v .
 </pre></div>
 </div>
 <section id="optional-build-arguments">
 <h4>Optional build arguments<a class="headerlink" href="#optional-build-arguments" title="Link to this heading">¶</a></h4>
-<p>The build step <code class="docutils literal notranslate"><span class="pre">build_ext</span></code> also takes optional arguments for a more advanced configuration of stormpy.</p>
+<p>The build step also takes optional CMake arguments via <code class="docutils literal notranslate"><span class="pre">--config-settings=cmake.define.&lt;cmake_option&gt;=&lt;value&gt;</span></code> for a more advanced configuration of stormpy.
+We refer to the section <code class="docutils literal notranslate"><span class="pre">[tool.scikit-build.cmake.define]</span></code> in <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> for a full list of configuration options.</p>
 <ul>
 <li><p><em>Specifying which Storm library to use</em></p>
-<p>If you have multiple versions of Storm or cmake is not able to find your Storm version,
-you can specify the <code class="docutils literal notranslate"><span class="pre">--storm-dir</span> <span class="pre">YOUR-PATH-TO-STORM</span></code> flag:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python3 setup.py build_ext --storm-dir YOUR-PATH-TO-STORM develop
-</pre></div>
-</div>
+<p>If you have multiple versions of Storm or CMake is not able to find your Storm version,
+you can specify the directories via the following flags:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--config-settings=cmake.define.STOM_DIR_HINT=&lt;dir&gt;</span></code> to set the hint for the Storm directory</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--config-settings=cmake.define.CARL_DIR_HINT=&lt;dir&gt;</span></code> to set the hint for the carl-storm directory</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--config-settings=cmake.define.CARLPARSER_DIR_HINT=&lt;dir&gt;</span></code> to set the hint for the carl-parser directory</p></li>
+</ul>
 </li>
 <li><p><em>Disabling functionality</em></p>
-<p>If you want to disable certain functionality in stormpy from being built you can use the following flags:</p>
+<p>If you want to disable certain functionality in stormpy from being built you can add the following flags:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">--disable-dft</span></code> to disable support for dynamic fault trees (DFTs)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--disable-pars</span></code> to disable support for parametric models</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--config-settings=cmake.define.USE_STORM_DFT=OFF</span></code> to disable support for dynamic fault trees (DFTs)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--config-settings=cmake.define.USE_STORM_GSPN=OFF</span></code> to disable support for generalized stochastic Petri nets (GSPNs)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--config-settings=cmake.define.USE_STORM_PARS=OFF</span></code> to disable support for parametric models</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--config-settings=cmake.define.USE_STORM_POMDP=OFF</span></code> to disable support for POMDPs</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--config-settings=cmake.define.USE_PARSER=OFF</span></code> to disable support for the carl-parser</p></li>
 </ul>
 </li>
 <li><p><em>Building stormpy in debug mode</em></p>
-<p>If you want to build stormpy in debug mode you can add the <code class="docutils literal notranslate"><span class="pre">--debug</span></code> flag:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python3 setup.py build_ext --debug develop
-</pre></div>
-</div>
+<p>If you want to build stormpy in debug mode you can add the flag <code class="docutils literal notranslate"><span class="pre">--config-settings=cmake.build-type='Debug'</span></code>.</p>
 </li>
 <li><p><em>Setting number of build threads</em></p>
-<p>The build of stormpy uses all available cores per default.
-If you want to configure the number of threads manually you can specify the <code class="docutils literal notranslate"><span class="pre">--jobs</span></code> (or <code class="docutils literal notranslate"><span class="pre">-j</span></code>) flag:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python3 setup.py build_ext --jobs 2 develop
-</pre></div>
-</div>
+<p>If you want to configure the number of threads used to build stormpy, use the flag <code class="docutils literal notranslate"><span class="pre">--config-settings=cmake.define.CMAKE_BUILD_PARALLEL_LEVEL=&lt;number_of_jobs&gt;</span></code>.</p>
 </li>
 </ul>
 </section>
 </section>
 <section id="testing-stormpy-installation">
 <h3>Testing stormpy installation<a class="headerlink" href="#testing-stormpy-installation" title="Link to this heading">¶</a></h3>
-<p>After building, you can run the test files by either:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python3 setup.py test
-</pre></div>
-</div>
-<p>or by invoking pytest directly with:</p>
+<p>After building, you can run the test files by invoking pytest directly with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install pytest
 $ py.test tests/
 </pre></div>
@@ -1007,11 +998,7 @@ To get started, continue with our <a class="reference internal" href="getting_st
 <h3>Building stormpy documentation<a class="headerlink" href="#building-stormpy-documentation" title="Link to this heading">¶</a></h3>
 <p>To build this documentation, you need additional python dependencies as well as <a class="reference external" href="https://pandoc.org/">pandoc</a>.
 You can install the required python dependencies automatically with:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python setup.py develop easy_install stormpy[doc,numpy]
-</pre></div>
-</div>
-<p>or manually with:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install sphinx sphinx_bootstrap_theme nbsphinx ipykernel numpy
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install .[doc,numpy]
 </pre></div>
 </div>
 <p>Then build the documentation:</p>
