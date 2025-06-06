@@ -227,6 +227,8 @@ def build_interval_model_from_drn(file, options=DirectEncodingParserOptions()):
     assert intermediate.supports_uncertainty
     if intermediate.model_type == ModelType.MDP:
         return intermediate._as_sparse_imdp()
+    elif intermediate.model_type == ModelType.POMDP:
+        return intermediate._as_sparse_ipomdp()
     else:
         raise StormError("Not supported interval model constructed")
 

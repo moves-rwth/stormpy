@@ -1,5 +1,5 @@
 FROM movesrwth/stormpy:1.9.0
-MAINTAINER Matthias Volk <m.volk@tue.nl>
+LABEL org.opencontainers.image.authors="dev@stormchecker.org"
 
 
 ##########

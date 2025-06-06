@@ -55,7 +55,6 @@ function(check_hint NAME DIR_FOUND HINT_DIR FOUND_VERSION)
     endif()
 endfunction(check_hint)
 
-# Find Storm
 
 if(ALLOW_STORM_SYSTEM)
     set(STORM_MIN_VERSION "1.9.1")
