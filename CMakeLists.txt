@@ -91,8 +91,8 @@ if (NOT storm_FOUND AND ALLOW_STORM_FETCH)
     set(HAVE_STORM_PARS TRUE)
     set(HAVE_STORM_POMDP TRUE)
     # Set dependency variables
-    set(HAVE_STORM_SPOT ${STORM_HAVE_SPOT})
-    set(HAVE_STORM_XERCES ${STORM_HAVE_XERCES})
+    set_dependency_var(SPOT)
+    set_dependency_var(XERCES)
 endif()
 
 find_package(carlparser QUIET HINTS ${CARLPARSER_DIR_HINT})
