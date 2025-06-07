@@ -94,6 +94,7 @@ input = "lib/stormpy/_version.py"
 
 [tool.cibuildwheel]
 manylinux-x86_64-image = "manylinux_2_34"
+skip = "*musllinux*"
 
 [tool.cibuildwheel.linux]
 before-all = ".github/workflows/before-all-linux.sh"
