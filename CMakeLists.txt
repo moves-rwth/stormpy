@@ -81,7 +81,7 @@ if (NOT storm_FOUND AND ALLOW_STORM_FETCH)
     FetchContent_Declare(
             storm
             GIT_REPOSITORY https://github.com/sjunges/storm.git
-            GIT_TAG        879fc72cef99853440421418242945f266e05443 #
+            GIT_TAG        7be4a3f79a12a967d33cf2c0e112672d4a72a276 #
             #SOURCE_DIR /Users/junges/storm/
     )
     FETCHCONTENT_MAKEAVAILABLE(storm)
