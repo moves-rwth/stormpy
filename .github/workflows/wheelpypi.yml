@@ -87,7 +87,7 @@ jobs:
           merge-multiple: true
       - name: Run test in ${{ matrix.distro }}
         run: |
-          docker run -i --rm -v ./dist:/wheel fedora:latest /bin/bash << 'EOF'
+          docker run -i --rm -v ./dist:/wheel ${{ matrix.distro }} /bin/bash << 'EOF'
           set -euo pipefail
           set -x
 
