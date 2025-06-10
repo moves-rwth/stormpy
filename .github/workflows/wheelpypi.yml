@@ -68,6 +68,63 @@ jobs:
           name: cibw-sdist
           path: dist/*.tar.gz
 
+  test_wheels_linux:
+    name: Test wheels on different Linux distros
+    needs: [build_wheels]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        distro:
+          - ubuntu:22.04
+          - debian:bullseye
+          - fedora:latest
+          - archlinux:latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: cibw-wheels-linux-intel-*
+          path: dist
+          merge-multiple: true
+      - name: Run test in ${{ matrix.distro }}
+        run: |
+          docker run --rm -v dist:/wheel \
+            ${{ matrix.distro }} /bin/bash -c "
+              set -euo pipefail
+
+              cd /wheel
+
+              # Install Python & pip (varies per distro)
+              if command -v apt; then
+                apt update && apt install -y python3 python3-pip
+              elif command -v dnf; then
+                dnf install -y python3 python3-pip
+              elif command -v pacman; then
+                pacman -Syu --noconfirm python python-pip
+              fi
+
+              # Get major+minor version (e.g. “311” for Python 3.11)
+              PY_VER=$(python3 - <<'EOF'
+              import sys
+              print(f"{sys.version_info.major}{sys.version_info.minor}")
+              EOF
+              )
+
+              # Look for a matching wheel in the current directory
+              WHEEL=$(ls stormpy-*-cp${PY_VER}-*.whl 2>/dev/null | head -n1 || true)
+              if [[ -z "$WHEEL" ]]; then
+                echo "Error: No stormpy wheel found for Python ${PY_VER:0:1}.${PY_VER:1}." >&2
+                exit 1
+              fi
+
+              echo "Installing $WHEEL using $PYTHON..."
+              # Install via pip
+              python3 -m pip install --upgrade pip   # optional: ensure pip is up-to-date
+              python3 -m pip install "$WHEEL"
+
+              # Run a basic import test (replace with pytest if needed)
+              python3 -c 'import your_package; print(\"Import successful\")'
+            "
+
   upload_pypi:
     needs: [build_wheels, build_sdist]
     runs-on: ubuntu-latest
