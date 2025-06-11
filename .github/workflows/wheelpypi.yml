@@ -73,10 +73,11 @@ jobs:
     needs: [build_wheels]
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         distro:
           - ubuntu:24.04
-          - debian:bullseye
+          - debian:bookworm
           - fedora:latest
           - archlinux:latest
     steps:
@@ -124,7 +125,7 @@ jobs:
           EOF
 
   upload_pypi:
-    needs: [build_wheels, build_sdist]
+    needs: [build_wheels, build_sdist, test_wheels_linux]
     runs-on: ubuntu-latest
     environment: pypi
     permissions:
