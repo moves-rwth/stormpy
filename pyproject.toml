@@ -50,6 +50,7 @@ dev = [
 test = [
     "pytest",
     "nbval",
+    "numpy",
 ]
 
 [tool.scikit-build]
