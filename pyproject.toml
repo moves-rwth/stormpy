@@ -106,7 +106,7 @@ before-all = "brew install ccache automake boost cln ginac glpk hwloc z3 xerces-
 repair-wheel-command = "delocate-listdeps -vv --depending --all {wheel} && DYLD_LIBRARY_PATH=$REPAIR_LIBRARY_PATH delocate-wheel --require-archs {delocate_archs} -w {dest_dir} -v {wheel}"
 
 [tool.cibuildwheel.config-settings]
-"cmake.args" = ["-DSTORM_PORTABLE=ON"]
+"cmake.args" = ["-DSTORM_PORTABLE=ON", "-DALLOW_STORM_SYSTEM='OFF'"]
 
 [tool.black]
 line-length = 160
