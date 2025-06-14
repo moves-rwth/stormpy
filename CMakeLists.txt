@@ -127,8 +127,8 @@ SET(CMAKE_BUILD_RPATH_USE_ORIGIN TRUE)
 
 
 # Workaround for issue with Boost >= 1.81
-# TODO is this still necessary?
-find_package(Boost 1.65.1 QUIET REQUIRED COMPONENTS filesystem system)
+# TODO: In the future, this should be inherited somehow from storm. 
+find_package(Boost 1.70 QUIET REQUIRED CONFIG)
 if (Boost_FOUND)
     if (${Boost_VERSION} VERSION_GREATER_EQUAL "1.81.0")
         message(STATUS "Stormpy - Using workaround for Boost >= 1.81")
