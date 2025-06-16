@@ -39,7 +39,7 @@ jobs:
              test_opt: ""
           }
           - {name: "no libraries",
-             setup_args: "--config-settings=cmake.define.USE_STORM_DFT=OFF --config-settings=cmake.define.USE_STORM_GSPN=OFF --config-settings=cmake.define.USE_STORM_PARS=OFF --config-settings=cmake.define.USE_STORM_POMDP=OFF --config-settings=cmake.define.USE_PARSER=OFF",
+             setup_args: "--config-settings=cmake.define=USE_STORM_DFT=OFF --config-settings=cmake.define.USE_STORM_GSPN=OFF --config-settings=cmake.define.USE_STORM_PARS=OFF --config-settings=cmake.define.USE_STORM_POMDP=OFF --config-settings=cmake.define.USE_PARSER=OFF",
              optional_libs: "[test]",
              test_opt: "tests"
           }
@@ -51,7 +51,7 @@ jobs:
           docker build -t movesrwth/stormpy:ci . \
             --build-arg STORM_BASE=movesrwth/storm:${{ matrix.build_type.storm_base }} \
             --build-arg build_type=${{ matrix.build_type.name }} \
-            --build-arg setup_args=${{ matrix.config.setup_args }} \
+            --build-arg setup_args="${{ matrix.config.setup_args }}" \
             --build-arg options=${{ matrix.config.optional_libs }} \
             --build-arg no_threads=${NR_JOBS}
       - name: Run Docker
@@ -76,7 +76,7 @@ jobs:
              storm_base: "stable",
              build_type: "Release",
              setup_args: "",
-             optionalLibs: "[test,plot]"
+             optional_libs: "[test,plot]"
           }
     # Allow failures of stable versions as new features might have been added
     steps:
@@ -113,6 +113,107 @@ jobs:
         run: docker exec ci bash -c "cd /opt/stormpy; pytest"
 
 
+  linuxTests:
+    name: Linux Test (Fetch, ${{ matrix.config.name }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        config:
+          - {name: "Debian 12, Debug",
+             base_image: "movesrwth/storm-basesystem:debian-12",
+             build_type: "Debug",
+             setup_args: "--config-settings=cmake.define.ALLOW_STORM_SYSTEM=OFF",
+             optional_libs: "[test,plot]",
+             test_opt: ""
+          }
+          - {name: "Ubuntu 24.04, Debug",
+             base_image: "movesrwth/storm-basesystem:ubuntu-24.04",
+             build_type: "Debug",
+             setup_args: "--config-settings=cmake.define.ALLOW_STORM_SYSTEM=OFF",
+             optional_libs: "[test,plot]",
+             test_opt: ""
+          }
+          - {name: "Ubuntu 24.04, Debug, only Storm core",
+             base_image: "movesrwth/storm-basesystem:ubuntu-24.04",
+             build_type: "Debug",
+             setup_args: "--config-settings=cmake.define.ALLOW_STORM_SYSTEM=OFF --config-settings=cmake.define.USE_STORM_DFT=OFF --config-settings=cmake.define.USE_STORM_GSPN=OFF --config-settings=cmake.define.USE_STORM_PARS=OFF --config-settings=cmake.define.USE_STORM_POMDP=OFF --config-settings=cmake.define.USE_PARSER=OFF",
+             optional_libs: "[test]",
+             test_opt: "tests"
+          }
+          - {name: "Ubuntu 24.04, Release",
+             base_image: "movesrwth/storm-basesystem:ubuntu-24.04",
+             build_type: "Release",
+             setup_args: "--config-settings=cmake.define.ALLOW_STORM_SYSTEM=OFF",
+             optional_libs: "[test,plot]",
+             test_opt: ""
+          }
+    steps:
+      - name: Git clone
+        uses: actions/checkout@v4
+      - name: Replace Dockerfile
+        run: cp .github/workflows/Dockerfile.fetch Dockerfile
+      - name: Build stormpy
+        run: |
+          docker build -t movesrwth/stormpy:ci . \
+            --build-arg BASE_IMAGE=${{ matrix.config.base_image }} \
+            --build-arg build_type=${{ matrix.config.build_type }} \
+            --build-arg setup_args="${{ matrix.config.setup_args }}" \
+            --build-arg options=${{ matrix.config.optional_libs }} \
+            --build-arg no_threads=${NR_JOBS}
+      - name: Run Docker
+        run: docker run -d -it --name ci movesrwth/stormpy:ci
+      - name: Run tests
+        run: docker exec ci bash -c "cd /opt/stormpy; pytest ${{ matrix.config.test_opt }}"
+  
+
+  macTests:
+    name: Mac Tests (Fetch, ${{ matrix.config.name }})
+    strategy:
+      matrix:
+        config:
+          - {name: "XCode 14.3, Intel, Debug",
+             distro: "macos-13",
+             xcode: "14.3",
+             build_type: "Debug",
+             setup_args: "--config-settings=cmake.define.ALLOW_STORM_SYSTEM=OFF",
+             optional_libs: "[test,plot]"
+          }
+          - {name: "XCode 15.4, ARM, Debug",
+             distro: "macos-14",
+             xcode: "15.4",
+             build_type: "Debug",
+             setup_args: "--config-settings=cmake.define.ALLOW_STORM_SYSTEM=OFF",
+             optional_libs: "[test,plot]"
+          }
+          - {name: "XCode 16.3, ARM, Debug",
+             distro: "macos-15",
+             xcode: "16.3",
+             build_type: "Debug",
+             setup_args: "--config-settings=cmake.define.ALLOW_STORM_SYSTEM=OFF",
+             optional_libs: "[test,plot]"
+          }
+    runs-on: ${{ matrix.config.distro }}
+    steps:
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: ${{ matrix.config.xcode }}
+      - name: Git clone
+        uses: actions/checkout@v4
+      - name: Install dependencies
+        # cmake and gmp and python3 are already installed
+        run: |
+          brew update
+          brew install automake boost cln ginac glpk hwloc xerces-c z3
+      - name: Build stormpy
+        run: |
+          pip install -v \
+            --config-settings=cmake.build-type=${{ matrix.config.build_type }} \
+            --config-settings=cmake.define.CMAKE_BUILD_PARALLEL_LEVEL=${NR_JOBS} \
+            ${{ matrix.config.setup_args }} .${{ matrix.config.optional_libs }}
+      - name: Run tests
+        run: pytest
+
+
   deploy:
     name: Test and Deploy on latest (${{ matrix.build_type.name }})
     runs-on: ubuntu-latest
@@ -141,7 +242,7 @@ jobs:
           docker build -t movesrwth/stormpy:${{ matrix.build_type.docker_tag }} . \
             --build-arg STORM_BASE=movesrwth/storm:${{ matrix.build_type.storm_base }} \
             --build-arg build_type=${{ matrix.build_type.build_type }} \
-            --build-arg setup_args=${{ matrix.build_type.setup_args }} \
+            --build-arg setup_args="${{ matrix.build_type.setup_args }}" \
             --build-arg options=${{ matrix.build_type.optional_libs }} \
             --build-arg no_threads=${NR_JOBS}
       - name: Run Docker
@@ -181,7 +282,7 @@ jobs:
   notify:
     name: Email notification
     runs-on: ubuntu-latest
-    needs: [indepthTests,stableTest, deploy]
+    needs: [indepthTests, stableTests, linuxTests, macTests, deploy]
     # Only run in main repo and even if previous step failed
     if: github.repository_owner == 'moves-rwth' && always()
     steps:
