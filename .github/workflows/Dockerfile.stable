@@ -8,7 +8,7 @@
 # Set Storm base image
 ARG STORM_BASE=movesrwth/storm:stable
 FROM $STORM_BASE
-MAINTAINER Matthias Volk <m.volk@utwente.nl>
+LABEL org.opencontainers.image.authors="dev@stormchecker.org"
 
 
 # Configuration arguments

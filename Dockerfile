@@ -8,7 +8,7 @@
 # Set Storm base image
 ARG STORM_BASE=movesrwth/storm:stable
 FROM $STORM_BASE
-MAINTAINER Matthias Volk <m.volk@utwente.nl>
+LABEL org.opencontainers.image.authors="dev@stormchecker.org"
 
 
 # Configuration arguments
@@ -71,4 +71,8 @@ WORKDIR /opt/stormpy
 COPY . .
 
 # Build stormpy
-RUN pip install -v --config-settings=cmake.define.CMAKE_BUILD_PARALLEL_LEVEL=$no_threads --config-settings=cmake.define.CARLPARSER_DIR_HINT=/opt/carl-parser/build/ $setup_args .$options
+RUN pip install -v \
+    --config-settings=cmake.define.CMAKE_BUILD_PARALLEL_LEVEL=$no_threads \
+    --config-settings=cmake.build-type=$build_type \
+    --config-settings=cmake.define.CARLPARSER_DIR_HINT=/opt/carl-parser/build/ \
+    $setup_args .$options
