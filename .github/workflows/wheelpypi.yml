@@ -2,6 +2,9 @@ name: Build and upload to PyPI
 
 on:
   workflow_dispatch:
+  schedule:
+    # run weekly
+    - cron: '0 10 * * 3'
   pull_request:
   push:
   release:
