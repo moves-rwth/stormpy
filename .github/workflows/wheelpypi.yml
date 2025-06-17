@@ -23,15 +23,18 @@ jobs:
           - archs: auto
             platform: auto
             xcode: ""
+            deploy_target: 13.0
           - os: linux-intel
             runs-on: ubuntu-latest
             archs: x86_64
           - os: macos-intel
             runs-on: macos-13 # macos-13 was the last x86_64 runner
             xcode: 14.3
+            deploy_target: 13.0
           - os: macos-arm
             runs-on: macos-14 # macos-14+ (including latest) are ARM64 runners
             xcode: 15.3
+            deploy_target: 14.0
       fail-fast: false
     steps:
       - uses: actions/checkout@v4
@@ -44,7 +47,7 @@ jobs:
         env:
           CIBW_PLATFORM: ${{ matrix.platform }}
           CIBW_ARCHS: ${{ matrix.archs }}
-          MACOSX_DEPLOYMENT_TARGET: 14.0
+          MACOSX_DEPLOYMENT_TARGET: ${{ matrix.deploy_target }}
       - uses: actions/upload-artifact@v4
         with:
           name: cibw-wheels-${{ matrix.os }}-${{ strategy.job-index }}
@@ -161,11 +164,6 @@ jobs:
           pattern: cibw-wheels-${{ matrix.distro.os }}-*
           path: dist
           merge-multiple: true
-      - name: Install dependencies
-        # cmake and gmp and python3 are already installed
-        run: |
-          brew update
-          brew install automake boost cln ginac glpk hwloc xerces-c z3
       - name: Install from wheel and test
         working-directory: dist
         run: |
