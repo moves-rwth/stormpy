@@ -192,6 +192,13 @@ jobs:
              setup_args: "--config-settings=cmake.define.ALLOW_STORM_SYSTEM=OFF",
              optional_libs: "[test,plot]"
           }
+          - {name: "XCode 16.3, ARM, Release",
+             distro: "macos-15",
+             xcode: "16.3",
+             build_type: "Release",
+             setup_args: "--config-settings=cmake.define.ALLOW_STORM_SYSTEM=OFF",
+             optional_libs: "[test,plot]"
+          }
     runs-on: ${{ matrix.config.distro }}
     steps:
       - uses: maxim-lobanov/setup-xcode@v1
