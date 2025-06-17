@@ -76,7 +76,7 @@ sdist.include = [
 ]
 
 [tool.scikit-build.cmake.define]
-PYBIND_VERSION="2.12.1"
+PYBIND_VERSION="3.0.0rc3"
 STORM_DIR_HINT=""
 ALLOW_STORM_SYSTEM="ON"
 ALLOW_STORM_FETCH="ON"
