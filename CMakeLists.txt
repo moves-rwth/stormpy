@@ -103,9 +103,12 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/lib/stormpy")
 
 # This sets interprocedural optimization off as this leads to some problems on some systems
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION OFF)
-# This sets the default visibility from hidden to default,
-# which is recommended *not* to do, but leads to errors otherwise.
-set(CMAKE_CXX_VISIBILITY_PRESET "default")
+
+if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    # This sets the default visibility from hidden to default,
+    # which is recommended *not* to do, but leads to errors otherwise.
+    set(CMAKE_CXX_VISIBILITY_PRESET "default")
+endif()
 
 # RPATH settings (https://gitlab.kitware.com/cmake/community/-/wikis/doc/cmake/RPATH-handling#always-full-rpath)
 # don't skip the full RPATH for the build tree
