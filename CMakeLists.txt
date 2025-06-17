@@ -80,9 +80,8 @@ if (NOT storm_FOUND AND ALLOW_STORM_FETCH)
     SET(STORM_BUILD_EXECUTABLES OFF)
     FetchContent_Declare(
             storm
-            GIT_REPOSITORY https://github.com/sjunges/storm.git
-            GIT_TAG        7be4a3f79a12a967d33cf2c0e112672d4a72a276 #
-            #SOURCE_DIR /Users/junges/storm/
+            GIT_REPOSITORY https://github.com/moves-rwth/storm.git
+            GIT_TAG        master
     )
     FETCHCONTENT_MAKEAVAILABLE(storm)
     include(${storm_BINARY_DIR}/stormOptions.cmake)
