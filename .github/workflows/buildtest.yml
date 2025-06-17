@@ -166,7 +166,7 @@ jobs:
         run: docker exec ci bash -c "cd /opt/stormpy; pytest ${{ matrix.config.test_opt }}"
   
 
-  macTests:
+  macFetchTests:
     name: Mac Tests (Fetch, ${{ matrix.config.name }})
     strategy:
       matrix:
@@ -211,6 +211,63 @@ jobs:
         run: |
           brew update
           brew install automake boost cln ginac glpk hwloc xerces-c z3
+      - name: Build stormpy
+        run: |
+          pip install -v \
+            --config-settings=cmake.build-type=${{ matrix.config.build_type }} \
+            --config-settings=cmake.define.CMAKE_BUILD_PARALLEL_LEVEL=${NR_JOBS} \
+            ${{ matrix.config.setup_args }} .${{ matrix.config.optional_libs }}
+      - name: Run tests
+        run: pytest
+
+
+  macInstallTests:
+    name: Mac Tests (Install, ${{ matrix.config.name }})
+    strategy:
+      matrix:
+        config:
+          - {name: "XCode 16.3, ARM, Debug",
+             distro: "macos-15",
+             xcode: "16.3",
+             build_type: "Debug",
+             setup_args: "--config-settings=cmake.define.ALLOW_STORM_FETCH=OFF",
+             optional_libs: "[test,plot]"
+          }
+          - {name: "XCode 16.3, ARM, Release",
+             distro: "macos-15",
+             xcode: "16.3",
+             build_type: "Release",
+             setup_args: "--config-settings=cmake.define.ALLOW_STORM_FETCH=ON",
+             optional_libs: "[test,plot]"
+          }
+    runs-on: ${{ matrix.config.distro }}
+    steps:
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: ${{ matrix.config.xcode }}
+      - name: Git clone
+        uses: actions/checkout@v4
+      - name: Install dependencies
+        # cmake and gmp and python3 are already installed
+        run: |
+          brew update
+          brew install automake boost cln ginac glpk hwloc xerces-c z3
+      - name: Checkout Storm
+        uses: actions/checkout@v4
+        with:
+          repository: moves-rwth/storm
+          ref: master
+          path: storm
+      - name: Build and install Storm
+        working-directory: storm
+        run: |
+          mkdir build
+          cd build
+          cmake .. -DCMAKE_BUILD_TYPE="${{ matrix.config.build_type }}" -DSTORM_BUILD_TESTS=OFF -DSTORM_BUILD_EXECUTABLES=OFF
+          make -j ${NR_JOBS}
+          sudo make install
+          cd ..
+          rm -rf build
       - name: Build stormpy
         run: |
           pip install -v \
@@ -289,7 +346,7 @@ jobs:
   notify:
     name: Email notification
     runs-on: ubuntu-latest
-    needs: [indepthTests, stableTests, linuxTests, macTests, deploy]
+    needs: [indepthTests, stableTests, linuxTests, macFetchTests, macInstallTests, deploy]
     # Only run in main repo and even if previous step failed
     if: github.repository_owner == 'moves-rwth' && always()
     steps:
