@@ -12,12 +12,11 @@ from .storage import *
 from .logic import *
 from .exceptions import *
 
-__version__ = "unknown"
 try:
     from ._version import __version__
 except ImportError:
     # We're running in a tree that doesn't have a _version.py, so we don't know what our version is.
-    pass
+    __version__ = "unknown"
 
 core._set_up("")
 
@@ -228,6 +227,8 @@ def build_interval_model_from_drn(file, options=DirectEncodingParserOptions()):
     assert intermediate.supports_uncertainty
     if intermediate.model_type == ModelType.MDP:
         return intermediate._as_sparse_imdp()
+    elif intermediate.model_type == ModelType.POMDP:
+        return intermediate._as_sparse_ipomdp()
     else:
         raise StormError("Not supported interval model constructed")
 
