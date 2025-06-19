@@ -13,8 +13,6 @@ include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/macros.cmake)
 set(CMAKE_CXX_STANDARD 20)
 
 # Configuration options
-set(PYBIND_VERSION "" CACHE STRING "Pybind11 version to use")
-MARK_AS_ADVANCED(PYBIND_VERSION)
 set(STORM_DIR_HINT "" CACHE STRING "A hint where the Storm library can be found.")
 option(ALLOW_STORM_SYSTEM "Allow finding a storm version on the system" ON)
 option(ALLOW_STORM_FETCH "Allow fetching storm" ON)
@@ -32,7 +30,8 @@ mark_as_advanced(COMPILE_WITH_CCACHE)
 
 # Find the module development requirements (requires FindPython from 3.17 or scikit-build-core's built-in backport)
 find_package(Python REQUIRED COMPONENTS Interpreter Development.Module)
-include(resources/include_pybind11.cmake)
+set(PYBIND11_FINDPYTHON ON)
+find_package(pybind11 CONFIG REQUIRED)
 message(STATUS "Stormpy - Using pybind11 version ${pybind11_VERSION}")
 
 # Helper function to print path where library was found and check whether hint was used
