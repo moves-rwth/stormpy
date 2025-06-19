@@ -1,5 +1,5 @@
 [build-system]
-requires = ["scikit-build-core"]
+requires = ["scikit-build-core", "pybind11"]
 build-backend = "scikit_build_core.build"
 
 [project]
@@ -76,7 +76,6 @@ sdist.include = [
 ]
 
 [tool.scikit-build.cmake.define]
-PYBIND_VERSION="2.12.1"
 STORM_DIR_HINT=""
 ALLOW_STORM_SYSTEM="ON"
 ALLOW_STORM_FETCH="ON"
