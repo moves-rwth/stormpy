@@ -38,7 +38,7 @@ plot = [
 ]
 doc = [
     "Sphinx<8.2.0",
-    "sphinx-bootstrap-theme",
+    "sphinx-nefertiti",
     "nbsphinx",
     "ipython",
     "ipykernel",
