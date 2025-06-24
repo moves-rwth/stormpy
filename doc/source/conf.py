@@ -48,6 +48,10 @@ html_theme_options = {
     "style_header_neutral": False,
     "pygments_light_style": "pastie",
     "pygments_dark_style": "dracula",
+    "logo": "storm_logo.png",
+    "logo_width": 36,
+    "logo_height": 36,
+    "logo_alt": "Storm logo",
     ## Repos
     "repository_name": "stormpy",
     "repository_url": "https://github.com/moves-rwth/stormpy",
@@ -104,6 +108,7 @@ html_theme_options = {
 }
 html_static_path = ["_static"]
 html_css_files = ["custom.css"]
+html_favicon = "_static/favicon.png"
 
 
 # -- Nbsphinx options----- ---------------------------------------------------
