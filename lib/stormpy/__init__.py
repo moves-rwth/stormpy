@@ -10,7 +10,7 @@ from .core import *
 from . import storage
 from .storage import *
 from .logic import *
-from .exceptions import *
+from . import exceptions
 
 try:
     from ._version import __version__
@@ -41,7 +41,7 @@ def _convert_sparse_model(model, parametric=False):
         elif model.model_type == ModelType.MA:
             return model._as_sparse_pma()
         else:
-            raise StormError("Not supported parametric model constructed")
+            raise stormpy.exceptions.StormError("Not supported parametric model constructed")
     else:
         assert not model.supports_parameters
         if model.model_type == ModelType.DTMC:
@@ -57,7 +57,7 @@ def _convert_sparse_model(model, parametric=False):
         elif model.model_type == ModelType.SMG:
             return model._as_sparse_smg()
         else:
-            raise StormError("Not supported non-parametric model constructed")
+            raise stormpy.exceptions.StormError("Not supported non-parametric model constructed")
 
 
 def _convert_symbolic_model(model, parametric=False):
@@ -78,7 +78,7 @@ def _convert_symbolic_model(model, parametric=False):
         elif model.model_type == ModelType.MA:
             return model._as_symbolic_pma()
         else:
-            raise StormError("Not supported parametric model constructed")
+            raise stormpy.exceptions.StormError("Not supported parametric model constructed")
     else:
         assert not model.supports_parameters
         if model.model_type == ModelType.DTMC:
@@ -90,7 +90,7 @@ def _convert_symbolic_model(model, parametric=False):
         elif model.model_type == ModelType.MA:
             return model._as_symbolic_ma()
         else:
-            raise StormError("Not supported non-parametric model constructed")
+            raise stormpy.exceptions.StormError("Not supported non-parametric model constructed")
 
 
 def build_model(symbolic_description, properties=None):
@@ -124,7 +124,7 @@ def build_sparse_model(symbolic_description, properties=None):
     :return: Model in sparse representation.
     """
     if not symbolic_description.undefined_constants_are_graph_preserving:
-        raise StormError("Program still contains undefined constants")
+        raise stormpy.exceptions.StormError("Program still contains undefined constants")
 
     if properties:
         formulae = [(prop.raw_formula if isinstance(prop, Property) else prop) for prop in properties]
@@ -143,7 +143,7 @@ def build_sparse_parametric_model(symbolic_description, properties=None):
     :return: Parametric model in sparse representation.
     """
     if not symbolic_description.undefined_constants_are_graph_preserving:
-        raise StormError("Program still contains undefined constants")
+        raise stormpy.exceptions.StormError("Program still contains undefined constants")
 
     if properties:
         formulae = [(prop.raw_formula if isinstance(prop, Property) else prop) for prop in properties]
@@ -162,7 +162,7 @@ def build_symbolic_model(symbolic_description, properties=None):
     :return: Model in symbolic representation.
     """
     if not symbolic_description.undefined_constants_are_graph_preserving:
-        raise StormError("Program still contains undefined constants")
+        raise stormpy.exceptions.StormError("Program still contains undefined constants")
 
     if properties:
         formulae = [(prop.raw_formula if isinstance(prop, Property) else prop) for prop in properties]
@@ -181,7 +181,7 @@ def build_symbolic_parametric_model(symbolic_description, properties=None):
     :return: Parametric model in symbolic representation.
     """
     if not symbolic_description.undefined_constants_are_graph_preserving:
-        raise StormError("Program still contains undefined constants")
+        raise stormpy.exceptions.StormError("Program still contains undefined constants")
 
     if properties:
         formulae = [(prop.raw_formula if isinstance(prop, Property) else prop) for prop in properties]
@@ -230,7 +230,7 @@ def build_interval_model_from_drn(file, options=DirectEncodingParserOptions()):
     elif intermediate.model_type == ModelType.POMDP:
         return intermediate._as_sparse_ipomdp()
     else:
-        raise StormError("Not supported interval model constructed")
+        raise stormpy.exceptions.StormError("Not supported interval model constructed")
 
 
 def perform_bisimulation(model, properties, bisimulation_type):
@@ -297,7 +297,7 @@ def model_checking(model, property, only_initial_states=False, extract_scheduler
     else:
         assert model.is_symbolic_model
         if extract_scheduler:
-            raise StormError("Model checking based on dd engine does not support extracting schedulers right now.")
+            raise stormpy.exceptions.StormError("Model checking based on dd engine does not support extracting schedulers right now.")
         return check_model_dd(model, property, only_initial_states=only_initial_states, environment=environment)
 
 
@@ -477,7 +477,7 @@ def compute_prob01_states(model, phi_states, psi_states):
     :param BitVector psi_states: Target states
     """
     if model.model_type != ModelType.DTMC:
-        raise StormError("Prob 01 is only defined for DTMCs -- model must be a DTMC")
+        raise stormpy.exceptions.StormError("Prob 01 is only defined for DTMCs -- model must be a DTMC")
 
     if model.supports_parameters:
         return core._compute_prob01states_rationalfunc(model, phi_states, psi_states)
@@ -517,7 +517,7 @@ def topological_sort(model, forward=True, initial=[]):
     elif isinstance(model, storage._SparseModel):
         return storage._topological_sort_double(matrix, initial)
     else:
-        raise StormError("Unknown kind of model.")
+        raise stormpy.exceptions.StormError("Unknown kind of model.")
 
 
 def get_reachable_states(model, initial_states, constraint_states, target_states, maximal_steps=None, choice_filter=None):
@@ -628,7 +628,7 @@ def parse_properties(properties, context=None, filters=None):
     elif type(context) == storage.JaniModel:
         return core.parse_properties_for_jani_model(properties, context, filters)
     else:
-        raise StormError("Unclear context. Please pass a symbolic model description")
+        raise stormpy.exceptions.StormError("Unclear context. Please pass a symbolic model description")
 
 
 def export_to_drn(model, file, options=DirectEncodingOptions()):

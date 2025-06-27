@@ -6,7 +6,7 @@ if not _config.storm_with_pars:
 from . import pars
 from .pars import *
 
-from stormpy import ModelType, StormError
+from stormpy import ModelType
 
 pars._set_up()
 
@@ -30,7 +30,7 @@ class ModelInstantiator:
         elif model.model_type == ModelType.MA:
             self._instantiator = PMaInstantiator(model)
         else:
-            raise StormError("Model type {} not supported".format(model.model_type))
+            raise stormpy.exceptions.StormError("Model type {} not supported".format(model.model_type))
 
     def instantiate(self, valuation):
         """
@@ -53,7 +53,7 @@ def simplify_model(model, formula):
     elif model.model_type == ModelType.MDP:
         simplifier = pars._SparseParametricMdpSimplifier(model)
     else:
-        raise StormError("Model type {} cannot be simplified.".format(model.model_type))
+        raise stormpy.exceptions.StormError("Model type {} cannot be simplified.".format(model.model_type))
     if not simplifier.simplify(formula):
-        raise StormError("Model could not be simplified")
+        raise stormpy.exceptions.StormError("Model could not be simplified")
     return simplifier.simplified_model, simplifier.simplified_formula
