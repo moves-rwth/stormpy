@@ -1,7 +1,7 @@
 import stormpy.utility
 from . import _storage
 from ._storage import *
-from deprecated import deprecated
+from deprecated.sphinx import deprecated
 
 
 def build_sparse_matrix(array, row_group_indices=[]):
@@ -116,7 +116,7 @@ StateValuation.get_values_states = _get_values_states
 
 
 # Deprecated functions
-@deprecated("Use general method 'get_value' instead.")
+@deprecated("Use general method 'get_value' instead.", version="1.10.0")
 def _get_boolean_value(self, state, var):
     return self._get_boolean_value(state, var)
 
@@ -124,7 +124,7 @@ def _get_boolean_value(self, state, var):
 StateValuation.get_boolean_value = _get_boolean_value
 
 
-@deprecated("Use general method 'get_value' instead.")
+@deprecated("Use general method 'get_value' instead.", version="1.10.0")
 def _get_integer_value(self, state, var):
     return self._get_integer_value(state, var)
 
@@ -132,7 +132,7 @@ def _get_integer_value(self, state, var):
 StateValuation.get_integer_value = _get_integer_value
 
 
-@deprecated("Use general method 'get_value' instead.")
+@deprecated("Use general method 'get_value' instead.", version="1.10.0")
 def _get_rational_value(self, state, var):
     return self._get_rational_value(state, var)
 
@@ -140,7 +140,7 @@ def _get_rational_value(self, state, var):
 StateValuation.get_rational_value = _get_rational_value
 
 
-@deprecated("Use general method 'get_values_states' instead.")
+@deprecated("Use general method 'get_values_states' instead.", version="1.10.0")
 def _get_boolean_values_states(self, var):
     return self._get_boolean_values_states(var)
 
@@ -148,7 +148,7 @@ def _get_boolean_values_states(self, var):
 StateValuation.get_boolean_values_states = _get_boolean_values_states
 
 
-@deprecated("Use general method 'get_values_states' instead.")
+@deprecated("Use general method 'get_values_states' instead.", version="1.10.0")
 def _get_integer_values_states(self, var):
     return self._get_integer_values_states(var)
 
@@ -156,7 +156,7 @@ def _get_integer_values_states(self, var):
 StateValuation.get_integer_values_states = _get_integer_values_states
 
 
-@deprecated("Use general method 'get_values_states' instead.")
+@deprecated("Use general method 'get_values_states' instead.", version="1.10.0")
 def _get_rational_values_states(self, var):
     return self._get_rational_values_states(var)
 
@@ -185,7 +185,7 @@ SimpleValuation.get_value = _get_value
 
 
 # Deprecated functions
-@deprecated("Use general method 'get_value' instead.")
+@deprecated("Use general method 'get_value' instead.", version="1.10.0")
 def _get_boolean_value(self, var):
     return self._get_boolean_value(var)
 
@@ -193,7 +193,7 @@ def _get_boolean_value(self, var):
 SimpleValuation.get_boolean_value = _get_boolean_value
 
 
-@deprecated("Use general method 'get_value' instead.")
+@deprecated("Use general method 'get_value' instead.", version="1.10.0")
 def _get_integer_value(self, var):
     return self._get_integer_value(var)
 
