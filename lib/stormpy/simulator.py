@@ -1,6 +1,7 @@
 from enum import Enum
 
 import stormpy._core
+import stormpy.storage._storage
 
 
 class SimulatorObservationMode(Enum):
@@ -344,7 +345,7 @@ def create_simulator(
     :param options: BuilderOptions that can be passed to the simulator (currently only for symbolic simulators)
     :return: A simulator that can simulate on top of this model
     """
-    if isinstance(model, stormpy.storage._ModelBase):
+    if isinstance(model, stormpy.storage._storage._ModelBase):
         if model.is_sparse_model:
             return SparseSimulator(model, seed)
     elif isinstance(model, stormpy.storage.PrismProgram):

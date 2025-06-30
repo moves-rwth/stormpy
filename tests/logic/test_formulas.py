@@ -69,7 +69,7 @@ class TestFormulas:
         assert type(pathform) == stormpy.logic.EventuallyFormula
         labelform = pathform.subformula
         assert type(labelform) == stormpy.logic.AtomicLabelFormula
-        prop = stormpy.core.Property("label-formula", labelform)
+        prop = stormpy.Property("label-formula", labelform)
         assert prop.raw_formula == labelform
 
     def test_game_formula(self):

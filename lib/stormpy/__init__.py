@@ -512,10 +512,10 @@ def topological_sort(model, forward=True, initial=[]):
     :return: A topological sort of the states
     """
     matrix = model.transition_matrix if forward else model.backward_transition_matrix
-    if isinstance(model, storage._SparseParametricModel):
-        return storage._topological_sort_rf(matrix, initial)
-    elif isinstance(model, storage._SparseModel):
-        return storage._topological_sort_double(matrix, initial)
+    if isinstance(model, storage._storage._SparseParametricModel):
+        return storage._storage._topological_sort_rf(matrix, initial)
+    elif isinstance(model, storage._storage._SparseModel):
+        return storage._storage._topological_sort_double(matrix, initial)
     else:
         raise stormpy.exceptions.StormError("Unknown kind of model.")
 

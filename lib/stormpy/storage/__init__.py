@@ -13,7 +13,7 @@ def build_sparse_matrix(array, row_group_indices=[]):
     :param List[double] row_group_indices: List containing the starting row of each row group in ascending order.
     :return: Sparse matrix.
     """
-    return _build_sparse_matrix(storage.SparseMatrixBuilder, array, row_group_indices=row_group_indices)
+    return _build_sparse_matrix(_storage.SparseMatrixBuilder, array, row_group_indices=row_group_indices)
 
 
 def build_parametric_sparse_matrix(array, row_group_indices=[]):
@@ -25,7 +25,7 @@ def build_parametric_sparse_matrix(array, row_group_indices=[]):
     :param List[double] row_group_indices: List containing the starting row of each row group in ascending order.
     :return: Parametric sparse matrix.
     """
-    return _build_sparse_matrix(storage.ParametricSparseMatrixBuilder, array, row_group_indices=row_group_indices)
+    return _build_sparse_matrix(_storage.ParametricSparseMatrixBuilder, array, row_group_indices=row_group_indices)
 
 
 def _build_sparse_matrix(builder_class, array, row_group_indices=[]):
