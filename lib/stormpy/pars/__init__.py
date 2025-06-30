@@ -3,12 +3,12 @@ from stormpy import _config
 if not _config.storm_with_pars:
     raise ImportError("No support for parametric analysis was built in Storm.")
 
-from . import pars
-from .pars import *
+from . import _pars
+from ._pars import *
 
 from stormpy import ModelType
 
-pars._set_up()
+_pars._set_up()
 
 
 class ModelInstantiator:
@@ -49,9 +49,9 @@ def simplify_model(model, formula):
     :return: Tuple of simplified model and simplified formula.
     """
     if model.model_type == ModelType.DTMC:
-        simplifier = pars._SparseParametricDtmcSimplifier(model)
+        simplifier = _pars._SparseParametricDtmcSimplifier(model)
     elif model.model_type == ModelType.MDP:
-        simplifier = pars._SparseParametricMdpSimplifier(model)
+        simplifier = _pars._SparseParametricMdpSimplifier(model)
     else:
         raise stormpy.exceptions.StormError("Model type {} cannot be simplified.".format(model.model_type))
     if not simplifier.simplify(formula):

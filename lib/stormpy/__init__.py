@@ -5,8 +5,8 @@ if sys.version_info[0] == 2:
 
 from ._config import *
 
-from . import core
-from .core import *
+from . import _core
+from ._core import *
 from . import storage
 from .storage import *
 from .logic import *
@@ -18,7 +18,7 @@ except ImportError:
     # We're running in a tree that doesn't have a _version.py, so we don't know what our version is.
     __version__ = "unknown"
 
-core._set_up("")
+_core._set_up("")
 
 
 def _convert_sparse_model(model, parametric=False):
@@ -128,9 +128,9 @@ def build_sparse_model(symbolic_description, properties=None):
 
     if properties:
         formulae = [(prop.raw_formula if isinstance(prop, Property) else prop) for prop in properties]
-        intermediate = core._build_sparse_model_from_symbolic_description(symbolic_description, formulae)
+        intermediate = _core._build_sparse_model_from_symbolic_description(symbolic_description, formulae)
     else:
-        intermediate = core._build_sparse_model_from_symbolic_description(symbolic_description)
+        intermediate = _core._build_sparse_model_from_symbolic_description(symbolic_description)
     return _convert_sparse_model(intermediate, parametric=False)
 
 
@@ -147,9 +147,9 @@ def build_sparse_parametric_model(symbolic_description, properties=None):
 
     if properties:
         formulae = [(prop.raw_formula if isinstance(prop, Property) else prop) for prop in properties]
-        intermediate = core._build_sparse_parametric_model_from_symbolic_description(symbolic_description, formulae)
+        intermediate = _core._build_sparse_parametric_model_from_symbolic_description(symbolic_description, formulae)
     else:
-        intermediate = core._build_sparse_parametric_model_from_symbolic_description(symbolic_description)
+        intermediate = _core._build_sparse_parametric_model_from_symbolic_description(symbolic_description)
     return _convert_sparse_model(intermediate, parametric=True)
 
 
@@ -166,9 +166,9 @@ def build_symbolic_model(symbolic_description, properties=None):
 
     if properties:
         formulae = [(prop.raw_formula if isinstance(prop, Property) else prop) for prop in properties]
-        intermediate = core._build_symbolic_model_from_symbolic_description(symbolic_description, formulae)
+        intermediate = _core._build_symbolic_model_from_symbolic_description(symbolic_description, formulae)
     else:
-        intermediate = core._build_symbolic_model_from_symbolic_description(symbolic_description)
+        intermediate = _core._build_symbolic_model_from_symbolic_description(symbolic_description)
     return _convert_symbolic_model(intermediate, parametric=False)
 
 
@@ -185,9 +185,9 @@ def build_symbolic_parametric_model(symbolic_description, properties=None):
 
     if properties:
         formulae = [(prop.raw_formula if isinstance(prop, Property) else prop) for prop in properties]
-        intermediate = core._build_symbolic_parametric_model_from_symbolic_description(symbolic_description, formulae)
+        intermediate = _core._build_symbolic_parametric_model_from_symbolic_description(symbolic_description, formulae)
     else:
-        intermediate = core._build_symbolic_parametric_model_from_symbolic_description(symbolic_description)
+        intermediate = _core._build_symbolic_parametric_model_from_symbolic_description(symbolic_description)
     return _convert_symbolic_model(intermediate, parametric=True)
 
 
@@ -199,7 +199,7 @@ def build_model_from_drn(file, options=DirectEncodingParserOptions()):
     :param DirectEncodingParserOptions: Options for the parser.
     :return: Model in sparse representation.
     """
-    intermediate = core._build_sparse_model_from_drn(file, options)
+    intermediate = _core._build_sparse_model_from_drn(file, options)
     return _convert_sparse_model(intermediate, parametric=False)
 
 
@@ -211,7 +211,7 @@ def build_parametric_model_from_drn(file, options=DirectEncodingParserOptions())
     :param DirectEncodingParserOptions: Options for the parser.
     :return: Parametric model in sparse representation.
     """
-    intermediate = core._build_sparse_parametric_model_from_drn(file, options)
+    intermediate = _core._build_sparse_parametric_model_from_drn(file, options)
     return _convert_sparse_model(intermediate, parametric=True)
 
 
@@ -223,7 +223,7 @@ def build_interval_model_from_drn(file, options=DirectEncodingParserOptions()):
     :param DirectEncodingParserOptions: Options for the parser.
     :return: Interval model in sparse representation.
     """
-    intermediate = core._build_sparse_interval_model_from_drn(file, options)
+    intermediate = _core._build_sparse_interval_model_from_drn(file, options)
     assert intermediate.supports_uncertainty
     if intermediate.model_type == ModelType.MDP:
         return intermediate._as_sparse_imdp()
@@ -254,9 +254,9 @@ def perform_sparse_bisimulation(model, properties, bisimulation_type):
     """
     formulae = [(prop.raw_formula if isinstance(prop, Property) else prop) for prop in properties]
     if model.supports_parameters:
-        return core._perform_parametric_bisimulation(model, formulae, bisimulation_type)
+        return _core._perform_parametric_bisimulation(model, formulae, bisimulation_type)
     else:
-        return core._perform_bisimulation(model, formulae, bisimulation_type)
+        return _core._perform_bisimulation(model, formulae, bisimulation_type)
 
 
 def perform_symbolic_bisimulation(model, properties, quotient_format=stormpy.QuotientFormat.DD):
@@ -270,9 +270,9 @@ def perform_symbolic_bisimulation(model, properties, quotient_format=stormpy.Quo
     formulae = [(prop.raw_formula if isinstance(prop, Property) else prop) for prop in properties]
     bisimulation_type = BisimulationType.STRONG
     if model.supports_parameters:
-        return core._perform_symbolic_parametric_bisimulation(model, formulae, bisimulation_type, quotient_format)
+        return _core._perform_symbolic_parametric_bisimulation(model, formulae, bisimulation_type, quotient_format)
     else:
-        return core._perform_symbolic_bisimulation(model, formulae, bisimulation_type, quotient_format)
+        return _core._perform_symbolic_bisimulation(model, formulae, bisimulation_type, quotient_format)
 
 
 def model_checking(model, property, only_initial_states=False, extract_scheduler=False, force_fully_observable=False, environment=Environment()):
@@ -326,43 +326,43 @@ def check_model_sparse(model, property, only_initial_states=False, extract_sched
             elif model.supports_uncertainty:
                 raise NotImplementedError("Model checking of partially observable models is not supported for interval models.")
             elif model.is_exact:
-                task = core.ExactCheckTask(formula, only_initial_states)
+                task = _core.ExactCheckTask(formula, only_initial_states)
                 task.set_produce_schedulers(extract_scheduler)
                 if hint:
                     task.set_hint(hint)
-                return core._exact_model_checking_fully_observable(model, task, environment=environment)
+                return _core._exact_model_checking_fully_observable(model, task, environment=environment)
             else:
-                task = core.CheckTask(formula, only_initial_states)
+                task = _core.CheckTask(formula, only_initial_states)
                 task.set_produce_schedulers(extract_scheduler)
                 if hint:
                     task.set_hint(hint)
-                return core._model_checking_fully_observable(model, task, environment=environment)
+                return _core._model_checking_fully_observable(model, task, environment=environment)
         else:
             raise RuntimeError("Model checking of partially observable models is handled via dedicated methods, unless the force fully-observable is set.")
 
     if model.supports_parameters:
-        task = core.ParametricCheckTask(formula, only_initial_states)
+        task = _core.ParametricCheckTask(formula, only_initial_states)
         task.set_produce_schedulers(extract_scheduler)
         if hint:
             task.set_hint(hint)
-        return core._parametric_model_checking_sparse_engine(model, task, environment=environment)
+        return _core._parametric_model_checking_sparse_engine(model, task, environment=environment)
     else:
         if model.is_exact:
             if formula.is_multi_objective_formula:
-                return core._multi_objective_model_checking_exact(model, formula, environment=environment)
-            task = core.ExactCheckTask(formula, only_initial_states)
+                return _core._multi_objective_model_checking_exact(model, formula, environment=environment)
+            task = _core.ExactCheckTask(formula, only_initial_states)
             task.set_produce_schedulers(extract_scheduler)
             if hint:
                 task.set_hint(hint)
-            return core._exact_model_checking_sparse_engine(model, task, environment=environment)
+            return _core._exact_model_checking_sparse_engine(model, task, environment=environment)
         else:
             if formula.is_multi_objective_formula:
-                return core._multi_objective_model_checking_double(model, formula, environment=environment)
-            task = core.CheckTask(formula, only_initial_states)
+                return _core._multi_objective_model_checking_double(model, formula, environment=environment)
+            task = _core.CheckTask(formula, only_initial_states)
             task.set_produce_schedulers(extract_scheduler)
             if hint:
                 task.set_hint(hint)
-            return core._model_checking_sparse_engine(model, task, environment=environment)
+            return _core._model_checking_sparse_engine(model, task, environment=environment)
 
 
 def check_model_dd(model, property, only_initial_states=False, environment=Environment()):
@@ -380,11 +380,11 @@ def check_model_dd(model, property, only_initial_states=False, environment=Envir
         formula = property
 
     if model.supports_parameters:
-        task = core.ParametricCheckTask(formula, only_initial_states)
-        return core._parametric_model_checking_dd_engine(model, task, environment=environment)
+        task = _core.ParametricCheckTask(formula, only_initial_states)
+        return _core._parametric_model_checking_dd_engine(model, task, environment=environment)
     else:
-        task = core.CheckTask(formula, only_initial_states)
-        return core._model_checking_dd_engine(model, task, environment=environment)
+        task = _core.CheckTask(formula, only_initial_states)
+        return _core._model_checking_dd_engine(model, task, environment=environment)
 
 
 def check_model_hybrid(model, property, only_initial_states=False, environment=Environment()):
@@ -402,11 +402,11 @@ def check_model_hybrid(model, property, only_initial_states=False, environment=E
         formula = property
 
     if model.supports_parameters:
-        task = core.ParametricCheckTask(formula, only_initial_states)
-        return core._parametric_model_checking_hybrid_engine(model, task, environment=environment)
+        task = _core.ParametricCheckTask(formula, only_initial_states)
+        return _core._parametric_model_checking_hybrid_engine(model, task, environment=environment)
     else:
-        task = core.CheckTask(formula, only_initial_states)
-        return core._model_checking_hybrid_engine(model, task, environment=environment)
+        task = _core.CheckTask(formula, only_initial_states)
+        return _core._model_checking_hybrid_engine(model, task, environment=environment)
 
 
 def transform_to_sparse_model(model):
@@ -416,9 +416,9 @@ def transform_to_sparse_model(model):
     :return: Sparse model.
     """
     if model.supports_parameters:
-        return core._transform_to_sparse_parametric_model(model)
+        return _core._transform_to_sparse_parametric_model(model)
     else:
-        return core._transform_to_sparse_model(model)
+        return _core._transform_to_sparse_model(model)
 
 
 def transform_to_discrete_time_model(model, properties):
@@ -430,9 +430,9 @@ def transform_to_discrete_time_model(model, properties):
     """
     formulae = [(prop.raw_formula if isinstance(prop, Property) else prop) for prop in properties]
     if model.supports_parameters:
-        return core._transform_to_discrete_time_parametric_model(model, formulae)
+        return _core._transform_to_discrete_time_parametric_model(model, formulae)
     else:
-        return core._transform_to_discrete_time_model(model, formulae)
+        return _core._transform_to_discrete_time_model(model, formulae)
 
 
 def eliminate_non_markovian_chains(ma, properties, label_behavior):
@@ -445,15 +445,15 @@ def eliminate_non_markovian_chains(ma, properties, label_behavior):
     """
     formulae = [(prop.raw_formula if isinstance(prop, Property) else prop) for prop in properties]
     if ma.supports_parameters:
-        return core._eliminate_non_markovian_chains_parametric(ma, formulae, label_behavior)
+        return _core._eliminate_non_markovian_chains_parametric(ma, formulae, label_behavior)
     else:
-        return core._eliminate_non_markovian_chains(ma, formulae, label_behavior)
+        return _core._eliminate_non_markovian_chains(ma, formulae, label_behavior)
 
 
 def prob01min_states(model, eventually_formula):
     assert type(eventually_formula) == logic.EventuallyFormula
     labelform = eventually_formula.subformula
-    labelprop = core.Property("label-prop", labelform)
+    labelprop = _core.Property("label-prop", labelform)
     phiStates = BitVector(model.nr_states, True)
     psiStates = model_checking(model, labelprop).get_truth_values()
     return compute_prob01min_states(model, phiStates, psiStates)
@@ -462,7 +462,7 @@ def prob01min_states(model, eventually_formula):
 def prob01max_states(model, eventually_formula):
     assert type(eventually_formula) == logic.EventuallyFormula
     labelform = eventually_formula.subformula
-    labelprop = core.Property("label-prop", labelform)
+    labelprop = _core.Property("label-prop", labelform)
     phiStates = BitVector(model.nr_states, True)
     psiStates = model_checking(model, labelprop).get_truth_values()
     return compute_prob01max_states(model, phiStates, psiStates)
@@ -480,27 +480,27 @@ def compute_prob01_states(model, phi_states, psi_states):
         raise stormpy.exceptions.StormError("Prob 01 is only defined for DTMCs -- model must be a DTMC")
 
     if model.supports_parameters:
-        return core._compute_prob01states_rationalfunc(model, phi_states, psi_states)
+        return _core._compute_prob01states_rationalfunc(model, phi_states, psi_states)
     else:
-        return core._compute_prob01states_double(model, phi_states, psi_states)
+        return _core._compute_prob01states_double(model, phi_states, psi_states)
 
 
 def compute_prob01min_states(model, phi_states, psi_states):
     if model.model_type == ModelType.DTMC:
         return compute_prob01_states(model, phi_states, psi_states)
     if model.supports_parameters:
-        return core._compute_prob01states_min_rationalfunc(model, phi_states, psi_states)
+        return _core._compute_prob01states_min_rationalfunc(model, phi_states, psi_states)
     else:
-        return core._compute_prob01states_min_double(model, phi_states, psi_states)
+        return _core._compute_prob01states_min_double(model, phi_states, psi_states)
 
 
 def compute_prob01max_states(model, phi_states, psi_states):
     if model.model_type == ModelType.DTMC:
         return compute_prob01_states(model, phi_states, psi_states)
     if model.supports_parameters:
-        return core._compute_prob01states_max_rationalfunc(model, phi_states, psi_states)
+        return _core._compute_prob01states_max_rationalfunc(model, phi_states, psi_states)
     else:
-        return core._compute_prob01states_max_double(model, phi_states, psi_states)
+        return _core._compute_prob01states_max_double(model, phi_states, psi_states)
 
 
 def topological_sort(model, forward=True, initial=[]):
@@ -533,10 +533,10 @@ def get_reachable_states(model, initial_states, constraint_states, target_states
     :return:
     """
     if model.supports_parameters:
-        return core._get_reachable_states_rf(model, initial_states, constraint_states, target_states, maximal_steps, choice_filter)
+        return _core._get_reachable_states_rf(model, initial_states, constraint_states, target_states, maximal_steps, choice_filter)
     if model.is_exact:
-        return core._get_reachable_states_exact(model, initial_states, constraint_states, target_states, maximal_steps, choice_filter)
-    return core._get_reachable_states_double(model, initial_states, constraint_states, target_states, maximal_steps, choice_filter)
+        return _core._get_reachable_states_exact(model, initial_states, constraint_states, target_states, maximal_steps, choice_filter)
+    return _core._get_reachable_states_double(model, initial_states, constraint_states, target_states, maximal_steps, choice_filter)
 
 
 def compute_expected_number_of_visits(environment, model):
@@ -550,8 +550,8 @@ def compute_expected_number_of_visits(environment, model):
     if model.supports_parameters:
         raise NotImplementedError("Expected number of visits is not implemented for parametric models")
     if model.is_exact:
-        return core._compute_expected_number_of_visits_exact(environment, model)
-    return core._compute_expected_number_of_visits_double(environment, model)
+        return _core._compute_expected_number_of_visits_exact(environment, model)
+    return _core._compute_expected_number_of_visits_double(environment, model)
 
 
 def compute_steady_state_distribution(environment, model):
@@ -565,8 +565,8 @@ def compute_steady_state_distribution(environment, model):
     if model.supports_parameters:
         raise NotImplementedError("Steady-state distribution is not implemented for parametric models")
     if model.is_exact:
-        return core._compute_steady_state_distribution_exact(environment, model)
-    return core._compute_steady_state_distribution_double(environment, model)
+        return _core._compute_steady_state_distribution_exact(environment, model)
+    return _core._compute_steady_state_distribution_double(environment, model)
 
 
 def construct_submodel(model, states, actions, keep_unreachable_states=True, options=SubsystemBuilderOptions()):
@@ -580,10 +580,10 @@ def construct_submodel(model, states, actions, keep_unreachable_states=True, opt
     :return: A model with fewer states/actions
     """
     if model.supports_parameters:
-        return core._construct_subsystem_RatFunc(model, states, actions, keep_unreachable_states, options)
+        return _core._construct_subsystem_RatFunc(model, states, actions, keep_unreachable_states, options)
     if model.is_exact:
-        return core._construct_subsystem_Exact(model, states, actions, keep_unreachable_states, options)
-    return core._construct_subsystem_Double(model, states, actions, keep_unreachable_states, options)
+        return _core._construct_subsystem_Exact(model, states, actions, keep_unreachable_states, options)
+    return _core._construct_subsystem_Double(model, states, actions, keep_unreachable_states, options)
 
 
 def eliminate_ECs(matrix, subsystem, possible_ecs, add_sink_row_states, add_self_loop_at_sink_states=False):
@@ -605,7 +605,7 @@ def eliminate_ECs(matrix, subsystem, possible_ecs, add_sink_row_states, add_self
     assert matrix.nr_rows == possible_ecs.size(), "possible_ecs vector should have an entry for every row."
     assert matrix.nr_columns == add_sink_row_states.size(), "add_sink_row_states vector should have an entry for every state."
 
-    return core._eliminate_end_components_double(matrix, subsystem, possible_ecs, add_sink_row_states, add_self_loop_at_sink_states)
+    return _core._eliminate_end_components_double(matrix, subsystem, possible_ecs, add_sink_row_states, add_self_loop_at_sink_states)
 
 
 def parse_properties(properties, context=None, filters=None):
@@ -617,16 +617,16 @@ def parse_properties(properties, context=None, filters=None):
     :return: A list of properties
     """
     if context is None:
-        return core.parse_properties_without_context(properties, filters)
-    elif type(context) == core.SymbolicModelDescription:
+        return _core.parse_properties_without_context(properties, filters)
+    elif type(context) == _core.SymbolicModelDescription:
         if context.is_prism_program:
-            return core.parse_properties_for_prism_program(properties, context.as_prism_program(), filters)
+            return _core.parse_properties_for_prism_program(properties, context.as_prism_program(), filters)
         else:
-            return core.parse_properties_for_jani_program(properties, context.as_jani_model(), filters)
+            return _core.parse_properties_for_jani_program(properties, context.as_jani_model(), filters)
     elif type(context) == storage.PrismProgram:
-        return core.parse_properties_for_prism_program(properties, context, filters)
+        return _core.parse_properties_for_prism_program(properties, context, filters)
     elif type(context) == storage.JaniModel:
-        return core.parse_properties_for_jani_model(properties, context, filters)
+        return _core.parse_properties_for_jani_model(properties, context, filters)
     else:
         raise stormpy.exceptions.StormError("Unclear context. Please pass a symbolic model description")
 
@@ -640,9 +640,9 @@ def export_to_drn(model, file, options=DirectEncodingOptions()):
     :return:
     """
     if model.supports_parameters:
-        return core._export_parametric_to_drn(model, file, options)
+        return _core._export_parametric_to_drn(model, file, options)
     if model.supports_uncertainty:
-        return core._export_to_drn_interval(model, file, options)
+        return _core._export_to_drn_interval(model, file, options)
     if model.is_exact:
-        return core._export_exact_to_drn(model, file, options)
-    return core._export_to_drn(model, file, options)
+        return _core._export_exact_to_drn(model, file, options)
+    return _core._export_to_drn(model, file, options)

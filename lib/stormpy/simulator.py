@@ -1,6 +1,6 @@
 from enum import Enum
 
-import stormpy.core
+import stormpy._core
 
 
 class SimulatorObservationMode(Enum):
@@ -105,9 +105,9 @@ class SparseSimulator(Simulator):
         super().__init__(seed)
         self._model = model
         if self._model.is_exact:
-            self._engine = stormpy.core._DiscreteTimeSparseModelSimulatorExact(model)
+            self._engine = stormpy._core._DiscreteTimeSparseModelSimulatorExact(model)
         else:
-            self._engine = stormpy.core._DiscreteTimeSparseModelSimulatorDouble(model)
+            self._engine = stormpy._core._DiscreteTimeSparseModelSimulatorDouble(model)
         if seed is not None:
             self._engine.set_seed(seed)
         self._state_valuations = None
@@ -234,7 +234,7 @@ class PrismSimulator(Simulator):
         super().__init__(seed)
         self._program = program
         # TODO support exact arithmetic here
-        self._engine = stormpy.core._DiscreteTimePrismProgramSimulatorDouble(program, options)
+        self._engine = stormpy._core._DiscreteTimePrismProgramSimulatorDouble(program, options)
         if seed is not None:
             self._engine.set_seed(seed)
         self.set_full_observability(self._program.model_type != stormpy.storage.PrismModelType.POMDP)

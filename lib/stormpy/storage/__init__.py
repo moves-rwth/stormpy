@@ -1,6 +1,6 @@
 import stormpy.utility
-from . import storage
-from .storage import *
+from . import _storage
+from ._storage import *
 from deprecated import deprecated
 
 

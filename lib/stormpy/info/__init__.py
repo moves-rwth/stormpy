@@ -1,4 +1,4 @@
-from .info import *
+from ._info import *
 from . import _config
 
 
