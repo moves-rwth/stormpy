@@ -1,5 +1,3 @@
-import sys
-
 from . import _pycarl_core
 from ._pycarl_core import *
 from . import infinity

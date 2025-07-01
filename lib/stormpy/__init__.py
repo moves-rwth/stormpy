@@ -1,5 +1,3 @@
-import sys
-
 from ._config import *
 
 from . import _core
