@@ -233,30 +233,32 @@ def build_interval_model_from_drn(file, options=DirectEncodingParserOptions()):
         raise StormError("Not supported interval model constructed")
 
 
-def perform_bisimulation(model, properties, bisimulation_type):
+def perform_bisimulation(model, properties, bisimulation_type, graph_preserving=True):
     """
     Perform bisimulation on model.
     :param model: Model.
     :param properties: Properties to preserve during bisimulation.
     :param bisimulation_type: Type of bisimulation (weak or strong).
+    :param graph_preserving: Whether the graph structure should be preserved.
     :return: Model after bisimulation.
     """
-    return perform_sparse_bisimulation(model, properties, bisimulation_type)
+    return perform_sparse_bisimulation(model, properties, bisimulation_type, graph_preserving)
 
 
-def perform_sparse_bisimulation(model, properties, bisimulation_type):
+def perform_sparse_bisimulation(model, properties, bisimulation_type, graph_preserving=True):
     """
     Perform bisimulation on model in sparse representation.
     :param model: Model.
     :param properties: Properties to preserve during bisimulation.
     :param bisimulation_type: Type of bisimulation (weak or strong).
+    :param graph_preserving: Whether the graph structure should be preserved.
     :return: Model after bisimulation.
     """
     formulae = [(prop.raw_formula if isinstance(prop, Property) else prop) for prop in properties]
     if model.supports_parameters:
-        return core._perform_parametric_bisimulation(model, formulae, bisimulation_type)
+        return core._perform_parametric_bisimulation(model, formulae, bisimulation_type, graph_preserving)
     else:
-        return core._perform_bisimulation(model, formulae, bisimulation_type)
+        return core._perform_bisimulation(model, formulae, bisimulation_type, graph_preserving)
 
 
 def perform_symbolic_bisimulation(model, properties, quotient_format=stormpy.QuotientFormat.DD):
