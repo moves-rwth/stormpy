@@ -7,6 +7,9 @@ Stormpy - Python bindings for Storm
 
 Python bindings for [Storm](https://www.stormchecker.org/), created using [PyBind11](https://pybind11.readthedocs.io/).
 
+Stormpy includes Pycarl, the Python Bindings for [CArL](https://github.com/moves-rwth/carl-storm).
+
+
 ### Get started
 Get started with stormpy directly in the browser via JupyterLab:
 
@@ -15,16 +18,10 @@ Get started with stormpy directly in the browser via JupyterLab:
 For more information on stormpy, please check the [documentation](https://moves-rwth.github.io/stormpy/).
 
 
-### Dependencies
-
-Stormpy requires [Storm](https://www.stormchecker.org/).
-
 ### Authors
 
 - Sebastian Junges
 - Matthias Volk
-
-Stormpy includes Pycarl, the Python Bindings for [CArL](https://github.com/moves-rwth/carl-storm).
 
 The development of pycarl received significant contributions from:
 - Harold Bruintjes
