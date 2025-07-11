@@ -256,7 +256,6 @@ def perform_sparse_bisimulation(model, properties, bisimulation_type, graph_pres
         return _core._perform_bisimulation(model, formulae, bisimulation_type, graph_preserving)
 
 
-
 def perform_symbolic_bisimulation(model, properties, quotient_format=stormpy.QuotientFormat.DD):
     """
     Perform bisimulation on model in symbolic representation.
