@@ -207,7 +207,7 @@ function(build_module MOD_NAME # Module name
     pybind11_add_module(${MOD_NAME} "${CMAKE_CURRENT_SOURCE_DIR}/src/${MOD_FILE}" ${${MOD_NAME}_SOURCES})
     target_include_directories(${MOD_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${ADDITIONAL_INCLUDES} ${CMAKE_CURRENT_BINARY_DIR}/src)
     target_link_libraries(${MOD_NAME} PRIVATE ${ADDITIONAL_LIBS})
-    set_target_properties(${MOD_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/${OUT_DIR}" OUTPUT_NAME "${OUT_NAME}")
+    set_target_properties(${MOD_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/${OUT_DIR}" OUTPUT_NAME "_${OUT_NAME}")
     install(TARGETS ${MOD_NAME} DESTINATION ${OUT_DIR})
 endfunction(build_module)
 

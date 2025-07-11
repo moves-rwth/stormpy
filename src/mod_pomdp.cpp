@@ -8,7 +8,7 @@
 #include "pomdp/quantitative_analysis.h"
 #include <storm/adapters/RationalFunctionAdapter.h>
 
-PYBIND11_MODULE(pomdp, m) {
+PYBIND11_MODULE(_pomdp, m) {
     m.doc() = "Functionality for POMDP analysis";
 
 #ifdef STORMPY_DISABLE_SIGNATURE_DOC

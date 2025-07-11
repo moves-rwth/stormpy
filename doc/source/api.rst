@@ -16,6 +16,7 @@ Work in progress!
    api/dft
    api/gspn
    api/pars
+   api/pomdp
 
    api/pycarl/core
    api/pycarl/convert

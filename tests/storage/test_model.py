@@ -68,7 +68,7 @@ class TestSparseModel:
         jani_model, properties = stormpy.parse_jani_model(get_example_path("dtmc", "brp.jani"))
         assert jani_model.has_undefined_constants
         assert not jani_model.undefined_constants_are_graph_preserving
-        with pytest.raises(stormpy.StormError):
+        with pytest.raises(stormpy.exceptions.StormError):
             model = stormpy.build_model(jani_model)
 
     def test_build_instantiated_dtmc_prism(self):

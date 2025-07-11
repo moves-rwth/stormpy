@@ -1,8 +1,7 @@
-Stormpy.utility
+Stormpy.pomdp
 **************************
 
-.. automodule:: stormpy.utility
+.. automodule:: stormpy.pomdp
    :members:
    :undoc-members:
    :imported-members:
-   :exclude-members: deprecated
