@@ -367,6 +367,7 @@
 <li class="toctree-l1"><a class="reference internal" href="api/dft.html">Stormpy.dft</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/gspn.html">Stormpy.gspn</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/pars.html">Stormpy.pars</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/pomdp.html">Stormpy.pomdp</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/pycarl/core.html">Pycarl core</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/pycarl/convert.html">Pycarl convert</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api/pycarl/formula.html">Pycarl formula</a></li>
@@ -620,6 +621,9 @@
 </li>
                                         </ul></li>
                                 <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.apply_unknown_fsc">apply_unknown_fsc() (in module stormpy.pomdp)</a>
+</li>
+                                <li>
                                     <a href="api/dft.html#stormpy.dft.ApproximationHeuristic">ApproximationHeuristic (class in stormpy.dft)</a>
 </li>
                                 <li>
@@ -720,6 +724,30 @@
                                     <a href="api/dft.html#stormpy.dft.DFTElementType.BE">BE (DFTElementType attribute)</a>
 </li>
                                 <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefExplorationModelCheckerDouble">BeliefExplorationModelCheckerDouble (class in stormpy.pomdp)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble">BeliefExplorationModelCheckerOptionsDouble (class in stormpy.pomdp)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefExplorationPomdpModelCheckerResultDouble">BeliefExplorationPomdpModelCheckerResultDouble (class in stormpy.pomdp)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefMdpExplorerDouble">BeliefMdpExplorerDouble (class in stormpy.pomdp)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefSupportTrackerDouble">BeliefSupportTrackerDouble (class in stormpy.pomdp)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefSupportTrackerExact">BeliefSupportTrackerExact (class in stormpy.pomdp)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefSupportWinningRegion">BeliefSupportWinningRegion (class in stormpy.pomdp)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefSupportWinningRegionQueryInterfaceDouble">BeliefSupportWinningRegionQueryInterfaceDouble (class in stormpy.pomdp)</a>
+</li>
+                                <li>
                                     <a href="api/core.html#stormpy.BinaryBooleanOperatorType">BinaryBooleanOperatorType (class in stormpy)</a>
 
                                         <ul>
@@ -813,6 +841,8 @@
                                                 <li><a href="api/core.html#stormpy.IntervalSparseMatrixBuilder.build">(IntervalSparseMatrixBuilder method)</a>, <a href="api/storage.html#stormpy.storage.IntervalSparseMatrixBuilder.build">[1]</a>
 </li>
                                                 <li><a href="api/core.html#stormpy.ParametricSparseMatrixBuilder.build">(ParametricSparseMatrixBuilder method)</a>, <a href="api/storage.html#stormpy.storage.ParametricSparseMatrixBuilder.build">[1]</a>
+</li>
+                                                <li><a href="api/pomdp.html#stormpy.pomdp.PomdpMemoryBuilder.build">(PomdpMemoryBuilder method)</a>
 </li>
                                                 <li><a href="api/core.html#stormpy.SMTCounterExampleGenerator.build">(SMTCounterExampleGenerator static method)</a>
 </li>
@@ -982,9 +1012,11 @@
                                     <a href="api/pars.html#stormpy.pars.RegionResult.CENTERVIOLATED">CENTERVIOLATED (RegionResult attribute)</a>
 </li>
                                 <li>
-                                    <a href="api/pars.html#stormpy.pars.PCtmcExactInstantiationChecker.check">check() (PCtmcExactInstantiationChecker method)</a>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefExplorationModelCheckerDouble.check">check() (BeliefExplorationModelCheckerDouble method)</a>
 
                                         <ul>
+                                                <li><a href="api/pars.html#stormpy.pars.PCtmcExactInstantiationChecker.check">(PCtmcExactInstantiationChecker method)</a>
+</li>
                                                 <li><a href="api/pars.html#stormpy.pars.PCtmcInstantiationChecker.check">(PCtmcInstantiationChecker method)</a>
 </li>
                                                 <li><a href="api/pars.html#stormpy.pars.PDtmcExactInstantiationChecker.check">(PDtmcExactInstantiationChecker method)</a>
@@ -1021,6 +1053,15 @@
 </li>
                                 <li>
                                     <a href="api/core.html#stormpy.JaniModel.check_valid">check_valid() (JaniModel method)</a>, <a href="api/storage.html#stormpy.storage.JaniModel.check_valid">[1]</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefExplorationModelCheckerDouble.check_with_environment">check_with_environment() (BeliefExplorationModelCheckerDouble method)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefExplorationModelCheckerDouble.check_with_environment_and_pre_processing_environment">check_with_environment_and_pre_processing_environment() (BeliefExplorationModelCheckerDouble method)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefExplorationModelCheckerDouble.check_with_preprocessing_environment">check_with_preprocessing_environment() (BeliefExplorationModelCheckerDouble method)</a>
 </li>
                                 <li>
                                     <a href="api/core.html#stormpy.CheckTask">CheckTask (class in stormpy)</a>
@@ -1069,6 +1110,9 @@
 </li>
                                 <li>
                                     <a href="api/pycarl/core.html#stormpy.pycarl.clear_variable_pool">clear_variable_pool() (in module stormpy.pycarl)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.clipping_grid_res">clipping_grid_res (BeliefExplorationModelCheckerOptionsDouble property)</a>
 </li>
                                 <li>
                                     <a href="api/core.html#stormpy.Formula.clone">clone() (Formula method)</a>, <a href="api/logic.html#stormpy.logic.Formula.clone">[1]</a>
@@ -1123,10 +1167,6 @@
                                                 <li><a href="api/logic.html#stormpy.logic.ComparisonType">(class in stormpy.logic)</a>
 </li>
                                         </ul></li>
-                        </ul>
-                    </td>
-                    <td>
-                        <ul>
                                 <li>
                                     <a href="api/pycarl/core.html#stormpy.pycarl.Interval.complement">complement() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.complement">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.complement">[2]</a>
 </li>
@@ -1141,6 +1181,10 @@
                                                 <li><a href="api/core.html#stormpy.SchedulerParametric.compute_action_support">(SchedulerParametric method)</a>, <a href="api/storage.html#stormpy.storage.SchedulerParametric.compute_action_support">[1]</a>
 </li>
                                         </ul></li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
                                 <li>
                                     <a href="api/core.html#stormpy.compute_all_until_probabilities">compute_all_until_probabilities() (in module stormpy)</a>
 </li>
@@ -1173,6 +1217,12 @@
 </li>
                                 <li>
                                     <a href="api/core.html#stormpy.compute_transient_probabilities">compute_transient_probabilities() (in module stormpy)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.IterativeQualitativeSearchSolverDouble.compute_winning_policy_for_initial_states">compute_winning_policy_for_initial_states() (IterativeQualitativeSearchSolverDouble method)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.IterativeQualitativeSearchSolverDouble.compute_winning_region">compute_winning_region() (IterativeQualitativeSearchSolverDouble method)</a>
 </li>
                                 <li>
                                     <a href="api/core.html#stormpy.ConditionalFormula">ConditionalFormula (class in stormpy)</a>
@@ -1235,6 +1285,9 @@
 </li>
                                 <li>
                                     <a href="api/core.html#stormpy.SMTCounterExampleGeneratorOptions.continue_after_first_counterexample">continue_after_first_counterexample (SMTCounterExampleGeneratorOptions property)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefExplorationModelCheckerDouble.continue_unfolding">continue_unfolding() (BeliefExplorationModelCheckerDouble method)</a>
 </li>
                                 <li>
                                     <a href="api/pycarl/convert.html#stormpy.pycarl.convert.convert_to_cln">convert_to_cln() (in module stormpy.pycarl.convert)</a>
@@ -1308,7 +1361,19 @@
                                     <a href="api/core.html#stormpy.ExpressionManager.create_integer_variable">create_integer_variable() (ExpressionManager method)</a>, <a href="api/storage.html#stormpy.storage.ExpressionManager.create_integer_variable">[1]</a>
 </li>
                                 <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.create_interactive_mc">create_interactive_mc() (in module stormpy.pomdp)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.create_iterative_qualitative_search_solver_Double">create_iterative_qualitative_search_solver_Double() (in module stormpy.pomdp)</a>
+</li>
+                                <li>
                                     <a href="api/pycarl/core.html#stormpy.pycarl.create_monomial">create_monomial() (in module stormpy.pycarl)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.create_nondeterminstic_belief_tracker">create_nondeterminstic_belief_tracker() (in module stormpy.pomdp)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.create_observation_trace_unfolder">create_observation_trace_unfolder() (in module stormpy.pomdp)</a>
 </li>
                                 <li>
                                     <a href="api/core.html#stormpy.ExpressionManager.create_rational">create_rational() (ExpressionManager method)</a>, <a href="api/storage.html#stormpy.storage.ExpressionManager.create_rational">[1]</a>
@@ -1344,6 +1409,12 @@
                                         </ul></li>
                                 <li>
                                     <a href="api/core.html#stormpy.SMTCounterExampleGeneratorStats.cut_time">cut_time (SMTCounterExampleGeneratorStats property)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.cut_zero_gap">cut_zero_gap (BeliefExplorationModelCheckerOptionsDouble property)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefExplorationPomdpModelCheckerResultDouble.cutoff_schedulers">cutoff_schedulers (BeliefExplorationPomdpModelCheckerResultDouble property)</a>
 </li>
                         </ul>
                     </td>
@@ -1453,13 +1524,6 @@
 
                                         <ul>
                                                 <li><a href="api/dft.html#stormpy.dft.DFTDependency_ratfunc.dependent_events">(DFTDependency_ratfunc property)</a>
-</li>
-                                        </ul></li>
-                                <li>
-                                    <a href="api/core.html#stormpy.deprecated">deprecated() (in module stormpy)</a>
-
-                                        <ul>
-                                                <li><a href="api/storage.html#stormpy.storage.deprecated">(in module stormpy.storage)</a>
 </li>
                                         </ul></li>
                                 <li>
@@ -1576,6 +1640,13 @@
                                 <li>
                                     <a href="api/pycarl/core.html#stormpy.pycarl.Interval.difference">difference() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.difference">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.difference">[2]</a>
 </li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.NondeterministicBeliefTrackerDoubleSparse.dimension">dimension() (NondeterministicBeliefTrackerDoubleSparse method)</a>
+
+                                        <ul>
+                                                <li><a href="api/pomdp.html#stormpy.pomdp.NondeterministicBeliefTrackerExactSparse.dimension">(NondeterministicBeliefTrackerExactSparse method)</a>
+</li>
+                                        </ul></li>
                                 <li>
                                     <a href="api/core.html#stormpy.DirectEncodingOptions">DirectEncodingOptions (class in stormpy)</a>
 </li>
@@ -1866,6 +1937,12 @@
                                     <a href="api/core.html#stormpy.ExplicitStateLookup">ExplicitStateLookup (class in stormpy)</a>
 </li>
                                 <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.exploration_heuristic">exploration_heuristic (BeliefExplorationModelCheckerOptionsDouble property)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.exploration_time_limit">exploration_time_limit (BeliefExplorationModelCheckerOptionsDouble property)</a>
+</li>
+                                <li>
                                     <a href="api/pycarl/core.html#stormpy.pycarl.Monomial.exponents">exponents (Monomial property)</a>
 </li>
                                 <li>
@@ -1953,6 +2030,15 @@
                                                 <li><a href="api/storage.html#stormpy.storage.ExpressionType">(class in stormpy.storage)</a>
 </li>
                                         </ul></li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.ObservationTraceUnfolderDouble.extend">extend() (ObservationTraceUnfolderDouble method)</a>
+
+                                        <ul>
+                                                <li><a href="api/pomdp.html#stormpy.pomdp.ObservationTraceUnfolderExact.extend">(ObservationTraceUnfolderExact method)</a>
+</li>
+                                                <li><a href="api/pomdp.html#stormpy.pomdp.ObservationTraceUnfolderRf.extend">(ObservationTraceUnfolderRf method)</a>
+</li>
+                                        </ul></li>
                         </ul>
                     </td>
             </tr>
@@ -2021,21 +2107,27 @@
                                                 <li><a href="api/dft.html#stormpy.dft.DFTState_ratfunc.failsafe">(DFTState_ratfunc method)</a>
 </li>
                                         </ul></li>
-                        </ul>
-                    </td>
-                    <td>
-                        <ul>
                                 <li>
                                     <a href="api/pycarl/formula.html#stormpy.pycarl.formula.FormulaType.FALSE">FALSE (FormulaType attribute)</a>
 </li>
                                 <li>
                                     <a href="api/core.html#stormpy.JaniModel.finalize">finalize() (JaniModel method)</a>, <a href="api/storage.html#stormpy.storage.JaniModel.finalize">[1]</a>
 </li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
                                 <li>
                                     <a href="api/gspn.html#stormpy.gspn.Transition.fire">fire() (Transition method)</a>
 </li>
                                 <li>
                                     <a href="api/core.html#stormpy.SubsystemBuilderOptions.fix_deadlocks">fix_deadlocks (SubsystemBuilderOptions property)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.PomdpMemoryPattern.fixed_counter">fixed_counter (PomdpMemoryPattern attribute)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.PomdpMemoryPattern.fixed_ring">fixed_ring (PomdpMemoryPattern attribute)</a>
 </li>
                                 <li>
                                     <a href="api/core.html#stormpy.FlatSet">FlatSet (class in stormpy)</a>
@@ -2079,6 +2171,13 @@
                                     <a href="api/pycarl/formula.html#stormpy.pycarl.formula.FormulaType">FormulaType (class in stormpy.pycarl.formula)</a>
 </li>
                                 <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.PomdpFscApplicationMode.full">full (PomdpFscApplicationMode attribute)</a>
+
+                                        <ul>
+                                                <li><a href="api/pomdp.html#stormpy.pomdp.PomdpMemoryPattern.full">(PomdpMemoryPattern attribute)</a>
+</li>
+                                        </ul></li>
+                                <li>
                                     <a href="api/dft.html#stormpy.dft.DftIndependentModule.fully_static">fully_static() (DftIndependentModule method)</a>
 </li>
                         </ul>
@@ -2098,6 +2197,9 @@
                                                 <li><a href="api/logic.html#stormpy.logic.GameFormula">(class in stormpy.logic)</a>
 </li>
                                         </ul></li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.gap_threshold_init">gap_threshold_init (BeliefExplorationModelCheckerOptionsDouble property)</a>
+</li>
                                 <li>
                                     <a href="api/pars.html#stormpy.pars.gather_derivatives">gather_derivatives() (in module stormpy.pars)</a>
 </li>
@@ -2131,6 +2233,10 @@
                                         <ul>
                                                 <li><a href="api/core.html#stormpy.BitVector.get">(BitVector method)</a>, <a href="api/storage.html#stormpy.storage.BitVector.get">[1]</a>
 </li>
+                                                <li><a href="api/pomdp.html#stormpy.pomdp.SparseBeliefStateDouble.get">(SparseBeliefStateDouble method)</a>
+</li>
+                                                <li><a href="api/pomdp.html#stormpy.pomdp.SparseBeliefStateExact.get">(SparseBeliefStateExact method)</a>
+</li>
                                         </ul></li>
                                 <li>
                                     <a href="api/core.html#stormpy.PrismProgram.get_action_name">get_action_name() (PrismProgram method)</a>, <a href="api/storage.html#stormpy.storage.PrismProgram.get_action_name">[1]</a>
@@ -2148,27 +2254,17 @@
                                     <a href="api/core.html#stormpy.JaniModel.get_automaton_index">get_automaton_index() (JaniModel method)</a>, <a href="api/storage.html#stormpy.storage.JaniModel.get_automaton_index">[1]</a>
 </li>
                                 <li>
-                                    <a href="api/core.html#stormpy.get_boolean_value">get_boolean_value() (in module stormpy)</a>
+                                    <a href="api/utility.html#stormpy.utility.ModelReference.get_boolean_value">get_boolean_value() (ModelReference method)</a>
 
                                         <ul>
-                                                <li><a href="api/storage.html#stormpy.storage.get_boolean_value">(in module stormpy.storage)</a>
-</li>
-                                                <li><a href="api/utility.html#stormpy.utility.ModelReference.get_boolean_value">(ModelReference method)</a>
-</li>
                                                 <li><a href="api/core.html#stormpy.SimpleValuation.get_boolean_value">(SimpleValuation method)</a>, <a href="api/storage.html#stormpy.storage.SimpleValuation.get_boolean_value">[1]</a>
 </li>
                                                 <li><a href="api/core.html#stormpy.StateValuation.get_boolean_value">(StateValuation method)</a>, <a href="api/storage.html#stormpy.storage.StateValuation.get_boolean_value">[1]</a>
 </li>
                                         </ul></li>
                                 <li>
-                                    <a href="api/core.html#stormpy.get_boolean_values_states">get_boolean_values_states() (in module stormpy)</a>
-
-                                        <ul>
-                                                <li><a href="api/storage.html#stormpy.storage.get_boolean_values_states">(in module stormpy.storage)</a>
+                                    <a href="api/core.html#stormpy.StateValuation.get_boolean_values_states">get_boolean_values_states() (StateValuation method)</a>, <a href="api/storage.html#stormpy.storage.StateValuation.get_boolean_values_states">[1]</a>
 </li>
-                                                <li><a href="api/core.html#stormpy.StateValuation.get_boolean_values_states">(StateValuation method)</a>, <a href="api/storage.html#stormpy.storage.StateValuation.get_boolean_values_states">[1]</a>
-</li>
-                                        </ul></li>
                                 <li>
                                     <a href="api/core.html#stormpy.PrismModule.get_boolean_variable">get_boolean_variable() (PrismModule method)</a>, <a href="api/storage.html#stormpy.storage.PrismModule.get_boolean_variable">[1]</a>
 </li>
@@ -2235,6 +2331,13 @@
                                 <li>
                                     <a href="api/pycarl/formula.html#stormpy.pycarl.cln.formula.Formula.get_constraint">get_constraint() (Formula method)</a>, <a href="api/pycarl/formula.html#stormpy.pycarl.gmp.formula.Formula.get_constraint">[1]</a>
 </li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefSupportTrackerDouble.get_current_belief_support">get_current_belief_support() (BeliefSupportTrackerDouble method)</a>
+
+                                        <ul>
+                                                <li><a href="api/pomdp.html#stormpy.pomdp.BeliefSupportTrackerExact.get_current_belief_support">(BeliefSupportTrackerExact method)</a>
+</li>
+                                        </ul></li>
                                 <li>
                                     <a href="api/core.html#stormpy.ExactSparseMatrixBuilder.get_current_row_group_count">get_current_row_group_count() (ExactSparseMatrixBuilder method)</a>, <a href="api/storage.html#stormpy.storage.ExactSparseMatrixBuilder.get_current_row_group_count">[1]</a>
 
@@ -2325,29 +2428,25 @@
                                     <a href="api/gspn.html#stormpy.gspn.Transition.get_input_places">get_input_places() (Transition method)</a>
 </li>
                                 <li>
-                                    <a href="api/core.html#stormpy.get_integer_value">get_integer_value() (in module stormpy)</a>
+                                    <a href="api/utility.html#stormpy.utility.ModelReference.get_integer_value">get_integer_value() (ModelReference method)</a>
 
                                         <ul>
-                                                <li><a href="api/storage.html#stormpy.storage.get_integer_value">(in module stormpy.storage)</a>
-</li>
-                                                <li><a href="api/utility.html#stormpy.utility.ModelReference.get_integer_value">(ModelReference method)</a>
-</li>
                                                 <li><a href="api/core.html#stormpy.SimpleValuation.get_integer_value">(SimpleValuation method)</a>, <a href="api/storage.html#stormpy.storage.SimpleValuation.get_integer_value">[1]</a>
 </li>
                                                 <li><a href="api/core.html#stormpy.StateValuation.get_integer_value">(StateValuation method)</a>, <a href="api/storage.html#stormpy.storage.StateValuation.get_integer_value">[1]</a>
 </li>
                                         </ul></li>
                                 <li>
-                                    <a href="api/core.html#stormpy.get_integer_values_states">get_integer_values_states() (in module stormpy)</a>
-
-                                        <ul>
-                                                <li><a href="api/storage.html#stormpy.storage.get_integer_values_states">(in module stormpy.storage)</a>
+                                    <a href="api/core.html#stormpy.StateValuation.get_integer_values_states">get_integer_values_states() (StateValuation method)</a>, <a href="api/storage.html#stormpy.storage.StateValuation.get_integer_values_states">[1]</a>
 </li>
-                                                <li><a href="api/core.html#stormpy.StateValuation.get_integer_values_states">(StateValuation method)</a>, <a href="api/storage.html#stormpy.storage.StateValuation.get_integer_values_states">[1]</a>
-</li>
-                                        </ul></li>
                                 <li>
                                     <a href="api/core.html#stormpy.PrismModule.get_integer_variable">get_integer_variable() (PrismModule method)</a>, <a href="api/storage.html#stormpy.storage.PrismModule.get_integer_variable">[1]</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefExplorationModelCheckerDouble.get_interactive_belief_explorer">get_interactive_belief_explorer() (BeliefExplorationModelCheckerDouble method)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefExplorationModelCheckerDouble.get_interactive_result">get_interactive_result() (BeliefExplorationModelCheckerDouble method)</a>
 </li>
                                 <li>
                                     <a href="api/pycarl/formula.html#stormpy.pycarl.cln.formula.Formula.get_ite_condition">get_ite_condition() (Formula method)</a>, <a href="api/pycarl/formula.html#stormpy.pycarl.gmp.formula.Formula.get_ite_condition">[1]</a>
@@ -2444,6 +2543,10 @@
                                                 <li><a href="api/core.html#stormpy.SparseParametricMdp.get_nr_available_actions">(SparseParametricMdp method)</a>, <a href="api/storage.html#stormpy.storage.SparseParametricMdp.get_nr_available_actions">[1]</a>
 </li>
                                         </ul></li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
                                 <li>
                                     <a href="api/core.html#stormpy.StateValuation.get_nr_of_states">get_nr_of_states() (StateValuation method)</a>, <a href="api/storage.html#stormpy.storage.StateValuation.get_nr_of_states">[1]</a>
 </li>
@@ -2453,10 +2556,6 @@
                                 <li>
                                     <a href="api/gspn.html#stormpy.gspn.GSPN.get_number_of_immediate_transitions">get_number_of_immediate_transitions() (GSPN method)</a>
 </li>
-                        </ul>
-                    </td>
-                    <td>
-                        <ul>
                                 <li>
                                     <a href="api/gspn.html#stormpy.gspn.Place.get_number_of_initial_tokens">get_number_of_initial_tokens() (Place method)</a>
 </li>
@@ -2530,25 +2629,15 @@
                                     <a href="api/gspn.html#stormpy.gspn.TimedTransition.get_rate">get_rate() (TimedTransition method)</a>
 </li>
                                 <li>
-                                    <a href="api/core.html#stormpy.get_rational_value">get_rational_value() (in module stormpy)</a>
+                                    <a href="api/utility.html#stormpy.utility.ModelReference.get_rational_value">get_rational_value() (ModelReference method)</a>
 
                                         <ul>
-                                                <li><a href="api/storage.html#stormpy.storage.get_rational_value">(in module stormpy.storage)</a>
-</li>
-                                                <li><a href="api/utility.html#stormpy.utility.ModelReference.get_rational_value">(ModelReference method)</a>
-</li>
                                                 <li><a href="api/core.html#stormpy.StateValuation.get_rational_value">(StateValuation method)</a>, <a href="api/storage.html#stormpy.storage.StateValuation.get_rational_value">[1]</a>
 </li>
                                         </ul></li>
                                 <li>
-                                    <a href="api/core.html#stormpy.get_rational_values_states">get_rational_values_states() (in module stormpy)</a>
-
-                                        <ul>
-                                                <li><a href="api/storage.html#stormpy.storage.get_rational_values_states">(in module stormpy.storage)</a>
+                                    <a href="api/core.html#stormpy.StateValuation.get_rational_values_states">get_rational_values_states() (StateValuation method)</a>, <a href="api/storage.html#stormpy.storage.StateValuation.get_rational_values_states">[1]</a>
 </li>
-                                                <li><a href="api/core.html#stormpy.StateValuation.get_rational_values_states">(StateValuation method)</a>, <a href="api/storage.html#stormpy.storage.StateValuation.get_rational_values_states">[1]</a>
-</li>
-                                        </ul></li>
                                 <li>
                                     <a href="api/core.html#stormpy.get_reachable_states">get_reachable_states() (in module stormpy)</a>
 </li>
@@ -2645,6 +2734,9 @@
 </li>
                                         </ul></li>
                                 <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefExplorationModelCheckerDouble.get_status">get_status() (BeliefExplorationModelCheckerDouble method)</a>
+</li>
+                                <li>
                                     <a href="api/core.html#stormpy.StateValuation.get_string">get_string() (StateValuation method)</a>, <a href="api/storage.html#stormpy.storage.StateValuation.get_string">[1]</a>
 </li>
                                 <li>
@@ -2683,13 +2775,9 @@
                                     <a href="api/core.html#stormpy.ParetoCurveCheckResultDouble.get_underapproximation">get_underapproximation() (ParetoCurveCheckResultDouble method)</a>
 </li>
                                 <li>
-                                    <a href="api/core.html#stormpy.get_value">get_value() (in module stormpy)</a>
+                                    <a href="api/core.html#stormpy.SimpleValuation.get_value">get_value() (SimpleValuation method)</a>, <a href="api/storage.html#stormpy.storage.SimpleValuation.get_value">[1]</a>
 
                                         <ul>
-                                                <li><a href="api/storage.html#stormpy.storage.get_value">(in module stormpy.storage)</a>
-</li>
-                                                <li><a href="api/core.html#stormpy.SimpleValuation.get_value">(SimpleValuation method)</a>, <a href="api/storage.html#stormpy.storage.SimpleValuation.get_value">[1]</a>
-</li>
                                                 <li><a href="api/core.html#stormpy.StateValuation.get_value">(StateValuation method)</a>, <a href="api/storage.html#stormpy.storage.StateValuation.get_value">[1]</a>
 </li>
                                         </ul></li>
@@ -2711,14 +2799,8 @@
 </li>
                                         </ul></li>
                                 <li>
-                                    <a href="api/core.html#stormpy.get_values_states">get_values_states() (in module stormpy)</a>
-
-                                        <ul>
-                                                <li><a href="api/storage.html#stormpy.storage.get_values_states">(in module stormpy.storage)</a>
+                                    <a href="api/core.html#stormpy.StateValuation.get_values_states">get_values_states() (StateValuation method)</a>, <a href="api/storage.html#stormpy.storage.StateValuation.get_values_states">[1]</a>
 </li>
-                                                <li><a href="api/core.html#stormpy.StateValuation.get_values_states">(StateValuation method)</a>, <a href="api/storage.html#stormpy.storage.StateValuation.get_values_states">[1]</a>
-</li>
-                                        </ul></li>
                                 <li>
                                     <a href="api/core.html#stormpy.ExpressionManager.get_variable">get_variable() (ExpressionManager method)</a>, <a href="api/storage.html#stormpy.storage.ExpressionManager.get_variable">[1]</a>
 </li>
@@ -2855,6 +2937,9 @@
                                     <a href="api/core.html#stormpy.PrismProgram.has_constant">has_constant() (PrismProgram method)</a>, <a href="api/storage.html#stormpy.storage.PrismProgram.has_constant">[1]</a>
 </li>
                                 <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefExplorationModelCheckerDouble.has_converged">has_converged() (BeliefExplorationModelCheckerDouble method)</a>
+</li>
+                                <li>
                                     <a href="api/gspn.html#stormpy.gspn.TimedTransition.has_infinite_server_semantics">has_infinite_server_semantics() (TimedTransition method)</a>
 </li>
                                 <li>
@@ -2919,13 +3004,13 @@
                                 <li>
                                     <a href="api/core.html#stormpy.JaniEdge.has_silent_action">has_silent_action() (JaniEdge method)</a>, <a href="api/storage.html#stormpy.storage.JaniEdge.has_silent_action">[1]</a>
 </li>
-                                <li>
-                                    <a href="api/gspn.html#stormpy.gspn.TimedTransition.has_single_server_semantics">has_single_server_semantics() (TimedTransition method)</a>
-</li>
                         </ul>
                     </td>
                     <td>
                         <ul>
+                                <li>
+                                    <a href="api/gspn.html#stormpy.gspn.TimedTransition.has_single_server_semantics">has_single_server_semantics() (TimedTransition method)</a>
+</li>
                                 <li>
                                     <a href="api/core.html#stormpy.JaniModel.has_standard_composition">has_standard_composition() (JaniModel method)</a>, <a href="api/storage.html#stormpy.storage.JaniModel.has_standard_composition">[1]</a>
 </li>
@@ -3073,6 +3158,9 @@
                                     <a href="api/core.html#stormpy.Variable.index">index (Variable property)</a>, <a href="api/storage.html#stormpy.storage.Variable.index">[1]</a>
 </li>
                                 <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefExplorationPomdpModelCheckerResultDouble.induced_mc_from_scheduler">induced_mc_from_scheduler (BeliefExplorationPomdpModelCheckerResultDouble property)</a>
+</li>
+                                <li>
                                     <a href="api/pycarl/core.html#stormpy.pycarl.BoundType.INFTY">INFTY (BoundType attribute)</a>
 </li>
                                 <li>
@@ -3156,6 +3244,9 @@
                                     <a href="api/pycarl/core.html#stormpy.pycarl.Interval.integralPart">integralPart() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.integralPart">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.integralPart">[2]</a>
 </li>
                                 <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.interactive_unfolding">interactive_unfolding (BeliefExplorationModelCheckerOptionsDouble property)</a>
+</li>
+                                <li>
                                     <a href="api/pycarl/core.html#stormpy.pycarl.Interval.intersect">intersect() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.intersect">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.intersect">[2]</a>
 </li>
                                 <li>
@@ -3205,10 +3296,6 @@
                                                 <li><a href="api/storage.html#stormpy.storage.IntervalSparseMatrixRows">(class in stormpy.storage)</a>
 </li>
                                         </ul></li>
-                        </ul>
-                    </td>
-                    <td>
-                        <ul>
                                 <li>
                                     <a href="api/dft.html#stormpy.dft.SimulationStepResult.INVALID">INVALID (SimulationStepResult attribute)</a>
 
@@ -3216,6 +3303,10 @@
                                                 <li><a href="api/dft.html#stormpy.dft.SimulationTraceResult.INVALID">(SimulationTraceResult attribute)</a>
 </li>
                                         </ul></li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
                                 <li>
                                     <a href="api/dft.html#stormpy.dft.DFTState_double.invalid">invalid() (DFTState_double method)</a>
 
@@ -3256,6 +3347,9 @@
 </li>
                                 <li>
                                     <a href="api/core.html#stormpy.Formula.is_eventually_formula">is_eventually_formula (Formula property)</a>, <a href="api/logic.html#stormpy.logic.Formula.is_eventually_formula">[1]</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefExplorationModelCheckerDouble.is_exploring">is_exploring() (BeliefExplorationModelCheckerDouble method)</a>
 </li>
                                 <li>
                                     <a href="api/core.html#stormpy.Expression.is_function_application">is_function_application (Expression property)</a>, <a href="api/storage.html#stormpy.storage.Expression.is_function_application">[1]</a>
@@ -3315,6 +3409,9 @@
                                     <a href="api/dft.html#stormpy.dft.RelevantEvents.is_relevant">is_relevant() (RelevantEvents method)</a>
 </li>
                                 <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefExplorationModelCheckerDouble.is_result_ready">is_result_ready() (BeliefExplorationModelCheckerDouble method)</a>
+</li>
+                                <li>
                                     <a href="api/core.html#stormpy.Formula.is_reward_operator">is_reward_operator (Formula property)</a>, <a href="api/logic.html#stormpy.logic.Formula.is_reward_operator">[1]</a>
 </li>
                                 <li>
@@ -3323,6 +3420,13 @@
                                 <li>
                                     <a href="api/core.html#stormpy.Formula.is_until_formula">is_until_formula (Formula property)</a>, <a href="api/logic.html#stormpy.logic.Formula.is_until_formula">[1]</a>
 </li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.SparseBeliefStateDouble.is_valid">is_valid (SparseBeliefStateDouble property)</a>
+
+                                        <ul>
+                                                <li><a href="api/pomdp.html#stormpy.pomdp.SparseBeliefStateExact.is_valid">(SparseBeliefStateExact property)</a>
+</li>
+                                        </ul></li>
                                 <li>
                                     <a href="api/gspn.html#stormpy.gspn.GSPN.is_valid">is_valid() (GSPN method)</a>
 </li>
@@ -3401,6 +3505,12 @@
                                         </ul></li>
                                 <li>
                                     <a href="api/core.html#stormpy.SMTCounterExampleGeneratorStats.iterations">iterations (SMTCounterExampleGeneratorStats property)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.IterativeQualitativeSearchOptions">IterativeQualitativeSearchOptions (class in stormpy.pomdp)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.IterativeQualitativeSearchSolverDouble">IterativeQualitativeSearchSolverDouble (class in stormpy.pomdp)</a>
 </li>
                         </ul>
                     </td>
@@ -3603,6 +3713,9 @@
 </li>
                                         </ul></li>
                                 <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.IterativeQualitativeSearchSolverDouble.last_winning_region">last_winning_region (IterativeQualitativeSearchSolverDouble property)</a>
+</li>
+                                <li>
                                     <a href="api/gspn.html#stormpy.gspn.LayoutInfo">LayoutInfo (class in stormpy.gspn)</a>
 </li>
                                 <li>
@@ -3664,6 +3777,9 @@
                                     <a href="api/dft.html#stormpy.dft.load_dft_json_string">load_dft_json_string() (in module stormpy.dft)</a>
 </li>
                                 <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefSupportWinningRegion.load_from_file">load_from_file() (BeliefSupportWinningRegion static method)</a>
+</li>
+                                <li>
                                     <a href="api/core.html#stormpy.BitVector.load_from_string">load_from_string() (BitVector static method)</a>, <a href="api/storage.html#stormpy.storage.BitVector.load_from_string">[1]</a>
 </li>
                                 <li>
@@ -3705,6 +3821,9 @@
                                     <a href="api/pycarl/core.html#stormpy.pycarl.Interval.lower">lower() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.lower">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.lower">[2]</a>
 </li>
                                 <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefExplorationPomdpModelCheckerResultDouble.lower_bound">lower_bound (BeliefExplorationPomdpModelCheckerResultDouble property)</a>
+</li>
+                                <li>
                                     <a href="api/core.html#stormpy.PrismIntegerVariable.lower_bound_expression">lower_bound_expression (PrismIntegerVariable property)</a>, <a href="api/storage.html#stormpy.storage.PrismIntegerVariable.lower_bound_expression">[1]</a>
 </li>
                                 <li>
@@ -3736,6 +3855,9 @@
                                     <a href="api/info.html#stormpy.info.Version.major">major (Version attribute)</a>
 </li>
                                 <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.make_canonic">make_canonic() (in module stormpy.pomdp)</a>
+</li>
+                                <li>
                                     <a href="api/core.html#stormpy.ExactSparseMatrix.make_row_grouping_trivial">make_row_grouping_trivial() (ExactSparseMatrix method)</a>, <a href="api/storage.html#stormpy.storage.ExactSparseMatrix.make_row_grouping_trivial">[1]</a>
 
                                         <ul>
@@ -3746,6 +3868,9 @@
                                                 <li><a href="api/core.html#stormpy.SparseMatrix.make_row_grouping_trivial">(SparseMatrix method)</a>, <a href="api/storage.html#stormpy.storage.SparseMatrix.make_row_grouping_trivial">[1]</a>
 </li>
                                         </ul></li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.make_simple">make_simple() (in module stormpy.pomdp)</a>
+</li>
                                 <li>
                                     <a href="api/core.html#stormpy.make_sparse_model_builder">make_sparse_model_builder() (in module stormpy)</a>
 </li>
@@ -3992,6 +4117,8 @@
 </li>
                                                 <li><a href="api/pars.html#module-stormpy.pars">stormpy.pars</a>
 </li>
+                                                <li><a href="api/pomdp.html#module-stormpy.pomdp">stormpy.pomdp</a>
+</li>
                                                 <li><a href="api/pycarl/core.html#module-stormpy.pycarl">stormpy.pycarl</a>
 </li>
                                                 <li><a href="api/pycarl/core.html#module-stormpy.pycarl.cln">stormpy.pycarl.cln</a>
@@ -4117,6 +4244,10 @@
 </li>
                                                 <li><a href="api/core.html#stormpy.OptimizationDirection.name">(OptimizationDirection property)</a>
 </li>
+                                                <li><a href="api/pomdp.html#stormpy.pomdp.PomdpFscApplicationMode.name">(PomdpFscApplicationMode property)</a>
+</li>
+                                                <li><a href="api/pomdp.html#stormpy.pomdp.PomdpMemoryPattern.name">(PomdpMemoryPattern property)</a>
+</li>
                                                 <li><a href="api/core.html#stormpy.PrismConstant.name">(PrismConstant property)</a>, <a href="api/storage.html#stormpy.storage.PrismConstant.name">[1]</a>
 </li>
                                                 <li><a href="api/core.html#stormpy.PrismLabel.name">(PrismLabel property)</a>, <a href="api/storage.html#stormpy.storage.PrismLabel.name">[1]</a>
@@ -4191,10 +4322,6 @@
                                 <li>
                                     <a href="api/core.html#stormpy.EndComponentEliminatorReturnTypeDouble.new_to_old_row_mapping">new_to_old_row_mapping (EndComponentEliminatorReturnTypeDouble property)</a>
 </li>
-                        </ul>
-                    </td>
-                    <td>
-                        <ul>
                                 <li>
                                     <a href="api/core.html#stormpy.SubsystemBuilderReturnTypeDouble.new_to_old_state_mapping">new_to_old_state_mapping (SubsystemBuilderReturnTypeDouble property)</a>
 
@@ -4204,6 +4331,10 @@
                                                 <li><a href="api/core.html#stormpy.SubsystemBuilderReturnTypeRatFunc.new_to_old_state_mapping">(SubsystemBuilderReturnTypeRatFunc property)</a>
 </li>
                                         </ul></li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
                                 <li>
                                     <a href="api/gspn.html#stormpy.gspn.ImmediateTransition.no_weight_attached">no_weight_attached() (ImmediateTransition method)</a>
 </li>
@@ -4236,6 +4367,18 @@
                                                 <li><a href="api/core.html#stormpy.SparseParametricMdp.nondeterministic_choice_indices">(SparseParametricMdp property)</a>, <a href="api/storage.html#stormpy.storage.SparseParametricMdp.nondeterministic_choice_indices">[1]</a>
 </li>
                                         </ul></li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.NondeterministicBeliefTrackerDoubleSparse">NondeterministicBeliefTrackerDoubleSparse (class in stormpy.pomdp)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.NondeterministicBeliefTrackerDoubleSparseOptions">NondeterministicBeliefTrackerDoubleSparseOptions (class in stormpy.pomdp)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.NondeterministicBeliefTrackerExactSparse">NondeterministicBeliefTrackerExactSparse (class in stormpy.pomdp)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.NondeterministicBeliefTrackerExactSparseOptions">NondeterministicBeliefTrackerExactSparseOptions (class in stormpy.pomdp)</a>
+</li>
                                 <li>
                                     <a href="api/pycarl/core.html#stormpy.pycarl.NoPicklingSupport">NoPicklingSupport</a>
 </li>
@@ -4326,6 +4469,9 @@
 </li>
                                         </ul></li>
                                 <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.PomdpMemory.nr_states">nr_states (PomdpMemory property)</a>
+</li>
+                                <li>
                                     <a href="api/core.html#stormpy.MultiObjectiveFormula.nr_subformulas">nr_subformulas (MultiObjectiveFormula property)</a>, <a href="api/logic.html#stormpy.logic.MultiObjectiveFormula.nr_subformulas">[1]</a>
 </li>
                                 <li>
@@ -4401,11 +4547,45 @@
 </li>
                                         </ul></li>
                                 <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.ObservationTraceUnfolderDouble">ObservationTraceUnfolderDouble (class in stormpy.pomdp)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.ObservationTraceUnfolderExact">ObservationTraceUnfolderExact (class in stormpy.pomdp)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.ObservationTraceUnfolderRf">ObservationTraceUnfolderRf (class in stormpy.pomdp)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.NondeterministicBeliefTrackerDoubleSparse.obtain_beliefs">obtain_beliefs() (NondeterministicBeliefTrackerDoubleSparse method)</a>
+
+                                        <ul>
+                                                <li><a href="api/pomdp.html#stormpy.pomdp.NondeterministicBeliefTrackerExactSparse.obtain_beliefs">(NondeterministicBeliefTrackerExactSparse method)</a>
+</li>
+                                        </ul></li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.NondeterministicBeliefTrackerDoubleSparse.obtain_current_risk">obtain_current_risk() (NondeterministicBeliefTrackerDoubleSparse method)</a>
+
+                                        <ul>
+                                                <li><a href="api/pomdp.html#stormpy.pomdp.NondeterministicBeliefTrackerExactSparse.obtain_current_risk">(NondeterministicBeliefTrackerExactSparse method)</a>
+</li>
+                                        </ul></li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.NondeterministicBeliefTrackerDoubleSparse.obtain_last_observation">obtain_last_observation() (NondeterministicBeliefTrackerDoubleSparse method)</a>
+
+                                        <ul>
+                                                <li><a href="api/pomdp.html#stormpy.pomdp.NondeterministicBeliefTrackerExactSparse.obtain_last_observation">(NondeterministicBeliefTrackerExactSparse method)</a>
+</li>
+                                        </ul></li>
+                                <li>
                                     <a href="api/core.html#stormpy.Variable.offset">offset (Variable property)</a>, <a href="api/storage.html#stormpy.storage.Variable.offset">[1]</a>
 </li>
                                 <li>
                                     <a href="api/core.html#stormpy.EndComponentEliminatorReturnTypeDouble.old_to_new_state_mapping">old_to_new_state_mapping (EndComponentEliminatorReturnTypeDouble property)</a>
 </li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
                                 <li>
                                     <a href="api/dft.html#stormpy.dft.DFTState_double.operational">operational() (DFTState_double method)</a>
 
@@ -4423,10 +4603,6 @@
                                                 <li><a href="api/logic.html#stormpy.logic.OperatorFormula">(class in stormpy.logic)</a>
 </li>
                                         </ul></li>
-                        </ul>
-                    </td>
-                    <td>
-                        <ul>
                                 <li>
                                     <a href="api/core.html#stormpy.OperatorType">OperatorType (class in stormpy)</a>
 
@@ -4604,6 +4780,9 @@
 </li>
                                         </ul></li>
                                 <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefExplorationModelCheckerDouble.pause_unfolding">pause_unfolding() (BeliefExplorationModelCheckerDouble method)</a>
+</li>
+                                <li>
                                     <a href="api/pars.html#stormpy.pars.PCtmcExactInstantiationChecker">PCtmcExactInstantiationChecker (class in stormpy.pars)</a>
 </li>
                                 <li>
@@ -4683,10 +4862,6 @@
                                 <li>
                                     <a href="api/core.html#stormpy.FactorizedPolynomial.polynomial">polynomial() (FactorizedPolynomial method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.FactorizedPolynomial.polynomial">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.FactorizedPolynomial.polynomial">[2]</a>
 </li>
-                        </ul>
-                    </td>
-                    <td>
-                        <ul>
                                 <li>
                                     <a href="api/core.html#stormpy.PolytopeDouble">PolytopeDouble (class in stormpy)</a>
 
@@ -4694,6 +4869,10 @@
                                                 <li><a href="api/storage.html#stormpy.storage.PolytopeDouble">(class in stormpy.storage)</a>
 </li>
                                         </ul></li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
                                 <li>
                                     <a href="api/core.html#stormpy.PolytopeExact">PolytopeExact (class in stormpy)</a>
 
@@ -4708,6 +4887,18 @@
                                                 <li><a href="api/core.html#stormpy.PrismModelType.POMDP">(PrismModelType attribute)</a>, <a href="api/storage.html#stormpy.storage.PrismModelType.POMDP">[1]</a>
 </li>
                                         </ul></li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.PomdpFscApplicationMode">PomdpFscApplicationMode (class in stormpy.pomdp)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.PomdpMemory">PomdpMemory (class in stormpy.pomdp)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.PomdpMemoryBuilder">PomdpMemoryBuilder (class in stormpy.pomdp)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.PomdpMemoryPattern">PomdpMemoryPattern (class in stormpy.pomdp)</a>
+</li>
                                 <li>
                                     <a href="api/utility.html#stormpy.utility.SmtSolver.pop">pop() (SmtSolver method)</a>
 </li>
@@ -4747,6 +4938,9 @@
 </li>
                                 <li>
                                     <a href="api/dft.html#stormpy.dft.prepare_for_analysis">prepare_for_analysis() (in module stormpy.dft)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.prepare_pomdp_for_qualitative_search_Double">prepare_pomdp_for_qualitative_search_Double() (in module stormpy.pomdp)</a>
 </li>
                                 <li>
                                     <a href="api/core.html#stormpy.preprocess_symbolic_input">preprocess_symbolic_input() (in module stormpy)</a>
@@ -4907,6 +5101,12 @@
                     <td>
                         <ul>
                                 <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefSupportWinningRegionQueryInterfaceDouble.query_action">query_action() (BeliefSupportWinningRegionQueryInterfaceDouble method)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefSupportWinningRegionQueryInterfaceDouble.query_current_belief">query_current_belief() (BeliefSupportWinningRegionQueryInterfaceDouble method)</a>
+</li>
+                                <li>
                                     <a href="api/pycarl/core.html#stormpy.pycarl.quotient">quotient() (in module stormpy.pycarl)</a>
 
                                         <ul>
@@ -4997,6 +5197,13 @@
                                     <a href="api/pycarl/core.html#stormpy.pycarl.VariableType.REAL">REAL (VariableType attribute)</a>
 </li>
                                 <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.NondeterministicBeliefTrackerDoubleSparse.reduce">reduce() (NondeterministicBeliefTrackerDoubleSparse method)</a>
+
+                                        <ul>
+                                                <li><a href="api/pomdp.html#stormpy.pomdp.NondeterministicBeliefTrackerExactSparse.reduce">(NondeterministicBeliefTrackerExactSparse method)</a>
+</li>
+                                        </ul></li>
+                                <li>
                                     <a href="api/core.html#stormpy.SparseExactRewardModel.reduce_to_state_based_rewards">reduce_to_state_based_rewards() (SparseExactRewardModel method)</a>, <a href="api/storage.html#stormpy.storage.SparseExactRewardModel.reduce_to_state_based_rewards">[1]</a>
 
                                         <ul>
@@ -5007,6 +5214,36 @@
                                                 <li><a href="api/core.html#stormpy.SparseRewardModel.reduce_to_state_based_rewards">(SparseRewardModel method)</a>, <a href="api/storage.html#stormpy.storage.SparseRewardModel.reduce_to_state_based_rewards">[1]</a>
 </li>
                                         </ul></li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.NondeterministicBeliefTrackerDoubleSparse.reduction_timed_out">reduction_timed_out() (NondeterministicBeliefTrackerDoubleSparse method)</a>
+
+                                        <ul>
+                                                <li><a href="api/pomdp.html#stormpy.pomdp.NondeterministicBeliefTrackerExactSparse.reduction_timed_out">(NondeterministicBeliefTrackerExactSparse method)</a>
+</li>
+                                        </ul></li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.NondeterministicBeliefTrackerDoubleSparseOptions.reduction_timeout">reduction_timeout (NondeterministicBeliefTrackerDoubleSparseOptions property)</a>
+
+                                        <ul>
+                                                <li><a href="api/pomdp.html#stormpy.pomdp.NondeterministicBeliefTrackerExactSparseOptions.reduction_timeout">(NondeterministicBeliefTrackerExactSparseOptions property)</a>
+</li>
+                                        </ul></li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.NondeterministicBeliefTrackerDoubleSparseOptions.reduction_wiggle">reduction_wiggle (NondeterministicBeliefTrackerDoubleSparseOptions property)</a>
+
+                                        <ul>
+                                                <li><a href="api/pomdp.html#stormpy.pomdp.NondeterministicBeliefTrackerExactSparseOptions.reduction_wiggle">(NondeterministicBeliefTrackerExactSparseOptions property)</a>
+</li>
+                                        </ul></li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.refine">refine (BeliefExplorationModelCheckerOptionsDouble property)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.refine_precision">refine_precision (BeliefExplorationModelCheckerOptionsDouble property)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.refine_step_limit">refine_step_limit (BeliefExplorationModelCheckerOptionsDouble property)</a>
+</li>
                                 <li>
                                     <a href="api/pars.html#stormpy.pars.RegionModelChecker">RegionModelChecker (class in stormpy.pars)</a>
 </li>
@@ -5032,16 +5269,16 @@
                                 <li>
                                     <a href="api/dft.html#stormpy.dft.RelevantEvents">RelevantEvents (class in stormpy.dft)</a>
 </li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
                                 <li>
                                     <a href="api/core.html#stormpy.OperatorFormula.remove_bound">remove_bound() (OperatorFormula method)</a>, <a href="api/logic.html#stormpy.logic.OperatorFormula.remove_bound">[1]</a>
 </li>
                                 <li>
                                     <a href="api/core.html#stormpy.JaniModel.remove_constant">remove_constant() (JaniModel method)</a>, <a href="api/storage.html#stormpy.storage.JaniModel.remove_constant">[1]</a>
 </li>
-                        </ul>
-                    </td>
-                    <td>
-                        <ul>
                                 <li>
                                     <a href="api/gspn.html#stormpy.gspn.Transition.remove_inhibition_arc">remove_inhibition_arc() (Transition method)</a>
 </li>
@@ -5082,6 +5319,16 @@
 
                                         <ul>
                                                 <li><a href="api/dft.html#stormpy.dft.DFTSimulator_ratfunc.reset">(DFTSimulator_ratfunc method)</a>
+</li>
+                                                <li><a href="api/pomdp.html#stormpy.pomdp.NondeterministicBeliefTrackerDoubleSparse.reset">(NondeterministicBeliefTrackerDoubleSparse method)</a>
+</li>
+                                                <li><a href="api/pomdp.html#stormpy.pomdp.NondeterministicBeliefTrackerExactSparse.reset">(NondeterministicBeliefTrackerExactSparse method)</a>
+</li>
+                                                <li><a href="api/pomdp.html#stormpy.pomdp.ObservationTraceUnfolderDouble.reset">(ObservationTraceUnfolderDouble method)</a>
+</li>
+                                                <li><a href="api/pomdp.html#stormpy.pomdp.ObservationTraceUnfolderExact.reset">(ObservationTraceUnfolderExact method)</a>
+</li>
+                                                <li><a href="api/pomdp.html#stormpy.pomdp.ObservationTraceUnfolderRf.reset">(ObservationTraceUnfolderRf method)</a>
 </li>
                                                 <li><a href="api/utility.html#stormpy.utility.SmtSolver.reset">(SmtSolver method)</a>
 </li>
@@ -5130,6 +5377,13 @@
 
                                         <ul>
                                                 <li><a href="api/core.html#stormpy.BoundedUntilFormula.right_subformula">(BoundedUntilFormula property)</a>, <a href="api/logic.html#stormpy.logic.BoundedUntilFormula.right_subformula">[1]</a>
+</li>
+                                        </ul></li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.SparseBeliefStateDouble.risk">risk (SparseBeliefStateDouble property)</a>
+
+                                        <ul>
+                                                <li><a href="api/pomdp.html#stormpy.pomdp.SparseBeliefStateExact.risk">(SparseBeliefStateExact property)</a>
 </li>
                                         </ul></li>
                                 <li>
@@ -5228,6 +5482,12 @@
 </li>
                                         </ul></li>
                                 <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.PomdpMemoryPattern.selective_counter">selective_counter (PomdpMemoryPattern attribute)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.PomdpMemoryPattern.selective_ring">selective_ring (PomdpMemoryPattern attribute)</a>
+</li>
+                                <li>
                                     <a href="api/dft.html#stormpy.dft.DFTElementType.SEQ">SEQ (DFTElementType attribute)</a>
 </li>
                                 <li>
@@ -5289,6 +5549,13 @@
                                 <li>
                                     <a href="api/core.html#stormpy.SolverEnvironment.set_force_sound">set_force_sound() (SolverEnvironment method)</a>
 </li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefExplorationModelCheckerDouble.set_fsc_values">set_fsc_values() (BeliefExplorationModelCheckerDouble method)</a>
+
+                                        <ul>
+                                                <li><a href="api/pomdp.html#stormpy.pomdp.BeliefMdpExplorerDouble.set_fsc_values">(BeliefMdpExplorerDouble method)</a>
+</li>
+                                        </ul></li>
                                 <li>
                                     <a href="api/pars.html#stormpy.pars.PCtmcExactInstantiationChecker.set_graph_preserving">set_graph_preserving() (PCtmcExactInstantiationChecker method)</a>
 
@@ -5389,6 +5656,13 @@
                                     <a href="api/core.html#stormpy.ExplicitModelCheckerHintDouble.set_result_hint">set_result_hint() (ExplicitModelCheckerHintDouble method)</a>
 </li>
                                 <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.NondeterministicBeliefTrackerDoubleSparse.set_risk">set_risk() (NondeterministicBeliefTrackerDoubleSparse method)</a>
+
+                                        <ul>
+                                                <li><a href="api/pomdp.html#stormpy.pomdp.NondeterministicBeliefTrackerExactSparse.set_risk">(NondeterministicBeliefTrackerExactSparse method)</a>
+</li>
+                                        </ul></li>
+                                <li>
                                     <a href="api/core.html#stormpy.CheckTask.set_robust_uncertainty">set_robust_uncertainty() (CheckTask method)</a>
 </li>
                                 <li>
@@ -5439,6 +5713,9 @@
                                     <a href="api/pycarl/core.html#stormpy.pycarl.Interval.setLower">setLower() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.setLower">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.setLower">[2]</a>
 </li>
                                 <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.PomdpMemoryPattern.settable_bits">settable_bits (PomdpMemoryPattern attribute)</a>
+</li>
+                                <li>
                                     <a href="api/core.html#stormpy.SMTCounterExampleGeneratorStats.setup_time">setup_time (SMTCounterExampleGeneratorStats property)</a>
 </li>
                                 <li>
@@ -5455,6 +5732,15 @@
 </li>
                                 <li>
                                     <a href="api/core.html#stormpy.SMTCounterExampleGeneratorOptions.silent">silent (SMTCounterExampleGeneratorOptions property)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.PomdpFscApplicationMode.simple_linear">simple_linear (PomdpFscApplicationMode attribute)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.PomdpFscApplicationMode.simple_linear_inverse">simple_linear_inverse (PomdpFscApplicationMode attribute)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.PomdpFscApplicationMode.simple_log">simple_log (PomdpFscApplicationMode attribute)</a>
 </li>
                                 <li>
                                     <a href="api/pycarl/formula.html#stormpy.pycarl.cln.formula.SimpleConstraint">SimpleConstraint (class in stormpy.pycarl.cln.formula)</a>
@@ -5523,6 +5809,21 @@
                                         </ul></li>
                                 <li>
                                     <a href="api/core.html#stormpy.BitVector.size">size() (BitVector method)</a>, <a href="api/storage.html#stormpy.storage.BitVector.size">[1]</a>
+
+                                        <ul>
+                                                <li><a href="api/pomdp.html#stormpy.pomdp.NondeterministicBeliefTrackerDoubleSparse.size">(NondeterministicBeliefTrackerDoubleSparse method)</a>
+</li>
+                                                <li><a href="api/pomdp.html#stormpy.pomdp.NondeterministicBeliefTrackerExactSparse.size">(NondeterministicBeliefTrackerExactSparse method)</a>
+</li>
+                                        </ul></li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.size_threshold_factor">size_threshold_factor (BeliefExplorationModelCheckerOptionsDouble property)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.size_threshold_init">size_threshold_init (BeliefExplorationModelCheckerOptionsDouble property)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.skip_heuristic_schedulers">skip_heuristic_schedulers (BeliefExplorationModelCheckerOptionsDouble property)</a>
 </li>
                                 <li>
                                     <a href="api/core.html#stormpy.ModelType.SMG">SMG (ModelType attribute)</a>, <a href="api/pars.html#stormpy.pars.ModelType.SMG">[1]</a>, <a href="api/storage.html#stormpy.storage.ModelType.SMG">[2]</a>
@@ -5582,6 +5883,12 @@
                                         </ul></li>
                                 <li>
                                     <a href="api/core.html#stormpy.QuotientFormat.SPARSE">SPARSE (QuotientFormat attribute)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.SparseBeliefStateDouble">SparseBeliefStateDouble (class in stormpy.pomdp)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.SparseBeliefStateExact">SparseBeliefStateExact (class in stormpy.pomdp)</a>
 </li>
                                 <li>
                                     <a href="api/core.html#stormpy.SparseCtmc">SparseCtmc (class in stormpy)</a>
@@ -5737,6 +6044,10 @@
                                                 <li><a href="api/storage.html#stormpy.storage.SparseIntervalModelState">(class in stormpy.storage)</a>
 </li>
                                         </ul></li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
                                 <li>
                                     <a href="api/core.html#stormpy.SparseIntervalModelStates">SparseIntervalModelStates (class in stormpy)</a>
 
@@ -5758,10 +6069,6 @@
                                                 <li><a href="api/storage.html#stormpy.storage.SparseIntervalRewardModel">(class in stormpy.storage)</a>
 </li>
                                         </ul></li>
-                        </ul>
-                    </td>
-                    <td>
-                        <ul>
                                 <li>
                                     <a href="api/core.html#stormpy.SparseIntervalSmg">SparseIntervalSmg (class in stormpy)</a>
 
@@ -5951,6 +6258,9 @@
                                     <a href="api/core.html#stormpy.JaniModelType.STA">STA (JaniModelType attribute)</a>
 </li>
                                 <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.PomdpFscApplicationMode.standard">standard (PomdpFscApplicationMode attribute)</a>
+</li>
+                                <li>
                                     <a href="api/core.html#stormpy.SparseExactRewardModel.state_action_rewards">state_action_rewards (SparseExactRewardModel property)</a>, <a href="api/storage.html#stormpy.storage.SparseExactRewardModel.state_action_rewards">[1]</a>
 
                                         <ul>
@@ -6060,6 +6370,9 @@
                                     <a href="api/core.html#stormpy.BitVector.store_as_string">store_as_string() (BitVector method)</a>, <a href="api/storage.html#stormpy.storage.BitVector.store_as_string">[1]</a>
 </li>
                                 <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefSupportWinningRegion.store_to_file">store_to_file() (BeliefSupportWinningRegion method)</a>
+</li>
+                                <li>
                                     <a href="api/info.html#stormpy.info.storm_exact_use_cln">storm_exact_use_cln() (in module stormpy.info)</a>
 </li>
                                 <li>
@@ -6069,7 +6382,7 @@
                                     <a href="api/info.html#stormpy.info.storm_version">storm_version() (in module stormpy.info)</a>
 </li>
                                 <li>
-                                    <a href="api/core.html#stormpy.StormError">StormError</a>, <a href="api/exceptions.html#stormpy.exceptions.StormError">[1]</a>, <a href="api/pars.html#stormpy.pars.StormError">[2]</a>
+                                    <a href="api/exceptions.html#stormpy.exceptions.StormError">StormError</a>
 </li>
                                 <li>
                                     
@@ -6125,6 +6438,14 @@
 
                                         <ul>
                                                 <li><a href="api/pars.html#module-stormpy.pars">module</a>
+</li>
+                                        </ul></li>
+                                <li>
+                                    
+        stormpy.pomdp
+
+                                        <ul>
+                                                <li><a href="api/pomdp.html#module-stormpy.pomdp">module</a>
 </li>
                                         </ul></li>
                                 <li>
@@ -6445,6 +6766,9 @@
 </li>
                                         </ul></li>
                                 <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefExplorationModelCheckerDouble.terminate_unfolding">terminate_unfolding() (BeliefExplorationModelCheckerDouble method)</a>
+</li>
+                                <li>
                                     <a href="api/core.html#stormpy.OperatorFormula.threshold">threshold (OperatorFormula property)</a>, <a href="api/logic.html#stormpy.logic.OperatorFormula.threshold">[1]</a>
 </li>
                                 <li>
@@ -6529,10 +6853,6 @@
                                                 <li><a href="api/core.html#stormpy.MinMaxMethod.topological">(MinMaxMethod attribute)</a>
 </li>
                                         </ul></li>
-                        </ul>
-                    </td>
-                    <td>
-                        <ul>
                                 <li>
                                     <a href="api/core.html#stormpy.topological_sort">topological_sort() (in module stormpy)</a>
 </li>
@@ -6540,8 +6860,38 @@
                                     <a href="api/core.html#stormpy.Polynomial.total_degree">total_degree (Polynomial property)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Polynomial.total_degree">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Polynomial.total_degree">[2]</a>
 </li>
                                 <li>
-                                    <a href="api/core.html#stormpy.JaniLocationExpander.transform">transform() (JaniLocationExpander method)</a>, <a href="api/storage.html#stormpy.storage.JaniLocationExpander.transform">[1]</a>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefSupportTrackerDouble.track">track() (BeliefSupportTrackerDouble method)</a>
+
+                                        <ul>
+                                                <li><a href="api/pomdp.html#stormpy.pomdp.BeliefSupportTrackerExact.track">(BeliefSupportTrackerExact method)</a>
 </li>
+                                                <li><a href="api/pomdp.html#stormpy.pomdp.NondeterministicBeliefTrackerDoubleSparse.track">(NondeterministicBeliefTrackerDoubleSparse method)</a>
+</li>
+                                                <li><a href="api/pomdp.html#stormpy.pomdp.NondeterministicBeliefTrackerExactSparse.track">(NondeterministicBeliefTrackerExactSparse method)</a>
+</li>
+                                        </ul></li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.NondeterministicBeliefTrackerDoubleSparseOptions.track_timeout">track_timeout (NondeterministicBeliefTrackerDoubleSparseOptions property)</a>
+
+                                        <ul>
+                                                <li><a href="api/pomdp.html#stormpy.pomdp.NondeterministicBeliefTrackerExactSparseOptions.track_timeout">(NondeterministicBeliefTrackerExactSparseOptions property)</a>
+</li>
+                                        </ul></li>
+                                <li>
+                                    <a href="api/core.html#stormpy.JaniLocationExpander.transform">transform() (JaniLocationExpander method)</a>, <a href="api/storage.html#stormpy.storage.JaniLocationExpander.transform">[1]</a>
+
+                                        <ul>
+                                                <li><a href="api/pomdp.html#stormpy.pomdp.ObservationTraceUnfolderDouble.transform">(ObservationTraceUnfolderDouble method)</a>
+</li>
+                                                <li><a href="api/pomdp.html#stormpy.pomdp.ObservationTraceUnfolderExact.transform">(ObservationTraceUnfolderExact method)</a>
+</li>
+                                                <li><a href="api/pomdp.html#stormpy.pomdp.ObservationTraceUnfolderRf.transform">(ObservationTraceUnfolderRf method)</a>
+</li>
+                                        </ul></li>
                                 <li>
                                     <a href="api/dft.html#stormpy.dft.transform_dft">transform_dft() (in module stormpy.dft)</a>
 </li>
@@ -6605,6 +6955,9 @@
                                                 <li><a href="api/dft.html#stormpy.dft.DFTDependency_ratfunc.trigger">(DFTDependency_ratfunc property)</a>
 </li>
                                         </ul></li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.PomdpMemoryPattern.trivial">trivial (PomdpMemoryPattern attribute)</a>
+</li>
                                 <li>
                                     <a href="api/pycarl/formula.html#stormpy.pycarl.formula.FormulaType.TRUE">TRUE (FormulaType attribute)</a>
 </li>
@@ -6679,6 +7032,9 @@
 </li>
                                         </ul></li>
                                 <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.unfold_memory">unfold_memory() (in module stormpy.pomdp)</a>
+</li>
+                                <li>
                                     <a href="api/pycarl/core.html#stormpy.pycarl.Interval.unite">unite() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.unite">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.unite">[2]</a>
 </li>
                                 <li>
@@ -6722,6 +7078,9 @@
                                     <a href="api/pycarl/core.html#stormpy.pycarl.Interval.upper">upper() (Interval method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.upper">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.upper">[2]</a>
 </li>
                                 <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefExplorationPomdpModelCheckerResultDouble.upper_bound">upper_bound (BeliefExplorationPomdpModelCheckerResultDouble property)</a>
+</li>
+                                <li>
                                     <a href="api/core.html#stormpy.BoundedUntilFormula.upper_bound_expression">upper_bound_expression (BoundedUntilFormula property)</a>, <a href="api/logic.html#stormpy.logic.BoundedUntilFormula.upper_bound_expression">[1]</a>
 
                                         <ul>
@@ -6729,7 +7088,13 @@
 </li>
                                         </ul></li>
                                 <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.use_clipping">use_clipping (BeliefExplorationModelCheckerOptionsDouble property)</a>
+</li>
+                                <li>
                                     <a href="api/core.html#stormpy.SMTCounterExampleGeneratorOptions.use_dynamic_constraints">use_dynamic_constraints (SMTCounterExampleGeneratorOptions property)</a>
+</li>
+                                <li>
+                                    <a href="api/pomdp.html#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.use_state_elimination_cutoff">use_state_elimination_cutoff (BeliefExplorationModelCheckerOptionsDouble property)</a>
 </li>
                                 <li>
                                     <a href="api/core.html#stormpy.PrismProgram.used_constants">used_constants() (PrismProgram method)</a>, <a href="api/storage.html#stormpy.storage.PrismProgram.used_constants">[1]</a>
@@ -6797,6 +7162,10 @@
                                                 <li><a href="api/core.html#stormpy.OperatorType.value">(OperatorType property)</a>, <a href="api/storage.html#stormpy.storage.OperatorType.value">[1]</a>
 </li>
                                                 <li><a href="api/core.html#stormpy.OptimizationDirection.value">(OptimizationDirection property)</a>
+</li>
+                                                <li><a href="api/pomdp.html#stormpy.pomdp.PomdpFscApplicationMode.value">(PomdpFscApplicationMode property)</a>
+</li>
+                                                <li><a href="api/pomdp.html#stormpy.pomdp.PomdpMemoryPattern.value">(PomdpMemoryPattern property)</a>
 </li>
                                                 <li><a href="api/core.html#stormpy.PrismModelType.value">(PrismModelType property)</a>, <a href="api/storage.html#stormpy.storage.PrismModelType.value">[1]</a>
 </li>
