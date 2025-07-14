@@ -29,6 +29,9 @@ extensions = [
 ]
 autosectionlabel_prefix_document = True
 
+# Autodoc options
+autoclass_content = "both"  # Add documentation for both the class and __init__
+
 templates_path = ["_templates"]
 exclude_patterns = []
 

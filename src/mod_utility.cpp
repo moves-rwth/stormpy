@@ -6,7 +6,7 @@
 #include "utility/json.h"
 #include "storm/adapters/RationalNumberAdapter.h"
 
-PYBIND11_MODULE(utility, m) {
+PYBIND11_MODULE(_utility, m) {
     m.doc() = "Utilities for Storm";
 
 #ifdef STORMPY_DISABLE_SIGNATURE_DOC
