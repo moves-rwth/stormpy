@@ -194,12 +194,13 @@ jobs:
   upload_pypi:
     needs: [build_wheels, build_sdist, test_wheels_linux, test_wheels_mac]
     runs-on: ubuntu-latest
-    environment: pypi
+    environment:
+      name: testpypi
+      url: https://test.pypi.org/p/stormpy
     permissions:
       id-token: write
-    if: github.event_name == 'release' && github.event.action == 'published'
-    # or, alternatively, upload to PyPI on every tag starting with 'v' (remove on: release above to use this)
-    # if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    # Only upload if using original repo and triggered by either a release or a manual workflow dispatch
+    if: github.repository_owner == 'moves-rwth' && ((github.event_name == 'release' && github.event.action == 'published') || github.event_name == 'workflow_dispatch')
     steps:
       - uses: actions/download-artifact@v4
         with:
