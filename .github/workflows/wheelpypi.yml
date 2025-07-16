@@ -2,11 +2,6 @@ name: Build and upload to PyPI
 
 on:
   workflow_dispatch:
-  schedule:
-    # run weekly
-    - cron: '0 10 * * 3'
-  pull_request:
-  push:
   release:
     types:
       - published
@@ -43,7 +38,7 @@ jobs:
         with:
           xcode-version: ${{ matrix.xcode }}
       - name: Build wheels
-        uses: pypa/cibuildwheel@v3.0.0b5
+        uses: pypa/cibuildwheel@v3.0.1
         env:
           CIBW_PLATFORM: ${{ matrix.platform }}
           CIBW_ARCHS: ${{ matrix.archs }}

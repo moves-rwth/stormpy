@@ -13,8 +13,6 @@ include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/macros.cmake)
 set(CMAKE_CXX_STANDARD 20)
 
 # Configuration options
-set(PYBIND_VERSION "" CACHE STRING "Pybind11 version to use")
-MARK_AS_ADVANCED(PYBIND_VERSION)
 set(STORM_DIR_HINT "" CACHE STRING "A hint where the Storm library can be found.")
 option(ALLOW_STORM_SYSTEM "Allow finding a storm version on the system" ON)
 option(ALLOW_STORM_FETCH "Allow fetching storm" ON)
@@ -32,7 +30,8 @@ mark_as_advanced(COMPILE_WITH_CCACHE)
 
 # Find the module development requirements (requires FindPython from 3.17 or scikit-build-core's built-in backport)
 find_package(Python REQUIRED COMPONENTS Interpreter Development.Module)
-include(resources/include_pybind11.cmake)
+set(PYBIND11_FINDPYTHON ON)
+find_package(pybind11 CONFIG REQUIRED)
 message(STATUS "Stormpy - Using pybind11 version ${pybind11_VERSION}")
 
 # Helper function to print path where library was found and check whether hint was used
@@ -103,9 +102,12 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/lib/stormpy")
 
 # This sets interprocedural optimization off as this leads to some problems on some systems
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION OFF)
-# This sets the default visibility from hidden to default,
-# which is recommended *not* to do, but leads to errors otherwise.
-set(CMAKE_CXX_VISIBILITY_PRESET "default")
+
+if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    # This sets the default visibility from hidden to default,
+    # which is recommended *not* to do, but leads to errors otherwise.
+    set(CMAKE_CXX_VISIBILITY_PRESET "default")
+endif()
 
 # RPATH settings (https://gitlab.kitware.com/cmake/community/-/wikis/doc/cmake/RPATH-handling#always-full-rpath)
 # don't skip the full RPATH for the build tree
@@ -205,7 +207,7 @@ function(build_module MOD_NAME # Module name
     pybind11_add_module(${MOD_NAME} "${CMAKE_CURRENT_SOURCE_DIR}/src/${MOD_FILE}" ${${MOD_NAME}_SOURCES})
     target_include_directories(${MOD_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR} ${ADDITIONAL_INCLUDES} ${CMAKE_CURRENT_BINARY_DIR}/src)
     target_link_libraries(${MOD_NAME} PRIVATE ${ADDITIONAL_LIBS})
-    set_target_properties(${MOD_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/${OUT_DIR}" OUTPUT_NAME "${OUT_NAME}")
+    set_target_properties(${MOD_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/${OUT_DIR}" OUTPUT_NAME "_${OUT_NAME}")
     install(TARGETS ${MOD_NAME} DESTINATION ${OUT_DIR})
 endfunction(build_module)
 
