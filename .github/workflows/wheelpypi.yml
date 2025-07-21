@@ -1,10 +1,23 @@
 name: Build and upload to PyPI
 
 on:
+  # needed to trigger the workflow manually
   workflow_dispatch:
-  release:
-    types:
-      - published
+    inputs:
+      testPypi:
+        description: 'Whether to use test.pypi instead of pypi'
+        required: true
+        default: true
+        type: boolean
+      stormVersion:
+        description: 'Storm version used as base (e.g. 1.1.0 or master)'
+        required: true
+        type: string
+        default: 'x.y.z'
+  # Trigger on release is deactivated because Storm version must be manually set
+  #release:
+  #  types:
+  #    - published
 
 jobs:
   build_wheels:
@@ -43,6 +56,7 @@ jobs:
           CIBW_PLATFORM: ${{ matrix.platform }}
           CIBW_ARCHS: ${{ matrix.archs }}
           MACOSX_DEPLOYMENT_TARGET: ${{ matrix.deploy_target }}
+          CIBW_ENVIRONMENT: STORM_VERSION=${{ github.event.inputs.stormVersion }} NR_JOBS=4
       - uses: actions/upload-artifact@v4
         with:
           name: cibw-wheels-${{ matrix.os }}-${{ strategy.job-index }}
@@ -194,12 +208,37 @@ jobs:
   upload_pypi:
     needs: [build_wheels, build_sdist, test_wheels_linux, test_wheels_mac]
     runs-on: ubuntu-latest
-    environment: pypi
+    environment:
+      name: pypi
+      url: https://pypi.org/p/stormpy
     permissions:
       id-token: write
-    if: github.event_name == 'release' && github.event.action == 'published'
-    # or, alternatively, upload to PyPI on every tag starting with 'v' (remove on: release above to use this)
-    # if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    # Only upload if not using test.pypi and using original repo and triggered by either a release or a manual workflow dispatch
+    if: ${{ !inputs.testPypi && github.repository_owner == 'moves-rwth' && ((github.event_name == 'release' && github.event.action == 'published') || github.event_name == 'workflow_dispatch') }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          # unpacks all CIBW artifacts into dist/
+          pattern: cibw-*
+          path: dist
+          merge-multiple: true
+
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          verbose: true
+          skip-existing: true
+
+
+  upload_testpypi:
+    needs: [build_wheels, build_sdist, test_wheels_linux, test_wheels_mac]
+    runs-on: ubuntu-latest
+    environment:
+      name: testpypi
+      url: https://test.pypi.org/p/stormpy
+    permissions:
+      id-token: write
+    # Only upload if using test.pypi and using original repo and triggered by either a release or a manual workflow dispatch
+    if: ${{ inputs.testPypi && github.repository_owner == 'moves-rwth' && ((github.event_name == 'release' && github.event.action == 'published') || github.event_name == 'workflow_dispatch') }}
     steps:
       - uses: actions/download-artifact@v4
         with:
@@ -211,3 +250,5 @@ jobs:
       - uses: pypa/gh-action-pypi-publish@release/v1
         with:
           repository-url: https://test.pypi.org/legacy/
+          verbose: true
+          skip-existing: true

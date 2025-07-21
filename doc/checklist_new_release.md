@@ -47,10 +47,4 @@ The following steps should be performed when releasing a new stormpy version.
     * Set new stormpy release as base
     * Update version numbers of dependencies
 
-11. Create new python package for release on [Pypi](https://pypi.org/project/stormpy/):
-   ```console
-   python3 setup.py sdist
-   python3 -m pip install --user --upgrade twine
-   python3 -m twine upload dist/*
-   ```
-
+11. Use the [CI](https://github.com/moves-rwth/stormpy/actions/workflows/wheelpypi.yml), provide the Storm version and uncheck the 'test' option. This updates the Python package on [Pypi](https://pypi.org/project/stormpy/).
