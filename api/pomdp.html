@@ -401,7 +401,7 @@
 <span id="stormpy-pomdp"></span><h1>Stormpy.pomdp<a class="headerlink" href="#module-stormpy.pomdp" title="Link to this heading">¶</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="stormpy.pomdp.BeliefExplorationModelCheckerDouble">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BeliefExplorationModelCheckerDouble</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.pomdp._pomdp.BeliefExplorationModelCheckerDouble</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model:</span> <span class="pre">stormpy.storage._storage.SparsePomdp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options:</span> <span class="pre">storm::pomdp::modelchecker::BeliefExplorationPomdpModelCheckerOptions&lt;double&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationModelCheckerDouble" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BeliefExplorationModelCheckerDouble</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.pomdp._pomdp.BeliefExplorationModelCheckerDouble</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model:</span> <span class="pre">stormpy.storage._storage.SparsePomdp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options:</span> <span class="pre">storm::pomdp::modelchecker::BeliefExplorationPomdpModelCheckerOptions&lt;double&gt;</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationModelCheckerDouble" title="Link to this definition">¶</a></dt>
 <dd><dl class="py method">
 <dt class="sig sig-object py" id="stormpy.pomdp.BeliefExplorationModelCheckerDouble.check">
 <span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pomdp.BeliefExplorationModelCheckerDouble" title="stormpy.pomdp._pomdp.BeliefExplorationModelCheckerDouble"><span class="pre">stormpy.pomdp._pomdp.BeliefExplorationModelCheckerDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">formula</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="logic.html#stormpy.logic.Formula" title="stormpy.logic._logic.Formula"><span class="pre">stormpy.logic._logic.Formula</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">cutoff_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">collections.abc.Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">SupportsInt</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">SupportsFloat</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">storm::pomdp::modelchecker::BeliefExplorationPomdpModelChecker&lt;storm::models::sparse::Pomdp&lt;double,</span> <span class="pre">storm::models::sparse::StandardRewardModel&lt;double&gt;</span> <span class="pre">&gt;,</span> <span class="pre">double,</span> <span class="pre">double&gt;::Result</span></span></span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationModelCheckerDouble.check" title="Link to this definition">¶</a></dt>
@@ -476,107 +476,107 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BeliefExplorationModelCheckerOptionsDouble</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble" title="stormpy.pomdp._pomdp.BeliefExplorationModelCheckerOptionsDouble"><span class="pre">stormpy.pomdp._pomdp.BeliefExplorationModelCheckerOptionsDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">discretize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unfold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BeliefExplorationModelCheckerOptionsDouble</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble" title="stormpy.pomdp._pomdp.BeliefExplorationModelCheckerOptionsDouble"><span class="pre">stormpy.pomdp._pomdp.BeliefExplorationModelCheckerOptionsDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">discretize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unfold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble" title="Link to this definition">¶</a></dt>
 <dd><dl class="py property">
 <dt class="sig sig-object py" id="stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.clipping_grid_res">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">clipping_grid_res</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.clipping_grid_res" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">clipping_grid_res</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.clipping_grid_res" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.cut_zero_gap">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cut_zero_gap</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.cut_zero_gap" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cut_zero_gap</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.cut_zero_gap" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.exploration_heuristic">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">exploration_heuristic</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.exploration_heuristic" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">exploration_heuristic</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.exploration_heuristic" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.exploration_time_limit">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">exploration_time_limit</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.exploration_time_limit" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">exploration_time_limit</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.exploration_time_limit" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.gap_threshold_init">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">gap_threshold_init</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.gap_threshold_init" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">gap_threshold_init</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.gap_threshold_init" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.interactive_unfolding">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">interactive_unfolding</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.interactive_unfolding" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">interactive_unfolding</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.interactive_unfolding" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.refine">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">refine</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.refine" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">refine</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.refine" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.refine_precision">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">refine_precision</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.refine_precision" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">refine_precision</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.refine_precision" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.refine_step_limit">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">refine_step_limit</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.refine_step_limit" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">refine_step_limit</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.refine_step_limit" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.size_threshold_factor">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">size_threshold_factor</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.size_threshold_factor" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">size_threshold_factor</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.size_threshold_factor" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.size_threshold_init">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">size_threshold_init</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.size_threshold_init" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">size_threshold_init</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.size_threshold_init" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.skip_heuristic_schedulers">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">skip_heuristic_schedulers</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.skip_heuristic_schedulers" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">skip_heuristic_schedulers</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.skip_heuristic_schedulers" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.use_clipping">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">use_clipping</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.use_clipping" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">use_clipping</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.use_clipping" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.use_state_elimination_cutoff">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">use_state_elimination_cutoff</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.use_state_elimination_cutoff" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">use_state_elimination_cutoff</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationModelCheckerOptionsDouble.use_state_elimination_cutoff" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="stormpy.pomdp.BeliefExplorationPomdpModelCheckerResultDouble">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BeliefExplorationPomdpModelCheckerResultDouble</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationPomdpModelCheckerResultDouble" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BeliefExplorationPomdpModelCheckerResultDouble</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationPomdpModelCheckerResultDouble" title="Link to this definition">¶</a></dt>
 <dd><dl class="py property">
 <dt class="sig sig-object py" id="stormpy.pomdp.BeliefExplorationPomdpModelCheckerResultDouble.cutoff_schedulers">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cutoff_schedulers</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationPomdpModelCheckerResultDouble.cutoff_schedulers" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cutoff_schedulers</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationPomdpModelCheckerResultDouble.cutoff_schedulers" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.pomdp.BeliefExplorationPomdpModelCheckerResultDouble.induced_mc_from_scheduler">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">induced_mc_from_scheduler</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationPomdpModelCheckerResultDouble.induced_mc_from_scheduler" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">induced_mc_from_scheduler</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationPomdpModelCheckerResultDouble.induced_mc_from_scheduler" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.pomdp.BeliefExplorationPomdpModelCheckerResultDouble.lower_bound">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lower_bound</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationPomdpModelCheckerResultDouble.lower_bound" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">lower_bound</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationPomdpModelCheckerResultDouble.lower_bound" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.pomdp.BeliefExplorationPomdpModelCheckerResultDouble.upper_bound">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">upper_bound</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationPomdpModelCheckerResultDouble.upper_bound" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">upper_bound</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefExplorationPomdpModelCheckerResultDouble.upper_bound" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="stormpy.pomdp.BeliefMdpExplorerDouble">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BeliefMdpExplorerDouble</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefMdpExplorerDouble" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BeliefMdpExplorerDouble</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefMdpExplorerDouble" title="Link to this definition">¶</a></dt>
 <dd><dl class="py method">
 <dt class="sig sig-object py" id="stormpy.pomdp.BeliefMdpExplorerDouble.set_fsc_values">
 <span class="sig-name descname"><span class="pre">set_fsc_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pomdp.BeliefMdpExplorerDouble" title="stormpy.pomdp._pomdp.BeliefMdpExplorerDouble"><span class="pre">stormpy.pomdp._pomdp.BeliefMdpExplorerDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">collections.abc.Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">SupportsInt</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">SupportsFloat</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#stormpy.pomdp.BeliefMdpExplorerDouble.set_fsc_values" title="Link to this definition">¶</a></dt>
@@ -586,7 +586,7 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="stormpy.pomdp.BeliefSupportTrackerDouble">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BeliefSupportTrackerDouble</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pomdp.BeliefSupportTrackerDouble" title="stormpy.pomdp._pomdp.BeliefSupportTrackerDouble"><span class="pre">stormpy.pomdp._pomdp.BeliefSupportTrackerDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pomdp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="storage.html#stormpy.storage.SparsePomdp" title="stormpy.storage._storage.SparsePomdp"><span class="pre">stormpy.storage._storage.SparsePomdp</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pomdp.BeliefSupportTrackerDouble" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BeliefSupportTrackerDouble</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pomdp.BeliefSupportTrackerDouble" title="stormpy.pomdp._pomdp.BeliefSupportTrackerDouble"><span class="pre">stormpy.pomdp._pomdp.BeliefSupportTrackerDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pomdp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="storage.html#stormpy.storage.SparsePomdp" title="stormpy.storage._storage.SparsePomdp"><span class="pre">stormpy.storage._storage.SparsePomdp</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pomdp.BeliefSupportTrackerDouble" title="Link to this definition">¶</a></dt>
 <dd><p>Tracker for BeliefSupports</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.pomdp.BeliefSupportTrackerDouble.get_current_belief_support">
@@ -603,7 +603,7 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="stormpy.pomdp.BeliefSupportTrackerExact">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BeliefSupportTrackerExact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pomdp.BeliefSupportTrackerExact" title="stormpy.pomdp._pomdp.BeliefSupportTrackerExact"><span class="pre">stormpy.pomdp._pomdp.BeliefSupportTrackerExact</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pomdp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="storage.html#stormpy.storage.SparseExactPomdp" title="stormpy.storage._storage.SparseExactPomdp"><span class="pre">stormpy.storage._storage.SparseExactPomdp</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pomdp.BeliefSupportTrackerExact" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BeliefSupportTrackerExact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pomdp.BeliefSupportTrackerExact" title="stormpy.pomdp._pomdp.BeliefSupportTrackerExact"><span class="pre">stormpy.pomdp._pomdp.BeliefSupportTrackerExact</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pomdp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="storage.html#stormpy.storage.SparseExactPomdp" title="stormpy.storage._storage.SparseExactPomdp"><span class="pre">stormpy.storage._storage.SparseExactPomdp</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pomdp.BeliefSupportTrackerExact" title="Link to this definition">¶</a></dt>
 <dd><p>Tracker for BeliefSupports</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.pomdp.BeliefSupportTrackerExact.get_current_belief_support">
@@ -620,10 +620,10 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="stormpy.pomdp.BeliefSupportWinningRegion">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BeliefSupportWinningRegion</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefSupportWinningRegion" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BeliefSupportWinningRegion</span></span><a class="headerlink" href="#stormpy.pomdp.BeliefSupportWinningRegion" title="Link to this definition">¶</a></dt>
 <dd><dl class="py method">
 <dt class="sig sig-object py" id="stormpy.pomdp.BeliefSupportWinningRegion.load_from_file">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#stormpy.pomdp.BeliefSupportWinningRegion" title="stormpy.pomdp._pomdp.BeliefSupportWinningRegion"><span class="pre">stormpy.pomdp._pomdp.BeliefSupportWinningRegion</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#stormpy.pomdp.BeliefSupportWinningRegion.load_from_file" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">static</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#stormpy.pomdp.BeliefSupportWinningRegion" title="stormpy.pomdp._pomdp.BeliefSupportWinningRegion"><span class="pre">stormpy.pomdp._pomdp.BeliefSupportWinningRegion</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#stormpy.pomdp.BeliefSupportWinningRegion.load_from_file" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -635,7 +635,7 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="stormpy.pomdp.BeliefSupportWinningRegionQueryInterfaceDouble">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BeliefSupportWinningRegionQueryInterfaceDouble</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.pomdp._pomdp.BeliefSupportWinningRegionQueryInterfaceDouble</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pomdp:</span> <span class="pre">stormpy.storage._storage.SparsePomdp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">BeliefSupportWinningRegion:</span> <span class="pre">storm::pomdp::WinningRegion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pomdp.BeliefSupportWinningRegionQueryInterfaceDouble" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">BeliefSupportWinningRegionQueryInterfaceDouble</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">stormpy.pomdp._pomdp.BeliefSupportWinningRegionQueryInterfaceDouble</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pomdp:</span> <span class="pre">stormpy.storage._storage.SparsePomdp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">BeliefSupportWinningRegion:</span> <span class="pre">storm::pomdp::WinningRegion</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pomdp.BeliefSupportWinningRegionQueryInterfaceDouble" title="Link to this definition">¶</a></dt>
 <dd><dl class="py method">
 <dt class="sig sig-object py" id="stormpy.pomdp.BeliefSupportWinningRegionQueryInterfaceDouble.query_action">
 <span class="sig-name descname"><span class="pre">query_action</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pomdp.BeliefSupportWinningRegionQueryInterfaceDouble" title="stormpy.pomdp._pomdp.BeliefSupportWinningRegionQueryInterfaceDouble"><span class="pre">stormpy.pomdp._pomdp.BeliefSupportWinningRegionQueryInterfaceDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_belief</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="storage.html#stormpy.storage.BitVector" title="stormpy.storage._storage.BitVector"><span class="pre">stormpy.storage._storage.BitVector</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#stormpy.pomdp.BeliefSupportWinningRegionQueryInterfaceDouble.query_action" title="Link to this definition">¶</a></dt>
@@ -650,13 +650,13 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="stormpy.pomdp.IterativeQualitativeSearchOptions">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">IterativeQualitativeSearchOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pomdp.IterativeQualitativeSearchOptions" title="stormpy.pomdp._pomdp.IterativeQualitativeSearchOptions"><span class="pre">stormpy.pomdp._pomdp.IterativeQualitativeSearchOptions</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pomdp.IterativeQualitativeSearchOptions" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">IterativeQualitativeSearchOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pomdp.IterativeQualitativeSearchOptions" title="stormpy.pomdp._pomdp.IterativeQualitativeSearchOptions"><span class="pre">stormpy.pomdp._pomdp.IterativeQualitativeSearchOptions</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pomdp.IterativeQualitativeSearchOptions" title="Link to this definition">¶</a></dt>
 <dd><p>Options for the IterativeQualitativeSearch</p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="stormpy.pomdp.IterativeQualitativeSearchSolverDouble">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">IterativeQualitativeSearchSolverDouble</span></span><a class="headerlink" href="#stormpy.pomdp.IterativeQualitativeSearchSolverDouble" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">IterativeQualitativeSearchSolverDouble</span></span><a class="headerlink" href="#stormpy.pomdp.IterativeQualitativeSearchSolverDouble" title="Link to this definition">¶</a></dt>
 <dd><p>Solver for POMDPs that solves qualitative queries</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.pomdp.IterativeQualitativeSearchSolverDouble.compute_winning_policy_for_initial_states">
@@ -670,7 +670,7 @@
 
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.pomdp.IterativeQualitativeSearchSolverDouble.last_winning_region">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">last_winning_region</span></span><a class="headerlink" href="#stormpy.pomdp.IterativeQualitativeSearchSolverDouble.last_winning_region" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">last_winning_region</span></span><a class="headerlink" href="#stormpy.pomdp.IterativeQualitativeSearchSolverDouble.last_winning_region" title="Link to this definition">¶</a></dt>
 <dd><p>get the last computed winning region</p>
 </dd></dl>
 
@@ -678,7 +678,7 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="stormpy.pomdp.NondeterministicBeliefTrackerDoubleSparse">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">NondeterministicBeliefTrackerDoubleSparse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pomdp.NondeterministicBeliefTrackerDoubleSparse" title="stormpy.pomdp._pomdp.NondeterministicBeliefTrackerDoubleSparse"><span class="pre">stormpy.pomdp._pomdp.NondeterministicBeliefTrackerDoubleSparse</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pomdp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="storage.html#stormpy.storage.SparsePomdp" title="stormpy.storage._storage.SparsePomdp"><span class="pre">stormpy.storage._storage.SparsePomdp</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pomdp.NondeterministicBeliefTrackerDoubleSparseOptions" title="stormpy.pomdp._pomdp.NondeterministicBeliefTrackerDoubleSparseOptions"><span class="pre">stormpy.pomdp._pomdp.NondeterministicBeliefTrackerDoubleSparseOptions</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pomdp.NondeterministicBeliefTrackerDoubleSparse" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">NondeterministicBeliefTrackerDoubleSparse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pomdp.NondeterministicBeliefTrackerDoubleSparse" title="stormpy.pomdp._pomdp.NondeterministicBeliefTrackerDoubleSparse"><span class="pre">stormpy.pomdp._pomdp.NondeterministicBeliefTrackerDoubleSparse</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pomdp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="storage.html#stormpy.storage.SparsePomdp" title="stormpy.storage._storage.SparsePomdp"><span class="pre">stormpy.storage._storage.SparsePomdp</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pomdp.NondeterministicBeliefTrackerDoubleSparseOptions" title="stormpy.pomdp._pomdp.NondeterministicBeliefTrackerDoubleSparseOptions"><span class="pre">stormpy.pomdp._pomdp.NondeterministicBeliefTrackerDoubleSparseOptions</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pomdp.NondeterministicBeliefTrackerDoubleSparse" title="Link to this definition">¶</a></dt>
 <dd><p>Tracker for belief states and uncontrollable actions</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.pomdp.NondeterministicBeliefTrackerDoubleSparse.dimension">
@@ -734,28 +734,28 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="stormpy.pomdp.NondeterministicBeliefTrackerDoubleSparseOptions">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">NondeterministicBeliefTrackerDoubleSparseOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pomdp.NondeterministicBeliefTrackerDoubleSparseOptions" title="stormpy.pomdp._pomdp.NondeterministicBeliefTrackerDoubleSparseOptions"><span class="pre">stormpy.pomdp._pomdp.NondeterministicBeliefTrackerDoubleSparseOptions</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pomdp.NondeterministicBeliefTrackerDoubleSparseOptions" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">NondeterministicBeliefTrackerDoubleSparseOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pomdp.NondeterministicBeliefTrackerDoubleSparseOptions" title="stormpy.pomdp._pomdp.NondeterministicBeliefTrackerDoubleSparseOptions"><span class="pre">stormpy.pomdp._pomdp.NondeterministicBeliefTrackerDoubleSparseOptions</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pomdp.NondeterministicBeliefTrackerDoubleSparseOptions" title="Link to this definition">¶</a></dt>
 <dd><p>Options for the corresponding tracker</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.pomdp.NondeterministicBeliefTrackerDoubleSparseOptions.reduction_timeout">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reduction_timeout</span></span><a class="headerlink" href="#stormpy.pomdp.NondeterministicBeliefTrackerDoubleSparseOptions.reduction_timeout" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reduction_timeout</span></span><a class="headerlink" href="#stormpy.pomdp.NondeterministicBeliefTrackerDoubleSparseOptions.reduction_timeout" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.pomdp.NondeterministicBeliefTrackerDoubleSparseOptions.reduction_wiggle">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reduction_wiggle</span></span><a class="headerlink" href="#stormpy.pomdp.NondeterministicBeliefTrackerDoubleSparseOptions.reduction_wiggle" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reduction_wiggle</span></span><a class="headerlink" href="#stormpy.pomdp.NondeterministicBeliefTrackerDoubleSparseOptions.reduction_wiggle" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.pomdp.NondeterministicBeliefTrackerDoubleSparseOptions.track_timeout">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">track_timeout</span></span><a class="headerlink" href="#stormpy.pomdp.NondeterministicBeliefTrackerDoubleSparseOptions.track_timeout" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">track_timeout</span></span><a class="headerlink" href="#stormpy.pomdp.NondeterministicBeliefTrackerDoubleSparseOptions.track_timeout" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="stormpy.pomdp.NondeterministicBeliefTrackerExactSparse">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">NondeterministicBeliefTrackerExactSparse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pomdp.NondeterministicBeliefTrackerExactSparse" title="stormpy.pomdp._pomdp.NondeterministicBeliefTrackerExactSparse"><span class="pre">stormpy.pomdp._pomdp.NondeterministicBeliefTrackerExactSparse</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pomdp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="storage.html#stormpy.storage.SparseExactPomdp" title="stormpy.storage._storage.SparseExactPomdp"><span class="pre">stormpy.storage._storage.SparseExactPomdp</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pomdp.NondeterministicBeliefTrackerExactSparseOptions" title="stormpy.pomdp._pomdp.NondeterministicBeliefTrackerExactSparseOptions"><span class="pre">stormpy.pomdp._pomdp.NondeterministicBeliefTrackerExactSparseOptions</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pomdp.NondeterministicBeliefTrackerExactSparse" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">NondeterministicBeliefTrackerExactSparse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pomdp.NondeterministicBeliefTrackerExactSparse" title="stormpy.pomdp._pomdp.NondeterministicBeliefTrackerExactSparse"><span class="pre">stormpy.pomdp._pomdp.NondeterministicBeliefTrackerExactSparse</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">pomdp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="storage.html#stormpy.storage.SparseExactPomdp" title="stormpy.storage._storage.SparseExactPomdp"><span class="pre">stormpy.storage._storage.SparseExactPomdp</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pomdp.NondeterministicBeliefTrackerExactSparseOptions" title="stormpy.pomdp._pomdp.NondeterministicBeliefTrackerExactSparseOptions"><span class="pre">stormpy.pomdp._pomdp.NondeterministicBeliefTrackerExactSparseOptions</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pomdp.NondeterministicBeliefTrackerExactSparse" title="Link to this definition">¶</a></dt>
 <dd><p>Tracker for belief states and uncontrollable actions</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.pomdp.NondeterministicBeliefTrackerExactSparse.dimension">
@@ -811,28 +811,28 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="stormpy.pomdp.NondeterministicBeliefTrackerExactSparseOptions">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">NondeterministicBeliefTrackerExactSparseOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pomdp.NondeterministicBeliefTrackerExactSparseOptions" title="stormpy.pomdp._pomdp.NondeterministicBeliefTrackerExactSparseOptions"><span class="pre">stormpy.pomdp._pomdp.NondeterministicBeliefTrackerExactSparseOptions</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pomdp.NondeterministicBeliefTrackerExactSparseOptions" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">NondeterministicBeliefTrackerExactSparseOptions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pomdp.NondeterministicBeliefTrackerExactSparseOptions" title="stormpy.pomdp._pomdp.NondeterministicBeliefTrackerExactSparseOptions"><span class="pre">stormpy.pomdp._pomdp.NondeterministicBeliefTrackerExactSparseOptions</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pomdp.NondeterministicBeliefTrackerExactSparseOptions" title="Link to this definition">¶</a></dt>
 <dd><p>Options for the corresponding tracker</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.pomdp.NondeterministicBeliefTrackerExactSparseOptions.reduction_timeout">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reduction_timeout</span></span><a class="headerlink" href="#stormpy.pomdp.NondeterministicBeliefTrackerExactSparseOptions.reduction_timeout" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reduction_timeout</span></span><a class="headerlink" href="#stormpy.pomdp.NondeterministicBeliefTrackerExactSparseOptions.reduction_timeout" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.pomdp.NondeterministicBeliefTrackerExactSparseOptions.reduction_wiggle">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reduction_wiggle</span></span><a class="headerlink" href="#stormpy.pomdp.NondeterministicBeliefTrackerExactSparseOptions.reduction_wiggle" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">reduction_wiggle</span></span><a class="headerlink" href="#stormpy.pomdp.NondeterministicBeliefTrackerExactSparseOptions.reduction_wiggle" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.pomdp.NondeterministicBeliefTrackerExactSparseOptions.track_timeout">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">track_timeout</span></span><a class="headerlink" href="#stormpy.pomdp.NondeterministicBeliefTrackerExactSparseOptions.track_timeout" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">track_timeout</span></span><a class="headerlink" href="#stormpy.pomdp.NondeterministicBeliefTrackerExactSparseOptions.track_timeout" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="stormpy.pomdp.ObservationTraceUnfolderDouble">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ObservationTraceUnfolderDouble</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pomdp.ObservationTraceUnfolderDouble" title="stormpy.pomdp._pomdp.ObservationTraceUnfolderDouble"><span class="pre">stormpy.pomdp._pomdp.ObservationTraceUnfolderDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="storage.html#stormpy.storage.SparsePomdp" title="stormpy.storage._storage.SparsePomdp"><span class="pre">stormpy.storage._storage.SparsePomdp</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">risk</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">SupportsFloat</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expression_manager</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="storage.html#stormpy.storage.ExpressionManager" title="stormpy.storage._storage.ExpressionManager"><span class="pre">stormpy.storage._storage.ExpressionManager</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pomdp.ObservationTraceUnfolderDouble" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ObservationTraceUnfolderDouble</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pomdp.ObservationTraceUnfolderDouble" title="stormpy.pomdp._pomdp.ObservationTraceUnfolderDouble"><span class="pre">stormpy.pomdp._pomdp.ObservationTraceUnfolderDouble</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="storage.html#stormpy.storage.SparsePomdp" title="stormpy.storage._storage.SparsePomdp"><span class="pre">stormpy.storage._storage.SparsePomdp</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">risk</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">SupportsFloat</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expression_manager</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="storage.html#stormpy.storage.ExpressionManager" title="stormpy.storage._storage.ExpressionManager"><span class="pre">stormpy.storage._storage.ExpressionManager</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pomdp.ObservationTraceUnfolderDouble" title="Link to this definition">¶</a></dt>
 <dd><p>Unfolds observation traces in models</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.pomdp.ObservationTraceUnfolderDouble.extend">
@@ -853,7 +853,7 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="stormpy.pomdp.ObservationTraceUnfolderExact">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ObservationTraceUnfolderExact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pomdp.ObservationTraceUnfolderExact" title="stormpy.pomdp._pomdp.ObservationTraceUnfolderExact"><span class="pre">stormpy.pomdp._pomdp.ObservationTraceUnfolderExact</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="storage.html#stormpy.storage.SparseExactPomdp" title="stormpy.storage._storage.SparseExactPomdp"><span class="pre">stormpy.storage._storage.SparseExactPomdp</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">risk</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pycarl/core.html#stormpy.pycarl.gmp.Rational" title="stormpy.pycarl.gmp.Rational"><span class="pre">stormpy.pycarl.gmp.Rational</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expression_manager</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="storage.html#stormpy.storage.ExpressionManager" title="stormpy.storage._storage.ExpressionManager"><span class="pre">stormpy.storage._storage.ExpressionManager</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pomdp.ObservationTraceUnfolderExact" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ObservationTraceUnfolderExact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pomdp.ObservationTraceUnfolderExact" title="stormpy.pomdp._pomdp.ObservationTraceUnfolderExact"><span class="pre">stormpy.pomdp._pomdp.ObservationTraceUnfolderExact</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="storage.html#stormpy.storage.SparseExactPomdp" title="stormpy.storage._storage.SparseExactPomdp"><span class="pre">stormpy.storage._storage.SparseExactPomdp</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">risk</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pycarl/core.html#stormpy.pycarl.gmp.Rational" title="stormpy.pycarl.gmp.Rational"><span class="pre">stormpy.pycarl.gmp.Rational</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expression_manager</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="storage.html#stormpy.storage.ExpressionManager" title="stormpy.storage._storage.ExpressionManager"><span class="pre">stormpy.storage._storage.ExpressionManager</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pomdp.ObservationTraceUnfolderExact" title="Link to this definition">¶</a></dt>
 <dd><p>Unfolds observation traces in models</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.pomdp.ObservationTraceUnfolderExact.extend">
@@ -874,7 +874,7 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="stormpy.pomdp.ObservationTraceUnfolderRf">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ObservationTraceUnfolderRf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pomdp.ObservationTraceUnfolderRf" title="stormpy.pomdp._pomdp.ObservationTraceUnfolderRf"><span class="pre">stormpy.pomdp._pomdp.ObservationTraceUnfolderRf</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="storage.html#stormpy.storage.SparseParametricPomdp" title="stormpy.storage._storage.SparseParametricPomdp"><span class="pre">stormpy.storage._storage.SparseParametricPomdp</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">risk</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pycarl/core.html#stormpy.pycarl.cln.FactorizedRationalFunction" title="stormpy.pycarl.cln.FactorizedRationalFunction"><span class="pre">stormpy.pycarl.cln.FactorizedRationalFunction</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expression_manager</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="storage.html#stormpy.storage.ExpressionManager" title="stormpy.storage._storage.ExpressionManager"><span class="pre">stormpy.storage._storage.ExpressionManager</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pomdp.ObservationTraceUnfolderRf" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ObservationTraceUnfolderRf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pomdp.ObservationTraceUnfolderRf" title="stormpy.pomdp._pomdp.ObservationTraceUnfolderRf"><span class="pre">stormpy.pomdp._pomdp.ObservationTraceUnfolderRf</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="storage.html#stormpy.storage.SparseParametricPomdp" title="stormpy.storage._storage.SparseParametricPomdp"><span class="pre">stormpy.storage._storage.SparseParametricPomdp</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">risk</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">collections.abc.Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="pycarl/core.html#stormpy.pycarl.cln.FactorizedRationalFunction" title="stormpy.pycarl.cln.FactorizedRationalFunction"><span class="pre">stormpy.pycarl.cln.FactorizedRationalFunction</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expression_manager</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="storage.html#stormpy.storage.ExpressionManager" title="stormpy.storage._storage.ExpressionManager"><span class="pre">stormpy.storage._storage.ExpressionManager</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pomdp.ObservationTraceUnfolderRf" title="Link to this definition">¶</a></dt>
 <dd><p>Unfolds observation traces in models</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.pomdp.ObservationTraceUnfolderRf.extend">
@@ -895,7 +895,7 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="stormpy.pomdp.PomdpFscApplicationMode">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PomdpFscApplicationMode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pomdp.PomdpFscApplicationMode" title="stormpy.pomdp._pomdp.PomdpFscApplicationMode"><span class="pre">stormpy.pomdp._pomdp.PomdpFscApplicationMode</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pomdp.PomdpFscApplicationMode" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PomdpFscApplicationMode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pomdp.PomdpFscApplicationMode" title="stormpy.pomdp._pomdp.PomdpFscApplicationMode"><span class="pre">stormpy.pomdp._pomdp.PomdpFscApplicationMode</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pomdp.PomdpFscApplicationMode" title="Link to this definition">¶</a></dt>
 <dd><p>Members:</p>
 <p>standard</p>
 <p>simple_linear</p>
@@ -909,7 +909,7 @@
 
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.pomdp.PomdpFscApplicationMode.name">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#stormpy.pomdp.PomdpFscApplicationMode.name" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#stormpy.pomdp.PomdpFscApplicationMode.name" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -934,18 +934,18 @@
 
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.pomdp.PomdpFscApplicationMode.value">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><a class="headerlink" href="#stormpy.pomdp.PomdpFscApplicationMode.value" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><a class="headerlink" href="#stormpy.pomdp.PomdpFscApplicationMode.value" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="stormpy.pomdp.PomdpMemory">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PomdpMemory</span></span><a class="headerlink" href="#stormpy.pomdp.PomdpMemory" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PomdpMemory</span></span><a class="headerlink" href="#stormpy.pomdp.PomdpMemory" title="Link to this definition">¶</a></dt>
 <dd><p>Memory for POMDP policies</p>
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.pomdp.PomdpMemory.nr_states">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nr_states</span></span><a class="headerlink" href="#stormpy.pomdp.PomdpMemory.nr_states" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nr_states</span></span><a class="headerlink" href="#stormpy.pomdp.PomdpMemory.nr_states" title="Link to this definition">¶</a></dt>
 <dd><p>How many states does the memory structure have</p>
 </dd></dl>
 
@@ -953,7 +953,7 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="stormpy.pomdp.PomdpMemoryBuilder">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PomdpMemoryBuilder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pomdp.PomdpMemoryBuilder" title="stormpy.pomdp._pomdp.PomdpMemoryBuilder"><span class="pre">stormpy.pomdp._pomdp.PomdpMemoryBuilder</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pomdp.PomdpMemoryBuilder" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PomdpMemoryBuilder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pomdp.PomdpMemoryBuilder" title="stormpy.pomdp._pomdp.PomdpMemoryBuilder"><span class="pre">stormpy.pomdp._pomdp.PomdpMemoryBuilder</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pomdp.PomdpMemoryBuilder" title="Link to this definition">¶</a></dt>
 <dd><p>MemoryBuilder for POMDP policies</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.pomdp.PomdpMemoryBuilder.build">
@@ -964,7 +964,7 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="stormpy.pomdp.PomdpMemoryPattern">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PomdpMemoryPattern</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pomdp.PomdpMemoryPattern" title="stormpy.pomdp._pomdp.PomdpMemoryPattern"><span class="pre">stormpy.pomdp._pomdp.PomdpMemoryPattern</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pomdp.PomdpMemoryPattern" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">PomdpMemoryPattern</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pomdp.PomdpMemoryPattern" title="stormpy.pomdp._pomdp.PomdpMemoryPattern"><span class="pre">stormpy.pomdp._pomdp.PomdpMemoryPattern</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pomdp.PomdpMemoryPattern" title="Link to this definition">¶</a></dt>
 <dd><p>Memory pattern for POMDP memory</p>
 <p>Members:</p>
 <blockquote>
@@ -993,7 +993,7 @@
 
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.pomdp.PomdpMemoryPattern.name">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#stormpy.pomdp.PomdpMemoryPattern.name" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#stormpy.pomdp.PomdpMemoryPattern.name" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1018,14 +1018,14 @@
 
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.pomdp.PomdpMemoryPattern.value">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><a class="headerlink" href="#stormpy.pomdp.PomdpMemoryPattern.value" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">value</span></span><a class="headerlink" href="#stormpy.pomdp.PomdpMemoryPattern.value" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="stormpy.pomdp.SparseBeliefStateDouble">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SparseBeliefStateDouble</span></span><a class="headerlink" href="#stormpy.pomdp.SparseBeliefStateDouble" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SparseBeliefStateDouble</span></span><a class="headerlink" href="#stormpy.pomdp.SparseBeliefStateDouble" title="Link to this definition">¶</a></dt>
 <dd><p>Belief state in sparse format</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.pomdp.SparseBeliefStateDouble.get">
@@ -1034,19 +1034,19 @@
 
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.pomdp.SparseBeliefStateDouble.is_valid">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_valid</span></span><a class="headerlink" href="#stormpy.pomdp.SparseBeliefStateDouble.is_valid" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_valid</span></span><a class="headerlink" href="#stormpy.pomdp.SparseBeliefStateDouble.is_valid" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.pomdp.SparseBeliefStateDouble.risk">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">risk</span></span><a class="headerlink" href="#stormpy.pomdp.SparseBeliefStateDouble.risk" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">risk</span></span><a class="headerlink" href="#stormpy.pomdp.SparseBeliefStateDouble.risk" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="stormpy.pomdp.SparseBeliefStateExact">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SparseBeliefStateExact</span></span><a class="headerlink" href="#stormpy.pomdp.SparseBeliefStateExact" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SparseBeliefStateExact</span></span><a class="headerlink" href="#stormpy.pomdp.SparseBeliefStateExact" title="Link to this definition">¶</a></dt>
 <dd><p>Belief state in sparse format</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.pomdp.SparseBeliefStateExact.get">
@@ -1055,12 +1055,12 @@
 
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.pomdp.SparseBeliefStateExact.is_valid">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_valid</span></span><a class="headerlink" href="#stormpy.pomdp.SparseBeliefStateExact.is_valid" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_valid</span></span><a class="headerlink" href="#stormpy.pomdp.SparseBeliefStateExact.is_valid" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="stormpy.pomdp.SparseBeliefStateExact.risk">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">risk</span></span><a class="headerlink" href="#stormpy.pomdp.SparseBeliefStateExact.risk" title="Link to this definition">¶</a></dt>
+<em class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">risk</span></span><a class="headerlink" href="#stormpy.pomdp.SparseBeliefStateExact.risk" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -1429,7 +1429,7 @@
         
         
         <div class="built-with pt-2">
-          Built with <a href="http://sphinx-doc.org">Sphinx 8.1.3</a> and <a href="https://github.com/danirus/sphinx-nefertiti">Nefertiti 0.8.5</a>
+          Built with <a href="http://sphinx-doc.org">Sphinx 8.2.3</a> and <a href="https://github.com/danirus/sphinx-nefertiti">Nefertiti 0.8.5</a>
         </div>
         
       </div>
