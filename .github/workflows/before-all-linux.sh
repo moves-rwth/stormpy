@@ -6,7 +6,7 @@ set -e -u
 
 ginac_version=1.8.9
 
-dnf install -y boost-devel cln-devel gmp-devel glpk-devel hwloc-devel z3-devel xerces-c-devel eigen3-devel # missing ginac and boost
+dnf install -y boost-devel cln-devel gmp-devel glpk-devel hwloc-devel z3-devel xerces-c-devel eigen3-devel # missing ginac
 
 cd /tmp
 
@@ -14,7 +14,7 @@ cd /tmp
 curl -fsSLO https://www.ginac.de/ginac-${ginac_version}.tar.bz2
 tar -jxf ginac-${ginac_version}.tar.bz2
 cd ginac-${ginac_version}
-./configure
+./configure CXXFLAGS="-O2"
 make -j ${NR_JOBS}
 make install
 cd ..
