@@ -56,7 +56,7 @@ endfunction(check_hint)
 
 
 if(ALLOW_STORM_SYSTEM)
-    set(STORM_MIN_VERSION "1.9.1")
+    set(STORM_MIN_VERSION "1.10.0")
     find_package(storm REQUIRED HINTS ${STORM_DIR_HINT})
     check_hint("Storm" ${storm_DIR} "${STORM_DIR_HINT}" ${storm_VERSION})
     # Check Storm version

@@ -1,7 +1,9 @@
 Stormpy - Python bindings for Storm
 ===================================
 
+[![Docs Badge](https://img.shields.io/badge/docs-latest-blue)](https://moves-rwth.github.io/stormpy/)
 [![Build Status](https://github.com/moves-rwth/stormpy/workflows/Build%20Test/badge.svg)](https://github.com/moves-rwth/stormpy/actions)
+[![PyPI - Version](https://img.shields.io/pypi/v/stormpy)](https://pypi.org/project/stormpy/)
 [![GitHub release](https://img.shields.io/github/release/moves-rwth/stormpy.svg)](https://github.com/moves-rwth/stormpy/releases/)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7763208.svg)](https://doi.org/10.5281/zenodo.7763208)
 
