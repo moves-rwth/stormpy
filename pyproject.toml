@@ -12,7 +12,7 @@ authors = [
     { name = "S. Junges", email = "sebastian.junges@ru.nl" },
     { name = "M. Volk", email = "m.volk@tue.nl" }
 ]
-requires-python = ">=3.11"
+requires-python = ">=3.9"
 dependencies = [
     "Deprecated",
 ]
@@ -112,6 +112,8 @@ repair-wheel-command = "delocate-listdeps -vv --depending --all {wheel} && DYLD_
 [tool.black]
 line-length = 160
 target-version = [
+    "py39",
+    "py310",
     "py311",
     "py312",
     "py313",
