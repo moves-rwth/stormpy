@@ -4,6 +4,11 @@ Changelog
 Version 1.10.x
 --------------
 
+### Version 1.10.1 (2025/07)
+Requires Storm version > 1.10.0
+
+- First stand-alone (including Storm) release to [pypi](https://pypi.org/project/stormpy/).
+
 ### Version 1.10.0 (2025/05)
 Requires Storm version >= 1.10.0
 
