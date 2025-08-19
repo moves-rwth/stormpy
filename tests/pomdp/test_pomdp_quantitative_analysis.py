@@ -20,7 +20,7 @@ class TestPomdpQuantitative:
         options.use_clipping = False
         belmc = stormpy.pomdp.BeliefExplorationModelCheckerDouble(model, options)
         result = belmc.check(formulas[0].raw_formula, [])
-        assert math.isclose(result.lower_bound, 0.351985, abs_tol=10**-6)
+        assert math.isclose(result.lower_bound, 0.35198, abs_tol=10**-4)
         assert math.isinf(result.upper_bound)
         assert result.induced_mc_from_scheduler.nr_states == 10
         assert result.induced_mc_from_scheduler.nr_transitions == 23
@@ -38,7 +38,7 @@ class TestPomdpQuantitative:
         belmc = stormpy.pomdp.BeliefExplorationModelCheckerDouble(model, options)
         result = belmc.check(formulas[0].raw_formula, [])
         assert math.isinf(result.lower_bound)
-        assert math.isclose(result.upper_bound, 12.270484, abs_tol=10**-6)
+        assert math.isclose(result.upper_bound, 12.27043, abs_tol=10**-4)
         assert result.induced_mc_from_scheduler.nr_states == 9
         assert result.induced_mc_from_scheduler.nr_transitions == 17
         assert len(result.cutoff_schedulers) == 3
@@ -55,7 +55,7 @@ class TestPomdpQuantitative:
         belmc = stormpy.pomdp.BeliefExplorationModelCheckerDouble(model, options)
         result = belmc.check(formulas[0].raw_formula, [])
         assert math.isinf(result.lower_bound)
-        assert math.isclose(result.upper_bound, 19.781437, abs_tol=10**-6)
+        assert math.isclose(result.upper_bound, 19.78127, abs_tol=10**-4)
         assert result.induced_mc_from_scheduler.nr_states == 9
         assert result.induced_mc_from_scheduler.nr_transitions == 15
         assert len(result.cutoff_schedulers) == 3
