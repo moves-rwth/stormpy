@@ -85,7 +85,6 @@ We refer to the section ``[tool.scikit-build.cmake.define]`` in ``pyproject.toml
 	you can specify the directories via the following flags:
 
 	* ``--config-settings=cmake.define.STORM_DIR_HINT=<dir>`` to set the hint for the Storm directory
-	* ``--config-settings=cmake.define.CARL_DIR_HINT=<dir>`` to set the hint for the carl-storm directory
 	* ``--config-settings=cmake.define.CARLPARSER_DIR_HINT=<dir>`` to set the hint for the carl-parser directory
 
 *	*Disabling functionality*
