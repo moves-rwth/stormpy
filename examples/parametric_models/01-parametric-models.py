@@ -1,21 +1,11 @@
 import stormpy
-
-from stormpy import pycarl
+import stormpy.pars
 
 import stormpy.examples
 import stormpy.examples.files
 
-import stormpy._config as config
-
 
 def example_parametric_models_01():
-    # Check support for parameters
-    if not config.storm_with_pars:
-        print("Support parameters is missing. Try building storm-pars.")
-        return
-
-    import stormpy.pars
-
     path = stormpy.examples.files.prism_pdtmc_die
     prism_program = stormpy.parse_prism_program(path)
 

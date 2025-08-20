@@ -1,19 +1,14 @@
 import stormpy
 import stormpy.info
+import stormpy.pomdp
 
 from stormpy import pycarl
 
 import stormpy.examples
 import stormpy.examples.files
 
-import stormpy.pomdp
-
-import stormpy._config as config
-
 
 def example_pomdp_highlevel_observations():
-    # Check support for parameters
-
     path = stormpy.examples.files.prism_pomdp_maze
     prism_program = stormpy.parse_prism_program(path)
     formula_str = 'P=? [!"bad" U "goal"]'

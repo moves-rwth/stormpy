@@ -1,8 +1,8 @@
 import stormpy
+import stormpy.pomdp
 
 import stormpy.examples
 import stormpy.examples.files
-import stormpy.pomdp
 
 
 def example_building_models_01():

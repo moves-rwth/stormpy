@@ -45,13 +45,13 @@ jobs:
             deploy_target: 14.0
       fail-fast: false
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: maxim-lobanov/setup-xcode@v1
         if: ${{ matrix.xcode != '' }}
         with:
           xcode-version: ${{ matrix.xcode }}
       - name: Build wheels
-        uses: pypa/cibuildwheel@v3.0.1
+        uses: pypa/cibuildwheel@v3.1.4
         env:
           CIBW_PLATFORM: ${{ matrix.platform }}
           CIBW_ARCHS: ${{ matrix.archs }}
@@ -67,7 +67,7 @@ jobs:
     name: Build source distribution
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Build sdist
         run: pipx run build --sdist
       - uses: actions/upload-artifact@v4
@@ -89,13 +89,13 @@ jobs:
           - fedora:latest
           - archlinux:latest
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v5
         with:
           pattern: cibw-wheels-linux-intel-*
           path: dist
           merge-multiple: true
       - name: Checkout test files
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           path: dist/test_files
           sparse-checkout: |
@@ -168,7 +168,7 @@ jobs:
       - uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: ${{ matrix.distro.xcode }}
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v5
         with:
           pattern: cibw-wheels-${{ matrix.distro.os }}-*
           path: dist
@@ -191,7 +191,7 @@ jobs:
           source venv/bin/activate
           python3 -m pip install "$WHEEL"
       - name: Checkout test files
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           path: dist/test_files
           sparse-checkout: |
@@ -216,7 +216,7 @@ jobs:
     # Only upload if not using test.pypi and using original repo and triggered by either a release or a manual workflow dispatch
     if: ${{ !inputs.testPypi && github.repository_owner == 'moves-rwth' && ((github.event_name == 'release' && github.event.action == 'published') || github.event_name == 'workflow_dispatch') }}
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v5
         with:
           # unpacks all CIBW artifacts into dist/
           pattern: cibw-*
@@ -240,7 +240,7 @@ jobs:
     # Only upload if using test.pypi and using original repo and triggered by either a release or a manual workflow dispatch
     if: ${{ inputs.testPypi && github.repository_owner == 'moves-rwth' && ((github.event_name == 'release' && github.event.action == 'published') || github.event_name == 'workflow_dispatch') }}
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v5
         with:
           # unpacks all CIBW artifacts into dist/
           pattern: cibw-*
