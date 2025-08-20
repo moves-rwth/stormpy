@@ -1,6 +1,6 @@
-from stormpy import _config
+from stormpy.info import _config
 
-if not _config.storm_with_pomdp:
+if not _config.STORM_WITH_POMDP:
     raise ImportError("No support for POMDPs was built in Storm.")
 
 from . import _pomdp

@@ -9,7 +9,7 @@ def storm_version() -> str:
     :return: Storm version
     :rtype: str
     """
-    return _config.storm_version
+    return _config.STORM_VERSION
 
 
 def storm_exact_use_cln() -> bool:
@@ -19,7 +19,7 @@ def storm_exact_use_cln() -> bool:
     :return: True iff exact arithmetic uses CLN.
     :rtype: bool
     """
-    return _config.storm_cln_ea
+    return _config.STORM_CLN_EA
 
 
 def storm_ratfunc_use_cln() -> bool:
@@ -29,4 +29,4 @@ def storm_ratfunc_use_cln() -> bool:
     :return: True iff rational functions use CLN.
     :rtype: bool
     """
-    return _config.storm_cln_rf
+    return _config.STORM_CLN_RF

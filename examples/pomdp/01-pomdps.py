@@ -1,30 +1,20 @@
 import stormpy
 import stormpy.info
-
+import stormpy.pars
+import stormpy.pomdp
 from stormpy import pycarl
+from stormpy.pycarl.formula import FormulaType, Relation
+
+if stormpy.info.storm_ratfunc_use_cln():
+    from stormpy.pycarl.cln import formula
+else:
+    from stormpy.pycarl.gmp import formula
 
 import stormpy.examples
 import stormpy.examples.files
 
-import stormpy.pomdp
 
-import stormpy._config as config
-
-
-def example_parametric_models_01():
-    # Check support for parameters
-    if not config.storm_with_pars:
-        print("Support parameters is missing. Try building storm-pars.")
-        return
-
-    import stormpy.pars
-    from stormpy.pycarl.formula import FormulaType, Relation
-
-    if stormpy.info.storm_ratfunc_use_cln():
-        from stormpy.pycarl.cln import formula
-    else:
-        from stormpy.pycarl.gmp import formula
-
+def example_pomdps_01():
     # Prevent curious side effects from earlier runs (for tests only)
     pycarl.clear_pools()
     # ###
@@ -83,4 +73,4 @@ def example_parametric_models_01():
 
 
 if __name__ == "__main__":
-    example_parametric_models_01()
+    example_pomdps_01()

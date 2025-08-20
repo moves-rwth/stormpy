@@ -1,8 +1,10 @@
+import json
+
 import stormpy
 
 import stormpy.examples
 import stormpy.examples.files
-import json
+
 
 """
 Building with a fixed (permissive) policy
