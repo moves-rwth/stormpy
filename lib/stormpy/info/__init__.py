@@ -11,6 +11,7 @@ def storm_version() -> str:
     """
     return _config.STORM_VERSION
 
+
 def storm_from_system() -> bool:
     """
     Does StormPy rely on a (pre-existing) system installation of Storm.
@@ -21,6 +22,7 @@ def storm_from_system() -> bool:
     """
     return _config.STORM_FROM_SYSTEM
 
+
 def storm_development_version() -> bool:
     """
     Is true, if the version of storm was marked as modified since release.
@@ -28,7 +30,8 @@ def storm_development_version() -> bool:
     """
     return _config.STORM_DEVELOPER_VERSION
 
-def storm_origin_info() -> [str|None,str|None]:
+
+def storm_origin_info() -> [str | None, str | None]:
     """
     Information about the source of storm, in particular the repo path and the repo tag.
 
@@ -45,6 +48,7 @@ def storm_origin_info() -> [str|None,str|None]:
     """
     return (_config.STORM_ORIGIN_REPO, _config.STORM_ORIGIN_TAG)
 
+
 def storm_exact_use_cln() -> bool:
     """
     Check if exact arithmetic in Storm uses CLN or GMP.
@@ -53,6 +57,7 @@ def storm_exact_use_cln() -> bool:
     :rtype: bool
     """
     return _config.STORM_CLN_EA
+
 
 def storm_ratfunc_use_cln() -> bool:
     """
