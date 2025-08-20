@@ -89,7 +89,7 @@ jobs:
           - fedora:latest
           - archlinux:latest
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v5
         with:
           pattern: cibw-wheels-linux-intel-*
           path: dist
@@ -168,7 +168,7 @@ jobs:
       - uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: ${{ matrix.distro.xcode }}
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v5
         with:
           pattern: cibw-wheels-${{ matrix.distro.os }}-*
           path: dist
@@ -216,7 +216,7 @@ jobs:
     # Only upload if not using test.pypi and using original repo and triggered by either a release or a manual workflow dispatch
     if: ${{ !inputs.testPypi && github.repository_owner == 'moves-rwth' && ((github.event_name == 'release' && github.event.action == 'published') || github.event_name == 'workflow_dispatch') }}
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v5
         with:
           # unpacks all CIBW artifacts into dist/
           pattern: cibw-*
@@ -240,7 +240,7 @@ jobs:
     # Only upload if using test.pypi and using original repo and triggered by either a release or a manual workflow dispatch
     if: ${{ inputs.testPypi && github.repository_owner == 'moves-rwth' && ((github.event_name == 'release' && github.event.action == 'published') || github.event_name == 'workflow_dispatch') }}
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v5
         with:
           # unpacks all CIBW artifacts into dist/
           pattern: cibw-*
