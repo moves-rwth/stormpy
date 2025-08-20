@@ -1,9 +1,9 @@
+import json
+
 import stormpy
 
 import stormpy.examples
 import stormpy.examples.files
-
-import json
 
 
 def example_building_models_03():

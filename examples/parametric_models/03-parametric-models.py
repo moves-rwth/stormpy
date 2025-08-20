@@ -1,15 +1,13 @@
 import time
 
 import stormpy
+import stormpy.pars
 
 import stormpy.examples
 import stormpy.examples.files
 
 
 def example_parametric_models_03():
-    # Import support for parameters
-    import stormpy.pars
-
     path = stormpy.examples.files.prism_dtmc_brp
     prism_program = stormpy.parse_prism_program(path)
 
