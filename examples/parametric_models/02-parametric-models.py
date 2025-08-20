@@ -1,20 +1,12 @@
 import stormpy
 import stormpy.info
 
-from stormpy import pycarl
-
 import stormpy.examples
 import stormpy.examples.files
 
-import stormpy._config as config
-
 
 def example_parametric_models_02():
-    # Check support for parameters
-    if not config.storm_with_pars:
-        print("Support parameters is missing. Try building storm-pars.")
-        return
-
+    # Import support for parameters
     import stormpy.pars
     from stormpy.pycarl.formula import FormulaType, Relation
 

@@ -5,13 +5,10 @@ import stormpy
 import stormpy.examples
 import stormpy.examples.files
 
-import stormpy._config as config
-
 
 def example_parametric_models_03():
-    if not config.storm_with_pars:
-        print("Support parameters is missing. Try building storm-pars.")
-        return
+    # Import support for parameters
+    import stormpy.pars
 
     path = stormpy.examples.files.prism_dtmc_brp
     prism_program = stormpy.parse_prism_program(path)

@@ -1,6 +1,6 @@
-from stormpy import _config
+from stormpy.info import _config
 
-if not _config.storm_with_pars:
+if not _config.STORM_WITH_PARS:
     raise ImportError("No support for parametric analysis was built in Storm.")
 
 from . import _pars

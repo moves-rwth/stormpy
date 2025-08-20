@@ -1,6 +1,6 @@
-from stormpy import _config
+from stormpy.info import _config
 
-if not _config.storm_with_dft:
+if not _config.STORM_WITH_DFT:
     raise ImportError("No support for DFTs was built in Storm.")
 
 from . import _dft

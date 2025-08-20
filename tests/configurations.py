@@ -1,14 +1,14 @@
 import pytest
 
-import stormpy._config as config
+import stormpy.info._config as config
 
 # Skip not supported functionality
-has_xml = config.storm_with_xerces
-has_dft = config.storm_with_dft
-has_gspn = config.storm_with_gspn
-has_pars = config.storm_with_pars
-has_spot = config.storm_with_spot
-has_pomdp = config.storm_with_pomdp
+has_spot = config.STORM_WITH_SPOT
+has_xml = config.STORM_WITH_XERCES
+has_dft = config.STORM_WITH_DFT
+has_gspn = config.STORM_WITH_GSPN
+has_pars = config.STORM_WITH_PARS
+has_pomdp = config.STORM_WITH_POMDP
 
 try:
     import numpy
