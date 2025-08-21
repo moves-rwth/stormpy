@@ -441,6 +441,13 @@
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="stormpy.info.storm_development_version">
+<span class="sig-name descname"><span class="pre">storm_development_version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#stormpy.info.storm_development_version" title="Link to this definition">¶</a></dt>
+<dd><p>Is true, if the version of storm was marked as modified since release.
+:return: True if a development version</p>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="stormpy.info.storm_exact_use_cln">
 <span class="sig-name descname"><span class="pre">storm_exact_use_cln</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#stormpy.info.storm_exact_use_cln" title="Link to this definition">¶</a></dt>
 <dd><p>Check if exact arithmetic in Storm uses CLN or GMP.</p>
@@ -450,6 +457,44 @@
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stormpy.info.storm_from_system">
+<span class="sig-name descname"><span class="pre">storm_from_system</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#stormpy.info.storm_from_system" title="Link to this definition">¶</a></dt>
+<dd><p>Does stormpy rely on a (pre-existing) system installation of Storm.
+System versions include anything on the system
+that was not fetched during the build of stormpy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True, if  stormpy linked against a preexisting storm installation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stormpy.info.storm_origin_info">
+<span class="sig-name descname"><span class="pre">storm_origin_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#stormpy.info.storm_origin_info" title="Link to this definition">¶</a></dt>
+<dd><p>Information about the source of storm, in particular the repo path and the repo tag.</p>
+<dl class="simple">
+<dt>If storm was already on the system during installation and this preexisting version was used,</dt><dd><p>these values are expected to be None.</p>
+</dd>
+</dl>
+<p>If storm was installed (locally) as part of the installation process, these values are expected to be not none.
+Then:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The repo path usually takes the form of a url</p></li>
+<li><p>The tag refers to a tag on the repo.</p></li>
+</ul>
+</div></blockquote>
+<p>A noteworthy exception is when the fetch was from a local source dir.
+In that case, this source dir is included, and the tag reads “__local-<a href="#id1"><span class="problematic" id="id2">source-dir__</span></a>”</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A pair with the repo path and the repo tag.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -507,7 +552,10 @@
 <li><a class="reference internal" href="#stormpy.info.Version.short"><code class="docutils literal notranslate"><span class="pre">Version.short</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#stormpy.info.storm_development_version"><code class="docutils literal notranslate"><span class="pre">storm_development_version()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.info.storm_exact_use_cln"><code class="docutils literal notranslate"><span class="pre">storm_exact_use_cln()</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.info.storm_from_system"><code class="docutils literal notranslate"><span class="pre">storm_from_system()</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.info.storm_origin_info"><code class="docutils literal notranslate"><span class="pre">storm_origin_info()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.info.storm_ratfunc_use_cln"><code class="docutils literal notranslate"><span class="pre">storm_ratfunc_use_cln()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.info.storm_version"><code class="docutils literal notranslate"><span class="pre">storm_version()</span></code></a></li>
 </ul>
