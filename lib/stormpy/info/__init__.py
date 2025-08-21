@@ -14,7 +14,7 @@ def storm_version() -> str:
 
 def storm_from_system() -> bool:
     """
-    Does StormPy rely on a (pre-existing) system installation of Storm.
+    Does stormpy rely on a (pre-existing) system installation of Storm.
     System versions include anything on the system
     that was not fetched during the build of stormpy.
 
