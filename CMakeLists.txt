@@ -33,6 +33,11 @@ mark_as_advanced(COMPILE_WITH_CCACHE)
 option(STORMPY_INFO_PRETEND_FETCH "[INTERNAL] Use for overriding some flags in the info by cibuildwheel." OFF)
 mark_as_advanced(STORMPY_INFO_PRETEND_FETCH)
 
+# CHeck whether inputs are sane.
+if (NOT ALLOW_STORM_SYSTEM AND NOT ALLOW_STORM_FETCH)
+    message(FATAL_ERROR "Storm must be either fetched or used from system, yet ALLOW_STORM_SYSTEM=OFF and ALLOW_STORM_FETCH=OFF.")
+endif()
+
 # Find the module development requirements (requires FindPython from 3.17 or scikit-build-core's built-in backport)
 find_package(Python REQUIRED COMPONENTS Interpreter Development.Module)
 set(PYBIND11_FINDPYTHON ON)
