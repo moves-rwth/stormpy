@@ -77,7 +77,7 @@ sdist.include = [
 ]
 
 [tool.scikit-build.cmake.define]
-STORM_DIR_HINT="/Users/junges/storm/build"
+STORM_DIR_HINT=""
 ALLOW_STORM_SYSTEM="ON"
 ALLOW_STORM_FETCH="ON"
 USE_STORM_DFT="ON"
