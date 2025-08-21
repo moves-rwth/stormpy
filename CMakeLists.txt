@@ -14,11 +14,11 @@ set(CMAKE_CXX_STANDARD 20)
 
 # Configuration options
 set(STORM_DIR_HINT "" CACHE STRING "A hint where the Storm library can be found.")
-option(ALLOW_STORM_SYSTEM "Allow finding a storm version on the system" ON)
-option(ALLOW_STORM_FETCH "Allow fetching storm" ON)
+option(ALLOW_STORM_SYSTEM "Allow finding a Storm version on the system" ON)
+option(ALLOW_STORM_FETCH "Allow fetching Storm" ON)
 # No defaults set here, they should be governed by the pyproject.toml
-set(STORM_GIT_REPO "" CACHE STRING  "Git repo used for fetching storm")
-set(STORM_GIT_TAG "" CACHE STRING "Git repo tag used for fetching storm")
+set(STORM_GIT_REPO "" CACHE STRING  "Git repo used for fetching Storm")
+set(STORM_GIT_TAG "" CACHE STRING "Git repo tag used for fetching Storm")
 option(USE_STORM_DFT "Enable support for DFTs" ON)
 option(USE_STORM_GSPN "Enable support for GSPNs" ON)
 option(USE_STORM_PARS "Enable support for parametric models" ON)
@@ -33,9 +33,9 @@ mark_as_advanced(COMPILE_WITH_CCACHE)
 option(STORMPY_INFO_PRETEND_FETCH "[INTERNAL] Use for overriding some flags in the info by cibuildwheel." OFF)
 mark_as_advanced(STORMPY_INFO_PRETEND_FETCH)
 
-# CHeck whether inputs are sane.
+# Check whether inputs are sane.
 if (NOT ALLOW_STORM_SYSTEM AND NOT ALLOW_STORM_FETCH)
-    message(FATAL_ERROR "Storm must be either fetched or used from system, yet ALLOW_STORM_SYSTEM=OFF and ALLOW_STORM_FETCH=OFF.")
+    message(FATAL_ERROR "Stormpy - Storm must be either fetched or used from system, yet ALLOW_STORM_SYSTEM=OFF and ALLOW_STORM_FETCH=OFF.")
 endif()
 
 # Find the module development requirements (requires FindPython from 3.17 or scikit-build-core's built-in backport)
@@ -71,65 +71,71 @@ if(ALLOW_STORM_SYSTEM)
     else()
         find_package(storm REQUIRED HINTS ${STORM_DIR_HINT}) # REQUIRED, cannot be fetched.
     endif()
-    check_hint("Storm" ${storm_DIR} "${STORM_DIR_HINT}" ${storm_VERSION})
-    # Check Storm version
-    if (${storm_VERSION} VERSION_LESS ${STORM_MIN_VERSION})
-        MESSAGE(FATAL_ERROR "Stormpy - Storm version ${storm_VERSION} from ${storm_DIR} is not supported anymore!\nStormpy requires at least Storm version >= ${STORM_MIN_VERSION}.\nFor more information, see https://moves-rwth.github.io/stormpy/installation.html#compatibility-of-stormpy-and-storm")
-    endif()
+    if (storm_FOUND)
+        check_hint("Storm" ${storm_DIR} "${STORM_DIR_HINT}" ${storm_VERSION})
+        # Check Storm version
+        if (${storm_VERSION} VERSION_LESS ${STORM_MIN_VERSION})
+            MESSAGE(FATAL_ERROR "Stormpy - Storm version ${storm_VERSION} from ${storm_DIR} is not supported anymore!\nStormpy requires at least Storm version >= ${STORM_MIN_VERSION}.\nFor more information, see https://moves-rwth.github.io/stormpy/installation.html#compatibility-of-stormpy-and-storm")
+        endif()
+        if (STORM_VERSION_DEV)
+            message(WARNING "Stormpy - Using a development version of Storm. This may lead to issues and we recommend using a release of Storm instead.")
+        endif()
 
-    if (STORMPY_INFO_PRETEND_FETCH)
-        # This is a workaround for our wheel construction which uses a system version for efficiency,
-        # but should provide wheels as if it they were fetched.
-        message(WARNING "The behavior of STORMPY_INFO_PRETEND_FETCH is something we only want when building wheels. Please ensure that STORM_GIT_REPO and STORM_GIT_TAG are set accordingly.")
-        set(STORM_FETCHED_FROM_REPO ${STORM_GIT_REPO})
-        set(STORM_FETCHED_FROM_TAG ${STORM_GIT_TAG})
+        set(STORM_FROM_SYSTEM TRUE)
+        if (STORMPY_INFO_PRETEND_FETCH)
+            # This is a workaround for our wheel construction which uses a system version for efficiency,
+            # but should provide wheels as if it they were fetched.
+            message(WARNING "Stormpy - The behavior of STORMPY_INFO_PRETEND_FETCH is something we only want when building wheels. Please ensure that STORM_GIT_REPO and STORM_GIT_TAG are set accordingly.")
+            set(STORM_FETCHED_FROM_REPO ${STORM_GIT_REPO})
+            set(STORM_FETCHED_FROM_TAG ${STORM_GIT_TAG})
+            set(STORM_FROM_SYSTEM FALSE)
+        endif()
+        # Set dependency variables
+        set_dependency_var(SPOT)
+        set_dependency_var(XERCES)
+        # Check for optional Storm libraries
+        storm_with_lib(DFT)
+        storm_with_lib(GSPN)
+        storm_with_lib(PARS)
+        storm_with_lib(POMDP)
     endif()
-    # Set dependency variables
-    set_dependency_var(SPOT)
-    set_dependency_var(XERCES)
-    # Check for optional Storm libraries
-    storm_with_lib(DFT)
-    storm_with_lib(GSPN)
-    storm_with_lib(PARS)
-    storm_with_lib(POMDP)
 endif ()
-if (NOT storm_FOUND AND ALLOW_STORM_FETCH)
-    if (STORMPY_INFO_PRETEND_FETCH)
-        message(FATAL_ERROR "Do not set STORMPY_INFO_PRETEND_FETCH when fetching." )
-    endif()
-    # Storm not yet available.
-    include(FetchContent)
-    SET(FETCHCONTENT_QUIET OFF)
-    SET(STORM_BUILD_EXECUTABLES OFF)
-    FetchContent_Declare(
-            storm
-            GIT_REPOSITORY ${STORM_GIT_REPO}
-            GIT_TAG        ${STORM_GIT_TAG}
-    )
-    FETCHCONTENT_MAKEAVAILABLE(storm)
-    include(${storm_BINARY_DIR}/stormOptions.cmake)
-    set(HAVE_STORM_DFT TRUE)
-    set(HAVE_STORM_GSPN TRUE)
-    set(HAVE_STORM_PARS TRUE)
-    set(HAVE_STORM_POMDP TRUE)
-    # Set dependency variables
-    set_dependency_var(SPOT)
-    set_dependency_var(XERCES)
-    if (FETCHCONTENT_SOURCE_DIR_storm)
-        # We are setting the storm source to be something local from the outside.
-        set(STORM_FETCHED_FROM_REPO ${FETCHCONTENT_SOURCE_DIR_storm})
-        set(STORM_FETCHED_FROM_TAG "__local-source-dir__")
+
+if (NOT storm_FOUND)
+    if (ALLOW_STORM_FETCH)
+        if (STORMPY_INFO_PRETEND_FETCH)
+            message(FATAL_ERROR "Stormpy - Do not set STORMPY_INFO_PRETEND_FETCH when fetching." )
+        endif()
+        # Storm not yet available.
+        include(FetchContent)
+        SET(FETCHCONTENT_QUIET OFF)
+        SET(STORM_BUILD_EXECUTABLES OFF)
+        FetchContent_Declare(
+                storm
+                GIT_REPOSITORY ${STORM_GIT_REPO}
+                GIT_TAG        ${STORM_GIT_TAG}
+        )
+        FETCHCONTENT_MAKEAVAILABLE(storm)
+        include(${storm_BINARY_DIR}/stormOptions.cmake)
+        set(HAVE_STORM_DFT TRUE)
+        set(HAVE_STORM_GSPN TRUE)
+        set(HAVE_STORM_PARS TRUE)
+        set(HAVE_STORM_POMDP TRUE)
+        # Set dependency variables
+        set_dependency_var(SPOT)
+        set_dependency_var(XERCES)
+        if (FETCHCONTENT_SOURCE_DIR_storm)
+            # We are setting the Storm source to be something local from the outside.
+            set(STORM_FETCHED_FROM_REPO ${FETCHCONTENT_SOURCE_DIR_storm})
+            set(STORM_FETCHED_FROM_TAG "__local-source-dir__")
+        else()
+            set(STORM_FETCHED_FROM_REPO ${STORM_GIT_REPO})
+            set(STORM_FETCHED_FROM_TAG ${STORM_GIT_TAG})
+        endif()
+        set(STORM_FROM_SYSTEM FALSE)
     else()
-        set(STORM_FETCHED_FROM_REPO ${STORM_GIT_REPO})
-        set(STORM_FETCHED_FROM_TAG ${STORM_GIT_TAG})
-    endif()
-    set(STORM_FROM_SYSTEM FALSE)
-else()
-    set(STORM_FROM_SYSTEM TRUE)
-    # Nothing more to be done, as storm should be available now. Just a sanity check here.
-    if (NOT storm_FOUND)
         # Should not be reachable because storm is required if we cannot fetch it.
-        message(FATAL_ERROR "This situation should not occur. Please contact the storm developers. No version of storm configured.")
+        message(FATAL_ERROR "Stormpy - No version of Storm configured. This situation should not occur. Please contact the Storm developers.")
     endif()
 endif()
 
@@ -169,7 +175,7 @@ SET(CMAKE_BUILD_RPATH_USE_ORIGIN TRUE)
 
 
 # Workaround for issue with Boost >= 1.81
-# TODO: In the future, this should be inherited somehow from storm. 
+# TODO: In the future, this should be inherited somehow from Storm.
 find_package(Boost 1.70 QUIET REQUIRED CONFIG)
 if (Boost_FOUND)
     if (${Boost_VERSION} VERSION_GREATER_EQUAL "1.81.0")
