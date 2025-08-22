@@ -15,6 +15,15 @@ def carl_version():
     return _config.CARL_VERSION
 
 
+def carl_parser_directory() -> str | None:
+    """
+    Return the carl-parser directory which is used by stormpy, or None if carl parser is not available.
+
+    :return: Carl-parser directory.
+    """
+    return _config.CARL_PARSER_DIRECTORY
+
+
 def has_cln():
     """
     Check if pycarl has support for CLN.
