@@ -18,14 +18,14 @@ def storm_from_system() -> bool:
     System versions include anything on the system
     that was not fetched during the build of stormpy.
 
-    :return: True, if  stormpy linked against a preexisting storm installation.
+    :return: True, if  stormpy linked against a preexisting Storm installation.
     """
     return _config.STORM_FROM_SYSTEM
 
 
 def storm_development_version() -> bool:
     """
-    Is true, if the version of storm was marked as modified since release.
+    Is true, if the version of Storm was marked as modified since release.
     :return: True if a development version
     """
     return _config.STORM_DEVELOPER_VERSION
@@ -33,11 +33,11 @@ def storm_development_version() -> bool:
 
 def storm_origin_info() -> [str | None, str | None]:
     """
-    Information about the source of storm, in particular the repo path and the repo tag.
+    Information about the source of Storm, in particular the repo path and the repo tag.
 
-    If storm was already on the system during installation and this preexisting version was used,
+    If Storm was already on the system during installation and this preexisting version was used,
      these values are expected to be None.
-    If storm was installed (locally) as part of the installation process, these values are expected to be not none.
+    If Storm was installed (locally) as part of the installation process, these values are expected to be not None.
     Then:
       - The repo path usually takes the form of a url
       - The tag refers to a tag on the repo.
@@ -47,6 +47,18 @@ def storm_origin_info() -> [str | None, str | None]:
     :return: A pair with the repo path and the repo tag.
     """
     return (_config.STORM_ORIGIN_REPO, _config.STORM_ORIGIN_TAG)
+
+
+def storm_directory() -> str | None:
+    """
+    Return the Storm directory which is used by stormpy.
+
+    If a prexisting installation of Storm was used, then the path to this directory is returned.
+    If Storm was installed during the installation process, value None is returned.
+
+    :return: Storm directory.
+    """
+    return _config.STORM_DIRECTORY
 
 
 def storm_exact_use_cln() -> bool:
