@@ -443,8 +443,21 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="stormpy.info.storm_development_version">
 <span class="sig-name descname"><span class="pre">storm_development_version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#stormpy.info.storm_development_version" title="Link to this definition">¶</a></dt>
-<dd><p>Is true, if the version of storm was marked as modified since release.
+<dd><p>Is true, if the version of Storm was marked as modified since release.
 :return: True if a development version</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stormpy.info.storm_directory">
+<span class="sig-name descname"><span class="pre">storm_directory</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="headerlink" href="#stormpy.info.storm_directory" title="Link to this definition">¶</a></dt>
+<dd><p>Return the Storm directory which is used by stormpy.</p>
+<p>If a prexisting installation of Storm was used, then the path to this directory is returned.
+If Storm was installed during the installation process, value None is returned.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Storm directory.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -469,7 +482,7 @@ System versions include anything on the system
 that was not fetched during the build of stormpy.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>True, if  stormpy linked against a preexisting storm installation.</p>
+<dd class="field-odd"><p>True, if  stormpy linked against a preexisting Storm installation.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -477,12 +490,12 @@ that was not fetched during the build of stormpy.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="stormpy.info.storm_origin_info">
 <span class="sig-name descname"><span class="pre">storm_origin_info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#stormpy.info.storm_origin_info" title="Link to this definition">¶</a></dt>
-<dd><p>Information about the source of storm, in particular the repo path and the repo tag.</p>
+<dd><p>Information about the source of Storm, in particular the repo path and the repo tag.</p>
 <dl class="simple">
-<dt>If storm was already on the system during installation and this preexisting version was used,</dt><dd><p>these values are expected to be None.</p>
+<dt>If Storm was already on the system during installation and this preexisting version was used,</dt><dd><p>these values are expected to be None.</p>
 </dd>
 </dl>
-<p>If storm was installed (locally) as part of the installation process, these values are expected to be not none.
+<p>If Storm was installed (locally) as part of the installation process, these values are expected to be not None.
 Then:</p>
 <blockquote>
 <div><ul class="simple">
@@ -553,6 +566,7 @@ In that case, this source dir is included, and the tag reads “__local-<a href=
 </ul>
 </li>
 <li><a class="reference internal" href="#stormpy.info.storm_development_version"><code class="docutils literal notranslate"><span class="pre">storm_development_version()</span></code></a></li>
+<li><a class="reference internal" href="#stormpy.info.storm_directory"><code class="docutils literal notranslate"><span class="pre">storm_directory()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.info.storm_exact_use_cln"><code class="docutils literal notranslate"><span class="pre">storm_exact_use_cln()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.info.storm_from_system"><code class="docutils literal notranslate"><span class="pre">storm_from_system()</span></code></a></li>
 <li><a class="reference internal" href="#stormpy.info.storm_origin_info"><code class="docutils literal notranslate"><span class="pre">storm_origin_info()</span></code></a></li>
