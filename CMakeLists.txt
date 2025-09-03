@@ -38,9 +38,6 @@ if (NOT ALLOW_STORM_SYSTEM AND NOT ALLOW_STORM_FETCH)
     message(FATAL_ERROR "Stormpy - Storm must be either fetched or used from system, yet ALLOW_STORM_SYSTEM=OFF and ALLOW_STORM_FETCH=OFF.")
 endif()
 
-# Find the module development requirements (requires FindPython from 3.17 or scikit-build-core's built-in backport)
-find_package(Python REQUIRED COMPONENTS Interpreter Development.Module)
-set(PYBIND11_FINDPYTHON ON)
 find_package(pybind11 CONFIG REQUIRED)
 message(STATUS "Stormpy - Using pybind11 version ${pybind11_VERSION}")
 
