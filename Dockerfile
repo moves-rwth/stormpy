@@ -34,6 +34,7 @@ RUN apt-get install -y --no-install-recommends \
     maven \
     uuid-dev \
     python3 \
+    python3-dev \
     python3-venv
 # Packages maven and uuid-dev are required for carl-parser
 
