@@ -49,7 +49,8 @@ RUN mkdir -p /opt/carl-parser/build
 WORKDIR /opt/carl-parser/build
 
 # Configure carl-parser
-RUN cmake .. -DCMAKE_BUILD_TYPE=$build_type -DPORTABLE=ON
+# Set hint for carl directory to Storm directory
+RUN cmake .. -DCMAKE_BUILD_TYPE=$build_type -DPORTABLE=ON -Dcarl_DIR=/opt/storm/build/_deps/carl-build
 
 # Build carl-parser
 RUN make carl-parser -j $no_threads
