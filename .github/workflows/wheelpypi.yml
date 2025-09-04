@@ -1,23 +1,32 @@
 name: Build and upload to PyPI
 
 on:
-  # needed to trigger the workflow manually
-  workflow_dispatch:
+  # needed to reuse the workflow from another one
+  workflow_call:
     inputs:
-      testPypi:
+      test_pypi:
         description: 'Whether to use test.pypi instead of pypi'
         required: true
         default: true
         type: boolean
-      stormVersion:
-        description: 'Storm version used as base (e.g. 1.1.0 or master)'
+      storm_version:
+        description: 'Storm version used as base (e.g. 1.1.0)'
         required: true
         type: string
         default: 'x.y.z'
-  # Trigger on release is deactivated because Storm version must be manually set
-  #release:
-  #  types:
-  #    - published
+  # needed to trigger the workflow manually
+  workflow_dispatch:
+    inputs:
+      test_pypi:
+        description: 'Whether to use test.pypi instead of pypi'
+        required: true
+        default: true
+        type: boolean
+      storm_version:
+        description: 'Storm version used as base (e.g. 1.1.0)'
+        required: true
+        type: string
+        default: 'x.y.z'
 
 jobs:
   build_wheels:
@@ -56,7 +65,7 @@ jobs:
           CIBW_PLATFORM: ${{ matrix.platform }}
           CIBW_ARCHS: ${{ matrix.archs }}
           MACOSX_DEPLOYMENT_TARGET: ${{ matrix.deploy_target }}
-          CIBW_ENVIRONMENT: STORM_VERSION=${{ github.event.inputs.stormVersion }} NR_JOBS=4
+          CIBW_ENVIRONMENT: STORM_VERSION=${{ inputs.storm_version }} NR_JOBS=4
       - uses: actions/upload-artifact@v4
         with:
           name: cibw-wheels-${{ matrix.os }}-${{ strategy.job-index }}
@@ -214,7 +223,7 @@ jobs:
     permissions:
       id-token: write
     # Only upload if not using test.pypi and using original repo and triggered by either a release or a manual workflow dispatch
-    if: ${{ !inputs.testPypi && github.repository_owner == 'moves-rwth' && ((github.event_name == 'release' && github.event.action == 'published') || github.event_name == 'workflow_dispatch') }}
+    if: ${{ !inputs.test_pypi && github.repository_owner == 'moves-rwth' && ((github.event_name == 'release' && github.event.action == 'published') || github.event_name == 'workflow_dispatch') }}
     steps:
       - uses: actions/download-artifact@v5
         with:
@@ -238,7 +247,7 @@ jobs:
     permissions:
       id-token: write
     # Only upload if using test.pypi and using original repo and triggered by either a release or a manual workflow dispatch
-    if: ${{ inputs.testPypi && github.repository_owner == 'moves-rwth' && ((github.event_name == 'release' && github.event.action == 'published') || github.event_name == 'workflow_dispatch') }}
+    if: ${{ inputs.test_pypi && github.repository_owner == 'moves-rwth' && ((github.event_name == 'release' && github.event.action == 'published') || github.event_name == 'workflow_dispatch') }}
     steps:
       - uses: actions/download-artifact@v5
         with:
