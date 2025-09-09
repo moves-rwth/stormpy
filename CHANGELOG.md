@@ -1,6 +1,23 @@
 Changelog
 =============
 
+Version 1.11.x
+--------------
+
+### Version 1.11.0 (2025/09)
+Requires Storm version >= 1.11.0
+
+- Restructured build process:
+    * Migrated build process to scikit-build-core
+    * Adaptions to build process of Storm
+    * Developer: added information on used Storm library (e.g. installation location) to `stormpy.info`
+    * Developer: internal libraries are denoted by underscore prefix (e.g. `_storage`) now
+- Generalized functions `get_value` and `get_values_states` for valuations
+- Adaption to changes in Storm
+- Documentation: Use Sphinx theme Nefertiti and updated documentation
+- Developer: CI workflow for new releases including publishing to pypi
+
+
 Version 1.10.x
 --------------
 
