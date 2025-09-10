@@ -110,6 +110,7 @@ if (NOT storm_FOUND)
         include(FetchContent)
         SET(FETCHCONTENT_QUIET OFF)
         SET(STORM_BUILD_EXECUTABLES OFF)
+        SET(STORM_BUILD_TESTS OFF)
         FetchContent_Declare(
                 storm
                 GIT_REPOSITORY ${STORM_GIT_REPO}

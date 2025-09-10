@@ -94,7 +94,7 @@ jobs:
       matrix:
         distro:
           - ubuntu:24.04
-          - debian:12
+          - debian:13
           - fedora:latest
           - archlinux:latest
     steps:

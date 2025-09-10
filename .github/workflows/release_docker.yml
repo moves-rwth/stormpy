@@ -45,13 +45,13 @@ jobs:
         image:
           - {tag: "${{ inputs.tag }}-debug",
              baseImg: "movesrwth/storm:${{ inputs.storm_tag }}-debug",
-             file: "Dockerfile",
+             file: ".github/workflows/Dockerfile.release",
              buildType: "Debug",
              setupArgs: "--debug"
             }
           - {tag: "${{ inputs.tag }}",
              baseImg: "movesrwth/storm:${{ inputs.storm_tag }}",
-             file: "Dockerfile",
+             file: ".github/workflows/Dockerfile.release",
              buildType: "Release",
              setupArgs: ""
             }

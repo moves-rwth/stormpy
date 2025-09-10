@@ -1,5 +1,5 @@
-# Base Dockerfile for using stormpy
-###################################
+# Dockerfile for stormpy
+########################
 # The Docker image can be built by executing:
 # docker build -t yourusername/stormpy .
 # A different Linux base image can be set from the commandline with:
