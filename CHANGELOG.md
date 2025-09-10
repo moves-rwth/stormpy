@@ -4,6 +4,11 @@ Changelog
 Version 1.11.x
 --------------
 
+### Version 1.11.1 (2025/09)
+Requires Storm version >= 1.11.0
+
+- Fixed issue in CI workflow for releases
+
 ### Version 1.11.0 (2025/09)
 Requires Storm version >= 1.11.0
 
