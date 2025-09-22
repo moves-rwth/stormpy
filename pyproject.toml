@@ -90,7 +90,7 @@ CARLPARSER_DIR_HINT=""
 COMPILE_WITH_CCACHE="ON"
 STORMPY_DISABLE_SIGNATURE_DOC="OFF"
 STORM_GIT_REPO="https://github.com/moves-rwth/storm.git"
-STORM_GIT_TAG="master"
+STORM_GIT_TAG="1.11.0"
 
 
 [tool.scikit-build.metadata.version]
