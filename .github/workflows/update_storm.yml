@@ -26,6 +26,7 @@ jobs:
         run: |
           # Update STORM_MIN_VERSION
           sed -i -E 's/STORM_MIN_VERSION "(.+)"/STORM_MIN_VERSION "${{ inputs.storm_version }}"/' CMakeLists.txt
+          sed -i -E 's/STORM_GIT_TAG="(.+)"/STORM_GIT_TAG="${{ inputs.storm_version }}"/' pyproject.toml
       - name: Commit update
         run: |
           git diff
