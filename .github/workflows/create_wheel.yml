@@ -24,7 +24,7 @@ jobs:
     runs-on: ${{ matrix.runs-on }}
     strategy:
       matrix:
-        os: [ linux-intel, macos-intel, macos-arm ]
+        os: [ linux-intel, linux-arm, macos-intel, macos-arm ]
         include:
           # Set defaults
           - archs: auto
@@ -34,6 +34,9 @@ jobs:
           - os: linux-intel
             runs-on: ubuntu-latest
             archs: x86_64
+          - os: linux-arm
+            runs-on: ubuntu-24.04-arm
+            archs: aarch64
           - os: macos-intel
             runs-on: macos-13 # macos-13 was the last x86_64 runner
             xcode: 14.3
@@ -76,21 +79,33 @@ jobs:
 
 
   test_wheels_linux:
-    name: Test wheel on ${{ matrix.distro }}
+    name: Test wheel on ${{ matrix.distro }} and ${{ matrix.arch.name }}
     needs: [build_wheels]
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.arch.runner }}
     strategy:
       fail-fast: false
       matrix:
+        arch:
+          - {name: linux-intel,
+             runner: ubuntu-latest
+          }
+          - {name: linux-arm,
+             runner: ubuntu-24.04-arm
+          }
         distro:
-          - ubuntu:24.04
-          - debian:13
+          - ubuntu:latest
+          - ubuntu:rolling
+          - debian:latest
           - fedora:latest
           - archlinux:latest
+        exclude:
+          - arch: {name: linux-arm, runner: ubuntu-24.04-arm}
+            distro: archlinux:latest
+
     steps:
       - uses: actions/download-artifact@v5
         with:
-          pattern: stormpy-wheels-linux-intel
+          pattern: stormpy-wheels-${{ matrix.arch.name }}
           path: dist
           merge-multiple: true
       - name: Checkout test files
