@@ -399,23 +399,40 @@
 </nav>
     <section id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h1>
+<section id="installing-stormpy">
+<h2>Installing stormpy<a class="headerlink" href="#installing-stormpy" title="Link to this heading">¶</a></h2>
+<p>In most cases, it suffices to install the stormpy Python package, for example via:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install stormpy
+</pre></div>
+</div>
+<p>After the stormpy package was successfully installed, you can continue with <a class="reference internal" href="getting_started.html"><span class="doc">Getting Started</span></a>.</p>
+</section>
+<section id="manually-building-stormpy">
+<h2>Manually Building Stormpy<a class="headerlink" href="#manually-building-stormpy" title="Link to this heading">¶</a></h2>
+<p>The remainder describes the steps to manually build stormpy.</p>
 <section id="requirements">
-<h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading">¶</a></h2>
+<h3>Requirements<a class="headerlink" href="#requirements" title="Link to this heading">¶</a></h3>
 <p>Before installing stormpy, make sure</p>
 <ul class="simple">
 <li><p>Python 3 is available on your system.</p></li>
-<li><p><a class="reference external" href="https://www.stormchecker.org/">Storm</a> is available on your system.</p></li>
+<li><p>(optional) <a class="reference external" href="https://www.stormchecker.org/">Storm</a> is available</p></li>
 </ul>
+</section>
 <section id="compatibility-of-stormpy-and-storm">
 <span id="compatibility-stormpy-storm"></span><h3>Compatibility of stormpy and Storm<a class="headerlink" href="#compatibility-of-stormpy-and-storm" title="Link to this heading">¶</a></h3>
+<p>By default, stormpy will automatically install a compatible Storm.
+Alternatively, stormpy can use an existing installation of Storm.
+We refer to the <a class="reference external" href="https://www.stormchecker.org/documentation/obtain-storm/build.html">Storm documentation</a> for detailed installation instructions of Storm.
+The location of an existing Storm installation can be provided as an <a class="reference internal" href="#optional-build-arguments"><span class="std std-ref">optional argument</span></a> during the build step of stormpy.</p>
 <p>Note that stormpy and Storm are continuously extended and modified.
 It is therefore important to use compatible versions of stormpy and Storm.
-You have two choices for stormpy depending on the version of Storm you are using:</p>
+Stormpy and Storm are compatible if they share the same major and minor version <code class="docutils literal notranslate"><span class="pre">x.y</span></code>.
+Stormpy version <code class="docutils literal notranslate"><span class="pre">x.y.z</span></code> is compatible with Storm version <code class="docutils literal notranslate"><span class="pre">x.y.z'</span></code>.</p>
+<p>You have two choices for stormpy depending on the version of Storm you are using:</p>
 <ol class="arabic simple">
 <li><p><strong>Release version</strong>:
 You use the latest <a class="reference external" href="https://github.com/moves-rwth/storm/releases">release of Storm</a> or the <code class="docutils literal notranslate"><span class="pre">stable</span></code> branch.
-In these cases, you need to use the latest <a class="reference external" href="https://github.com/moves-rwth/stormpy/releases">release of stormpy</a>.
-For example, Storm  is compatible with stormpy .</p></li>
+In these cases, you need to use the latest <a class="reference external" href="https://github.com/moves-rwth/stormpy/releases">release of stormpy</a>.</p></li>
 <li><p><strong>Master branch</strong>:
 You use the <code class="docutils literal notranslate"><span class="pre">master</span></code> branch of Storm.
 In this case, you need to use the <code class="docutils literal notranslate"><span class="pre">master</span></code> branch of stormpy as well.
@@ -427,19 +444,15 @@ We will fix such issues as fast as possible.</p></li>
 <p>Unfortunately, Stormpy currently does not work in conjunction with a homebrew installation of Storm.</p>
 </div>
 </section>
-</section>
-<section id="installation-steps">
-<h2>Installation Steps<a class="headerlink" href="#installation-steps" title="Link to this heading">¶</a></h2>
 <section id="virtual-environments">
 <h3>Virtual Environments<a class="headerlink" href="#virtual-environments" title="Link to this heading">¶</a></h3>
 <p>Virtual environments create isolated environments for your projects.
-This helps to keep your system clean, work with different versions of packages and different version of python.
+This helps to keep your system clean, work with different versions of packages and different version of Python.
 While it is not required, we recommend the use of such virtual environments. To get you started, we recommend
 <a class="reference external" href="https://docs.python-guide.org/en/latest/dev/virtualenvs/">this guide</a> or
 <a class="reference external" href="https://realpython.com/blog/python/python-virtual-environments-a-primer">this primer</a>.</p>
 <p>In short you can create a virtual environment <code class="docutils literal notranslate"><span class="pre">env</span></code> with:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install virtualenv
-$ virtualenv -p python3 env
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m venv env
 $ source env/bin/activate
 </pre></div>
 </div>
@@ -459,40 +472,63 @@ $ cd stormpy
 $ cd stormpy
 </pre></div>
 </div>
-<p><strong>Build</strong> stormpy in using your favourite python distribution way of installing: e.g.:</p>
+<p><strong>Build</strong> stormpy using your favourite Python distribution way of installing, for example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install -v .
 </pre></div>
 </div>
 <section id="optional-build-arguments">
-<h4>Optional build arguments<a class="headerlink" href="#optional-build-arguments" title="Link to this heading">¶</a></h4>
-<p>The build step also takes optional CMake arguments via <code class="docutils literal notranslate"><span class="pre">--config-settings=cmake.define.&lt;cmake_option&gt;=&lt;value&gt;</span></code> for a more advanced configuration of stormpy.
+<span id="id1"></span><h4>Optional build arguments<a class="headerlink" href="#optional-build-arguments" title="Link to this heading">¶</a></h4>
+<p>The build step also takes optional CMake arguments via <code class="docutils literal notranslate"><span class="pre">--config-settings=cmake.define.&lt;cmake_option&gt;=&lt;value&gt;</span></code> (or short <code class="docutils literal notranslate"><span class="pre">-Ccmake.define.&lt;cmake_option&gt;=&lt;value&gt;</span></code>) for a more advanced configuration of stormpy.
 We refer to the section <code class="docutils literal notranslate"><span class="pre">[tool.scikit-build.cmake.define]</span></code> in <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> for a full list of configuration options.</p>
-<ul>
-<li><p><em>Specifying which Storm library to use</em></p>
-<p>If you have multiple versions of Storm or CMake is not able to find your Storm version,
-you can specify the directories via the following flags:</p>
+<section id="using-system-version-of-storm">
+<h5>Using system version of Storm<a class="headerlink" href="#using-system-version-of-storm" title="Link to this heading">¶</a></h5>
+<p>By default, stormpy is first searching for a local installation of Storm.
+Usage of the system version of Storm can be configured with the following flags:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">--config-settings=cmake.define.STORM_DIR_HINT=&lt;dir&gt;</span></code> to set the hint for the Storm directory</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--config-settings=cmake.define.CARLPARSER_DIR_HINT=&lt;dir&gt;</span></code> to set the hint for the carl-parser directory</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--config-settings=cmake.define.ALLOW_STORM_SYSTEM=OFF</span></code> disables searching for a system version of Storm.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--config-settings=cmake.define.STORM_DIR_HINT=&lt;dir&gt;</span></code> sets the hint for the Storm directory.
+In case of a manually built Storm, the path should point to the build directory.</p></li>
 </ul>
-</li>
-<li><p><em>Disabling functionality</em></p>
+</section>
+<section id="using-fetched-version-of-storm">
+<h5>Using fetched version of Storm<a class="headerlink" href="#using-fetched-version-of-storm" title="Link to this heading">¶</a></h5>
+<p>If no system version of Storm could be found, Storm is automatically fetched and installed.
+Fetching a Storm version can be configured with the following flags:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--config-settings=cmake.define.ALLOW_STORM_FETCH=OFF</span></code> disables fetching of Storm.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--config-settings=cmake.define.STORM_GIT_REPO=&lt;url&gt;</span></code> changes the Git repository used for fetching Storm.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--config-settings=cmake.define.STORM_GIT_TAG=&lt;tag&gt;</span></code> changes the Git tag used for fetching Storm.</p></li>
+</ul>
+</section>
+<section id="using-carl-parser">
+<h5>Using carl-parser<a class="headerlink" href="#using-carl-parser" title="Link to this heading">¶</a></h5>
+<p>The <a class="reference external" href="https://github.com/moves-rwth/carl-parser">carl-parser</a> library supports parsing of carl-storm data structures.
+Usage of carl-parser can be configured with the following flags:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--config-settings=cmake.define.USE_PARSER=OFF</span></code> disables support for the carl-parser.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--config-settings=cmake.define.CARLPARSER_DIR_HINT=&lt;dir&gt;</span></code> sets the hint for the carl-parser directory.
+In case of a manually built carl-parser, the path should point to the build directory.</p></li>
+</ul>
+</section>
+<section id="disabling-functionality">
+<h5>Disabling functionality<a class="headerlink" href="#disabling-functionality" title="Link to this heading">¶</a></h5>
 <p>If you want to disable certain functionality in stormpy from being built you can add the following flags:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">--config-settings=cmake.define.USE_STORM_DFT=OFF</span></code> to disable support for dynamic fault trees (DFTs)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--config-settings=cmake.define.USE_STORM_GSPN=OFF</span></code> to disable support for generalized stochastic Petri nets (GSPNs)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--config-settings=cmake.define.USE_STORM_PARS=OFF</span></code> to disable support for parametric models</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--config-settings=cmake.define.USE_STORM_POMDP=OFF</span></code> to disable support for POMDPs</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">--config-settings=cmake.define.USE_PARSER=OFF</span></code> to disable support for the carl-parser</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--config-settings=cmake.define.USE_STORM_DFT=OFF</span></code> to disable support for dynamic fault trees (DFTs).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--config-settings=cmake.define.USE_STORM_GSPN=OFF</span></code> to disable support for generalized stochastic Petri nets (GSPNs).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--config-settings=cmake.define.USE_STORM_PARS=OFF</span></code> to disable support for parametric models.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--config-settings=cmake.define.USE_STORM_POMDP=OFF</span></code> to disable support for POMDPs.</p></li>
 </ul>
-</li>
-<li><p><em>Building stormpy in debug mode</em></p>
+</section>
+<section id="building-stormpy-in-debug-mode">
+<h5>Building stormpy in debug mode<a class="headerlink" href="#building-stormpy-in-debug-mode" title="Link to this heading">¶</a></h5>
 <p>If you want to build stormpy in debug mode you can add the flag <code class="docutils literal notranslate"><span class="pre">--config-settings=cmake.build-type='Debug'</span></code>.</p>
-</li>
-<li><p><em>Setting number of build threads</em></p>
-<p>If you want to configure the number of threads used to build stormpy, use the flag <code class="docutils literal notranslate"><span class="pre">--config-settings=cmake.define.CMAKE_BUILD_PARALLEL_LEVEL=&lt;number_of_jobs&gt;</span></code>.</p>
-</li>
-</ul>
+</section>
+<section id="setting-number-of-build-threads">
+<h5>Setting number of build threads<a class="headerlink" href="#setting-number-of-build-threads" title="Link to this heading">¶</a></h5>
+<p>If you want to configure the number of threads used to build stormpy, use the flag <code class="docutils literal notranslate"><span class="pre">--config-settings=cmake.define.CMAKE_BUILD_PARALLEL_LEVEL=&lt;number_of_jobs&gt;</span></code>.
+Alternatively, you can set the prefix <code class="docutils literal notranslate"><span class="pre">CMAKE_BUILD_PARALLEL_LEVEL=&lt;number_of_jobs&gt;</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">...</span></code>.</p>
+</section>
 </section>
 </section>
 <section id="testing-stormpy-installation">
@@ -505,10 +541,12 @@ $ py.test tests/
 <p>If the tests pass, you can now use stormpy.
 To get started, continue with our <a class="reference internal" href="getting_started.html"><span class="doc">Getting Started</span></a>, consult the test files in <code class="docutils literal notranslate"><span class="pre">tests/</span></code> or the <a class="reference internal" href="api.html"><span class="doc">Stormpy API Reference</span></a> (work in progress).</p>
 </section>
+</section>
 <section id="building-stormpy-documentation">
-<h3>Building stormpy documentation<a class="headerlink" href="#building-stormpy-documentation" title="Link to this heading">¶</a></h3>
-<p>To build this documentation, you need additional python dependencies as well as <a class="reference external" href="https://pandoc.org/">pandoc</a>.
-You can install the required python dependencies automatically with:</p>
+<h2>Building stormpy documentation<a class="headerlink" href="#building-stormpy-documentation" title="Link to this heading">¶</a></h2>
+<p>To build this documentation, you need a local installation of stormpy.
+In addition, the <a class="reference external" href="https://pandoc.org/">pandoc</a> library is required as well as additional Python libraries.
+You can install the required Python dependencies automatically with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ pip install .[doc,numpy]
 </pre></div>
 </div>
@@ -517,7 +555,6 @@ You can install the required python dependencies automatically with:</p>
 $ make html
 </pre></div>
 </div>
-</section>
 </section>
 </section>
 
@@ -534,20 +571,27 @@ $ make html
               <nav id="TableOfContents">
                 <ul>
 <li><a class="reference internal" href="#">Installation</a><ul>
-<li><a class="reference internal" href="#requirements">Requirements</a><ul>
+<li><a class="reference internal" href="#installing-stormpy">Installing stormpy</a></li>
+<li><a class="reference internal" href="#manually-building-stormpy">Manually Building Stormpy</a><ul>
+<li><a class="reference internal" href="#requirements">Requirements</a></li>
 <li><a class="reference internal" href="#compatibility-of-stormpy-and-storm">Compatibility of stormpy and Storm</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#installation-steps">Installation Steps</a><ul>
 <li><a class="reference internal" href="#virtual-environments">Virtual Environments</a></li>
 <li><a class="reference internal" href="#building-stormpy">Building stormpy</a><ul>
-<li><a class="reference internal" href="#optional-build-arguments">Optional build arguments</a></li>
+<li><a class="reference internal" href="#optional-build-arguments">Optional build arguments</a><ul>
+<li><a class="reference internal" href="#using-system-version-of-storm">Using system version of Storm</a></li>
+<li><a class="reference internal" href="#using-fetched-version-of-storm">Using fetched version of Storm</a></li>
+<li><a class="reference internal" href="#using-carl-parser">Using carl-parser</a></li>
+<li><a class="reference internal" href="#disabling-functionality">Disabling functionality</a></li>
+<li><a class="reference internal" href="#building-stormpy-in-debug-mode">Building stormpy in debug mode</a></li>
+<li><a class="reference internal" href="#setting-number-of-build-threads">Setting number of build threads</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a class="reference internal" href="#testing-stormpy-installation">Testing stormpy installation</a></li>
-<li><a class="reference internal" href="#building-stormpy-documentation">Building stormpy documentation</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#building-stormpy-documentation">Building stormpy documentation</a></li>
 </ul>
 </li>
 </ul>
