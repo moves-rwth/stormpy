@@ -66,15 +66,6 @@ jobs:
       storm_tag: stable
     secrets: inherit
 
-  deploy_pypi:
-    # Create pypi package
-    needs: [env_storm_version, deploy_docker, deploy_docker_stable]
-    uses: ./.github/workflows/wheelpypi.yml
-    with:
-      test_pypi: false
-      storm_version: ${{ needs.env_storm_version.outputs.storm_version }}
-    secrets: inherit
-
   update_binder:
     # Update stormpy version in Binder images
     needs: [deploy_docker, deploy_docker_stable]
@@ -105,3 +96,41 @@ jobs:
           body: |
             Auto-generated pull request triggered by a new stormpy version.
             - Manually close and reopen this PR to trigger the CI.
+
+  create_wheels:
+    # Create pypi package
+    needs: [env_storm_version, deploy_docker, deploy_docker_stable]
+    uses: ./.github/workflows/create_wheel.yml
+    with:
+      storm_version: ${{ needs.env_storm_version.outputs.storm_version }}
+    secrets: inherit
+
+  upload_pypi:
+    # Upload pypi package
+    # cannot be in reusable workflow
+    needs: [create_wheels]
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/stormpy
+      # When testing
+      #name: testpypi
+      #url: https://test.pypi.org/p/stormpy
+    permissions:
+      id-token: write
+    # Only upload if using original repo and triggered by either a release or a manual workflow dispatch
+    if: ${{ github.repository_owner == 'moves-rwth' && ((github.event_name == 'release' && github.event.action == 'published') || github.event_name == 'workflow_dispatch') }}
+    steps:
+      - uses: actions/download-artifact@v5
+        with:
+          # unpacks all stormpy artifacts into dist/
+          pattern: stormpy-*
+          path: dist
+          merge-multiple: true
+
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          # When testing
+          #repository-url: https://test.pypi.org/legacy/
+          verbose: true
+          skip-existing: true

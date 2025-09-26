@@ -1,14 +1,9 @@
-name: Build and upload to PyPI
+name: Build and test wheels
 
 on:
   # needed to reuse the workflow from another one
   workflow_call:
     inputs:
-      test_pypi:
-        description: 'Whether to use test.pypi instead of pypi'
-        required: true
-        default: true
-        type: boolean
       storm_version:
         description: 'Storm version used as base (e.g. 1.1.0)'
         required: true
@@ -17,11 +12,6 @@ on:
   # needed to trigger the workflow manually
   workflow_dispatch:
     inputs:
-      test_pypi:
-        description: 'Whether to use test.pypi instead of pypi'
-        required: true
-        default: true
-        type: boolean
       storm_version:
         description: 'Storm version used as base (e.g. 1.1.0)'
         required: true
@@ -68,7 +58,7 @@ jobs:
           CIBW_ENVIRONMENT: STORM_VERSION=${{ inputs.storm_version }} NR_JOBS=4
       - uses: actions/upload-artifact@v4
         with:
-          name: cibw-wheels-${{ matrix.os }}-${{ strategy.job-index }}
+          name: stormpy-wheels-${{ matrix.os }}
           path: ./wheelhouse/*.whl
 
 
@@ -81,7 +71,7 @@ jobs:
         run: pipx run build --sdist
       - uses: actions/upload-artifact@v4
         with:
-          name: cibw-sdist
+          name: stormpy-sdist
           path: dist/*.tar.gz
 
 
@@ -100,7 +90,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v5
         with:
-          pattern: cibw-wheels-linux-intel-*
+          pattern: stormpy-wheels-linux-intel
           path: dist
           merge-multiple: true
       - name: Checkout test files
@@ -179,7 +169,7 @@ jobs:
           xcode-version: ${{ matrix.distro.xcode }}
       - uses: actions/download-artifact@v5
         with:
-          pattern: cibw-wheels-${{ matrix.distro.os }}-*
+          pattern: stormpy-wheels-${{ matrix.distro.os }}
           path: dist
           merge-multiple: true
       - name: Install from wheel and test
@@ -212,52 +202,3 @@ jobs:
           python3 -c "import stormpy; print('Import successful')"
           python3 -m pip install pytest nbval numpy
           pytest test_files/tests
-
-
-  upload_pypi:
-    needs: [build_wheels, build_sdist, test_wheels_linux, test_wheels_mac]
-    runs-on: ubuntu-latest
-    environment:
-      name: pypi
-      url: https://pypi.org/p/stormpy
-    permissions:
-      id-token: write
-    # Only upload if not using test.pypi and using original repo and triggered by either a release or a manual workflow dispatch
-    if: ${{ !inputs.test_pypi && github.repository_owner == 'moves-rwth' && ((github.event_name == 'release' && github.event.action == 'published') || github.event_name == 'workflow_dispatch') }}
-    steps:
-      - uses: actions/download-artifact@v5
-        with:
-          # unpacks all CIBW artifacts into dist/
-          pattern: cibw-*
-          path: dist
-          merge-multiple: true
-
-      - uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          verbose: true
-          skip-existing: true
-
-
-  upload_testpypi:
-    needs: [build_wheels, build_sdist, test_wheels_linux, test_wheels_mac]
-    runs-on: ubuntu-latest
-    environment:
-      name: testpypi
-      url: https://test.pypi.org/p/stormpy
-    permissions:
-      id-token: write
-    # Only upload if using test.pypi and using original repo and triggered by either a release or a manual workflow dispatch
-    if: ${{ inputs.test_pypi && github.repository_owner == 'moves-rwth' && ((github.event_name == 'release' && github.event.action == 'published') || github.event_name == 'workflow_dispatch') }}
-    steps:
-      - uses: actions/download-artifact@v5
-        with:
-          # unpacks all CIBW artifacts into dist/
-          pattern: cibw-*
-          path: dist
-          merge-multiple: true
-
-      - uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          repository-url: https://test.pypi.org/legacy/
-          verbose: true
-          skip-existing: true
