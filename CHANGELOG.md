@@ -4,8 +4,16 @@ Changelog
 Version 1.11.x
 --------------
 
+### Version 1.11.2 (2025/10)
+Requires Storm version >= 1.11.0. Binaries for this release are linked with Storm 1.11.1.
+
+- Prebuilt binaries on mac require at least macOS version 14 (Apple Silicon) or version 15 (Intel) 
+- Documentation: Revised installation guide
+- Developer: Improved workflow for creating wheels and added support for Linux ARM
+- Developer: Use fixed versions for Python dependencies
+
 ### Version 1.11.1 (2025/09)
-Requires Storm version >= 1.11.0
+Requires Storm version >= 1.11.0. 
 
 - Fixed issue in CI workflow for releases
 
