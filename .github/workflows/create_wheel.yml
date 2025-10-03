@@ -163,20 +163,20 @@ jobs:
       fail-fast: false
       matrix:
         distro:
-          - {name: "XCode 14.3, Intel",
-             os: macos-intel,
-             distro: "macos-13",
-             xcode: "14.3"
-          }
           - {name: "XCode 15.4, ARM",
              os: macos-arm,
              distro: "macos-14",
              xcode: "15.4"
           }
-          - {name: "XCode 16.3, ARM",
+          - {name: "XCode Latest, ARM",
              os: macos-arm,
              distro: "macos-15",
-             xcode: "16.3"
+             xcode: "latest-stable"
+          }
+          - {name: "XCode Latest, Intel",
+             os: macos-intel,
+             distro: "macos-15-intel",
+             xcode: "latest-stable"
           }
     steps:
       - uses: maxim-lobanov/setup-xcode@v1
