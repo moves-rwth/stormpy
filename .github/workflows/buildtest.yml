@@ -171,13 +171,6 @@ jobs:
     strategy:
       matrix:
         config:
-          - {name: "XCode 14.3, Intel, Debug",
-             distro: "macos-13",
-             xcode: "14.3",
-             build_type: "Debug",
-             setup_args: "--config-settings=cmake.define.ALLOW_STORM_SYSTEM=OFF --config-settings=cmake.define.STORM_GIT_TAG=master",
-             optional_libs: "[test,plot]"
-          }
           - {name: "XCode 15.4, ARM, Debug",
              distro: "macos-14",
              xcode: "15.4",
@@ -185,17 +178,24 @@ jobs:
              setup_args: "--config-settings=cmake.define.ALLOW_STORM_SYSTEM=OFF --config-settings=cmake.define.STORM_GIT_TAG=master",
              optional_libs: "[test,plot]"
           }
-          - {name: "XCode 16.3, ARM, Debug",
+          - {name: "XCode Latest, ARM, Debug",
              distro: "macos-15",
-             xcode: "16.3",
+             xcode: "latest-stable",
              build_type: "Debug",
              setup_args: "--config-settings=cmake.define.ALLOW_STORM_SYSTEM=OFF --config-settings=cmake.define.STORM_GIT_TAG=master",
              optional_libs: "[test,plot]"
           }
-          - {name: "XCode 16.3, ARM, Release",
+          - {name: "XCode Latest, ARM, Release",
              distro: "macos-15",
-             xcode: "16.3",
+             xcode: "latest-stable",
              build_type: "Release",
+             setup_args: "--config-settings=cmake.define.ALLOW_STORM_SYSTEM=OFF --config-settings=cmake.define.STORM_GIT_TAG=master",
+             optional_libs: "[test,plot]"
+          }
+          - {name: "XCode Latest, Intel, Debug",
+             distro: "macos-15-intel",
+             xcode: "latest-stable",
+             build_type: "Debug",
              setup_args: "--config-settings=cmake.define.ALLOW_STORM_SYSTEM=OFF --config-settings=cmake.define.STORM_GIT_TAG=master",
              optional_libs: "[test,plot]"
           }
