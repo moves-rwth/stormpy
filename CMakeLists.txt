@@ -68,7 +68,7 @@ function(check_hint NAME DIR_FOUND HINT_DIR FOUND_VERSION)
 endfunction(check_hint)
 
 if(ALLOW_STORM_SYSTEM)
-    set(STORM_MIN_VERSION "1.11.1")
+    set(STORM_MIN_VERSION "1.11.0")
     if (ALLOW_STORM_FETCH)
         find_package(storm HINTS ${STORM_DIR_HINT}) # NOT REQUIRED, can be fetched.
     else()
