@@ -40,7 +40,7 @@ jobs:
           - os: macos-intel
             runs-on: macos-15-intel # x86_64 runner
             xcode: latest-stable
-            deploy_target: 14.0
+            deploy_target: 15.0
           - os: macos-arm
             runs-on: macos-14 # macos-14+ (including latest) are ARM64 runners
             xcode: latest-stable
@@ -163,20 +163,20 @@ jobs:
       fail-fast: false
       matrix:
         distro:
-          - {name: "XCode 14.3, Intel",
-             os: macos-intel,
-             distro: "macos-13",
-             xcode: "14.3"
-          }
           - {name: "XCode 15.4, ARM",
              os: macos-arm,
              distro: "macos-14",
              xcode: "15.4"
           }
-          - {name: "XCode 16.3, ARM",
+          - {name: "XCode Latest, ARM",
              os: macos-arm,
              distro: "macos-15",
-             xcode: "16.3"
+             xcode: "latest-stable"
+          }
+          - {name: "XCode Latest, Intel",
+             os: macos-intel,
+             distro: "macos-15-intel",
+             xcode: "latest-stable"
           }
     steps:
       - uses: maxim-lobanov/setup-xcode@v1
