@@ -4,8 +4,13 @@ Changelog
 Version 1.11.x
 --------------
 
-### Version 1.11.2 (2025/10)
+### Version 1.11.3 (2025/10)
 Requires Storm version >= 1.11.0. Binaries for this release are linked with Storm 1.11.1.
+
+- Use latest Storm version in CI workflow for releases.
+
+### Version 1.11.2 (2025/10)
+Requires Storm version >= 1.11.0. Binaries for this release are linked with Storm 1.11.0.
 
 - Prebuilt binaries on mac require at least macOS version 14 (Apple Silicon) or version 15 (Intel) 
 - Documentation: Revised installation guide
