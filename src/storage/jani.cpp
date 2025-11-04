@@ -6,6 +6,7 @@
 #include <storm/storage/jani/traverser/InformationCollector.h>
 #include <storm/storage/jani/JaniLocationExpander.h>
 #include <storm/storage/jani/JaniScopeChanger.h>
+#include <storm/storage/jani/types/AllJaniTypes.h>
 #include "src/helpers.h"
 
 using namespace storm::jani;
@@ -17,7 +18,6 @@ std::string janiToString(Model const& m) {
 }
 
 void define_jani(py::module& m) {
-
     py::class_<Model, std::shared_ptr<Model>> md(m, "JaniModel", "A Jani Model");
     md.def(py::init<Model>(), "other_model"_a)
         .def_property_readonly("name", &Model::getName, "model name")
@@ -141,10 +141,30 @@ void define_jani(py::module& m) {
         .def("erase_variable", &VariableSet::eraseVariable, "variable")
     ;
 
+    py::class_<JaniType, std::shared_ptr<JaniType>> janiType(m, "JaniType", "A Variable Type in JANI");
+    janiType.def_property_readonly("is_array_type", &JaniType::isArrayType)
+            .def_property_readonly("is_bounded_type", &JaniType::isBoundedType)
+            .def_property_readonly("is_clock_type", &JaniType::isClockType)
+            .def_property_readonly("is_basic_type", &JaniType::isBasicType)
+            .def_property_readonly("is_continuous_type", &JaniType::isContinuousType)
+            .def("__str__", &JaniType::getStringRepresentation);
+    py::class_<BasicType, std::shared_ptr<BasicType>> basicType(m, "BasicType", "A basic type in JANI", janiType);
+    basicType.def_property_readonly("inner_type", &BasicType::get, "the inner type");
+    py::class_<BoundedType, std::shared_ptr<BoundedType>> boundedType(m, "BoundedType", "A basic type in JANI", janiType);
+    boundedType.def_property_readonly("base_type", &BoundedType::getBaseType, "the base type")
+               .def_property_readonly("lower_bound", [](const BoundedType& tp) -> storm::expressions::Expression const& {return tp.getLowerBound();}, "the lower bound")
+               .def_property_readonly("upper_bound", [](const BoundedType& tp) -> storm::expressions::Expression const& {return tp.getUpperBound();}, "the upper bound");
+    py::class_<ClockType, std::shared_ptr<ClockType>> clockType(m, "ClockType", "A clock type in JANI", janiType);
+    py::class_<ArrayType, std::shared_ptr<ArrayType>> arrayType(m, "ArrayType", "A array type in JANI", janiType);
+    arrayType.def_property_readonly("base_type", [](const ArrayType& tp) -> JaniType const& {return tp.getBaseType();}, "the base type");
+    py::class_<ContinuousType, std::shared_ptr<ContinuousType>> continuousType(m, "ContinuousType", "A continuous type in JANI");
+
     py::class_<Variable, std::shared_ptr<Variable>> variable(m, "JaniVariable", "A Variable in JANI");
     variable.def_property_readonly("name", &Variable::getName, "name of constant")
+            .def_property_readonly("type", [](Variable& v) -> JaniType const& {return v.getType(); }, "type of the variable")
             .def_property_readonly("expression_variable", &Variable::getExpressionVariable, "expression variable for this variable")
-            .def_property_readonly("init_expression", &Variable::getInitExpression);
+            .def_property_readonly("init_expression", &Variable::getInitExpression)
+            .def_property_readonly("is_transient", &Variable::isTransient);
 
     py::class_<Constant, std::shared_ptr<Constant>> constant(m, "JaniConstant", "A Constant in JANI");
     constant.def(py::init<std::string, storm::expressions::Variable>())
@@ -153,7 +173,6 @@ void define_jani(py::module& m) {
         .def_property_readonly("type", &Constant::getType, "type of constant")
         .def_property_readonly("expression_variable", &Constant::getExpressionVariable, "expression variable for this constant")
     ;
-
 
     m.def("eliminate_reward_accumulations", [](const Model& model, std::vector<Property>& properties) {
             storm::logic::RewardAccumulationEliminationVisitor v(model);
@@ -173,6 +192,14 @@ void define_jani(py::module& m) {
 	
     m.def("collect_information", [](const Model& model) {return storm::jani::collectModelInformation(model);});
 
+    m.def("export_jani_to_file", [](std::string const& filepath,
+                                    Model const& model,
+                                    std::vector<storm::jani::Property> const& properties,
+                                    bool checkValid,
+                                    bool compact) {
+        return JsonExporter::toFile(model, properties, filepath, checkValid, compact);},
+          "Writes a jani model to file, possibly including properties.",
+          py::arg("filename"), py::arg("model"), py::arg("properties")=std::vector<storm::jani::Property>(), py::arg("check_valid")=true, py::arg("compact")=false);
 }
 
 void define_jani_transformers(py::module& m) {
