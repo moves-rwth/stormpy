@@ -155,7 +155,7 @@ void define_jani(py::module& m) {
                .def_property_readonly("lower_bound", [](const BoundedType& tp) -> storm::expressions::Expression const& {return tp.getLowerBound();}, "the lower bound")
                .def_property_readonly("upper_bound", [](const BoundedType& tp) -> storm::expressions::Expression const& {return tp.getUpperBound();}, "the upper bound");
     py::class_<ClockType, std::shared_ptr<ClockType>> clockType(m, "ClockType", "A clock type in JANI", janiType);
-    py::class_<ArrayType, std::shared_ptr<ArrayType>> arrayType(m, "ArrayType", "A array type in JANI", janiType);
+    py::class_<ArrayType, std::shared_ptr<ArrayType>> arrayType(m, "ArrayType", "An array type in JANI", janiType);
     arrayType.def_property_readonly("base_type", [](const ArrayType& tp) -> JaniType const& {return tp.getBaseType();}, "the base type");
     py::class_<ContinuousType, std::shared_ptr<ContinuousType>> continuousType(m, "ContinuousType", "A continuous type in JANI");
 
