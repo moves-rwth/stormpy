@@ -150,7 +150,7 @@ void define_jani(py::module& m) {
             .def("__str__", &JaniType::getStringRepresentation);
     py::class_<BasicType, std::shared_ptr<BasicType>> basicType(m, "BasicType", "A basic type in JANI", janiType);
     basicType.def_property_readonly("inner_type", &BasicType::get, "the inner type");
-    py::class_<BoundedType, std::shared_ptr<BoundedType>> boundedType(m, "BoundedType", "A basic type in JANI", janiType);
+    py::class_<BoundedType, std::shared_ptr<BoundedType>> boundedType(m, "BoundedType", "A bounded type in JANI", janiType);
     boundedType.def_property_readonly("base_type", &BoundedType::getBaseType, "the base type")
                .def_property_readonly("lower_bound", [](const BoundedType& tp) -> storm::expressions::Expression const& {return tp.getLowerBound();}, "the lower bound")
                .def_property_readonly("upper_bound", [](const BoundedType& tp) -> storm::expressions::Expression const& {return tp.getUpperBound();}, "the upper bound");
