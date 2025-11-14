@@ -12,5 +12,5 @@ class TestJani:
         assert information.nr_variables == 18
         var_s = model.global_variables.get_variable_by_name("s")
         assert var_s.type.is_bounded_type
-        assert var_s.lower_bound.evaluate_as_int() == 0
-        assert var_s.upper_bound.evaluate_as_int() == 5
+        assert var_s.type.lower_bound.evaluate_as_int() == 0
+        assert var_s.type.upper_bound.evaluate_as_int() == 5
