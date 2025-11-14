@@ -4,7 +4,6 @@ import pytest
 
 
 class TestJani:
-
     def test_information_collection(self):
         model, properties = stormpy.parse_jani_model(get_example_path("dtmc", "brp.jani"))
         information = stormpy.collect_information(model)
@@ -15,4 +14,3 @@ class TestJani:
         assert var_s.type.is_bounded_type()
         assert var_s.lower_bound.evaluate_as_int() == 0
         assert var_s.upper_bound.evaluate_as_int() == 5
-

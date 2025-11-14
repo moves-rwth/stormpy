@@ -24,7 +24,7 @@ void define_jani(py::module& m) {
         .def_property_readonly("model_type", &storm::jani::Model::getModelType, "Model type")
         .def("set_model_type", &Model::setModelType, "Sets (only) the model type")
         .def_property_readonly("automata", [](const Model& model) -> auto& {return model.getAutomata();}, "get automata")
-        .def_property_readonly("global_variables", [](const Model& model) -> auto& {return model.getGlobalVariables();})
+        .def_property_readonly("global_variables", [](const Model& model) -> auto& {return model.getGlobalVariables();}, py::return_value_policy::reference)
         .def_property_readonly("constants", [](const Model& model) -> auto& {return model.getConstants();}, "get constants")
         .def("get_constant", &Model::getConstant, "name"_a, "get constant by name")
         .def("restrict_edges", &Model::restrictEdges, "restrict model to edges given by set", py::arg("edge_set"))
@@ -136,8 +136,8 @@ void define_jani(py::module& m) {
         }, py::keep_alive<0, 1>())
         .def("add_variable", [](VariableSet& vs, Variable& v) -> void { vs.addVariable(v); })
         .def("empty", &VariableSet::empty, "is there a variable in the set?")
-        .def("get_variable_by_name", [](VariableSet& v, std::string const& name) -> auto& { return v.getVariable(name);})
-        .def("get_variable_by_expr_variable", [](VariableSet& v, storm::expressions::Variable const& var) -> auto& { return v.getVariable(var);})
+        .def("get_variable_by_name", [](VariableSet& v, std::string const& name) -> auto& { return v.getVariable(name);}, py::return_value_policy::reference)
+        .def("get_variable_by_expr_variable", [](VariableSet& v, storm::expressions::Variable const& var) -> auto& { return v.getVariable(var);}, py::return_value_policy::reference)
         .def("erase_variable", &VariableSet::eraseVariable, "variable")
     ;
 
@@ -157,7 +157,7 @@ void define_jani(py::module& m) {
     py::class_<ClockType, std::shared_ptr<ClockType>> clockType(m, "ClockType", "A clock type in JANI", janiType);
     py::class_<ArrayType, std::shared_ptr<ArrayType>> arrayType(m, "ArrayType", "A array type in JANI", janiType);
     arrayType.def_property_readonly("base_type", [](const ArrayType& tp) -> JaniType const& {return tp.getBaseType();}, "the base type");
-    py::class_<ContinuousType, std::shared_ptr<ContinuousType>> continuousType(m, "ContinuousType", "A continuous type in JANI");
+    py::class_<ContinuousType, std::shared_ptr<ContinuousType>> continuousType(m, "ContinuousType", "A continuous type in JANI", janiType);
 
     py::class_<Variable, std::shared_ptr<Variable>> variable(m, "JaniVariable", "A Variable in JANI");
     variable.def_property_readonly("name", &Variable::getName, "name of constant")
