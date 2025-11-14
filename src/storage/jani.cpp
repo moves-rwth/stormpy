@@ -150,12 +150,12 @@ void define_jani(py::module& m) {
             .def("__str__", &JaniType::getStringRepresentation);
     py::class_<BasicType, std::shared_ptr<BasicType>> basicType(m, "BasicType", "A basic type in JANI", janiType);
     basicType.def_property_readonly("inner_type", &BasicType::get, "the inner type");
-    py::class_<BoundedType, std::shared_ptr<BoundedType>> boundedType(m, "BoundedType", "A basic type in JANI", janiType);
+    py::class_<BoundedType, std::shared_ptr<BoundedType>> boundedType(m, "BoundedType", "A bounded type in JANI", janiType);
     boundedType.def_property_readonly("base_type", &BoundedType::getBaseType, "the base type")
                .def_property_readonly("lower_bound", [](const BoundedType& tp) -> storm::expressions::Expression const& {return tp.getLowerBound();}, "the lower bound")
                .def_property_readonly("upper_bound", [](const BoundedType& tp) -> storm::expressions::Expression const& {return tp.getUpperBound();}, "the upper bound");
     py::class_<ClockType, std::shared_ptr<ClockType>> clockType(m, "ClockType", "A clock type in JANI", janiType);
-    py::class_<ArrayType, std::shared_ptr<ArrayType>> arrayType(m, "ArrayType", "A array type in JANI", janiType);
+    py::class_<ArrayType, std::shared_ptr<ArrayType>> arrayType(m, "ArrayType", "An array type in JANI", janiType);
     arrayType.def_property_readonly("base_type", [](const ArrayType& tp) -> JaniType const& {return tp.getBaseType();}, "the base type");
     py::class_<ContinuousType, std::shared_ptr<ContinuousType>> continuousType(m, "ContinuousType", "A continuous type in JANI", janiType);
 
