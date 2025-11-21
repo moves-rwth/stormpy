@@ -35,7 +35,7 @@ PYBIND11_MODULE(_storage, m) {
     define_sparse_model<double>(m, "");
     define_sparse_model<storm::RationalNumber>(m, "Exact");
     define_sparse_model<storm::Interval>(m, "Interval");
-    define_sparse_parametric_model(m);
+    define_sparse_model<storm::RationalFunction>(m, "Parametric");
     define_statevaluation(m);
     define_simplevaluation(m);
     define_sparse_matrix<double>(m, "");
@@ -43,7 +43,9 @@ PYBIND11_MODULE(_storage, m) {
     define_sparse_matrix<storm::Interval>(m, "Interval");
     define_sparse_matrix<storm::RationalFunction>(m, "Parametric");
     define_sparse_matrix_nt(m);
-    define_symbolic_model<storm::dd::DdType::Sylvan>(m, "Sylvan");
+    define_symbolic_model<storm::dd::DdType::Sylvan, double>(m, "Sylvan");
+    define_symbolic_model<storm::dd::DdType::Sylvan, storm::RationalNumber>(m, "SylvanExact");
+    define_symbolic_model<storm::dd::DdType::Sylvan, storm::RationalFunction>(m, "SylvanParametric");
     define_state<double>(m, "");
     define_state<storm::RationalNumber>(m, "Exact");
     define_state<storm::Interval>(m, "Interval");
