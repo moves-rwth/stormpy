@@ -17,7 +17,7 @@ jobs:
       storm_version: ${{ steps.getVersion.outputs.storm_version }}
     steps:
       - name: Git clone
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           ref: ${{ github.event.release.tag_name }}
       - name: Get Storm version
@@ -44,7 +44,7 @@ jobs:
       contents: write
     steps:
       - name: Git clone
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           ref: ${{ github.event.release.tag_name }}
           fetch-depth: 0
@@ -72,7 +72,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Git clone
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           repository: moves-rwth/stormpy
           ref: master
