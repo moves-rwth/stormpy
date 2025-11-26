@@ -1,5 +1,6 @@
 #include "modelchecking.h"
 #include "result.h"
+#include "storm/adapters/RationalFunctionAdapter.h"
 #include "storm/api/verification.h"
 #include "storm/environment/Environment.h"
 #include "storm/environment/solver/MinMaxSolverEnvironment.h"
