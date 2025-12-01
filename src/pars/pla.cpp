@@ -31,12 +31,14 @@ std::shared_ptr<RegionRefinementChecker> createRegionRefinementChecker(storm::En
     return storm::api::initializeRegionRefinementChecker<storm::RationalFunction, double>(env, settings);
 }
 
-void specifyRefinement(std::shared_ptr<RegionRefinementChecker>& checker, storm::Environment const& env, std::shared_ptr<storm::models::sparse::Model<storm::RationalFunction>> const& model, std::shared_ptr<storm::logic::Formula> const& formula, storm::modelchecker::RegionSplittingStrategy const& strategy, std::set<storm::storage::ParameterRegion<storm::RationalFunction>::VariableType> const& discreteVars, std::shared_ptr<storm::modelchecker::MonotonicityBackend<storm::RationalFunction>> monotonicityBackend, bool allowModelSimplifications, bool graphPreserving) {
-    return checker->specify(env, model, storm::api::createTask<storm::RationalFunction>(formula, true), strategy, discreteVars, monotonicityBackend, allowModelSimplifications, graphPreserving);
+void specifyRegionChecker(std::shared_ptr<RegionModelChecker>& checker, storm::Environment const& env, std::shared_ptr<storm::models::sparse::Model<storm::RationalFunction>> const& model, std::shared_ptr<storm::logic::Formula> const& formula, std::optional<storm::modelchecker::RegionSplitEstimateKind> splittingEstimate, bool allowModelSimplifications, bool graphPreserving) {
+    return checker->specify(env, model, storm::api::createTask<storm::RationalFunction>(formula, true), splittingEstimate, nullptr, allowModelSimplifications, graphPreserving);
 }
 
-void specify(std::shared_ptr<RegionModelChecker>& checker, storm::Environment const& env, std::shared_ptr<storm::models::sparse::Model<storm::RationalFunction>> const& model, std::shared_ptr<storm::logic::Formula> const& formula, std::optional<storm::modelchecker::RegionSplitEstimateKind> splittingEstimate, bool allowModelSimplifications, bool graphPreserving) {
-    return checker->specify(env, model, storm::api::createTask<storm::RationalFunction>(formula, true), splittingEstimate, nullptr, allowModelSimplifications, graphPreserving);
+void specifyRefinementChecker(std::shared_ptr<RegionRefinementChecker>& checker, storm::Environment const& env, std::shared_ptr<storm::models::sparse::Model<storm::RationalFunction>> const& model, std::shared_ptr<storm::logic::Formula> const& formula, bool allowModelSimplifications, bool graphPreserving) {
+    storm::modelchecker::RegionSplittingStrategy strategy;
+    std::set<storm::storage::ParameterRegion<storm::RationalFunction>::VariableType> discreteVars;
+    return checker->specify(env, model, storm::api::createTask<storm::RationalFunction>(formula, true), strategy, discreteVars, nullptr, allowModelSimplifications, graphPreserving);
 }
 
 storm::modelchecker::RegionResult checkRegion(std::shared_ptr<RegionModelChecker>& checker, storm::Environment const& env, Region const& region, storm::modelchecker::RegionResultHypothesis const& hypothesis, bool sampleVertices) {
@@ -117,16 +119,12 @@ void define_pla(py::module& m) {
     regionModelChecker.def("check_region", &checkRegion, "Check region", py::arg("environment"), py::arg("region"), py::arg("hypothesis") = storm::modelchecker::RegionResultHypothesis::Unknown, py::arg("sampleVertices") = false)
         .def("get_bound", &getBoundAtInit, "Get bound", py::arg("environment"), py::arg("region"), py::arg("maximise")= true)
         .def("get_split_suggestion", &RegionModelChecker::obtainRegionSplitEstimates, "Get region split estimates", py::arg("relevant_parameters"))
-        .def("specify", &specify, "specify arguments",py::arg("environment"), py::arg("model"), py::arg("formula"), py::arg("splitting_estimate") = std::nullopt, py::arg("allow_model_simplification") = true, py::arg("graph_preserving") = true)
+        .def("specify", &specifyRegionChecker, "specify arguments",py::arg("environment"), py::arg("model"), py::arg("formula"), py::arg("splitting_estimate") = std::nullopt, py::arg("allow_model_simplification") = true, py::arg("graph_preserving") = true)
     ;
 
     // RegionRefinementChecker
     py::class_<RegionRefinementChecker, std::shared_ptr<RegionRefinementChecker>>(m, "RegionRefinementChecker", "Region refinement checker")
-        .def("specify", [](std::shared_ptr<RegionRefinementChecker>& checker, storm::Environment const& env, std::shared_ptr<storm::models::sparse::Model<storm::RationalFunction>> const& model, std::shared_ptr<storm::logic::Formula> const& formula, bool allowModelSimplifications, bool graphPreserving) {
-            storm::modelchecker::RegionSplittingStrategy strategy;
-            std::set<storm::storage::ParameterRegion<storm::RationalFunction>::VariableType> discreteVars;
-            return specifyRefinement(checker, env, model, formula, strategy, discreteVars, nullptr, allowModelSimplifications, graphPreserving);
-        }, "specify arguments", py::arg("environment"), py::arg("model"), py::arg("formula"), py::arg("allow_model_simplification") = true, py::arg("graph_preserving") = true)
+        .def("specify", &specifyRefinementChecker, "specify arguments", py::arg("environment"), py::arg("model"), py::arg("formula"), py::arg("allow_model_simplification") = true, py::arg("graph_preserving") = true)
         .def("compute_extremum", [](RegionRefinementChecker& r, storm::Environment const& env, Region const& region, storm::solver::OptimizationDirection const& dirForParameters, storm::RationalFunctionCoefficient const& precision, bool absolutePrecision) {
             return r.computeExtremalValue(env, region, dirForParameters, storm::utility::one<storm::RationalFunction>() * precision, absolutePrecision, std::nullopt);
         }, "Compute extremum value and point with precision", py::arg("environment"), py::arg("region"), py::arg("extremum_direction"), py::arg("precision"), py::arg("precision_absolute") = false)

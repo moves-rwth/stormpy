@@ -145,12 +145,10 @@ class TestPLA:
         parameters = model.collect_probability_parameters()
         assert len(parameters) == 2
         region = stormpy.pars.ParameterRegion.create_from_string("0.7<=pL<=0.9,0.75<=pK<=0.95", parameters)
-        
+
         refinement_checker = stormpy.pars.create_region_refinement_checker(env, model, formulas[0].raw_formula)
         precision = stormpy.RationalRF(0.01)
-        value_with_precision, point_with_precision = refinement_checker.compute_extremum(
-            env, region, stormpy.OptimizationDirection.Maximize, precision, False
-        )
+        value_with_precision, point_with_precision = refinement_checker.compute_extremum(env, region, stormpy.OptimizationDirection.Maximize, precision, False)
         assert isinstance(value_with_precision, stormpy.RationalRF)
         assert isinstance(point_with_precision, dict)
         assert len(point_with_precision) == 2
