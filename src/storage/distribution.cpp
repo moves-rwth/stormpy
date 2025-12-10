@@ -1,7 +1,8 @@
-#include <storm/adapters/RationalNumberAdapter.h>
 #include "distribution.h"
 #include "src/helpers.h"
 
+#include "storm/adapters/RationalNumberAdapter.h"
+#include "storm/adapters/RationalNumberForward.h"
 #include "storm/storage/Distribution.h"
 
 template<typename ValueType>
