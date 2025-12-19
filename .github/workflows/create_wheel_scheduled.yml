@@ -16,5 +16,6 @@ jobs:
     uses: ./.github/workflows/create_wheel.yml
     with:
       storm_version: "master"
+      dev_version: true
     secrets: inherit
 
