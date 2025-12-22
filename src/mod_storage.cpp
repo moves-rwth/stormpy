@@ -11,12 +11,13 @@
 #include "storage/prism.h"
 #include "storage/jani.h"
 #include "storage/state.h"
-#include "src/storage/valuation.h"
+#include "storage/valuation.h"
 #include "storage/choiceorigins.h"
 #include "storage/labeling.h"
 #include "storage/expressions.h"
 #include "storage/geometry.h"
 
+#include "storm/adapters/IntervalAdapter.h"
 #include "storm/storage/dd/DdType.h"
 
 PYBIND11_MODULE(_storage, m) {

@@ -1,6 +1,7 @@
 #include "model.h"
 #include "state.h"
 
+#include "storm/adapters/IntervalAdapter.h"
 #include "storm/adapters/RationalFunctionAdapter.h"
 #include "storm/models/ModelBase.h"
 #include "storm/models/sparse/Model.h"
@@ -18,9 +19,7 @@
 #include "storm/models/symbolic/MarkovAutomaton.h"
 #include "storm/models/symbolic/StandardRewardModel.h"
 #include "storm/utility/dd.h"
-
 #include "storm/storage/dd/DdManager.h"
-
 #include "storm/storage/Scheduler.h"
 
 #include <functional>
