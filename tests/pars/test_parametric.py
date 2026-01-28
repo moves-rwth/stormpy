@@ -127,7 +127,7 @@ class TestParametric:
         assert model.nr_transitions == 803
         assert model.model_type == stormpy.ModelType.DTMC
         assert model.has_parameters
-        parameters = model.collect_probability_parameters()
+        parameters = model.collect_all_parameters()
         assert len(parameters) == 2
         derivatives = stormpy.pars.gather_derivatives(model, list(parameters)[0])
         assert len(derivatives) == 0
@@ -160,7 +160,7 @@ class TestParametric:
         prop = "P<=0.84 [F s=5 ]"
         formulas = stormpy.parse_properties_for_prism_program(prop, program)
         model = stormpy.build_parametric_model(program, formulas)
-        parameters = model.collect_probability_parameters()
+        parameters = model.collect_all_parameters()
         assert len(parameters) == 2
         region = stormpy.pars.ParameterRegion.create_from_string("0.7<=pL<=0.9,0.75<=pK<=0.95", parameters)
         assert region.area == stormpy.RationalRF(1) / stormpy.RationalRF(25)
