@@ -138,7 +138,7 @@ class TestModelChecking:
         psiResult = stormpy.model_checking(model, formulaPsi)
         psiStates = psiResult.get_truth_values()
         assert psiStates.number_of_set_bits() == 1
-        (prob0, prob1) = stormpy.compute_prob01_states(model, phiStates, psiStates)
+        prob0, prob1 = stormpy.compute_prob01_states(model, phiStates, psiStates)
         assert prob0.number_of_set_bits() == 9
         assert prob1.number_of_set_bits() == 1
         labelprop = stormpy.Property("cora", formulaPsi.raw_formula)
