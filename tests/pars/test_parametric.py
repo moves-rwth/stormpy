@@ -49,32 +49,51 @@ class TestParametric:
         values = result.get_values()
         assert len(values) == 3
 
-    def test_parameters(self):
+    def test_parameters_dtmc(self):
         program = stormpy.parse_prism_program(get_example_path("pdtmc", "brp16_2.pm"))
         formulas = stormpy.parse_properties_for_prism_program("P=? [F s=5]", program)
         model = stormpy.build_parametric_model(program, formulas)
         model_parameters = model.collect_probability_parameters()
         reward_parameters = model.collect_reward_parameters()
+        rate_parameters = model.collect_rate_parameters()
         all_parameters = model.collect_all_parameters()
         assert len(model_parameters) == 2
         assert len(reward_parameters) == 0
+        assert len(rate_parameters) == 0
         assert len(all_parameters) == 2
+
+        model = stormpy.build_symbolic_parametric_model(program, formulas)
+        assert len(model.get_parameters()) == 4
 
         program_reward = stormpy.parse_prism_program(get_example_path("pdtmc", "brp_rewards16_2.pm"))
         formulas_reward = stormpy.parse_properties_for_prism_program('Rmin=? [ F "target" ]', program_reward)
         model = stormpy.build_parametric_model(program_reward, formulas_reward)
         model_parameters = model.collect_probability_parameters()
         reward_parameters = model.collect_reward_parameters()
+        rate_parameters = model.collect_rate_parameters()
         all_parameters = model.collect_all_parameters()
         assert len(model_parameters) == 2
         assert len(reward_parameters) == 2
+        assert len(rate_parameters) == 0
         assert len(all_parameters) == 4
-
-        model = stormpy.build_symbolic_parametric_model(program, formulas)
-        assert len(model.get_parameters()) == 4
 
         model = stormpy.build_symbolic_parametric_model(program_reward, formulas_reward)
         assert len(model.get_parameters()) == 4
+
+    def test_parameters_ctmc(self):
+        program = stormpy.parse_prism_program(get_example_path("pctmc", "polling3.sm"), True)
+        model = stormpy.build_parametric_model(program)
+        model_parameters = model.collect_probability_parameters()
+        reward_parameters = model.collect_reward_parameters()
+        rate_parameters = model.collect_rate_parameters()
+        all_parameters = model.collect_all_parameters()
+        assert len(model_parameters) == 2
+        assert len(reward_parameters) == 0
+        assert len(rate_parameters) == 2
+        assert len(all_parameters) == 2
+
+        model = stormpy.build_symbolic_parametric_model(program)
+        assert len(model.get_parameters()) == 2
 
     def test_constraints_collector(self):
         from stormpy.pycarl.formula import FormulaType, Relation
