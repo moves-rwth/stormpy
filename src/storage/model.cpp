@@ -255,6 +255,9 @@ void define_sparse_model(py::module& m, std::string const& vtSuffix) {
             .def("collect_reward_parameters", [](SparseModel<ValueType> const& model) -> std::set<storm::RationalFunctionVariable> {
                 return storm::models::sparse::getRewardParameters(model);
 	     }, "Collect reward parameters")
+            .def("collect_rate_parameters", [](SparseModel<ValueType> const& model) -> std::set<storm::RationalFunctionVariable> {
+                return storm::models::sparse::getRateParameters(model);
+	     }, "Collect rate parameters")
             .def("collect_all_parameters", [](SparseModel<ValueType> const& model) -> std::set<storm::RationalFunctionVariable> {
                 return storm::models::sparse::getAllParameters(model);
 	     }, "Collect all parameters")
