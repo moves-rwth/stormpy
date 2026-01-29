@@ -316,6 +316,9 @@ void define_sparse_model(py::module& m, std::string const& vtSuffix) {
         .def_property_readonly("nondeterministic_choice_indices", [](SparseMarkovAutomaton<ValueType> const& ma) { return ma.getNondeterministicChoiceIndices(); })
         .def("apply_scheduler", [](SparseMarkovAutomaton<ValueType> const& ma, storm::storage::Scheduler<ValueType> const& scheduler, bool dropUnreachableStates) { return ma.applyScheduler(scheduler, dropUnreachableStates); } , "apply scheduler", "scheduler"_a, "drop_unreachable_states"_a = true)
         .def("__str__", &getModelInfoPrinter)
+        .def_property_readonly("is_closed", &SparseMarkovAutomaton<ValueType>::isClosed, "Check whether the MA is closed.")
+        .def("close",  &SparseMarkovAutomaton<ValueType>::close, "Close the MA by applying maximal progress assumption")
+        .def_property_readonly("has_zeno_cycle", &SparseMarkovAutomaton<ValueType>::containsZenoCycle, "Check whether the MA has a Zeno cycle.")
         .def_property_readonly("convertible_to_ctmc", &SparseMarkovAutomaton<ValueType>::isConvertibleToCtmc, "Check whether the MA can be converted into a CTMC.")
         .def("convert_to_ctmc", &SparseMarkovAutomaton<ValueType>::convertToCtmc, "Convert the MA into a CTMC.")
     ;
