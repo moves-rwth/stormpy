@@ -10,6 +10,7 @@
 #include "storm/storage/dd/DdType.h"
 #include "storm/storage/jani/Property.h"
 #include "storm/solver/OptimizationDirection.h"
+#include "storm/solver/UncertaintyResolutionMode.h"
 #include "storm/models/symbolic/StandardRewardModel.h"
 #include "storm/generator/NextStateGenerator.h"
 #include "storm-parsers/api/storm-parsers.h"
@@ -176,6 +177,14 @@ void define_optimality_type(py::module& m) {
     py::enum_<storm::solver::OptimizationDirection>(m, "OptimizationDirection")
         .value("Minimize", storm::solver::OptimizationDirection::Minimize)
         .value("Maximize", storm::solver::OptimizationDirection::Maximize)
+    ;
+
+    py::enum_<storm::solver::UncertaintyResolutionMode>(m, "UncertaintyResolutionMode")
+        .value("MINIMIZE", storm::solver::UncertaintyResolutionMode::Minimize)
+        .value("MAXIMIZE", storm::solver::UncertaintyResolutionMode::Maximize)
+        .value("ROBUST", storm::solver::UncertaintyResolutionMode::Robust)
+        .value("COOPERATIVE", storm::solver::UncertaintyResolutionMode::Cooperative)
+        .value("UNSET", storm::solver::UncertaintyResolutionMode::Unset)
     ;
 }
 
