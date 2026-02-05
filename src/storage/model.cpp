@@ -112,7 +112,7 @@ void define_model(py::module& m) {
             }, "Get model as sparse exact DTMC")
         .def("_as_sparse_idtmc", [](ModelBase &modelbase) {
                 return modelbase.as<SparseDtmc<storm::Interval>>();
-            }, "Get model as sparse inteval DTMC")
+            }, "Get model as sparse interval DTMC")
         .def("_as_sparse_pdtmc", [](ModelBase &modelbase) {
                 return modelbase.as<SparseDtmc<storm::RationalFunction>>();
             }, "Get model as sparse parametric DTMC")
