@@ -56,22 +56,22 @@ class TestModelChecking:
         task = stormpy.CheckTask(formulas[0].raw_formula, only_initial_states=True)
         task.set_produce_schedulers()
         # Compute maximal robust
-        task.set_robust_uncertainty(True)
+        task.set_uncertainty_resolution_mode(stormpy.UncertaintyResolutionMode.ROBUST)
         result = stormpy.check_interval_mdp(model, task, env)
         assert math.isclose(result.at(initial_state), 0.4, rel_tol=1e-4)
-        # Compute maximal non-robust
-        task.set_robust_uncertainty(False)
+        # Compute maximal cooperative
+        task.set_uncertainty_resolution_mode(stormpy.UncertaintyResolutionMode.COOPERATIVE)
         result = stormpy.check_interval_mdp(model, task, env)
         assert math.isclose(result.at(initial_state), 0.5, rel_tol=1e-4)
 
         task = stormpy.CheckTask(formulas[1].raw_formula, only_initial_states=True)
         task.set_produce_schedulers()
         # Compute minimal robust
-        task.set_robust_uncertainty(True)
+        task.set_uncertainty_resolution_mode(stormpy.UncertaintyResolutionMode.ROBUST)
         result = stormpy.check_interval_mdp(model, task, env)
         assert math.isclose(result.at(initial_state), 0.5, rel_tol=1e-4)
-        # Compute minimal non-robust
-        task.set_robust_uncertainty(False)
+        # Compute minimal cooperative
+        task.set_uncertainty_resolution_mode(stormpy.UncertaintyResolutionMode.COOPERATIVE)
         result = stormpy.check_interval_mdp(model, task, env)
         assert math.isclose(result.at(initial_state), 0.4, rel_tol=1e-4)
 

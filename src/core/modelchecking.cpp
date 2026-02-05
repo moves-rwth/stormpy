@@ -9,7 +9,6 @@
 #include "storm/modelchecker/hints/ExplicitModelCheckerHint.h"
 #include "storm/modelchecker/csl/helper/SparseCtmcCslHelper.h"
 #include "storm/modelchecker/multiobjective/MultiObjectiveModelChecking.h"
-#include "storm/environment/Environment.h"
 #include "storm/utility/graph.h"
 
 template<typename ValueType>
@@ -99,28 +98,19 @@ storm::storage::BitVector getReachableStates(storm::models::sparse::Model<ValueT
 
 }
 
-// Define python bindings
-void define_modelchecking(py::module& m) {
+// TODO: use consistent suffix instead of name
+template<typename ValueType>
+void define_check_task(py::module& m, std::string const& name) {
+    // CheckTask
+    py::class_<CheckTask<ValueType>, std::shared_ptr<CheckTask<ValueType>>>(m, name.c_str(), "Task for model checking")
+        .def(py::init<storm::logic::Formula const&, bool>(), py::arg("formula"), py::arg("only_initial_states") = false)
+        .def("set_produce_schedulers", &CheckTask<ValueType>::setProduceSchedulers, "Set whether schedulers should be produced (if possible)", py::arg("produce_schedulers") = true)
+        .def("set_hint", &CheckTask<ValueType>::setHint, "Sets a hint that may speed up the solver")
+        .def("set_uncertainty_resolution_mode", &CheckTask<ValueType>::setUncertaintyResolutionMode, "Sets the mode which decides how the uncertainty will be resolved.")
+    ;
+}
 
-    // CheckTask
-    py::class_<CheckTask<double>, std::shared_ptr<CheckTask<double>>>(m, "CheckTask", "Task for model checking")
-    //m.def("create_check_task", &storm::api::createTask, "Create task for verification", py::arg("formula"), py::arg("only_initial_states") = false);
-        .def(py::init<storm::logic::Formula const&, bool>(), py::arg("formula"), py::arg("only_initial_states") = false)
-        .def("set_produce_schedulers", &CheckTask<double>::setProduceSchedulers, "Set whether schedulers should be produced (if possible)", py::arg("produce_schedulers") = true)
-        .def("set_hint", &CheckTask<double>::setHint, "Sets a hint that may speed up the solver")
-        .def("set_robust_uncertainty", &CheckTask<double>::setRobustUncertainty, "Sets whether robust uncertainty should be considered")
-    ;
-    // CheckTask
-    py::class_<CheckTask<storm::RationalNumber>, std::shared_ptr<CheckTask<storm::RationalNumber>>>(m, "ExactCheckTask", "Task for model checking with exact numbers")
-            //m.def("create_check_task", &storm::api::createTask, "Create task for verification", py::arg("formula"), py::arg("only_initial_states") = false);
-            .def(py::init<storm::logic::Formula const&, bool>(), py::arg("formula"), py::arg("only_initial_states") = false)
-            .def("set_produce_schedulers", &CheckTask<storm::RationalNumber>::setProduceSchedulers, "Set whether schedulers should be produced (if possible)", py::arg("produce_schedulers") = true)
-            ;
-    py::class_<CheckTask<storm::RationalFunction>, std::shared_ptr<CheckTask<storm::RationalFunction>>>(m, "ParametricCheckTask", "Task for parametric model checking")
-    //m.def("create_check_task", &storm::api::createTask, "Create task for verification", py::arg("formula"), py::arg("only_initial_states") = false);
-        .def(py::init<storm::logic::Formula const&, bool>(), py::arg("formula"), py::arg("only_initial_states") = false)
-        .def("set_produce_schedulers", &CheckTask<storm::RationalFunction>::setProduceSchedulers, "Set whether schedulers should be produced (if possible)", py::arg("produce_schedulers") = true)
-    ;
+void define_modelchecking(py::module& m) {
 
     py::class_<storm::modelchecker::ModelCheckerHint, std::shared_ptr<storm::modelchecker::ModelCheckerHint>> mchint(m, "ModelCheckerHint", "Information that may accelerate the model checking process");
     py::class_<storm::modelchecker::ExplicitModelCheckerHint<double>>(m, "ExplicitModelCheckerHintDouble", "Information that may accelerate an explicit state model checker", mchint)
@@ -162,3 +152,7 @@ void define_modelchecking(py::module& m) {
     m.def("_multi_objective_model_checking_double", &multiObjectiveModelChecking<double>, "Run multi-objective model checking",  py::arg("model"), py::arg("formula"), py::arg("environment") = storm::Environment());
     m.def("_multi_objective_model_checking_exact", &multiObjectiveModelChecking<storm::RationalNumber>, "Run multi-objective model checking", py::arg("model"), py::arg("formula"), py::arg("environment") = storm::Environment());
 }
+
+template void define_check_task<double>(py::module&, std::string const&);
+template void define_check_task<storm::RationalNumber>(py::module&, std::string const&);
+template void define_check_task<storm::RationalFunction>(py::module&, std::string const&);

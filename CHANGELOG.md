@@ -1,6 +1,11 @@
 Changelog
 =============
 
+### Version dev
+
+- Improved support for model checking of interval DTMC/MDP
+  - Set uncertainty resolution via `CheckTask.set_uncertainty_resolution_mode` which replaces `set_robust_uncertainty`
+
 Version 1.11.x
 --------------
 
