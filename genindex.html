@@ -1381,6 +1381,9 @@
 </li>
                                         </ul></li>
                                 <li>
+                                    <a href="api/core.html#stormpy.UncertaintyResolutionMode.COOPERATIVE">COOPERATIVE (UncertaintyResolutionMode attribute)</a>
+</li>
+                                <li>
                                     <a href="api/utility.html#stormpy.utility.milliseconds.count">count() (milliseconds method)</a>
 </li>
                                 <li>
@@ -4111,6 +4114,9 @@
                                     <a href="api/core.html#stormpy.OptimizationDirection.Maximize">Maximize (OptimizationDirection attribute)</a>
 </li>
                                 <li>
+                                    <a href="api/core.html#stormpy.UncertaintyResolutionMode.MAXIMIZE">MAXIMIZE (UncertaintyResolutionMode attribute)</a>
+</li>
+                                <li>
                                     <a href="api/core.html#stormpy.SMTCounterExampleGeneratorOptions.maximum_counterexamples">maximum_counterexamples (SMTCounterExampleGeneratorOptions property)</a>
 </li>
                                 <li>
@@ -4181,6 +4187,9 @@
 </li>
                                 <li>
                                     <a href="api/core.html#stormpy.OptimizationDirection.Minimize">Minimize (OptimizationDirection attribute)</a>
+</li>
+                                <li>
+                                    <a href="api/core.html#stormpy.UncertaintyResolutionMode.MINIMIZE">MINIMIZE (UncertaintyResolutionMode attribute)</a>
 </li>
                                 <li>
                                     <a href="api/core.html#stormpy.SolverEnvironment.minmax_solver_environment">minmax_solver_environment (SolverEnvironment property)</a>
@@ -5379,13 +5388,13 @@
                                 <li>
                                     <a href="api/pycarl/formula.html#stormpy.pycarl.cln.formula.Constraint.relation">relation (Constraint property)</a>, <a href="api/pycarl/formula.html#stormpy.pycarl.gmp.formula.Constraint.relation">[1]</a>
 </li>
+                                <li>
+                                    <a href="api/dft.html#stormpy.dft.RelevantEvents">RelevantEvents (class in stormpy.dft)</a>
+</li>
                         </ul>
                     </td>
                     <td>
                         <ul>
-                                <li>
-                                    <a href="api/dft.html#stormpy.dft.RelevantEvents">RelevantEvents (class in stormpy.dft)</a>
-</li>
                                 <li>
                                     <a href="api/core.html#stormpy.OperatorFormula.remove_bound">remove_bound() (OperatorFormula method)</a>, <a href="api/logic.html#stormpy.logic.OperatorFormula.remove_bound">[1]</a>
 </li>
@@ -5499,6 +5508,9 @@
                                                 <li><a href="api/pomdp.html#stormpy.pomdp.SparseBeliefStateExact.risk">(SparseBeliefStateExact property)</a>
 </li>
                                         </ul></li>
+                                <li>
+                                    <a href="api/core.html#stormpy.UncertaintyResolutionMode.ROBUST">ROBUST (UncertaintyResolutionMode attribute)</a>
+</li>
                                 <li>
                                     <a href="api/gspn.html#stormpy.gspn.LayoutInfo.rotation">rotation (LayoutInfo property)</a>
 </li>
@@ -5686,7 +5698,13 @@
                                         </ul></li>
                                 <li>
                                     <a href="api/core.html#stormpy.CheckTask.set_hint">set_hint() (CheckTask method)</a>
+
+                                        <ul>
+                                                <li><a href="api/core.html#stormpy.ExactCheckTask.set_hint">(ExactCheckTask method)</a>
 </li>
+                                                <li><a href="api/core.html#stormpy.ParametricCheckTask.set_hint">(ParametricCheckTask method)</a>
+</li>
+                                        </ul></li>
                                 <li>
                                     <a href="api/core.html#stormpy.ExpressionParser.set_identifier_mapping">set_identifier_mapping() (ExpressionParser method)</a>, <a href="api/storage.html#stormpy.storage.ExpressionParser.set_identifier_mapping">[1]</a>
 </li>
@@ -5776,9 +5794,6 @@
 </li>
                                         </ul></li>
                                 <li>
-                                    <a href="api/core.html#stormpy.CheckTask.set_robust_uncertainty">set_robust_uncertainty() (CheckTask method)</a>
-</li>
-                                <li>
                                     <a href="api/core.html#stormpy.ExplicitModelCheckerHintDouble.set_scheduler_hint">set_scheduler_hint() (ExplicitModelCheckerHintDouble method)</a>
 </li>
                                 <li>
@@ -5810,6 +5825,15 @@
                                 <li>
                                     <a href="api/gspn.html#stormpy.gspn.GSPNBuilder.set_transition_layout_info">set_transition_layout_info() (GSPNBuilder method)</a>
 </li>
+                                <li>
+                                    <a href="api/core.html#stormpy.CheckTask.set_uncertainty_resolution_mode">set_uncertainty_resolution_mode() (CheckTask method)</a>
+
+                                        <ul>
+                                                <li><a href="api/core.html#stormpy.ExactCheckTask.set_uncertainty_resolution_mode">(ExactCheckTask method)</a>
+</li>
+                                                <li><a href="api/core.html#stormpy.ParametricCheckTask.set_uncertainty_resolution_mode">(ParametricCheckTask method)</a>
+</li>
+                                        </ul></li>
                                 <li>
                                     <a href="api/core.html#stormpy.ExactSparseMatrixEntry.set_value">set_value() (ExactSparseMatrixEntry method)</a>, <a href="api/storage.html#stormpy.storage.ExactSparseMatrixEntry.set_value">[1]</a>
 
@@ -6180,6 +6204,10 @@
                                                 <li><a href="api/storage.html#stormpy.storage.SparseIntervalRewardModel">(class in stormpy.storage)</a>
 </li>
                                         </ul></li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
                                 <li>
                                     <a href="api/core.html#stormpy.SparseIntervalSmg">SparseIntervalSmg (class in stormpy)</a>
 
@@ -6187,10 +6215,6 @@
                                                 <li><a href="api/storage.html#stormpy.storage.SparseIntervalSmg">(class in stormpy.storage)</a>
 </li>
                                         </ul></li>
-                        </ul>
-                    </td>
-                    <td>
-                        <ul>
                                 <li>
                                     <a href="api/core.html#stormpy.SparseMA">SparseMA (class in stormpy)</a>
 
@@ -7193,6 +7217,9 @@
                                     <a href="api/pycarl/core.html#stormpy.pycarl.Interval.unboundedInterval">unboundedInterval() (Interval static method)</a>, <a href="api/pycarl/core.html#stormpy.pycarl.cln.Interval.unboundedInterval">[1]</a>, <a href="api/pycarl/core.html#stormpy.pycarl.gmp.Interval.unboundedInterval">[2]</a>
 </li>
                                 <li>
+                                    <a href="api/core.html#stormpy.UncertaintyResolutionMode">UncertaintyResolutionMode (class in stormpy)</a>
+</li>
+                                <li>
                                     <a href="api/core.html#stormpy.JaniModelType.UNDEFINED">UNDEFINED (JaniModelType attribute)</a>
 
                                         <ul>
@@ -7228,6 +7255,9 @@
 </li>
                                 <li>
                                     <a href="api/utility.html#stormpy.utility.SmtCheckResult.Unsat">Unsat (SmtCheckResult attribute)</a>
+</li>
+                                <li>
+                                    <a href="api/core.html#stormpy.UncertaintyResolutionMode.UNSET">UNSET (UncertaintyResolutionMode attribute)</a>
 </li>
                                 <li>
                                     <a href="api/dft.html#stormpy.dft.SimulationStepResult.UNSUCCESSFUL">UNSUCCESSFUL (SimulationStepResult attribute)</a>
@@ -7361,6 +7391,8 @@
                                                 <li><a href="api/dft.html#stormpy.dft.SimulationTraceResult.value">(SimulationTraceResult property)</a>
 </li>
                                                 <li><a href="api/utility.html#stormpy.utility.SmtCheckResult.value">(SmtCheckResult property)</a>
+</li>
+                                                <li><a href="api/core.html#stormpy.UncertaintyResolutionMode.value">(UncertaintyResolutionMode property)</a>
 </li>
                                                 <li><a href="api/pycarl/core.html#stormpy.pycarl.VariableType.value">(VariableType property)</a>
 </li>
