@@ -44,6 +44,27 @@ class TestModelChecking:
         result = stormpy.model_checking(model, formulas[0])
         assert math.isclose(result.at(initial_state), 49 / 128, rel_tol=1e-5)
 
+    def test_model_checking_interval_dtmc(self):
+        program = stormpy.parse_prism_program(get_example_path("idtmc", "die-intervals.pm"))
+        formulas = stormpy.parse_properties('P=? [ F "one"]')
+        model = stormpy.build_sparse_interval_model(program, formulas)
+        initial_state = model.initial_states[0]
+        assert initial_state == 0
+
+        env = stormpy.Environment()
+        env.solver_environment.minmax_solver_environment.method = stormpy.MinMaxMethod.value_iteration
+
+        task = stormpy.CheckTask(formulas[0].raw_formula, only_initial_states=True)
+        task.set_produce_schedulers()
+        # Compute maximal
+        task.set_uncertainty_resolution_mode(stormpy.UncertaintyResolutionMode.MAXIMIZE)
+        result = stormpy.check_interval_dtmc(model, task, env)
+        assert math.isclose(result.at(initial_state), 72.0 / 189.0, rel_tol=1e-4)
+        # Compute minimal
+        task.set_uncertainty_resolution_mode(stormpy.UncertaintyResolutionMode.MINIMIZE)
+        result = stormpy.check_interval_dtmc(model, task, env)
+        assert math.isclose(result.at(initial_state), 9.0 / 189.0, rel_tol=1e-4)
+
     def test_model_checking_interval_mdp(self):
         model = stormpy.build_interval_model_from_drn(get_example_path("imdp", "tiny-01.drn"))
         formulas = stormpy.parse_properties('Pmax=? [ F "target"];Pmin=? [ F "target"]')
