@@ -12,7 +12,7 @@ authors = [
     { name = "S. Junges", email = "sebastian.junges@ru.nl" },
     { name = "M. Volk", email = "m.volk@tue.nl" }
 ]
-requires-python = ">=3.10"
+requires-python = ">=3.10" # Also check CMakeLists.txt, in the line with find_package(Python
 dependencies = [
     "Deprecated",
 ]

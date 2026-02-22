@@ -1,5 +1,5 @@
 name: Release new version
-# Triggered by new a release on Github
+# Triggered by a new release on Github
 # - deploys Docker containers
 # - updates stable branch
 # - create new pypi package
