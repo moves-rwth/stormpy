@@ -22,10 +22,15 @@
 
 PYBIND11_MODULE(_storage, m) {
     m.doc() = "Data structures in Storm";
+
+#ifdef STORMPY_DISABLE_SIGNATURE_DOC
+    py::options options;
+    options.disable_function_signatures();
+#endif
+
     define_bitvector(m);
     define_dd<storm::dd::DdType::Sylvan>(m, "Sylvan");
     define_dd_nt(m);
-
     define_model(m);
     define_sparse_model<double>(m, "");
     define_sparse_model<storm::RationalNumber>(m, "Exact");
