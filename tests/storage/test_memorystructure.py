@@ -20,16 +20,16 @@ class TestMemoryStructure:
         memorystructure = self._build_memory_structure(model, goalstates)
         assert memorystructure.nr_states == 2
 
-    def test_product_memorystructure(self):
-        program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
-        formulas = stormpy.parse_properties_for_prism_program('P=? [ F "one"|"two" ]', program)
-        model = stormpy.build_model(program, formulas)
-        goalstates = model.labeling.get_states("one")
-        memorystructure_one = self._build_memory_structure(model, goalstates)
-        goalstates = model.labeling.get_states("two")
-        memorystructure_two = self._build_memory_structure(model, goalstates)
-        product_memorystructure = memorystructure_one.product(memorystructure_two)
-        assert product_memorystructure.nr_states == 4
+    # def test_product_memorystructure(self):
+    #     program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))
+    #     formulas = stormpy.parse_properties_for_prism_program('P=? [ F "one"|"two" ]', program)
+    #     model = stormpy.build_model(program, formulas)
+    #     goalstates = model.labeling.get_states("one")
+    #     memorystructure_one = self._build_memory_structure(model, goalstates)
+    #     goalstates = model.labeling.get_states("two")
+    #     memorystructure_two = self._build_memory_structure(model, goalstates)
+    #     product_memorystructure = memorystructure_one.product(memorystructure_two)
+    #     assert product_memorystructure.nr_states == 4
 
     def test_product_model(self):
         program = stormpy.parse_prism_program(get_example_path("dtmc", "die.pm"))

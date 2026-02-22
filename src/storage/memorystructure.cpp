@@ -21,7 +21,7 @@ template<typename VT>
 void define_memorystructure_typed(py::module& m, std::string const& vtSuffix) {
     typedef storm::storage::MemoryStructureBuilder<VT> MemoryStructureBuilder;
     py::class_<MemoryStructureBuilder, std::shared_ptr<MemoryStructureBuilder>> msb(m, ("MemoryStructureBuilder" + vtSuffix).c_str());
-    msb.def(py::init<uint_fast64_t, storm::models::sparse::Model<VT> const&, bool>(),  py::arg("nr_memory_states"), py::arg("model"), py::arg("only_initial_states_relevant"));
+    msb.def(py::init<uint_fast64_t, storm::models::sparse::Model<VT> const&, bool>(),  py::arg("nr_memory_states"), py::arg("model"), py::arg("only_initial_states_relevant")=true);
     msb.def("build", &MemoryStructureBuilder::build);
     msb.def("set_label", &MemoryStructureBuilder::setLabel, py::arg("state"), py::arg("label"));
     msb.def("set_transition", &MemoryStructureBuilder::setTransition, py::arg("start_state"), py::arg("goal_state"), py::arg("model_states"), py::arg("model_choices")=boost::none);
