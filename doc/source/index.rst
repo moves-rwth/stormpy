@@ -19,6 +19,7 @@ Pycarl is bundled with stormpy. It is a set of python bindings for the computer 
    getting_started
    advanced_topics
    using_pycarl
+   development
    contributors
 
 
