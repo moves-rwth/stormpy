@@ -5,6 +5,7 @@
 #include "storage/model.h"
 #include "storage/decomposition.h"
 #include "storage/matrix.h"
+#include "storage/memorystructure.h"
 #include "storage/model_components.h"
 #include "storage/distribution.h"
 #include "storage/scheduler.h"
@@ -50,6 +51,11 @@ PYBIND11_MODULE(_storage, m) {
     define_state<storm::RationalNumber>(m, "Exact");
     define_state<storm::Interval>(m, "Interval");
     define_state<storm::RationalFunction>(m, "Parametric");
+    define_memorystructure_typed<double>(m, "");
+    define_memorystructure_typed<storm::RationalNumber>(m, "Exact");
+    define_memorystructure_typed<storm::Interval>(m, "Interval");
+    define_memorystructure_typed<storm::RationalFunction>(m, "Parametric");
+    define_memorystructure_untyped(m);
     define_prism(m);
     define_jani(m);
     define_jani_transformers(m);
