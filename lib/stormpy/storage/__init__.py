@@ -213,4 +213,5 @@ def product_model(self: MemoryStructure, model):
     else:
         return self._product_model_double(model)
 
+
 MemoryStructure.product_model = product_model
