@@ -10,7 +10,7 @@ import stormpy
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = "stormpy"
-copyright = "2016-2025 Storm Developers"
+copyright = "2016-2026 Storm Developers"
 author = "Sebastian Junges, Matthias Volk"
 release = stormpy.__version__
 language = "en"
@@ -77,6 +77,10 @@ html_theme_options = {
                 {
                     "divider": True,
                 },
+                {
+                    "text": "Getting Started with Pycarl",
+                    "link": "using_pycarl",
+                },
             ),
         },
         {
@@ -116,7 +120,7 @@ html_favicon = "_static/favicon.png"
 
 
 # -- Nbsphinx options --
-# Need to set newer require.js version to fix javascript issues with older version
+# Need to set newer require.js version to fix JavaScript issues with older version
 nbsphinx_requirejs_path = "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.7/require.min.js"
 
 # Add binder badge
