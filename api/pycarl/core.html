@@ -397,7 +397,7 @@
 <span id="number-independent-types"></span><h2>Number independent types<a class="headerlink" href="#module-stormpy.pycarl" title="Link to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="stormpy.pycarl.BoundType">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">BoundType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pycarl.BoundType" title="stormpy.pycarl._pycarl_core.BoundType"><span class="pre">stormpy.pycarl._pycarl_core.BoundType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pycarl.BoundType" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">BoundType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pycarl.BoundType" title="stormpy.pycarl._pycarl_core.BoundType"><span class="pre">stormpy.pycarl._pycarl_core.BoundType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pycarl.BoundType" title="Link to this definition">¶</a></dt>
 <dd><p>Members:</p>
 <p>STRICT</p>
 <p>WEAK</p>
@@ -434,9 +434,9 @@
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Interval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pycarl.Interval" title="Link to this definition">¶</a></dt>
 <dd><p>Overloaded function.</p>
 <ol class="arabic simple">
-<li><p>__init__(self: stormpy.pycarl._pycarl_core.Interval, arg0: typing.SupportsFloat) -&gt; None</p></li>
-<li><p>__init__(self: stormpy.pycarl._pycarl_core.Interval, arg0: typing.SupportsFloat, arg1: typing.SupportsFloat) -&gt; None</p></li>
-<li><p>__init__(self: stormpy.pycarl._pycarl_core.Interval, arg0: typing.SupportsFloat, arg1: stormpy.pycarl._pycarl_core.BoundType, arg2: typing.SupportsFloat, arg3: stormpy.pycarl._pycarl_core.BoundType) -&gt; None</p></li>
+<li><p>__init__(self: stormpy.pycarl._pycarl_core.Interval, arg0: typing.SupportsFloat | typing.SupportsIndex) -&gt; None</p></li>
+<li><p>__init__(self: stormpy.pycarl._pycarl_core.Interval, arg0: typing.SupportsFloat | typing.SupportsIndex, arg1: typing.SupportsFloat | typing.SupportsIndex) -&gt; None</p></li>
+<li><p>__init__(self: stormpy.pycarl._pycarl_core.Interval, arg0: typing.SupportsFloat | typing.SupportsIndex, arg1: stormpy.pycarl._pycarl_core.BoundType, arg2: typing.SupportsFloat | typing.SupportsIndex, arg3: stormpy.pycarl._pycarl_core.BoundType) -&gt; None</p></li>
 </ol>
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.pycarl.Interval.abs">
@@ -458,7 +458,7 @@
 <span class="sig-name descname"><span class="pre">contains</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pycarl.Interval.contains" title="Link to this definition">¶</a></dt>
 <dd><p>Overloaded function.</p>
 <ol class="arabic simple">
-<li><p>contains(self: stormpy.pycarl._pycarl_core.Interval, arg0: typing.SupportsFloat) -&gt; bool</p></li>
+<li><p>contains(self: stormpy.pycarl._pycarl_core.Interval, arg0: typing.SupportsFloat | typing.SupportsIndex) -&gt; bool</p></li>
 <li><p>contains(self: stormpy.pycarl._pycarl_core.Interval, arg0: stormpy.pycarl._pycarl_core.Interval) -&gt; bool</p></li>
 </ol>
 </dd></dl>
@@ -585,7 +585,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.pycarl.Interval.meets">
-<span class="sig-name descname"><span class="pre">meets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pycarl.Interval" title="stormpy.pycarl._pycarl_core.Interval"><span class="pre">stormpy.pycarl._pycarl_core.Interval</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsFloat</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#stormpy.pycarl.Interval.meets" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">meets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pycarl.Interval" title="stormpy.pycarl._pycarl_core.Interval"><span class="pre">stormpy.pycarl._pycarl_core.Interval</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsFloat</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#stormpy.pycarl.Interval.meets" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -595,12 +595,12 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.pycarl.Interval.setLower">
-<span class="sig-name descname"><span class="pre">setLower</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pycarl.Interval" title="stormpy.pycarl._pycarl_core.Interval"><span class="pre">stormpy.pycarl._pycarl_core.Interval</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsFloat</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#stormpy.pycarl.Interval.setLower" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">setLower</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pycarl.Interval" title="stormpy.pycarl._pycarl_core.Interval"><span class="pre">stormpy.pycarl._pycarl_core.Interval</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsFloat</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#stormpy.pycarl.Interval.setLower" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="stormpy.pycarl.Interval.setUpper">
-<span class="sig-name descname"><span class="pre">setUpper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pycarl.Interval" title="stormpy.pycarl._pycarl_core.Interval"><span class="pre">stormpy.pycarl._pycarl_core.Interval</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsFloat</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#stormpy.pycarl.Interval.setUpper" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">setUpper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pycarl.Interval" title="stormpy.pycarl._pycarl_core.Interval"><span class="pre">stormpy.pycarl._pycarl_core.Interval</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsFloat</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#stormpy.pycarl.Interval.setUpper" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -688,7 +688,7 @@
 
 <dl class="py class">
 <dt class="sig sig-object py" id="stormpy.pycarl.VariableType">
-<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">VariableType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pycarl.VariableType" title="stormpy.pycarl._pycarl_core.VariableType"><span class="pre">stormpy.pycarl._pycarl_core.VariableType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pycarl.VariableType" title="Link to this definition">¶</a></dt>
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">VariableType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pycarl.VariableType" title="stormpy.pycarl._pycarl_core.VariableType"><span class="pre">stormpy.pycarl._pycarl_core.VariableType</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stormpy.pycarl.VariableType" title="Link to this definition">¶</a></dt>
 <dd><p>Members:</p>
 <p>BOOL</p>
 <p>INT</p>
@@ -768,7 +768,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="stormpy.pycarl.create_monomial">
-<span class="sig-name descname"><span class="pre">create_monomial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pycarl.Variable" title="stormpy.pycarl._pycarl_core.Variable"><span class="pre">stormpy.pycarl._pycarl_core.Variable</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">exponent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#stormpy.pycarl.Monomial" title="stormpy.pycarl._pycarl_core.Monomial"><span class="pre">stormpy.pycarl._pycarl_core.Monomial</span></a></span></span><a class="headerlink" href="#stormpy.pycarl.create_monomial" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">create_monomial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pycarl.Variable" title="stormpy.pycarl._pycarl_core.Variable"><span class="pre">stormpy.pycarl._pycarl_core.Variable</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">exponent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#stormpy.pycarl.Monomial" title="stormpy.pycarl._pycarl_core.Monomial"><span class="pre">stormpy.pycarl._pycarl_core.Monomial</span></a></span></span><a class="headerlink" href="#stormpy.pycarl.create_monomial" title="Link to this definition">¶</a></dt>
 <dd><p>Create monomial</p>
 </dd></dl>
 
@@ -803,7 +803,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="stormpy.pycarl.pow">
-<span class="sig-name descname"><span class="pre">pow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pycarl.Interval" title="stormpy.pycarl._pycarl_core.Interval"><span class="pre">stormpy.pycarl._pycarl_core.Interval</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#stormpy.pycarl.Interval" title="stormpy.pycarl._pycarl_core.Interval"><span class="pre">stormpy.pycarl._pycarl_core.Interval</span></a></span></span><a class="headerlink" href="#stormpy.pycarl.pow" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">pow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pycarl.Interval" title="stormpy.pycarl._pycarl_core.Interval"><span class="pre">stormpy.pycarl._pycarl_core.Interval</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#stormpy.pycarl.Interval" title="stormpy.pycarl._pycarl_core.Interval"><span class="pre">stormpy.pycarl._pycarl_core.Interval</span></a></span></span><a class="headerlink" href="#stormpy.pycarl.pow" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
@@ -967,7 +967,7 @@
 <dd><p>Class wrapping gmp-integers</p>
 <p>Overloaded function.</p>
 <ol class="arabic simple">
-<li><p>__init__(self: stormpy.pycarl.gmp.Integer, arg0: typing.SupportsInt) -&gt; None</p></li>
+<li><p>__init__(self: stormpy.pycarl.gmp.Integer, arg0: typing.SupportsInt | typing.SupportsIndex) -&gt; None</p></li>
 <li><p>__init__(self: stormpy.pycarl.gmp.Integer, arg0: str) -&gt; None</p></li>
 <li><p>__init__(self: stormpy.pycarl.gmp.Integer, arg0: stormpy.pycarl.cln.Integer) -&gt; None</p></li>
 </ol>
@@ -1245,8 +1245,8 @@
 <dd><p>Class wrapping gmp-rational numbers</p>
 <p>Overloaded function.</p>
 <ol class="arabic simple">
-<li><p>__init__(self: stormpy.pycarl.gmp.Rational, arg0: typing.SupportsFloat) -&gt; None</p></li>
-<li><p>__init__(self: stormpy.pycarl.gmp.Rational, arg0: typing.SupportsInt) -&gt; None</p></li>
+<li><p>__init__(self: stormpy.pycarl.gmp.Rational, arg0: typing.SupportsFloat | typing.SupportsIndex) -&gt; None</p></li>
+<li><p>__init__(self: stormpy.pycarl.gmp.Rational, arg0: typing.SupportsInt | typing.SupportsIndex) -&gt; None</p></li>
 <li><p>__init__(self: stormpy.pycarl.gmp.Rational, arg0: stormpy.pycarl.gmp.Integer, arg1: stormpy.pycarl.gmp.Integer) -&gt; None</p></li>
 <li><p>__init__(self: stormpy.pycarl.gmp.Rational, arg0: str) -&gt; None</p></li>
 <li><p>__init__(self: stormpy.pycarl.gmp.Rational, arg0: stormpy.pycarl.cln.Rational) -&gt; None</p></li>
@@ -1409,7 +1409,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="stormpy.pycarl.gmp.pow">
-<span class="sig-name descname"><span class="pre">pow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pycarl.gmp.Interval" title="stormpy.pycarl.gmp.Interval"><span class="pre">stormpy.pycarl.gmp.Interval</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#stormpy.pycarl.gmp.Interval" title="stormpy.pycarl.gmp.Interval"><span class="pre">stormpy.pycarl.gmp.Interval</span></a></span></span><a class="headerlink" href="#stormpy.pycarl.gmp.pow" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">pow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pycarl.gmp.Interval" title="stormpy.pycarl.gmp.Interval"><span class="pre">stormpy.pycarl.gmp.Interval</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#stormpy.pycarl.gmp.Interval" title="stormpy.pycarl.gmp.Interval"><span class="pre">stormpy.pycarl.gmp.Interval</span></a></span></span><a class="headerlink" href="#stormpy.pycarl.gmp.pow" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
@@ -1561,7 +1561,7 @@
 <dd><p>Class wrapping cln-integers</p>
 <p>Overloaded function.</p>
 <ol class="arabic simple">
-<li><p>__init__(self: stormpy.pycarl.cln.Integer, arg0: typing.SupportsInt) -&gt; None</p></li>
+<li><p>__init__(self: stormpy.pycarl.cln.Integer, arg0: typing.SupportsInt | typing.SupportsIndex) -&gt; None</p></li>
 <li><p>__init__(self: stormpy.pycarl.cln.Integer, arg0: str) -&gt; None</p></li>
 <li><p>__init__(self: stormpy.pycarl.cln.Integer, arg0: __gmp_expr&lt;__mpz_struct [1], __mpz_struct [1]&gt;) -&gt; None</p></li>
 </ol>
@@ -1839,8 +1839,8 @@
 <dd><p>Class wrapping cln-rational numbers</p>
 <p>Overloaded function.</p>
 <ol class="arabic simple">
-<li><p>__init__(self: stormpy.pycarl.cln.Rational, arg0: typing.SupportsFloat) -&gt; None</p></li>
-<li><p>__init__(self: stormpy.pycarl.cln.Rational, arg0: typing.SupportsInt) -&gt; None</p></li>
+<li><p>__init__(self: stormpy.pycarl.cln.Rational, arg0: typing.SupportsFloat | typing.SupportsIndex) -&gt; None</p></li>
+<li><p>__init__(self: stormpy.pycarl.cln.Rational, arg0: typing.SupportsInt | typing.SupportsIndex) -&gt; None</p></li>
 <li><p>__init__(self: stormpy.pycarl.cln.Rational, arg0: stormpy.pycarl.cln.Integer, arg1: stormpy.pycarl.cln.Integer) -&gt; None</p></li>
 <li><p>__init__(self: stormpy.pycarl.cln.Rational, arg0: str) -&gt; None</p></li>
 <li><p>__init__(self: stormpy.pycarl.cln.Rational, arg0: __gmp_expr&lt;__mpq_struct [1], __mpq_struct [1]&gt;) -&gt; None</p></li>
@@ -2013,7 +2013,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="stormpy.pycarl.cln.pow">
-<span class="sig-name descname"><span class="pre">pow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pycarl.cln.Interval" title="stormpy.pycarl.cln.Interval"><span class="pre">stormpy.pycarl.cln.Interval</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#stormpy.pycarl.cln.Interval" title="stormpy.pycarl.cln.Interval"><span class="pre">stormpy.pycarl.cln.Interval</span></a></span></span><a class="headerlink" href="#stormpy.pycarl.cln.pow" title="Link to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">pow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#stormpy.pycarl.cln.Interval" title="stormpy.pycarl.cln.Interval"><span class="pre">stormpy.pycarl.cln.Interval</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SupportsInt</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">SupportsIndex</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#stormpy.pycarl.cln.Interval" title="stormpy.pycarl.cln.Interval"><span class="pre">stormpy.pycarl.cln.Interval</span></a></span></span><a class="headerlink" href="#stormpy.pycarl.cln.pow" title="Link to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
