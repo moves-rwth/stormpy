@@ -400,10 +400,10 @@
 <h1>Building Models<a class="headerlink" href="#Building-Models" title="Link to this heading">¶</a></h1>
 <section id="Background">
 <h2>Background<a class="headerlink" href="#Background" title="Link to this heading">¶</a></h2>
-<p>Storm supports a wide range of formalisms. Stormpy can be used to build models from some of these formalisms. Moreover, during construction, various options can be set. This document yields information about the most important options.</p>
+<p>Storm supports a wide range of formalisms to specify Markov models. Stormpy can be used to build models from some of these formalisms. Moreover, during construction, various options can be set. This document yields information about the most important options.</p>
 </section>
-<section id="Building-different-formalisms">
-<h2>Building different formalisms<a class="headerlink" href="#Building-different-formalisms" title="Link to this heading">¶</a></h2>
+<section id="Building-from-explicit-models">
+<h2>Building from explicit models<a class="headerlink" href="#Building-from-explicit-models" title="Link to this heading">¶</a></h2>
 <p>We use some standard examples:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
@@ -414,7 +414,9 @@
 </pre></div>
 </div>
 </div>
-<p>Storm supports the explicit DRN format. From this, models can be built directly:</p>
+<section id="DRN">
+<h3>DRN<a class="headerlink" href="#DRN" title="Link to this heading">¶</a></h3>
+<p>Storm supports the explicit <a class="reference external" href="https://www.stormchecker.org/documentation/background/drn.html">DRN format</a>. From this, models can be built directly:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
@@ -454,6 +456,20 @@ ModelType.DTMC
 WARN  (DirectEncodingParser.cpp:111): No. of actions has to be declared. We may continue now, but future versions might not support this.
 </pre></div></div>
 </div>
+</section>
+<section id="UMB">
+<h3>UMB<a class="headerlink" href="#UMB" title="Link to this heading">¶</a></h3>
+<p>Support for <a class="reference external" href="https://pmc-tools.github.io/umb/">UMB</a> will follow once the UMB-support for Storm is part of a stable release.</p>
+</section>
+</section>
+<section id="Building-from-symbolic-models">
+<h2>Building from symbolic models<a class="headerlink" href="#Building-from-symbolic-models" title="Link to this heading">¶</a></h2>
+<section id="PRISM">
+<h3>PRISM<a class="headerlink" href="#PRISM" title="Link to this heading">¶</a></h3>
+<p>For the moment, see the getting started.</p>
+</section>
+<section id="JANI">
+<h3>JANI<a class="headerlink" href="#JANI" title="Link to this heading">¶</a></h3>
 <p>Another option are JANI descriptions. These are another high-level description format. Building models from JANI is done in two steps. First the Jani-description is parsed, and then the model is built from this description:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
@@ -477,6 +493,7 @@ ModelType.DTMC
 <p>Notice that parsing JANI files also returns properties. In JANI, properties can be embedded in the model file.</p>
 </section>
 </section>
+</section>
 
 </div>
         </article>
@@ -493,7 +510,16 @@ ModelType.DTMC
                 <ul>
 <li><a class="reference internal" href="#">Building Models</a><ul>
 <li><a class="reference internal" href="#Background">Background</a></li>
-<li><a class="reference internal" href="#Building-different-formalisms">Building different formalisms</a></li>
+<li><a class="reference internal" href="#Building-from-explicit-models">Building from explicit models</a><ul>
+<li><a class="reference internal" href="#DRN">DRN</a></li>
+<li><a class="reference internal" href="#UMB">UMB</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Building-from-symbolic-models">Building from symbolic models</a><ul>
+<li><a class="reference internal" href="#PRISM">PRISM</a></li>
+<li><a class="reference internal" href="#JANI">JANI</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
