@@ -26,6 +26,7 @@ extensions = [
     "sphinx.ext.githubpages",
     "sphinx_copybutton",
     "nbsphinx",
+    "myst_parser",
 ]
 autosectionlabel_prefix_document = True
 
@@ -114,7 +115,7 @@ html_css_files = ["custom.css"]
 html_favicon = "_static/favicon.png"
 
 
-# -- Nbsphinx options----- ---------------------------------------------------
+# -- Nbsphinx options --
 # Need to set newer require.js version to fix javascript issues with older version
 nbsphinx_requirejs_path = "https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.7/require.min.js"
 
@@ -128,3 +129,8 @@ nbsphinx_prolog = """
       Try online: <span><a href="https://mybinder.org/v2/gh/moves-rwth/stormpy/master?filepath=notebooks/{{ docname }}"><img alt="Binder badge" src="https://mybinder.org/badge_logo.svg" style="margin-bottom: 0rem"></a></span>
     </div>
 """
+
+# -- Myst options --
+myst_enable_extensions = [
+    "colon_fence",
+]
