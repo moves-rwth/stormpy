@@ -192,21 +192,21 @@ void define_optimality_type(py::module& m) {
 
 // Thin wrapper for exporting model
 template<typename ValueType>
-void exportDRN(std::shared_ptr<storm::models::sparse::Model<ValueType>> model, std::string const& file, storm::io::DirectEncodingOptions options) {
-    std::ofstream stream;
-    storm::io::openFile(file, stream);
-    storm::io::explicitExportSparseModel(stream, model, {}, options);
-    storm::io::closeFile(stream);
+void exportDRN(std::shared_ptr<storm::models::sparse::Model<ValueType>> model, std::string const& file, storm::io::DirectEncodingExporterOptions options) {
+    storm::api::exportSparseModelAsDrn<ValueType>(model, file, options);
 }
 
 void define_export(py::module& m) {
 
-    py::class_<storm::io::DirectEncodingOptions> opts(m, "DirectEncodingOptions");
-    opts.def(py::init<>());
-    opts.def_readwrite("allow_placeholders", &storm::io::DirectEncodingOptions::allowPlaceholders);
+    py::class_<storm::io::DirectEncodingExporterOptions>(m, "DirectEncodingExporterOptions")
+        .def(py::init<>())
+        .def_readwrite("allow_placeholders", &storm::io::DirectEncodingExporterOptions::allowPlaceholders)
+        .def_readwrite("outputPrecision", &storm::io::DirectEncodingExporterOptions::outputPrecision)
+    ;
+
     // Export
-    m.def("_export_to_drn", &exportDRN<double>, "Export model in DRN format", py::arg("model"), py::arg("file"), py::arg("options")=storm::io::DirectEncodingOptions());
-    m.def("_export_to_drn_interval", &exportDRN<storm::Interval>, "Export model in DRN format", py::arg("model"), py::arg("file"), py::arg("options")=storm::io::DirectEncodingOptions());
-    m.def("_export_exact_to_drn", &exportDRN<storm::RationalNumber>, "Export model in DRN format", py::arg("model"), py::arg("file"), py::arg("options")=storm::io::DirectEncodingOptions());
-    m.def("_export_parametric_to_drn", &exportDRN<storm::RationalFunction>, "Export parametric model in DRN format", py::arg("model"), py::arg("file"), py::arg("options")=storm::io::DirectEncodingOptions());
+    m.def("_export_to_drn", &exportDRN<double>, "Export model in DRN format", py::arg("model"), py::arg("file"), py::arg("options")=storm::io::DirectEncodingExporterOptions());
+    m.def("_export_to_drn_interval", &exportDRN<storm::Interval>, "Export model in DRN format", py::arg("model"), py::arg("file"), py::arg("options")=storm::io::DirectEncodingExporterOptions());
+    m.def("_export_exact_to_drn", &exportDRN<storm::RationalNumber>, "Export model in DRN format", py::arg("model"), py::arg("file"), py::arg("options")=storm::io::DirectEncodingExporterOptions());
+    m.def("_export_parametric_to_drn", &exportDRN<storm::RationalFunction>, "Export parametric model in DRN format", py::arg("model"), py::arg("file"), py::arg("options")=storm::io::DirectEncodingExporterOptions());
 }
