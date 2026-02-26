@@ -48,7 +48,8 @@ endif()
 # https://pybind11.readthedocs.io/en/latest/compiling.html#findpython-mode
 # Python version should be synced with pyproject.toml
 find_package(Python 3.10 COMPONENTS Interpreter Development.Module REQUIRED)
-find_package(pybind11 CONFIG REQUIRED)
+# Pybind11 version should be synced with pyproject.toml
+find_package(pybind11 3.0.2 EXACT CONFIG REQUIRED)
 message(STATUS "Stormpy - Using pybind11 version ${pybind11_VERSION}")
 
 # Helper function to print path where library was found and check whether hint was used
@@ -72,6 +73,7 @@ function(check_hint NAME DIR_FOUND HINT_DIR FOUND_VERSION)
 endfunction(check_hint)
 
 if(ALLOW_STORM_SYSTEM)
+    # Version should be synced with STORM_GIT_TAG in pyproject.toml
     set(STORM_MIN_VERSION "1.11.0")
     if (ALLOW_STORM_FETCH)
         find_package(storm HINTS ${STORM_DIR_HINT}) # NOT REQUIRED, can be fetched.
