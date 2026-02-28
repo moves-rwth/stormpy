@@ -712,12 +712,12 @@ def parse_properties(properties, context=None, filters=None):
         raise stormpy.exceptions.StormError("Unclear context. Please pass a symbolic model description")
 
 
-def export_to_drn(model, file, options=DirectEncodingOptions()):
+def export_to_drn(model, file, options=DirectEncodingExporterOptions()):
     """
     Export a model to DRN format
     :param model: The model
     :param file: A path
-    :param options: DirectEncodingOptions
+    :param options: DirectEncodingExporterOptions
     :return:
     """
     if model.supports_parameters:
