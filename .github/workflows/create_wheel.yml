@@ -72,7 +72,7 @@ jobs:
           CIBW_ARCHS: ${{ matrix.archs }}
           MACOSX_DEPLOYMENT_TARGET: ${{ matrix.deploy_target }}
           CIBW_ENVIRONMENT: STORM_VERSION=${{ inputs.storm_version }} NR_JOBS=4
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         with:
           name: stormpy-wheels-${{ matrix.os }}
           path: ./wheelhouse/*.whl
@@ -88,7 +88,7 @@ jobs:
         run: perl -i -pe 's/__version__ = "(.+)"/__version__ = "\1.dev1"/' lib/stormpy/_version.py
       - name: Build sdist
         run: pipx run build --sdist
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         with:
           name: stormpy-sdist
           path: dist/*.tar.gz
