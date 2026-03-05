@@ -46,6 +46,7 @@ doc = [
     "nbsphinx",
     "ipython",
     "ipykernel",
+    "myst-parser",
 ]  # also requires pandoc to be installed
 dev = [
     # Formatting
