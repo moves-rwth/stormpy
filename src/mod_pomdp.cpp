@@ -1,12 +1,12 @@
 
 #include "common.h"
 
-#include "pomdp/tracker.h"
-#include "pomdp/qualitative_analysis.h"
-#include "pomdp/transformations.h"
-#include "pomdp/memory.h"
-#include "pomdp/quantitative_analysis.h"
 #include <storm/adapters/RationalFunctionAdapter.h>
+#include "pomdp/memory.h"
+#include "pomdp/qualitative_analysis.h"
+#include "pomdp/quantitative_analysis.h"
+#include "pomdp/tracker.h"
+#include "pomdp/transformations.h"
 
 PYBIND11_MODULE(_pomdp, m) {
     m.doc() = "Functionality for POMDP analysis";

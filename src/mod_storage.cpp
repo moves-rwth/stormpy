@@ -1,22 +1,22 @@
 #include "common.h"
 
 #include "storage/bitvector.h"
-#include "storage/dd.h"
-#include "storage/model.h"
-#include "storage/decomposition.h"
-#include "storage/matrix.h"
-#include "storage/memorystructure.h"
-#include "storage/model_components.h"
-#include "storage/distribution.h"
-#include "storage/scheduler.h"
-#include "storage/prism.h"
-#include "storage/jani.h"
-#include "storage/state.h"
-#include "storage/valuation.h"
 #include "storage/choiceorigins.h"
-#include "storage/labeling.h"
+#include "storage/dd.h"
+#include "storage/decomposition.h"
+#include "storage/distribution.h"
 #include "storage/expressions.h"
 #include "storage/geometry.h"
+#include "storage/jani.h"
+#include "storage/labeling.h"
+#include "storage/matrix.h"
+#include "storage/memorystructure.h"
+#include "storage/model.h"
+#include "storage/model_components.h"
+#include "storage/prism.h"
+#include "storage/scheduler.h"
+#include "storage/state.h"
+#include "storage/valuation.h"
 
 #include "storm/adapters/IntervalAdapter.h"
 #include "storm/storage/dd/DdType.h"
@@ -81,5 +81,4 @@ PYBIND11_MODULE(_storage, m) {
     define_maximal_end_component_decomposition<storm::RationalNumber>(m, "_exact");
     define_maximal_end_component_decomposition<storm::Interval>(m, "_interval");
     define_maximal_end_component_decomposition<storm::RationalFunction>(m, "_ratfunc");
-
 }
