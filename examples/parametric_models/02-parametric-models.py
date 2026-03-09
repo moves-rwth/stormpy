@@ -1,28 +1,18 @@
 import stormpy
 import stormpy.info
+import stormpy.pars
+from stormpy.pycarl.formula import FormulaType, Relation
 
-import pycarl
+if stormpy.info.storm_ratfunc_use_cln():
+    from stormpy.pycarl.cln import formula
+else:
+    from stormpy.pycarl.gmp import formula
 
 import stormpy.examples
 import stormpy.examples.files
 
-import stormpy._config as config
-
 
 def example_parametric_models_02():
-    # Check support for parameters
-    if not config.storm_with_pars:
-        print("Support parameters is missing. Try building storm-pars.")
-        return
-
-    import stormpy.pars
-    from pycarl.formula import FormulaType, Relation
-
-    if stormpy.info.storm_ratfunc_use_cln():
-        import pycarl.cln.formula
-    else:
-        import pycarl.gmp.formula
-
     path = stormpy.examples.files.prism_pdtmc_die
     prism_program = stormpy.parse_prism_program(path)
 

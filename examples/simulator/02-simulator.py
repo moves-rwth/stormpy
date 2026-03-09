@@ -1,9 +1,10 @@
+import random
+
 import stormpy
 import stormpy.simulator
 
 import stormpy.examples
 import stormpy.examples.files
-import random
 
 """
 Simulator for nondeterministic models

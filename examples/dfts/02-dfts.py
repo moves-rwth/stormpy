@@ -1,8 +1,9 @@
 import stormpy
 import stormpy.dft
+from stormpy.dft.simulator import DftSimulator
+
 import stormpy.examples
 import stormpy.examples.files
-from stormpy.dft.simulator import DftSimulator
 
 
 def print_status(simulator):

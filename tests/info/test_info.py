@@ -1,4 +1,3 @@
-import stormpy
 import stormpy.info
 
 

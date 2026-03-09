@@ -1,11 +1,16 @@
 Stormpy - Python bindings for Storm
 ===================================
 
+[![Docs Badge](https://img.shields.io/badge/docs-latest-blue)](https://moves-rwth.github.io/stormpy/)
 [![Build Status](https://github.com/moves-rwth/stormpy/workflows/Build%20Test/badge.svg)](https://github.com/moves-rwth/stormpy/actions)
+[![PyPI - Version](https://img.shields.io/pypi/v/stormpy)](https://pypi.org/project/stormpy/)
 [![GitHub release](https://img.shields.io/github/release/moves-rwth/stormpy.svg)](https://github.com/moves-rwth/stormpy/releases/)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7763208.svg)](https://doi.org/10.5281/zenodo.7763208)
 
 Python bindings for [Storm](https://www.stormchecker.org/), created using [PyBind11](https://pybind11.readthedocs.io/).
+
+Stormpy includes Pycarl, the Python Bindings for [CArL](https://github.com/moves-rwth/carl-storm).
+
 
 ### Get started
 Get started with stormpy directly in the browser via JupyterLab:
@@ -15,11 +20,10 @@ Get started with stormpy directly in the browser via JupyterLab:
 For more information on stormpy, please check the [documentation](https://moves-rwth.github.io/stormpy/).
 
 
-### Dependencies
-
-Stormpy depends on [pycarl](https://github.com/moves-rwth/pycarl/).
-
 ### Authors
 
 - Sebastian Junges
 - Matthias Volk
+
+The development of pycarl received significant contributions from:
+- Harold Bruintjes

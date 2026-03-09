@@ -12,6 +12,7 @@ def example_schedulers_01():
     formulas = stormpy.parse_properties_for_prism_program(formula_str, program)
 
     options = stormpy.BuilderOptions(True, True)
+    options.set_build_state_valuations()
     options.set_build_choice_labels()
     options.set_build_with_choice_origins()
     model = stormpy.build_sparse_model_with_options(program, options)
@@ -30,6 +31,7 @@ def example_schedulers_01():
         action_index = choice.get_deterministic_choice()
         action = state.actions[action_index]
         print("In state {} ({}) choose action {} ({})".format(state, ", ".join(state.labels), action, ", ".join(action.labels)))
+        print(state.valuations)
 
     dtmc = model.apply_scheduler(scheduler)
     print(dtmc)

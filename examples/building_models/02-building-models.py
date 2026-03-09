@@ -1,20 +1,18 @@
 import stormpy
+import stormpy.info
+import stormpy.pars
+from stormpy import pycarl
+
+if stormpy.info.storm_ratfunc_use_cln():
+    from stormpy.pycarl import cln as pc
+else:
+    from stormpy.pycarl import gmp as pc
 
 import stormpy.examples
 import stormpy.examples.files
 
-import stormpy.info
-import pycarl
-
 
 def example_building_models_02():
-
-    import stormpy.pars
-
-    if stormpy.info.storm_ratfunc_use_cln():
-        import pycarl.cln as pc
-    else:
-        import pycarl.gmp as pc
 
     def make_factorized_rf(var, cache):
         num = pc.FactorizedPolynomial(pc.Polynomial(var), cache)
@@ -26,7 +24,7 @@ def example_building_models_02():
     path = stormpy.examples.files.drn_pdtmc_die
     model = stormpy.build_parametric_model_from_drn(path)
 
-    parameters = model.collect_probability_parameters()
+    parameters = model.collect_all_parameters()
     bar_parameters = dict()
     for p in parameters:
         # Ensure that variables with that name are not recognized by pycarl.

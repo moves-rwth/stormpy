@@ -68,7 +68,7 @@ class TestSparseModel:
         jani_model, properties = stormpy.parse_jani_model(get_example_path("dtmc", "brp.jani"))
         assert jani_model.has_undefined_constants
         assert not jani_model.undefined_constants_are_graph_preserving
-        with pytest.raises(stormpy.StormError):
+        with pytest.raises(stormpy.exceptions.StormError):
             model = stormpy.build_model(jani_model)
 
     def test_build_instantiated_dtmc_prism(self):
@@ -141,6 +141,49 @@ class TestSparseModel:
         assert model.model_type == stormpy.ModelType.MA
         assert not model.supports_parameters
         assert type(model) is stormpy.SparseMA
+        assert model.is_closed
+        assert not model.has_zeno_cycle
+
+        # Test MA with hybrid states
+        program = stormpy.parse_prism_program(get_example_path("ma", "hybrid_states.ma"), False, True)
+        model = stormpy.build_model(program)
+        assert model.nr_states == 5
+        assert model.nr_transitions == 13
+        assert model.model_type == stormpy.ModelType.MA
+        assert not model.supports_parameters
+        assert type(model) is stormpy.SparseMA
+        assert not model.is_closed
+        assert not model.has_zeno_cycle
+        model.close()
+        assert model.nr_states == 5
+        assert model.nr_transitions == 9
+        assert model.model_type == stormpy.ModelType.MA
+        assert not model.supports_parameters
+        assert type(model) is stormpy.SparseMA
+        assert model.is_closed
+        assert model.has_zeno_cycle
+        # Building MA with hybrid states and formula already applies close
+        program = stormpy.parse_prism_program(get_example_path("ma", "hybrid_states.ma"), False, True)
+        formulas = stormpy.parse_properties_for_prism_program("Pmax=? [ F<=2 s=4 ]", program)
+        model = stormpy.build_model(program, formulas)
+        assert model.nr_states == 5
+        assert model.nr_transitions == 9
+        assert model.model_type == stormpy.ModelType.MA
+        assert not model.supports_parameters
+        assert type(model) is stormpy.SparseMA
+        assert model.is_closed
+        assert model.has_zeno_cycle
+
+    def test_build_smg(self):
+        program = stormpy.parse_prism_program(get_example_path("smg", "example_smg.nm"))
+        formulas = stormpy.parse_properties_for_prism_program("<<maxP>> Pmax=? [ F s=2 ]", program)
+        model = stormpy.build_model(program, formulas)
+        assert model.nr_states == 4
+        assert model.nr_choices == 5
+        assert model.nr_transitions == 7
+        assert model.model_type == stormpy.ModelType.SMG
+        assert type(model) is stormpy.SparseSmg
+        assert model.get_state_player_indications() == [1, 0, 0, 0]
 
     def test_convert_ma_to_ctmc(self):
         program = stormpy.parse_prism_program(get_example_path("ma", "ctmc.ma"), True)
@@ -261,3 +304,21 @@ class TestSymbolicSylvanModel:
         formulas = stormpy.parse_properties_for_prism_program("P=? [ F<=2 s=2 ]", program)
         with pytest.raises(Exception):
             model = stormpy.build_symbolic_model(program, formulas)
+
+    def test_build_ipomdp(self):
+        model = stormpy.build_interval_model_from_drn(get_example_path("ipomdp", "tiny-01.drn"))
+        assert model.nr_states == 4
+        assert model.nr_choices == 5
+        assert model.nr_transitions == 8
+        assert model.nr_observations == 3
+
+        for transition in model.transition_matrix.row_iter(0, 0):
+            if transition.column == 1:
+                assert transition.value().lower() == 0.2
+                assert transition.value().upper() == 0.7
+            elif transition.column == 2:
+                assert transition.value().lower() == 0.3
+                assert transition.value().upper() == 0.8
+
+        assert model.model_type == stormpy.ModelType.POMDP
+        assert type(model) is stormpy.SparseIntervalPomdp

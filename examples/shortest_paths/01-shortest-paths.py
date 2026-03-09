@@ -1,9 +1,8 @@
 import stormpy
+from stormpy.utility import ShortestPathsGenerator
 
 import stormpy.examples
 import stormpy.examples.files
-
-from stormpy.utility import ShortestPathsGenerator
 
 
 def example_shortest_paths():

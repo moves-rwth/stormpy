@@ -12,7 +12,7 @@
 #include "core/transformation.h"
 #include "core/simulator.h"
 
-PYBIND11_MODULE(core, m) {
+PYBIND11_MODULE(_core, m) {
     m.doc() = "core";
 
 #ifdef STORMPY_DISABLE_SIGNATURE_DOC
@@ -29,6 +29,9 @@ PYBIND11_MODULE(core, m) {
     define_optimality_type(m);
     define_export(m);
     define_result(m);
+    define_check_task<double>(m, "CheckTask");
+    define_check_task<storm::RationalNumber>(m, "ExactCheckTask");
+    define_check_task<storm::RationalFunction>(m, "ParametricCheckTask");
     define_modelchecking(m);
     define_multiobjective(m);
     define_counterexamples(m);

@@ -1,10 +1,8 @@
 import stormpy
+from stormpy.storage import Expression
 
 import stormpy.examples
 import stormpy.examples.files
-
-
-from stormpy.storage import Expression
 
 
 def example_analysis_02():

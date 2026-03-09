@@ -45,9 +45,9 @@ def _prepare_points_for_convex_pareto_plotting(points, lower_corner, upper_corne
     origin_y = min(lower_corner[1], upper_corner[1]) if directions[1] == stormpy.OptimizationDirection.Maximize else max(lower_corner[1], upper_corner[1])
     origin = np.array([[origin_x, origin_y]])
     x_cut_x = direction_as_operation(directions[0])([p[0] for p in points])
-    x_cut = np.array([[x_cut_x, 0]])
+    x_cut = np.array([[x_cut_x, origin_y]])
     y_cut_y = direction_as_operation(directions[1])([p[1] for p in points])
-    y_cut = np.array([[0, y_cut_y]])
+    y_cut = np.array([[origin_x, y_cut_y]])
 
     points = np.concatenate((np.array(points), origin, x_cut, y_cut), axis=0)
     return points
