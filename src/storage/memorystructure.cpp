@@ -15,6 +15,8 @@ void define_memorystructure_untyped(py::module& m) {
     memoryStructure.def("_product_model_parametric", [](MemoryStructure& ms, storm::models::sparse::Model<storm::RationalFunction> const& sparseModel) {return ms.product(sparseModel);});
     memoryStructure.def_property_readonly("nr_states", &MemoryStructure::getNumberOfStates);
     memoryStructure.def_property_readonly("state_labeling", &MemoryStructure::getStateLabeling);
+
+    py::class_<storm::storage::SparseModelMemoryProductReverseData> memoryProductReverseData(m, "SparseModelMemoryProductReverseData");
 }
 
 template<typename VT>

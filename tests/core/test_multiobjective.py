@@ -1,10 +1,12 @@
+import math
+
 import stormpy
 from helpers.helper import get_example_path
 
 from configurations import plotting, numpy_avail
 
 
-class TestModelChecking:
+class TestMultiObjectiveModelChecking:
     def naive_api_double_no_plotting_test(self):
         program = stormpy.parse_prism_program(get_example_path("mdp", "multiobjective1.nm"))
         properties = stormpy.parse_properties_for_prism_program('multi(Pmax=? [ F<=3 s=2 ],R{"rew"}max=? [ F s=2 ])', program)
@@ -38,3 +40,30 @@ class TestModelChecking:
         ax.set_xlabel(formula.subformulas[0])
         ax.set_ylabel(formula.subformulas[1])
         # plt.show()
+
+class TestWeightedObjectiveModelChecking:
+    def test_maze_double(self):
+        path = stormpy.examples.files.prism_mdp_maze_multigoal
+        prism_program = stormpy.parse_prism_program(path)
+
+        formula_str = "multi(Rmin=?  [F \"goalalt1\"], Pmax=?  [F \"goalalt2\"])"
+        properties = stormpy.parse_properties(formula_str, prism_program)
+
+        options = stormpy.BuilderOptions([p.raw_formula for p in properties])
+        options.set_build_state_valuations()
+        env = stormpy.Environment()
+        model = stormpy.build_sparse_model_with_options(prism_program, options)
+        weighted_model_checker = stormpy._core._make_weighted_objective_mdp_model_checker_Double(env, model, properties[0].raw_formula, compute_scheduler=True)
+        weighted_model_checker.set_weighted_precision(0.0001)
+        weighted_model_checker.check(env, [0.5, 0.5])
+        point = weighted_model_checker.get_achievable_point()
+        assert len(point) == 2
+        assert math.isclose(point[0], 3.454545454545454)
+        assert math.isclose(point[1], 0.36363636363636365)
+        value = weighted_model_checker.get_optimal_weighted_sum()
+        assert math.isclose(value, -1.5454545454545454)
+        scheduler = weighted_model_checker.compute_scheduler()
+        assert scheduler.memoryless
+        assert scheduler.memory_size == 1
+
+

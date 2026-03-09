@@ -2,4 +2,5 @@
 
 #include "common.h"
 
-void define_multiobjective(py::module& m);
+template<typename ValueType>
+void define_multiobjective(py::module& m, std::string const& vtSuffix);
