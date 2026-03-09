@@ -1,6 +1,6 @@
 [build-system]
 requires = [
-    "scikit-build-core==0.11.6",
+    "scikit-build-core==0.12.1",
     "pybind11==3.0.2"  # Pybind11 version should be synced with find_package(pybind11 ...) in CMakeLists.txt
 ]
 build-backend = "scikit_build_core.build"
@@ -46,6 +46,7 @@ doc = [
     "nbsphinx",
     "ipython",
     "ipykernel",
+    "myst-parser",
 ]  # also requires pandoc to be installed
 dev = [
     # Formatting
