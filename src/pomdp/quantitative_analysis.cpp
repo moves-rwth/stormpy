@@ -1,8 +1,9 @@
 #include "quantitative_analysis.h"
 
+#include "storm/models/sparse/Pomdp.h"  // Must be included before verification.h
+
 #include "storm-pomdp/api/verification.h"
 #include "storm/adapters/RationalFunctionAdapter.h"
-#include "storm/models/sparse/Pomdp.h"
 
 template<typename ValueType>
 using Pomdp = storm::models::sparse::Pomdp<ValueType, typename storm::models::sparse::StandardRewardModel<ValueType>>;
