@@ -17,13 +17,13 @@ Requires Storm version >= 1.11.0. Binaries for this release are linked with Stor
 ### Version 1.11.2 (2025/10)
 Requires Storm version >= 1.11.0. Binaries for this release are linked with Storm 1.11.0.
 
-- Prebuilt binaries on mac require at least macOS version 14 (Apple Silicon) or version 15 (Intel) 
+- Prebuilt binaries on macOS require at least macOS version 14 (Apple Silicon) or version 15 (Intel)
 - Documentation: Revised installation guide
 - Developer: Improved workflow for creating wheels and added support for Linux ARM
 - Developer: Use fixed versions for Python dependencies
 
 ### Version 1.11.1 (2025/09)
-Requires Storm version >= 1.11.0. 
+Requires Storm version >= 1.11.0.
 
 - Fixed issue in CI workflow for releases
 
@@ -128,9 +128,9 @@ Version 1.6.x
 Requires storm version >= 1.6.4 and pycarl version >= 2.0.5
 
 - Simulator for sparse models updated, added simulator for prism programs.
-- Renamed PrismProgram::isDeterministicModel -> is_deterministic_model for consistency
+- Renamed `PrismProgram::isDeterministicModel` to `is_deterministic_model` for consistency
 - Support for specifying the returned quotient format (symbolic or sparse) for symbolic bisimulation
-- Added support for continuous integration with Github Actions
+- Added support for continuous integration with GitHub Actions
 - Updated bindings for, e.g., Jani to reflect changes in Storm
 - Bindings for end component elimination
 
@@ -169,7 +169,7 @@ Requires storm version >= 1.6.0 and pycarl version >= 2.0.4
 - Added information collector to extract information from jani models
 - Bindings for elimination of chains of non-Markovian states
 - Early support for POMDPs
-- Early support for simulations on explicit-state models 
+- Early support for simulations on explicit-state models
 
 
 Version 1.5.x
@@ -192,7 +192,7 @@ Requires storm version >= 1.4.1 and pycarl version >= 2.0.4
 - Added and extended environments
 - Changed constructor of `ParameterRegion` to take a valuation instead of string.
   Use `ParameterRegion.create_from_string()` to create a region from string.
-- Added InstantiationModelChecker for pMDPs and allow instations with rational numbers
+- Added InstantiationModelChecker for pMDPs and allow instantiations with rational numbers
 - Added transformation of CTMCs to DTMCs
 - Further bindings for Prism Programs and their preprocessing
 - SettingsManager updated
@@ -306,7 +306,7 @@ Version 2.1.x
 Requires carl with branch `master14`
 
 - Developer: updated pybind11 to version 2.8.1 and adapted bindings accordingly
-- Improved continuous integration with Github Actions
+- Improved continuous integration with GitHub Actions
 
 
 Version 2.0.x
@@ -315,7 +315,7 @@ Version 2.0.x
 ### Version 2.0.5 (2022/01)
 Requires carl with branch `master14`
 
-- Added support for continuous integration with Github Actions
+- Added support for continuous integration with GitHub Actions
 
 ### Version 2.0.4 (2019/11)
 Requires carl with branch `master14`
