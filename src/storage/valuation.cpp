@@ -45,11 +45,11 @@ void define_statevaluation(py::module& m) {
 }
 
 void define_statevaluation_transformer(py::module& m) {
-    py::class_<storm::storage::sparse::StateValuationTransform> svt(m, "StateValuationTransformer");
+    py::class_<storm::storage::sparse::StateValuationTransformer> svt(m, "StateValuationTransformer", "Transforms the given state valuations to a new state valuations over a new variable set. The values of the new variables are determined by evaluating the provided expressions w.r.t. the old variable valuation. The freshly introduced variables may either replace or extend the existing variable set.");
     svt.def(py::init<storm::storage::sparse::StateValuations const&>(), py::arg("old_state_valuations"), py::keep_alive<1, 2>())
-       .def("add_boolean_expression", &storm::storage::sparse::StateValuationTransform::addBooleanExpression, py::arg("expression_variable"), py::arg("defining_expression"))
-       .def("add_integer_expression", &storm::storage::sparse::StateValuationTransform::addIntegerExpression, py::arg("expression_variable"), py::arg("defining_expression"))
-       .def("build", &storm::storage::sparse::StateValuationTransform::buildNewStateValuations, py::arg("extend"));
+       .def("add_boolean_expression", &storm::storage::sparse::StateValuationTransformer::addBooleanExpression, py::arg("expression_variable"), py::arg("defining_expression"))
+       .def("add_integer_expression", &storm::storage::sparse::StateValuationTransformer::addIntegerExpression, py::arg("expression_variable"), py::arg("defining_expression"))
+       .def("build", &storm::storage::sparse::StateValuationTransformer::build, py::arg("extend"));
 }
 
 void define_simplevaluation(py::module& m) {
