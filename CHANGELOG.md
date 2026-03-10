@@ -1,10 +1,33 @@
 Changelog
 =============
 
-### Version dev
+Version 1.12.x
+--------------
 
-- Improved support for model checking of interval DTMC/MDP
-  - Set uncertainty resolution via `CheckTask.set_uncertainty_resolution_mode` which replaces `set_robust_uncertainty`
+### Version 1.12.0 (2026/03)
+Requires Storm version >= 1.12.0.
+
+- Require Python >= 3.10
+- Improved support for interval DTMC/MDP:
+    * Added support for building interval models from Prism files
+    * Added support for model checking interval models
+    * Set uncertainty resolution via `CheckTask.set_uncertainty_resolution_mode` which replaces `set_robust_uncertainty`
+- Extended support for JANI
+- Added bindings for memory structures
+- Introduce `collect_all_parameters`
+- Extended support for MA
+- Adaption to changes in Storm:
+    * Added `RegionRefinementChecker`
+    * Use `DirectEncodingExporterOptions` instead of `DirectEncodingOptions`
+    * Added `StateValuationTransformer`
+- Bugfixes for pybind 3.0.2 and building on manylinux
+- Developer: enforce exact pybind11 version
+- Developer: unified declaration of (parametric) models
+- Developer: Markdown support in documentation via Myst
+- Developer: weekly CI tests for wheel generation
+- Developer: consistent use of `#pragma once`
+- Developer: automated formatting of C++ code via clang-format
+
 
 Version 1.11.x
 --------------
