@@ -483,6 +483,9 @@
                                     <a href="api/core.html#stormpy.SMTCounterExampleGeneratorOptions.add_backward_implication_cuts">add_backward_implication_cuts (SMTCounterExampleGeneratorOptions property)</a>
 </li>
                                 <li>
+                                    <a href="api/core.html#stormpy.StateValuationTransformer.add_boolean_expression">add_boolean_expression() (StateValuationTransformer method)</a>, <a href="api/storage.html#stormpy.storage.StateValuationTransformer.add_boolean_expression">[1]</a>
+</li>
+                                <li>
                                     <a href="api/core.html#stormpy.JaniModel.add_constant">add_constant() (JaniModel method)</a>, <a href="api/storage.html#stormpy.storage.JaniModel.add_constant">[1]</a>
 </li>
                                 <li>
@@ -502,6 +505,9 @@
 </li>
                                 <li>
                                     <a href="api/gspn.html#stormpy.gspn.GSPNBuilder.add_input_arc">add_input_arc() (GSPNBuilder method)</a>
+</li>
+                                <li>
+                                    <a href="api/core.html#stormpy.StateValuationTransformer.add_integer_expression">add_integer_expression() (StateValuationTransformer method)</a>, <a href="api/storage.html#stormpy.storage.StateValuationTransformer.add_integer_expression">[1]</a>
 </li>
                                 <li>
                                     <a href="api/core.html#stormpy.ItemLabeling.add_label">add_label() (ItemLabeling method)</a>, <a href="api/storage.html#stormpy.storage.ItemLabeling.add_label">[1]</a>
@@ -899,6 +905,8 @@
                                                 <li><a href="api/core.html#stormpy.SparseMatrixBuilder.build">(SparseMatrixBuilder method)</a>, <a href="api/storage.html#stormpy.storage.SparseMatrixBuilder.build">[1]</a>
 </li>
                                                 <li><a href="api/core.html#stormpy.StateValuationsBuilder.build">(StateValuationsBuilder method)</a>, <a href="api/storage.html#stormpy.storage.StateValuationsBuilder.build">[1]</a>
+</li>
+                                                <li><a href="api/core.html#stormpy.StateValuationTransformer.build">(StateValuationTransformer method)</a>, <a href="api/storage.html#stormpy.storage.StateValuationTransformer.build">[1]</a>
 </li>
                                         </ul></li>
                         </ul>
@@ -3211,6 +3219,9 @@
 </li>
                                         </ul></li>
                                 <li>
+                                    <a href="api/core.html#stormpy.ExpressionManager.has_variable">has_variable() (ExpressionManager method)</a>, <a href="api/storage.html#stormpy.storage.ExpressionManager.has_variable">[1]</a>
+</li>
+                                <li>
                                     <a href="api/core.html#stormpy.SparseExactMA.has_zeno_cycle">has_zeno_cycle (SparseExactMA property)</a>, <a href="api/storage.html#stormpy.storage.SparseExactMA.has_zeno_cycle">[1]</a>
 
                                         <ul>
@@ -4074,6 +4085,8 @@
                                     <a href="api/core.html#stormpy.Expression.manager">manager (Expression property)</a>, <a href="api/storage.html#stormpy.storage.Expression.manager">[1]</a>
 
                                         <ul>
+                                                <li><a href="api/core.html#stormpy.StateValuation.manager">(StateValuation property)</a>, <a href="api/storage.html#stormpy.storage.StateValuation.manager">[1]</a>
+</li>
                                                 <li><a href="api/core.html#stormpy.Variable.manager">(Variable property)</a>, <a href="api/storage.html#stormpy.storage.Variable.manager">[1]</a>
 </li>
                                         </ul></li>
@@ -5962,6 +5975,9 @@
 </li>
                                         </ul></li>
                                 <li>
+                                    <a href="api/core.html#stormpy.set_state_valuations">set_state_valuations() (in module stormpy)</a>
+</li>
+                                <li>
                                     <a href="api/core.html#stormpy.StateLabeling.set_states">set_states() (StateLabeling method)</a>, <a href="api/storage.html#stormpy.storage.StateLabeling.set_states">[1]</a>
 </li>
                                 <li>
@@ -6332,10 +6348,6 @@
                                                 <li><a href="api/storage.html#stormpy.storage.SparseIntervalModelComponents">(class in stormpy.storage)</a>
 </li>
                                         </ul></li>
-                        </ul>
-                    </td>
-                    <td>
-                        <ul>
                                 <li>
                                     <a href="api/core.html#stormpy.SparseIntervalModelState">SparseIntervalModelState (class in stormpy)</a>
 
@@ -6343,6 +6355,10 @@
                                                 <li><a href="api/storage.html#stormpy.storage.SparseIntervalModelState">(class in stormpy.storage)</a>
 </li>
                                         </ul></li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
                                 <li>
                                     <a href="api/core.html#stormpy.SparseIntervalModelStates">SparseIntervalModelStates (class in stormpy)</a>
 
@@ -6662,6 +6678,13 @@
 
                                         <ul>
                                                 <li><a href="api/storage.html#stormpy.storage.StateValuationsBuilder">(class in stormpy.storage)</a>
+</li>
+                                        </ul></li>
+                                <li>
+                                    <a href="api/core.html#stormpy.StateValuationTransformer">StateValuationTransformer (class in stormpy)</a>
+
+                                        <ul>
+                                                <li><a href="api/storage.html#stormpy.storage.StateValuationTransformer">(class in stormpy.storage)</a>
 </li>
                                         </ul></li>
                                 <li>
@@ -7708,7 +7731,7 @@
     
 </div>
         </article>
-        <aside class="nftt-toc my-3">
+        <aside class="nftt-toc">
           
           <div class="my-sm-1 my-lg-0 ps-xl-3 text-muted">
             <button class="btn btn-link p-lg-0 mb-2 mb-lg-0 text-decoration-none nftt-toc-toggle d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#tocContents" aria-expanded="false" aria-controls="tocContents"
@@ -7768,7 +7791,7 @@
           </ul>
         
         <div class="built-with pt-2">
-          Built with <a href="http://sphinx-doc.org">Sphinx 9.1.0</a> and <a href="https://github.com/danirus/sphinx-nefertiti">Nefertiti 0.9.5</a>
+          Built with <a href="http://sphinx-doc.org">Sphinx 9.1.0</a> and <a href="https://github.com/danirus/sphinx-nefertiti">Nefertiti 0.9.6</a>
         </div>
       </div>
     </div>
@@ -7798,7 +7821,7 @@
     <script src="_static/copybutton.js?v=f281be69"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.7/require.min.js"></script>
     <script src="_static/docs-versions.js?v=08b0cbfb"></script>
-    <script src="_static/sphinx-nefertiti.min.js?v=ec182501"></script>
+    <script src="_static/sphinx-nefertiti.min.js?v=dfe6310a"></script>
     <script src="_static/bootstrap.bundle.min.js?v=e96d90d1"></script>
   </body>
 </html>

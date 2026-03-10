@@ -633,6 +633,7 @@
 <li class="toctree-l2"><a class="reference internal" href="api/core.html#stormpy.StateLabeling"><code class="docutils literal notranslate"><span class="pre">StateLabeling</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/core.html#stormpy.StateValuation"><code class="docutils literal notranslate"><span class="pre">StateValuation</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/core.html#stormpy.StateValuationFunctionActionMaskDouble"><code class="docutils literal notranslate"><span class="pre">StateValuationFunctionActionMaskDouble</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/core.html#stormpy.StateValuationTransformer"><code class="docutils literal notranslate"><span class="pre">StateValuationTransformer</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/core.html#stormpy.StateValuationsBuilder"><code class="docutils literal notranslate"><span class="pre">StateValuationsBuilder</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/core.html#stormpy.SubsystemBuilderOptions"><code class="docutils literal notranslate"><span class="pre">SubsystemBuilderOptions</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/core.html#stormpy.SubsystemBuilderReturnTypeDouble"><code class="docutils literal notranslate"><span class="pre">SubsystemBuilderReturnTypeDouble</span></code></a></li>
@@ -733,6 +734,7 @@
 <li class="toctree-l2"><a class="reference internal" href="api/core.html#stormpy.set_loglevel_error"><code class="docutils literal notranslate"><span class="pre">set_loglevel_error()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/core.html#stormpy.set_loglevel_trace"><code class="docutils literal notranslate"><span class="pre">set_loglevel_trace()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/core.html#stormpy.set_settings"><code class="docutils literal notranslate"><span class="pre">set_settings()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/core.html#stormpy.set_state_valuations"><code class="docutils literal notranslate"><span class="pre">set_state_valuations()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/core.html#stormpy.set_timeout"><code class="docutils literal notranslate"><span class="pre">set_timeout()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/core.html#stormpy.topological_sort"><code class="docutils literal notranslate"><span class="pre">topological_sort()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/core.html#stormpy.transform_to_discrete_time_model"><code class="docutils literal notranslate"><span class="pre">transform_to_discrete_time_model()</span></code></a></li>
@@ -935,6 +937,7 @@
 <li class="toctree-l2"><a class="reference internal" href="api/storage.html#stormpy.storage.SparseSmg"><code class="docutils literal notranslate"><span class="pre">SparseSmg</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/storage.html#stormpy.storage.StateLabeling"><code class="docutils literal notranslate"><span class="pre">StateLabeling</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/storage.html#stormpy.storage.StateValuation"><code class="docutils literal notranslate"><span class="pre">StateValuation</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/storage.html#stormpy.storage.StateValuationTransformer"><code class="docutils literal notranslate"><span class="pre">StateValuationTransformer</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/storage.html#stormpy.storage.StateValuationsBuilder"><code class="docutils literal notranslate"><span class="pre">StateValuationsBuilder</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/storage.html#stormpy.storage.SymbolicSylvanCtmc"><code class="docutils literal notranslate"><span class="pre">SymbolicSylvanCtmc</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/storage.html#stormpy.storage.SymbolicSylvanDtmc"><code class="docutils literal notranslate"><span class="pre">SymbolicSylvanDtmc</span></code></a></li>
@@ -1133,7 +1136,7 @@
 
 </div>
         </article>
-        <aside class="nftt-toc my-3">
+        <aside class="nftt-toc">
           
           <div class="my-sm-1 my-lg-0 ps-xl-3 text-muted">
             <button class="btn btn-link p-lg-0 mb-2 mb-lg-0 text-decoration-none nftt-toc-toggle d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#tocContents" aria-expanded="false" aria-controls="tocContents"
@@ -1218,7 +1221,7 @@
           </ul>
         
         <div class="built-with pt-2">
-          Built with <a href="http://sphinx-doc.org">Sphinx 9.1.0</a> and <a href="https://github.com/danirus/sphinx-nefertiti">Nefertiti 0.9.5</a>
+          Built with <a href="http://sphinx-doc.org">Sphinx 9.1.0</a> and <a href="https://github.com/danirus/sphinx-nefertiti">Nefertiti 0.9.6</a>
         </div>
       </div>
     </div>
@@ -1248,7 +1251,7 @@
     <script src="_static/copybutton.js?v=f281be69"></script>
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.7/require.min.js"></script>
     <script src="_static/docs-versions.js?v=08b0cbfb"></script>
-    <script src="_static/sphinx-nefertiti.min.js?v=ec182501"></script>
+    <script src="_static/sphinx-nefertiti.min.js?v=dfe6310a"></script>
     <script src="_static/bootstrap.bundle.min.js?v=e96d90d1"></script>
   </body>
 </html>
