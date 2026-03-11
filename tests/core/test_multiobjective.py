@@ -53,17 +53,16 @@ class TestWeightedObjectiveModelChecking:
         options.set_build_state_valuations()
         env = stormpy.Environment()
         model = stormpy.build_sparse_model_with_options(prism_program, options)
-        weighted_model_checker = stormpy._core._make_weighted_objective_mdp_model_checker_Double(env, model, properties[0].raw_formula, compute_scheduler=True)
+        weighted_model_checker, inverter = stormpy._core._make_weighted_objective_mdp_model_checker_Double(env, model, properties[0].raw_formula, compute_scheduler=True)
         weighted_model_checker.set_weighted_precision(0.0001)
         weighted_model_checker.check(env, [0.5, 0.5])
         point = weighted_model_checker.get_achievable_point()
         assert len(point) == 2
-        assert math.isclose(point[0], 3.454545454545454)
-        assert math.isclose(point[1], 0.36363636363636365)
+        assert math.isclose(point[0], 3.8)
+        assert math.isclose(point[1], 0.4)
         value = weighted_model_checker.get_optimal_weighted_sum()
-        assert math.isclose(value, -1.5454545454545454)
-        scheduler = weighted_model_checker.compute_scheduler()
-        assert scheduler.memoryless
-        assert scheduler.memory_size == 1
+        assert math.isclose(value, -1.7)
+        scheduler = inverter._reverse_scheduler_double(weighted_model_checker.compute_scheduler())
+        assert scheduler.memory_size == 4
 
 
