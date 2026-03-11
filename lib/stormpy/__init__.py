@@ -490,6 +490,25 @@ def check_model_hybrid(model, property, only_initial_states=False, environment=E
         return _core._model_checking_hybrid_engine(model, task, environment=environment)
 
 
+def set_state_valuations(model, new_state_valuations):
+    """
+    Creates a copy of the model with the new state valuations.
+    """
+    if model.model_type not in [stormpy.ModelType.MDP, stormpy.ModelType.DTMC]:
+        raise RuntimeError(f"Only MDPs/DTMCs are currently supported, got {model.model_type}")
+
+    components = stormpy.SparseModelComponents(
+        transition_matrix=model.transition_matrix, state_labeling=model.labeling, reward_models=model.reward_models, rate_transitions=False
+    )
+    components.state_valuations = new_state_valuations
+    if model.has_choice_labeling():
+        components.choice_labeling = model.choice_labeling
+    if model.has_choice_origins():
+        components.choice_origins = model.choice_origins
+
+    return type(model)(components)
+
+
 def transform_to_sparse_model(model):
     """
     Transform model in symbolic representation into model in sparse representation.
