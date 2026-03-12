@@ -78,8 +78,7 @@ jobs:
           ref: master
       - name: Update Binder version
         run: |
-          # Update STORM_MIN_VERSION
-          sed -i -E 's/FROM movesrwth\/stormpy:(.+)/FROM movesrwth\/stormpy:${{ github.event.release.tag_name }}/' binder/Dockerfile
+          sed -i -E 's/stormpy==(.+)/stormpy==${{ github.event.release.tag_name }}/' binder/Dockerfile
       - name: Commit update
         run: |
           git diff
@@ -96,6 +95,7 @@ jobs:
           body: |
             Auto-generated pull request triggered by a new stormpy version.
             - Manually close and reopen this PR to trigger the CI.
+            Consider also updating the tag of the base image quay.io/jupyter/minimal-notebook
 
   create_wheels:
     # Create pypi package
