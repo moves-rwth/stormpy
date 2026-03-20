@@ -7,10 +7,11 @@
 FROM quay.io/jupyter/minimal-notebook:2026-03-09
 LABEL org.opencontainers.image.authors="dev@stormchecker.org"
 
-# Install libraries
-RUN pip install --no-cache-dir stormpy==1.12.0
-# Dependencies for stormpy
-RUN pip install --no-cache-dir numpy==2.2.6
+# Install Python libraries from requirements.txt
+COPY --chown=${NB_UID}:${NB_GID} requirements.txt /tmp/
+RUN pip install --no-cache-dir --requirement /tmp/requirements.txt && \
+    fix-permissions "${CONDA_DIR}" && \
+    fix-permissions "/home/${NB_USER}"
 
 # Copy files
 COPY doc/source/*.ipynb notebooks/

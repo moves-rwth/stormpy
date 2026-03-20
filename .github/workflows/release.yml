@@ -78,7 +78,7 @@ jobs:
           ref: master
       - name: Update Binder version
         run: |
-          sed -i -E 's/stormpy==(.+)/stormpy==${{ github.event.release.tag_name }}/' binder/Dockerfile
+          sed -i -E 's/stormpy==(.+)/stormpy==${{ github.event.release.tag_name }}/' binder/requirements.txt
       - name: Commit update
         run: |
           git diff
