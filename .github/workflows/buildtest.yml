@@ -171,29 +171,29 @@ jobs:
     strategy:
       matrix:
         config:
-          - {name: "XCode 15.4, ARM, Debug",
+          - {name: "MacOS 14, ARM, Debug",
              distro: "macos-14",
              xcode: "15.4",
              build_type: "Debug",
              setup_args: "--config-settings=cmake.define.ALLOW_STORM_SYSTEM=OFF --config-settings=cmake.define.STORM_GIT_TAG=master",
              optional_libs: "[test,plot]"
           }
-          - {name: "XCode Latest, ARM, Debug",
+          - {name: "MacOS 15, ARM, Debug",
              distro: "macos-15",
+             xcode: "16.4",
+             build_type: "Debug",
+             setup_args: "--config-settings=cmake.define.ALLOW_STORM_SYSTEM=OFF --config-settings=cmake.define.STORM_GIT_TAG=master",
+             optional_libs: "[test,plot]"
+          }
+          - {name: "MacOS 26, ARM, Debug",
+             distro: "macos-26",
              xcode: "latest-stable",
              build_type: "Debug",
              setup_args: "--config-settings=cmake.define.ALLOW_STORM_SYSTEM=OFF --config-settings=cmake.define.STORM_GIT_TAG=master",
              optional_libs: "[test,plot]"
           }
-          - {name: "XCode Latest, ARM, Release",
-             distro: "macos-15",
-             xcode: "latest-stable",
-             build_type: "Release",
-             setup_args: "--config-settings=cmake.define.ALLOW_STORM_SYSTEM=OFF --config-settings=cmake.define.STORM_GIT_TAG=master",
-             optional_libs: "[test,plot]"
-          }
-          - {name: "XCode Latest, Intel, Debug",
-             distro: "macos-15-intel",
+          - {name: "MacOS 26, Intel, Debug",
+             distro: "macos-26-intel",
              xcode: "latest-stable",
              build_type: "Debug",
              setup_args: "--config-settings=cmake.define.ALLOW_STORM_SYSTEM=OFF --config-settings=cmake.define.STORM_GIT_TAG=master",
@@ -226,16 +226,16 @@ jobs:
     strategy:
       matrix:
         config:
-          - {name: "XCode 16.3, ARM, Debug",
-             distro: "macos-15",
-             xcode: "16.3",
+          - {name: "MacOS 26, ARM, Debug",
+             distro: "macos-26",
+             xcode: "latest-stable",
              build_type: "Debug",
              setup_args: "--config-settings=cmake.define.ALLOW_STORM_FETCH=OFF",
              optional_libs: "[test,plot]"
           }
-          - {name: "XCode 16.3, ARM, Release",
-             distro: "macos-15",
-             xcode: "16.3",
+          - {name: "MacOS 26, ARM, Release",
+             distro: "macos-26",
+             xcode: "latest-stable",
              build_type: "Release",
              setup_args: "--config-settings=cmake.define.ALLOW_STORM_FETCH=OFF",
              optional_libs: "[test,plot]"
