@@ -24,7 +24,7 @@ jobs:
         id: getVersion
         run: |
           # Get Storm version from STORM_GIT_TAG in pyproject.toml
-          echo "STORM_VERSION=$(sed -n -E 's/STORM_GIT_TAG="(.+)"/\1/p' pyproject.toml)" >> "$GITHUB_OUTPUT"
+          echo "STORM_VERSION=$(sed -n -E 's/STORM_GIT_TAG="(.+)".*/\1/p' pyproject.toml)" >> "$GITHUB_OUTPUT"
 
   deploy_docker:
     # Create Docker images for tag
