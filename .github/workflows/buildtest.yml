@@ -126,6 +126,13 @@ jobs:
              optional_libs: "[test,plot]",
              test_opt: ""
           }
+          - {name: "Debian 13, Debug",
+             base_image: "movesrwth/storm-basesystem:debian-13",
+             build_type: "Debug",
+             setup_args: "--config-settings=cmake.define.ALLOW_STORM_SYSTEM=OFF --config-settings=cmake.define.STORM_GIT_TAG=master",
+             optional_libs: "[test,plot]",
+             test_opt: ""
+          }
           - {name: "Ubuntu 24.04, Debug",
              base_image: "movesrwth/storm-basesystem:ubuntu-24.04",
              build_type: "Debug",
