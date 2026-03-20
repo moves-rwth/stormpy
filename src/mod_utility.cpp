@@ -1,10 +1,10 @@
 #include "common.h"
 
-#include "utility/shortestPaths.h"
-#include "utility/smtsolver.h"
+#include "storm/adapters/RationalNumberAdapter.h"
 #include "utility/chrono.h"
 #include "utility/json.h"
-#include "storm/adapters/RationalNumberAdapter.h"
+#include "utility/shortestPaths.h"
+#include "utility/smtsolver.h"
 
 PYBIND11_MODULE(_utility, m) {
     m.doc() = "Utilities for Storm";
