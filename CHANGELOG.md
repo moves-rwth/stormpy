@@ -4,6 +4,11 @@ Changelog
 Version 1.12.x
 --------------
 
+### Version 1.12.1 (2026/03)
+Requires Storm version >= 1.12.0. Binaries for this release are linked with Storm 1.12.0.
+
+- Developer: fixed issue in release CI
+
 ### Version 1.12.0 (2026/03)
 Requires Storm version >= 1.12.0.
 
