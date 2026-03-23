@@ -21,7 +21,7 @@ jobs:
       - name: Git clone
         uses: actions/checkout@v6
         with:
-          repository: moves-rwth/stormpy
+          repository: stormchecker/stormpy
       - name: Update Storm version
         run: |
           # Update STORM_MIN_VERSION
