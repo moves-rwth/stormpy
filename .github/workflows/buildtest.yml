@@ -262,7 +262,7 @@ jobs:
       - name: Checkout Storm
         uses: actions/checkout@v6
         with:
-          repository: moves-rwth/storm
+          repository: stormchecker/storm
           ref: master
           path: storm
       - name: Build and install Storm
@@ -323,11 +323,11 @@ jobs:
 
       - name: Login into docker
         # Only login if using master on original repo (and not for pull requests or forks)
-        if: github.repository_owner == 'moves-rwth' && github.ref == 'refs/heads/master'
+        if: github.repository_owner == 'stormchecker' && github.ref == 'refs/heads/master'
         run: echo "${{ secrets.STORM_CI_DOCKER_PASSWORD }}" | docker login -u "${{ secrets.STORM_CI_DOCKER_USERNAME }}" --password-stdin
       - name: Deploy stormpy
         # Only deploy if using master on original repo (and not for pull requests or forks)
-        if: github.repository_owner == 'moves-rwth' && github.ref == 'refs/heads/master'
+        if: github.repository_owner == 'stormchecker' && github.ref == 'refs/heads/master'
         run: |
           docker commit ci movesrwth/stormpy:${{ matrix.build_type.docker_tag }}
           docker push movesrwth/stormpy:${{ matrix.build_type.docker_tag }}
@@ -344,7 +344,7 @@ jobs:
           docker cp ci:/opt/stormpy/doc/build/html .
       - name: Deploy documentation
         # Only deploy for release version and using master on original repo (and not for pull requests or forks)
-        if: matrix.build_type.name == 'Release' && github.repository_owner == 'moves-rwth' && github.ref == 'refs/heads/master'
+        if: matrix.build_type.name == 'Release' && github.repository_owner == 'stormchecker' && github.ref == 'refs/heads/master'
         uses: peaceiris/actions-gh-pages@v4
         with:
           personal_token: ${{ secrets.GITHUB_TOKEN }}
@@ -355,7 +355,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [indepthTests, stableTests, linuxTests, macFetchTests, macInstallTests, deploy]
     # Only run in main repo and even if previous step failed
-    if: github.repository_owner == 'moves-rwth' && always()
+    if: github.repository_owner == 'stormchecker' && always()
     steps:
       - uses: technote-space/workflow-conclusion-action@v3
       - uses: dawidd6/action-send-mail@v15

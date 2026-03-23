@@ -84,7 +84,7 @@ if(ALLOW_STORM_SYSTEM)
         check_hint("Storm" ${storm_DIR} "${STORM_DIR_HINT}" ${storm_VERSION})
         # Check Storm version
         if (${storm_VERSION} VERSION_LESS ${STORM_MIN_VERSION})
-            MESSAGE(FATAL_ERROR "Stormpy - Storm version ${storm_VERSION} from ${storm_DIR} is not supported anymore!\nStormpy requires at least Storm version >= ${STORM_MIN_VERSION}.\nFor more information, see https://moves-rwth.github.io/stormpy/installation.html#compatibility-of-stormpy-and-storm")
+            MESSAGE(FATAL_ERROR "Stormpy - Storm version ${storm_VERSION} from ${storm_DIR} is not supported anymore!\nStormpy requires at least Storm version >= ${STORM_MIN_VERSION}.\nFor more information, see https://stormchecker.github.io/stormpy/installation.html#compatibility-of-stormpy-and-storm")
         endif()
         if (STORM_VERSION_DEV)
             message(WARNING "Stormpy - Using a development version of Storm. This may lead to issues and we recommend using a release of Storm instead.")
