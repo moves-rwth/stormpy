@@ -97,7 +97,7 @@ Fetching a Storm version can be configured with the following flags:
 - `--config-settings=cmake.define.STORM_GIT_TAG=<tag>` changes the Git tag used for fetching Storm.
 
 ##### Using carl-parser
-The [carl-parser](https://github.com/moves-rwth/carl-parser) library supports parsing of carl-storm data structures.
+The [carl-parser](https://github.com/stormchecker/carl-parser) library supports parsing of carl-storm data structures.
 Usage of carl-parser can be configured with the following flags:
 - `--config-settings=cmake.define.USE_PARSER=OFF` disables support for the carl-parser.
 - `--config-settings=cmake.define.CARLPARSER_DIR_HINT=<dir>` sets the hint for the carl-parser directory.

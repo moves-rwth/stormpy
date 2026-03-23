@@ -9,7 +9,7 @@ Stormpy - Python bindings for Storm
 
 Python bindings for [Storm](https://www.stormchecker.org/), created using [PyBind11](https://pybind11.readthedocs.io/).
 
-Stormpy includes Pycarl, the Python Bindings for [CArL](https://github.com/moves-rwth/carl-storm).
+Stormpy includes Pycarl, the Python Bindings for [CArL](https://github.com/stormchecker/carl-storm).
 
 
 ### Get started
