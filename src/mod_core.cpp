@@ -3,6 +3,7 @@
 #include "core/core.h"
 #include "core/result.h"
 #include "core/modelchecking.h"
+#include "core/multiobjective.h"
 #include "core/bisimulation.h"
 #include "core/input.h"
 #include "core/analysis.h"
@@ -35,6 +36,8 @@ PYBIND11_MODULE(_core, m) {
     define_check_task<storm::RationalNumber>(m, "ExactCheckTask");
     define_check_task<storm::RationalFunction>(m, "ParametricCheckTask");
     define_modelchecking(m);
+    define_multiobjective<double>(m, "Double");
+    define_multiobjective<storm::RationalNumber>(m, "Exact");
     define_counterexamples(m);
     define_bisimulation(m);
     define_input(m);
