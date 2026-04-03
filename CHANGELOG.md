@@ -316,7 +316,7 @@ Version 2.2.x
 ### Version 2.2.0 (2023/06)
 Requires carl-storm version >= 14.23
 
-- Upgraded repo / version for carl, requires [carl-storm](https://github.com/moves-rwth/carl-storm) from now on
+- Upgraded repo / version for carl, requires [carl-storm](https://github.com/stormchecker/carl-storm) from now on
 - Developer: added Dockerfile
 - Developer: improved build process
 - Developer: updated pybind11 to version 2.10.0
@@ -377,7 +377,7 @@ Requires carl version >= 17.08
 - Added variable and integer pickling support. Throw errors if pickling is not supported
 - Added hash functions
 - Hide factorization caches for user
-- Depend on [carl-parser](https://github.com/ths-rwth/carl-parser) for parsing routines
+- Depend on [carl-parser](https://github.com/stormchecker/carl-parser) for parsing routines
 - Check for carl version
 - Fixed issues when CLN is not available
 

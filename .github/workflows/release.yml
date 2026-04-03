@@ -74,7 +74,7 @@ jobs:
       - name: Git clone
         uses: actions/checkout@v6
         with:
-          repository: moves-rwth/stormpy
+          repository: stormchecker/stormpy
           ref: master
       - name: Update Binder version
         run: |
@@ -120,7 +120,7 @@ jobs:
     permissions:
       id-token: write
     # Only upload if using original repo and triggered by either a release or a manual workflow dispatch
-    if: ${{ github.repository_owner == 'moves-rwth' && ((github.event_name == 'release' && github.event.action == 'published') || github.event_name == 'workflow_dispatch') }}
+    if: ${{ github.repository_owner == 'stormchecker' && ((github.event_name == 'release' && github.event.action == 'published') || github.event_name == 'workflow_dispatch') }}
     steps:
       - uses: actions/download-artifact@v8
         with:
